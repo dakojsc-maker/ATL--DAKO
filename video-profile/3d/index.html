@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Viện STP – Profile (3D)</title>
+<link rel="stylesheet" href="../node_modules/@fontsource/be-vietnam-pro/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/be-vietnam-pro/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/be-vietnam-pro/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/be-vietnam-pro/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/be-vietnam-pro/800.css">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">{"imports":{"three":"../node_modules/three/build/three.module.js","three/addons/":"../node_modules/three/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1920" height="1080"></canvas>
+  <div id="vig"></div>
+  <div id="labels"></div>
+
+  <!-- O0 · mở đầu -->
+  <div class="ov" id="o0">
+    <div class="k center">VIỆN NGHIÊN CỨU PHÁT TRIỂN GIÁO DỤC VÀ NGHỀ NGHIỆP STP</div>
+    <div class="h center big">Kiến tạo hệ sinh thái số<br><span class="hl">&amp; đổi mới sáng tạo.</span></div>
+    <div class="s center">Năng lực công nghệ &amp; giải pháp toàn diện từ Viện STP</div>
+  </div>
+
+  <!-- O1 · pháp lý -->
+  <div class="ov left" id="o1">
+    <div class="k"><b><i class="ic" data-i="shield-check"></i></b>BẢO CHỨNG PHÁP LÝ</div>
+    <div class="h">Vững chắc từ hệ thống<br><span class="hl">KH&amp;CN quốc gia.</span></div>
+    <div class="p">Tổ chức khoa học và công nghệ trực thuộc <b>Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam (VUSTA)</b>.</div>
+    <div class="p">Sứ mệnh <b>kết nối tri thức, nguồn lực</b> và các chủ thể trong hệ sinh thái giáo dục – khoa học – dịch vụ chuyên môn.</div>
+    <div class="chips"><span>Nghiên cứu khoa học</span><span>Đào tạo</span><span>Chuyển giao công nghệ</span><span>Tư vấn chiến lược</span></div>
+  </div>
+
+  <!-- O2 · 4 trụ cột -->
+  <div class="ov" id="o2">
+    <div class="k center">HỆ SINH THÁI SỐ VIỆN STP</div>
+    <div class="h center">4 trụ cột <span class="hl">kiến tạo giá trị.</span></div>
+  </div>
+
+  <!-- O3 · trụ cột 1 -->
+  <div class="ov left" id="o3">
+    <div class="k"><b>01</b>TRỤ CỘT</div>
+    <div class="h">Nghiên cứu khoa học<br><span class="hl">&amp; thiết lập dự án.</span></div>
+    <div class="cards">
+      <div class="cd"><i class="ic" data-i="search"></i><div><b>Khảo sát &amp; đánh giá</b><span>Dữ liệu thực chứng (evidence-based) cho hoạch định chính sách cấp tỉnh.</span></div></div>
+      <div class="cd"><i class="ic" data-i="clipboard-list"></i><div><b>Tư vấn &amp; lập dự án</b><span>Dự án KH&amp;CN trọng điểm, bám sát định hướng phát triển địa phương.</span></div></div>
+      <div class="cd"><i class="ic" data-i="repeat-2"></i><div><b>Chuyển giao công nghệ</b><span>Đưa công nghệ tiên tiến vào thực tiễn doanh nghiệp, cơ quan nhà nước.</span></div></div>
+    </div>
+  </div>
+
+  <!-- O4 · quy trình dự án -->
+  <div class="ov" id="o4">
+    <div class="k center">ĐỒNG HÀNH TRIỂN KHAI</div>
+    <div class="h center">Dự án khoa học <span class="hl">gắn với thực tiễn.</span></div>
+  </div>
+
+  <!-- O5 · trụ cột 2 -->
+  <div class="ov left" id="o5">
+    <div class="k"><b>02</b>TRỤ CỘT</div>
+    <div class="h">Đào tạo, tổ chức thi<br><span class="hl">&amp; cấp chứng chỉ.</span></div>
+    <div class="p">Nâng tầm nguồn nhân lực địa phương, đáp ứng tiêu chuẩn công nghiệp 4.0.</div>
+    <div class="cards">
+      <div class="cd"><i class="ic" data-i="hard-hat"></i><div><b>An toàn &amp; kỹ thuật</b><span>ATLĐ, vệ sinh môi trường, đường thủy nội địa, xây dựng.</span></div></div>
+      <div class="cd"><i class="ic" data-i="landmark"></i><div><b>Bồi dưỡng cán bộ nhà nước</b><span>Năng lực quản lý, nghiệp vụ, tư duy chuyển đổi số công.</span></div></div>
+      <div class="cd"><i class="ic" data-i="briefcase-business"></i><div><b>Khóa học doanh nghiệp</b><span>Giáo trình độc quyền theo yêu cầu (tailor-made).</span></div></div>
+    </div>
+  </div>
+
+  <!-- O6 · ATVSLĐ -->
+  <div class="ov right" id="o6">
+    <div class="k"><b><i class="ic" data-i="hard-hat"></i></b>HUẤN LUYỆN ATVSLĐ</div>
+    <div class="h">Bảo vệ con người,<br>tài sản <span class="hl">&amp; uy tín.</span></div>
+    <div class="list">
+      <div><em>1 &amp; 2</em>Lãnh đạo &amp; quản lý</div>
+      <div><em>3</em>Vận hành đặc thù</div>
+      <div><em>4 &amp; 5</em>Người lao động &amp; khác</div>
+      <div><em>6</em>An toàn, vệ sinh viên</div>
+    </div>
+    <div class="law"><i class="ic" data-i="scale"></i>Tuân thủ Nghị định 140/2018/NĐ-CP &amp; Luật ATVSLĐ</div>
+  </div>
+
+  <!-- O7 · trụ cột 3 -->
+  <div class="ov left" id="o7">
+    <div class="k"><b>03</b>TRỤ CỘT</div>
+    <div class="h">Truy xuất nguồn gốc<br><span class="hl">&amp; định danh sản phẩm.</span></div>
+    <div class="law"><i class="ic" data-i="scale"></i>Thông tư 02/2024/TT-BKHCN &amp; Nghị định 37/2026/NĐ-CP</div>
+    <div class="tags"><span><i class="ic" data-i="tag"></i>Tem điện tử</span><span><i class="ic" data-i="badge-check"></i>Tem vật lý</span><span><i class="ic" data-i="book-user"></i>Hộ chiếu số sản phẩm</span><span><i class="ic" data-i="shield-check"></i>Tem chống giả</span></div>
+  </div>
+
+  <!-- O8 · GS1 -->
+  <div class="ov" id="o8">
+    <div class="k center">CHUẨN QUỐC GIA GS1 · NỀN TẢNG HLHT TRACE</div>
+    <div class="h center">Minh bạch chuỗi giá trị – <span class="hl">mở rộng xuất khẩu.</span></div>
+  </div>
+
+  <!-- O9 · trải nghiệm khách hàng -->
+  <div class="ov left" id="o9">
+    <div class="k"><b><i class="ic" data-i="scan-line"></i></b>TRẢI NGHIỆM KHÁCH HÀNG</div>
+    <div class="h">Quét một lần –<br><span class="hl">thấy trọn hành trình.</span></div>
+    <div class="dots">
+      <div><b>Quét bằng camera thường</b><span>Không yêu cầu tải ứng dụng.</span></div>
+      <div><b>Trực quan theo thời gian</b><span>Từ vùng trồng mù sương đến kết quả kiểm định Saponin.</span></div>
+      <div><b>Dấu tích xanh uy tín</b><span>Hiển thị “Đã xác thực” cho mọi thông tin.</span></div>
+    </div>
+  </div>
+
+  <!-- O10 · trích dẫn -->
+  <div class="ov" id="o10">
+    <div class="q center">“</div>
+    <div class="qt center">Họ không chỉ mua một hũ cao sâm.<br>Họ mua <span class="hl">sự an tâm tuyệt đối</span> và một câu chuyện có thật<br><span class="hl">được chứng minh bằng toán học.</span></div>
+  </div>
+
+  <!-- O11 · tháp điều khiển -->
+  <div class="ov left" id="o11">
+    <div class="k"><b><i class="ic" data-i="radar"></i></b>THÁP ĐIỀU KHIỂN HLHT 4.0</div>
+    <div class="h">Quản trị doanh nghiệp<br><span class="hl">theo thời gian thực.</span></div>
+    <div class="cards">
+      <div class="cd"><i class="ic" data-i="globe"></i><div><b>Giám sát real-time toàn cảnh</b><span>Sản lượng, tồn kho, tốc độ tiêu thụ tại từng điểm bán.</span></div></div>
+      <div class="cd"><i class="ic" data-i="siren"></i><div><b>Bản đồ nhiệt chống giả AI</b><span>Tự động khóa mã khi một Serial bị quét tại 3 tỉnh cùng lúc.</span></div></div>
+    </div>
+    <div class="alert late"><i class="ic" data-i="lock"></i><div><b>ĐÃ KHÓA MÃ</b><span>Khoanh vùng ngay ổ làm giả</span></div></div>
+  </div>
+
+  <!-- O12 · trụ cột 4 -->
+  <div class="ov left" id="o12">
+    <div class="k"><b>04</b>TRỤ CỘT</div>
+    <div class="h">Tư vấn &amp; triển khai<br><span class="hl">chuyển đổi số.</span></div>
+    <div class="steps">
+      <div><em>1</em><b>Khảo sát &amp; chẩn đoán</b><span>Đánh giá mức độ trưởng thành số, thiết kế lộ trình phù hợp.</span></div>
+      <div><em>2</em><b>Xây dựng giải pháp công nghệ</b><span>Trực tiếp phát triển, tích hợp phần mềm, tự động hóa quy trình.</span></div>
+      <div><em>3</em><b>Chuyển giao &amp; đồng hành</b><span>Bảo đảm tỷ lệ ứng dụng thành công cao nhất.</span></div>
+    </div>
+  </div>
+
+  <!-- O13 · nông nghiệp thông minh -->
+  <div class="ov left" id="o13">
+    <div class="k"><b><i class="ic" data-i="sprout"></i></b>TIÊU ĐIỂM · NÔNG NGHIỆP THÔNG MINH</div>
+    <div class="h">Chạm vào dữ liệu –<br><span class="hl">dẫn đầu nghề nông.</span></div>
+    <div class="p">Viện STP là đại diện phát triển giải pháp và phân phối sản phẩm công nghệ của <b>BOM Software</b> (thành viên LATOI Australia) tại Việt Nam – từ phần cứng, phần mềm đến hệ thống máy chủ.</div>
+  </div>
+
+  <!-- O14 · cảm biến -->
+  <div class="ov right" id="o14">
+    <div class="k"><b><i class="ic" data-i="cpu"></i></b>CẢM BIẾN ALL-IN-ONE</div>
+    <div class="h">9 chỉ số –<br><span class="hl">cảnh báo tức thì.</span></div>
+    <div class="grid9"><span>Nhiệt độ</span><span>Độ ẩm</span><span>Độ pH</span><span>Dẫn điện EC</span><span>Dinh dưỡng NPK</span><span>Độ mặn</span><span>TDS</span><span>Oxy hòa tan</span><span>ORP</span></div>
+    <div class="sms late"><i class="ic" data-i="triangle-alert"></i><div><b>CẢNH BÁO SMS</b><span>Độ pH vượt ngưỡng tại Ao số 3</span></div></div>
+    <div class="p sm">Mở rộng: phát hiện kim loại nặng (Cadimi, Chì, Thủy ngân, Asen), RFID IP68 cho vật nuôi, AI chống xâm nhập.</div>
+  </div>
+
+  <!-- O15 · đối tác -->
+  <div class="ov" id="o15">
+    <div class="k center">MẠNG LƯỚI ĐỐI TÁC</div>
+    <div class="h center">Chiến lược <span class="hl">toàn diện.</span></div>
+  </div>
+
+  <!-- O16 · kết -->
+  <div class="ov" id="o16">
+    <div class="endl">
+      <div class="h">Quy mô toàn quốc –<br><span class="hl">sẵn sàng hợp tác.</span></div>
+      <div class="offs">
+        <div><b>Trụ sở Hà Nội</b><span>Tầng 12, Tòa nhà Diamond Flower, 48 Lê Văn Lương</span></div>
+        <div><b>Văn phòng Nha Trang</b><span>B19-03 KĐT An Bình Tân · STH116-23 KĐT Lê Hồng Phong 1</span></div>
+        <div><b>Trung tâm Tuyển sinh TP.HCM</b><span>Số 28, đường D9, KDC Carric</span></div>
+      </div>
+      <div class="cta"><i class="ic" data-i="handshake"></i>Hợp tác cùng Viện STP – Đồng hành cùng phát triển bền vững!</div>
+    </div>
+    <div class="endr">
+      <div class="qr"><img src="../assets/qr_vienstp.png" alt=""></div>
+      <div class="ct">
+        <div class="ph"><i class="ic" data-i="phone"></i>0827.695.368</div>
+        <div class="ph"><i class="ic" data-i="phone"></i>0968.702.701</div>
+        <div><i class="ic" data-i="globe"></i>www.vienstp.com</div>
+        <div><i class="ic" data-i="mail"></i>viencongnghestp@gmail.com</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bug"><img src="../assets/logo_stp.png" alt=""><span>VIỆN STP</span></div>
+  <div id="flash"></div>
+  <div id="black"></div>
+</div>
+<script src="../node_modules/gsap/dist/gsap.min.js"></script>
+<script type="module" src="main.js"></script>
+</body>
+</html>
