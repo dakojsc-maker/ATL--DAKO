@@ -1,0 +1,20 @@
+{
+  "name": "stp-dako-video-atvsld",
+  "version": "1.0.0",
+  "description": "Video animation giới thiệu dịch vụ đào tạo ATVSLĐ – Viện STP × DAKO",
+  "scripts": {
+    "build": "./build.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "gsap": "^3.15.0",
+    "lucide-static": "^1.48.0"
+  },
+  "private": true,
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  }
+}
