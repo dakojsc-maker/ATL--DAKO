@@ -98,7 +98,7 @@ body{font-family:"Be Vietnam Pro",sans-serif;color:var(--ink);-webkit-font-smoot
 /* S4 */
 .s4-k{left:120px;top:104px}
 .s4-h{left:120px;top:156px}
-.s4-line{left:260px;top:596px;width:1400px;height:4px}
+.s4-line{left:260px;top:560px;width:1400px;height:4px}
 .s4-line .base{position:absolute;inset:0;background:rgba(185,211,192,.22);border-radius:4px}
 .s4-line .prog{position:absolute;inset:0;background:var(--lime);border-radius:4px;transform-origin:0 50%;box-shadow:0 0 18px rgba(168,216,78,.7)}
 .s4-line .dot{position:absolute;top:-8px;left:-10px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(168,216,78,.35),0 0 30px 8px rgba(168,216,78,.8)}

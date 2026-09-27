@@ -98,7 +98,8 @@ def add(buf, start, sig, gain=1.0, pan=0.0):
 
 def env_adsr(n, a=0.01, r=0.1):
     e = np.ones(n)
-    na, nr = int(a * SR), int(r * SR)
+    na = min(int(a * SR), n // 2)
+    nr = min(int(r * SR), n - na)
     if na:
         e[:na] = np.linspace(0, 1, na)
     if nr:

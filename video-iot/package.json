@@ -1,0 +1,17 @@
+{
+  "name": "stp-bom-iot-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Video animation giới thiệu giải pháp nông nghiệp thông minh BOM IoT – Viện STP",
+  "scripts": {
+    "build": "./build.sh"
+  },
+  "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "gsap": "^3.15.0",
+    "lucide-static": "^1.48.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  }
+}
