@@ -1,0 +1,14 @@
+{
+  "name": "evn-hrms3-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Video giới thiệu HRMS 3.0 – Hệ thống Quản lý Nguồn nhân lực cho các Nhà máy điện (Digital Power Grid)",
+  "scripts": { "build": "./build.sh" },
+  "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.2.0",
+    "gsap": "^3.15.0",
+    "lucide-static": "^1.48.0"
+  },
+  "devDependencies": { "playwright": "^1.56.1" }
+}
