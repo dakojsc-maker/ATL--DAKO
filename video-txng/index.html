@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Viện STP – Định danh sản phẩm & Truy xuất nguồn gốc chuẩn TCVN/GS1</title>
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/400.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/600.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/700.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/800.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/400.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/700.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="net" width="1920" height="1080"></canvas>
+  <div id="floor"><div class="grid"></div></div>
+
+  <!-- S1 · HOOK -->
+  <section id="s1" class="scene">
+    <div class="s1-qr"><div class="qr"></div></div>
+    <div class="s1-copies"></div>
+    <div class="s1-a line center">Hàng giả không cần làm giả sản phẩm.</div>
+    <div class="s1-b line center">Chỉ cần <span class="red">sao chép một con tem.</span></div>
+    <div class="s1-c line center">Doanh nghiệp chứng minh <span class="cy">hàng thật</span> bằng cách nào?</div>
+  </section>
+
+  <!-- S2 · TIÊU ĐỀ -->
+  <section id="s2" class="scene">
+    <svg class="hudring" viewBox="0 0 700 700">
+      <circle class="r0" cx="350" cy="350" r="330"/>
+      <circle class="r1" cx="350" cy="350" r="300"/>
+      <circle class="r2" cx="350" cy="350" r="262"/>
+      <circle class="r3" cx="350" cy="350" r="232"/>
+      <g class="ticks"></g>
+    </svg>
+    <div class="s2-core">
+      <div class="qr"></div>
+      <div class="laser"></div>
+      <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+    </div>
+    <div class="s2-id mono"><span>GTIN</span><b class="scr">893 6••• ••••• •</b></div>
+    <div class="s2-logo"><img src="assets/logo_stp.png" alt=""></div>
+    <div class="kick s2-k mono">VIỆN STP · GIẢI PHÁP CÔNG NGHỆ</div>
+    <div class="h1 s2-h">Định danh sản phẩm<br>&amp; truy xuất nguồn gốc</div>
+    <div class="s2-std"><span class="grad">Chuẩn TCVN / GS1</span></div>
+    <svg class="s2-bar" viewBox="0 0 760 70"></svg>
+    <div class="s2-chips">
+      <span><i class="ic" data-i="scale"></i>Đáp ứng Nghị định 37/2026</span>
+      <span><i class="ic" data-i="landmark"></i>Đồng bộ Cổng TXNG Quốc gia</span>
+      <span><i class="ic" data-i="shield-check"></i>Tem chống giả NBC · Bộ Công an</span>
+    </div>
+  </section>
+
+  <!-- S3 · DOMINO -->
+  <section id="s3" class="scene">
+    <div class="kick s3-k mono">THÁCH THỨC THỰC TẾ</div>
+    <div class="h1 s3-h">Hiệu ứng domino <span class="red">trong chuỗi vận hành.</span></div>
+    <div class="s3-cols">
+      <div class="col g">
+        <div class="hd"><i class="ic" data-i="waves"></i>LUỒNG 1 · VÙNG NUÔI</div>
+        <div class="cd"><em>VẤN ĐỀ</em>Thiếu nhật ký điện tử theo từng lô ao nuôi.</div>
+        <div class="ar"><i class="ic" data-i="chevrons-down"></i></div>
+        <div class="cd"><em>NGUY CƠ</em>Trộn lẫn nguyên liệu từ vùng nuôi không đạt chuẩn.</div>
+        <div class="ar"><i class="ic" data-i="chevrons-down"></i></div>
+        <div class="cd hq"><em>HẬU QUẢ</em>Đứt gãy truy vết tận gốc khi xảy ra sự cố chất lượng.</div>
+      </div>
+      <div class="col o">
+        <div class="hd"><i class="ic" data-i="factory"></i>LUỒNG 2 · CHẾ BIẾN &amp; QC</div>
+        <div class="cd"><em>VẤN ĐỀ</em>Đứt gãy số hóa dữ liệu nội bộ.</div>
+        <div class="ar"><i class="ic" data-i="chevrons-down"></i></div>
+        <div class="cd"><em>NGUY CƠ</em>Thông số mẻ &amp; kết quả kiểm nghiệm COA không gắn với mã lô.</div>
+        <div class="ar"><i class="ic" data-i="chevrons-down"></i></div>
+        <div class="cd hq"><em>HẬU QUẢ</em>Thiếu minh bạch chứng từ – rào cản khi xuất khẩu thị trường khắt khe.</div>
+      </div>
+      <div class="col b">
+        <div class="hd"><i class="ic" data-i="store"></i>LUỒNG 3 · THƯƠNG MẠI</div>
+        <div class="cd"><em>VẤN ĐỀ</em>Tem nhãn giấy lạc hậu.</div>
+        <div class="ar"><i class="ic" data-i="chevrons-down"></i></div>
+        <div class="cd"><em>NGUY CƠ</em>Dễ dàng bị sao chép hoàn toàn trên thị trường.</div>
+        <div class="ar"><i class="ic" data-i="chevrons-down"></i></div>
+        <div class="cd hq"><em>HẬU QUẢ</em>Hàng giả tổn hại thương hiệu; đối tác thiếu công cụ xác thực độc lập.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4 · BẢO VỆ KÉP -->
+  <section id="s4" class="scene">
+    <div class="kick s4-k mono center">KIẾN TRÚC BẢO VỆ KÉP</div>
+    <div class="h1 s4-h center">Quản trị số <span class="cy">+</span> Bảo mật vật lý.</div>
+    <div class="pn L">
+      <div class="tag mono">LỚP QUẢN TRỊ</div>
+      <div class="tt">NBC Trace Pro <small>chuẩn GS1</small></div>
+      <div class="rw"><i class="ic" data-i="database"></i><div><b>Bản chất</b>Số hóa &amp; công khai toàn bộ chuỗi sản xuất – từ vùng nuôi đến xuất khẩu.</div></div>
+      <div class="rw"><i class="ic" data-i="target"></i><div><b>Mục tiêu</b>Quản lý nội bộ, minh bạch chứng từ với đối tác nhập khẩu, đáp ứng pháp lý bắt buộc (NĐ 37/2026).</div></div>
+      <div class="rw"><i class="ic" data-i="file-badge"></i><div><b>Đầu ra</b>“Hồ sơ điện tử” vĩnh viễn cho từng lô hàng, đồng bộ Cổng TXNG Quốc gia.</div></div>
+    </div>
+    <div class="pn R holo">
+      <div class="tag mono">LỚP BẢO MẬT</div>
+      <div class="tt">Tem chống giả điện tử NBC</div>
+      <div class="rw"><i class="ic" data-i="sticker"></i><div><b>Bản chất</b>Lớp giáp vật lý dán trực tiếp lên từng đơn vị SKU.</div></div>
+      <div class="rw"><i class="ic" data-i="scan-eye"></i><div><b>Mục tiêu</b>Xác thực chống giả tuyệt đối – người tiêu dùng tự kiểm tra độc lập.</div></div>
+      <div class="rw"><i class="ic" data-i="qr-code"></i><div><b>Đầu ra</b>QR cá thể kích hoạt 1 lần duy nhất, tích hợp dải hologram Bộ Công an.</div></div>
+    </div>
+    <svg class="link" viewBox="0 0 220 220">
+      <rect class="l1" x="22" y="70" width="110" height="80" rx="40"/>
+      <rect class="l2" x="88" y="70" width="110" height="80" rx="40"/>
+    </svg>
+    <div class="spark s1"></div><div class="spark s2"></div>
+  </section>
+
+  <!-- S5 · DIGITAL THREAD -->
+  <section id="s5" class="scene">
+    <div class="kick s5-k mono">MAPPING MÃ ĐỊNH DANH GS1</div>
+    <div class="h1 s5-h">Một sợi chỉ số <span class="cy">xuyên suốt chuỗi giá trị.</span></div>
+    <div class="case"><img src="assets/logo_tritin.png" alt=""><div><small>MÔ HÌNH ỨNG DỤNG</small>Ngành rong nho biển · Công ty TNHH Trí Tín</div></div>
+    <div class="zone z1"><div class="zh">Nuôi trồng &amp; khai thác</div><div class="zd">Tọa độ ao · môi trường nước · lượng giống · khối lượng thu</div></div>
+    <div class="zone z2"><div class="zh">Chế biến &amp; QC</div><div class="zd">Thông số kỹ thuật (nhiệt độ / thời gian) · COA vi sinh, lý hóa</div></div>
+    <div class="zone z3"><div class="zh">Phân phối &amp; xuất khẩu</div><div class="zd">Hạn sử dụng · điểm đến luồng hàng · lượt quét xác thực</div></div>
+    <svg class="thread" viewBox="0 0 1920 1080">
+      <path class="base" d="M150 600 H1790"/>
+      <path class="lit" d="M150 600 H1790"/>
+    </svg>
+    <div class="nodes"></div>
+  </section>
+
+  <!-- S6 · CĐ1 VÙNG NUÔI -->
+  <section id="s6" class="scene">
+    <div class="kick s6-k mono"><b>01</b>CHẠM ĐIỂM · VÙNG NUÔI</div>
+    <div class="h1 s6-h">Khai sinh dữ liệu<br><span class="gr">từ vùng nuôi.</span></div>
+    <div class="s6-photo frame"><img src="assets/seagrape_water.jpg" alt=""><div class="scanl"></div><div class="lbl mono">CAULERPA LENTILLIFERA · HÒN KHÓI</div></div>
+    <div class="s6-pts">
+      <div class="pt"><i class="ic" data-i="map-pin"></i><div><b>GLN – Global Location Number</b>Khóa tọa độ GPS vùng nuôi trên bản đồ vệ tinh, ngăn trà trộn nguyên liệu ngoài hệ thống.</div></div>
+      <div class="pt"><i class="ic" data-i="notebook-pen"></i><div><b>Nhật ký điện tử</b>Ghi nhận thông số môi trường qua thiết bị di động thay cho sổ sách.</div></div>
+    </div>
+    <div class="s6-map frame">
+      <svg class="sat" viewBox="0 0 880 600"></svg>
+      <div class="gpsr mono"><span>GLN</span><b class="scr">893 •••• ••••• •</b><i class="ic" data-i="lock"></i></div>
+      <div class="log mono"></div>
+    </div>
+  </section>
+
+  <!-- S7 · CĐ2 THU HOẠCH -->
+  <section id="s7" class="scene">
+    <div class="kick s7-k mono"><b>02</b>CHẠM ĐIỂM · THU HOẠCH</div>
+    <div class="h1 s7-h">Chốt chặn dữ liệu<br><span class="gr">ngay tại ao.</span></div>
+    <div class="phone s7-ph"><div class="scr app">
+      <div class="bar"><i class="ic" data-i="chevron-left"></i>Farm data<span class="off"><i class="ic" data-i="wifi-off"></i>Offline</span></div>
+      <div class="fld"><small>Ngày thu hoạch</small><div><i class="ic" data-i="calendar"></i><b class="d">15/05/2026</b></div></div>
+      <div class="fld"><small>Khối lượng</small><div><i class="ic" data-i="weight"></i><b><span class="kg">0</span> kg</b></div></div>
+      <div class="fld code"><small>Mã lô thu hoạch</small><div><i class="ic" data-i="barcode"></i><b class="mono lot">TTN-NH01-20260515-001</b></div></div>
+      <div class="btn">Lưu dữ liệu</div>
+      <div class="locked"><i class="ic" data-i="lock"></i>Đã khóa · không thể sửa</div>
+    </div></div>
+    <div class="s7-pts">
+      <div class="pt"><i class="ic" data-i="fingerprint"></i><div><b>Sinh mã lô duy nhất</b>Khởi tạo ngay tại thời điểm vớt rong.</div></div>
+      <div class="pt"><i class="ic" data-i="smartphone"></i><div><b>Thao tác tại hiện trường</b>Công nhân cập nhật ngay tại ao – hỗ trợ nhập offline khi sóng yếu.</div></div>
+      <div class="pt"><i class="ic" data-i="link"></i><div><b>Kế thừa dữ liệu sơ chế</b>Liên kết trực tiếp vào mã lô nguyên liệu ban đầu.</div></div>
+    </div>
+    <div class="s7-clock">
+      <svg viewBox="0 0 200 200"><circle class="fc" cx="100" cy="100" r="86"/><g class="tk"></g><line class="hh" x1="100" y1="100" x2="100" y2="52"/><line class="mh" x1="100" y1="100" x2="100" y2="30"/><circle cx="100" cy="100" r="7" class="ct"/></svg>
+      <div class="x"><i class="ic" data-i="x"></i></div>
+      <div class="cap"><b>Anti-backdating</b>Dữ liệu một chiều, không thể lùi ngày</div>
+    </div>
+  </section>
+
+  <!-- S8 · CĐ3 CHẾ BIẾN -->
+  <section id="s8" class="scene">
+    <div class="kick s8-k mono"><b>03</b>CHẠM ĐIỂM · XƯỞNG CHẾ BIẾN</div>
+    <div class="h1 s8-h">Số hóa thông số <span class="or">công nghệ lõi.</span></div>
+    <div class="ins i1 frame">
+      <div class="nm"><i class="ic" data-i="disc-3"></i>Ly tâm <small>Centrifugation</small></div>
+      <svg class="gauge" viewBox="0 0 240 150"><path class="gt" d="M30 130 A90 90 0 0 1 210 130"/><path class="gv" d="M30 130 A90 90 0 0 1 210 130"/><line class="nd" x1="120" y1="130" x2="120" y2="54"/><circle cx="120" cy="130" r="8" class="hub"/></svg>
+      <div class="rd mono"><b class="rpm">0</b> RPM</div>
+      <div class="tm mono">00:00:00</div>
+      <div class="ds">Ghi nhận tốc độ, thời gian mẻ ly tâm – kế thừa 100% dữ liệu lô nguyên liệu.</div>
+    </div>
+    <div class="ins i2 frame">
+      <div class="nm"><i class="ic" data-i="droplets"></i>Tách nước <small>Dehydration</small></div>
+      <svg class="chart" viewBox="0 0 300 170"><g class="gl"></g><path class="c1" d="M20 150 C 60 140 80 60 120 50 S 220 44 280 44"/><path class="c2" d="M20 40 C 80 44 120 70 160 100 S 240 132 280 134"/></svg>
+      <div class="lg mono"><span class="a">● Nhiệt độ <b>60°C</b></span><span class="b">● Co rút <b>25%</b></span></div>
+      <div class="ds">Số hóa nhiệt độ, tỷ lệ co rút – liên kết lô rong tươi với mẻ tách nước.</div>
+    </div>
+    <div class="ins i3 frame">
+      <div class="nm"><i class="ic" data-i="flask-conical"></i>Muối hóa <small>Salting</small></div>
+      <svg class="gauge" viewBox="0 0 240 150"><path class="gt" d="M30 130 A90 90 0 0 1 210 130"/><path class="gv s" d="M30 130 A90 90 0 0 1 210 130"/><line class="nd" x1="120" y1="130" x2="120" y2="54"/><circle cx="120" cy="130" r="8" class="hub"/></svg>
+      <div class="rd mono"><b class="sal">0</b>% độ mặn</div>
+      <div class="ds">Cập nhật tỷ lệ ngâm muối bảo quản tự nhiên, độ mặn tiêu chuẩn.</div>
+    </div>
+    <div class="s8-flow f1"><i></i><i></i><i></i></div>
+    <div class="s8-flow f2"><i></i><i></i><i></i></div>
+    <div class="s8-core frame">
+      <div class="cl"><b>Giá trị cốt lõi</b>Xác định ngay mẻ sản xuất gặp sự cố để truy xuất ngược &amp; khoanh vùng – không ảnh hưởng toàn bộ container xuất khẩu.</div>
+      <div class="batches"></div>
+    </div>
+  </section>
+
+  <!-- S9 · CĐ4 E-COA -->
+  <section id="s9" class="scene">
+    <div class="kick s9-k mono"><b>04</b>CHẠM ĐIỂM · KIỂM SOÁT CHẤT LƯỢNG</div>
+    <div class="h1 s9-h">Hồ sơ chất lượng<br><span class="or">không thể chối cãi.</span></div>
+    <div class="s9-lot mono"><i class="ic" data-i="package"></i>LÔ TTN-NH01-20260515-001</div>
+    <div class="s9-gate">
+      <div class="post l"></div><div class="post r"></div>
+      <div class="beam"></div>
+      <div class="st mono"><i class="ic" data-i="lock"></i><span>CHỜ KẾT QUẢ QC</span></div>
+    </div>
+    <div class="s9-coa frame">
+      <div class="hd mono"><i class="ic" data-i="file-check"></i>E-COA · Phiếu kiểm nghiệm điện tử</div>
+      <div class="it"><span>Vi sinh</span><b class="mono">ĐẠT</b></div>
+      <div class="it"><span>Lý hóa</span><b class="mono">ĐẠT</b></div>
+      <div class="it"><span>Gắn mã lô</span><b class="mono">OK</b></div>
+      <div class="prog"><i></i></div>
+    </div>
+    <div class="s9-pass"><i class="ic" data-i="circle-check-big"></i>ĐẠT</div>
+    <div class="s9-dest mono"><i class="ic" data-i="arrow-right"></i>ĐÓNG GÓI</div>
+    <div class="s9-pts">
+      <div class="pt"><i class="ic" data-i="upload"></i><div><b>Tích hợp E-COA</b>Kết quả kiểm nghiệm vi sinh, lý hóa đính kèm trực tiếp vào hồ sơ điện tử của lô.</div></div>
+      <div class="pt"><i class="ic" data-i="door-closed-locked"></i><div><b>Quy trình khóa / mở (Gatekeeping)</b>Chỉ chuyển sang đóng gói khi hồ sơ QC ở trạng thái ĐẠT.</div></div>
+    </div>
+    <div class="s9-res"><b class="mono">100%</b>sản phẩm xuất xưởng có minh chứng chất lượng – sẵn sàng cho hải quan và đối tác tra cứu.</div>
+  </section>
+
+  <!-- S10 · CĐ5 TEM -->
+  <section id="s10" class="scene">
+    <div class="kick s10-k mono"><b>05</b>CHẠM ĐIỂM · ĐÓNG GÓI &amp; ĐỊNH DANH CÁ THỂ</div>
+    <div class="h1 s10-h">Mỗi sản phẩm<br><span class="cy">một hộ chiếu số.</span></div>
+    <div class="s10-gtin">
+      <div class="lb mono">CẤP MÃ GTIN · TỪNG SKU</div>
+      <svg class="bc" viewBox="0 0 420 110"></svg>
+      <div class="sku"><span>Rong nho tách nước 200g</span><span>Hạt rong nho 35g</span></div>
+    </div>
+    <div class="s10-box"><img src="assets/product_box.jpg" alt=""></div>
+    <div class="tem big">
+      <div class="foil"></div>
+      <div class="tx"><b>TEM CHỐNG GIẢ ĐIỆN TỬ</b><span class="mono">NBC · GS1</span><span class="mono sn">SN 000000001</span></div>
+      <div class="qr"></div>
+      <div class="scratch"></div>
+      <div class="uvmark"><i class="ic" data-i="shield-check"></i></div>
+      <div class="shards"></div>
+    </div>
+    <div class="s10-uv"></div>
+    <div class="s10-feats">
+      <div class="ft"><em class="mono">01</em><div><b>Phát quang UV</b>Biểu tượng chìm của Viện Khoa học Hình sự – Bộ Công an.</div></div>
+      <div class="ft"><em class="mono">02</em><div><b>Anti-reuse</b>Vật liệu tự phá hủy cấu trúc nếu cố tình bóc tách, dán lại.</div></div>
+      <div class="ft"><em class="mono">03</em><div><b>Chống sao chép</b>Thuật toán QR mã hóa chống sao chép bằng thiết bị thương mại.</div></div>
+    </div>
+    <div class="s10-copy"><div class="qr"></div><div class="bad mono"><i class="ic" data-i="copy-x"></i>BẢN SAO · KHÔNG HỢP LỆ</div></div>
+  </section>
+
+  <!-- S11 · CĐ6 LOGISTICS -->
+  <section id="s11" class="scene">
+    <div class="kick s11-k mono"><b>06</b>CHẠM ĐIỂM · LOGISTICS QUỐC TẾ</div>
+    <div class="h1 s11-h">Phân phối <span class="cy">thời gian thực.</span></div>
+    <div class="s11-pallet">
+      <div class="boxes"></div>
+      <div class="big"><svg class="bc" viewBox="0 0 220 60"></svg><span class="mono">SSCC</span></div>
+      <div class="cap"><b>Quản lý thùng / pallet xuất khẩu</b>Một mã SSCC tự động ôm trọn dữ liệu hàng chục hộp SKU bên trong.</div>
+    </div>
+    <canvas class="s11-map" width="1180" height="660"></canvas>
+    <div class="s11-lbl"></div>
+    <div class="s11-alert mono"><i class="ic" data-i="triangle-alert"></i><div><b>ANTI-DIVERSION</b>Phát hiện lô hàng quét sai luồng / sai đại lý</div></div>
+    <div class="s11-pts">
+      <span><i class="ic" data-i="clock"></i>Luồng hàng thời gian thực: Nhật Bản · Mỹ · Hàn Quốc · nội địa</span>
+    </div>
+  </section>
+
+  <!-- S12 · XÁC THỰC -->
+  <section id="s12" class="scene">
+    <div class="kick s12-k mono center">TRẢI NGHIỆM NGƯỜI TIÊU DÙNG &amp; ĐỐI TÁC</div>
+    <div class="h1 s12-h center">Quét một lần – <span class="cy">biết ngay thật giả.</span></div>
+    <div class="s12-steps mono center"><span>Cào lớp phủ bảo mật</span><i class="ic" data-i="chevron-right"></i><span>Quét QR bằng camera</span><i class="ic" data-i="chevron-right"></i><span>Không cần tải app</span></div>
+    <div class="phone p1"><div class="scr cam">
+      <div class="view"><div class="qr"></div><div class="silver"></div><div class="fr"></div><div class="ln"></div></div>
+      <div class="ok">
+        <div class="ck"><i class="ic" data-i="check"></i></div>
+        <b>Sản phẩm chính hãng</b>
+        <div class="it"><i class="ic" data-i="waves"></i>Nhật ký vùng nuôi</div>
+        <div class="it"><i class="ic" data-i="factory"></i>Quy trình chế biến</div>
+        <div class="it"><i class="ic" data-i="file-check"></i>Chứng nhận COA</div>
+        <div class="lang mono"><i class="ic" data-i="languages"></i>6 ngôn ngữ</div>
+      </div>
+    </div></div>
+    <div class="phone p2"><div class="scr cam">
+      <div class="view"><div class="qr"></div><div class="fr"></div><div class="ln"></div></div>
+      <div class="bad">
+        <div class="wr"><i class="ic" data-i="triangle-alert"></i></div>
+        <b>Cảnh báo</b>
+        <span>Mã QR đã được sử dụng</span>
+        <div class="cnt mono">LƯỢT QUÉT: <em>2</em></div>
+      </div>
+    </div></div>
+    <div class="s12-cap c1"><b class="mono">LẦN QUÉT 1</b>Tích xanh “Chính hãng” – xem toàn bộ nhật ký vùng nuôi, chế biến, chứng nhận COA bằng 6 ngôn ngữ.</div>
+    <div class="s12-cap c2"><b class="mono">TỪ LẦN QUÉT 2</b>Cảnh báo đỏ – chặn đứng vấn nạn in sao chép mã QR trên diện rộng.</div>
+  </section>
+
+  <!-- S13 · LỘ TRÌNH -->
+  <section id="s13" class="scene">
+    <div class="kick s13-k mono">LỘ TRÌNH TRIỂN KHAI KỸ THUẬT &amp; ĐỒNG BỘ QUỐC GIA</div>
+    <div class="h1 s13-h">Sẵn sàng vận hành <span class="cy">trong 15 – 30 ngày.</span></div>
+    <div class="s13-days mono"><b class="dn">0</b><span>NGÀY</span></div>
+    <div class="s13-track"><div class="bar"><i></i></div></div>
+    <div class="s13-steps">
+      <div class="st"><em class="mono">GĐ 1</em><i class="ic" data-i="barcode"></i><b>Đăng ký mã GTIN tại NBC</b></div>
+      <div class="st"><em class="mono">GĐ 2</em><i class="ic" data-i="clipboard-list"></i><b>Kê khai thông tin SKU trên hệ thống VNPC</b></div>
+      <div class="st"><em class="mono">GĐ 3</em><i class="ic" data-i="map-pin"></i><b>Cấp mã GLN vùng nuôi &amp; nhà máy</b></div>
+      <div class="st"><em class="mono">GĐ 4</em><i class="ic" data-i="git-fork"></i><b>Xây dựng &amp; mapping hệ thống TXNG nội bộ</b></div>
+      <div class="st"><em class="mono">GĐ 5</em><i class="ic" data-i="plug-zap"></i><b>Kết nối API bảo mật với NBC</b></div>
+      <div class="st"><em class="mono">GĐ 6</em><i class="ic" data-i="landmark"></i><b>Đồng bộ dữ liệu lên Cổng TXNG Quốc gia</b></div>
+    </div>
+    <div class="s13-portal mono"><i class="ic" data-i="globe"></i>truyxuatnguongoc.gov.vn</div>
+    <div class="s13-commit"><i class="ic" data-i="handshake"></i><div><b>CAM KẾT DỊCH VỤ</b>Viện STP là đầu mối thiết lập hệ thống và xử lý toàn bộ kỹ thuật API – không làm tăng gánh nặng vận hành cho doanh nghiệp.</div></div>
+  </section>
+
+  <!-- S14 · LỢI ÍCH -->
+  <section id="s14" class="scene">
+    <div class="kick s14-k mono center">LỢI ÍCH CỐT LÕI CHO BAN LÃNH ĐẠO</div>
+    <div class="h1 s14-h center">Ba lớp giá trị <span class="cy">chiến lược.</span></div>
+    <div class="s14-cards">
+      <div class="cd"><svg class="rg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92"/><circle cx="100" cy="100" r="78"/></svg><div class="ico"><i class="ic" data-i="shield-check"></i></div><b>CÔNG NGHỆ</b><small>Bảo vệ</small><p>Chấm dứt vấn nạn hàng nhái, bảo vệ định vị cao cấp của thương hiệu bằng lõi bảo mật phần cứng của NBC &amp; Bộ Công an.</p></div>
+      <div class="cd"><svg class="rg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92"/><circle cx="100" cy="100" r="78"/></svg><div class="ico"><i class="ic" data-i="globe"></i></div><b>MINH BẠCH</b><small>Xuất khẩu</small><p>Đáp ứng NĐ 37/2026; xóa rào cản kỹ thuật của thị trường khó tính (Nhật Bản, Mỹ) bằng hồ sơ điện tử đồng bộ Cổng Quốc gia.</p></div>
+      <div class="cd"><svg class="rg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92"/><circle cx="100" cy="100" r="78"/></svg><div class="ico"><i class="ic" data-i="layout-dashboard"></i></div><b>QUẢN TRỊ</b><small>Vận hành</small><p>Báo cáo real-time, loại bỏ ghi chép giấy, kiểm soát chính xác tỷ lệ hao hụt nguyên liệu từ vùng nuôi đến nhà máy.</p></div>
+    </div>
+  </section>
+
+  <!-- S15 · LIÊN HỆ -->
+  <section id="s15" class="scene">
+    <div class="s15-logo"><img src="assets/logo_stp.png" alt=""></div>
+    <div class="kick s15-k mono">VIỆN NGHIÊN CỨU PHÁT TRIỂN GIÁO DỤC VÀ NGHỀ NGHIỆP STP</div>
+    <div class="h1 s15-h">Minh bạch từ gốc –<br><span class="cy">bảo vệ đến tay người dùng.</span></div>
+    <div class="s15-ct">
+      <div class="ph"><i class="ic" data-i="phone"></i>0827.695.368 · 0968.702.701</div>
+      <div><i class="ic" data-i="mail"></i>viencongnghestp@gmail.com</div>
+      <div><i class="ic" data-i="globe"></i>www.vienstp.com</div>
+    </div>
+    <div class="s15-offs">
+      <div><i class="ic" data-i="map-pin"></i><b>VP Khánh Hòa</b>KĐT Lê Hồng Phong 1</div>
+      <div><i class="ic" data-i="map-pin"></i><b>VP TP.HCM</b>An Khánh, Thủ Đức</div>
+      <div><i class="ic" data-i="map-pin"></i><b>Trụ sở Hà Nội</b>Lê Văn Lương</div>
+    </div>
+    <div class="s15-qr frame"><img src="assets/qr_vienstp.png" alt=""><div class="ln"></div><span class="mono">QUÉT ĐỂ TRUY CẬP</span></div>
+    <div class="s15-cta"><i class="ic" data-i="arrow-right"></i>LIÊN HỆ TƯ VẤN &amp; DEMO GIẢI PHÁP</div>
+  </section>
+
+  <!-- global chrome -->
+  <div id="hud">
+    <i class="cn tl"></i><i class="cn tr"></i><i class="cn bl"></i><i class="cn br"></i>
+    <div class="ro l mono"><span class="dot"></span>STP · TRACE <b class="tc">00:00:00</b></div>
+    <div class="ro r mono">TCVN · GS1 · NĐ 37/2026</div>
+  </div>
+  <div id="bug"><img src="assets/logo_stp.png" alt=""><span class="mono">VIỆN STP</span></div>
+  <div id="blocks"></div>
+  <div id="flash"></div>
+  <div id="scanlines"></div>
+  <div id="vig"></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="node_modules/d3-array/dist/d3-array.min.js"></script>
+<script src="node_modules/d3-geo/dist/d3-geo.min.js"></script>
+<script src="node_modules/topojson-client/dist/topojson-client.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
