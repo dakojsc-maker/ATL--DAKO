@@ -158,7 +158,7 @@ def emblem(out, font_path, size=900, bg=(12, 30, 54), fg=(214, 176, 104), label=
 
 
 # ------------------------------------------------------------------ polaroid with torn edges
-def polaroid(src, out, aspect=4 / 3, width=900, border=0.055, bottom=0.055, rot=-5.0, tone=None, seed=1,
+def polaroid(src, out, aspect=4 / 3, width=640, border=0.055, bottom=0.055, rot=-5.0, tone=None, seed=1,
              focus=(0.5, 0.5), shadow_alpha=110):
     rng = np.random.default_rng(seed)
     ph = ImageOps.exif_transpose(Image.open(src)).convert('RGB')
@@ -217,7 +217,7 @@ def polaroid(src, out, aspect=4 / 3, width=900, border=0.055, bottom=0.055, rot=
     final.alpha_composite(rotated)
     bbox = final.getbbox()
     final = final.crop(bbox)
-    final.save(out)
+    final.save(out, optimize=True)
     return out
 
 

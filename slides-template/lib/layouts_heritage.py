@@ -51,9 +51,20 @@ def register(theme_key='heritage'):
         tint=P['navy'], grid_dark='2B4766', row_alt='EFE2C6',
     )
     K.set_theme(theme_key)
-    for role, (face, fname) in FONTS.items():
-        K.FONT_FILES[face if role != 'bodyb' else face + ' Bold'] = 'heritage/' + fname
-        K.FONT_FILES[face] = 'heritage/' + FONTS[role][1] if face not in K.FONT_FILES else K.FONT_FILES[face]
+    # face name -> file used for text measuring (first role wins: regular/light before bold/italic)
+    for role in ('disp', 'title', 'name', 'body'):
+        face, fname = FONTS[role]
+        K.FONT_FILES[face] = 'heritage/' + fname
+    # the name face ships as Bold only -> every run in it is flagged bold so PowerPoint picks that file
+    if not getattr(K._apply_run, '_heritage', False):
+        orig = K._apply_run
+
+        def _apply_run(run, text, font=K.F_BODY, **kw):
+            if font == F('name'):
+                kw['bold'] = True
+            return orig(run, text, font=font, **kw)
+        _apply_run._heritage = True
+        K._apply_run = _apply_run
 
 
 # ------------------------------------------------------------------ helpers
@@ -142,11 +153,21 @@ def photo(s, path, x, y, w, h, focus=(0.5, 0.5), caption=None, radius=0.14, bord
     out = [pic]
     if caption:
         ov = K.rect(s, x, y, w, h, radius=radius)
-        K.grad_fill(ov, [(0, P['navy'], 0), (55, P['navy'], 8), (100, P['navy'], 82)], angle=90)
-        tx = K.text(s, x + 0.1, y + h - 0.5, w - 0.2, 0.4, caption.upper(), size=cap_size, font=F('title'),
-                    color=P['cream'], align='c', anchor='m', spacing=0.8)
+        K.grad_fill(ov, [(0, P['navy'], 0), (50, P['navy'], 10), (78, P['navy'], 65), (100, P['navy'], 92)], angle=90)
+        tx = K.text(s, x + 0.1, y + h - 0.52, w - 0.2, 0.42, caption.upper(), size=cap_size + 3, font=F('disp'),
+                    color=P['gold2'], align='c', anchor='m', spacing=1.2)
         out += [ov, tx]
     return out
+
+
+def _region_luma(path, x0, y0, x1, y1):
+    """Mean luminance (0-1) of a region given in slide-relative fractions."""
+    from PIL import Image
+    im = Image.open(path).convert('L')
+    W, H = im.size
+    reg = im.crop((int(x0 * W), int(y0 * H), int(x1 * W), int(y1 * H))).resize((64, 36))
+    px = list(reg.getdata())
+    return sum(px) / len(px) / 255
 
 
 def roman(n):
@@ -200,14 +221,25 @@ def _gold_columns(gf, top=P['gold2'], bottom=P['amber']):
 # ================================================================== 1. cover
 def cover(prs, ctx, c):
     s = _new(prs, ctx)
-    bg = bg_photo(s, img(ctx, 'cover'), shade='top', strength=0.9)
-    x0 = c.get('title_x', 5.6)
-    a = K.text(s, x0, 0.55, 7.2, 0.5, c['kicker'].upper(), size=19, font=F('italic'), italic=True, color=P['cream'],
-               spacing=4, anchor='b', nm='!!kicker')
-    b = K.text(s, x0, 1.0, 3.2, 1.5, c['title1'].upper(), size=70, font=F('disp'), color=P['cream'], anchor='b',
-               nm='!!t1')
-    t2 = K.text(s, x0 + 2.55, 0.55, 5.5, 2.2, c['title2'].upper(), size=150, font=F('disp'), color=P['cream'],
-                anchor='b', nm='!!t2', line_sp=0.85)
+    bg = bg_photo(s, img(ctx, 'cover'), shade='top', strength=1.1)
+    # title block, right-aligned, measured so "HỘI AN" always stays on one line
+    t1, t2s = c['title1'].upper(), c['title2'].upper()
+    right = SW - 0.6
+    big = 150
+    while K.text_w(t2s, F('disp'), big) > 6.4 and big > 90:
+        big -= 4
+    w2 = K.text_w(t2s, F('disp'), big) + 0.25
+    small = round(big * 0.44)
+    w1 = K.text_w(t1, F('disp'), small) + 0.25
+    base = 0.25 + big / 72 * 1.12            # common baseline area (bottom of the big word box)
+    x2 = right - w2
+    x1 = x2 - w1 + 0.05
+    t2 = K.text(s, x2, 0.25, w2, big / 72 * 1.12, t2s, size=big, font=F('disp'), color=P['cream'], anchor='b',
+                nm='!!t2', wrap=False, line_sp=0.85)
+    b = K.text(s, x1, base - small / 72 * 1.35, w1, small / 72 * 1.2, t1, size=small, font=F('disp'),
+               color=P['cream'], anchor='b', nm='!!t1', wrap=False)
+    a = K.text(s, x1, base - small / 72 * 1.35 - 0.5, 6.0, 0.45, c['kicker'].upper(), size=18, font=F('italic'),
+               italic=True, color=P['cream'], spacing=4, anchor='b', nm='!!kicker', wrap=False)
     for t in (b, t2):
         _text_shadow(t)
     fg = None
@@ -308,8 +340,8 @@ def map_slide(prs, ctx, c):
         K.shape_text(tag, lab, size=11, font=F('bodyb'), color=P['navy'], bold=True)
         tags.append([dot, tag])
     mx, my = (ax + bx) / 2, (ay + by) / 2
-    km = K.text(s, mx - 1.25, my - 0.2, 1.0, 0.4, c['distance'], size=16, font=F('disp'), color=P['amber'],
-                align='r', anchor='m')
+    km = K.text(s, mx - 1.55, my - 0.05, 1.1, 0.45, c['distance'], size=18, font=F('disp'), color=P['brown'],
+                align='r', anchor='m', wrap=False)
     _text_shadow(km, alpha=60)
     page_no(s, ctx['n'])
     K.anim(s, t, 'wipe_l', 0.3, 0.7)
@@ -357,7 +389,10 @@ def section(prs, ctx, c):
     s = _new(prs, ctx, tr=1.4)
     bg = bg_photo(s, img(ctx, c['bg']), shade='full', strength=0.45)
     gx, gy, gw, gh = 1.9, 1.35, SW - 3.8, 4.9
-    glass = K.glass(s, img(ctx, c['bg_blur']), gx, gy, gw, gh, radius=0.35, tint='FFFFFF', tint_alpha=12)
+    # light frosted glass on dark photos, smoky glass on bright ones (keeps the cream title readable)
+    lum = _region_luma(img(ctx, c['bg_blur']), gx / SW, gy / SH, (gx + gw) / SW, (gy + gh) / SH)
+    tint, ta = ('FFFFFF', 12) if lum < 0.42 else (P['navy'], int(min(70, 25 + (lum - 0.42) * 160)))
+    glass = K.glass(s, img(ctx, c['bg_blur']), gx, gy, gw, gh, radius=0.35, tint=tint, tint_alpha=ta)
     em = K.picture(s, img(ctx, 'emblem'), SW / 2 - 0.62, gy - 0.62, 1.24, 1.24, nm='!!emblem')
     num = K.text(s, gx, gy + 0.85, gw, 0.4, f'PHẦN {roman(c["num"])}', size=14, font=F('disp'), color=P['gold2'],
                  align='c', spacing=4)
@@ -384,7 +419,8 @@ def charts(prs, ctx, c):
     s = _new(prs, ctx, dark=False)
     paper_bg(s, ctx)
     t, u = heading(s, c['title'], c['sub'], dark=False, w=5.8)
-    st = K.text(s, 6.9, 0.55, SW - 6.9 - ML, 0.95, c['stat'], size=17, font=F('body'), color=P['brown'], line_sp=1.1)
+    st = K.text(s, 6.9, 0.62, SW - 6.9 - ML, 0.95, c['stat'], size=15, font=F('body'), italic=True, color=P['brown2'],
+                line_sp=1.15, anchor='b')
     bw_, bh_ = 8.6, 0.8
     bx = (SW - bw_) / 2
     ban = K.picture(s, img(ctx, 'banner'), bx, 1.72, bw_, bh_)
@@ -441,7 +477,7 @@ def place(prs, ctx, c):
     pics = []
     for (x, y, w, h), key in zip(boxes, c['photos']):
         foc = (0.5, 0.5)
-        if isinstance(key, tuple):
+        if isinstance(key, (tuple, list)):
             key, foc = key
         pics.append(photo(s, img(ctx, key), x, y, w, h, focus=foc))
     page_no(s, ctx['n'])
@@ -454,8 +490,8 @@ def place(prs, ctx, c):
 # ================================================================== 8. place with background-removed hero
 def place_cutout(prs, ctx, c):
     s = _new(prs, ctx)
-    bg_photo(s, img(ctx, c['bg']), shade='left', strength=1.0)
-    glow = K.glow_img(s, 9.6, 4.2, 6.5, P['amber'], 45, falloff=2.0)
+    bg_photo(s, img(ctx, c['bg']), shade='left', strength=1.15)
+    glow = K.glow_img(s, c.get('cut_cx', 9.7), 4.3, 7.0, P['gold2'], 55, falloff=2.2)
     t, u = heading(s, c['title'], c['sub'])
     tw = 5.6
     name = K.text(s, ML, 2.15, tw, 1.45, c['name'], size=K.fit_size(c['name'], F('name'), 38, tw, 2, 0.75),
@@ -501,7 +537,7 @@ def mosaic(prs, ctx, c):
     pics = []
     for (x, y, w, h), (key, cap) in zip(MOSAICS[c['layout']], c['photos']):
         foc = (0.5, 0.5)
-        if isinstance(key, tuple):
+        if isinstance(key, (tuple, list)):
             key, foc = key
         pics.append(photo(s, img(ctx, key), x, y, w, h, focus=foc, caption=cap, border=P['white'], bw=2.0))
     page_no(s, ctx['n'], dark=False)
@@ -536,6 +572,8 @@ def polaroids(prs, ctx, c):
     for key, (x, y, h) in zip(c['prints'], c['pos']):
         pw, ph = ctx['size'][key]
         w = h * pw / ph
+        x = min(x, SW - 0.2 - w)          # keep every print on the slide
+        y = min(y, SH - 0.2 - h)
         pols.append(K.picture(s, img(ctx, key), x, y, w, h))
     page_no(s, ctx['n'])
     K.anims(s, pols, 'grow', 0.2, 0.25, 0.6)
@@ -551,24 +589,25 @@ def timeline(prs, ctx, c):
     t, u = heading(s, c['title'], c['sub'], x=ML, w=SW - 2 * ML, align='c')
     ev = c['events']
     n = len(ev)
-    x0, x1, y = 1.1, SW - 1.1, 3.55
-    base = K.line(s, x0, y, x1, y, P['gold2'], 1.5)
+    x0, x1, y = 1.75, SW - 1.75, 3.85
+    base = K.line(s, ML, y, SW - ML, y, P['gold2'], 1.5)
     step = (x1 - x0) / (n - 1)
+    cw = min(2.35, step - 0.15)
     items = []
     for i, (yr, head, body) in enumerate(ev):
         cx = x0 + i * step
-        up = i % 2 == 0
         dot = K.oval(s, cx - 0.13, y - 0.13, 0.26, fill=P['navy'], line=P['gold2'], lw=2)
         inner = K.oval(s, cx - 0.05, y - 0.05, 0.1, fill=P['gold2'])
-        stem = K.line(s, cx, y - 0.13 if up else y + 0.13, cx, y - 0.55 if up else y + 0.55, P['gold2'], 1.0)
-        yt = K.text(s, cx - 1.2, (y - 1.2) if up else (y + 0.6), 2.4, 0.6, yr, size=28, font=F('disp'),
-                    color=P['gold2'], align='c', anchor='b' if up else 't')
-        bx_y = (y + 0.75) if up else (y - 2.55)
-        hd = K.text(s, cx - 1.15, bx_y if up else bx_y + 0.25, 2.3, 0.4, head, size=13, font=F('name'),
+        stem = K.line(s, cx, y - 0.13, cx, y - 0.45, P['gold2'], 1.0)
+        yt = K.text(s, cx - cw / 2, y - 1.3, cw, 0.8, yr, size=30, font=F('disp'), color=P['gold2'], align='c',
+                    anchor='b', wrap=False)
+        card = K.rect(s, cx - cw / 2, y + 0.4, cw, 2.05, fill=P['navy'], radius=0.14, alpha=55, line=P['gold'],
+                      lw=0.75, line_alpha=60)
+        hd = K.text(s, cx - cw / 2 + 0.12, y + 0.55, cw - 0.24, 0.4, head, size=13, font=F('name'),
                     color=P['cream'], align='c', anchor='t')
-        bd = K.text(s, cx - 1.15, (bx_y + 0.42) if up else (bx_y + 0.67), 2.3, 1.2, body, size=10, font=F('body'),
-                    color=P['cream'], align='c', line_sp=1.12, alpha=85)
-        items.append([dot, inner, stem, yt, hd, bd])
+        bd = K.text(s, cx - cw / 2 + 0.15, y + 1.0, cw - 0.3, 1.3, body, size=10.5, font=F('body'),
+                    color=P['cream'], align='c', line_sp=1.12, alpha=88)
+        items.append([dot, inner, stem, yt, card, hd, bd])
     page_no(s, ctx['n'])
     K.anim(s, base, 'wipe_l', 0.3, 1.4)
     K.anims(s, items, 'zoom', 0.5, 0.22, 0.45)
@@ -703,18 +742,21 @@ def conclusion(prs, ctx, c):
 # ================================================================== 16. thank you
 def thanks(prs, ctx, c):
     s = _new(prs, ctx, tr=1.5)
-    bg = bg_photo(s, img(ctx, 'cover'), shade='top', strength=0.9)
+    bg = bg_photo(s, img(ctx, 'cover'), shade='top', strength=1.25)
     t1 = K.text(s, 1.0, 0.55, SW - 2.0, 1.6, c['title1'], size=96, font=F('disp'), color=P['cream'], align='c',
                 anchor='b', nm='!!t2')
     t2 = K.text(s, 1.0, 2.05, SW - 2.0, 1.2, c['title2'], size=64, font=F('disp'), color=P['cream'], align='c',
                 anchor='t', nm='!!t1')
     for tb in (t1, t2):
         _text_shadow(tb)
-    fg = None
-    if 'cover_fg' in ctx['img']:
-        fg = K.picture(s, img(ctx, 'cover_fg'), 0, 0, SW, SH, nm='!!fg')
+    orn = ornament(s, SW / 2, 6.25, 3.2)
+    tag = K.text(s, 2.0, 6.42, SW - 4.0, 0.45, c.get('tagline', 'Phố cổ Hội An · Di sản văn hóa thế giới').upper(),
+                 size=15, font=F('disp'), color=P['gold2'], align='c', spacing=3)
+    _text_shadow(tag, alpha=60)
     K.anim(s, t1, 'zoom', 0.5, 0.9)
     K.anim(s, t2, 'rise', 0.9, 0.8)
+    K.anims(s, orn, 'wipe_l', 1.4, 0.05, 0.5)
+    K.anim(s, tag, 'fade', 1.6, 0.6)
     K.notes(s, 'Cảm ơn và mời hội đồng đặt câu hỏi.')
     return s
 

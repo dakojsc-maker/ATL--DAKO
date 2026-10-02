@@ -1,10 +1,12 @@
 """
-Build the "Aurora" report template deck.
+Build the report template decks: M01 "Báo cáo Xanh Lime" (--theme lime) and M02 "Aurora" (--theme aurora).
 
-    python build_deck.py                 # both colour themes
-    python build_deck.py --theme aurora  # one theme
+    python build_deck.py                                   # demo content, both colour themes
+    python build_deck.py --theme lime                      # one theme
+    python build_deck.py --theme lime --content my.json --name Bao-cao-ABC   # a real deck from a content file
+    python build_deck.py --dump-sample catalog/samples/M01-lime.json         # write the demo content as JSON
 
-Content lives in CONTENT below — edit the text/numbers/images and rebuild.
+Demo content lives in build_content(); a content file (see lib/content_io.py) replaces it.
 Photos: assets/images/src/<id>.jpg (Open Images, CC BY 2.0 — see assets/images/credits.csv)
 Cut-outs (background removed): assets/images/cut/*.png
 """
@@ -20,6 +22,7 @@ from PIL import Image, ImageEnhance, ImageFilter  # noqa: E402
 
 import pptkit as K  # noqa: E402
 import layouts as L  # noqa: E402
+import content_io as CIO  # noqa: E402
 
 SRC = os.path.join(HERE, 'assets', 'images', 'src')
 CUT = os.path.join(HERE, 'assets', 'images', 'cut')
@@ -55,7 +58,7 @@ def prepare_images(theme):
     out = os.path.join(BUILD, theme)
     os.makedirs(out, exist_ok=True)
     T = K.THEMES[theme]
-    paths = {k: os.path.join(SRC, v + '.jpg') for k, v in PHOTOS.items()}
+    paths = {k: CIO.photo_path(v) for k, v in PHOTOS.items()}
     paths.update({k: os.path.join(CUT, v) for k, v in CUTOUTS.items()})
 
     def src(key):
@@ -315,22 +318,25 @@ def build_content():
 
 def credit_lines():
     rows = list(csv.DictReader(open(os.path.join(HERE, 'assets', 'images', 'credits.csv'), encoding='utf-8')))
-    return [f"• {r['title'][:48]} — {r['author']} (Flickr, CC BY 2.0)" for r in rows]
+    used = set(PHOTOS.values())
+    return [f"• {r['title'][:48]} — {r['author']} (Flickr, CC BY 2.0)" for r in rows if r['image_id'] in used]
 
 
-def build(theme, out_dir):
+def build(theme, out_dir, content=None, name=None):
     K.set_theme(theme)
     K.CREDITS.clear()
     paths, sizes = prepare_images(theme)
     prs = K.new_presentation()
-    ctx = dict(n=0, sec=dict(num=0, title=''), img=paths, size=sizes, total_sections=len(SECTIONS))
+    content = content or build_content()
+    n_sec = sum(1 for fn, _ in content if fn is L.section)
+    ctx = dict(n=0, sec=dict(num=0, title=''), img=paths, size=sizes, total_sections=n_sec)
     slides = []
-    for fn, c in build_content():
+    for fn, c in content:
         slides.append(fn(prs, ctx, c))
     slides.append(L.credits(prs, ctx, dict(lines=credit_lines())))
     for s in slides:
         K.finalize(s)
-    name = f'Mau-Bao-Cao-{K.T["name"]}.pptx'
+    name = (name + ('' if name.endswith('.pptx') else '.pptx')) if name else f'Mau-Bao-Cao-{K.T["name"]}.pptx'
     out = os.path.join(out_dir, name)
     prs.save(out)
     print('saved', out, len(prs.slides._sldIdLst), 'slides')
@@ -341,7 +347,20 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--theme', choices=list(K.THEMES), action='append')
     ap.add_argument('--out', default=os.path.join(HERE, 'output'))
+    ap.add_argument('--content', help='JSON content file (see lib/content_io.py)')
+    ap.add_argument('--name', help='output file name (without .pptx); theme is appended when several themes build')
+    ap.add_argument('--dump-sample', metavar='PATH', help='write the demo content as a JSON content file and exit')
     a = ap.parse_args()
+    if a.dump_sample:
+        print('wrote', CIO.save(a.dump_sample, build_content(), template='M01/M02', title='Chuyển đổi số cho SME',
+                                photos=PHOTOS))
+        raise SystemExit(0)
+    content = None
+    if a.content:
+        meta, content = CIO.load(a.content, L)
+        PHOTOS.update(meta.get('photos', {}))
     os.makedirs(a.out, exist_ok=True)
-    for t in a.theme or list(K.THEMES):
-        build(t, a.out)
+    themes = a.theme or list(K.THEMES)
+    for t in themes:
+        nm = a.name and (a.name if len(themes) == 1 else f'{a.name}-{K.THEMES[t]["name"]}')
+        build(t, a.out, content, nm)

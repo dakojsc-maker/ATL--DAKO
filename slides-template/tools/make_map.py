@@ -1,7 +1,9 @@
 """
 Render the stylised location map used by the Heritage (Hội An) template.
 
-    python tools/make_map.py
+    python tools/make_map.py                                  # Đà Nẵng – Hội An (default)
+    python tools/make_map.py --name hue_map --center 107.58,16.46 --span 1.6 \
+        --place hue:107.5909,16.4637 --place danang:108.2022,16.0544
 
 Data: Natural Earth 1:10m admin-1 provinces (public domain), downloaded once into .cache/.
 Output: assets/maps/hoian_map.png (16:9, sea on the right) + hoian_map.json with the slide-relative
@@ -38,7 +40,9 @@ def fetch():
     return [os.path.join(CACHE, f) for f in FILES]
 
 
-def render(admin_path, rivers_path, out_png, out_json, lon0=107.55, lon1=108.95, lat_c=15.92, w=2400, h=1350):
+def render(admin_path, rivers_path, out_png, out_json, lon0=107.35, lon1=109.05, lat_c=15.98, w=2400, h=1350,
+           borders_on=False, places=None):
+    places = places or PLACES
     lon_span = lon1 - lon0
     lat_span = lon_span * math.cos(math.radians(lat_c)) * h / w
     lat0, lat1 = lat_c - lat_span / 2, lat_c + lat_span / 2
@@ -66,6 +70,10 @@ def render(admin_path, rivers_path, out_png, out_json, lon0=107.55, lon1=108.95,
             pts = [proj(p[0], p[1]) for p in outer]
             dl.polygon(pts, fill=255)
             borders.append(pts)
+    # close slivers between provinces, then round the 1:10m coastline a little
+    land = land.filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.MinFilter(9))
+    land = land.filter(ImageFilter.GaussianBlur(5)).point(lambda v: 255 if v > 127 else 0)
+    land = land.filter(ImageFilter.GaussianBlur(1.2))
     rng = np.random.default_rng(5)
     L = np.asarray(land).astype(np.float32) / 255
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
@@ -91,9 +99,16 @@ def render(admin_path, rivers_path, out_png, out_json, lon0=107.55, lon1=108.95,
     ov = Image.new('RGBA', (w, h), (0, 0, 0, 0))
     do = ImageDraw.Draw(ov)
     # province borders (dotted look: short segments)
-    for pts in borders:
+    for pts in (borders if borders_on else []):
         for i in range(0, len(pts) - 1, 2):
             do.line([pts[i], pts[i + 1]], fill=(160, 130, 90, 110), width=2)
+    # relief hint: soft darker mottling that grows toward the western highlands
+    relief = A._fbm(h, w, rng, cells=(20, 60, 180), weights=(0.3, 0.4, 0.3))
+    west = np.clip(1 - xx / (w * 0.6), 0, 1) ** 1.3
+    ra = (np.clip(relief - 0.45, 0, 1) * 2.2 * west * L * 90).astype(np.uint8)
+    rel = np.dstack([np.full((h, w), 150), np.full((h, w), 122), np.full((h, w), 82), ra]).astype(np.uint8)
+    ov = Image.alpha_composite(ov, Image.fromarray(rel, 'RGBA'))
+    do = ImageDraw.Draw(ov)
     # rivers if the dataset covers the area
     if rivers_path and os.path.exists(rivers_path):
         rv = json.load(open(rivers_path, encoding='utf-8'))
@@ -115,13 +130,26 @@ def render(admin_path, rivers_path, out_png, out_json, lon0=107.55, lon1=108.95,
     sh = np.dstack([np.full((h, w), 10), np.full((h, w), 26), np.full((h, w), 44), shade * 255]).astype(np.uint8)
     im = Image.alpha_composite(im, Image.fromarray(sh, 'RGBA'))
     im.convert('RGB').resize((1920, 1080), Image.LANCZOS).save(out_png, optimize=True)
-    pts = {k: (proj(*v)[0] / w, proj(*v)[1] / h) for k, v in PLACES.items()}
+    pts = {k: (proj(*v)[0] / w, proj(*v)[1] / h) for k, v in places.items()}
     json.dump({'points': pts, 'bbox': [lon0, lat0, lon1, lat1]}, open(out_json, 'w'), indent=1)
     return out_png, pts
 
 
 if __name__ == '__main__':
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--name', default='hoian_map', help='output base name in assets/maps/')
+    ap.add_argument('--center', help='lon,lat of the map centre (default: Đà Nẵng – Hội An)')
+    ap.add_argument('--span', type=float, default=1.7, help='longitude span in degrees')
+    ap.add_argument('--place', action='append', default=[], help='key:lon,lat (repeatable)')
+    a = ap.parse_args()
+    kw = {}
+    if a.center:
+        lon, lat = map(float, a.center.split(','))
+        kw = dict(lon0=lon - a.span / 2, lon1=lon + a.span / 2, lat_c=lat)
+    places = {p.split(':')[0]: tuple(map(float, p.split(':')[1].split(','))) for p in a.place} or None
     os.makedirs(OUTDIR, exist_ok=True)
     admin, rivers = fetch()
-    png, pts = render(admin, rivers, os.path.join(OUTDIR, 'hoian_map.png'), os.path.join(OUTDIR, 'hoian_map.json'))
+    png, pts = render(admin, rivers, os.path.join(OUTDIR, a.name + '.png'), os.path.join(OUTDIR, a.name + '.json'),
+                      places=places, **kw)
     print(png, pts)
