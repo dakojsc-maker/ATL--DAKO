@@ -1,0 +1,219 @@
+{
+ "speed": 0.95,
+ "scenes": {
+  "s1": [
+   {
+    "id": "s1b1",
+    "dur": 5.132,
+    "sub": "Mỗi ngày, cán bộ công chức xử lý hàng loạt công văn, tờ trình, báo cáo và thủ tục hành chính.",
+    "say": "Mỗi ngày, cán bộ công chức xử lý hàng loạt công văn, tờ trình, báo cáo và thủ tục hành chính."
+   },
+   {
+    "id": "s1b2",
+    "dur": 3.669,
+    "sub": "Điều gì sẽ thay đổi, nếu mỗi cán bộ có thêm một trợ lý AI đắc lực?",
+    "say": "Điều gì sẽ thay đổi, nếu mỗi cán bộ có thêm một trợ lý Ây Ai đắc lực?"
+   }
+  ],
+  "s2": [
+   {
+    "id": "s2b1",
+    "dur": 4.226,
+    "sub": "Viện STP – đối tác chuyển đổi AI của cơ quan, doanh nghiệp và tổ chức giáo dục.",
+    "say": "Viện Ét Tê Pê, đối tác chuyển đổi Ây Ai của cơ quan, doanh nghiệp và tổ chức giáo dục."
+   },
+   {
+    "id": "s2b2",
+    "dur": 5.991,
+    "sub": "Bởi AI chỉ thực sự có giá trị khi được chuyển hoá thành năng lực thực thi, hiệu quả vận hành và tăng trưởng bền vững.",
+    "say": "Bởi Ây Ai chỉ thực sự có giá trị, khi được chuyển hoá thành năng lực thực thi, hiệu quả vận hành và tăng trưởng bền vững."
+   }
+  ],
+  "s3": [
+   {
+    "id": "s3b1",
+    "dur": 4.899,
+    "sub": "Viện STP là tổ chức khoa học và công nghệ trực thuộc Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam (VUSTA).",
+    "say": "Viện Ét Tê Pê là tổ chức khoa học và công nghệ, trực thuộc Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam."
+   },
+   {
+    "id": "s3b2",
+    "dur": 5.16,
+    "sub": "Hoạt động từ năm 2020, với văn phòng tại Hà Nội, Nha Trang và TP. Hồ Chí Minh.",
+    "say": "Hoạt động từ năm 2020, với văn phòng tại Hà Nội, Nha Trang và Thành phố Hồ Chí Minh."
+   }
+  ],
+  "s4": [
+   {
+    "id": "s4b1",
+    "dur": 5.689,
+    "sub": "Sứ mệnh của Viện: đào tạo AI bài bản, kết nối tri thức, xây dựng giải pháp và đồng hành chuyển đổi số,",
+    "say": "Sứ mệnh của Viện: đào tạo Ây Ai bài bản, kết nối tri thức, xây dựng giải pháp, và đồng hành chuyển đổi số,"
+   },
+   {
+    "id": "s4b2",
+    "dur": 3.088,
+    "sub": "trên ba giá trị cốt lõi: minh bạch, ứng dụng và bền vững.",
+    "say": "trên ba giá trị cốt lõi: minh bạch, ứng dụng, và bền vững."
+   }
+  ],
+  "s5": [
+   {
+    "id": "s5b1",
+    "dur": 6.641,
+    "sub": "Khác biệt của Viện: không dùng giáo trình rập khuôn, mà khảo sát điểm nghẽn vận hành để thiết kế chương trình “may đo” cho từng đơn vị.",
+    "say": "Khác biệt của Viện: không dùng giáo trình có sẵn, mà khảo sát điểm nghẽn vận hành, để thiết kế chương trình dành riêng cho từng đơn vị."
+   },
+   {
+    "id": "s5b2",
+    "dur": 3.574,
+    "sub": "Làm chủ công nghệ để triển khai trợ lý ảo và tự động hoá quy trình,",
+    "say": "Làm chủ công nghệ, để triển khai trợ lý ảo và tự động hoá quy trình,"
+   },
+   {
+    "id": "s5b3",
+    "dur": 3.611,
+    "sub": "với đội ngũ “thực thi kép”: vừa có tầm nhìn chiến lược, vừa có năng lực kỹ thuật.",
+    "say": "với đội ngũ thực thi kép: vừa có tầm nhìn chiến lược, vừa có năng lực kỹ thuật."
+   }
+  ],
+  "s6": [
+   {
+    "id": "s6b1",
+    "dur": 5.875,
+    "sub": "Các chương trình đào tạo được thiết kế cho bốn nhóm: cơ quan nhà nước, doanh nghiệp, đơn vị giáo dục và cá nhân.",
+    "say": "Các chương trình đào tạo được thiết kế cho bốn nhóm đối tượng: cơ quan nhà nước, doanh nghiệp, đơn vị giáo dục, và cá nhân."
+   }
+  ],
+  "s7": [
+   {
+    "id": "s7b1",
+    "dur": 6.49,
+    "sub": "Nổi bật là chương trình Ứng dụng trí tuệ nhân tạo trong công tác văn phòng – hành chính, dành cho cán bộ, công chức, viên chức các cấp.",
+    "say": "Nổi bật là chương trình Ứng dụng trí tuệ nhân tạo trong công tác văn phòng, hành chính, dành cho cán bộ, công chức, viên chức các cấp."
+   },
+   {
+    "id": "s7b2",
+    "dur": 6.575,
+    "sub": "30% kiến thức nền tảng, 70% thực hành trên chính văn bản, báo cáo, thủ tục và cuộc họp của đơn vị.",
+    "say": "Ba mươi phần trăm kiến thức nền tảng, bảy mươi phần trăm thực hành, trên chính văn bản, báo cáo, thủ tục và cuộc họp của đơn vị."
+   },
+   {
+    "id": "s7b3",
+    "dur": 4.122,
+    "sub": "Học đến đâu – làm được đến đó. AI hỗ trợ, cán bộ chịu trách nhiệm.",
+    "say": "Học đến đâu, làm được đến đó. Trí tuệ nhân tạo hỗ trợ, cán bộ chịu trách nhiệm."
+   }
+  ],
+  "s8": [
+   {
+    "id": "s8b1",
+    "dur": 7.512,
+    "sub": "Phần 1: dùng AI an toàn, đúng quy định – không đưa bí mật nhà nước, dữ liệu cá nhân lên AI công cộng, luôn kiểm chứng kết quả trước khi trình ký.",
+    "say": "Phần một: dùng Ây Ai an toàn, đúng quy định. Không đưa bí mật nhà nước, dữ liệu cá nhân lên Ây Ai công cộng, và luôn kiểm chứng kết quả trước khi trình ký."
+   },
+   {
+    "id": "s8b2",
+    "dur": 3.796,
+    "sub": "Học viên làm chủ cấu trúc câu lệnh: vai trò – căn cứ – yêu cầu – thể thức.",
+    "say": "Học viên làm chủ cấu trúc câu lệnh: vai trò, căn cứ, yêu cầu, thể thức."
+   },
+   {
+    "id": "s8b3",
+    "dur": 5.283,
+    "sub": "Khai thác văn bản pháp luật có trích dẫn rõ ràng, và tự tạo Trợ lý AI nghiệp vụ cho chính đơn vị mình.",
+    "say": "Khai thác văn bản pháp luật, có nguồn dẫn rõ ràng, và tự tạo trợ lý Ây Ai nghiệp vụ cho chính đơn vị mình."
+   }
+  ],
+  "s9": [
+   {
+    "id": "s9b1",
+    "dur": 2.856,
+    "sub": "Phần 2 đưa AI vào nghiệp vụ hằng ngày của cơ quan.",
+    "say": "Phần thứ hai, đưa Ây Ai vào nghiệp vụ hằng ngày của cơ quan."
+   },
+   {
+    "id": "s9b2",
+    "dur": 4.336,
+    "sub": "Từ ý kiến chỉ đạo → dự thảo công văn, tờ trình đúng thể thức theo Nghị định 30/2020/NĐ-CP.",
+    "say": "Từ ý kiến chỉ đạo, dự thảo công văn, tờ trình đúng thể thức, theo Nghị định ba mươi."
+   },
+   {
+    "id": "s9b3",
+    "dur": 5.666,
+    "sub": "Văn bản đến nhiều trang → phiếu tóm tắt một trang: việc cần làm, đơn vị chủ trì, thời hạn xử lý.",
+    "say": "Văn bản đến nhiều trang, được tóm tắt thành phiếu một trang: việc cần làm, đơn vị chủ trì, và thời hạn xử lý."
+   }
+  ],
+  "s10": [
+   {
+    "id": "s10b1",
+    "dur": 3.736,
+    "sub": "Báo cáo tháng, quý, năm từ nhiều đơn vị được tổng hợp đúng đề cương,",
+    "say": "Báo cáo tháng, quý, năm từ nhiều đơn vị được tổng hợp đúng đề cương,"
+   },
+   {
+    "id": "s10b2",
+    "dur": 4.122,
+    "sub": "so sánh cùng kỳ và kế hoạch, phát hiện bất thường, gợi ý biểu đồ và nhận xét.",
+    "say": "so sánh cùng kỳ và kế hoạch, phát hiện bất thường, gợi ý biểu đồ và nhận xét."
+   }
+  ],
+  "s11": [
+   {
+    "id": "s11b1",
+    "dur": 5.735,
+    "sub": "Với thủ tục hành chính, AI hỗ trợ hướng dẫn hồ sơ dễ hiểu và hỏi – đáp cho người dân tại bộ phận một cửa.",
+    "say": "Với thủ tục hành chính, Ây Ai hỗ trợ hướng dẫn hồ sơ dễ hiểu, và hỏi đáp cho người dân tại bộ phận một cửa."
+   },
+   {
+    "id": "s11b2",
+    "dur": 5.283,
+    "sub": "Với cuộc họp, AI tóm tắt tài liệu và soạn thông báo kết luận: việc gì, ai làm, khi nào xong.",
+    "say": "Với cuộc họp, Ây Ai tóm tắt tài liệu, và soạn thông báo kết luận: việc gì, ai làm, khi nào xong."
+   },
+   {
+    "id": "s11b3",
+    "dur": 2.241,
+    "sub": "Và cả tin bài, đồ hoạ tuyên truyền chính sách.",
+    "say": "Và cả tin bài, đồ hoạ tuyên truyền chính sách."
+   }
+  ],
+  "s12": [
+   {
+    "id": "s12b1",
+    "dur": 3.088,
+    "sub": "Kết thúc khoá học, mỗi đơn vị mang về bộ sản phẩm dùng ngay:",
+    "say": "Kết thúc khoá học, mỗi đơn vị mang về bộ sản phẩm dùng ngay:"
+   },
+   {
+    "id": "s12b2",
+    "dur": 5.805,
+    "sub": "Trợ lý AI nghiệp vụ, thư viện câu lệnh, quy trình AI cho một việc lặp lại và bộ nguyên tắc dùng AI an toàn.",
+    "say": "trợ lý Ây Ai nghiệp vụ, thư viện câu lệnh, quy trình Ây Ai cho một việc lặp lại, và bộ nguyên tắc dùng Ây Ai an toàn."
+   }
+  ],
+  "s13": [
+   {
+    "id": "s13b1",
+    "dur": 8.69,
+    "sub": "Nội dung bám sát căn cứ pháp lý hiện hành: thể thức văn bản, chế độ báo cáo, cơ chế một cửa, Luật Bảo vệ dữ liệu cá nhân, Luật Trí tuệ nhân tạo.",
+    "say": "Nội dung bám sát căn cứ pháp lý hiện hành, từ thể thức văn bản, chế độ báo cáo, cơ chế một cửa, đến Luật Bảo vệ dữ liệu cá nhân và Luật Trí tuệ nhân tạo."
+   }
+  ],
+  "s14": [
+   {
+    "id": "s14b1",
+    "dur": 4.296,
+    "sub": "Viện STP – đồng hành cùng cơ quan nhà nước kiến tạo năng lực AI cốt lõi.",
+    "say": "Viện Ét Tê Pê, đồng hành cùng cơ quan nhà nước, kiến tạo năng lực Ây Ai cốt lõi."
+   },
+   {
+    "id": "s14b2",
+    "dur": 5.166,
+    "sub": "Liên hệ ngay để được khảo sát nhu cầu và thiết kế chương trình dành riêng cho quý cơ quan, đơn vị.",
+    "say": "Liên hệ ngay, để được khảo sát nhu cầu, và thiết kế chương trình dành riêng cho quý cơ quan, đơn vị."
+   }
+  ]
+ }
+}

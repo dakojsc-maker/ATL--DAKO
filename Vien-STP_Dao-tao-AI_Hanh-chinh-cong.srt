@@ -1,0 +1,188 @@
+1
+00:00:01,200 --> 00:00:04,659
+Mỗi ngày, cán bộ công chức xử lý hàng loạt công văn, tờ trình,
+
+2
+00:00:04,659 --> 00:00:06,332
+báo cáo và thủ tục hành chính.
+
+3
+00:00:06,682 --> 00:00:10,351
+Điều gì sẽ thay đổi, nếu mỗi cán bộ có thêm một trợ lý AI đắc lực?
+
+4
+00:00:12,731 --> 00:00:16,957
+Viện STP – đối tác chuyển đổi AI của cơ quan, doanh nghiệp và tổ chức giáo dục.
+
+5
+00:00:17,307 --> 00:00:21,129
+Bởi AI chỉ thực sự có giá trị khi được chuyển hoá thành năng lực thực thi,
+
+6
+00:00:21,129 --> 00:00:23,298
+hiệu quả vận hành và tăng trưởng bền vững.
+
+7
+00:00:25,311 --> 00:00:30,210
+Viện STP là tổ chức khoa học và công nghệ trực thuộc Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam (VUSTA).
+
+8
+00:00:30,560 --> 00:00:35,720
+Hoạt động từ năm 2020, với văn phòng tại Hà Nội, Nha Trang và TP. Hồ Chí Minh.
+
+9
+00:00:37,520 --> 00:00:40,618
+Sứ mệnh của Viện: đào tạo AI bài bản, kết nối tri thức,
+
+10
+00:00:40,618 --> 00:00:43,209
+xây dựng giải pháp và đồng hành chuyển đổi số,
+
+11
+00:00:43,559 --> 00:00:46,647
+trên ba giá trị cốt lõi: minh bạch, ứng dụng và bền vững.
+
+12
+00:00:48,867 --> 00:00:51,444
+Khác biệt của Viện: không dùng giáo trình rập khuôn,
+
+13
+00:00:51,444 --> 00:00:55,508
+mà khảo sát điểm nghẽn vận hành để thiết kế chương trình “may đo” cho từng đơn vị.
+
+14
+00:00:55,858 --> 00:00:59,432
+Làm chủ công nghệ để triển khai trợ lý ảo và tự động hoá quy trình,
+
+15
+00:00:59,782 --> 00:01:03,393
+với đội ngũ “thực thi kép”: vừa có tầm nhìn chiến lược, vừa có năng lực kỹ thuật.
+
+16
+00:01:05,605 --> 00:01:10,051
+Các chương trình đào tạo được thiết kế cho bốn nhóm: cơ quan nhà nước, doanh nghiệp,
+
+17
+00:01:10,051 --> 00:01:11,480
+đơn vị giáo dục và cá nhân.
+
+18
+00:01:14,160 --> 00:01:17,841
+Nổi bật là chương trình Ứng dụng trí tuệ nhân tạo trong công tác văn phòng –
+
+19
+00:01:17,841 --> 00:01:20,650
+hành chính, dành cho cán bộ, công chức, viên chức các cấp.
+
+20
+00:01:21,000 --> 00:01:25,474
+30% kiến thức nền tảng, 70% thực hành trên chính văn bản, báo cáo,
+
+21
+00:01:25,474 --> 00:01:27,575
+thủ tục và cuộc họp của đơn vị.
+
+22
+00:01:27,925 --> 00:01:32,047
+Học đến đâu – làm được đến đó. AI hỗ trợ, cán bộ chịu trách nhiệm.
+
+23
+00:01:34,467 --> 00:01:37,962
+Phần 1: dùng AI an toàn, đúng quy định – không đưa bí mật nhà nước,
+
+24
+00:01:37,962 --> 00:01:41,979
+dữ liệu cá nhân lên AI công cộng, luôn kiểm chứng kết quả trước khi trình ký.
+
+25
+00:01:42,329 --> 00:01:46,125
+Học viên làm chủ cấu trúc câu lệnh: vai trò – căn cứ – yêu cầu – thể thức.
+
+26
+00:01:46,475 --> 00:01:49,038
+Khai thác văn bản pháp luật có trích dẫn rõ ràng,
+
+27
+00:01:49,038 --> 00:01:51,758
+và tự tạo Trợ lý AI nghiệp vụ cho chính đơn vị mình.
+
+28
+00:01:54,970 --> 00:01:57,826
+Phần 2 đưa AI vào nghiệp vụ hằng ngày của cơ quan.
+
+29
+00:01:58,176 --> 00:01:59,979
+Từ ý kiến chỉ đạo → dự thảo công văn,
+
+30
+00:01:59,979 --> 00:02:02,512
+tờ trình đúng thể thức theo Nghị định 30/2020/NĐ-CP.
+
+31
+00:02:02,862 --> 00:02:07,633
+Văn bản đến nhiều trang → phiếu tóm tắt một trang: việc cần làm, đơn vị chủ trì,
+
+32
+00:02:07,633 --> 00:02:08,528
+thời hạn xử lý.
+
+33
+00:02:10,928 --> 00:02:14,664
+Báo cáo tháng, quý, năm từ nhiều đơn vị được tổng hợp đúng đề cương,
+
+34
+00:02:15,014 --> 00:02:19,136
+so sánh cùng kỳ và kế hoạch, phát hiện bất thường, gợi ý biểu đồ và nhận xét.
+
+35
+00:02:21,749 --> 00:02:25,389
+Với thủ tục hành chính, AI hỗ trợ hướng dẫn hồ sơ dễ hiểu và hỏi –
+
+36
+00:02:25,389 --> 00:02:27,484
+đáp cho người dân tại bộ phận một cửa.
+
+37
+00:02:27,834 --> 00:02:32,362
+Với cuộc họp, AI tóm tắt tài liệu và soạn thông báo kết luận: việc gì, ai làm,
+
+38
+00:02:32,362 --> 00:02:33,117
+khi nào xong.
+
+39
+00:02:33,467 --> 00:02:35,708
+Và cả tin bài, đồ hoạ tuyên truyền chính sách.
+
+40
+00:02:38,328 --> 00:02:41,416
+Kết thúc khoá học, mỗi đơn vị mang về bộ sản phẩm dùng ngay:
+
+41
+00:02:41,766 --> 00:02:43,902
+Trợ lý AI nghiệp vụ, thư viện câu lệnh,
+
+42
+00:02:43,902 --> 00:02:47,571
+quy trình AI cho một việc lặp lại và bộ nguyên tắc dùng AI an toàn.
+
+43
+00:02:49,971 --> 00:02:54,589
+Nội dung bám sát căn cứ pháp lý hiện hành: thể thức văn bản, chế độ báo cáo,
+
+44
+00:02:54,589 --> 00:02:58,661
+cơ chế một cửa, Luật Bảo vệ dữ liệu cá nhân, Luật Trí tuệ nhân tạo.
+
+45
+00:03:01,141 --> 00:03:05,437
+Viện STP – đồng hành cùng cơ quan nhà nước kiến tạo năng lực AI cốt lõi.
+
+46
+00:03:05,787 --> 00:03:10,580
+Liên hệ ngay để được khảo sát nhu cầu và thiết kế chương trình dành riêng cho quý cơ quan,
+
+47
+00:03:10,580 --> 00:03:10,953
+đơn vị.
+
