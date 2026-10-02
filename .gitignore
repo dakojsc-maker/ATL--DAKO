@@ -4,5 +4,11 @@ video-iot/build/
 *.log
 video-hrms/build/
 video-txng/build/
+slides-template/assets/images/build/
+slides-template/assets/icons/png/
+slides-template/assets/glow/
+slides-template/models/
+slides-template/.cache/
+__pycache__/
 video-ai/build/
 video-ai/voice/
