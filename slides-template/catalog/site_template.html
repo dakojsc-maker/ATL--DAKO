@@ -1,0 +1,292 @@
+<title>Kho Mẫu Slide DAKO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a light-table wall of 16:9 template covers; each opens a detail sheet with every slide, palette and the call phrase. */
+:root {
+  --bg: #EDEFF3; --surface: #FFFFFF; --surface-2: #F6F7FA; --ink: #15171C; --muted: #5B6170; --line: #D9DDE5;
+  --accent: #1E52D6; --accent-ink: #FFFFFF; --accent-soft: #E3EAFC; --ok: #13795B; --ok-soft: #DDF3EA;
+  --shade: rgba(14, 18, 28, .62);
+  --f-ui: "Be Vietnam Pro", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111318; --surface: #1A1D24; --surface-2: #20242C; --ink: #ECEEF3; --muted: #A2A8B6; --line: #2F343E;
+    --accent: #8FB0FF; --accent-ink: #0E1220; --accent-soft: #232C45; --ok: #6FD3AE; --ok-soft: #173329;
+    --shade: rgba(4, 6, 10, .72); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111318; --surface: #1A1D24; --surface-2: #20242C; --ink: #ECEEF3; --muted: #A2A8B6; --line: #2F343E;
+  --accent: #8FB0FF; --accent-ink: #0E1220; --accent-soft: #232C45; --ok: #6FD3AE; --ok-soft: #173329;
+  --shade: rgba(4, 6, 10, .72); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-ui); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* header */
+.top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: end; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin-top: 6px; }
+.lede { color: var(--muted); max-width: 58ch; margin: 10px 0 0; }
+.count { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.chip-stat { font-size: 13px; padding: 4px 10px; border-radius: 99px; background: var(--surface); border: 1px solid var(--line); }
+.chip-stat b { font-variant-numeric: tabular-nums; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 14px; }
+.steps li::before { content: counter(s); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 13px; }
+
+/* toolbar */
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 30px 0 18px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 auto; }
+.f { border: 1px solid var(--line); background: var(--surface); padding: 6px 13px; border-radius: 99px; cursor: pointer; font-size: 14px; }
+.f[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.search { flex: 0 1 300px; min-width: 0; position: relative; }
+.search input { width: 100%; padding: 8px 12px 8px 34px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
+.search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--muted); fill: none; }
+
+/* grid of templates */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.card.planned { background: transparent; border-style: dashed; }
+.shot { position: relative; aspect-ratio: 16 / 9; background: var(--surface-2); cursor: pointer; border: 0; padding: 0; width: 100%; display: block; }
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+.card:hover .shot img { transform: scale(1.025); }
+.code { position: absolute; left: 12px; top: 12px; font-family: var(--f-mono); font-size: 13px; padding: 3px 9px; border-radius: 7px;
+  background: var(--shade); color: #fff; letter-spacing: .04em; }
+.ph { display: grid; place-items: center; height: 100%; color: var(--muted); font-size: 14px; text-align: center; padding: 16px; }
+.ph b { display: block; font-size: 22px; color: var(--ink); margin-bottom: 4px; }
+.body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 0; }
+.body h3 { font-size: 19px; font-weight: 700; letter-spacing: -.01em; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cc { font-family: var(--f-mono); font-size: 12.5px; font-weight: 500; padding: 2px 8px; border-radius: 6px; background: var(--ink); color: var(--bg); letter-spacing: .04em; }
+.tag { color: var(--muted); font-size: 14px; margin: 0; }
+.sw { display: flex; gap: 6px; }
+.sw i { width: 22px; height: 22px; border-radius: 6px; border: 1px solid var(--line); display: block; }
+.meta { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.uses { display: flex; flex-wrap: wrap; gap: 6px; }
+.uses span { font-size: 12.5px; background: var(--surface-2); border: 1px solid var(--line); padding: 2px 9px; border-radius: 99px; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+.btn { border: 1px solid var(--line); background: var(--surface); padding: 8px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 14px;
+  text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.done { background: var(--ok-soft); color: var(--ok); border-color: var(--ok-soft); }
+.empty { padding: 40px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--r); }
+
+/* detail sheet */
+.sheet { position: fixed; inset: 0; background: var(--shade); z-index: 10; display: grid; place-items: start center; overflow-y: auto;
+  padding-inline: 16px; padding-block: calc(24px + env(safe-area-inset-top, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)); }
+.sheet[hidden] { display: none; }
+.panel { background: var(--bg); border-radius: 18px; width: min(1200px, 100%); border: 1px solid var(--line); overflow: hidden; }
+.ph-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.ph-head .code { position: static; }
+.ph-head h2 { font-size: 20px; font-weight: 700; flex: 1; min-width: 0; }
+.x { border: 1px solid var(--line); background: var(--surface-2); border-radius: 10px; width: 36px; height: 36px; cursor: pointer; font-size: 18px; line-height: 1; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 0; }
+.main { padding: 18px; min-width: 0; display: grid; gap: 14px; align-content: start; }
+.stage { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: 12px; overflow: hidden; }
+.stage img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.nav { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255, 255, 255, .85); color: #111; font-size: 20px; }
+.nav.prev { left: 10px; } .nav.next { right: 10px; }
+.pos { position: absolute; right: 12px; bottom: 10px; font-family: var(--f-mono); font-size: 12px; color: #fff; background: rgba(0, 0, 0, .55); padding: 2px 8px; border-radius: 6px; }
+.thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+.thumbs button { padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: none; aspect-ratio: 16 / 9; }
+.thumbs button[aria-current="true"] { border-color: var(--accent); }
+.thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.side { border-left: 1px solid var(--line); background: var(--surface); padding: 18px; display: grid; gap: 18px; align-content: start; min-width: 0; }
+.side h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.callbox { background: var(--accent-soft); border-radius: 12px; padding: 12px; display: grid; gap: 10px; }
+.callbox input { width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 10px; font-size: 14px; }
+.side ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 14px; }
+.pal { display: grid; gap: 6px; }
+.pal div { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 14px; }
+.pal i { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--line); }
+.pal code { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.lay { columns: 2; column-gap: 16px; font-size: 13.5px; margin: 0; padding: 0; list-style: none; }
+.lay li { break-inside: avoid; padding: 2px 0; }
+.lay code { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); display: block; }
+.small { font-size: 13px; color: var(--muted); margin: 0; }
+.aliases { display: flex; flex-wrap: wrap; gap: 6px; }
+.aliases span { font-size: 12.5px; padding: 2px 8px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line); }
+
+@media (max-width: 900px) {
+  .top { grid-template-columns: 1fr; }
+  .cols { grid-template-columns: 1fr; }
+  .side { border-left: 0; border-top: 1px solid var(--line); }
+}
+@media (max-width: 520px) { .lay { columns: 1; } .search { flex-basis: 100%; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Thư viện mẫu PowerPoint</div>
+      <h1 id="lib-name">Kho Mẫu Slide DAKO</h1>
+      <p class="lede">Chọn một mẫu, sao chép câu gọi rồi gửi kèm tài liệu. Mỗi mẫu có mã riêng (M01, M02…) để gọi nhanh, và danh sách tự cập nhật mỗi khi có mẫu mới.</p>
+      <div class="count" id="count"></div>
+    </div>
+    <ol class="steps" aria-label="Cách dùng">
+      <li><span>Chọn mẫu bên dưới, bấm <b>Sao chép câu gọi</b>.</span></li>
+      <li><span>Mở phiên Claude Code của kho <b>ATL--DAKO</b>, dán câu gọi và đính kèm tài liệu (Word, PDF, PowerPoint, ghi chú…).</span></li>
+      <li><span>Nhận file <b>.pptx</b> đã dàn trang, có ảnh và hiệu ứng, để tải về chỉnh sửa.</span></li>
+    </ol>
+  </header>
+
+  <div class="bar">
+    <div class="filters" id="filters" role="group" aria-label="Lọc theo nhu cầu"></div>
+    <label class="search">
+      <svg viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="q" type="search" placeholder="Tìm: hội an, lime, báo cáo…" aria-label="Tìm mẫu">
+    </label>
+  </div>
+
+  <main class="grid" id="grid" aria-live="polite"></main>
+</div>
+
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="d-name">
+  <div class="panel" id="panel"></div>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const T = DATA.templates;
+let filter = 'Tất cả', query = '';
+
+function remember(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function recall(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+function copy(text, btn, input) {
+  const done = () => { const o = btn.innerHTML; btn.classList.add('done'); btn.textContent = 'Đã sao chép'; setTimeout(() => { btn.classList.remove('done'); btn.innerHTML = o; }, 1800); };
+  const fallback = () => { if (input) { input.focus(); input.select(); btn.textContent = 'Bấm Ctrl+C để sao chép'; } };
+  try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+}
+
+function cats() {
+  const s = new Set(); T.forEach(t => (t.category || []).forEach(c => s.add(c)));
+  return ['Tất cả', ...s];
+}
+function matches(t) {
+  if (filter !== 'Tất cả' && !(t.category || []).includes(filter)) return false;
+  if (!query) return true;
+  const hay = [t.code, t.name, t.tagline, ...(t.aliases || []), ...(t.best_for || []), ...(t.mood || [])].join(' ').toLowerCase();
+  return query.toLowerCase().split(/\s+/).every(w => hay.includes(w));
+}
+
+function renderCount() {
+  const ready = T.filter(t => t.status === 'ready').length;
+  const slides = T.reduce((n, t) => n + (t.slides ? t.slides.length : 0), 0);
+  $('#count').innerHTML = `<span class="chip-stat"><b>${ready}</b> mẫu sẵn dùng</span>`
+    + `<span class="chip-stat"><b>${T.length - ready}</b> mẫu sắp làm</span>`
+    + `<span class="chip-stat"><b>${slides}</b> slide mẫu</span>`;
+}
+function renderFilters() {
+  $('#filters').innerHTML = cats().map(c => `<button class="f" type="button" aria-pressed="${c === filter}">${esc(c)}</button>`).join('');
+  $('#filters').querySelectorAll('.f').forEach(b => b.onclick = () => { filter = b.textContent; remember('kms-filter', filter); renderFilters(); renderGrid(); });
+}
+
+function card(t) {
+  if (t.status !== 'ready') {
+    return `<article class="card planned" id="card-${t.code}">
+      <div class="shot" aria-hidden="true"><div class="ph"><div><b>Sắp làm</b>${esc(t.inspired_by || '')}</div></div></div>
+      <div class="body"><h3><span class="cc">${t.code}</span>${esc(t.name)}</h3><p class="tag">${esc(t.tagline || '')}</p>
+        <div class="actions"><button class="btn" type="button" data-copy="${t.code}">Sao chép câu yêu cầu làm mẫu</button></div></div></article>`;
+  }
+  const sw = (t.palette || []).map(([h, n]) => `<i style="background:#${h}" title="${esc(n)} #${h}"></i>`).join('');
+  const uses = (t.best_for || []).slice(0, 2).map(u => `<span>${esc(u)}</span>`).join('');
+  return `<article class="card" id="card-${t.code}">
+    <button class="shot" type="button" data-open="${t.code}" aria-label="Xem các slide của mẫu ${esc(t.name)}">
+      <img src="${t.cover}" alt="Bìa mẫu ${esc(t.name)}" loading="lazy"></button>
+    <div class="body">
+      <h3><span class="cc">${t.code}</span>${esc(t.name)}</h3>
+      <p class="tag">${esc(t.tagline)}</p>
+      <div class="sw" aria-label="Bảng màu">${sw}</div>
+      <div class="meta">${t.slides.length} slide · ${esc(t.fonts)} · thêm ngày ${esc((t.added || '').split('-').reverse().join('/'))}</div>
+      <div class="uses">${uses}</div>
+      <div class="actions">
+        <button class="btn primary" type="button" data-copy="${t.code}">Sao chép câu gọi</button>
+        <button class="btn" type="button" data-open="${t.code}">Xem ${t.slides.length} slide</button>
+      </div>
+    </div></article>`;
+}
+function renderGrid() {
+  const list = T.filter(matches);
+  $('#grid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">Không có mẫu nào khớp “${esc(query)}”. Thử từ khóa khác hoặc chọn “Tất cả”.</div>`;
+  $('#grid').querySelectorAll('[data-open]').forEach(b => b.onclick = () => openSheet(b.dataset.open));
+  $('#grid').querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(T.find(t => t.code === b.dataset.copy).call, b));
+}
+
+let cur = null, idx = 0, lastFocus = null;
+function openSheet(code, i = 0) {
+  cur = T.find(t => t.code === code); if (!cur || cur.status !== 'ready') return;
+  idx = i; lastFocus = document.activeElement;
+  const pal = (cur.palette || []).map(([h, n]) => `<div><i style="background:#${h}"></i><span>${esc(n)}</span><code>#${h}</code></div>`).join('');
+  const lay = (cur.layouts || []).map(([k, v]) => `<li>${esc(v)}<code>${esc(k)}</code></li>`).join('');
+  $('#panel').innerHTML = `
+    <div class="ph-head"><span class="code">${cur.code}</span><h2 id="d-name">${esc(cur.name)}</h2>
+      <button class="x" type="button" id="close" aria-label="Đóng">✕</button></div>
+    <div class="cols">
+      <div class="main">
+        <div class="stage"><img id="big" alt=""><button class="nav prev" type="button" aria-label="Slide trước">‹</button>
+          <button class="nav next" type="button" aria-label="Slide sau">›</button><span class="pos" id="pos"></span></div>
+        <div class="thumbs" id="thumbs">${cur.slides.map((s, k) => `<button type="button" data-i="${k}" aria-label="Slide ${k + 1}"><img src="${s}" alt="" loading="lazy"></button>`).join('')}</div>
+      </div>
+      <aside class="side">
+        <div class="callbox"><h4>Câu gọi mẫu</h4>
+          <input id="callin" readonly value="${esc(cur.call)}" aria-label="Câu gọi mẫu">
+          <button class="btn primary" type="button" id="callbtn">Sao chép câu gọi</button>
+          <p class="small">Dán vào Claude Code cùng tài liệu. Gọi ngắn cũng được: “mẫu ${cur.code}” hoặc “mẫu ${esc((cur.aliases || [cur.name])[0])}”.</p></div>
+        <div><h4>Phù hợp cho</h4><ul>${(cur.best_for || []).map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>
+        <div><h4>Bảng màu</h4><div class="pal">${pal}</div></div>
+        <div><h4>Font chữ</h4><p class="small">${esc(cur.fonts)} — cài từ thư mục <code>slides-template/fonts</code> trước khi mở file.</p></div>
+        <div><h4>Từ khóa gọi tắt</h4><div class="aliases">${(cur.aliases || []).map(a => `<span>${esc(a)}</span>`).join('')}</div></div>
+        <div><h4>${cur.same_as ? 'Các dạng slide (giống ' + cur.same_as + ')' : 'Các dạng slide'}</h4><ul class="lay">${lay}</ul></div>
+        <div><h4>File mẫu</h4><a class="btn" href="${esc(cur.download)}" target="_blank" rel="noopener">Mở file .pptx trên GitHub (${cur.size_mb} MB)</a>
+          <p class="small" style="margin-top:8px">Lấy cảm hứng từ: ${esc(cur.inspired_by)}. Mở bằng PowerPoint 2019 / Microsoft 365 để có hiệu ứng Morph.</p></div>
+      </aside>
+    </div>`;
+  $('#sheet').hidden = false; document.body.style.overflow = 'hidden';
+  $('#close').onclick = closeSheet;
+  $('#callbtn').onclick = e => copy(cur.call, e.currentTarget, $('#callin'));
+  $('.nav.prev').onclick = () => show(idx - 1); $('.nav.next').onclick = () => show(idx + 1);
+  $('#thumbs').querySelectorAll('button').forEach(b => b.onclick = () => show(+b.dataset.i));
+  show(idx); $('#close').focus();
+  if (location.hash !== '#' + cur.code) history.replaceState(null, '', '#' + cur.code);
+}
+function show(i) {
+  idx = (i + cur.slides.length) % cur.slides.length;
+  $('#big').src = cur.slides[idx]; $('#big').alt = `${cur.name} – slide ${idx + 1}`;
+  $('#pos').textContent = `${String(idx + 1).padStart(2, '0')} / ${String(cur.slides.length).padStart(2, '0')}`;
+  $('#thumbs').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === idx));
+}
+function closeSheet() {
+  $('#sheet').hidden = true; document.body.style.overflow = ''; cur = null;
+  history.replaceState(null, '', location.pathname + location.search);
+  if (lastFocus) lastFocus.focus();
+}
+$('#sheet').addEventListener('click', e => { if (e.target.id === 'sheet') closeSheet(); });
+document.addEventListener('keydown', e => {
+  if (!cur) return;
+  if (e.key === 'Escape') closeSheet();
+  if (e.key === 'ArrowRight') show(idx + 1);
+  if (e.key === 'ArrowLeft') show(idx - 1);
+});
+$('#q').addEventListener('input', e => { query = e.target.value.trim(); renderGrid(); });
+
+$('#lib-name').textContent = DATA.library;
+filter = cats().includes(recall('kms-filter')) ? recall('kms-filter') : 'Tất cả';
+renderCount(); renderFilters(); renderGrid();
+const h = location.hash.replace('#', '').toUpperCase();
+if (h && T.some(t => t.code === h)) openSheet(h);
+</script>

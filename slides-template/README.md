@@ -1,18 +1,30 @@
-# Mẫu slide báo cáo "Aurora" / "Lime"
+# Kho Mẫu Slide DAKO
 
-Bộ mẫu PowerPoint 34 slide xây dựng theo tinh thần các video mẫu (báo cáo xanh lime, Hội An, Mác – Lênin, Lao động – Việc làm):
-chữ đậm in hoa, số thứ tự phần cỡ lớn, khung ảnh bo góc với người tách nền "bật" ra ngoài khung, quầng sáng mờ ở góc,
-ảnh nền làm mờ và thẻ kính mờ, cùng hiệu ứng Morph và Animation cho từng thành phần.
+Thư viện mẫu PowerPoint dựng bằng mã (python-pptx): mỗi mẫu có mã riêng, ảnh xem trước và file nội dung mẫu, để làm
+bộ slide mới chỉ cần đưa tài liệu vào.
 
-## File đầu ra
+- **Trang thư viện (xem trước, sao chép câu gọi):** https://claude.ai/artifact/JmoetKFXwLHYifaeGuBUih
+- **Danh sách trong kho:** [`catalog/CATALOG.md`](catalog/CATALOG.md) — nguồn dữ liệu: `catalog/templates.json`
+- **Cách gọi:** trong Claude Code của kho này gõ, ví dụ, `Dùng mẫu M03 · Di sản Hội An để làm bộ slide từ tài liệu tôi
+  gửi kèm` và đính kèm tài liệu. Quy trình chi tiết cho Claude nằm ở `CLAUDE.md` (gốc kho).
 
-| File | Mô tả |
-|---|---|
-| `output/Mau-Bao-Cao-Aurora.pptx` | Bảng màu chữ ký: xanh navy đậm + xanh aqua điện tử |
-| `output/Mau-Bao-Cao-Lime.pptx` | Bảng màu gần mẫu gốc nhất: xanh rêu đậm + xanh lime |
+| Mã | Mẫu | File | Dựng |
+|---|---|---|---|
+| M01 | Báo cáo Xanh Lime — rêu đậm + lime | `output/Mau-Bao-Cao-Lime.pptx` | `python build_deck.py --theme lime` |
+| M02 | Báo cáo Aurora — navy + aqua | `output/Mau-Bao-Cao-Aurora.pptx` | `python build_deck.py --theme aurora` |
+| M03 | Di sản Hội An — cổ điển, giấy cổ, vàng kim | `output/Mau-Bao-Cao-HoiAn.pptx` | `python build_hoian.py` |
+
+Làm bộ slide từ file nội dung: `python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`
+(mẫu nội dung trong `catalog/samples/`). Thêm mẫu mới xong thì chạy `python tools/update_catalog.py` và đăng lại trang thư viện.
+Container mới: `bash tools/setup_env.sh`.
 
 Mở bằng **PowerPoint 2019 / Microsoft 365** để có Morph. Bản cũ hơn sẽ tự động dùng Fade thay cho Morph.
-Nên cài font **Montserrat** trong thư mục `fonts/` trước khi mở (Windows: chuột phải → Install for all users).
+Cài font trong `fonts/` (M01/M02: Montserrat) và `fonts/heritage/` (M03: Noto Serif Display, Noto Serif, Playfair Display)
+trước khi mở (Windows: chuột phải → Install for all users).
+
+---
+
+## M01 / M02 — Báo cáo Xanh Lime / Aurora
 
 ## Danh sách slide
 
@@ -83,3 +95,16 @@ python build_deck.py --theme lime    # chỉ tạo 1 bảng màu
 - `lib/imgproc.py` — `cutout(src, dst)` tách nền (tự tải mô hình ISNet từ npm lần đầu vào `models/`),
   `smart_crop()` và `blurred()` để cắt / làm mờ ảnh nền.
 - `tools/oisearch.py` — tìm ảnh trong Open Images theo nhãn (ví dụ `"Meeting+Laptop"`) và xuất bảng xem trước để chọn ảnh.
+
+
+---
+
+## M03 — Di sản Hội An
+
+Theo video mẫu Phố cổ Hội An: ảnh tràn nền phủ tối dần từ trái, tiêu đề chữ có chân mảnh in hoa, phụ đề chữ hẹp màu
+vàng kim, slide giấy cổ có lưới kinh tuyến và hoa gió, thẻ kính mờ, dải cọ vàng sau tiêu đề biểu đồ, ảnh polaroid mép rách.
+24 slide (1 slide ẩn ghi nguồn ảnh): bìa · mục lục số La Mã · bản đồ Đà Nẵng – Hội An (Natural Earth) · thẻ kính mốc 1999 ·
+chuyển phần · biểu đồ cột vàng · Chùa Cầu · nhà cổ · Hội quán Phúc Kiến · gánh hàng rong (tách nền) · bảo tàng gốm sứ ·
+chợ Hội An · trải nghiệm · ẩm thực · dòng thời gian · polaroid lịch sử · bảo tồn · những con số · bảng di tích · SWOT ·
+kết luận · cảm ơn. Ảnh: chụp tại Hội An / Việt Nam, CC BY 2.0 (Open Images), danh sách tác giả trong
+`assets/images/credits.csv`. Chất liệu (giấy cổ, dải cọ, huy hiệu, polaroid) sinh bằng `lib/heritage_assets.py`.
