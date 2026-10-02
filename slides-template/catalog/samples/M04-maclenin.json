@@ -1,0 +1,531 @@
+{
+ "template": "M04",
+ "title": "Vấn đề cơ bản của triết học",
+ "photos": {
+  "lenin_point": "10cc1ba2e93bb76c",
+  "lenin_bes": "bb6d1502e7c1dfdc",
+  "lenin_full": "7faeb35fc6f5f06c",
+  "lenin_bw": "d85c7127d6f60d2d",
+  "marx_moscow": "8ff5c32c48898941",
+  "marx_engels": "a48c4e93a5a77ee0",
+  "marx_engels2": "9a1ec6de8c651ee0",
+  "kant": "cf88409cd2bfda86",
+  "hegel": "27b386ea270e0b6a",
+  "socrates": "3b411449688d6da2",
+  "aristotle": "7c7e0b4147b30904",
+  "marx_painted": "8d6c1e77885f4286",
+  "mausoleum": "03fa70f17f1cc621",
+  "party_flag": "76876cac5f1d8cfe",
+  "vn_flag": "75ced08460fd59f6",
+  "galaxy": "aa3c4db34c3083b8",
+  "milky": "d1eb885b5b422194",
+  "rembrandt": "5e1d44f4103f98d8",
+  "monks": "c2dbd34f38c4d727",
+  "lab": "414f3f1ceb2f299d",
+  "lab2": "57ca2239566c9f44",
+  "steel": "d640089d4b060a53",
+  "towers": "bebde77e4727282f",
+  "rice_farmer": "87f33af46ed2ce70",
+  "rice_terrace": "2fd3eb1cc3d5d7d7",
+  "brain": "30429f04ebe7372a",
+  "library_bw": "4c3fc234ad6c8758",
+  "greek": "0d5f48a7920119ab",
+  "red_flags": "45a71f7547f5b605",
+  "hcm_statue": "877097cd1080e46f"
+ },
+ "slides": [
+  {
+   "slide": "cover",
+   "kicker": "Triết học Mác – Lênin",
+   "title": "Vấn đề cơ bản của triết học\nvà các trường phái triết học",
+   "chips": [
+    "Vấn đề cơ bản",
+    "Duy vật & duy tâm",
+    "Khả tri & bất khả tri"
+   ],
+   "presenter": "Trình bày: Nhóm 3 – Lớp Triết học K50",
+   "info": "GVHD: TS. Nguyễn Văn A   |   Học kỳ I, năm học 2026 – 2027",
+   "portrait": "lenin_bes"
+  },
+  {
+   "slide": "agenda",
+   "title": "Câu hỏi mở đầu và bố cục nội dung",
+   "question": "Thế giới vật chất có trước, hay ý thức quyết định thế giới?",
+   "parts": [
+    [
+     "Phần 1",
+     "Nội dung vấn đề cơ bản của triết học"
+    ],
+    [
+     "Phần 2",
+     "Chủ nghĩa duy vật và chủ nghĩa duy tâm"
+    ],
+    [
+     "Phần 3",
+     "Thuyết khả tri và thuyết bất khả tri"
+    ]
+   ]
+  },
+  {
+   "slide": "quote_portrait",
+   "part": "Phần 1",
+   "title": "Vì sao đây là vấn đề cơ bản?",
+   "points": [
+    "Xoay quanh quan hệ giữa vật chất và ý thức, giữa tồn tại và tư duy",
+    "Là nền tảng, điểm xuất phát để giải quyết các vấn đề khác của triết học",
+    "Quy định lập trường, thế giới quan của các nhà triết học và trường phái"
+   ],
+   "quote": "“Vấn đề cơ bản lớn của mọi triết học, đặc biệt là của triết học hiện đại, là vấn đề quan hệ giữa tư duy với tồn tại.”",
+   "author": "Ph. Ăngghen",
+   "portrait": "marx_engels"
+  },
+  {
+   "slide": "compare",
+   "part": "Phần 1",
+   "title": "Hai phạm vi: vật chất và tinh thần",
+   "left": {
+    "title": "Thế giới vật chất",
+    "lines": [
+     "Tồn tại khách quan, bên ngoài ý thức con người.",
+     "Không phụ thuộc vào việc con người có nhận thức được hay không.",
+     "Ví dụ: giới tự nhiên, cơ thể con người, các quá trình vật chất."
+    ],
+    "image": "galaxy"
+   },
+   "right": {
+    "title": "Thế giới tinh thần",
+    "lines": [
+     "Gắn với ý thức và đời sống tinh thần của con người.",
+     "Bao gồm tư duy, cảm xúc, tri thức, niềm tin…",
+     "Có khả năng phản ánh và tác động trở lại thế giới vật chất."
+    ],
+    "image": "rembrandt",
+    "focus": [
+     0.5,
+     0.62
+    ]
+   },
+   "statement": "Mọi trường phái triết học đều phải giải quyết quan hệ giữa hai phạm vi này"
+  },
+  {
+   "slide": "aspects",
+   "part": "Phần 1",
+   "title": "Hai mặt của vấn đề cơ bản",
+   "aspects": [
+    {
+     "label": "Mặt thứ nhất",
+     "question": "Giữa vật chất và ý thức, cái nào có trước, cái nào có sau, cái nào quyết định cái nào?",
+     "answer": "Cách trả lời chia triết học thành duy vật và duy tâm"
+    },
+    {
+     "label": "Mặt thứ hai",
+     "question": "Con người có khả năng nhận thức được thế giới hay không?",
+     "answer": "Cách trả lời chia thành thuyết khả tri và bất khả tri"
+    }
+   ]
+  },
+  {
+   "slide": "tree",
+   "part": "Phần 1",
+   "title": "Từ hai câu hỏi đến các trường phái",
+   "branches": [
+    {
+     "label": "Mặt thứ nhất",
+     "children": [
+      "Chủ nghĩa duy vật",
+      "Chủ nghĩa duy tâm"
+     ]
+    },
+    {
+     "label": "Mặt thứ hai",
+     "children": [
+      "Thuyết khả tri",
+      "Thuyết bất khả tri"
+     ]
+    }
+   ],
+   "statement": "Không đồng nhất duy vật với khả tri, hay duy tâm với bất khả tri",
+   "portrait": "lenin_point"
+  },
+  {
+   "slide": "section",
+   "num": 2,
+   "title": "Chủ nghĩa duy vật và chủ nghĩa duy tâm",
+   "desc": "Hai trường phái lớn hình thành từ cách giải quyết mặt thứ nhất của vấn đề cơ bản của triết học."
+  },
+  {
+   "slide": "forms3",
+   "part": "Phần 2",
+   "title": "Chủ nghĩa duy vật",
+   "header": "Ba hình thức",
+   "items": [
+    "Chất phác",
+    "Siêu hình",
+    "Biện chứng"
+   ],
+   "notes": [
+    "Vật chất và giới tự nhiên là cái có trước",
+    "Vật chất quyết định ý thức"
+   ],
+   "caption": "Giải thích thế giới bằng chính những nguyên nhân vật chất của nó",
+   "image": "milky"
+  },
+  {
+   "slide": "star_list",
+   "part": "Phần 2",
+   "title": "Chủ nghĩa duy vật chất phác",
+   "items": [
+    "Hình thành trong triết học cổ đại: Hy Lạp, Trung Hoa, Ấn Độ",
+    "Thừa nhận tính thứ nhất của vật chất",
+    "Đồng nhất vật chất với một hay vài chất cụ thể: nước, lửa, không khí…",
+    "Kết luận mang tính trực quan, ngây thơ, chất phác",
+    "Lấy giới tự nhiên để giải thích giới tự nhiên, không viện đến thần linh"
+   ],
+   "images": [
+    "greek",
+    "aristotle"
+   ],
+   "focus2": [
+    0.5,
+    0.3
+   ]
+  },
+  {
+   "slide": "hex_list",
+   "part": "Phần 2",
+   "title": "Chủ nghĩa duy vật siêu hình",
+   "items": [
+    "Thể hiện rõ từ thế kỷ XV đến thế kỷ XVIII",
+    "Chịu ảnh hưởng mạnh của phương pháp tư duy siêu hình, máy móc",
+    "Nhìn thế giới như một cỗ máy khổng lồ",
+    "Xem các bộ phận tồn tại biệt lập, tĩnh tại",
+    "Góp phần đẩy lùi thế giới quan duy tâm và tôn giáo"
+   ],
+   "images": [
+    "library_bw",
+    "lab",
+    "towers"
+   ]
+  },
+  {
+   "slide": "strip",
+   "part": "Phần 2",
+   "title": "Chủ nghĩa duy vật biện chứng",
+   "images": [
+    "marx_painted",
+    "steel",
+    "rice_farmer"
+   ],
+   "captions": [
+    "Do C. Mác và Ph. Ăngghen xây dựng, V.I. Lênin phát triển",
+    "Khắc phục hạn chế của hai hình thức duy vật trước đó",
+    "Kế thừa tinh hoa học thuyết trước và thành tựu khoa học đương thời",
+    "Đỉnh cao trong sự phát triển của chủ nghĩa duy vật",
+    "Vừa phản ánh đúng hiện thực, vừa định hướng cải tạo hiện thực"
+   ]
+  },
+  {
+   "slide": "medal_list",
+   "part": "Phần 2",
+   "title": "Chủ nghĩa duy tâm",
+   "items": [
+    [
+     "lightbulb",
+     "Ý thức, tinh thần, ý niệm, cảm giác là cái có trước giới tự nhiên"
+    ],
+    [
+     "book-open",
+     "Giải thích thế giới bằng những nguyên nhân tinh thần, tư tưởng"
+    ],
+    [
+     "scale",
+     "Thường là cơ sở lý luận, bảo vệ cho tôn giáo"
+    ]
+   ],
+   "sub": "Hai nhánh của chủ nghĩa duy tâm",
+   "branches": [
+    "Duy tâm chủ quan",
+    "Duy tâm khách quan"
+   ]
+  },
+  {
+   "slide": "branches2",
+   "part": "Phần 2",
+   "title": "Duy tâm chủ quan và duy tâm khách quan",
+   "groups": [
+    {
+     "title": "Duy tâm chủ quan",
+     "children": [
+      "Thừa nhận tính thứ nhất của ý thức con người",
+      "Sự vật chỉ là “phức hợp những cảm giác” (G. Beccơli)"
+     ]
+    },
+    {
+     "title": "Duy tâm khách quan",
+     "children": [
+      "Tinh thần khách quan có trước, tồn tại độc lập với con người",
+      "“Ý niệm” (Platôn), “ý niệm tuyệt đối” (Hêghen)"
+     ]
+    }
+   ]
+  },
+  {
+   "slide": "columns3",
+   "part": "Phần 2",
+   "title": "Nguồn gốc của chủ nghĩa duy tâm",
+   "cols": [
+    {
+     "icon": "landmark",
+     "title": "Gắn với tôn giáo",
+     "text": "Thường là cơ sở lý luận của tôn giáo, dù không đồng nhất hoàn toàn với tôn giáo.",
+     "image": "monks"
+    },
+    {
+     "icon": "brain",
+     "title": "Nguồn gốc nhận thức",
+     "text": "Xem xét phiến diện, tuyệt đối hóa một mặt của quá trình nhận thức.",
+     "image": "brain"
+    },
+    {
+     "icon": "users",
+     "title": "Nguồn gốc xã hội",
+     "text": "Lao động trí óc tách rời lao động chân tay; lợi ích của giai cấp thống trị.",
+     "image": "rice_terrace"
+    }
+   ]
+  },
+  {
+   "slide": "compare_quote",
+   "part": "Phần 2",
+   "title": "Nhất nguyên luận và nhị nguyên luận",
+   "cards": [
+    {
+     "title": "Nhất nguyên luận",
+     "text": "Chỉ thừa nhận một trong hai thực thể (vật chất hoặc tinh thần) là bản nguyên của thế giới.",
+     "chips": [
+      "Nhất nguyên duy vật",
+      "Nhất nguyên duy tâm"
+     ]
+    },
+    {
+     "title": "Nhị nguyên luận",
+     "text": "Vật chất và tinh thần là hai bản nguyên tồn tại song song, độc lập với nhau.",
+     "chips": [
+      "Tiêu biểu: R. Đềcáctơ"
+     ]
+    }
+   ],
+   "quote": "Xét đến cùng, nhị nguyên luận thuộc về chủ nghĩa duy tâm"
+  },
+  {
+   "slide": "section",
+   "num": 3,
+   "title": "Thuyết khả tri và thuyết bất khả tri",
+   "desc": "Cách trả lời mặt thứ hai: con người có nhận thức được thế giới hay không?"
+  },
+  {
+   "slide": "question_portrait",
+   "part": "Phần 3",
+   "title": "Mặt thứ hai: khả năng nhận thức",
+   "question": "“Con người có thể nhận thức được thế giới hay không?”",
+   "text": "Tuyệt đại đa số các nhà triết học, cả duy vật lẫn duy tâm, đều phải trả lời câu hỏi này.",
+   "frame_title": "Hai lập trường",
+   "options": [
+    "Thuyết khả tri",
+    "Thuyết bất khả tri"
+   ],
+   "portrait": "lenin_bw",
+   "name": "V.I. Lênin"
+  },
+  {
+   "slide": "star_list",
+   "part": "Phần 3",
+   "title": "Thuyết khả tri",
+   "items": [
+    "Khẳng định khả năng nhận thức thế giới của con người",
+    "Về nguyên tắc, con người có thể hiểu được bản chất của sự vật",
+    "Cảm giác, biểu tượng, khái niệm… phù hợp với chính sự vật",
+    "Nhận thức là quá trình không ngừng đi sâu vào bản chất"
+   ],
+   "images": [
+    "galaxy",
+    "lab2"
+   ],
+   "focus2": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "slide": "people",
+   "part": "Phần 3",
+   "title": "Cantơ và Hêghen: hai cách nhìn",
+   "lead_label": "Thuyết bất khả tri",
+   "lead_text": "Phủ nhận khả năng nhận thức bản chất của đối tượng; kết quả nhận thức chỉ là bề ngoài, hạn hẹp và cắt xén.",
+   "persons": [
+    {
+     "name": "I. Cantơ",
+     "cut": "kant_ink",
+     "lines": [
+      "Phân biệt “hiện tượng” và “vật tự nó”",
+      "Con người chỉ nhận thức được hiện tượng, không thể nhận thức được “vật tự nó”"
+     ]
+    },
+    {
+     "name": "G.W.F. Hêghen",
+     "cut": "hegel",
+     "lines": [
+      "Phê phán thuyết bất khả tri của Cantơ",
+      "Khẳng định khả năng nhận thức thế giới, trên lập trường duy tâm khách quan"
+     ]
+    }
+   ]
+  },
+  {
+   "slide": "conclusion",
+   "part": "Phần 3",
+   "title": "Thực tiễn và kết luận",
+   "lead": "“Vấn đề tìm hiểu xem tư duy của con người có thể đạt tới chân lý khách quan không, hoàn toàn không phải là một vấn đề lý luận mà là một vấn đề thực tiễn.” — C. Mác",
+   "items": [
+    "Thực tiễn chứng minh tính đúng đắn của nhận thức",
+    "“Vật tự nó” dần trở thành “vật cho ta”",
+    "Vật chất có trước và quyết định ý thức",
+    "Con người có khả năng nhận thức đúng đắn thế giới"
+   ],
+   "statement": "LẬP TRƯỜNG MÁC – LÊNIN: duy vật biện chứng, gắn nhận thức với thực tiễn",
+   "portrait": "marx_moscow"
+  },
+  {
+   "slide": "timeline",
+   "part": "Tư liệu",
+   "title": "Các mốc hình thành triết học Mác – Lênin",
+   "events": [
+    [
+     "1844",
+     "Mác gặp Ăngghen",
+     "Bắt đầu tình bạn và sự hợp tác lý luận suốt đời"
+    ],
+    [
+     "1848",
+     "Tuyên ngôn",
+     "Tuyên ngôn của Đảng Cộng sản ra đời"
+    ],
+    [
+     "1867",
+     "Bộ Tư bản",
+     "Tập I bộ Tư bản của C. Mác được xuất bản"
+    ],
+    [
+     "1909",
+     "V.I. Lênin",
+     "Tác phẩm “Chủ nghĩa duy vật và chủ nghĩa kinh nghiệm phê phán”"
+    ],
+    [
+     "1930",
+     "Việt Nam",
+     "Đảng Cộng sản Việt Nam ra đời, vận dụng chủ nghĩa Mác – Lênin"
+    ]
+   ]
+  },
+  {
+   "slide": "chart",
+   "part": "Khảo sát",
+   "title": "Mức độ nắm vững kiến thức của sinh viên",
+   "chart": {
+    "cats": [
+     "Vấn đề cơ bản",
+     "Duy vật – duy tâm",
+     "Khả tri – bất khả tri",
+     "Vai trò thực tiễn"
+    ],
+    "series": [
+     [
+      "Trước học phần",
+      [
+       42,
+       55,
+       38,
+       47
+      ]
+     ],
+     [
+      "Sau học phần",
+      [
+       86,
+       91,
+       79,
+       88
+      ]
+     ]
+    ],
+    "fmt": "0\"%\"",
+    "max": 100
+   },
+   "kpis": [
+    [
+     "+40",
+     "%",
+     "Mức tăng trung bình sau học phần"
+    ],
+    [
+     "120",
+     "SV",
+     "Sinh viên tham gia khảo sát"
+    ],
+    [
+     "4",
+     "nội dung",
+     "Nhóm kiến thức được đánh giá"
+    ]
+   ],
+   "note": "Số liệu minh họa — chuột phải vào biểu đồ → Edit Data để thay số liệu thật."
+  },
+  {
+   "slide": "table_slide",
+   "part": "Tổng kết",
+   "title": "So sánh ba hình thức của chủ nghĩa duy vật",
+   "col_w": [
+    2.2,
+    2.4,
+    4.0,
+    3.5
+   ],
+   "rows": [
+    [
+     "Hình thức",
+     "Thời kỳ",
+     "Đặc điểm",
+     "Hạn chế / ý nghĩa"
+    ],
+    [
+     "Chất phác",
+     "Cổ đại",
+     "Đồng nhất vật chất với một số chất cụ thể",
+     "Trực quan, ngây thơ"
+    ],
+    [
+     "Siêu hình",
+     "Thế kỷ XV – XVIII",
+     "Nhìn thế giới như một cỗ máy khổng lồ",
+     "Máy móc, biệt lập, tĩnh tại"
+    ],
+    [
+     "Biện chứng",
+     "Từ những năm 40 thế kỷ XIX",
+     "Thống nhất thế giới quan duy vật với phép biện chứng",
+     "Khắc phục hạn chế của các hình thức trước"
+    ]
+   ],
+   "caption": "Bảng là đối tượng gốc của PowerPoint: thêm / bớt dòng, sửa chữ trực tiếp."
+  },
+  {
+   "slide": "thanks",
+   "title": "Xin cảm ơn",
+   "sub": "thầy cô và các bạn đã lắng nghe!",
+   "kicker": "Triết học Mác – Lênin",
+   "presenter": "Trình bày: Nhóm 3",
+   "info": "Lớp Triết học K50 · Học kỳ I, 2026",
+   "portrait": "lenin_full_top"
+  }
+ ]
+}

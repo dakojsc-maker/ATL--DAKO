@@ -9,7 +9,7 @@ Danh sách mẫu slide. Trang thư viện có ảnh xem trước: [https://claud
 | **M01** | Báo cáo Xanh Lime | Báo cáo đề tài hiện đại: rêu đậm + xanh lime, nhân vật tách nền bật khỏi khung ảnh. | Báo cáo môn học, tiểu luận, khóa luận; Báo cáo nghiên cứu có khảo sát, số liệu; Đề án, kế hoạch, báo cáo dự án | 33 slide |
 | **M02** | Báo cáo Aurora | Cùng bố cục với M01, tông xanh navy + aqua – hợp báo cáo công nghệ, doanh nghiệp. | Báo cáo công nghệ, chuyển đổi số; Báo cáo kinh doanh, kết quả quý / năm; Thuyết trình dự án cho doanh nghiệp | 33 slide |
 | **M03** | Di sản Hội An | Cổ điển, điện ảnh: ảnh tràn nền phủ tối, chữ có chân mảnh, giấy cổ, ảnh polaroid mép rách. | Văn hóa, lịch sử, di sản, địa danh; Du lịch, ẩm thực, giới thiệu địa phương; Báo cáo môn Văn hóa Việt Nam, Lịch sử, Địa lý | 23 slide |
-| **M04** | Chính luận Mác – Lênin | Sắp làm: mẫu cho các môn lý luận chính trị. | Chính trị – xã hội; Báo cáo – học thuật | Sắp làm |
+| **M04** | Chính luận Mác – Lênin | Lụa đỏ, vàng kim, búa liềm và huân chương sao; tượng tách nền làm người dẫn chuyện, chữ áp phích khổ hẹp. | Triết học, Kinh tế chính trị, CNXH khoa học Mác – Lênin; Tư tưởng Hồ Chí Minh, Lịch sử Đảng CSVN; Thuyết trình chính trị – xã hội, sinh hoạt Đoàn – Đảng | 24 slide |
 | **M05** | Lao động – Việc làm | Sắp làm: mẫu cho chủ đề kinh tế – xã hội, thị trường lao động. | Chính trị – xã hội; Doanh nghiệp | Sắp làm |
 
 ## M01 · Báo cáo Xanh Lime
@@ -59,10 +59,18 @@ Cổ điển, điện ảnh: ảnh tràn nền phủ tối, chữ có chân mả
 
 ## M04 · Chính luận Mác – Lênin
 
-Sắp làm: mẫu cho các môn lý luận chính trị.
+Lụa đỏ, vàng kim, búa liềm và huân chương sao; tượng tách nền làm người dẫn chuyện, chữ áp phích khổ hẹp.
 
-- **Trạng thái:** sắp làm — Video 3 – mẫu Triết học Mác – Lênin (TikTok)
-- **Câu gọi để làm:** `Làm mẫu M04 · Chính luận Mác – Lênin theo Video 3 – mẫu Triết học Mác – Lênin (TikTok).`
+![Chính luận Mác – Lênin](site/previews/M04/sheet.jpg)
+
+- **Câu gọi:** `Dùng mẫu M04 · Chính luận Mác – Lênin để làm bộ slide từ tài liệu tôi gửi kèm.`
+- **Gọi tắt:** mác lênin, mac lenin, chính luận, chính trị, lý luận chính trị, triết học, đỏ vàng, video 3
+- **Bảng màu:** `#C3141F` Đỏ son, `#7A0912` Đỏ thẫm, `#E3AE4A` Vàng kim, `#FFE6A1` Vàng nhạt, `#FFF4E2` Kem
+- **Font:** Big Shoulders Display · Be Vietnam Pro
+- **File mẫu:** `slides-template/output/Mau-Chinh-Luan-MacLenin.pptx` (13.9 MB)
+- **Dựng:** `python build_maclenin.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M04-maclenin.json`
+- **Lấy cảm hứng từ:** Video 3 – mẫu Triết học Mác – Lênin (TikTok)
+- **Các dạng slide** (`"slide"` trong file nội dung): `cover` Bìa – tượng tách nền, búa liềm, lụa đỏ, `agenda` Câu hỏi mở đầu + các phần, `quote_portrait` Trích dẫn + chân dung + 3 ý, `compare` So sánh 2 cột có ảnh, `aspects` Hai mặt + búa liềm lớn, `tree` Sơ đồ cây + chân dung, `section` Chuyển phần – huân chương sao, `forms3` Ba hình thức đánh số + ảnh, `star_list` Danh sách sao + 2 ảnh vát góc, `hex_list` Ảnh lục giác + danh sách, `strip` Dải 3 ảnh + thẻ chú thích, `medal_list` Danh sách icon + huân chương, `branches2` Hai nhánh khái niệm, `columns3` 3 cột icon + ảnh, `compare_quote` 2 thẻ khái niệm + câu kết, `question_portrait` Câu hỏi + hai lập trường + chân dung, `people` Hai nhân vật (tượng / tranh khắc), `conclusion` Kết luận + trích dẫn + chân dung, `timeline` Dòng thời gian 5 mốc, `chart` Biểu đồ cột vàng + 3 chỉ số, `table_slide` Bảng so sánh, `thanks` Cảm ơn
 
 ## M05 · Lao động – Việc làm
 

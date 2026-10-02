@@ -938,7 +938,7 @@ EFFECTS = {
     # name: (presetID, subtype)
     'fade': (10, 0), 'wipe_l': (22, 8), 'wipe_u': (22, 4), 'wipe_d': (22, 1), 'wipe_r': (22, 2),
     'zoom': (53, 16), 'float': (42, 0), 'rise': (42, 0), 'wheel': (21, 1), 'fly_l': (2, 8), 'fly_r': (2, 2),
-    'fly_b': (2, 4), 'grow': (53, 16),
+    'fly_b': (2, 4), 'grow': (53, 16), 'turn': (31, 0),
 }
 
 
@@ -1010,6 +1010,14 @@ def _bhv(ids, spid, effect, dur):
         x.append(anim_prop('ppt_y', '#ppt_y+.06', '#ppt_y'))
     elif effect == 'wheel':
         x.append(fx('wheel(1)'))
+    elif effect == 'turn':          # Grow & Turn: scale up from nothing while rotating 90 -> 0 degrees
+        x.append(anim_prop('ppt_w', '0', '#ppt_w'))
+        x.append(anim_prop('ppt_h', '0', '#ppt_h'))
+        x.append(f'<p:anim calcmode="lin" valueType="num"><p:cBhvr><p:cTn id="{nid()}" dur="{dur}" fill="hold"/>'
+                 f'{_tgt(spid)}<p:attrNameLst><p:attrName>style.rotation</p:attrName></p:attrNameLst></p:cBhvr>'
+                 f'<p:tavLst><p:tav tm="0"><p:val><p:fltVal val="90"/></p:val></p:tav>'
+                 f'<p:tav tm="100000"><p:val><p:fltVal val="0"/></p:val></p:tav></p:tavLst></p:anim>')
+        x.append(fx('fade'))
     elif effect.startswith('fly'):
         if effect == 'fly_l':
             x.append(anim_prop('ppt_x', '0-#ppt_w/2', '#ppt_x'))

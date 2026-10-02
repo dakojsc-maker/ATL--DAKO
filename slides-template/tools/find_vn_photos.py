@@ -7,13 +7,16 @@ Then builds contact sheets per keyword so photos can be picked by eye.
 
     python tools/find_vn_photos.py            # scan + sheets
     python tools/find_vn_photos.py sheets     # sheets only (after a scan)
+
+Other topics: pass your own title regex and an output name, e.g. for the political template (M04):
+    python tools/find_vn_photos.py scan --pattern "lenin|karl marx|engels|propaganda" --name politics
+    python tools/find_vn_photos.py sheets "lenin" --name politics
 """
 import concurrent.futures as cf
 import csv
 import io
 import os
 import re
-import sys
 import urllib.request
 
 from PIL import Image, ImageDraw
@@ -36,10 +39,15 @@ PAT = re.compile(r'h[oộ]i[\s_-]?an|vietnam|viet[\s_-]?nam|việt|saigon|sai[\s
 OUT = os.path.join(OI, 'vn_photos.csv')
 
 
-def scan():
+def csv_path(name=None):
+    return os.path.join(OI, f'{name}_photos.csv') if name else OUT
+
+
+def scan(pattern=None, name=None):
     os.makedirs(OI, exist_ok=True)
+    pat = re.compile(pattern, re.I) if pattern else PAT
     n = 0
-    with open(OUT, 'w', newline='', encoding='utf-8') as fo:
+    with open(csv_path(name), 'w', newline='', encoding='utf-8') as fo:
         w = csv.writer(fo)
         w.writerow(['ImageID', 'Subset', 'OriginalLandingURL', 'License', 'Author', 'Title'])
         for subset, url in SOURCES:
@@ -47,7 +55,7 @@ def scan():
             rd = csv.DictReader(io.TextIOWrapper(resp, encoding='utf-8', errors='replace', newline=''))
             for r in rd:
                 txt = f"{r.get('Title', '')} {r.get('OriginalLandingURL', '')}"
-                if PAT.search(txt):
+                if pat.search(txt):
                     w.writerow([r['ImageID'], r.get('Subset', subset), r['OriginalLandingURL'], r['License'],
                                 r['Author'], r['Title']])
                     n += 1
@@ -93,16 +101,17 @@ def sheet(rows, out, w=300, cols=6):
     return out
 
 
-def sheets(filter_re=None, per=48):
+def sheets(filter_re=None, per=48, name=None):
     os.makedirs(IMG, exist_ok=True)
     os.makedirs(SHEETS, exist_ok=True)
-    rows = list(csv.DictReader(open(OUT, encoding='utf-8')))
+    rows = list(csv.DictReader(open(csv_path(name), encoding='utf-8')))
     if filter_re:
         rx = re.compile(filter_re, re.I)
         rows = [r for r in rows if rx.search(r['Title'] + ' ' + r['OriginalLandingURL'])]
     outs = []
     for i in range(0, len(rows), per):
-        o = sheet(rows[i:i + per], os.path.join(SHEETS, f'vn_{(filter_re or "all")[:12].replace("|", "_")}_{i // per:02d}.jpg'))
+        tag = re.sub(r'\W+', '_', filter_re or 'all')[:16]
+        o = sheet(rows[i:i + per], os.path.join(SHEETS, f'{name or "vn"}_{tag}_{i // per:02d}.jpg'))
         if o:
             outs.append(o)
     print(len(rows), 'rows ->', outs)
@@ -110,8 +119,16 @@ def sheets(filter_re=None, per=48):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        print('matches:', scan())
-        sheets(r'h[oộ]i[\s_-]?an|hoian')
-    elif sys.argv[1] == 'sheets':
-        sheets(sys.argv[2] if len(sys.argv) > 2 else None)
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument('cmd', nargs='?', default='all', choices=['all', 'scan', 'sheets'])
+    ap.add_argument('filter', nargs='?', help='regex to filter titles when making sheets')
+    ap.add_argument('--pattern', help='title regex for scan (default: Vietnamese place names)')
+    ap.add_argument('--name', help='result name: .cache/oi/<name>_photos.csv (default vn_photos.csv)')
+    a = ap.parse_args()
+    if a.cmd in ('all', 'scan'):
+        print('matches:', scan(a.pattern, a.name))
+    if a.cmd == 'all':
+        sheets(a.filter or r'h[oộ]i[\s_-]?an|hoian', name=a.name)
+    elif a.cmd == 'sheets':
+        sheets(a.filter, name=a.name)

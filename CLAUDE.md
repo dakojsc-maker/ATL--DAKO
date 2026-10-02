@@ -12,7 +12,7 @@ Trang thư viện có ảnh xem trước (Artifact): https://claude.ai/artifact/
 | M01 | Báo cáo Xanh Lime | "xanh lime", "lime", "báo cáo xanh" | `python build_deck.py --theme lime` |
 | M02 | Báo cáo Aurora | "aurora", "xanh navy" | `python build_deck.py --theme aurora` |
 | M03 | Di sản Hội An | "hội an", "di sản", "phố cổ", "văn hóa" | `python build_hoian.py` |
-| M04 | Chính luận Mác – Lênin | (sắp làm, theo video 3) | — |
+| M04 | Chính luận Mác – Lênin | "mác lênin", "chính luận", "chính trị", "triết học" | `python build_maclenin.py` |
 | M05 | Lao động – Việc làm | (sắp làm, theo video 4) | — |
 
 Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"… thì tra `templates.json` (trường `code`, `name`,
@@ -32,6 +32,9 @@ Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"�
    `assets/images/credits.csv`, khai báo trong `"photos"` của content.json. Tách nền: `lib/imgproc.py` → `cutout()`.
    Mẫu M03 có slide bản đồ: tạo bản đồ mới bằng `tools/make_map.py --name <ten> --center lon,lat --place key:lon,lat`
    và đặt `"map": "<ten>"` trong content.json (hoặc bỏ slide `map_slide`).
+   Mẫu M04 dùng tượng / chân dung tách nền làm "người dẫn chuyện" (`portrait`, `persons[].cut`): khóa có sẵn trong
+   `assets/images/cut/ml_<khóa>.png`; thêm người mới thì tách nền (`cutout()`) rồi lưu đúng tên `ml_<khóa>.png`.
+   Tìm ảnh theo chủ đề khác: `tools/find_vn_photos.py scan --pattern "<regex tiêu đề>" --name <ten>`.
 5. Dựng: `cd slides-template && python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`.
 6. Kiểm tra: `python <pptx skill>/scripts/office/validate.py <file>`, render sang ảnh (LibreOffice → PDF → PyMuPDF),
    xem từng slide, sửa chữ tràn/chồng lấn, rồi gửi file cho người dùng.

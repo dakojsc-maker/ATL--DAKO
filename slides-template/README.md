@@ -13,14 +13,15 @@ bộ slide mới chỉ cần đưa tài liệu vào.
 | M01 | Báo cáo Xanh Lime — rêu đậm + lime | `output/Mau-Bao-Cao-Lime.pptx` | `python build_deck.py --theme lime` |
 | M02 | Báo cáo Aurora — navy + aqua | `output/Mau-Bao-Cao-Aurora.pptx` | `python build_deck.py --theme aurora` |
 | M03 | Di sản Hội An — cổ điển, giấy cổ, vàng kim | `output/Mau-Bao-Cao-HoiAn.pptx` | `python build_hoian.py` |
+| M04 | Chính luận Mác – Lênin — lụa đỏ, vàng kim, huân chương | `output/Mau-Chinh-Luan-MacLenin.pptx` | `python build_maclenin.py` |
 
 Làm bộ slide từ file nội dung: `python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`
 (mẫu nội dung trong `catalog/samples/`). Thêm mẫu mới xong thì chạy `python tools/update_catalog.py` và đăng lại trang thư viện.
 Container mới: `bash tools/setup_env.sh`.
 
 Mở bằng **PowerPoint 2019 / Microsoft 365** để có Morph. Bản cũ hơn sẽ tự động dùng Fade thay cho Morph.
-Cài font trong `fonts/` (M01/M02: Montserrat) và `fonts/heritage/` (M03: Noto Serif Display, Noto Serif, Playfair Display)
-trước khi mở (Windows: chuột phải → Install for all users).
+Cài font trong `fonts/` (M01/M02: Montserrat), `fonts/heritage/` (M03: Noto Serif Display, Noto Serif, Playfair Display)
+và `fonts/maclenin/` (M04: Big Shoulders Display, Be Vietnam Pro) trước khi mở (Windows: chuột phải → Install for all users).
 
 ---
 
@@ -108,3 +109,24 @@ chuyển phần · biểu đồ cột vàng · Chùa Cầu · nhà cổ · Hội
 chợ Hội An · trải nghiệm · ẩm thực · dòng thời gian · polaroid lịch sử · bảo tồn · những con số · bảng di tích · SWOT ·
 kết luận · cảm ơn. Ảnh: chụp tại Hội An / Việt Nam, CC BY 2.0 (Open Images), danh sách tác giả trong
 `assets/images/credits.csv`. Chất liệu (giấy cổ, dải cọ, huy hiệu, polaroid) sinh bằng `lib/heritage_assets.py`.
+
+
+---
+
+## M04 — Chính luận Mác – Lênin
+
+Theo video mẫu Triết học Mác – Lênin: nền lụa đỏ son có bóng tượng đài mờ, chữ áp phích khổ hẹp màu vàng kim trong khung
+vát góc viền vàng, nhãn "PHẦN n" nhỏ phía trên, thẻ đỏ thẫm trong suốt viền vàng, búa liềm và huân chương sao vàng nổi khối,
+ruy băng vàng – đỏ và dải lụa đỏ viền vàng ở góc; tượng Lênin, Mác, Ăngghen… tách nền từ ảnh làm "người dẫn chuyện",
+chân dung Cantơ in bằng mực đỏ thẫm như tranh khắc. 25 slide (1 slide ẩn ghi nguồn ảnh), nội dung mẫu "Vấn đề cơ bản của
+triết học": bìa · câu hỏi mở đầu · trích dẫn Ăngghen · hai phạm vi · hai mặt · sơ đồ trường phái · chuyển phần (huân chương)
+· ba hình thức duy vật · danh sách sao · ảnh lục giác · dải ảnh · duy tâm + huân chương · hai nhánh · ba cột nguồn gốc ·
+nhất nguyên / nhị nguyên · hai lập trường · Cantơ – Hêghen · thực tiễn & kết luận · dòng thời gian · biểu đồ · bảng · cảm ơn.
+
+- **Morph:** nền, khung tiêu đề, búa liềm (`!!emblem`), huân chương (`!!medal`), chân dung (`!!hero`), ruy băng, dải lụa
+  giữ tên giữa các slide nên trượt / phóng to liên tục; huân chương xoay vào bằng hiệu ứng Grow & Turn.
+- **Chất liệu vẽ bằng mã** (`lib/maclenin_assets.py`): lụa đỏ có nếp gấp, búa liềm và huân chương mạ vàng (đổ bóng, vát cạnh),
+  sao nhiều mặt, ruy băng xoắn, dải lụa, dấu ngoặc kép vàng; `defringe()` làm sạch viền sáng quanh ảnh tách nền.
+- **Ảnh:** Open Images (CC BY 2.0) — danh sách trong `assets/images/maclenin_photos.json`, tác giả trong
+  `assets/images/credits.csv`; ảnh tách nền `assets/images/cut/ml_*.png` (có thêm tượng Bác Hồ `hcm_statue`, lăng Bác
+  `mausoleum`, cờ Đảng `party_flag`, cờ Tổ quốc `vn_flag` cho các môn Tư tưởng Hồ Chí Minh, Lịch sử Đảng).
