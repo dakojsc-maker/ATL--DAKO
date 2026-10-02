@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Dựng video hoàn chỉnh: thuyết minh → khung hình → nhạc + lời → ghép → bản 1080p, 720p (+ bản chỉ nhạc, phụ đề .srt).
+# Render chia đoạn (render_segments.sh) nên chạy lại được nếu bị ngắt giữa chừng.
 # Cần giọng đọc: VOICE_DIR=…/vits-piper-vi_VN-vais1000-medium (xem README). Đặt SKIP_TTS=1 để dùng lại build/vo có sẵn.
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -9,34 +10,14 @@ FFMPEG=${FFMPEG:-ffmpeg}
 PORT=8128
 mkdir -p "$OUT"
 
-if [ "${SKIP_TTS:-0}" != "1" ]; then python3 tts.py narration.json "$OUT/vo"; fi
+if [ "${SKIP_TTS:-0}" != "1" ]; then
+  python3 tts.py narration.json "$OUT/vo"
+  rm -f "$OUT/info.json" "$OUT"/seg_*.mp4   # thời lượng lời đọc đổi → render lại
+fi
 
-python3 -m http.server $PORT --bind 127.0.0.1 >/dev/null 2>&1 &
-SERVER=$!
-trap 'kill $SERVER' EXIT
-sleep 1
-
-export URL="http://127.0.0.1:$PORT/index.html"
-node render.js info "$OUT/info.json"
-DUR=$(python3 -c "import json;print(json.load(open('$OUT/info.json'))['duration'])")
-
-# 4 luồng render song song
-python3 - "$DUR" > "$OUT/ranges.txt" <<'EOF'
-import sys
-d = float(sys.argv[1]); n = 4; step = round(d / n)
-cuts = [0] + [step * i for i in range(1, n)] + [d]
-for a, b in zip(cuts[:-1], cuts[1:]):
-    print(a, b)
-EOF
-i=0; pids=()
-while read -r a b; do
-  i=$((i+1))
-  node render.js video "$OUT/part$i.mp4" "$a" "$b" > "$OUT/part$i.log" 2>&1 &
-  pids+=($!)
-done < "$OUT/ranges.txt"
-for p in "${pids[@]}"; do wait "$p"; done
+./render_segments.sh 0
 : > "$OUT/parts.txt"
-for f in "$OUT"/part*.mp4; do echo "file '$(basename "$f")'" >> "$OUT/parts.txt"; done
+while read -r i a b; do echo "file 'seg_$i.mp4'" >> "$OUT/parts.txt"; done < "$OUT/segs.txt"
 $FFMPEG -y -loglevel error -f concat -safe 0 -i "$OUT/parts.txt" -c copy "$OUT/video_master.mp4"
 
 TRANSPOSE=1 DRUMS=0.7 VO_DIR="$OUT/vo" NOVO_OUT="$OUT/music_only.wav" python3 synth.py "$OUT/info.json" "$OUT/music.wav"
