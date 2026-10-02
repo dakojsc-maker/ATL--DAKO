@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Viện STP – Hồ sơ năng lực đào tạo AI cho hành chính công</title>
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/400.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/600.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/700.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/800.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/400.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/700.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="net" width="1920" height="1080"></canvas>
+  <div id="floor"><div class="grid"></div></div>
+
+  <!-- S1 · MỞ ĐẦU -->
+  <section id="s1" class="scene">
+    <div class="s1-docs"></div>
+    <div class="s1-band"></div>
+    <canvas class="orb" id="orb1" width="760" height="760"></canvas>
+    <div class="s1-a line center">Công văn · Tờ trình · Báo cáo · <span class="gr">Thủ tục hành chính</span></div>
+    <div class="s1-b line center">Nếu mỗi cán bộ có thêm <span class="gr">một trợ lý AI?</span></div>
+  </section>
+
+  <!-- S2 · THƯƠNG HIỆU -->
+  <section id="s2" class="scene">
+    <canvas class="orb" id="orb2" width="760" height="760"></canvas>
+    <div class="s2-chips">
+      <span><i class="ic" data-i="graduation-cap"></i>AI Training</span>
+      <span><i class="ic" data-i="bot"></i>AI Agents &amp; Automation</span>
+      <span><i class="ic" data-i="database"></i>Data Strategy</span>
+      <span><i class="ic" data-i="sparkles"></i>AI Transformation</span>
+      <span><i class="ic" data-i="layers"></i>AI Platforms</span>
+      <span><i class="ic" data-i="wand-sparkles"></i>Custom AI Solutions</span>
+    </div>
+    <div class="s2-logo"><img src="assets/logo_stp.png" alt="STP"></div>
+    <div class="kick s2-k mono">VIỆN NGHIÊN CỨU PHÁT TRIỂN GIÁO DỤC &amp; NGHỀ NGHIỆP STP</div>
+    <div class="s2-h">Hồ sơ năng lực</div>
+    <div class="s2-big"><span class="grad">AI TRAINING</span><br><span class="grad">PROFILE</span></div>
+    <div class="s2-tag mono"><i class="ic" data-i="handshake"></i>AI TRANSFORMATION PARTNER</div>
+    <div class="s2-quote"><i class="q">“</i><p>AI chỉ thực sự có giá trị khi được chuyển hoá thành <b>năng lực thực thi</b>, <b>hiệu quả vận hành</b> và <b>tăng trưởng bền vững</b>.</p></div>
+  </section>
+
+  <!-- S3 · VỀ CHÚNG TÔI -->
+  <section id="s3" class="scene">
+    <div class="kick s3-k mono"><b>01</b>VỀ CHÚNG TÔI</div>
+    <div class="h1 s3-h">Tổ chức Khoa học &amp; Công nghệ <span class="gr">trực thuộc VUSTA.</span></div>
+    <div class="s3-stats">
+      <div class="st frame"><b class="v1">2020</b><span>Năm được cấp Giấy chứng nhận hoạt động Khoa học &amp; Công nghệ</span></div>
+      <div class="st frame"><b>VUSTA</b><span>Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam</span></div>
+      <div class="st frame"><b class="v3">03</b><span>Văn phòng: Hà Nội · Nha Trang · TP. Hồ Chí Minh</span></div>
+    </div>
+    <div class="s3-cert frame">
+      <i class="ic big" data-i="award"></i>
+      <div><small class="mono">HOẠT ĐỘNG PHÁP LÝ</small><b>Giấy chứng nhận đăng ký hoạt động Khoa học và Công nghệ</b>
+        <p>Số <em class="mono">234/QĐ-LHHVN</em> · cấp ngày <em class="mono">24/03/2020</em><br>Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam</p></div>
+      <span class="stamp mono">VUSTA</span>
+    </div>
+    <div class="s3-net">
+      <svg viewBox="0 0 720 360"><path class="ln" d="M30 18 V148 V278"/><path class="en" d="M30 18 V148 V278"/></svg>
+      <div class="of" style="top:0px"><i class="dot"></i><div><b>Hà Nội</b><span>Trụ sở · Tầng 12 Diamond Flower, 48 Lê Văn Lương</span></div></div>
+      <div class="of" style="top:130px"><i class="dot"></i><div><b>Nha Trang</b><span>Văn phòng · KĐT An Bình Tân, Khánh Hòa</span></div></div>
+      <div class="of" style="top:260px"><i class="dot"></i><div><b>TP. Hồ Chí Minh</b><span>Trung tâm tuyển sinh · KDC Carric, An Khánh</span></div></div>
+    </div>
+  </section>
+
+  <!-- S4 · SỨ MỆNH & GIÁ TRỊ -->
+  <section id="s4" class="scene">
+    <div class="kick s4-k mono"><b>02</b>SỨ MỆNH &amp; GIÁ TRỊ CỐT LÕI</div>
+    <div class="h1 s4-h">Đưa AI từ tri thức <span class="gr">đến năng lực thực thi.</span></div>
+    <div class="s4-mis">
+      <div class="m frame"><em class="mono">01</em><i class="ic" data-i="graduation-cap"></i><b>Đào tạo AI bài bản</b><p>Khoá đào tạo AI toàn diện, tạo giá trị đột phá cho cá nhân, tổ chức, doanh nghiệp.</p></div>
+      <div class="m frame"><em class="mono">02</em><i class="ic" data-i="network"></i><b>Kết nối tri thức</b><p>Kết nối chuyên gia, nguồn lực trong hệ sinh thái giáo dục – khoa học – doanh nghiệp.</p></div>
+      <div class="m frame"><em class="mono">03</em><i class="ic" data-i="puzzle"></i><b>Xây dựng giải pháp</b><p>Giải pháp AI tích hợp đa thể thức, phù hợp kinh doanh và quản lý nhà nước.</p></div>
+      <div class="m frame"><em class="mono">04</em><i class="ic" data-i="rocket"></i><b>Đồng hành chuyển đổi số</b><p>Cùng cơ quan, địa phương, doanh nghiệp ứng dụng AI nâng cao hiệu quả.</p></div>
+    </div>
+    <div class="s4-val">
+      <div class="v"><div class="hx"><i class="ic" data-i="shield-check"></i></div><b>MINH BẠCH</b><p>Tuân thủ pháp luật, hợp tác lâu dài</p></div>
+      <div class="v"><div class="hx"><i class="ic" data-i="monitor-check"></i></div><b>ỨNG DỤNG</b><p>Bám sát thực tiễn, dùng ngay vào công việc</p></div>
+      <div class="v"><div class="hx"><i class="ic" data-i="sprout"></i></div><b>BỀN VỮNG</b><p>Phát triển nguồn nhân lực lâu dài</p></div>
+    </div>
+  </section>
+
+  <!-- S5 · NĂNG LỰC CỐT LÕI -->
+  <section id="s5" class="scene">
+    <div class="kick s5-k mono"><b>03</b>NĂNG LỰC CỐT LÕI</div>
+    <div class="h1 s5-h">Không rập khuôn – <span class="gr">“may đo” cho từng đơn vị.</span></div>
+    <div class="cp c1 frame" style="left:120px;top:290px">
+      <div class="hd"><em class="mono">1</em><b>Tư vấn chiến lược &amp; Đào tạo “may đo”</b></div>
+      <div class="flow"><i></i><i></i><i class="bad"></i><i></i><i></i><span class="scan"></span></div>
+      <p>Khảo sát sâu “điểm nghẽn” vận hành, thiết kế nội dung riêng theo nghiệp vụ từng cơ quan, đơn vị.</p>
+    </div>
+    <div class="cp c2 frame" style="left:980px;top:290px">
+      <div class="hd"><em class="mono">2</em><b>Phát triển giải pháp &amp; Tự động hoá</b></div>
+      <div class="auto"><span class="bub"><i class="ic" data-i="bot-message-square"></i>Trợ lý ảo · Chatbot</span><i class="ic ar" data-i="arrow-right"></i><span class="bub"><i class="ic" data-i="workflow"></i>Tự động hoá quy trình</span><i class="ic gear" data-i="settings"></i></div>
+      <p>Làm chủ lõi công nghệ AI tiên tiến; phần mềm chuyên ngành, chatbot, tự động hoá.</p>
+    </div>
+    <div class="cp c3 frame" style="left:120px;top:610px">
+      <div class="hd"><em class="mono">3</em><b>Đội ngũ “thực thi kép”</b></div>
+      <div class="duo"><span><i class="ic" data-i="target"></i><b>Tầm nhìn chiến lược</b><small>Cố vấn CĐS · Giám đốc đào tạo</small></span><i class="x mono">×</i><span><i class="ic" data-i="cpu"></i><b>Năng lực thực thi</b><small>Kỹ sư · PM · Agile/Scrum</small></span></div>
+    </div>
+    <div class="cp c4 frame" style="left:980px;top:610px">
+      <div class="hd"><em class="mono">4</em><b>Bề dày triển khai đa ngành</b></div>
+      <div class="tags"><span><i class="ic" data-i="heart-pulse"></i>Y tế</span><span><i class="ic" data-i="landmark"></i>Khối Nhà nước / Xã hội</span><span><i class="ic" data-i="building-2"></i>Tập đoàn · AI Office</span><span><i class="ic" data-i="globe"></i>Chuyên gia &amp; đối tác quốc tế</span></div>
+    </div>
+  </section>
+
+  <!-- S6 · CHƯƠNG TRÌNH -->
+  <section id="s6" class="scene">
+    <div class="kick s6-k mono"><b>04</b>CHƯƠNG TRÌNH ĐÀO TẠO</div>
+    <div class="h1 s6-h">Chương trình cho <span class="gr">từng nhóm đối tượng.</span></div>
+    <div class="pg g1 frame" style="left:120px;top:290px"><div class="hd"><i class="ic" data-i="landmark"></i><b>Cơ quan nhà nước</b></div>
+      <div class="ch"><span>Văn phòng Quốc hội</span><span>Bộ Văn hoá</span><span>Sở Khoa học &amp; Công nghệ</span><span>Sở Y tế</span><span>Sở Công Thương</span><span>Sở Nội vụ</span></div></div>
+    <div class="pg g2 frame" style="left:980px;top:290px"><div class="hd"><i class="ic" data-i="briefcase"></i><b>Doanh nghiệp</b></div>
+      <div class="ch"><span>Lãnh đạo</span><span>Marketing</span><span>HR</span><span>Doanh nghiệp sản xuất</span><span>Kinh doanh &amp; bán hàng</span></div></div>
+    <div class="pg g3 frame" style="left:120px;top:610px"><div class="hd"><i class="ic" data-i="school"></i><b>Đơn vị giáo dục</b></div>
+      <div class="ch"><span>Ban giám hiệu</span><span>Giảng viên đại học</span><span>Giáo viên các cấp</span><span>Sinh viên</span><span>Học sinh các cấp</span><span>Trung tâm giáo dục</span></div></div>
+    <div class="pg g4 frame" style="left:980px;top:610px"><div class="hd"><i class="ic" data-i="user"></i><b>Cá nhân</b></div>
+      <div class="ch sm"><span>AI cho mọi người</span><span>AI cho nhà lãnh đạo</span><span>Xây dựng Chatbot</span><span>AI Automation</span><span>Vibe Coding</span><span>AI cho HR</span><span>AI sản xuất Media</span><span>AI cho giảng dạy</span><span>AI cho trẻ em</span></div></div>
+  </section>
+
+  <!-- S7 · CHƯƠNG TRÌNH TRỌNG TÂM -->
+  <section id="s7" class="scene">
+    <div class="kick s7-k mono"><b>05</b>CHƯƠNG TRÌNH TRỌNG TÂM</div>
+    <div class="h1 s7-h">Ứng dụng Trí tuệ nhân tạo trong<br><span class="gr">công tác văn phòng – hành chính</span></div>
+    <div class="s7-sub"><i class="ic" data-i="users"></i>Dành cho cán bộ, công chức, viên chức các cơ quan hành chính nhà nước các cấp</div>
+    <div class="s7-donut frame">
+      <svg viewBox="0 0 300 300"><circle class="tr" cx="150" cy="150" r="110"/><circle class="a" cx="150" cy="150" r="110"/><circle class="b" cx="150" cy="150" r="110"/></svg>
+      <div class="ctr"><b class="mono">0<small>%</small></b><span>thực hành</span></div>
+      <div class="lg"><span><i class="k1"></i><b>30%</b> Kiến thức nền tảng</span><span><i class="k2"></i><b>70%</b> Thực hành nghiệp vụ thực tế</span></div>
+    </div>
+    <div class="s7-tiles">
+      <span><i class="ic" data-i="file-text"></i>Văn bản</span><span><i class="ic" data-i="chart-column"></i>Báo cáo</span>
+      <span><i class="ic" data-i="clipboard-list"></i>Thủ tục hành chính</span><span><i class="ic" data-i="presentation"></i>Cuộc họp</span>
+    </div>
+    <div class="s7-quote frame">
+      <b>Học đến đâu – <span class="gr">làm được đến đó.</span></b>
+      <div class="pair"><span><i class="ic" data-i="cpu"></i>AI hỗ trợ</span><i class="ic hs" data-i="handshake"></i><span><i class="ic" data-i="user-check"></i>Cán bộ chịu trách nhiệm</span></div>
+    </div>
+  </section>
+
+  <!-- S8 · PHẦN 1 -->
+  <section id="s8" class="scene">
+    <div class="kick s8-k mono"><b>P1</b>AI AN TOÀN · VĂN BẢN PHÁP LUẬT · TRỢ LÝ AI</div>
+    <div class="h1 s8-h">An toàn, đúng quy định – <span class="gr">tự tạo Trợ lý AI.</span></div>
+    <div class="col k1 frame">
+      <div class="ct mono"><i class="ic" data-i="shield-check"></i>AN TOÀN, ĐÚNG QUY ĐỊNH</div>
+      <div class="safe">
+        <span class="dd d1"><i class="ic" data-i="lock"></i>Bí mật nhà nước</span>
+        <span class="dd d2"><i class="ic" data-i="id-card"></i>Dữ liệu cá nhân</span>
+        <span class="dd d3"><i class="ic" data-i="folder-lock"></i>Tài liệu nội bộ</span>
+        <div class="sh"><i class="ic" data-i="shield-x"></i></div>
+        <div class="cl"><i class="ic" data-i="cloud"></i><small class="mono">AI CÔNG CỘNG</small></div>
+      </div>
+      <div class="ok"><i class="ic" data-i="circle-check"></i>Kiểm chứng kết quả trước khi trình ký</div>
+    </div>
+    <div class="col k2 frame">
+      <div class="ct mono"><i class="ic" data-i="square-terminal"></i>CẤU TRÚC CÂU LỆNH</div>
+      <div class="pr"><b class="mono">VAI TRÒ</b><span>Bạn là chuyên viên văn thư…</span></div>
+      <div class="pr"><b class="mono">CĂN CỨ</b><span>NĐ 30/2020/NĐ-CP, văn bản mẫu</span></div>
+      <div class="pr"><b class="mono">YÊU CẦU</b><span>Dự thảo công văn đôn đốc…</span></div>
+      <div class="pr"><b class="mono">THỂ THỨC</b><span>Đúng mẫu, ngắn gọn, 1 trang</span></div>
+      <div class="go mono"><i class="ic" data-i="sparkles"></i>CÂU LỆNH MẪU · SẴN SÀNG</div>
+    </div>
+    <div class="col k3 frame">
+      <div class="ct mono"><i class="ic" data-i="bot"></i>TRỢ LÝ AI NGHIỆP VỤ</div>
+      <div class="files"><span><i class="ic" data-i="file-text"></i>NĐ 30.pdf</span><span><i class="ic" data-i="file-text"></i>Quy chế.docx</span><span><i class="ic" data-i="file-text"></i>Mẫu VB.pdf</span></div>
+      <div class="q">Thể thức văn bản hành chính gồm những thành phần nào?</div>
+      <div class="a"><p class="ans">Theo NĐ 30/2020/NĐ-CP: Quốc hiệu, Tiêu ngữ; tên cơ quan ban hành; số, ký hiệu; địa danh, thời gian; tên loại, trích yếu; nội dung; chữ ký, dấu; nơi nhận.</p><span class="cite mono">[1] NĐ 30/2020</span><span class="cite mono">[2] Quy chế</span></div>
+      <div class="tools mono">NotebookLM · Custom GPTs · Gemini Gems</div>
+    </div>
+  </section>
+
+  <!-- S9 · VĂN BẢN ĐI – ĐẾN -->
+  <section id="s9" class="scene">
+    <div class="kick s9-k mono"><b>P2</b>ỨNG DỤNG AI TRONG NGHIỆP VỤ VĂN PHÒNG – HÀNH CHÍNH</div>
+    <div class="h1 s9-h">Văn bản đi – đến: <span class="gr">nhanh và đúng thể thức.</span></div>
+    <div class="s9-dom"><span><i class="ic" data-i="file-text"></i>Văn bản đi – đến</span><span><i class="ic" data-i="chart-column"></i>Báo cáo &amp; số liệu</span><span><i class="ic" data-i="clipboard-list"></i>Thủ tục hành chính</span><span><i class="ic" data-i="presentation"></i>Cuộc họp &amp; tuyên truyền</span></div>
+    <div class="s9-note"><small class="mono">Ý KIẾN CHỈ ĐẠO</small><p>“Giao Văn phòng dự thảo công văn đôn đốc các đơn vị gửi báo cáo quý.”</p></div>
+    <div class="s9-ai a1"><i class="ic" data-i="sparkles"></i></div>
+    <div class="s9-doc">
+      <div class="hdr"><div><b>UBND …</b><b>VĂN PHÒNG</b><span>Số: …/VP</span><em>V/v đôn đốc gửi báo cáo quý</em></div><div><b>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</b><b class="u">Độc lập – Tự do – Hạnh phúc</b><span>…, ngày … tháng … năm …</span></div></div>
+      <div class="body"><i></i><i></i><i></i><i style="width:80%"></i><i></i><i style="width:62%"></i></div>
+      <div class="ft"><span>Nơi nhận:<br>– Như trên;<br>– Lưu: VT.</span><span><b>CHÁNH VĂN PHÒNG</b></span></div>
+      <div class="ok mono"><i class="ic" data-i="circle-check"></i>ĐÚNG THỂ THỨC · NĐ 30/2020/NĐ-CP</div>
+    </div>
+    <div class="s9-in"><i></i><i></i><i></i><i></i><small class="mono">VĂN BẢN ĐẾN · NHIỀU TRANG</small><span class="scan"></span></div>
+    <div class="s9-ai a2"><i class="ic" data-i="sparkles"></i></div>
+    <div class="s9-sum frame">
+      <b class="mono">PHIẾU TÓM TẮT VĂN BẢN ĐẾN</b>
+      <div class="tb">
+        <div class="r th"><span>Việc cần làm</span><span>Chủ trì</span><span>Thời hạn</span></div>
+        <div class="r"><span>Rà soát, tổng hợp số liệu</span><span>Phòng Tổng hợp</span><span class="mono">20/10</span></div>
+        <div class="r"><span>Dự thảo báo cáo</span><span>Văn phòng</span><span class="mono">25/10</span></div>
+        <div class="r"><span>Trình lãnh đạo phê duyệt</span><span>Văn phòng</span><span class="mono">30/10</span></div>
+      </div>
+      <div class="sg"><i class="ic" data-i="lightbulb"></i>Gợi ý trích yếu &amp; hướng xử lý trình lãnh đạo</div>
+    </div>
+  </section>
+
+  <!-- S10 · BÁO CÁO -->
+  <section id="s10" class="scene">
+    <div class="kick s10-k mono"><b>P2</b>BÁO CÁO TỔNG HỢP &amp; SỐ LIỆU</div>
+    <div class="h1 s10-h">Báo cáo tổng hợp – <span class="gr">đúng đề cương, có phân tích.</span></div>
+    <div class="s10-src">
+      <span><i class="ic" data-i="file-spreadsheet"></i>Đơn vị A</span><span><i class="ic" data-i="file-spreadsheet"></i>Đơn vị B</span>
+      <span><i class="ic" data-i="file-spreadsheet"></i>Đơn vị C</span><span><i class="ic" data-i="file-spreadsheet"></i>Đơn vị D</span>
+    </div>
+    <svg class="s10-flow" viewBox="0 0 1920 1080"></svg>
+    <div class="s10-dash frame">
+      <div class="top"><b class="mono">BÁO CÁO TỔNG HỢP QUÝ</b><span class="lg mono"><i class="k1"></i>Kỳ này <i class="k2"></i>Cùng kỳ <i class="k3"></i>Kế hoạch</span><em class="mono">DỮ LIỆU MINH HOẠ</em></div>
+      <svg class="chart" viewBox="0 0 760 380"></svg>
+      <div class="ins">
+        <b class="mono"><i class="ic" data-i="sparkles"></i>NHẬN XÉT CỦA AI</b>
+        <p class="t1">▲ Chỉ tiêu 2, 5 tăng so với cùng kỳ</p>
+        <p class="t2">● Phần lớn chỉ tiêu bám sát kế hoạch</p>
+        <p class="t3 bad">▼ Chỉ tiêu 4 giảm bất thường – cần làm rõ</p>
+      </div>
+    </div>
+    <div class="s10-law mono"><i class="ic" data-i="scale"></i>Bám đề cương · biểu mẫu · kỳ chốt số liệu (NĐ 09/2019/NĐ-CP)</div>
+  </section>
+
+  <!-- S11 · TTHC, HỌP, TUYÊN TRUYỀN -->
+  <section id="s11" class="scene">
+    <div class="kick s11-k mono"><b>P2</b>THỦ TỤC HÀNH CHÍNH · CUỘC HỌP · TUYÊN TRUYỀN</div>
+    <div class="h1 s11-h">Phục vụ người dân – <span class="gr">điều hành hiệu quả.</span></div>
+    <div class="col k1 frame">
+      <div class="ct mono"><i class="ic" data-i="messages-square"></i>BỘ PHẬN MỘT CỬA · HỎI – ĐÁP</div>
+      <div class="msg u">Tôi cần chuẩn bị hồ sơ gì?</div>
+      <div class="msg b"><span class="ans">Hồ sơ gồm: ① Tờ khai theo mẫu ② Giấy tờ tuỳ thân ③ Giấy tờ chứng minh liên quan. Danh mục kiểm tra giúp bổ sung một lần.</span></div>
+      <div class="lw mono">NĐ 118/2025/NĐ-CP · một cửa, một cửa liên thông</div>
+    </div>
+    <div class="col k2 frame">
+      <div class="ct mono"><i class="ic" data-i="mic"></i>CUỘC HỌP → THÔNG BÁO KẾT LUẬN</div>
+      <div class="wave"></div>
+      <div class="tb">
+        <div class="r th"><span>Việc</span><span>Người</span><span>Hạn</span></div>
+        <div class="r"><span>Hoàn thiện kế hoạch</span><span>Phòng A</span><span class="mono">T+7</span></div>
+        <div class="r"><span>Báo cáo tiến độ</span><span>Phòng B</span><span class="mono">T+14</span></div>
+        <div class="r"><span>Tổ chức triển khai</span><span>Văn phòng</span><span class="mono">T+30</span></div>
+      </div>
+      <div class="lw mono">QĐ 45/2018/QĐ-TTg · chế độ họp</div>
+    </div>
+    <div class="col k3 frame">
+      <div class="ct mono"><i class="ic" data-i="megaphone"></i>TUYÊN TRUYỀN CHÍNH SÁCH</div>
+      <div class="news"><div class="im"><i class="ic" data-i="image"></i></div><b>Tin bài chính sách mới</b><i class="sk"></i><i class="sk" style="width:80%"></i><i class="sk" style="width:60%"></i></div>
+      <div class="info"><span><i class="ic" data-i="users"></i></span><span><i class="ic" data-i="calendar-clock"></i></span><span><i class="ic" data-i="circle-check"></i></span></div>
+      <div class="lw mono">Infographic · tin bài · hỏi – đáp</div>
+    </div>
+  </section>
+
+  <!-- S12 · SẢN PHẨM -->
+  <section id="s12" class="scene">
+    <div class="kick s12-k mono"><b>06</b>SẢN PHẨM ĐẦU RA SAU TẬP HUẤN</div>
+    <div class="h1 s12-h">Bộ sản phẩm <span class="gr">dùng ngay sau khoá học.</span></div>
+    <div class="s12-grid">
+      <div class="pd" data-k="trợ lý"><i class="ic" data-i="bot"></i><em class="mono">01</em><p>Trợ lý AI nghiệp vụ của đơn vị</p></div>
+      <div class="pd" data-k="thư viện"><i class="ic" data-i="library"></i><em class="mono">01</em><p>Thư viện câu lệnh cho văn bản hành chính</p></div>
+      <div class="pd"><i class="ic" data-i="file-pen-line"></i><em class="mono">01</em><p>Dự thảo văn bản đi &amp; phiếu tóm tắt văn bản đến</p></div>
+      <div class="pd"><i class="ic" data-i="chart-column"></i><em class="mono">01</em><p>Báo cáo tổng hợp có phân tích số liệu, biểu đồ</p></div>
+      <div class="pd"><i class="ic" data-i="messages-square"></i><em class="mono">01</em><p>Bộ hướng dẫn TTHC, hỏi – đáp cho bộ phận một cửa</p></div>
+      <div class="pd" data-k="quy trình"><i class="ic" data-i="workflow"></i><em class="mono">01</em><p>Quy trình AI cho một nghiệp vụ lặp lại</p></div>
+      <div class="pd" data-k="nguyên tắc"><i class="ic" data-i="shield-check"></i><em class="mono">01</em><p>Bộ nguyên tắc dùng AI an toàn &amp; hướng dẫn thao tác</p></div>
+      <div class="pd gold"><i class="ic" data-i="rocket"></i><em class="mono">★</em><p>Áp dụng ngay vào ít nhất một nhiệm vụ chuyên môn</p></div>
+    </div>
+  </section>
+
+  <!-- S13 · CĂN CỨ PHÁP LÝ -->
+  <section id="s13" class="scene">
+    <div class="kick s13-k mono"><b>07</b>CĂN CỨ XÂY DỰNG NỘI DUNG</div>
+    <div class="h1 s13-h">Bám sát <span class="gr">căn cứ pháp lý hiện hành.</span></div>
+    <div class="s13-list">
+      <div class="lw" data-k="thể thức"><b class="mono">NĐ 30/2020/NĐ-CP</b><span>Công tác văn thư</span></div>
+      <div class="lw" data-k="báo cáo"><b class="mono">NĐ 09/2019/NĐ-CP</b><span>Chế độ báo cáo</span></div>
+      <div class="lw" data-k="một cửa"><b class="mono">NĐ 118/2025/NĐ-CP</b><span>Cơ chế một cửa, một cửa liên thông</span></div>
+      <div class="lw"><b class="mono">QĐ 45/2018/QĐ-TTg</b><span>Chế độ họp</span></div>
+      <div class="lw"><b class="mono">LUẬT · 2018</b><span>Luật Bảo vệ bí mật nhà nước</span></div>
+      <div class="lw" data-k="dữ liệu"><b class="mono">LUẬT · 2025</b><span>Luật Bảo vệ dữ liệu cá nhân</span></div>
+      <div class="lw" data-k="Trí tuệ"><b class="mono">LUẬT · 2025</b><span>Luật Trí tuệ nhân tạo</span></div>
+      <div class="lw"><b class="mono">CV 557/BKHCN-CĐSQG</b><span>Nguyên tắc sử dụng chatbot AI</span></div>
+    </div>
+    <div class="s13-seal"><i class="ic" data-i="scale"></i><span class="mono">CĂN CỨ</span></div>
+  </section>
+
+  <!-- S14 · KẾT -->
+  <section id="s14" class="scene">
+    <canvas class="orb" id="orb3" width="760" height="760"></canvas>
+    <div class="s14-logo"><img src="assets/logo_stp.png" alt="STP"></div>
+    <div class="kick s14-k mono">VIỆN NGHIÊN CỨU PHÁT TRIỂN GIÁO DỤC &amp; NGHỀ NGHIỆP STP</div>
+    <div class="h1 s14-h">Đồng hành kiến tạo<br><span class="gr">năng lực AI cốt lõi.</span></div>
+    <div class="s14-ct">
+      <div class="ph"><i class="ic" data-i="phone"></i>0827.695.368 · 0968.702.701</div>
+      <div><i class="ic" data-i="mail"></i>viencongnghestp@gmail.com</div>
+      <div><i class="ic" data-i="globe"></i>www.vienstp.com</div>
+    </div>
+    <div class="s14-offs">
+      <span><i class="ic" data-i="map-pin"></i><b>Hà Nội</b></span><span><i class="ic" data-i="map-pin"></i><b>Nha Trang</b></span><span><i class="ic" data-i="map-pin"></i><b>TP. Hồ Chí Minh</b></span>
+    </div>
+    <div class="s14-qr frame"><img src="assets/qr_vienstp.png" alt=""><div class="ln"></div><span class="mono">QUÉT ĐỂ TRUY CẬP</span></div>
+    <div class="s14-cta"><i class="ic" data-i="arrow-right"></i>LIÊN HỆ KHẢO SÁT &amp; THIẾT KẾ CHƯƠNG TRÌNH RIÊNG</div>
+  </section>
+
+  <canvas id="fx" width="1920" height="1080"></canvas>
+  <div id="beam"></div>
+  <div id="hud">
+    <i class="cn tl"></i><i class="cn tr"></i><i class="cn bl"></i><i class="cn br"></i>
+    <div class="ro l mono"><span class="dot"></span>STP · AI TRAINING <b class="tc">00:00:00</b></div>
+    <div class="ro r mono">AI CHO HÀNH CHÍNH CÔNG</div>
+  </div>
+  <div id="bug"><img src="assets/logo_stp.png" alt=""><span class="mono">VIỆN STP</span></div>
+  <div id="blocks"></div>
+  <div id="flash"></div>
+  <div id="scanlines"></div>
+  <div id="vig"></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -4,3 +4,5 @@ video-iot/build/
 *.log
 video-hrms/build/
 video-txng/build/
+video-ai/build/
+video-ai/voice/
