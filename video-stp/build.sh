@@ -39,10 +39,10 @@ $FFMPEG -y -loglevel error -i "$OUT/video_master.mp4" -i "$OUT/music.wav" -i "$O
   -pass:v:0 2 -passlogfile:v:0 "$OUT/p2" -c:v:1 mjpeg -disposition:v:1 attached_pic \
   -c:a aac -b:a ${AB}k -t "$T" -movflags +faststart "$OUT/${NAME}_1080p.mp4"
 $FFMPEG -y -loglevel error -i "$OUT/video_master.mp4" -i "$OUT/music.wav" \
-  -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -crf 23 -maxrate 2.5M -bufsize 5M -pix_fmt yuv420p \
-  -c:a aac -b:a 128k -movflags +faststart -shortest "$OUT/${NAME}_720p.mp4"
+  -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -crf 26 -maxrate 2M -bufsize 4M -pix_fmt yuv420p \
+  -c:a aac -b:a 112k -movflags +faststart -shortest "$OUT/${NAME}_720p.mp4"
 # bản chỉ có nhạc (không lời) – dùng khi muốn lồng giọng đọc khác
 $FFMPEG -y -loglevel error -i "$OUT/video_master.mp4" -i "$OUT/music_only.wav" \
-  -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -crf 23 -maxrate 2.5M -bufsize 5M -pix_fmt yuv420p \
-  -c:a aac -b:a 128k -movflags +faststart -shortest "$OUT/${NAME}_khong-loi_720p.mp4"
+  -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -crf 26 -maxrate 2M -bufsize 4M -pix_fmt yuv420p \
+  -c:a aac -b:a 112k -movflags +faststart -shortest "$OUT/${NAME}_khong-loi_720p.mp4"
 ls -la "$OUT"/*.mp4 "$OUT"/*.srt

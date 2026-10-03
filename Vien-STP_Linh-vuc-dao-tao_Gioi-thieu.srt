@@ -1,0 +1,240 @@
+1
+00:00:01,600 --> 00:00:04,658
+Trong thời đại số, chất lượng nguồn nhân lực là chìa khóa then chốt,
+
+2
+00:00:05,008 --> 00:00:08,514
+giúp cơ quan và doanh nghiệp nâng cao hiệu quả vận hành và năng lực cạnh tranh.
+
+3
+00:00:10,794 --> 00:00:13,457
+Viện Nghiên cứu Phát triển Giáo dục và Nghề nghiệp STP –
+
+4
+00:00:13,457 --> 00:00:16,738
+đối tác đồng hành tin cậy trong đào tạo và phát triển nguồn nhân lực.
+
+5
+00:00:18,907 --> 00:00:24,292
+Tổ chức khoa học và công nghệ trực thuộc Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam (VUSTA),
+
+6
+00:00:24,292 --> 00:00:25,513
+hoạt động từ năm 2020.
+
+7
+00:00:25,863 --> 00:00:29,033
+Viện có văn phòng tại Hà Nội, Nha Trang và TP. Hồ Chí Minh.
+
+8
+00:00:31,353 --> 00:00:33,906
+Hệ sinh thái đào tạo của Viện hội tụ bốn trọng tâm:
+
+9
+00:00:34,256 --> 00:00:38,229
+chứng chỉ nghiệp vụ ngắn hạn; an toàn, vệ sinh lao động; đào tạo ứng dụng AI;
+
+10
+00:00:38,229 --> 00:00:40,758
+tuyển sinh và khảo thí tiếng Anh chuẩn Cambridge.
+
+11
+00:00:41,108 --> 00:00:43,906
+Trọng tâm thứ nhất: đào tạo và cấp chứng chỉ nghiệp vụ ngắn hạn.
+
+12
+00:00:44,356 --> 00:00:48,177
+Viện STP trực tiếp đào tạo, bồi dưỡng và cấp chứng chỉ nghề nghiệp ngắn hạn,
+
+13
+00:00:48,177 --> 00:00:50,892
+nâng cao năng lực chuyên môn, kỹ năng nghề và quản lý.
+
+14
+00:00:51,242 --> 00:00:53,563
+Các chương trình được xây dựng theo hướng ứng dụng,
+
+15
+00:00:53,563 --> 00:00:55,793
+bám sát nhu cầu thực tiễn và thị trường lao động.
+
+16
+00:00:57,642 --> 00:01:02,611
+Từ an toàn giao thông đường thủy nội địa đến giám sát thi công xây dựng và chỉ huy trưởng công trình,
+
+17
+00:01:02,962 --> 00:01:06,020
+học viên được cấp Chứng nhận nghiệp vụ song ngữ Việt – Anh,
+
+18
+00:01:06,020 --> 00:01:07,679
+có số hiệu và số vào sổ rõ ràng.
+
+19
+00:01:09,828 --> 00:01:13,508
+Trọng tâm thứ hai – cũng là thế mạnh nổi bật: an toàn, vệ sinh lao động.
+
+20
+00:01:14,359 --> 00:01:18,045
+An toàn lao động không chỉ để tuân thủ pháp luật, mà còn bảo vệ con người,
+
+21
+00:01:18,045 --> 00:01:19,789
+tài sản và uy tín của doanh nghiệp.
+
+22
+00:01:21,601 --> 00:01:24,538
+Viện STP nghiên cứu, xây dựng chương trình và nền tảng số;
+
+23
+00:01:24,538 --> 00:01:27,373
+Công ty CP Kỹ thuật Hàng hải DAKO triển khai huấn luyện,
+
+24
+00:01:27,373 --> 00:01:29,449
+sát hạch và cấp chứng chỉ theo giấy phép.
+
+25
+00:01:29,799 --> 00:01:33,365
+Doanh nghiệp nhận được giải pháp toàn diện: tuân thủ pháp luật, giảm rủi ro,
+
+26
+00:01:33,365 --> 00:01:34,304
+phát triển bền vững.
+
+27
+00:01:36,054 --> 00:01:38,959
+Huấn luyện đủ 6 nhóm đối tượng theo quy định: người quản lý,
+
+28
+00:01:38,959 --> 00:01:42,445
+cán bộ chuyên trách an toàn, người làm công việc có yêu cầu nghiêm ngặt,
+
+29
+00:01:42,795 --> 00:01:45,681
+người lao động, nhân viên y tế và an toàn, vệ sinh viên –
+
+30
+00:01:45,681 --> 00:01:47,706
+kết hợp lý thuyết với thực hành tại chỗ.
+
+31
+00:01:49,519 --> 00:01:51,625
+Một khóa học có thể kết thúc sau vài ngày –
+
+32
+00:01:51,625 --> 00:01:54,024
+nhưng an toàn lao động cần được quản lý mỗi ngày.
+
+33
+00:01:54,374 --> 00:01:58,002
+Thay cho Excel và hồ sơ giấy, nền tảng số quản lý tập trung hồ sơ,
+
+34
+00:01:58,002 --> 00:02:00,806
+tự động cảnh báo chứng chỉ và thiết bị sắp hết hạn.
+
+35
+00:02:02,656 --> 00:02:05,697
+Lãnh đạo nắm ngay chỉ số tuân thủ trên dashboard trực quan,
+
+36
+00:02:06,047 --> 00:02:10,250
+người lao động tra cứu chứng chỉ 24/7, với mã xác thực chống giả mạo.
+
+37
+00:02:12,162 --> 00:02:15,796
+Nhiều doanh nghiệp đã lựa chọn Viện STP cho công tác huấn luyện an toàn lao động.
+
+38
+00:02:18,412 --> 00:02:21,024
+Trọng tâm thứ ba: đào tạo ứng dụng trí tuệ nhân tạo (AI).
+
+39
+00:02:21,762 --> 00:02:25,006
+Không dùng giáo trình rập khuôn, Viện khảo sát “điểm nghẽn” vận hành,
+
+40
+00:02:25,006 --> 00:02:27,497
+thiết kế chương trình riêng cho từng cơ quan, đơn vị.
+
+41
+00:02:27,847 --> 00:02:30,595
+Đội ngũ chuyên gia “thực thi kép”: cố vấn chuyển đổi số,
+
+42
+00:02:30,595 --> 00:02:32,804
+giám đốc đào tạo cùng kỹ sư giàu kinh nghiệm.
+
+43
+00:02:34,617 --> 00:02:38,394
+Chương trình dành cho cơ quan nhà nước, doanh nghiệp, đơn vị giáo dục và cá nhân,
+
+44
+00:02:38,744 --> 00:02:42,363
+biến AI thành người trợ lý hiệu quả, bứt phá năng suất trong công việc,
+
+45
+00:02:42,363 --> 00:02:43,434
+giảng dạy và học tập.
+
+46
+00:02:45,284 --> 00:02:49,707
+Với khối hành chính: 30% kiến thức nền tảng, 70% thực hành nghiệp vụ.
+
+47
+00:02:50,057 --> 00:02:53,762
+Học đến đâu – làm được đến đó. AI hỗ trợ, cán bộ chịu trách nhiệm.
+
+48
+00:02:56,312 --> 00:02:59,574
+Và trọng tâm thứ tư: tuyển sinh, đào tạo và khảo thí tiếng Anh.
+
+49
+00:03:00,324 --> 00:03:03,787
+Trung tâm Tuyển sinh liên kết với các trường uy tín trong và ngoài nước,
+
+50
+00:03:03,787 --> 00:03:06,048
+tư vấn đào tạo chính quy từ Sơ cấp đến Tiến sĩ.
+
+51
+00:03:08,598 --> 00:03:11,241
+Trung tâm đào tạo và khảo thí tiếng Anh chuẩn Cambridge –
+
+52
+00:03:11,241 --> 00:03:13,467
+từ các cấp độ thiếu nhi đến trình độ thành thạo,
+
+53
+00:03:13,817 --> 00:03:15,709
+với không gian học tập hiện đại và thân thiện.
+
+54
+00:03:17,721 --> 00:03:21,088
+Phòng thi máy tính đáp ứng đến 250 thí sinh mỗi ca thi.
+
+55
+00:03:24,521 --> 00:03:26,932
+Bốn trọng tâm – một hệ sinh thái đào tạo toàn diện:
+
+56
+00:03:27,282 --> 00:03:31,241
+đồng hành từ khảo sát nhu cầu, xây dựng lộ trình đến ứng dụng thực tiễn.
+
+57
+00:03:33,861 --> 00:03:36,531
+Cùng mạng lưới đối tác rộng khắp, trong nước và quốc tế.
+
+58
+00:03:40,441 --> 00:03:42,357
+Hãy để Viện STP đồng hành cùng Quý cơ quan,
+
+59
+00:03:42,357 --> 00:03:44,853
+doanh nghiệp trong hành trình phát triển nguồn nhân lực.
+
+60
+00:03:45,203 --> 00:03:48,047
+Liên hệ ngay để được tư vấn và thiết kế chương trình phù hợp.
+
