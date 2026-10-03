@@ -1,0 +1,15 @@
+{
+  "name": "stp-profile-dao-tao",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hồ sơ năng lực Lĩnh vực Đào tạo – Viện STP (PPTX A4 đứng)",
+  "scripts": { "build": "node build.js" },
+  "dependencies": {
+    "image-size": "^1.2.1",
+    "pptxgenjs": "^4.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.7.0",
+    "sharp": "^0.35.5"
+  }
+}
