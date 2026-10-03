@@ -20,24 +20,29 @@ fi
 while read -r i a b; do echo "file 'seg_$i.mp4'" >> "$OUT/parts.txt"; done < "$OUT/segs.txt"
 $FFMPEG -y -loglevel error -f concat -safe 0 -i "$OUT/parts.txt" -c copy "$OUT/video_master.mp4"
 
-TRANSPOSE=1 DRUMS=0.7 VO_DIR="$OUT/vo" NOVO_OUT="$OUT/music_only.wav" python3 synth.py "$OUT/info.json" "$OUT/music.wav"
+TRANSPOSE=0 DRUMS=0.75 VO_DIR="$OUT/vo" NOVO_OUT="$OUT/music_only.wav" python3 synth.py "$OUT/info.json" "$OUT/music.wav"
 python3 srt.py "$OUT/info.json" vo.json > "$OUT/${NAME}.srt"
 
 # độ dài chính xác theo số khung hình (không dùng -shortest vì ảnh bìa chỉ có 1 khung)
 T=$(python3 -c "import json;d=json.load(open('$OUT/info.json'))['duration'];print(round(d*30)/30)")
-# 1080p: mã hoá 2 lượt ~1.05 Mbps để file < 30 MB (gửi qua chat/email), kèm ảnh bìa
-$FFMPEG -y -loglevel error -ss 20 -i "$OUT/video_master.mp4" -frames:v 1 -q:v 2 "$OUT/cover.jpg"
-$FFMPEG -y -loglevel error -i "$OUT/video_master.mp4" -c:v libx264 -preset slow -tune animation -b:v 1050k \
+# 1080p: mã hoá 2 lượt, bitrate tính theo thời lượng để file ≈ 29 MB (< 30 MB, gửi qua chat/email), kèm ảnh bìa
+AB=112
+VB=$(python3 -c "print(int(29.2 * 8388.608 / $T - $AB - 12))")
+echo "1080p: video ${VB}k + audio ${AB}k"
+# ảnh bìa: trang "4 trọng tâm đào tạo" khi cả bốn ô đã hiện
+CT=$(python3 -c "import json;print(next(m['t'] for m in json.load(open('$OUT/info.json'))['marks'] if m.get('id')=='h1b3') - 0.3)")
+$FFMPEG -y -loglevel error -ss "$CT" -i "$OUT/video_master.mp4" -frames:v 1 -q:v 2 "$OUT/cover.jpg"
+$FFMPEG -y -loglevel error -i "$OUT/video_master.mp4" -c:v libx264 -preset slow -b:v ${VB}k \
   -maxrate 3000k -bufsize 6000k -pix_fmt yuv420p -pass 1 -passlogfile "$OUT/p2" -an -f mp4 /dev/null
 $FFMPEG -y -loglevel error -i "$OUT/video_master.mp4" -i "$OUT/music.wav" -i "$OUT/cover.jpg" -map 0:v -map 1:a -map 2:v \
-  -c:v:0 libx264 -preset slow -tune animation -b:v:0 1050k -maxrate:v:0 3000k -bufsize:v:0 6000k -pix_fmt:v:0 yuv420p \
+  -c:v:0 libx264 -preset slow -b:v:0 ${VB}k -maxrate:v:0 3000k -bufsize:v:0 6000k -pix_fmt:v:0 yuv420p \
   -pass:v:0 2 -passlogfile:v:0 "$OUT/p2" -c:v:1 mjpeg -disposition:v:1 attached_pic \
-  -c:a aac -b:a 128k -t "$T" -movflags +faststart "$OUT/${NAME}_1080p.mp4"
+  -c:a aac -b:a ${AB}k -t "$T" -movflags +faststart "$OUT/${NAME}_1080p.mp4"
 $FFMPEG -y -loglevel error -i "$OUT/video_master.mp4" -i "$OUT/music.wav" \
-  -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -crf 23 -tune animation -maxrate 2.5M -bufsize 5M -pix_fmt yuv420p \
+  -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -crf 23 -maxrate 2.5M -bufsize 5M -pix_fmt yuv420p \
   -c:a aac -b:a 128k -movflags +faststart -shortest "$OUT/${NAME}_720p.mp4"
 # bản chỉ có nhạc (không lời) – dùng khi muốn lồng giọng đọc khác
 $FFMPEG -y -loglevel error -i "$OUT/video_master.mp4" -i "$OUT/music_only.wav" \
-  -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -crf 23 -tune animation -maxrate 2.5M -bufsize 5M -pix_fmt yuv420p \
+  -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -crf 23 -maxrate 2.5M -bufsize 5M -pix_fmt yuv420p \
   -c:a aac -b:a 128k -movflags +faststart -shortest "$OUT/${NAME}_khong-loi_720p.mp4"
 ls -la "$OUT"/*.mp4 "$OUT"/*.srt
