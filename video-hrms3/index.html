@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>EVNICT – HRMS 3.0 &amp; D-Office (có thuyết minh)</title>
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/400.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/600.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/700.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/800.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/400.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/700.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="net" width="1920" height="1080"></canvas>
+  <svg id="towers" viewBox="0 0 1920 1080"></svg>
+  <div id="floor"><div class="grid"></div></div>
+
+  <!-- S1 · BÀI TOÁN -->
+  <section id="s1" class="scene">
+    <svg class="s1-links" viewBox="0 0 1920 1080"></svg>
+    <div class="s1-docs"></div>
+    <div class="s1-band"></div>
+    <div class="s1-a line center">Quy trình giấy · Dữ liệu rời rạc · <span class="red">Chậm trễ</span></div>
+    <div class="s1-c line center">Làm sao <span class="el">ra quyết định kịp thời,</span></div>
+    <div class="s1-d line center">khi dữ liệu còn <span class="red">phân mảnh?</span></div>
+  </section>
+
+  <!-- S2 · TIÊU ĐỀ -->
+  <section id="s2" class="scene">
+    <div class="s2-lock">
+      <svg class="s2-rings" viewBox="0 0 600 600">
+        <circle class="r0" cx="300" cy="300" r="292"/><circle class="r1" cx="300" cy="300" r="270"/>
+        <circle class="r2" cx="300" cy="300" r="250"/><circle class="r3" cx="300" cy="300" r="232"/><g class="ticks"></g>
+      </svg>
+      <div class="s2-shock"></div><div class="s2-shock b"></div>
+      <div class="s2-disc">
+        <img class="l-ring" src="assets/emb_ring.png" alt=""><img class="l-b" src="assets/emb_star_b.png" alt="">
+        <img class="l-r" src="assets/emb_star_r.png" alt=""><img class="l-y" src="assets/emb_star_y.png" alt="">
+      </div>
+      <div class="s2-word"><img src="assets/wordmark.png" alt="EVNICT"></div>
+    </div>
+    <div class="kick s2-k mono">GIẢI PHÁP CHUYỂN ĐỔI SỐ NGÀNH ĐIỆN</div>
+    <div class="h1 s2-h">Chuyển đổi số điều hành<br>và quản trị nhân sự</div>
+    <div class="s2-big"><span class="grad">HRMS 3.0</span></div>
+    <div class="s2-plus"><span class="cu">&amp; D-Office</span></div>
+    <div class="s2-sub">Công ty Viễn thông Điện lực và Công nghệ thông tin · <b>EVNICT</b></div>
+    <div class="s2-chips">
+      <span><i class="ic" data-i="monitor"></i>Web HRMS 3.0</span>
+      <span><i class="ic" data-i="smartphone"></i>App SmartEVN</span>
+      <span><i class="ic" data-i="file-pen-line"></i>D-Office</span>
+      <span><i class="ic" data-i="graduation-cap"></i>E-Learning</span>
+    </div>
+  </section>
+
+  <!-- S3 · NĂNG LỰC EVNICT -->
+  <section id="s3" class="scene">
+    <div class="kick kk mono"><b>01</b>NĂNG LỰC EVNICT</div>
+    <div class="h1 hh">Năng lực công nghệ <span class="cu">của ngành điện.</span></div>
+    <div class="stats">
+      <div class="st frame"><svg class="rg" viewBox="0 0 220 220"><circle class="a" cx="110" cy="110" r="100"/><circle class="b" cx="110" cy="110" r="84"/></svg><i class="ic" data-i="users"></i><b><span class="v1">0</span>+</b><span>chuyên gia CNTT</span></div>
+      <div class="st frame"><svg class="rg" viewBox="0 0 220 220"><circle class="a" cx="110" cy="110" r="100"/><circle class="b" cx="110" cy="110" r="84"/></svg><i class="ic" data-i="calendar-check"></i><b><span class="v2">0</span>+</b><span>năm kinh nghiệm ngành</span></div>
+      <div class="st frame"><svg class="rg" viewBox="0 0 220 220"><circle class="a" cx="110" cy="110" r="100"/><circle class="b" cx="110" cy="110" r="84"/></svg><i class="ic" data-i="trophy"></i><b class="t3">Top 10</b><span>doanh nghiệp CNTT Việt Nam</span></div>
+      <div class="st frame"><svg class="rg" viewBox="0 0 220 220"><circle class="a" cx="110" cy="110" r="100"/><circle class="b" cx="110" cy="110" r="84"/></svg><i class="ic" data-i="award"></i><b class="t4">Sao Khuê</b><span>giải thưởng</span></div>
+    </div>
+  </section>
+
+  <!-- S4 · HỆ SINH THÁI -->
+  <section id="s4" class="scene">
+    <div class="kick kk mono"><b>02</b>HỆ SINH THÁI HỢP NHẤT</div>
+    <div class="h1 hh">Một nền tảng – <span class="cu">dòng chảy thông tin liên tục.</span></div>
+    <svg class="s4-wires" viewBox="0 0 1920 1080"></svg>
+    <div class="nd usr u1" style="left:120px;top:388px"><i class="ic" data-i="user-cog"></i>Lãnh đạo</div>
+    <div class="nd usr u2" style="left:120px;top:508px"><i class="ic" data-i="briefcase"></i>Cán bộ nghiệp vụ</div>
+    <div class="nd usr u3" style="left:120px;top:628px"><i class="ic" data-i="hard-hat"></i>Người lao động</div>
+    <div class="nd chn c1" style="left:420px;top:430px"><i class="ic" data-i="monitor"></i><div><small class="mono">WEB</small>HRMS 3.0</div></div>
+    <div class="nd chn c2" style="left:420px;top:560px"><i class="ic" data-i="smartphone"></i><div><small class="mono">APP</small>SmartEVN</div></div>
+    <div class="hub h1b" style="left:710px;top:480px"><i class="ic" data-i="cpu"></i><span>Lõi dịch vụ<br>quản trị NNL</span></div>
+    <div class="nd md" style="left:1000px;top:373px"><i class="ic" data-i="layers"></i>HRMS 3.0</div>
+    <div class="nd md" style="left:1000px;top:473px"><i class="ic" data-i="file-pen-line"></i>D-Office</div>
+    <div class="nd md" style="left:1000px;top:573px"><i class="ic" data-i="smartphone"></i>SmartEVN</div>
+    <div class="nd md" style="left:1000px;top:673px"><i class="ic" data-i="graduation-cap"></i>E-Learning</div>
+    <div class="hub h2b" style="left:1280px;top:480px"><i class="ic" data-i="network"></i><span>Tích hợp hệ thống<br>thông tin khác</span></div>
+    <div class="nd ex" style="left:1580px;top:373px"><i class="ic" data-i="database"></i>ERP</div>
+    <div class="nd ex" style="left:1580px;top:473px"><i class="ic" data-i="wallet"></i>Epayment</div>
+    <div class="nd ex" style="left:1580px;top:573px"><i class="ic" data-i="zap"></i>CMIS</div>
+    <div class="nd ex" style="left:1580px;top:673px"><i class="ic" data-i="server"></i>IMIS</div>
+    <div class="kaf"><span><i class="ic" data-i="refresh-cw"></i>Đồng bộ gần tức thời giữa các cấp · <b class="mono">Kafka</b></span></div>
+  </section>
+
+  <!-- S5 · D-OFFICE -->
+  <section id="s5" class="scene">
+    <div class="kick kk mono"><b>03</b>ĐIỀU HÀNH SỐ D-OFFICE</div>
+    <div class="h1 hh">Xử lý văn bản <span class="cu">khép kín.</span></div>
+    <div class="pipe">
+      <div class="cab"><i></i></div>
+      <div class="stp" style="left:0"><div class="o"><div class="c"><i class="ic" data-i="inbox"></i></div></div><em>01</em><b>Tiếp nhận</b><p>Số hoá, cập nhật văn bản</p></div>
+      <div class="stp" style="left:345px"><div class="o"><div class="c"><i class="ic" data-i="share-2"></i></div></div><em>02</em><b>Phân phối</b><p>Đến lãnh đạo đơn vị</p></div>
+      <div class="stp" style="left:690px"><div class="o"><div class="c"><i class="ic" data-i="list-checks"></i></div></div><em>03</em><b>Chỉ đạo</b><p>Giao việc, ấn định thời hạn</p></div>
+      <div class="stp" style="left:1035px"><div class="o"><div class="c"><i class="ic" data-i="pen-line"></i></div></div><em>04</em><b>Thực hiện</b><p>Xử lý và lập dự thảo</p></div>
+      <div class="stp" style="left:1380px"><div class="o"><div class="c"><i class="ic" data-i="signature"></i></div></div><em>05</em><b>Ký số</b><p>Ký duyệt và phát hành</p></div>
+    </div>
+    <div class="tok"><i></i><i></i><i style="width:60%"></i><i></i></div>
+    <div class="mon">
+      <div class="frame"><i class="ic" data-i="monitor-smartphone"></i><div><b>Đa nền tảng</b><small>Web · máy tính bảng · điện thoại</small></div></div>
+      <div class="frame"><i class="ic" data-i="list-todo"></i><div><b>Mọi công việc</b><small>Giám sát tập trung</small><div class="bar"><i></i></div></div></div>
+      <div class="frame"><i class="ic" data-i="activity"></i><div><b>Tiến độ tức thời</b><small>Cập nhật theo thời gian thực</small><div class="bar"><i></i></div></div></div>
+    </div>
+  </section>
+
+  <!-- S6 · SELF-SERVICE -->
+  <section id="s6" class="scene">
+    <div class="kick kk mono"><b>04</b>NHÂN SỰ SỐ HRMS · SELF-SERVICE</div>
+    <div class="h1 hh">Người lao động <span class="cu">chủ động cập nhật.</span></div>
+    <svg class="arr" viewBox="0 0 1920 1080"><path d="M652 485 H706"/><path d="M1232 485 H1286"/></svg>
+    <div class="flow3">
+      <div class="sv frame"><em>01</em><i class="ok"><i class="ic" data-i="check"></i></i><i class="ic" data-i="user-pen"></i><b>Người lao động</b><span>Chủ động cập nhật</span></div>
+      <div class="sv frame"><em>02</em><i class="ok"><i class="ic" data-i="check"></i></i><i class="ic" data-i="user-check"></i><b>HR</b><span>Kiểm duyệt</span></div>
+      <div class="sv frame"><em>03</em><i class="ok"><i class="ic" data-i="check"></i></i><i class="ic" data-i="stamp"></i><b>Lãnh đạo</b><span>Phê duyệt cuối cùng</span></div>
+    </div>
+    <div class="lbl mono">TỰ ĐỘNG HOÁ HRMS</div>
+    <div class="auto">
+      <span><i class="ic" data-i="file-user"></i>Hồ sơ điện tử sạch &amp; sống</span>
+      <span><i class="ic" data-i="graduation-cap"></i>Đăng ký đào tạo E-learning</span>
+      <span><i class="ic" data-i="badge-dollar-sign"></i>Xét duyệt lương tự động</span>
+      <span><i class="ic" data-i="users"></i>Công tác cán bộ &amp; hưu trí</span>
+    </div>
+  </section>
+
+  <!-- S7 · SMARTEVN (giao diện thực tế) -->
+  <section id="s7" class="scene">
+    <div class="kick kk mono"><b>UI</b>GIAO DIỆN THỰC TẾ · SMARTEVN</div>
+    <div class="h1 hh">SmartEVN: <span class="cu">một cổng, mọi tiện ích.</span></div>
+    <div class="cos" style="left:1440px;top:300px;width:360px">
+      <div class="co"><em>1</em><div><b>Đăng nhập một lần</b><p>Tài khoản EVN trên web hoặc app iOS, Android.</p></div></div>
+      <div class="co"><em>2</em><div><b>Tiện ích văn phòng trong tay</b><p>Hồ sơ cá nhân, HĐLĐ, ký số báo cáo, đào tạo, nâng lương.</p></div></div>
+      <div class="co"><em>3</em><div><b>Dùng chung nhiều vai trò</b><p>Người lao động và lãnh đạo phòng ban cùng dùng.</p></div></div>
+    </div>
+  </section>
+
+  <!-- S8 · HỒ SƠ ĐIỆN TỬ -->
+  <section id="s8" class="scene">
+    <div class="kick kk mono"><b>UI</b>GIAO DIỆN THỰC TẾ · HỒ SƠ ĐIỆN TỬ</div>
+    <div class="h1 hh">Hồ sơ điện tử: <span class="cu">dữ liệu nhân sự tập trung.</span></div>
+  </section>
+
+  <!-- S9 · ĐÀO TẠO -->
+  <section id="s9" class="scene">
+    <div class="kick kk mono"><b>UI</b>GIAO DIỆN THỰC TẾ · ĐÀO TẠO</div>
+    <div class="h1 hh">Quản lý đào tạo <span class="cu">trên một hệ thống.</span></div>
+  </section>
+
+  <!-- S10 · NÂNG LƯƠNG -->
+  <section id="s10" class="scene">
+    <div class="kick kk mono"><b>UI</b>GIAO DIỆN THỰC TẾ · NÂNG LƯƠNG</div>
+    <div class="h1 hh">Nâng lương, chuyển ngạch: <span class="cu">đăng ký trực tuyến.</span></div>
+  </section>
+
+  <!-- S11 · TRÌNH KÝ & HỢP ĐỒNG ĐIỆN TỬ -->
+  <section id="s11" class="scene">
+    <div class="kick kk mono"><b>UI</b>TRÌNH KÝ &amp; HỢP ĐỒNG ĐIỆN TỬ</div>
+    <div class="h1 hh">Trình ký điện tử: <span class="cu">từ đề xuất đến hồ sơ.</span></div>
+    <svg class="arr" viewBox="0 0 1920 1080" style="left:0;top:0;width:1920px;height:1080px"><path d="M652 340 H706"/><path d="M1232 340 H1286"/></svg>
+    <div class="fl3">
+      <div class="f frame"><em class="mono">01</em><i class="ic" data-i="file-plus"></i><div><b>Khởi tạo</b><small>Tờ trình / Đề xuất trên HRMS</small></div></div>
+      <div class="f frame"><em class="mono">02</em><i class="ic" data-i="signature"></i><div><b>Ký số</b><small>Lãnh đạo duyệt trên D-Office</small></div></div>
+      <div class="f frame"><em class="mono">03</em><i class="ic" data-i="refresh-cw"></i><div><b>Đồng bộ</b><small>Cập nhật hồ sơ trên HRMS</small></div></div>
+    </div>
+    <div class="cos" style="left:1430px;top:450px;width:370px">
+      <div class="co"><em>1</em><div><b>Xem hợp đồng ngay trên hệ thống</b><p>Mở hợp đồng chờ xử lý, xem chi tiết trước khi ký.</p></div></div>
+      <div class="co"><em>2</em><div><b>Ký số USB hoặc HSM</b><p>Đồng ý, Ký số USB, Ký số HSM ngay trên màn hình.</p></div></div>
+      <div class="co"><em>3</em><div><b>Theo dõi lộ trình xử lý</b><p>Soạn thảo → người lao động → tổ chức hành chính → D-Office.</p></div></div>
+    </div>
+  </section>
+
+  <!-- S12 · BÁO CÁO & KÝ SỐ -->
+  <section id="s12" class="scene">
+    <div class="kick kk mono"><b>UI</b>GIAO DIỆN THỰC TẾ · BÁO CÁO &amp; KÝ SỐ</div>
+    <div class="h1 hh">Báo cáo chuẩn – <span class="cu">ký số mọi nơi.</span></div>
+  </section>
+
+  <!-- S13 · BẢO MẬT -->
+  <section id="s13" class="scene">
+    <div class="kick kk mono"><b>05</b>KIẾN TRÚC &amp; BẢO MẬT</div>
+    <div class="h1 hh">Phân quyền theo vai trò – <span class="cu">minh bạch từng thao tác.</span></div>
+    <div class="layers">
+      <span><em>1</em>Cấu hình đơn vị được truy cập</span>
+      <span><em>2</em>Cấu hình phần mềm: HRMS, D-Office, E-learning…</span>
+      <span><em>3</em>Phân quyền menu quản trị theo vai trò</span>
+    </div>
+    <div class="roles frame">
+      <div class="big mono"><span class="v44">0</span></div><div class="cap">vai trò chuẩn trên HRMS</div>
+      <div class="bars">
+        <div class="r"><span>Nhân sự</span><i style="width:130px"></i><em>13</em></div>
+        <div class="r"><span>Đào tạo</span><i style="width:100px"></i><em>10</em></div>
+        <div class="r"><span>Lao động – TL</span><i style="width:30px"></i><em>3</em></div>
+        <div class="r"><span>Thi đua KT · Tổ chức</span><i style="width:40px"></i><em>2 · 2</em></div>
+        <div class="r"><span>Quản trị</span><i style="width:10px"></i><em>1</em></div>
+      </div>
+    </div>
+    <div class="audit frame">
+      <b><i class="ic" data-i="history"></i>NHẬT KÝ VẾT · AI LÀM · LÚC NÀO</b>
+      <div class="log"><div class="in"></div></div>
+    </div>
+  </section>
+
+  <!-- S14 · MỞ RỘNG -->
+  <section id="s14" class="scene">
+    <div class="kick kk mono"><b>06</b>KHẢ NĂNG MỞ RỘNG</div>
+    <div class="h1 hh">Nền tảng HRMS &amp; D-Office – <span class="cu">sẵn sàng mở rộng.</span></div>
+    <div class="tl4">
+      <div class="t frame"><i class="ic" data-i="boxes"></i><b>Microservices</b><span>Kiến trúc linh hoạt</span></div>
+      <div class="t frame"><i class="ic" data-i="plug"></i><b>API</b><span>Chuẩn hoá kết nối</span></div>
+      <div class="t frame"><i class="ic" data-i="clock"></i><b>24/7</b><span>Đảm bảo vận hành liên tục</span></div>
+      <div class="t frame"><i class="ic" data-i="users"></i><b><span class="v97">0</span>+</b><span>người dùng được phục vụ</span></div>
+    </div>
+  </section>
+
+  <!-- S15 · LỘ TRÌNH -->
+  <section id="s15" class="scene">
+    <div class="kick kk mono"><b>07</b>LỘ TRÌNH TRIỂN KHAI</div>
+    <div class="h1 hh">Lộ trình triển khai <span class="cu">6 bước.</span></div>
+    <div class="s11-cable"><i class="fill"></i><i class="spark"></i></div>
+    <div class="s11-n" style="left:260px"><i class="dia"></i></div><div class="s11-n" style="left:540px"><i class="dia"></i></div>
+    <div class="s11-n" style="left:820px"><i class="dia"></i></div><div class="s11-n" style="left:1100px"><i class="dia"></i></div>
+    <div class="s11-n" style="left:1380px"><i class="dia"></i></div><div class="s11-n" style="left:1660px"><i class="dia"></i></div>
+    <div class="s11-t" style="left:145px"><i class="ic" data-i="search"></i><b>Khảo sát</b><small>Rà soát kỹ lưỡng</small></div>
+    <div class="s11-t" style="left:425px"><i class="ic" data-i="database-backup"></i><b>Migration</b><small>Chuyển đổi dữ liệu an toàn</small></div>
+    <div class="s11-t" style="left:705px"><i class="ic" data-i="settings"></i><b>Cấu hình</b><small>Tích hợp hệ thống</small></div>
+    <div class="s11-t" style="left:985px"><i class="ic" data-i="graduation-cap"></i><b>Đào tạo</b><small>Nhân sự được đào tạo sử dụng</small></div>
+    <div class="s11-t" style="left:1265px"><i class="ic" data-i="rocket"></i><b>Go-Live</b><small>Vận hành thực tế</small></div>
+    <div class="s11-t" style="left:1545px"><i class="ic" data-i="headset"></i><b>Hỗ trợ</b><small>Tối ưu sau triển khai</small></div>
+    <div class="coop">
+      <div class="hd">EVNICT</div><div></div><div class="hd r">ĐƠN VỊ</div>
+      <span><i class="ic" data-i="server-cog"></i>Kỹ thuật &amp; hạ tầng</span><i class="ic ar" data-i="arrow-left-right"></i><span class="r"><i class="ic" data-i="user-cog"></i>Đầu mối CNTT / HR</span>
+      <span><i class="ic" data-i="git-branch"></i>Cấu hình luồng</span><i class="ic ar" data-i="arrow-left-right"></i><span class="r"><i class="ic" data-i="clipboard-check"></i>Xác nhận quy trình</span>
+      <span><i class="ic" data-i="headset"></i>Hỗ trợ 24/7</span><i class="ic ar" data-i="arrow-left-right"></i><span class="r"><i class="ic" data-i="graduation-cap"></i>Phối hợp đào tạo</span>
+    </div>
+  </section>
+
+  <!-- S16 · GIÁ TRỊ -->
+  <section id="s16" class="scene">
+    <div class="kick kk mono"><b>08</b>GIÁ TRỊ MANG LẠI</div>
+    <div class="h1 hh">6 giá trị <span class="cu">cốt lõi.</span></div>
+    <div class="vg">
+      <div class="v frame"><i class="ic" data-i="trending-up"></i><b>Nâng cao hiệu quả điều hành</b></div>
+      <div class="v frame"><i class="ic" data-i="key-round"></i><b>Tối ưu quản trị nhân sự</b></div>
+      <div class="v frame"><i class="ic" data-i="recycle"></i><b>Tiết kiệm nguồn lực</b></div>
+      <div class="v frame"><i class="ic" data-i="search-check"></i><b>Minh bạch quy trình</b></div>
+      <div class="v frame"><i class="ic" data-i="rocket"></i><b>Nâng tầm trải nghiệm</b></div>
+      <div class="v frame"><i class="ic" data-i="infinity"></i><b>Nền tảng số dài hạn</b></div>
+    </div>
+  </section>
+
+  <!-- S17 · KẾT -->
+  <section id="s17" class="scene">
+    <div class="s15-lock">
+      <div class="s15-disc"><img src="assets/emblem.png" alt=""></div>
+      <div class="s15-word"><img src="assets/wordmark.png" alt="EVNICT"></div>
+    </div>
+    <div class="h1 s15-h center">HRMS 3.0 <span class="cu">&amp; D-Office</span></div>
+    <div class="s15-s center">Chuyển đổi số điều hành và quản trị nhân sự</div>
+    <div class="s15-cta"><i class="ic" data-i="zap"></i>CÙNG EVNICT XÁC ĐỊNH BÀI TOÁN ƯU TIÊN CHO ĐƠN VỊ<i class="ic" data-i="arrow-right"></i></div>
+    <div class="s15-chips center">
+      <span><i class="ic" data-i="monitor"></i>Web HRMS 3.0</span>
+      <span><i class="ic" data-i="smartphone"></i>App SmartEVN</span>
+      <span><i class="ic" data-i="file-pen-line"></i>D-Office</span>
+      <span><i class="ic" data-i="graduation-cap"></i>E-Learning</span>
+    </div>
+  </section>
+
+  <canvas id="fx" width="1920" height="1080"></canvas>
+  <div id="beam"></div>
+  <div id="hud">
+    <i class="cn tl"></i><i class="cn tr"></i><i class="cn bl"></i><i class="cn br"></i>
+    <div class="ro l mono"><span class="dot"></span>HRMS 3.0 · D-OFFICE <b class="tc">00:00:00</b></div>
+    <div class="ro r mono">EVNICT · CHUYỂN ĐỔI SỐ NGÀNH ĐIỆN</div>
+  </div>
+  <div id="bug"><img class="em" src="assets/emblem.png" alt=""><img class="wm" src="assets/wordmark.png" alt=""></div>
+  <div id="blocks"></div>
+  <div id="flash"></div>
+  <div id="scanlines"></div>
+  <div id="vig"></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

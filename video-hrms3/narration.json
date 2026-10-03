@@ -1,0 +1,167 @@
+{
+  "_note": "Kịch bản thuyết minh. 'say' viết theo cách đọc cho máy (EVNICT → Ê Vê En Ai Xi Ti, HRMS → Ếch A Em Ét, D-Office → Đi Óp phít, SmartEVN → Xmát E Vê En); 'sub' là phụ đề hiển thị.",
+  "scenes": {
+    "s1": [
+      {
+        "say": "Quy trình giấy tờ, dữ liệu rời rạc, phê duyệt chậm trễ.",
+        "sub": "Quy trình giấy tờ, dữ liệu rời rạc, phê duyệt chậm trễ."
+      },
+      {
+        "say": "Làm sao ra quyết định kịp thời, khi dữ liệu còn phân mảnh?",
+        "sub": "Làm sao ra quyết định kịp thời, khi dữ liệu còn phân mảnh?"
+      }
+    ],
+    "s2": [
+      {
+        "say": "Ê Vê En Ai Xi Ti giới thiệu giải pháp chuyển đổi số điều hành và quản trị nhân sự cho ngành điện:",
+        "sub": "EVNICT giới thiệu giải pháp chuyển đổi số điều hành và quản trị nhân sự cho ngành điện:"
+      },
+      {
+        "say": "hệ thống quản lý nguồn nhân lực Ếch A Em Ét ba chấm không, cùng hệ thống điều hành Đi Óp phít.",
+        "sub": "hệ thống quản lý nguồn nhân lực HRMS 3.0, cùng hệ thống điều hành D-Office."
+      }
+    ],
+    "s3": [
+      {
+        "say": "Hơn bốn trăm chuyên gia công nghệ thông tin, hơn hai mươi năm kinh nghiệm trong ngành,",
+        "sub": "Hơn 400 chuyên gia CNTT, hơn 20 năm kinh nghiệm trong ngành,"
+      },
+      {
+        "say": "nằm trong mười doanh nghiệp công nghệ thông tin hàng đầu Việt Nam, cùng giải thưởng Sao Khuê.",
+        "sub": "Top 10 doanh nghiệp CNTT Việt Nam và giải thưởng Sao Khuê."
+      }
+    ],
+    "s4": [
+      {
+        "say": "Một hệ sinh thái hợp nhất: lãnh đạo, cán bộ nghiệp vụ và người lao động, cùng làm việc trên oép Ếch A Em Ét và ứng dụng Xmát E Vê En.",
+        "sub": "Một hệ sinh thái hợp nhất: lãnh đạo, cán bộ nghiệp vụ và người lao động cùng làm việc trên Web HRMS 3.0 và app SmartEVN."
+      },
+      {
+        "say": "Một lõi dịch vụ quản trị nguồn nhân lực, kết nối Đi Óp phít, i lơ ninh, và các hệ thống nghiệp vụ khác,",
+        "sub": "Một lõi dịch vụ quản trị nguồn nhân lực, kết nối D-Office, E-learning và các hệ thống ERP, Epayment, CMIS, IMIS,"
+      },
+      {
+        "say": "dữ liệu được đồng bộ gần tức thời giữa các cấp.",
+        "sub": "dữ liệu được đồng bộ gần tức thời giữa các cấp."
+      }
+    ],
+    "s5": [
+      {
+        "say": "Với Đi Óp phít, văn bản được xử lý khép kín: tiếp nhận, phân phối, chỉ đạo, thực hiện, và ký số phát hành.",
+        "sub": "Với D-Office, văn bản được xử lý khép kín: tiếp nhận, phân phối, chỉ đạo, thực hiện và ký số phát hành."
+      },
+      {
+        "say": "Lãnh đạo giám sát mọi công việc và tiến độ tức thời, trên mọi nền tảng.",
+        "sub": "Lãnh đạo giám sát mọi công việc và tiến độ tức thời, trên mọi nền tảng."
+      }
+    ],
+    "s6": [
+      {
+        "say": "Với Ếch A Em Ét, người lao động chủ động cập nhật hồ sơ, bộ phận nhân sự kiểm duyệt, và lãnh đạo phê duyệt cuối cùng.",
+        "sub": "Với HRMS, người lao động chủ động cập nhật hồ sơ, bộ phận nhân sự kiểm duyệt và lãnh đạo phê duyệt cuối cùng."
+      }
+    ],
+    "s7": [
+      {
+        "say": "Ứng dụng Xmát E Vê En: một cổng, mọi tiện ích. Đăng nhập một lần bằng tài khoản E Vê En, trên oép hoặc trên điện thoại.",
+        "sub": "SmartEVN: một cổng, mọi tiện ích. Đăng nhập một lần bằng tài khoản EVN, trên web hoặc app iOS, Android."
+      },
+      {
+        "say": "Hồ sơ cá nhân, hợp đồng lao động, ký số báo cáo, đăng ký đào tạo, nâng lương, tất cả trong tầm tay.",
+        "sub": "Hồ sơ cá nhân, hợp đồng lao động, ký số báo cáo, đăng ký đào tạo, nâng lương – tất cả trong tầm tay."
+      }
+    ],
+    "s8": [
+      {
+        "say": "Màn hình tổng quan cho thấy ngay số công việc, văn bản chờ ký số, chờ xử lý và thông báo.",
+        "sub": "Dashboard cho thấy ngay tổng số công việc, văn bản chờ ký số, chờ xử lý và thông báo."
+      },
+      {
+        "say": "Hồ sơ nhân sự điện tử tập trung: thông tin cá nhân, thân nhân, quá trình làm việc, lương, đào tạo, khen thưởng.",
+        "sub": "Hồ sơ nhân sự điện tử tập trung: thông tin cá nhân, thân nhân, quá trình làm việc, lương, đào tạo, khen thưởng."
+      }
+    ],
+    "s9": [
+      {
+        "say": "Quản lý đào tạo trên một hệ thống: người lao động chọn chương trình từ danh mục, và gửi đăng ký nhu cầu.",
+        "sub": "Quản lý đào tạo trên một hệ thống: chọn chương trình từ danh mục và gửi đăng ký nhu cầu."
+      },
+      {
+        "say": "Đơn vị lập kế hoạch đào tạo với loại hình, số lớp, kinh phí, rồi tạo hồ sơ trình ký.",
+        "sub": "Đơn vị lập kế hoạch đào tạo với loại hình, số lớp, kinh phí, rồi tạo file trình ký."
+      }
+    ],
+    "s10": [
+      {
+        "say": "Đăng ký nâng lương trực tuyến: định kỳ, trước hạn, xếp lại ngạch bậc, hoặc thi chuyển ngạch.",
+        "sub": "Đăng ký nâng lương trực tuyến: định kỳ, trước hạn, xếp lại ngạch – bậc hoặc thi chuyển ngạch."
+      },
+      {
+        "say": "Tiêu chí và điều kiện được hiển thị sẵn, để người lao động tự đối chiếu trước khi đăng ký.",
+        "sub": "Tiêu chí và điều kiện hiển thị ngay để người lao động tự đối chiếu trước khi đăng ký."
+      }
+    ],
+    "s11": [
+      {
+        "say": "Tờ trình được tạo trên Ếch A Em Ét, lãnh đạo ký số trên Đi Óp phít, kết quả tự động đồng bộ về hồ sơ.",
+        "sub": "Tờ trình khởi tạo trên HRMS, lãnh đạo ký số trên D-Office, kết quả tự động đồng bộ về hồ sơ."
+      },
+      {
+        "say": "Hợp đồng lao động được xem và ký điện tử ngay trên hệ thống, bằng chữ ký số U Ét Bê hoặc ký số từ xa, với lộ trình xử lý minh bạch.",
+        "sub": "Hợp đồng lao động được xem và ký điện tử ngay trên hệ thống – ký số USB hoặc HSM – với lộ trình xử lý minh bạch."
+      }
+    ],
+    "s12": [
+      {
+        "say": "Báo cáo lao động tiền lương theo các mẫu chuẩn, số liệu theo kỳ và lũy kế, tổng hợp và chuyển ký chỉ với vài thao tác.",
+        "sub": "Báo cáo lao động – tiền lương theo biểu mẫu chuẩn, số liệu theo kỳ và lũy kế, tổng hợp và chuyển ký chỉ với vài thao tác."
+      },
+      {
+        "say": "Lãnh đạo ký số báo cáo ngay trên máy tính, hoặc trên điện thoại.",
+        "sub": "Lãnh đạo ký số báo cáo ngay trên web hoặc trên điện thoại."
+      }
+    ],
+    "s13": [
+      {
+        "say": "An toàn với phân quyền theo vai trò: quản trị tập trung ba lớp, gồm đơn vị, phần mềm, và menu chức năng.",
+        "sub": "An toàn với phân quyền theo vai trò (RBAC): quản trị tập trung ba lớp – đơn vị, phần mềm, menu chức năng."
+      },
+      {
+        "say": "Ma trận chuẩn bốn mươi bốn vai trò, cùng nhật ký ghi lại mọi thao tác: ai làm, và làm lúc nào.",
+        "sub": "Ma trận chuẩn 44 vai trò, cùng nhật ký lưu vết mọi thao tác: ai làm, làm lúc nào."
+      }
+    ],
+    "s14": [
+      {
+        "say": "Nền tảng kiến trúc vi dịch vụ linh hoạt, chuẩn hoá kết nối, vận hành hai mươi bốn trên bảy, phục vụ hơn chín mươi bảy nghìn người dùng.",
+        "sub": "Kiến trúc microservices linh hoạt, chuẩn hoá API kết nối, vận hành 24/7, phục vụ hơn 97.000 người dùng."
+      }
+    ],
+    "s15": [
+      {
+        "say": "Lộ trình triển khai sáu bước: khảo sát, chuyển đổi dữ liệu, cấu hình, đào tạo, vận hành chính thức, và hỗ trợ sau triển khai.",
+        "sub": "Lộ trình triển khai 6 bước: khảo sát, chuyển đổi dữ liệu, cấu hình, đào tạo, vận hành chính thức (go-live) và hỗ trợ sau triển khai."
+      },
+      {
+        "say": "Ê Vê En Ai Xi Ti phụ trách kỹ thuật, hạ tầng và hỗ trợ hai mươi bốn trên bảy, phối hợp chặt chẽ cùng đầu mối của đơn vị.",
+        "sub": "EVNICT phụ trách kỹ thuật, hạ tầng và hỗ trợ 24/7, phối hợp chặt chẽ cùng đầu mối của đơn vị."
+      }
+    ],
+    "s16": [
+      {
+        "say": "Nâng cao hiệu quả điều hành, tối ưu quản trị nhân sự, tiết kiệm nguồn lực, minh bạch quy trình, nâng tầm trải nghiệm, và xây dựng nền tảng số dài hạn.",
+        "sub": "Nâng cao hiệu quả điều hành, tối ưu quản trị nhân sự, tiết kiệm nguồn lực, minh bạch quy trình, nâng tầm trải nghiệm và xây dựng nền tảng số dài hạn."
+      }
+    ],
+    "s17": [
+      {
+        "say": "Ếch A Em Ét ba chấm không và Đi Óp phít, chuyển đổi số điều hành và quản trị nhân sự.",
+        "sub": "HRMS 3.0 & D-Office – chuyển đổi số điều hành và quản trị nhân sự."
+      },
+      {
+        "say": "Cùng Ê Vê En Ai Xi Ti, xác định bài toán ưu tiên cho đơn vị của quý khách.",
+        "sub": "Cùng EVNICT xác định bài toán ưu tiên cho đơn vị của quý khách."
+      }
+    ]
+  }
+}
