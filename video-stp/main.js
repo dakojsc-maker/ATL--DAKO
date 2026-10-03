@@ -522,7 +522,7 @@ function hubFirst(t) { // lần đầu: 4 ô trọng tâm lần lượt xuất h
   draw('.rail .bk', B[0].t + 0.2, 1.2);
   master.fromTo('.rail .nd', { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.4, stagger: 0.15, ease: 'back.out(3)' }, B[0].t + 0.5);
   cue(B[1].t, 'sec_main');
-  const keys = ['chứng chỉ', 'an toàn', 'đào tạo ứng dụng', 'tuyển sinh'];
+  const keys = ['chứng nhận', 'an toàn', 'đào tạo ứng dụng', 'tuyển sinh'];
   keys.forEach((p, i) => {
     const at = i === 0 ? B[1].t : B.at(1, p), T = $(`.tile.t${i + 1}`);
     master.fromTo(T, { autoAlpha: 0, rotationY: -70, y: 60, transformPerspective: 1400 }, { autoAlpha: 1, rotationY: 0, y: 0, duration: 0.8, ease: 'power3.out' }, at);
@@ -585,8 +585,12 @@ function C1B(t) {
     master.to(C[i], { rotationY: -12, rotation: [-6, -1, 4][i], scale: 1, zIndex: i, duration: 0.5 }, until);
     cue(at, 'swish');
   };
-  const a1 = B.at(0, 'đường thủy'), a2 = B.at(0, 'giám sát'), a3 = B.at(0, 'chỉ huy');
-  hl(0, a1 - 0.2, a2 - 0.2); hl(1, a2 - 0.2, a3 - 0.2); hl(2, a3 - 0.2, B[1].t);
+  const a1 = B.at(0, 'đường thủy'), a2 = B.at(0, 'giám sát'), a3 = B.at(0, 'chỉ huy'), a4 = B.at(0, 'môi giới');
+  hl(0, a1 - 0.2, a2 - 0.2); hl(1, a2 - 0.2, a3 - 0.2); hl(2, a3 - 0.2, a4 - 0.2);
+  // chứng nhận môi giới bất động sản
+  flashOn(PG[2], a4 - 0.2, B[1].t + 0.6);
+  master.fromTo('.c1b-bds', { autoAlpha: 0, scale: 1.8, rotation: -12 }, { autoAlpha: 1, scale: 1, rotation: -3, duration: 0.45, ease: 'back.out(1.6)' }, a4 - 0.15);
+  cue(a4 + 0.25, 'stamp');
   const tg = $$('.c1b-tags span');
   [['song ngữ', 0], ['song ngữ', 1], ['số hiệu', 2]].forEach(([p, i]) => { pop(tg[i], B.at(1, p) + (i === 1 ? 0.35 : 0), { from: 0.6 }); cue(B.at(1, p), 'pop'); });
   master.to(C, { y: (i) => [-10, 0, 10][i], duration: 0.6, ease: 'power2.out' }, B[1].t);
@@ -871,7 +875,7 @@ function build() {
   x = L('iris', iris)(t, '#s1', '#s2', 960, 470); t = L('S2', S2)(x);
   x = L('scanWipe', scanWipe)(t, '#s2', '#s3'); t = L('S3', S3)(x);
   x = L('blockWipe', blockWipe)(t, '#s3', '#hub'); t = L('hubFirst', hubFirst)(x);
-  // 01 · chứng chỉ nghiệp vụ ngắn hạn
+  // 01 · chứng nhận nghiệp vụ ngắn hạn
   x = L('portalIn', portalIn)(t, 1, '#c1a'); t = L('C1A', C1A)(x);
   x = L('swipe', swipe)(t, '#c1a', '#c1b', ACC[1]); t = L('C1B', C1B)(x);
   master.to('#chap', { autoAlpha: 0, duration: 0.3 }, t);

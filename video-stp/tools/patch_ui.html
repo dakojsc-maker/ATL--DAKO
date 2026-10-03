@@ -1,0 +1,59 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../node_modules/@fontsource/be-vietnam-pro/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/be-vietnam-pro/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/be-vietnam-pro/700.css">
+</head><body>
+<script>
+/* Thay chữ "chứng chỉ" → "chứng nhận" trên ảnh chụp màn hình phần mềm (giữ nguyên vị trí, cỡ chữ, màu).
+   Mỗi vị trí: box = vùng chữ gốc, old/new = chuỗi cũ/mới, align = left|center. */
+const JOBS = {
+  'ui_lookup': [
+    { box: [828, 216, 991, 243], old: 'Tra cứu chứng chỉ', neu: 'Tra cứu chứng nhận', w: 700, bg: [255, 255, 255] },
+    { box: [780, 354, 850, 368], old: 'Mã chứng chỉ', neu: 'Mã chứng nhận', w: 700, bg: [255, 255, 255] },
+    { box: [284, 598, 379, 611], old: 'Tra cứu chứng chỉ', neu: 'Tra cứu chứng nhận', w: 700, bg: [38, 168, 60], align: 'center', fg: [255, 255, 255] },
+  ],
+  'ui_dash': [
+    { box: [573, 195, 650, 205], old: 'Chứng chỉ còn hạn', neu: 'Chứng nhận còn hạn', w: 500, bg: [255, 255, 255] },
+    { box: [937, 290, 995, 300], old: 'CHỨNG CHỈ', neu: 'CHỨNG NHẬN', w: 600, bg: [255, 255, 255] },
+    { box: [937, 145, 1024, 159], old: 'CC SẮP HẾT HẠN', neu: 'CN SẮP HẾT HẠN', w: 600, bg: [255, 255, 255] },
+  ],
+};
+const load = (src) => new Promise((r) => { const i = new Image(); i.onload = () => r(i); i.src = src; });
+window.run = async () => {
+  await document.fonts.ready;
+  for (const w of [500, 600, 700]) await document.fonts.load(`${w} 40px "Be Vietnam Pro"`, 'Tra cứu chứng nhận CHỨNG NHẬN');
+  const out = {};
+  for (const [name, jobs] of Object.entries(JOBS)) {
+    const img = await load(`../assets/ph/${name}.jpg`);
+    const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
+    const g = cv.getContext('2d'); g.drawImage(img, 0, 0);
+    for (const j of jobs) {
+      const [x0, y0, x1, y1] = j.box, px = g.getImageData(x0, y0, x1 - x0 + 1, y1 - y0 + 1).data;
+      // màu chữ = điểm khác nền nhiều nhất; đáy chữ cái đầu (không dấu) = đường chân chữ
+      let best = 0, fg = j.fg;
+      for (let i = 0; i < px.length; i += 4) { const d = Math.abs(px[i] - j.bg[0]) + Math.abs(px[i + 1] - j.bg[1]) + Math.abs(px[i + 2] - j.bg[2]); if (!j.fg && d > best) { best = d; fg = [px[i], px[i + 1], px[i + 2]]; } }
+      const W = x1 - x0 + 1, H = y1 - y0 + 1, ink = (x, y) => { const k = (y * W + x) * 4; return Math.abs(px[k] - j.bg[0]) + Math.abs(px[k + 1] - j.bg[1]) + Math.abs(px[k + 2] - j.bg[2]) > 90; };
+      let gx = 0; while (gx < W && ![...Array(H).keys()].some((y) => ink(gx, y))) gx++;
+      let ex = gx; while (ex < W && [...Array(H).keys()].some((y) => ink(ex, y))) ex++;
+      let top = H, bot = 0; for (let x = gx; x < ex; x++) for (let y = 0; y < H; y++) if (ink(x, y)) { top = Math.min(top, y); bot = Math.max(bot, y); }
+      const capH = bot - top + 1, base = y0 + bot + 1;
+      g.font = `${j.w} 100px "Be Vietnam Pro"`;
+      const m0 = g.measureText(j.old[0]), f = (0.95 * 100 * capH) / m0.actualBoundingBoxAscent;
+      g.font = `${j.w} ${f}px "Be Vietnam Pro"`;
+      const mo = g.measureText(j.old), mn = g.measureText(j.neu);
+      const sx = W / (mo.actualBoundingBoxLeft + mo.actualBoundingBoxRight);
+      const nw = (mn.actualBoundingBoxLeft + mn.actualBoundingBoxRight) * sx;
+      const nx = j.align === 'center' ? x0 + W / 2 - nw / 2 : x0;
+      g.fillStyle = `rgb(${j.bg})`;
+      g.fillRect(Math.min(x0, nx) - 3, y0 - 4, Math.max(x1, nx + nw) - Math.min(x0, nx) + 7, H + 8);
+      g.save(); g.translate(nx, base); g.scale(sx, 1);
+      const c = fg.map((v, i) => Math.round(0.82 * v + 0.18 * j.bg[i])); // chữ gốc bị nhoè nhẹ do nén ảnh
+      g.filter = 'blur(0.35px)'; g.fillStyle = `rgb(${c})`; g.fillText(j.neu, mn.actualBoundingBoxLeft, 0); g.filter = 'none'; g.restore();
+    }
+    out[name] = cv.toDataURL('image/png');
+  }
+  return out;
+};
+window.ready = true;
+</script></body></html>

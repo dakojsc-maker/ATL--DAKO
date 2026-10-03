@@ -33,18 +33,18 @@
     "sub": "Hệ sinh thái đào tạo của Viện hội tụ bốn trọng tâm:"
    },
    {
-    "say": "chứng chỉ nghiệp vụ ngắn hạn; an toàn, vệ sinh lao động; đào tạo ứng dụng Ây Ai; và tuyển sinh, khảo thí tiếng Anh chuẩn Kêm brít.",
-    "sub": "chứng chỉ nghiệp vụ ngắn hạn; an toàn, vệ sinh lao động; đào tạo ứng dụng AI; tuyển sinh và khảo thí tiếng Anh chuẩn Cambridge."
+    "say": "chứng nhận nghiệp vụ ngắn hạn; an toàn, vệ sinh lao động; đào tạo ứng dụng Ây Ai; và tuyển sinh, khảo thí tiếng Anh chuẩn Kêm brít.",
+    "sub": "chứng nhận nghiệp vụ ngắn hạn; an toàn, vệ sinh lao động; đào tạo ứng dụng AI; tuyển sinh và khảo thí tiếng Anh chuẩn Cambridge."
    },
    {
-    "say": "Trọng tâm thứ nhất: đào tạo và cấp chứng chỉ nghiệp vụ ngắn hạn.",
-    "sub": "Trọng tâm thứ nhất: đào tạo và cấp chứng chỉ nghiệp vụ ngắn hạn."
+    "say": "Trọng tâm thứ nhất: đào tạo và cấp chứng nhận nghiệp vụ ngắn hạn.",
+    "sub": "Trọng tâm thứ nhất: đào tạo và cấp chứng nhận nghiệp vụ ngắn hạn."
    }
   ],
   "c1a": [
    {
-    "say": "Viện Ét Tê Pê trực tiếp đào tạo, bồi dưỡng và cấp chứng chỉ nghề nghiệp ngắn hạn, nâng cao năng lực chuyên môn, kỹ năng nghề và quản lý.",
-    "sub": "Viện STP trực tiếp đào tạo, bồi dưỡng và cấp chứng chỉ nghề nghiệp ngắn hạn, nâng cao năng lực chuyên môn, kỹ năng nghề và quản lý."
+    "say": "Viện Ét Tê Pê trực tiếp đào tạo, bồi dưỡng và cấp chứng nhận nghề nghiệp ngắn hạn, nâng cao năng lực chuyên môn, kỹ năng nghề và quản lý.",
+    "sub": "Viện STP trực tiếp đào tạo, bồi dưỡng và cấp chứng nhận nghề nghiệp ngắn hạn, nâng cao năng lực chuyên môn, kỹ năng nghề và quản lý."
    },
    {
     "say": "Các chương trình được xây dựng theo hướng ứng dụng, bám sát nhu cầu thực tiễn và thị trường lao động.",
@@ -53,8 +53,8 @@
   ],
   "c1b": [
    {
-    "say": "Từ an toàn giao thông đường thủy nội địa, đến giám sát thi công xây dựng và chỉ huy trưởng công trình,",
-    "sub": "Từ an toàn giao thông đường thủy nội địa đến giám sát thi công xây dựng và chỉ huy trưởng công trình,"
+    "say": "Từ an toàn giao thông đường thủy nội địa, giám sát thi công xây dựng, chỉ huy trưởng công trình, đến môi giới bất động sản,",
+    "sub": "Từ an toàn giao thông đường thủy nội địa, giám sát thi công xây dựng, chỉ huy trưởng công trình, đến môi giới bất động sản,"
    },
    {
     "say": "học viên được cấp chứng nhận nghiệp vụ song ngữ Việt Anh, có số hiệu và số vào sổ rõ ràng.",
@@ -75,8 +75,8 @@
   ],
   "c2b": [
    {
-    "say": "Viện Ét Tê Pê nghiên cứu, xây dựng chương trình và nền tảng số; Công ty Kỹ thuật Hàng hải Đa Cô triển khai huấn luyện, sát hạch và cấp chứng chỉ theo giấy phép.",
-    "sub": "Viện STP nghiên cứu, xây dựng chương trình và nền tảng số; Công ty CP Kỹ thuật Hàng hải DAKO triển khai huấn luyện, sát hạch và cấp chứng chỉ theo giấy phép."
+    "say": "Viện Ét Tê Pê nghiên cứu, xây dựng chương trình và nền tảng số; Công ty Kỹ thuật Hàng hải Đa Cô triển khai huấn luyện, sát hạch và cấp chứng nhận theo giấy phép.",
+    "sub": "Viện STP nghiên cứu, xây dựng chương trình và nền tảng số; Công ty CP Kỹ thuật Hàng hải DAKO triển khai huấn luyện, sát hạch và cấp chứng nhận theo giấy phép."
    },
    {
     "say": "Doanh nghiệp nhận được giải pháp toàn diện: tuân thủ pháp luật, giảm rủi ro, phát triển bền vững.",
@@ -99,8 +99,8 @@
     "sub": "Một khóa học có thể kết thúc sau vài ngày – nhưng an toàn lao động cần được quản lý mỗi ngày."
    },
    {
-    "say": "Thay cho bảng tính và hồ sơ giấy, nền tảng số quản lý tập trung hồ sơ, tự động cảnh báo chứng chỉ và thiết bị sắp hết hạn.",
-    "sub": "Thay cho Excel và hồ sơ giấy, nền tảng số quản lý tập trung hồ sơ, tự động cảnh báo chứng chỉ và thiết bị sắp hết hạn."
+    "say": "Thay cho bảng tính và hồ sơ giấy, nền tảng số quản lý tập trung hồ sơ, tự động cảnh báo chứng nhận và thiết bị sắp hết hạn.",
+    "sub": "Thay cho Excel và hồ sơ giấy, nền tảng số quản lý tập trung hồ sơ, tự động cảnh báo chứng nhận và thiết bị sắp hết hạn."
    }
   ],
   "c2e": [
@@ -109,8 +109,8 @@
     "sub": "Lãnh đạo nắm ngay chỉ số tuân thủ trên dashboard trực quan,"
    },
    {
-    "say": "người lao động tra cứu chứng chỉ hai mươi bốn trên bảy, với mã xác thực chống giả mạo.",
-    "sub": "người lao động tra cứu chứng chỉ 24/7, với mã xác thực chống giả mạo."
+    "say": "người lao động tra cứu chứng nhận hai mươi bốn trên bảy, với mã xác thực chống giả mạo.",
+    "sub": "người lao động tra cứu chứng nhận 24/7, với mã xác thực chống giả mạo."
    }
   ],
   "c2f": [
