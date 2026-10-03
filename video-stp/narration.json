@@ -1,0 +1,213 @@
+{
+ "_note": "Kịch bản thuyết minh. 'say' viết theo cách đọc cho máy (STP → Ét Tê Pê, AI → Ây Ai, Cambridge → Kêm brít, DAKO → Đa Cô); 'sub' là phụ đề hiển thị.",
+ "scenes": {
+  "s1": [
+   {
+    "say": "Trong thời đại số, chất lượng nguồn nhân lực là chìa khóa then chốt,",
+    "sub": "Trong thời đại số, chất lượng nguồn nhân lực là chìa khóa then chốt,"
+   },
+   {
+    "say": "giúp cơ quan và doanh nghiệp nâng cao hiệu quả vận hành, và năng lực cạnh tranh.",
+    "sub": "giúp cơ quan và doanh nghiệp nâng cao hiệu quả vận hành và năng lực cạnh tranh."
+   }
+  ],
+  "s2": [
+   {
+    "say": "Viện Nghiên cứu Phát triển Giáo dục và Nghề nghiệp Ét Tê Pê, đối tác đồng hành tin cậy trong đào tạo và phát triển nguồn nhân lực.",
+    "sub": "Viện Nghiên cứu Phát triển Giáo dục và Nghề nghiệp STP – đối tác đồng hành tin cậy trong đào tạo và phát triển nguồn nhân lực."
+   }
+  ],
+  "s3": [
+   {
+    "say": "Là tổ chức khoa học và công nghệ trực thuộc Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam, hoạt động từ năm hai nghìn không trăm hai mươi.",
+    "sub": "Tổ chức khoa học và công nghệ trực thuộc Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam (VUSTA), hoạt động từ năm 2020."
+   },
+   {
+    "say": "Viện có văn phòng tại Hà Nội, Nha Trang và Thành phố Hồ Chí Minh.",
+    "sub": "Viện có văn phòng tại Hà Nội, Nha Trang và TP. Hồ Chí Minh."
+   }
+  ],
+  "h1": [
+   {
+    "say": "Hệ sinh thái đào tạo của Viện hội tụ bốn trọng tâm:",
+    "sub": "Hệ sinh thái đào tạo của Viện hội tụ bốn trọng tâm:"
+   },
+   {
+    "say": "chứng chỉ nghiệp vụ ngắn hạn; an toàn, vệ sinh lao động; đào tạo ứng dụng Ây Ai; và tuyển sinh, khảo thí tiếng Anh chuẩn Kêm brít.",
+    "sub": "chứng chỉ nghiệp vụ ngắn hạn; an toàn, vệ sinh lao động; đào tạo ứng dụng AI; tuyển sinh và khảo thí tiếng Anh chuẩn Cambridge."
+   },
+   {
+    "say": "Trọng tâm thứ nhất: đào tạo và cấp chứng chỉ nghiệp vụ ngắn hạn.",
+    "sub": "Trọng tâm thứ nhất: đào tạo và cấp chứng chỉ nghiệp vụ ngắn hạn."
+   }
+  ],
+  "c1a": [
+   {
+    "say": "Viện Ét Tê Pê trực tiếp đào tạo, bồi dưỡng và cấp chứng chỉ nghề nghiệp ngắn hạn, nâng cao năng lực chuyên môn, kỹ năng nghề và quản lý.",
+    "sub": "Viện STP trực tiếp đào tạo, bồi dưỡng và cấp chứng chỉ nghề nghiệp ngắn hạn, nâng cao năng lực chuyên môn, kỹ năng nghề và quản lý."
+   },
+   {
+    "say": "Các chương trình được xây dựng theo hướng ứng dụng, bám sát nhu cầu thực tiễn và thị trường lao động.",
+    "sub": "Các chương trình được xây dựng theo hướng ứng dụng, bám sát nhu cầu thực tiễn và thị trường lao động."
+   }
+  ],
+  "c1b": [
+   {
+    "say": "Từ an toàn giao thông đường thủy nội địa, đến giám sát thi công xây dựng và chỉ huy trưởng công trình,",
+    "sub": "Từ an toàn giao thông đường thủy nội địa đến giám sát thi công xây dựng và chỉ huy trưởng công trình,"
+   },
+   {
+    "say": "học viên được cấp chứng nhận nghiệp vụ song ngữ Việt Anh, có số hiệu và số vào sổ rõ ràng.",
+    "sub": "học viên được cấp Chứng nhận nghiệp vụ song ngữ Việt – Anh, có số hiệu và số vào sổ rõ ràng."
+   }
+  ],
+  "h2": [
+   {
+    "say": "Trọng tâm thứ hai, cũng là thế mạnh nổi bật: an toàn, vệ sinh lao động.",
+    "sub": "Trọng tâm thứ hai – cũng là thế mạnh nổi bật: an toàn, vệ sinh lao động."
+   }
+  ],
+  "c2a": [
+   {
+    "say": "An toàn lao động không chỉ để tuân thủ pháp luật, mà còn bảo vệ con người, tài sản và uy tín của doanh nghiệp.",
+    "sub": "An toàn lao động không chỉ để tuân thủ pháp luật, mà còn bảo vệ con người, tài sản và uy tín của doanh nghiệp."
+   }
+  ],
+  "c2b": [
+   {
+    "say": "Viện Ét Tê Pê nghiên cứu, xây dựng chương trình và nền tảng số; Công ty Kỹ thuật Hàng hải Đa Cô triển khai huấn luyện, sát hạch và cấp chứng chỉ theo giấy phép.",
+    "sub": "Viện STP nghiên cứu, xây dựng chương trình và nền tảng số; Công ty CP Kỹ thuật Hàng hải DAKO triển khai huấn luyện, sát hạch và cấp chứng chỉ theo giấy phép."
+   },
+   {
+    "say": "Doanh nghiệp nhận được giải pháp toàn diện: tuân thủ pháp luật, giảm rủi ro, phát triển bền vững.",
+    "sub": "Doanh nghiệp nhận được giải pháp toàn diện: tuân thủ pháp luật, giảm rủi ro, phát triển bền vững."
+   }
+  ],
+  "c2c": [
+   {
+    "say": "Huấn luyện đủ sáu nhóm đối tượng theo quy định: người quản lý, cán bộ chuyên trách an toàn, người làm công việc có yêu cầu nghiêm ngặt,",
+    "sub": "Huấn luyện đủ 6 nhóm đối tượng theo quy định: người quản lý, cán bộ chuyên trách an toàn, người làm công việc có yêu cầu nghiêm ngặt,"
+   },
+   {
+    "say": "người lao động, nhân viên y tế, và an toàn vệ sinh viên, kết hợp lý thuyết với thực hành tại chỗ.",
+    "sub": "người lao động, nhân viên y tế và an toàn, vệ sinh viên – kết hợp lý thuyết với thực hành tại chỗ."
+   }
+  ],
+  "c2d": [
+   {
+    "say": "Một khóa học có thể kết thúc sau vài ngày, nhưng an toàn lao động cần được quản lý mỗi ngày.",
+    "sub": "Một khóa học có thể kết thúc sau vài ngày – nhưng an toàn lao động cần được quản lý mỗi ngày."
+   },
+   {
+    "say": "Thay cho bảng tính và hồ sơ giấy, nền tảng số quản lý tập trung hồ sơ, tự động cảnh báo chứng chỉ và thiết bị sắp hết hạn.",
+    "sub": "Thay cho Excel và hồ sơ giấy, nền tảng số quản lý tập trung hồ sơ, tự động cảnh báo chứng chỉ và thiết bị sắp hết hạn."
+   }
+  ],
+  "c2e": [
+   {
+    "say": "Lãnh đạo nắm ngay chỉ số tuân thủ trên bảng điều khiển trực quan,",
+    "sub": "Lãnh đạo nắm ngay chỉ số tuân thủ trên dashboard trực quan,"
+   },
+   {
+    "say": "người lao động tra cứu chứng chỉ hai mươi bốn trên bảy, với mã xác thực chống giả mạo.",
+    "sub": "người lao động tra cứu chứng chỉ 24/7, với mã xác thực chống giả mạo."
+   }
+  ],
+  "c2f": [
+   {
+    "say": "Nhiều doanh nghiệp đã lựa chọn Viện Ét Tê Pê cho công tác huấn luyện an toàn lao động.",
+    "sub": "Nhiều doanh nghiệp đã lựa chọn Viện STP cho công tác huấn luyện an toàn lao động."
+   }
+  ],
+  "h3": [
+   {
+    "say": "Trọng tâm thứ ba: đào tạo ứng dụng trí tuệ nhân tạo.",
+    "sub": "Trọng tâm thứ ba: đào tạo ứng dụng trí tuệ nhân tạo (AI)."
+   }
+  ],
+  "c3a": [
+   {
+    "say": "Không dùng giáo trình có sẵn, Viện khảo sát điểm nghẽn vận hành, thiết kế chương trình riêng cho từng cơ quan, đơn vị.",
+    "sub": "Không dùng giáo trình rập khuôn, Viện khảo sát “điểm nghẽn” vận hành, thiết kế chương trình riêng cho từng cơ quan, đơn vị."
+   },
+   {
+    "say": "Đội ngũ chuyên gia thực thi kép: cố vấn chuyển đổi số, giám đốc đào tạo, cùng kỹ sư giàu kinh nghiệm.",
+    "sub": "Đội ngũ chuyên gia “thực thi kép”: cố vấn chuyển đổi số, giám đốc đào tạo cùng kỹ sư giàu kinh nghiệm."
+   }
+  ],
+  "c3b": [
+   {
+    "say": "Chương trình dành cho cơ quan nhà nước, doanh nghiệp, đơn vị giáo dục và cá nhân,",
+    "sub": "Chương trình dành cho cơ quan nhà nước, doanh nghiệp, đơn vị giáo dục và cá nhân,"
+   },
+   {
+    "say": "biến Ây Ai thành người trợ lý hiệu quả, bứt phá năng suất trong công việc, giảng dạy và học tập.",
+    "sub": "biến AI thành người trợ lý hiệu quả, bứt phá năng suất trong công việc, giảng dạy và học tập."
+   }
+  ],
+  "c3c": [
+   {
+    "say": "Với khối hành chính: ba mươi phần trăm kiến thức nền tảng, bảy mươi phần trăm thực hành nghiệp vụ.",
+    "sub": "Với khối hành chính: 30% kiến thức nền tảng, 70% thực hành nghiệp vụ."
+   },
+   {
+    "say": "Học đến đâu, làm được đến đó. Ây Ai hỗ trợ, cán bộ chịu trách nhiệm.",
+    "sub": "Học đến đâu – làm được đến đó. AI hỗ trợ, cán bộ chịu trách nhiệm."
+   }
+  ],
+  "h4": [
+   {
+    "say": "Và trọng tâm thứ tư: tuyển sinh, đào tạo và khảo thí tiếng Anh.",
+    "sub": "Và trọng tâm thứ tư: tuyển sinh, đào tạo và khảo thí tiếng Anh."
+   }
+  ],
+  "c4a": [
+   {
+    "say": "Trung tâm tuyển sinh liên kết với các trường uy tín trong và ngoài nước, tư vấn đào tạo chính quy từ sơ cấp đến tiến sĩ.",
+    "sub": "Trung tâm Tuyển sinh liên kết với các trường uy tín trong và ngoài nước, tư vấn đào tạo chính quy từ Sơ cấp đến Tiến sĩ."
+   }
+  ],
+  "c4b": [
+   {
+    "say": "Trung tâm đào tạo và khảo thí tiếng Anh chuẩn Kêm brít, từ các cấp độ thiếu nhi đến trình độ thành thạo,",
+    "sub": "Trung tâm đào tạo và khảo thí tiếng Anh chuẩn Cambridge – từ các cấp độ thiếu nhi đến trình độ thành thạo,"
+   },
+   {
+    "say": "với không gian học tập hiện đại và thân thiện.",
+    "sub": "với không gian học tập hiện đại và thân thiện."
+   }
+  ],
+  "c4c": [
+   {
+    "say": "Phòng thi máy tính đáp ứng đến hai trăm năm mươi thí sinh mỗi ca thi.",
+    "sub": "Phòng thi máy tính đáp ứng đến 250 thí sinh mỗi ca thi."
+   }
+  ],
+  "h5": [
+   {
+    "say": "Bốn trọng tâm, một hệ sinh thái đào tạo toàn diện:",
+    "sub": "Bốn trọng tâm – một hệ sinh thái đào tạo toàn diện:"
+   },
+   {
+    "say": "đồng hành từ khảo sát nhu cầu, xây dựng lộ trình, đến ứng dụng thực tiễn.",
+    "sub": "đồng hành từ khảo sát nhu cầu, xây dựng lộ trình đến ứng dụng thực tiễn."
+   }
+  ],
+  "s4": [
+   {
+    "say": "Cùng mạng lưới đối tác rộng khắp, trong nước và quốc tế.",
+    "sub": "Cùng mạng lưới đối tác rộng khắp, trong nước và quốc tế."
+   }
+  ],
+  "s5": [
+   {
+    "say": "Hãy để Viện Ét Tê Pê đồng hành cùng quý cơ quan, doanh nghiệp trong hành trình phát triển nguồn nhân lực.",
+    "sub": "Hãy để Viện STP đồng hành cùng Quý cơ quan, doanh nghiệp trong hành trình phát triển nguồn nhân lực."
+   },
+   {
+    "say": "Liên hệ ngay để được tư vấn và thiết kế chương trình phù hợp.",
+    "sub": "Liên hệ ngay để được tư vấn và thiết kế chương trình phù hợp."
+   }
+  ]
+ }
+}

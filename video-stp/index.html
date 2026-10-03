@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Viện STP – Hồ sơ năng lực lĩnh vực đào tạo</title>
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/400.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/600.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/700.css">
+<link rel="stylesheet" href="node_modules/@fontsource/be-vietnam-pro/800.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/400.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/jetbrains-mono/700.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="net" width="1920" height="1080"></canvas>
+  <div id="floor"><div class="grid"></div></div>
+
+  <!-- S1 · MỞ ĐẦU: bức tường ảnh đào tạo thực tế -->
+  <section id="s1" class="scene">
+    <div class="s1-wall"><div class="s1-plane"></div></div>
+    <div class="s1-shade"></div>
+    <div class="s1-a">Chất lượng <span class="gr">nguồn nhân lực</span></div>
+    <div class="s1-b">chìa khóa then chốt trong <span class="gr">thời đại số</span></div>
+    <div class="s1-c">
+      <span><i class="ic" data-i="gauge"></i>Hiệu quả vận hành</span>
+      <span><i class="ic" data-i="trending-up"></i>Năng lực cạnh tranh</span>
+    </div>
+  </section>
+
+  <!-- S2 · THƯƠNG HIỆU -->
+  <section id="s2" class="scene">
+    <canvas class="orb" id="orb2" width="760" height="760"></canvas>
+    <div class="s2-chips">
+      <span class="a1"><img src="assets/ic/award.png" alt="">Chứng chỉ nghiệp vụ</span>
+      <span class="a2"><img src="assets/ic/helmet.png" alt="">An toàn lao động &amp; số hóa</span>
+      <span class="a3"><img src="assets/ic/brain.png" alt="">Đào tạo ứng dụng AI</span>
+      <span class="a4"><img src="assets/ic/cap.png" alt="">Tuyển sinh &amp; Cambridge</span>
+    </div>
+    <div class="s2-logo"><img src="assets/logo.png" alt="STP"></div>
+    <div class="kick s2-k mono">VIỆN NGHIÊN CỨU PHÁT TRIỂN GIÁO DỤC &amp; NGHỀ NGHIỆP STP</div>
+    <div class="s2-h">Hồ sơ năng lực</div>
+    <div class="s2-big"><span class="grad">LĨNH VỰC</span><br><span class="grad">ĐÀO TẠO</span></div>
+    <div class="s2-en mono">EDUCATION &amp; TRAINING PROFILE</div>
+    <div class="s2-tag mono">EDUCATION · CONSULTING · TECHNOLOGY · PARTNERSHIP</div>
+  </section>
+
+  <!-- S3 · VỀ VIỆN STP -->
+  <section id="s3" class="scene">
+    <div class="kick s3-k mono"><b>VỀ VIỆN STP</b>TỔ CHỨC KHOA HỌC &amp; CÔNG NGHỆ</div>
+    <div class="h1 s3-h">Trực thuộc <span class="gr">Liên hiệp các Hội KH&amp;KT Việt Nam</span></div>
+    <div class="s3-stats">
+      <div class="st frame"><b class="v1">2020</b><span>Năm được cấp Giấy chứng nhận hoạt động KH&amp;CN</span></div>
+      <div class="st frame"><b>VUSTA</b><span>Tổ chức KH&amp;CN trực thuộc Liên hiệp các Hội KH&amp;KT Việt Nam</span></div>
+      <div class="st frame"><b class="v3">03</b><span>Văn phòng: Hà Nội · Nha Trang · TP. Hồ Chí Minh</span></div>
+    </div>
+    <div class="s3-legal frame">
+      <div class="docs"><img class="d1" src="assets/ph/gcn1.jpg" alt=""><img class="d2" src="assets/ph/gcn2.jpg" alt=""></div>
+      <div class="tx"><small class="mono">HOẠT ĐỘNG PHÁP LÝ</small><b>Giấy chứng nhận đăng ký hoạt động Khoa học và Công nghệ</b>
+        <p>Số <em class="mono">234/QĐ-LHHVN</em><br>cấp ngày <em class="mono">24/03/2020</em></p></div>
+      <span class="stamp mono">VUSTA</span>
+    </div>
+    <div class="s3-map">
+      <img class="mp" src="assets/map.png" alt="">
+      <div class="pin p1"><i></i></div><div class="pin p2"><i></i></div><div class="pin p3"><i></i></div>
+      <div class="ofc o1"><img src="assets/ph/off_hn.jpg" alt=""><div><b>Hà Nội</b><span>Trụ sở · Tầng 12 Diamond Flower, 48 Lê Văn Lương</span></div></div>
+      <div class="ofc o2"><img src="assets/ph/off_nt.jpg" alt=""><div><b>Nha Trang</b><span>Văn phòng · KĐT An Bình Tân, Khánh Hòa</span></div></div>
+      <div class="ofc o3"><img src="assets/ph/off_hcm.jpg" alt=""><div><b>TP. Hồ Chí Minh</b><span>Trung tâm tuyển sinh · Đường D9, An Khánh</span></div></div>
+    </div>
+  </section>
+
+  <!-- HUB · 4 TRỌNG TÂM ĐÀO TẠO (quay lại sau mỗi phần) -->
+  <section id="hub" class="scene">
+    <div class="kick hub-k mono"><b>4</b>HỆ SINH THÁI ĐÀO TẠO TOÀN DIỆN</div>
+    <div class="h1 hub-h">Các <span class="gr">trọng tâm đào tạo</span> của Viện STP</div>
+    <div class="h1 hub-h2">Một hệ sinh thái <span class="gr">đào tạo toàn diện</span></div>
+    <div class="tile t1 acc1">
+      <img class="ph" src="assets/ph/hoc_vien.jpg" alt=""><div class="shade"></div>
+      <em class="num mono">01</em><img class="icn" src="assets/ic/award.png" alt="">
+      <b class="tt">Chứng chỉ nghiệp vụ ngắn hạn</b><p class="sub">Đường thủy nội địa · Xây dựng · Nghiệp vụ khác</p>
+      <span class="st now mono"><i></i>ĐANG GIỚI THIỆU</span><span class="st done mono"><i class="ic" data-i="check"></i>ĐÃ GIỚI THIỆU</span>
+      <div class="ok"><i class="ic" data-i="check"></i></div><div class="ring"></div><div class="dim"></div>
+    </div>
+    <div class="tile t2 acc2">
+      <img class="ph" src="assets/ph/atld_hero.jpg" alt=""><div class="shade"></div>
+      <em class="num mono">02</em><img class="icn" src="assets/ic/helmet.png" alt=""><span class="hot mono">TRỌNG TÂM</span>
+      <b class="tt">An toàn, vệ sinh lao động</b><p class="sub">6 nhóm huấn luyện · Số hóa quản lý</p>
+      <span class="st now mono"><i></i>ĐANG GIỚI THIỆU</span><span class="st done mono"><i class="ic" data-i="check"></i>ĐÃ GIỚI THIỆU</span>
+      <div class="ok"><i class="ic" data-i="check"></i></div><div class="ring"></div><div class="dim"></div>
+    </div>
+    <div class="tile t3 acc3">
+      <img class="ph" src="assets/ph/orb.jpg" alt=""><div class="shade"></div>
+      <em class="num mono">03</em><img class="icn" src="assets/ic/brain.png" alt="">
+      <b class="tt">Đào tạo ứng dụng AI</b><p class="sub">Thiết kế riêng theo nghiệp vụ từng đơn vị</p>
+      <span class="st now mono"><i></i>ĐANG GIỚI THIỆU</span><span class="st done mono"><i class="ic" data-i="check"></i>ĐÃ GIỚI THIỆU</span>
+      <div class="ok"><i class="ic" data-i="check"></i></div><div class="ring"></div><div class="dim"></div>
+    </div>
+    <div class="tile t4 acc4">
+      <img class="ph" src="assets/ph/students.jpg" alt=""><div class="shade"></div>
+      <em class="num mono">04</em><img class="icn" src="assets/ic/cap.png" alt="">
+      <b class="tt">Tuyển sinh &amp; khảo thí Cambridge</b><p class="sub">Sơ cấp → Tiến sĩ · Chuẩn tiếng Anh Cambridge</p>
+      <span class="st now mono"><i></i>ĐANG GIỚI THIỆU</span><span class="st done mono"><i class="ic" data-i="check"></i>ĐÃ GIỚI THIỆU</span>
+      <div class="ok"><i class="ic" data-i="check"></i></div><div class="ring"></div><div class="dim"></div>
+    </div>
+    <svg class="rail" viewBox="0 0 1920 80"><path class="bk" d="M318 40 H1602"/><path class="fl" d="M318 40 H1602"/>
+      <circle class="nd" cx="318" cy="40" r="11"/><circle class="nd" cx="746" cy="40" r="11"/><circle class="nd" cx="1174" cy="40" r="11"/><circle class="nd" cx="1602" cy="40" r="11"/></svg>
+    <div class="hub-flow">
+      <span><i class="ic" data-i="scan-search"></i>Khảo sát nhu cầu</span><i class="ar ic" data-i="arrow-right"></i>
+      <span><i class="ic" data-i="workflow"></i>Xây dựng lộ trình</span><i class="ar ic" data-i="arrow-right"></i>
+      <span><i class="ic" data-i="rocket"></i>Ứng dụng thực tiễn</span>
+    </div>
+  </section>
+
+  <!-- 01 · CHỨNG CHỈ NGHIỆP VỤ NGẮN HẠN -->
+  <section id="c1a" class="scene acc1 op">
+    <div class="op-ph"><img src="assets/ph/hoc_vien.jpg" alt=""></div>
+    <div class="op-num mono">01</div>
+    <div class="kick op-k mono"><b>TRỌNG TÂM 01</b>NÂNG CAO NĂNG LỰC</div>
+    <div class="op-h">Đào tạo &amp; cấp chứng chỉ<br><span class="ac">nghiệp vụ ngắn hạn</span></div>
+    <div class="c1-skill">
+      <span><i class="ic" data-i="book-open"></i>Năng lực chuyên môn</span>
+      <span><i class="ic" data-i="hard-hat"></i>Kỹ năng nghề</span>
+      <span><i class="ic" data-i="users"></i>Kỹ năng quản lý</span>
+    </div>
+    <div class="c1-ck">
+      <p><i class="ic" data-i="circle-check-big"></i>Xây dựng theo hướng <b>ứng dụng</b></p>
+      <p><i class="ic" data-i="circle-check-big"></i>Bám sát <b>nhu cầu thực tiễn</b></p>
+      <p><i class="ic" data-i="circle-check-big"></i>Đáp ứng <b>thị trường lao động</b></p>
+    </div>
+  </section>
+
+  <section id="c1b" class="scene acc1">
+    <div class="kick c1b-k mono"><b>01</b>CÁC NHÓM CHƯƠNG TRÌNH CHỨNG CHỈ</div>
+    <div class="h1 c1b-h">Chứng chỉ chuyên ngành <span class="ac">bài bản</span></div>
+    <div class="c1b-list">
+      <div class="pg frame"><img src="assets/ic/ship.png" alt=""><div><b>An toàn đường thủy nội địa</b><span>Bảo đảm an toàn giao thông đường thủy; khai thác vận tải</span></div></div>
+      <div class="pg frame"><img src="assets/ic/helmet_g.png" alt=""><div><b>Lĩnh vực xây dựng</b><span>Giám sát thi công xây dựng · Chỉ huy trưởng công trình</span></div></div>
+      <div class="pg frame"><img src="assets/ic/shield_user.png" alt=""><div><b>An toàn, vệ sinh lao động</b><span>Huấn luyện 6 nhóm đối tượng, số hóa quản lý</span></div><em class="mono">TRỌNG TÂM</em></div>
+      <div class="pg frame"><img src="assets/ic/layers.png" alt=""><div><b>Chứng chỉ nghiệp vụ khác</b><span>Giáo dục nghề nghiệp; học sinh, sinh viên, giáo viên</span></div></div>
+    </div>
+    <div class="c1b-certs">
+      <div class="ct k1"><img src="assets/ph/cert_thuy.jpg" alt=""><span class="mono">ĐƯỜNG THỦY NỘI ĐỊA</span></div>
+      <div class="ct k2"><img src="assets/ph/cert_xd.jpg" alt=""><span class="mono">GIÁM SÁT THI CÔNG</span></div>
+      <div class="ct k3"><img src="assets/ph/cert_cht.jpg" alt=""><span class="mono">CHỈ HUY TRƯỞNG</span></div>
+    </div>
+    <div class="c1b-tags">
+      <span class="mono"><i class="ic" data-i="languages"></i>SONG NGỮ VIỆT – ANH</span>
+      <span class="mono"><i class="ic" data-i="scroll-text"></i>CERTIFICATE OF KNOWLEDGE</span>
+      <span class="mono"><i class="ic" data-i="fingerprint"></i>CÓ SỐ HIỆU &amp; SỐ VÀO SỔ</span>
+    </div>
+  </section>
+
+  <!-- 02 · AN TOÀN, VỆ SINH LAO ĐỘNG -->
+  <section id="c2a" class="scene acc2 op">
+    <div class="op-ph"><img src="assets/ph/atld_hero.jpg" alt=""></div>
+    <div class="op-num mono">02</div>
+    <div class="kick op-k mono"><b>TRỌNG TÂM 02</b>THẾ MẠNH NỔI BẬT</div>
+    <div class="op-h">An toàn,<br><span class="ac">vệ sinh lao động</span></div>
+    <div class="op-p">Đào tạo · Cấp chứng chỉ · Số hóa quản lý cho doanh nghiệp</div>
+    <div class="c2a-law"><i class="ic" data-i="scale"></i>Không chỉ để <b>tuân thủ pháp luật</b></div>
+    <div class="c2a-pro">
+      <div><i class="ic" data-i="users"></i><b>Con người</b></div>
+      <div><i class="ic" data-i="factory"></i><b>Tài sản</b></div>
+      <div><i class="ic" data-i="badge-check"></i><b>Uy tín</b></div>
+    </div>
+  </section>
+
+  <section id="c2b" class="scene acc2">
+    <div class="kick c2b-k mono"><b>02</b>MÔ HÌNH HỢP TÁC VIỆN STP – DAKO</div>
+    <div class="h1 c2b-h">Nghiên cứu giải pháp <span class="ac">+</span> triển khai huấn luyện</div>
+    <div class="pc p-stp frame"><div class="lg"><img src="assets/logo.png" alt=""></div><b>VIỆN STP</b><small class="mono">ĐƠN VỊ NGHIÊN CỨU &amp; PHÁT TRIỂN GIẢI PHÁP</small>
+      <p><i class="ic" data-i="check"></i>Xây dựng chương trình theo quy định &amp; đặc thù doanh nghiệp</p>
+      <p><i class="ic" data-i="check"></i>Tư vấn ISO 45001</p>
+      <p><i class="ic" data-i="check"></i>Phát triển nền tảng số</p></div>
+    <div class="pc p-dako frame"><div class="lg"><img src="assets/dako.png" alt=""></div><b>DAKO MARINE TECHNOLOGY</b><small class="mono">ĐƠN VỊ TRIỂN KHAI HUẤN LUYỆN</small>
+      <p><i class="ic" data-i="check"></i>Huấn luyện theo giấy phép</p>
+      <p><i class="ic" data-i="check"></i>Thi, kiểm tra, cấp chứng chỉ</p>
+      <p><i class="ic" data-i="check"></i>Lưu trữ hồ sơ theo pháp luật</p></div>
+    <svg class="c2b-link" viewBox="0 0 300 120"><path class="ln" d="M0 60 H300"/><path class="en" d="M0 60 H300"/></svg>
+    <div class="c2b-hs"><i class="ic" data-i="handshake"></i></div>
+    <div class="c2b-get">
+      <small class="mono">DOANH NGHIỆP NHẬN ĐƯỢC</small>
+      <span><i class="ic" data-i="circle-check-big"></i>Giải pháp toàn diện</span>
+      <span><i class="ic" data-i="circle-check-big"></i>Tuân thủ pháp luật</span>
+      <span><i class="ic" data-i="circle-check-big"></i>Giảm rủi ro</span>
+      <span><i class="ic" data-i="circle-check-big"></i>Phát triển bền vững</span>
+    </div>
+  </section>
+
+  <section id="c2c" class="scene acc2">
+    <div class="kick c2c-k mono"><b>02</b>HUẤN LUYỆN &amp; CẤP CHỨNG CHỈ</div>
+    <div class="h1 c2c-h"><span class="ac">6 nhóm</span> huấn luyện an toàn, vệ sinh lao động</div>
+    <div class="c2c-law mono">THEO NĐ 44/2016/NĐ-CP &amp; NĐ 140/2018/NĐ-CP · LÝ THUYẾT + THỰC HÀNH TẠI CHỖ</div>
+    <div class="c2c-grid">
+      <div class="gc"><img src="assets/ph/g1.jpg" alt=""><em class="mono">NHÓM 1</em><b>Người quản lý, chỉ huy sản xuất</b><span>Chuẩn hóa hệ thống quản lý ATLĐ</span></div>
+      <div class="gc"><img src="assets/ph/g2.jpg" alt=""><em class="mono">NHÓM 2</em><b>Người làm công tác ATVSLĐ</b><span>Chủ động kiểm soát rủi ro</span></div>
+      <div class="gc"><img src="assets/ph/g3.jpg" alt=""><em class="mono">NHÓM 3</em><b>Công việc yêu cầu nghiêm ngặt</b><span>Vận hành an toàn, giảm tai nạn</span></div>
+      <div class="gc"><img src="assets/ph/g4.jpg" alt=""><em class="mono">NHÓM 4</em><b>Người lao động khác</b><span>Chuẩn hóa hành vi an toàn</span></div>
+      <div class="gc"><img src="assets/ph/g5.jpg" alt=""><em class="mono">NHÓM 5</em><b>Người làm công tác y tế</b><span>Sơ cấp cứu, phòng chống bệnh nghề nghiệp</span></div>
+      <div class="gc"><img src="assets/ph/g6.jpg" alt=""><em class="mono">NHÓM 6</em><b>An toàn, vệ sinh viên</b><span>Xây dựng văn hóa an toàn</span></div>
+    </div>
+  </section>
+
+  <section id="c2d" class="scene acc2">
+    <div class="kick c2d-k mono"><b>02</b>SỐ HÓA QUẢN LÝ ATVSLĐ</div>
+    <div class="c2d-q">Một khóa học có thể kết thúc sau <b>vài ngày</b> –<br>nhưng an toàn lao động cần được quản lý <span class="ac">mỗi ngày.</span></div>
+    <div class="c2d-old frame">
+      <small class="mono">CÁCH QUẢN LÝ CŨ</small>
+      <div class="ico"><span><img src="assets/ic/xls.png" alt="">Excel</span><span><img src="assets/ic/paper.png" alt="">Hồ sơ giấy</span><span><img src="assets/ic/manual.png" alt="">Thủ công</span></div>
+      <p><i class="ic" data-i="x"></i>Bị động trước hạn kiểm định thiết bị</p>
+      <p><i class="ic" data-i="x"></i>Mất chứng chỉ, khó xác minh đào tạo</p>
+      <p><i class="ic" data-i="x"></i>Lãnh đạo thiếu dữ liệu ra quyết định</p>
+      <div class="strike"></div>
+    </div>
+    <div class="c2d-arr"><i class="ic" data-i="arrow-right"></i></div>
+    <div class="c2d-new frame">
+      <small class="mono">GIẢI PHÁP CỦA VIỆN STP</small>
+      <b>Quản lý ATVSLĐ thông minh 4.0</b>
+      <p><i class="ic" data-i="folder-open"></i>Quản lý tập trung hồ sơ từng người</p>
+      <p><i class="ic" data-i="history"></i>Theo dõi lịch sử huấn luyện, hạn chứng chỉ</p>
+      <p><i class="ic" data-i="bell-ring"></i>Cảnh báo tự động chứng chỉ, thiết bị sắp hết hạn</p>
+      <p><i class="ic" data-i="triangle-alert"></i>Báo cáo nguy cơ, sự cố ngay tại hiện trường</p>
+      <p><i class="ic" data-i="qr-code"></i>Tra cứu hồ sơ bằng mã QR, không lo thất lạc</p>
+      <p><i class="ic" data-i="bot"></i>Ứng dụng AI, dữ liệu số cảnh báo rủi ro</p>
+    </div>
+    <div class="c2d-alert"><i class="ic" data-i="bell-ring"></i><div><b>Cảnh báo tự động</b><span>Chứng chỉ sắp hết hạn · báo trước 30 ngày</span></div></div>
+  </section>
+
+  <section id="c2e" class="scene acc2">
+    <div class="kick c2e-k mono"><b>02</b>NỀN TẢNG QUẢN LÝ SỐ STP</div>
+    <div class="h1 c2e-h">Tổng quan an toàn &amp; nhân sự <span class="ac">trong một cú click</span></div>
+    <div class="br b-back2"><div class="bar"><i></i><i></i><i></i></div><img src="assets/ph/ui_course.jpg" alt=""></div>
+    <div class="br b-back1"><div class="bar"><i></i><i></i><i></i></div><img src="assets/ph/ui_device.jpg" alt=""></div>
+    <div class="br b-dash"><div class="bar"><i></i><i></i><i></i><span class="mono">daotao.vienstp.com</span></div><img src="assets/ph/ui_dash.jpg" alt=""></div>
+    <div class="br b-look"><div class="bar"><i></i><i></i><i></i><span class="mono">daotao.vienstp.com/tra-cuu</span></div><img src="assets/ph/ui_lookup.jpg" alt=""><div class="hl"></div></div>
+    <div class="c2e-kpi">
+      <div class="kp frame"><i class="ic" data-i="chart-pie"></i><div><b>Chỉ số tuân thủ</b><span>Tỷ lệ % nhân sự đã / chưa huấn luyện</span></div></div>
+      <div class="kp frame"><i class="ic" data-i="bell-ring"></i><div><b>Chứng chỉ sắp hết hạn</b><span>Cảnh báo trước 30 ngày</span></div></div>
+      <div class="kp frame"><i class="ic" data-i="cog"></i><div><b>Thiết bị &amp; kiểm định</b><span>Theo dõi hạn kiểm định máy móc</span></div></div>
+    </div>
+    <div class="c2e-24">
+      <div class="big mono">24/7</div>
+      <p>Tra cứu theo <b>mã chứng chỉ</b> hoặc <b>số CCCD</b></p>
+      <span class="mono"><i class="ic" data-i="shield-check"></i>MÃ XÁC THỰC CHỐNG GIẢ MẠO</span>
+    </div>
+  </section>
+
+  <section id="c2f" class="scene acc2">
+    <div class="kick c2f-k mono"><b>02</b>KHÁCH HÀNG TIÊU BIỂU – HUẤN LUYỆN ATLĐ</div>
+    <div class="h1 c2f-h">Doanh nghiệp <span class="ac">tin chọn</span> Viện STP</div>
+    <div class="c2f-grid">
+      <div class="cu"><img src="assets/cust/c1.jpg" alt=""><b>Công ty TNHH SX-TM-DV Asanka</b></div>
+      <div class="cu"><img src="assets/cust/c2.jpg" alt=""><b>Công ty TNHH Emivest Feedmill V.N</b></div>
+      <div class="cu"><img src="assets/cust/c3.jpg" alt=""><b>Công ty TNHH Hogetsu Việt Nam</b></div>
+      <div class="cu"><img src="assets/cust/c4.jpg" alt=""><b>Công ty TNHH Thang máy Pacific</b></div>
+      <div class="cu"><img src="assets/cust/c5.jpg" alt=""><b>Công ty CP Đầu tư HT Vina</b></div>
+      <div class="cu"><img src="assets/cust/c6.jpg" alt=""><b>Công ty TNHH Toyota Thanh Xuân</b></div>
+      <div class="cu"><img src="assets/cust/c7.jpg" alt=""><b>Công ty TNHH TM-DV-XNK Vina T&amp;T</b></div>
+      <div class="cu"><img src="assets/cust/c8.jpg" alt=""><b>Công ty TNHH P.Dussmann Việt Nam</b></div>
+    </div>
+  </section>
+
+  <!-- 03 · ĐÀO TẠO ỨNG DỤNG AI -->
+  <section id="c3a" class="scene acc3 op">
+    <canvas class="orb" id="orb3" width="760" height="760"></canvas>
+    <div class="op-num mono">03</div>
+    <div class="kick op-k mono"><b>TRỌNG TÂM 03</b>THIẾT KẾ RIÊNG THEO NGHIỆP VỤ</div>
+    <div class="op-h">Đào tạo<br><span class="ac">ứng dụng AI</span></div>
+    <div class="op-p">Thiết kế riêng theo nghiệp vụ của từng cơ quan, đơn vị và người học</div>
+    <div class="c3a-pill">
+      <div class="frame"><i class="ic" data-i="graduation-cap"></i><b>Phổ cập kiến thức AI</b></div>
+      <div class="frame"><i class="ic" data-i="sparkles"></i><b>Tư vấn giải pháp</b></div>
+      <div class="frame"><i class="ic" data-i="handshake"></i><b>Đồng hành thực tiễn</b></div>
+    </div>
+    <div class="c3a-scan"><i class="ic" data-i="scan-search"></i><span class="mono">KHẢO SÁT “ĐIỂM NGHẼN” VẬN HÀNH</span></div>
+    <div class="c3a-cap">
+      <span class="k1"><em class="mono">1</em>Tư vấn chiến lược &amp; đào tạo “may đo”</span>
+      <span class="k2"><em class="mono">2</em>Phát triển giải pháp &amp; tự động hóa</span>
+      <span class="k3"><em class="mono">3</em>Đội ngũ chuyên gia “thực thi kép”</span>
+      <span class="k4"><em class="mono">4</em>Bề dày triển khai đa ngành</span>
+    </div>
+  </section>
+
+  <section id="c3b" class="scene acc3">
+    <div class="kick c3b-k mono"><b>03</b>CHƯƠNG TRÌNH ĐÀO TẠO AI</div>
+    <div class="h1 c3b-h">Cho mọi đối tượng, <span class="ac">đúng nghiệp vụ</span></div>
+    <div class="c3b-cols">
+      <div class="au frame"><i class="ic big" data-i="landmark"></i><small class="mono">ĐÀO TẠO AI CHO</small><b>Cơ quan nhà nước</b>
+        <div class="ch"><span>Văn phòng Quốc hội</span><span>Bộ Văn hóa</span><span>Sở KH&amp;CN</span><span>Sở Y tế</span><span>Sở Công Thương</span><span>Sở Nội vụ</span></div>
+        <div class="lgs"><img src="assets/lg/a67.jpg" alt=""><img src="assets/lg/a68.jpg" alt=""><img src="assets/lg/a69.jpg" alt=""><img src="assets/lg/a70.jpg" alt=""><img src="assets/lg/a71.jpg" alt=""></div></div>
+      <div class="au frame"><i class="ic big" data-i="briefcase"></i><small class="mono">ĐÀO TẠO AI CHO</small><b>Doanh nghiệp</b>
+        <div class="ch"><span>Lãnh đạo</span><span>Marketing</span><span>HR</span><span>Sản xuất</span><span>Kinh doanh &amp; bán hàng</span></div>
+        <div class="lgs"><img src="assets/lg/a73.jpg" alt=""><img src="assets/lg/a74.jpg" alt=""><img src="assets/lg/a75.jpg" alt=""><img src="assets/lg/a76.jpg" alt=""><img src="assets/lg/a77.jpg" alt=""></div></div>
+      <div class="au frame"><i class="ic big" data-i="school"></i><small class="mono">ĐÀO TẠO AI CHO</small><b>Đơn vị giáo dục</b>
+        <div class="ch"><span>Ban giám hiệu</span><span>Giảng viên đại học</span><span>Giáo viên các cấp</span><span>Sinh viên</span><span>Học sinh</span></div>
+        <div class="lgs"><img src="assets/lg/a79.jpg" alt=""><img src="assets/lg/a80.jpg" alt=""><img src="assets/lg/a81.jpg" alt=""><img src="assets/lg/a82.jpg" alt=""><img src="assets/lg/a83.jpg" alt=""></div></div>
+      <div class="au frame"><i class="ic big" data-i="user"></i><small class="mono">ĐÀO TẠO AI CHO</small><b>Cá nhân</b>
+        <div class="ch"><span>AI cho mọi người</span><span>AI cho lãnh đạo</span><span>Xây dựng Chatbot</span><span>AI Automation</span><span>Vibe Coding</span><span>AI cho HR</span><span>AI sản xuất Media</span><span>AI cho giảng dạy</span><span>AI cho trẻ em</span></div></div>
+    </div>
+    <div class="c3b-tag"><i class="ic" data-i="bot"></i>Biến AI thành “trợ lý đắc lực” – bứt phá năng suất trong công việc, giảng dạy, học tập</div>
+  </section>
+
+  <section id="c3c" class="scene acc3">
+    <div class="kick c3c-k mono"><b>03</b>CHƯƠNG TRÌNH CHUYÊN SÂU</div>
+    <div class="c3c-t"><b>AI cho <span class="ac">khối hành chính</span></b><p>Ứng dụng AI trong công tác văn phòng – hành chính · cho cán bộ, công chức, viên chức các cấp</p></div>
+    <div class="c3c-ring">
+      <svg viewBox="0 0 520 520"><circle class="bk" cx="260" cy="260" r="200"/><circle class="a" cx="260" cy="260" r="200"/><circle class="b" cx="260" cy="260" r="200"/></svg>
+      <div class="lb l30"><b class="mono v30">30%</b><span>Kiến thức nền tảng</span></div>
+      <div class="lb l70"><b class="mono v70">70%</b><span>Thực hành nghiệp vụ</span></div>
+    </div>
+    <div class="c3c-sl">Học đến đâu –<br><span class="ac">làm được đến đó.</span></div>
+    <div class="c3c-res"><i class="ic" data-i="shield-check"></i>AI hỗ trợ, <b>cán bộ chịu trách nhiệm</b></div>
+    <div class="c3c-out">
+      <small class="mono">SẢN PHẨM ĐẦU RA SAU TẬP HUẤN</small>
+      <div class="ch"><span>Trợ lý AI nghiệp vụ</span><span>Thư viện câu lệnh</span><span>Văn bản đi &amp; phiếu tóm tắt</span><span>Báo cáo có biểu đồ</span><span>Hướng dẫn TTHC, hỏi – đáp</span><span>Quy trình AI lặp lại</span><span>Nguyên tắc dùng AI an toàn</span><span>Áp dụng ngay vào chuyên môn</span></div>
+    </div>
+  </section>
+
+  <!-- 04 · TUYỂN SINH & KHẢO THÍ CAMBRIDGE -->
+  <section id="c4a" class="scene acc4 op">
+    <div class="op-ph"><img src="assets/ph/students.jpg" alt=""></div>
+    <div class="c4a-grad"><img src="assets/ph/grad.jpg" alt=""></div>
+    <div class="op-num mono">04</div>
+    <div class="kick op-k mono"><b>TRỌNG TÂM 04</b>TRUNG TÂM TUYỂN SINH</div>
+    <div class="op-h">Liên kết tuyển sinh<br><span class="ac">chính quy</span></div>
+    <div class="op-p">Đầu mối tư vấn cùng các trường đại học, cao đẳng uy tín trong và ngoài nước</div>
+    <div class="c4a-steps">
+      <span>Sơ cấp</span><span>Trung cấp</span><span>Cao đẳng</span><span>Đại học</span><span>Thạc sĩ</span><span>Tiến sĩ</span>
+      <i class="cap ic" data-i="graduation-cap"></i>
+    </div>
+  </section>
+
+  <section id="c4b" class="scene acc4">
+    <div class="c4b-bld"><img src="assets/ph/cambridge.jpg" alt=""></div>
+    <div class="kick c4b-k mono"><b>04</b>TRUNG TÂM ĐÀO TẠO &amp; KHẢO THÍ</div>
+    <div class="h1 c4b-h">Chuẩn tiếng Anh <span class="ac">Cambridge</span></div>
+    <div class="c4b-top"><span class="mono">CEST</span><span class="mono">LINGUASKILL</span></div>
+    <div class="c4b-lad">
+      <div class="lv"><b class="mono">PROFICIENCY</b><em class="mono">CPE</em><i></i></div>
+      <div class="lv"><b class="mono">ADVANCED</b><em class="mono">CAE</em><i></i></div>
+      <div class="lv"><b class="mono">FIRST</b><em class="mono">FCE</em><i></i></div>
+      <div class="lv"><b class="mono">PRELIMINARY</b><em class="mono">PET</em><i></i></div>
+      <div class="lv"><b class="mono">KEY</b><em class="mono">KET</em><i></i></div>
+      <div class="lv"><b class="mono">FLYERS</b><i></i></div>
+      <div class="lv"><b class="mono">MOVERS</b><i></i></div>
+      <div class="lv"><b class="mono">STARTERS</b><i></i></div>
+    </div>
+    <div class="c4b-rooms">
+      <small class="mono">KHÔNG GIAN HỌC TẬP</small>
+      <img src="assets/ph/room1.jpg" alt=""><img src="assets/ph/room2.jpg" alt=""><img src="assets/ph/room3.jpg" alt="">
+    </div>
+  </section>
+
+  <section id="c4c" class="scene acc4">
+    <div class="c4c-mos">
+      <img class="m1" src="assets/ph/exam2.jpg" alt=""><img class="m2" src="assets/ph/exam3.jpg" alt=""><img class="m3" src="assets/ph/exam4.jpg" alt="">
+      <img class="m4" src="assets/ph/exam5.jpg" alt=""><img class="m5" src="assets/ph/exam6.jpg" alt=""><img class="m6" src="assets/ph/exam7.jpg" alt=""><img class="m7" src="assets/ph/exam1.jpg" alt="">
+    </div>
+    <div class="c4c-shade"></div>
+    <div class="kick c4c-k mono"><b>04</b>PHÒNG THI MÁY TÍNH</div>
+    <div class="c4c-num mono">250</div>
+    <div class="c4c-lb">THÍ SINH / CA THI</div>
+    <div class="c4c-sub">Hệ thống phòng thi máy tính hiện đại</div>
+  </section>
+
+  <!-- S4 · ĐỐI TÁC -->
+  <section id="s4" class="scene">
+    <div class="kick s4-k mono"><b>ĐỐI TÁC</b>MẠNG LƯỚI LIÊN KẾT</div>
+    <div class="h1 s4-h">Mạng lưới hợp tác <span class="gr">rộng khắp</span></div>
+    <div class="s4-sub">Trường đại học · Viện nghiên cứu · Doanh nghiệp · Tổ chức trong nước và quốc tế</div>
+    <div class="s4-grid"></div>
+    <div class="s4-cat"><svg viewBox="0 0 1680 20"><path class="ln" d="M40 10 H1640"/></svg>
+      <span><i class="ic" data-i="graduation-cap"></i>Trường đại học, cao đẳng</span><span><i class="ic" data-i="flask-conical"></i>Viện nghiên cứu</span><span><i class="ic" data-i="building-2"></i>Doanh nghiệp</span><span><i class="ic" data-i="globe"></i>Tổ chức quốc tế</span></div>
+  </section>
+
+  <!-- S5 · KẾT -->
+  <section id="s5" class="scene">
+    <div class="s5-logo"><img src="assets/logo.png" alt=""></div>
+    <div class="s5-name">VIỆN NGHIÊN CỨU PHÁT TRIỂN GIÁO DỤC VÀ NGHỀ NGHIỆP STP</div>
+    <div class="s5-en mono">STP INSTITUTE OF EDUCATION AND PROFESSIONALS DEVELOPMENT RESEARCH</div>
+    <div class="s5-h">Đồng hành cùng Quý cơ quan, doanh nghiệp<br>trong hành trình <span class="gr">phát triển nguồn nhân lực</span></div>
+    <div class="s5-card frame">
+      <p><i class="ic" data-i="globe"></i><span class="mono">www.vienstp.com</span></p>
+      <p><i class="ic" data-i="phone"></i><span class="mono">0827.695.368 · 0968.702.701</span></p>
+      <p><i class="ic" data-i="mail"></i><span class="mono">viencongnghestp@gmail.com</span></p>
+      <div class="offs"><span><i class="ic" data-i="map-pin"></i>Hà Nội</span><span><i class="ic" data-i="map-pin"></i>Nha Trang</span><span><i class="ic" data-i="map-pin"></i>TP. Hồ Chí Minh</span></div>
+    </div>
+    <div class="s5-qr frame"><img src="assets/qr.jpg" alt=""><div class="ln"></div><span class="mono">QUÉT MÃ QR</span></div>
+    <div class="s5-cta"><i class="ic" data-i="arrow-right"></i>LIÊN HỆ TƯ VẤN &amp; THIẾT KẾ CHƯƠNG TRÌNH RIÊNG</div>
+  </section>
+
+  <canvas id="fx" width="1920" height="1080"></canvas>
+  <div id="beam"></div>
+  <div id="swipe"><i></i><i></i><i></i></div>
+  <div id="chap">
+    <span class="mono lb">TRỌNG TÂM</span>
+    <div class="seg"><i></i><i></i><i></i><i></i></div>
+    <span class="nm n1">Chứng chỉ nghiệp vụ ngắn hạn</span><span class="nm n2">An toàn, vệ sinh lao động</span><span class="nm n3">Đào tạo ứng dụng AI</span><span class="nm n4">Tuyển sinh &amp; khảo thí</span>
+  </div>
+  <div id="bug"><img src="assets/logo.png" alt=""><span class="mono">VIỆN STP · vienstp.com</span></div>
+  <div id="blocks"></div>
+  <div id="flash"></div>
+  <div id="vig"></div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
