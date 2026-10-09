@@ -1,0 +1,746 @@
+{
+ "1": {
+  "img": "image-1-4.png",
+  "steps": []
+ },
+ "2": {
+  "img": "image-2-4.png",
+  "steps": []
+ },
+ "4": {
+  "img": "image-4-4.png",
+  "steps": [
+   {
+    "box": [
+     6.5,
+     5.3,
+     11.5,
+     3.9
+    ],
+    "t": "Truy cập hệ thống",
+    "s": "Gõ daotao.vienstp.com trên trình duyệt",
+    "n": 1
+   },
+   {
+    "box": [
+     14.5,
+     11.0,
+     9.3,
+     4.8
+    ],
+    "t": "Logo & tên Viện",
+    "s": "Bấm để quay về trang chủ",
+    "n": 2
+   },
+   {
+    "box": [
+     40.5,
+     11.5,
+     20.3,
+     4.1
+    ],
+    "t": "Menu chính",
+    "s": "Giới thiệu · Khóa học · Bài viết · Tra cứu · Liên hệ",
+    "n": 3
+   },
+   {
+    "box": [
+     78.0,
+     11.3,
+     6.6,
+     4.7
+    ],
+    "t": "Đăng nhập",
+    "s": "Vào tài khoản học viên được cấp",
+    "n": 4
+   },
+   {
+    "box": [
+     52.5,
+     26.5,
+     30.3,
+     4.5
+    ],
+    "t": "Chọn cách tra cứu",
+    "s": "Theo mã bằng hoặc theo CCCD",
+    "n": 5
+   },
+   {
+    "box": [
+     52.5,
+     32.5,
+     30.3,
+     21.0
+    ],
+    "t": "Nhập mã & mã xác thực",
+    "s": "Mã chứng chỉ / số CCCD + mã hiển thị",
+    "n": 6
+   },
+   {
+    "box": [
+     52.5,
+     55.0,
+     30.3,
+     4.0
+    ],
+    "t": "Tra cứu ngay",
+    "s": "Xem kết quả xác thực",
+    "n": 7
+   }
+  ]
+ },
+ "5": {
+  "img": "image-5-4.png",
+  "steps": [
+   {
+    "box": [
+     45.5,
+     11.0,
+     5.3,
+     3.6
+    ],
+    "t": "Menu Khóa học",
+    "s": "Xem toàn bộ chương trình",
+    "n": 1
+   },
+   {
+    "box": [
+     15.8,
+     27.0,
+     68.2,
+     39.5
+    ],
+    "t": "Khóa học nổi bật",
+    "s": "Nhóm ATVSLĐ, số học viên, thời lượng",
+    "n": 2
+   },
+   {
+    "box": [
+     74.5,
+     23.5,
+     8.7,
+     3.3
+    ],
+    "t": "Xem tất cả khóa học",
+    "s": "Mở danh sách đầy đủ",
+    "n": 3
+   },
+   {
+    "box": [
+     16.3,
+     61.3,
+     20.9,
+     3.4
+    ],
+    "t": "Xem chi tiết",
+    "s": "Chương trình, thời lượng, đăng ký",
+    "n": 4
+   },
+   {
+    "box": [
+     15.8,
+     78.0,
+     68.2,
+     21.5
+    ],
+    "t": "Góc tri thức",
+    "s": "Cẩm nang & quy định pháp luật mới",
+    "n": 5
+   }
+  ]
+ },
+ "6": {
+  "img": "image-6-4.png",
+  "steps": [
+   {
+    "box": [
+     16.5,
+     41.5,
+     16.0,
+     10.0
+    ],
+    "t": "Hotline & Email",
+    "s": "Gọi 0827.695.368 hoặc gửi email",
+    "n": 1
+   },
+   {
+    "box": [
+     43.5,
+     24.5,
+     40.5,
+     28.0
+    ],
+    "t": "Hệ thống văn phòng",
+    "s": "Hà Nội · Nha Trang · TP. Hồ Chí Minh",
+    "n": 2
+   },
+   {
+    "box": [
+     15.5,
+     67.0,
+     68.5,
+     28.0
+    ],
+    "t": "Chân trang",
+    "s": "Liên kết nhanh & thông tin liên hệ",
+    "n": 3
+   }
+  ]
+ },
+ "8": {
+  "img": "image-8-4.png",
+  "steps": [
+   {
+    "box": [
+     1.0,
+     13.5,
+     12.8,
+     63.5
+    ],
+    "t": "Menu điều hướng",
+    "s": "Chính · Thông tin chung · Cá nhân",
+    "n": 1
+   },
+   {
+    "box": [
+     2.5,
+     20.0,
+     11.3,
+     7.2
+    ],
+    "t": "Khóa học & Bằng cấp của tôi",
+    "s": "Xem lớp đang học, tải chứng nhận",
+    "n": 2
+   },
+   {
+    "box": [
+     21.5,
+     18.5,
+     70.0,
+     13.5
+    ],
+    "t": "Lời chào & tổng quan",
+    "s": "Lớp đang học, bài thi, chứng chỉ",
+    "n": 3
+   },
+   {
+    "box": [
+     21.5,
+     34.5,
+     34.5,
+     8.7
+    ],
+    "t": "Việc cần xử lý",
+    "s": "Cần làm · Sắp hạn · Trễ hạn",
+    "n": 4
+   },
+   {
+    "box": [
+     56.5,
+     34.5,
+     35.0,
+     8.7
+    ],
+    "t": "Trang bị BHLĐ (PPE)",
+    "s": "Còn hạn · Sắp hết · Hết hạn",
+    "n": 5
+   },
+   {
+    "box": [
+     21.5,
+     48.5,
+     17.0,
+     34.5
+    ],
+    "t": "Khóa học của tôi",
+    "s": "Lịch học, mã lớp",
+    "n": 6
+   },
+   {
+    "box": [
+     22.5,
+     79.2,
+     15.0,
+     3.8
+    ],
+    "t": "Vào học",
+    "s": "Truy cập trực tiếp bài giảng",
+    "n": 7
+   },
+   {
+    "box": [
+     21.5,
+     86.0,
+     70.0,
+     13.5
+    ],
+    "t": "Bài thi & Chứng chỉ của tôi",
+    "s": "Lịch thi · chứng nhận đã đạt (Xem)",
+    "n": 8
+   }
+  ]
+ },
+ "9": {
+  "img": "image-9-4.png",
+  "steps": [
+   {
+    "box": [
+     1.0,
+     32.3,
+     12.5,
+     5.0
+    ],
+    "t": "Mở Trang bị BHLĐ",
+    "s": "Chọn trên menu bên trái",
+    "n": 1
+   },
+   {
+    "box": [
+     21.5,
+     26.5,
+     69.5,
+     9.3
+    ],
+    "t": "Thẻ thống kê",
+    "s": "Tổng · Còn hạn · Sắp hết hạn · Chờ duyệt",
+    "n": 2
+   },
+   {
+    "box": [
+     80.5,
+     19.3,
+     7.5,
+     4.4
+    ],
+    "t": "Xin cấp mới PPE",
+    "s": "Điền biểu mẫu → gửi chờ duyệt",
+    "n": 3
+   },
+   {
+    "box": [
+     72.8,
+     19.3,
+     7.5,
+     4.4
+    ],
+    "t": "Báo hỏng / Cấp đổi",
+    "s": "Chọn trang bị, nhập lý do, gửi phiếu",
+    "n": 4
+   },
+   {
+    "box": [
+     21.5,
+     37.3,
+     19.7,
+     4.0
+    ],
+    "t": "Theo dõi phiếu yêu cầu",
+    "s": "Chờ duyệt · Đã duyệt · Từ chối",
+    "n": 5
+   },
+   {
+    "box": [
+     21.5,
+     43.5,
+     69.5,
+     9.7
+    ],
+    "t": "Tìm kiếm & bộ lọc",
+    "s": "Loại trang bị, trạng thái, hạn dùng",
+    "n": 6
+   },
+   {
+    "box": [
+     21.5,
+     55.0,
+     69.5,
+     31.5
+    ],
+    "t": "Danh sách trang bị",
+    "s": "Trang bị đang được cấp phát",
+    "n": 7
+   }
+  ]
+ },
+ "10": {
+  "img": "image-10-4.png",
+  "steps": [
+   {
+    "box": [
+     1.0,
+     37.3,
+     12.5,
+     5.0
+    ],
+    "t": "Mở Báo cáo sự cố",
+    "s": "Chọn trên menu bên trái",
+    "n": 1
+   },
+   {
+    "box": [
+     74.3,
+     18.8,
+     6.9,
+     4.5
+    ],
+    "t": "+ Báo cáo sự cố",
+    "s": "Điền biểu mẫu → gửi",
+    "n": 2
+   },
+   {
+    "box": [
+     31.0,
+     26.0,
+     50.2,
+     6.8
+    ],
+    "t": "Người báo cáo tự động",
+    "s": "Gắn theo tài khoản đang đăng nhập",
+    "n": 3
+   },
+   {
+    "box": [
+     31.0,
+     34.5,
+     50.2,
+     7.3
+    ],
+    "t": "Thẻ thống kê",
+    "s": "Tổng · Chờ xử lý · Đã khắc phục",
+    "n": 4
+   },
+   {
+    "box": [
+     31.0,
+     43.0,
+     50.2,
+     26.7
+    ],
+    "t": "Báo cáo của tôi",
+    "s": "Chờ xử lý → Đã khắc phục",
+    "n": 5
+   }
+  ]
+ },
+ "11": {
+  "img": "image-11-4.png",
+  "steps": [
+   {
+    "box": [
+     1.0,
+     42.5,
+     12.5,
+     5.2
+    ],
+    "t": "Mở Yêu cầu nhân sự",
+    "s": "Chọn trên menu bên trái",
+    "n": 1
+   },
+   {
+    "box": [
+     83.0,
+     19.3,
+     7.2,
+     4.4
+    ],
+    "t": "+ Tạo yêu cầu",
+    "s": "Mở bảng lập đơn mới",
+    "n": 2
+   },
+   {
+    "box": [
+     21.5,
+     25.5,
+     69.5,
+     8.2
+    ],
+    "t": "Thẻ thống kê",
+    "s": "Tổng · Chờ duyệt · Đã duyệt · Từ chối",
+    "n": 3
+   },
+   {
+    "box": [
+     70.3,
+     35.8,
+     20.4,
+     5.0
+    ],
+    "t": "Bộ lọc",
+    "s": "Theo loại đơn và trạng thái",
+    "n": 4
+   },
+   {
+    "box": [
+     21.5,
+     41.5,
+     69.5,
+     10.8
+    ],
+    "t": "Đơn của tôi",
+    "s": "Loại đơn, trạng thái, thời gian",
+    "n": 5
+   }
+  ]
+ },
+ "12": {
+  "img": "image-12-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     13.5,
+     89.5,
+     28.7
+    ],
+    "t": "Chọn mẫu đơn",
+    "s": "Nghỉ phép, trợ cấp, lương, nghỉ việc…",
+    "n": 1
+   },
+   {
+    "box": [
+     3.0,
+     42.9,
+     89.5,
+     8.0
+    ],
+    "t": "Thông tin theo mẫu",
+    "s": "Ví dụ: số tiền trợ cấp đề nghị",
+    "n": 2
+   },
+   {
+    "box": [
+     3.0,
+     51.7,
+     89.5,
+     14.2
+    ],
+    "t": "Lý do / Nội dung",
+    "s": "Trình bày rõ để nhân sự xem xét",
+    "n": 3
+   },
+   {
+    "box": [
+     3.0,
+     67.6,
+     89.5,
+     18.0
+    ],
+    "t": "Ghi chú & đính kèm",
+    "s": "Choose File để tải minh chứng",
+    "n": 4
+   },
+   {
+    "box": [
+     78.6,
+     94.1,
+     20.0,
+     5.5
+    ],
+    "t": "Gửi yêu cầu",
+    "s": "Đơn chuyển tới lãnh đạo duyệt",
+    "n": 5
+   }
+  ],
+  "crop": [
+   304,
+   20,
+   859,
+   917
+  ]
+ },
+ "13": {
+  "img": "image-13-4.png",
+  "steps": [
+   {
+    "box": [
+     1.0,
+     52.3,
+     12.5,
+     5.2
+    ],
+    "t": "Mở Tin tức & Tài liệu",
+    "s": "Chọn trên menu bên trái",
+    "n": 1
+   },
+   {
+    "box": [
+     21.0,
+     27.3,
+     10.8,
+     18.5
+    ],
+    "t": "Lọc theo chủ đề",
+    "s": "Tin tức · Thông tư/Nghị định · Tài liệu",
+    "n": 2
+   },
+   {
+    "box": [
+     32.0,
+     27.3,
+     57.5,
+     5.4
+    ],
+    "t": "Tìm kiếm bài viết",
+    "s": "Tra cứu theo từ khóa",
+    "n": 3
+   },
+   {
+    "box": [
+     32.0,
+     33.5,
+     57.5,
+     66.0
+    ],
+    "t": "Danh sách bài viết",
+    "s": "Ảnh, nhãn, tiêu đề, tóm tắt, ngày đăng",
+    "n": 4
+   }
+  ]
+ },
+ "14": {
+  "img": "image-14-4.png",
+  "steps": [
+   {
+    "box": [
+     1.0,
+     57.3,
+     12.5,
+     5.4
+    ],
+    "t": "Mở Công việc",
+    "s": "Số đỏ = việc cần xử lý",
+    "n": 1
+   },
+   {
+    "box": [
+     22.0,
+     31.0,
+     67.5,
+     8.8
+    ],
+    "t": "Thẻ trạng thái",
+    "s": "Cần bắt đầu · Đang làm · Chờ duyệt · Làm lại",
+    "n": 2
+   },
+   {
+    "box": [
+     22.0,
+     43.3,
+     67.5,
+     4.5
+    ],
+    "t": "Tìm kiếm công việc",
+    "s": "Theo tiêu đề hoặc nội dung",
+    "n": 3
+   },
+   {
+    "box": [
+     22.0,
+     48.3,
+     32.8,
+     4.5
+    ],
+    "t": "Lọc theo trạng thái",
+    "s": "Cần làm, hoàn thành, quá hạn…",
+    "n": 4
+   },
+   {
+    "box": [
+     22.0,
+     55.5,
+     33.5,
+     18.7
+    ],
+    "t": "Thẻ công việc",
+    "s": "Ưu tiên, trạng thái, mô tả",
+    "n": 5
+   },
+   {
+    "box": [
+     22.0,
+     67.5,
+     33.5,
+     5.2
+    ],
+    "t": "Thời hạn & còn lại",
+    "s": "Đếm ngược thời gian",
+    "n": 6
+   }
+  ]
+ },
+ "15": {
+  "img": "image-15-4.png",
+  "steps": [
+   {
+    "box": [
+     2.0,
+     75.3,
+     12.8,
+     5.4
+    ],
+    "t": "Mở Hồ sơ cá nhân",
+    "s": "Mục Cá nhân trên menu",
+    "n": 1
+   },
+   {
+    "box": [
+     34.5,
+     29.0,
+     13.8,
+     33.8
+    ],
+    "t": "Thẻ thông tin cá nhân",
+    "s": "Họ tên, vai trò, SĐT, chức vụ, mã NV",
+    "n": 2
+   },
+   {
+    "box": [
+     42.2,
+     37.2,
+     2.7,
+     3.2
+    ],
+    "t": "Đổi ảnh đại diện",
+    "s": "Bấm biểu tượng máy ảnh",
+    "n": 3
+   },
+   {
+    "box": [
+     49.5,
+     29.3,
+     16.8,
+     4.4
+    ],
+    "t": "Thông tin · Đổi mật khẩu",
+    "s": "Hai tab quản lý tài khoản",
+    "n": 4
+   },
+   {
+    "box": [
+     49.5,
+     34.5,
+     28.0,
+     52.5
+    ],
+    "t": "Chỉnh sửa thông tin",
+    "s": "Email do hệ thống cấp, không đổi",
+    "n": 5
+   },
+   {
+    "box": [
+     69.3,
+     88.8,
+     8.4,
+     4.5
+    ],
+    "t": "Lưu thay đổi",
+    "s": "Cập nhật hồ sơ",
+    "n": 6
+   }
+  ]
+ },
+ "16": {
+  "img": "image-16-4.png",
+  "steps": []
+ }
+}

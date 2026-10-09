@@ -1,0 +1,235 @@
+{
+ "speed": 0.95,
+ "scenes": {
+  "s1": [
+   {
+    "id": "s1b1",
+    "dur": 2.937,
+    "say": "Lịch học ở đâu? Bài thi khi nào? Chứng chỉ của mình đã có chưa?",
+    "sub": "Lịch học ở đâu? Bài thi khi nào? Chứng chỉ của mình đã có chưa?"
+   },
+   {
+    "id": "s1b2",
+    "dur": 2.733,
+    "say": "Giờ đây, mọi câu trả lời nằm gọn trong một tài khoản.",
+    "sub": "Giờ đây, mọi câu trả lời nằm gọn trong một tài khoản."
+   }
+  ],
+  "s2": [
+   {
+    "id": "s2b1",
+    "dur": 3.067,
+    "say": "Chào mừng bạn đến với cổng đào tạo trực tuyến của Viện Ét Tê Pê,",
+    "sub": "Chào mừng bạn đến với cổng đào tạo trực tuyến của Viện STP,"
+   },
+   {
+    "id": "s2b2",
+    "dur": 2.473,
+    "say": "cùng Công ty Đa Cô đồng hành tổ chức huấn luyện cho bạn.",
+    "sub": "cùng Công ty DAKO đồng hành tổ chức huấn luyện cho bạn."
+   }
+  ],
+  "s3": [
+   {
+    "id": "s3b1",
+    "dur": 2.078,
+    "say": "Hướng dẫn gồm hai phần, mười một màn hình.",
+    "sub": "Hướng dẫn gồm hai phần, 11 màn hình."
+   },
+   {
+    "id": "s3b2",
+    "dur": 3.379,
+    "say": "Phần một: cổng đào tạo công khai. Phần hai: tài khoản học viên của riêng bạn.",
+    "sub": "Phần 1: cổng đào tạo công khai. Phần 2: tài khoản học viên của riêng bạn."
+   }
+  ],
+  "p1": [
+   {
+    "id": "p1b1",
+    "dur": 4.238,
+    "say": "Truy cập cổng đào tạo trên máy tính hoặc điện thoại, rồi bấm Đăng nhập bằng tài khoản được cấp.",
+    "sub": "Truy cập daotao.vienstp.com trên máy tính hoặc điện thoại, rồi bấm Đăng nhập bằng tài khoản được cấp."
+   },
+   {
+    "id": "p1b2",
+    "dur": 5.956,
+    "say": "Ngay trang chủ, bạn tra cứu chứng chỉ theo mã bằng hoặc số căn cước công dân, xác thực minh bạch hai mươi bốn trên bảy.",
+    "sub": "Ngay trang chủ, bạn tra cứu chứng chỉ theo mã bằng hoặc số CCCD, xác thực minh bạch 24/7."
+   }
+  ],
+  "p2": [
+   {
+    "id": "p2b1",
+    "dur": 5.062,
+    "say": "Khám phá các khóa học nổi bật, xem số học viên, thời lượng, và bấm Xem chi tiết để đăng ký.",
+    "sub": "Khám phá các khóa học nổi bật, xem số học viên, thời lượng, và bấm Xem chi tiết để đăng ký."
+   },
+   {
+    "id": "p2b2",
+    "dur": 3.541,
+    "say": "Góc tri thức cập nhật cẩm nang và quy định pháp luật mới về an toàn lao động.",
+    "sub": "Góc tri thức cập nhật cẩm nang và quy định pháp luật mới về an toàn lao động."
+   }
+  ],
+  "p3": [
+   {
+    "id": "p3b1",
+    "dur": 3.028,
+    "say": "Cần tư vấn lộ trình học? Gọi đường dây nóng hoặc gửi thư cho Viện,",
+    "sub": "Cần tư vấn lộ trình học? Gọi hotline 0827.695.368 hoặc gửi email cho Viện,"
+   },
+   {
+    "id": "p3b2",
+    "dur": 3.529,
+    "say": "với hệ thống văn phòng tại Hà Nội, Nha Trang và Thành phố Hồ Chí Minh.",
+    "sub": "với hệ thống văn phòng tại Hà Nội, Nha Trang và Thành phố Hồ Chí Minh."
+   }
+  ],
+  "pp": [
+   {
+    "id": "ppb1",
+    "dur": 3.46,
+    "say": "Đăng nhập xong, tài khoản học viên mở ra toàn bộ hành trình của bạn:",
+    "sub": "Đăng nhập xong, tài khoản học viên mở ra toàn bộ hành trình của bạn:"
+   },
+   {
+    "id": "ppb2",
+    "dur": 2.972,
+    "say": "học tập, bảo hộ lao động, sự cố, đơn từ và công việc.",
+    "sub": "học tập, bảo hộ lao động, sự cố, đơn từ và công việc."
+   }
+  ],
+  "p4": [
+   {
+    "id": "p4b1",
+    "dur": 5.108,
+    "say": "Trang chủ học viên chào bạn bằng tên, kèm số lớp đang học, bài thi sắp tới và chứng chỉ đã có.",
+    "sub": "Trang chủ học viên chào bạn bằng tên, kèm số lớp đang học, bài thi sắp tới và chứng chỉ đã có."
+   },
+   {
+    "id": "p4b2",
+    "dur": 3.982,
+    "say": "Khóa học hiện rõ lịch học, mã lớp; chỉ cần bấm Vào học là bắt đầu bài giảng.",
+    "sub": "Khóa học hiện rõ lịch học, mã lớp; chỉ cần bấm Vào học là bắt đầu bài giảng."
+   },
+   {
+    "id": "p4b3",
+    "dur": 2.961,
+    "say": "Bài thi sắp tới và chứng chỉ đã đạt luôn sẵn sàng để xem.",
+    "sub": "Bài thi sắp tới và chứng chỉ đã đạt luôn sẵn sàng để xem."
+   }
+  ],
+  "p5": [
+   {
+    "id": "p5b1",
+    "dur": 3.947,
+    "say": "Trang bị bảo hộ được cấp cho bạn hiển thị kèm hạn sử dụng: còn hạn, sắp hết hạn.",
+    "sub": "Trang bị bảo hộ được cấp cho bạn hiển thị kèm hạn sử dụng: còn hạn, sắp hết hạn."
+   },
+   {
+    "id": "p5b2",
+    "dur": 4.214,
+    "say": "Cần cấp mới hay báo hỏng, chỉ một nút bấm, rồi theo dõi phiếu đến khi được duyệt.",
+    "sub": "Cần cấp mới hay báo hỏng, chỉ một nút bấm, rồi theo dõi phiếu đến khi được duyệt."
+   }
+  ],
+  "p6": [
+   {
+    "id": "p6b1",
+    "dur": 4.168,
+    "say": "Phát hiện nguy cơ hay sự cố? Bấm Báo cáo sự cố, điền thông tin và gửi ngay.",
+    "sub": "Phát hiện nguy cơ hay sự cố? Bấm Báo cáo sự cố, điền thông tin và gửi ngay."
+   },
+   {
+    "id": "p6b2",
+    "dur": 3.738,
+    "say": "Hệ thống tự gắn tên bạn, và bạn theo dõi đến khi sự cố được khắc phục.",
+    "sub": "Hệ thống tự gắn tên bạn, và bạn theo dõi đến khi sự cố được khắc phục."
+   }
+  ],
+  "p7": [
+   {
+    "id": "p7b1",
+    "dur": 3.866,
+    "say": "Các đơn nghỉ phép, trợ cấp, xét lương hay đề nghị công tác đều có mẫu sẵn.",
+    "sub": "Các đơn nghỉ phép, trợ cấp, xét lương hay đề nghị công tác đều có mẫu sẵn."
+   },
+   {
+    "id": "p7b2",
+    "dur": 5.213,
+    "say": "Chọn mẫu đơn, ghi lý do, đính kèm minh chứng, bấm Gửi; đơn chuyển thẳng tới lãnh đạo để phê duyệt.",
+    "sub": "Chọn mẫu đơn, ghi lý do, đính kèm minh chứng, bấm Gửi; đơn chuyển thẳng tới lãnh đạo để phê duyệt."
+   }
+  ],
+  "p9": [
+   {
+    "id": "p9b1",
+    "dur": 3.865,
+    "say": "Tin tức, thông tư, nghị định và tài liệu chính thống được sắp xếp theo chủ đề,",
+    "sub": "Tin tức, thông tư, nghị định và tài liệu chính thống được sắp xếp theo chủ đề,"
+   },
+   {
+    "id": "p9b2",
+    "dur": 1.335,
+    "say": "tìm kiếm nhanh theo từ khóa.",
+    "sub": "tìm kiếm nhanh theo từ khóa."
+   }
+  ],
+  "p10": [
+   {
+    "id": "p10b1",
+    "dur": 4.261,
+    "say": "Công việc được giao hiển thị theo trạng thái: cần làm, đang làm, chờ duyệt, làm lại.",
+    "sub": "Công việc được giao hiển thị theo trạng thái: cần làm, đang làm, chờ duyệt, làm lại."
+   },
+   {
+    "id": "p10b2",
+    "dur": 2.786,
+    "say": "Mỗi việc có mức ưu tiên, hạn chót và đồng hồ đếm ngược.",
+    "sub": "Mỗi việc có mức ưu tiên, hạn chót và đồng hồ đếm ngược."
+   }
+  ],
+  "p11": [
+   {
+    "id": "p11b1",
+    "dur": 3.822,
+    "say": "Hồ sơ cá nhân: cập nhật ảnh đại diện, số điện thoại, phòng ban, chức vụ;",
+    "sub": "Hồ sơ cá nhân: cập nhật ảnh đại diện, số điện thoại, phòng ban, chức vụ;"
+   },
+   {
+    "id": "p11b2",
+    "dur": 1.707,
+    "say": "đổi mật khẩu, rồi bấm Lưu thay đổi.",
+    "sub": "đổi mật khẩu, rồi bấm Lưu thay đổi."
+   }
+  ],
+  "s4": [
+   {
+    "id": "s4b1",
+    "dur": 4.47,
+    "say": "Bắt đầu thật đơn giản: truy cập cổng đào tạo, đăng nhập bằng tài khoản được cấp, và bấm Vào học.",
+    "sub": "Bắt đầu thật đơn giản: truy cập cổng đào tạo, đăng nhập bằng tài khoản được cấp, và bấm Vào học."
+   },
+   {
+    "id": "s4b2",
+    "dur": 2.972,
+    "say": "Lịch học, bài thi, chứng chỉ, tất cả trong một tài khoản.",
+    "sub": "Lịch học, bài thi, chứng chỉ, tất cả trong một tài khoản."
+   }
+  ],
+  "s5": [
+   {
+    "id": "s5b1",
+    "dur": 1.649,
+    "say": "Học tập vững vàng. Chứng nhận minh bạch.",
+    "sub": "Học tập vững vàng. Chứng nhận minh bạch."
+   },
+   {
+    "id": "s5b2",
+    "dur": 2.705,
+    "say": "Viện Ét Tê Pê và Đa Cô chúc các bạn học tập hiệu quả!",
+    "sub": "Viện STP và DAKO chúc các bạn học tập hiệu quả!"
+   }
+  ]
+ }
+}

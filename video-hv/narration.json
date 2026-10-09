@@ -1,0 +1,169 @@
+{
+ "_note": "Kịch bản thuyết minh video hướng dẫn học viên. 'say' viết theo cách đọc (STP → Ét Tê Pê, DAKO → Đa Cô); 'sub' là phụ đề.",
+ "scenes": {
+  "s1": [
+   {
+    "say": "Lịch học ở đâu? Bài thi khi nào? Chứng chỉ của mình đã có chưa?",
+    "sub": "Lịch học ở đâu? Bài thi khi nào? Chứng chỉ của mình đã có chưa?"
+   },
+   {
+    "say": "Giờ đây, mọi câu trả lời nằm gọn trong một tài khoản.",
+    "sub": "Giờ đây, mọi câu trả lời nằm gọn trong một tài khoản."
+   }
+  ],
+  "s2": [
+   {
+    "say": "Chào mừng bạn đến với cổng đào tạo trực tuyến của Viện Ét Tê Pê,",
+    "sub": "Chào mừng bạn đến với cổng đào tạo trực tuyến của Viện STP,"
+   },
+   {
+    "say": "cùng Công ty Đa Cô đồng hành tổ chức huấn luyện cho bạn.",
+    "sub": "cùng Công ty DAKO đồng hành tổ chức huấn luyện cho bạn."
+   }
+  ],
+  "s3": [
+   {
+    "say": "Hướng dẫn gồm hai phần, mười một màn hình.",
+    "sub": "Hướng dẫn gồm hai phần, 11 màn hình."
+   },
+   {
+    "say": "Phần một: cổng đào tạo công khai. Phần hai: tài khoản học viên của riêng bạn.",
+    "sub": "Phần 1: cổng đào tạo công khai. Phần 2: tài khoản học viên của riêng bạn."
+   }
+  ],
+  "p1": [
+   {
+    "say": "Truy cập cổng đào tạo trên máy tính hoặc điện thoại, rồi bấm Đăng nhập bằng tài khoản được cấp.",
+    "sub": "Truy cập daotao.vienstp.com trên máy tính hoặc điện thoại, rồi bấm Đăng nhập bằng tài khoản được cấp."
+   },
+   {
+    "say": "Ngay trang chủ, bạn tra cứu chứng chỉ theo mã bằng hoặc số căn cước công dân, xác thực minh bạch hai mươi bốn trên bảy.",
+    "sub": "Ngay trang chủ, bạn tra cứu chứng chỉ theo mã bằng hoặc số CCCD, xác thực minh bạch 24/7."
+   }
+  ],
+  "p2": [
+   {
+    "say": "Khám phá các khóa học nổi bật, xem số học viên, thời lượng, và bấm Xem chi tiết để đăng ký.",
+    "sub": "Khám phá các khóa học nổi bật, xem số học viên, thời lượng, và bấm Xem chi tiết để đăng ký."
+   },
+   {
+    "say": "Góc tri thức cập nhật cẩm nang và quy định pháp luật mới về an toàn lao động.",
+    "sub": "Góc tri thức cập nhật cẩm nang và quy định pháp luật mới về an toàn lao động."
+   }
+  ],
+  "p3": [
+   {
+    "say": "Cần tư vấn lộ trình học? Gọi đường dây nóng hoặc gửi thư cho Viện,",
+    "sub": "Cần tư vấn lộ trình học? Gọi hotline 0827.695.368 hoặc gửi email cho Viện,"
+   },
+   {
+    "say": "với hệ thống văn phòng tại Hà Nội, Nha Trang và Thành phố Hồ Chí Minh.",
+    "sub": "với hệ thống văn phòng tại Hà Nội, Nha Trang và Thành phố Hồ Chí Minh."
+   }
+  ],
+  "pp": [
+   {
+    "say": "Đăng nhập xong, tài khoản học viên mở ra toàn bộ hành trình của bạn:",
+    "sub": "Đăng nhập xong, tài khoản học viên mở ra toàn bộ hành trình của bạn:"
+   },
+   {
+    "say": "học tập, bảo hộ lao động, sự cố, đơn từ và công việc.",
+    "sub": "học tập, bảo hộ lao động, sự cố, đơn từ và công việc."
+   }
+  ],
+  "p4": [
+   {
+    "say": "Trang chủ học viên chào bạn bằng tên, kèm số lớp đang học, bài thi sắp tới và chứng chỉ đã có.",
+    "sub": "Trang chủ học viên chào bạn bằng tên, kèm số lớp đang học, bài thi sắp tới và chứng chỉ đã có."
+   },
+   {
+    "say": "Khóa học hiện rõ lịch học, mã lớp; chỉ cần bấm Vào học là bắt đầu bài giảng.",
+    "sub": "Khóa học hiện rõ lịch học, mã lớp; chỉ cần bấm Vào học là bắt đầu bài giảng."
+   },
+   {
+    "say": "Bài thi sắp tới và chứng chỉ đã đạt luôn sẵn sàng để xem.",
+    "sub": "Bài thi sắp tới và chứng chỉ đã đạt luôn sẵn sàng để xem."
+   }
+  ],
+  "p5": [
+   {
+    "say": "Trang bị bảo hộ được cấp cho bạn hiển thị kèm hạn sử dụng: còn hạn, sắp hết hạn.",
+    "sub": "Trang bị bảo hộ được cấp cho bạn hiển thị kèm hạn sử dụng: còn hạn, sắp hết hạn."
+   },
+   {
+    "say": "Cần cấp mới hay báo hỏng, chỉ một nút bấm, rồi theo dõi phiếu đến khi được duyệt.",
+    "sub": "Cần cấp mới hay báo hỏng, chỉ một nút bấm, rồi theo dõi phiếu đến khi được duyệt."
+   }
+  ],
+  "p6": [
+   {
+    "say": "Phát hiện nguy cơ hay sự cố? Bấm Báo cáo sự cố, điền thông tin và gửi ngay.",
+    "sub": "Phát hiện nguy cơ hay sự cố? Bấm Báo cáo sự cố, điền thông tin và gửi ngay."
+   },
+   {
+    "say": "Hệ thống tự gắn tên bạn, và bạn theo dõi đến khi sự cố được khắc phục.",
+    "sub": "Hệ thống tự gắn tên bạn, và bạn theo dõi đến khi sự cố được khắc phục."
+   }
+  ],
+  "p7": [
+   {
+    "say": "Các đơn nghỉ phép, trợ cấp, xét lương hay đề nghị công tác đều có mẫu sẵn.",
+    "sub": "Các đơn nghỉ phép, trợ cấp, xét lương hay đề nghị công tác đều có mẫu sẵn."
+   },
+   {
+    "say": "Chọn mẫu đơn, ghi lý do, đính kèm minh chứng, bấm Gửi; đơn chuyển thẳng tới lãnh đạo để phê duyệt.",
+    "sub": "Chọn mẫu đơn, ghi lý do, đính kèm minh chứng, bấm Gửi; đơn chuyển thẳng tới lãnh đạo để phê duyệt."
+   }
+  ],
+  "p9": [
+   {
+    "say": "Tin tức, thông tư, nghị định và tài liệu chính thống được sắp xếp theo chủ đề,",
+    "sub": "Tin tức, thông tư, nghị định và tài liệu chính thống được sắp xếp theo chủ đề,"
+   },
+   {
+    "say": "tìm kiếm nhanh theo từ khóa.",
+    "sub": "tìm kiếm nhanh theo từ khóa."
+   }
+  ],
+  "p10": [
+   {
+    "say": "Công việc được giao hiển thị theo trạng thái: cần làm, đang làm, chờ duyệt, làm lại.",
+    "sub": "Công việc được giao hiển thị theo trạng thái: cần làm, đang làm, chờ duyệt, làm lại."
+   },
+   {
+    "say": "Mỗi việc có mức ưu tiên, hạn chót và đồng hồ đếm ngược.",
+    "sub": "Mỗi việc có mức ưu tiên, hạn chót và đồng hồ đếm ngược."
+   }
+  ],
+  "p11": [
+   {
+    "say": "Hồ sơ cá nhân: cập nhật ảnh đại diện, số điện thoại, phòng ban, chức vụ;",
+    "sub": "Hồ sơ cá nhân: cập nhật ảnh đại diện, số điện thoại, phòng ban, chức vụ;"
+   },
+   {
+    "say": "đổi mật khẩu, rồi bấm Lưu thay đổi.",
+    "sub": "đổi mật khẩu, rồi bấm Lưu thay đổi."
+   }
+  ],
+  "s4": [
+   {
+    "say": "Bắt đầu thật đơn giản: truy cập cổng đào tạo, đăng nhập bằng tài khoản được cấp, và bấm Vào học.",
+    "sub": "Bắt đầu thật đơn giản: truy cập cổng đào tạo, đăng nhập bằng tài khoản được cấp, và bấm Vào học."
+   },
+   {
+    "say": "Lịch học, bài thi, chứng chỉ, tất cả trong một tài khoản.",
+    "sub": "Lịch học, bài thi, chứng chỉ, tất cả trong một tài khoản."
+   }
+  ],
+  "s5": [
+   {
+    "say": "Học tập vững vàng. Chứng nhận minh bạch.",
+    "sub": "Học tập vững vàng. Chứng nhận minh bạch."
+   },
+   {
+    "say": "Viện Ét Tê Pê và Đa Cô chúc các bạn học tập hiệu quả!",
+    "sub": "Viện STP và DAKO chúc các bạn học tập hiệu quả!"
+   }
+  ]
+ }
+}
