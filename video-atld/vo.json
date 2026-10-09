@@ -18,9 +18,9 @@
   "s2": [
    {
     "id": "s2b1",
-    "dur": 3.227,
-    "say": "Phần mềm quản lý an toàn, vệ sinh lao động của Viện Ét Tê Pê,",
-    "sub": "Phần mềm quản lý an toàn, vệ sinh lao động của Viện STP –"
+    "dur": 5.724,
+    "say": "Phần mềm quản lý an toàn, vệ sinh lao động do Viện Ét Tê Pê phát triển, cùng Công ty Đa Cô đồng hành triển khai:",
+    "sub": "Phần mềm quản lý an toàn, vệ sinh lao động do Viện STP phát triển, cùng Công ty DAKO đồng hành triển khai –"
    },
    {
     "id": "s2b2",
@@ -211,6 +211,26 @@
     "sub": "và nhắc thu hồi, cấp mới khi hết hạn."
    }
   ],
+  "hp": [
+   {
+    "id": "hpb1",
+    "dur": 5.596,
+    "say": "Đằng sau phần mềm là mô hình hợp tác chiến lược giữa Viện Ét Tê Pê và Đa Cô, công ty cổ phần kỹ thuật hàng hải.",
+    "sub": "Đằng sau phần mềm là mô hình hợp tác chiến lược giữa Viện STP và DAKO – Công ty CP Kỹ thuật Hàng hải."
+   },
+   {
+    "id": "hpb2",
+    "dur": 5.944,
+    "say": "Viện Ét Tê Pê nghiên cứu, xây dựng giải pháp và chương trình đào tạo; Đa Cô tổ chức huấn luyện, cấp chứng chỉ theo quy định.",
+    "sub": "Viện STP nghiên cứu, xây dựng giải pháp và chương trình đào tạo; DAKO tổ chức huấn luyện, cấp chứng chỉ theo quy định."
+   },
+   {
+    "id": "hpb3",
+    "dur": 4.27,
+    "say": "Doanh nghiệp nhận giải pháp toàn diện, tuân thủ pháp luật, giảm rủi ro, phát triển bền vững.",
+    "sub": "Doanh nghiệp nhận giải pháp toàn diện, tuân thủ pháp luật, giảm rủi ro, phát triển bền vững."
+   }
+  ],
   "s4": [
    {
     "id": "s4b1",
@@ -234,9 +254,9 @@
    },
    {
     "id": "s5b2",
-    "dur": 2.902,
-    "say": "Liên hệ Viện Ét Tê Pê để được tư vấn và hướng dẫn triển khai.",
-    "sub": "Liên hệ Viện STP để được tư vấn và hướng dẫn triển khai."
+    "dur": 4.306,
+    "say": "Viện Ét Tê Pê và Đa Cô luôn sẵn sàng tư vấn, hướng dẫn triển khai cho doanh nghiệp.",
+    "sub": "Viện STP và DAKO luôn sẵn sàng tư vấn, hướng dẫn triển khai cho doanh nghiệp."
    }
   ]
  }

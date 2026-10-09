@@ -61,7 +61,7 @@ def strip_acr(s):  # bỏ các từ viết tắt (máy nhận dạng không đá
 
 
 def words(s):
-    s = re.sub(r"\ba i\b", "ai", s.lower().replace("ây ai", "ai").replace("ét tê pê", "stp"))
+    s = re.sub(r"\ba i\b", "ai", s.lower().replace("ây ai", "ai").replace("ét tê pê", "stp").replace("đa cô", "daco"))
     return re.findall(r"[0-9a-zà-ỹđ]+", s)
 
 

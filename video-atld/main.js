@@ -369,7 +369,13 @@ function S2(t) {
   ];
   const hw = H.map((h) => { const d = div('hw', hero, `<img src="assets/ui/${h.src}.jpg" alt="">`); d.style.cssText = `left:${h.x}px;top:${h.y}px;width:${h.w}px`; return d; });
   const B = say('s2', t, { lead: 1.0 });
-  pop('#s2 .logo', t + 0.05, { from: 0.3, dur: 0.9, ease: 'back.out(2.2)' });
+  // logo Viện STP hiện giữa màn hình, rồi dịch sang trái nhường chỗ cho logo DAKO (đúng lúc đọc tên DAKO)
+  const sh = 145, dk = B.at(0, 'Công ty Đa Cô') - 0.3;
+  master.fromTo('#s2 .duo .stp', { x: sh, scale: 0.3, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.9, ease: 'back.out(2.2)' }, t + 0.05);
+  master.fromTo('#s2 .duo .stp', { x: sh }, { x: 0, duration: 0.7, ease: 'power3.inOut', immediateRender: false }, dk);
+  pop('#s2 .duo .x', dk + 0.3, { from: 0.2, ease: 'back.out(2.6)' });
+  master.fromTo('#s2 .duo .dako', { x: -40, scale: 0.3, autoAlpha: 0 }, { x: 0, scale: 1, autoAlpha: 1, duration: 0.85, ease: 'back.out(2.2)' }, dk + 0.25);
+  cue(dk + 0.25, 'pop'); cue(dk + 0.35, 'ding');
   kicker('#s2 .kk', t + 0.45);
   words('#s2 .t1', B[0].t - 0.1);
   words('#s2 .t2', B.at(0, 'an toàn') - 0.1);
@@ -663,8 +669,47 @@ function F12(t) {
   return B.end + 2.0;
 }
 
-function S4(t) {
+// mô hình hợp tác Viện STP – DAKO (theo slide của Viện): hai đơn vị hai bên, bắt tay ở giữa, lợi ích doanh nghiệp bên dưới
+function HP(t) {
   mark(t, 'sec_soft');
+  const B = say('hp', t, { lead: 0.9, gap: 0.5 });
+  kicker('#hp .kk', t + 0.1);
+  words('#hp .hd', t + 0.2);
+  const h = B.at(0, 'hợp tác'), a1 = B.at(0, 'Viện Ét Tê Pê') - 0.25, a2 = B.at(0, 'Đa Cô') - 0.25;
+  pop('#hp .mid .hs', h - 0.15, { from: 0.3, ease: 'back.out(2.4)' });
+  up(['#hp .mid b', '#hp .mid span'], h + 0.15, { y: 12, stagger: 0.12 });
+  master.fromTo('#hp .mid .hs .ic', { rotation: 0 }, { keyframes: [{ rotation: -12, duration: 0.1 }, { rotation: 10, duration: 0.1 }, { rotation: -6, duration: 0.1 }, { rotation: 0, duration: 0.12 }], ease: 'none', immediateRender: false }, h + 0.4);
+  cue(h - 0.15, 'pop');
+  [['stp', a1, -60, 'l'], ['dk', a2, 60, 'r']].forEach(([k, a, dx, s2]) => {
+    master.fromTo(`#hp .pc.${k}`, { x: dx, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.8 }, a);
+    pop(`#hp .${k} .ph > i`, a + 0.25, { from: 0.3, ease: 'back.out(2.2)' });
+    master.fromTo(`#hp .ln.${s2}`, { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.out' }, a + 0.3);
+    cue(a, 'swish');
+  });
+  const lnL = $('#hp .ln.l'), lnR = $('#hp .ln.r');
+  UPD.push((tt) => { const v = ((tt * 42) % 14).toFixed(1); lnL.style.backgroundPosition = `${-v}px 0`; lnR.style.backgroundPosition = `${v}px 0`; });
+  const b1 = B[1].t, b2 = B.at(1, 'Đa Cô') - 0.15, e2 = B[1].t + B[1].d;
+  const items = (sel, a0, a1_, dx) => $$(sel).forEach((li, i) => {
+    const a = a0 + i * Math.max(0.22, (a1_ - a0 - 0.3) / 4);
+    master.fromTo(li, { x: dx, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.55 }, a);
+    master.fromTo($('.ic', li), { scale: 0 }, { scale: 1, duration: 0.45, ease: 'back.out(2.5)' }, a + 0.05);
+    cue(a, 'tick');
+  });
+  items('#hp .stp li', b1, b2, -24);
+  items('#hp .dk li', b2, e2, 24);
+  master.fromTo('#hp .dn', { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7 }, B[2].t - 0.35);
+  const SP = $$('#hp .dn span'), EM = $$('#hp .dn em');
+  const P = ['giải pháp toàn diện', 'tuân thủ', 'giảm rủi ro', 'phát triển bền vững'].map((p) => B.at(2, p) - 0.1);
+  P.forEach((a, i) => {
+    master.fromTo(SP[i], { y: 12, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45 }, a);
+    if (i) master.fromTo(EM[i - 1], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, a - 0.1);
+    flashOn(SP[i], a, i < 3 ? P[i + 1] : B.end + 1.4);
+    cue(a, 'tick');
+  });
+  return B.end + 1.4;
+}
+
+function S4(t) {
   const B = say('s4', t, { lead: 0.9 });
   kicker('#s4 .kk', t + 0.1);
   words('#s4 .hd', t + 0.2);
@@ -692,11 +737,16 @@ function S5(t) {
   pop('#s5 .qm', t + 0.1, { from: 0.4 });
   words('#s5 .l1', B[0].t - 0.1);
   words('#s5 .l2', B.at(0, 'nhưng') - 0.05);
-  up('#s5 .ct > div', B[1].t, { y: 30, stagger: 0.12 });
-  cue(B[1].t, 'swish');
-  pop('#s5 .cta', B.at(1, 'tư vấn') - 0.2, { from: 0.8 });
-  cue(B.at(1, 'tư vấn') - 0.2, 'ding');
-  up('#s5 .brand', B.end + 0.2, { y: 16 });
+  // hai logo Viện STP – DAKO cạnh nhau, hiện đúng lúc đọc tên từng đơn vị
+  const b = B[1].t - 0.15, d = B.at(1, 'Đa Cô') - 0.2;
+  master.fromTo('#s5 .brand .b1', { x: -40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.7 }, b);
+  pop('#s5 .brand .sep', d, { from: 0.2, ease: 'back.out(2.6)' });
+  master.fromTo('#s5 .brand .b2', { x: 40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.7 }, d + 0.1);
+  cue(b, 'pop'); cue(d + 0.1, 'pop');
+  up('#s5 .ct > div', B.at(1, 'tư vấn') - 0.25, { y: 30, stagger: 0.12 });
+  cue(B.at(1, 'tư vấn') - 0.25, 'swish');
+  pop('#s5 .cta', B.at(1, 'hướng dẫn') - 0.1, { from: 0.8 });
+  cue(B.at(1, 'hướng dẫn') - 0.1, 'ding');
   return B.end + 3.6;
 }
 
@@ -721,9 +771,10 @@ function build() {
     t = L(`F${i + 1}`, fn)(x);
     prev = id;
   });
-  x = slide(t, prev, '#s4');
+  x = slide(t, prev, '#hp');
   master.fromTo('#rail', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, t);
-  t = L('S4', S4)(x);
+  t = L('HP', HP)(x);
+  x = slide(t, '#hp', '#s4'); t = L('S4', S4)(x);
   master.fromTo('#bug', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, t);
   x = toDark(t, '#s4', '#s5'); t = L('S5', S5)(x);
   finishHL();

@@ -1,4 +1,4 @@
-# Video giới thiệu Phần mềm quản lý ATVSLĐ – Viện STP (có thuyết minh, giao diện thực tế)
+# Video giới thiệu Phần mềm quản lý ATVSLĐ – Viện STP × DAKO (có thuyết minh, giao diện thực tế)
 
 Thành phẩm (thư mục gốc repo): **`Vien-STP_Phan-mem-quan-ly-ATVSLD_1080p.mp4`** – 1920×1080, 30fps,
 thuyết minh giọng nữ + nhạc nền, dưới 30 MB (mã hoá 2 lượt H.264, bitrate tính theo thời lượng để nét nhất
@@ -11,19 +11,21 @@ vị trí các khung `st{n}_box` trong file pptx), xuất hiện đúng lúc tí
 | Cảnh | Nội dung |
 |---|---|
 | Mở đầu | Hồ sơ huấn luyện rải rác, chứng chỉ hết hạn, thiết bị quá hạn kiểm định |
-| Thương hiệu | Phần mềm quản lý an toàn, vệ sinh lao động của Viện STP |
+| Thương hiệu | Logo Viện STP và Công ty CPKT Hàng hải DAKO cạnh nhau: Viện STP phát triển, DAKO đồng hành triển khai |
 | 5 phân hệ | Tổng quan & báo cáo · Doanh nghiệp · Đào tạo · Công tác & công việc · An toàn & tài sản |
 | 01–03 | Bảng điều khiển, cảnh báo & thao tác nhanh, báo cáo xuất Excel |
 | 04 | Hồ sơ doanh nghiệp, tài khoản operator và phân quyền |
 | 05–07 | Danh mục khóa học, nhân sự theo 6 nhóm huấn luyện, hợp đồng & lớp học |
 | 08 | Bảng tin, tài liệu, giao việc, duyệt đơn từ |
 | 09–12 | Thiết bị – kiểm định, tai nạn & sự cố, vật tư – hóa chất – kho, cấp phát PPE |
+| Hợp tác | Mô hình hợp tác chiến lược Viện STP (nghiên cứu, giải pháp, chương trình đào tạo) – DAKO (huấn luyện, cấp chứng chỉ theo quy định); lợi ích cho doanh nghiệp |
 | Bắt đầu | 3 bước triển khai – phần còn lại phần mềm tự nhắc |
-| Kết | Thông điệp, liên hệ: doanhnghiep.vienstp.com · 0827.695.368 · viencongnghestp@gmail.com |
+| Kết | Thông điệp, logo hai đơn vị, liên hệ: doanhnghiep.vienstp.com · 0827.695.368 · viencongnghestp@gmail.com |
 
 ## Thuyết minh
 
-- Kịch bản `narration.json`: `say` viết theo cách đọc (STP → “Ét Tê Pê”), `sub` là phụ đề.
+- Kịch bản `narration.json`: `say` viết theo cách đọc (STP → “Ét Tê Pê”, DAKO → “Đa Cô”), `sub` là phụ đề.
+- `assets/dako.png`: logo DAKO Marine Technology (cắt phần vòng tròn từ ảnh logo công ty, nền ngoài trong suốt).
 - Giọng đọc: Piper `vi_VN-vais1000-medium` (giọng nữ, CC BY 4.0) qua `sherpa-onnx`; `tts.py` đọc mỗi câu nhiều lần
   (`TAKES`) và giữ bản nhận dạng lại khớp nhất (`ASR_DIR` = `sherpa-onnx-zipformer-vi-int8-2025-04-20`).
 - `synth.py` đặt từng câu đúng mốc và tự hạ nhạc khi có lời; `build/…srt` là phụ đề khớp lời đọc.
