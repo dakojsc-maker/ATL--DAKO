@@ -1,0 +1,2189 @@
+{
+ "1": {
+  "img": "image-1-4.png",
+  "steps": []
+ },
+ "2": {
+  "img": "image-2-4.png",
+  "steps": []
+ },
+ "4": {
+  "img": "image-4-4.png",
+  "steps": [
+   {
+    "box": [
+     0.5,
+     2.0,
+     12.0,
+     97.0
+    ],
+    "t": "Menu chức năng",
+    "s": "Truy cập nhanh mọi module",
+    "n": 1
+   },
+   {
+    "box": [
+     21.0,
+     6.0,
+     70.5,
+     15.0
+    ],
+    "t": "Chỉ số An toàn & Nhân sự",
+    "s": "Lao động, huấn luyện, CC sắp hết hạn",
+    "n": 2
+   },
+   {
+    "box": [
+     21.0,
+     21.5,
+     59.0,
+     14.5
+    ],
+    "t": "Đào tạo & Vận hành",
+    "s": "Hợp đồng, lớp học, chứng chỉ, thiết bị",
+    "n": 3
+   },
+   {
+    "box": [
+     21.0,
+     40.0,
+     70.5,
+     32.0
+    ],
+    "t": "Biểu đồ phân tích",
+    "s": "Huấn luyện, nhóm, kiểm định",
+    "n": 4
+   },
+   {
+    "box": [
+     21.0,
+     73.0,
+     70.5,
+     26.5
+    ],
+    "t": "Chứng chỉ & xu hướng sự cố",
+    "s": "Đo lường rủi ro 6 tháng gần nhất",
+    "n": 5
+   }
+  ]
+ },
+ "5": {
+  "img": "image-5-4.png",
+  "steps": [
+   {
+    "box": [
+     21.0,
+     1.0,
+     35.0,
+     16.5
+    ],
+    "t": "Thiết bị cần kiểm định gấp",
+    "s": "Sắp hoặc đã quá hạn",
+    "n": 1
+   },
+   {
+    "box": [
+     56.3,
+     1.0,
+     35.2,
+     16.5
+    ],
+    "t": "Chứng chỉ sắp hết hạn",
+    "s": "Cảnh báo trước 30 ngày",
+    "n": 2
+   },
+   {
+    "box": [
+     21.0,
+     19.5,
+     47.0,
+     74.0
+    ],
+    "t": "Nhật ký sự cố gần đây",
+    "s": "Sự cố mới được ghi nhận",
+    "n": 3
+   },
+   {
+    "box": [
+     68.5,
+     19.5,
+     23.0,
+     46.5
+    ],
+    "t": "Đào tạo đang diễn ra",
+    "s": "Lớp học & học viên đang học",
+    "n": 4
+   },
+   {
+    "box": [
+     68.5,
+     66.5,
+     23.0,
+     12.5
+    ],
+    "t": "Thanh toán hợp đồng",
+    "s": "Kỳ thanh toán gần nhất",
+    "n": 5
+   },
+   {
+    "box": [
+     68.5,
+     80.0,
+     23.0,
+     14.0
+    ],
+    "t": "Thao tác nhanh",
+    "s": "Đăng ký lớp, thêm nhân sự, báo sự cố",
+    "n": 6
+   }
+  ]
+ },
+ "6": {
+  "img": "image-6-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     19.0,
+     9.0,
+     5.0
+    ],
+    "t": "Mở báo cáo",
+    "s": "Báo cáo › Báo cáo doanh nghiệp",
+    "n": 1
+   },
+   {
+    "box": [
+     73.0,
+     7.5,
+     18.5,
+     8.5
+    ],
+    "t": "Chọn kỳ & xuất Excel",
+    "s": "Năm, kỳ báo cáo, Làm mới",
+    "n": 2
+   },
+   {
+    "box": [
+     21.0,
+     26.0,
+     70.5,
+     11.0
+    ],
+    "t": "Đào tạo & chứng chỉ",
+    "s": "Nhân sự, đăng ký học, CC cấp trong kỳ",
+    "n": 3
+   },
+   {
+    "box": [
+     21.0,
+     39.0,
+     35.0,
+     20.0
+    ],
+    "t": "Kiểm định thiết bị",
+    "s": "Còn hạn, sắp hết, quá hạn",
+    "n": 4
+   },
+   {
+    "box": [
+     57.0,
+     39.0,
+     34.5,
+     11.0
+    ],
+    "t": "Sự cố an toàn",
+    "s": "Đã / chưa khắc phục",
+    "n": 5
+   },
+   {
+    "box": [
+     21.0,
+     61.0,
+     70.5,
+     38.5
+    ],
+    "t": "Số liệu theo tháng",
+    "s": "Biến động tháng 1 – 12",
+    "n": 6
+   }
+  ]
+ },
+ "7": {
+  "img": "image-7-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     23.5,
+     9.0,
+     5.0
+    ],
+    "t": "Mở báo cáo nhân sự",
+    "s": "Báo cáo › Báo cáo nhân sự",
+    "n": 1
+   },
+   {
+    "box": [
+     72.5,
+     7.0,
+     18.5,
+     9.0
+    ],
+    "t": "Chọn kỳ & xuất Excel",
+    "s": "Lọc theo năm và kỳ",
+    "n": 2
+   },
+   {
+    "box": [
+     21.0,
+     23.5,
+     70.0,
+     10.0
+    ],
+    "t": "Thẻ KPI nhân sự",
+    "s": "Nghỉ phép, sự cố, PPE, chứng chỉ",
+    "n": 3
+   },
+   {
+    "box": [
+     52.0,
+     35.5,
+     39.0,
+     6.0
+    ],
+    "t": "Tìm kiếm & bộ lọc",
+    "s": "Tên, mã NV, phòng ban",
+    "n": 4
+   },
+   {
+    "box": [
+     21.0,
+     42.5,
+     70.0,
+     57.0
+    ],
+    "t": "Chi tiết từng nhân sự",
+    "s": "Đào tạo, công việc, đăng nhập cuối",
+    "n": 5
+   }
+  ]
+ },
+ "9": {
+  "img": "image-9-4.png",
+  "steps": [
+   {
+    "box": [
+     2.1,
+     21.0,
+     11.0,
+     3.5
+    ],
+    "t": "Mở hồ sơ doanh nghiệp",
+    "s": "Menu Doanh nghiệp",
+    "n": 1
+   },
+   {
+    "box": [
+     52.7,
+     0.3,
+     45.2,
+     13.7
+    ],
+    "t": "Ảnh bìa, logo & trạng thái",
+    "s": "Thay ảnh bìa · Mở trang",
+    "n": 2
+   },
+   {
+    "box": [
+     52.7,
+     15.0,
+     45.2,
+     4.0
+    ],
+    "t": "3 tab chức năng",
+    "s": "Thông tin · Quản trị · Mật khẩu",
+    "n": 3
+   },
+   {
+    "box": [
+     54.1,
+     23.0,
+     42.5,
+     9.5
+    ],
+    "t": "Thông tin cố định",
+    "s": "Mã DN, MST – liên hệ STP để sửa",
+    "n": 4
+   },
+   {
+    "box": [
+     54.1,
+     35.0,
+     42.5,
+     24.0
+    ],
+    "t": "Thông tin chung",
+    "s": "Tên, website, quy mô, địa chỉ",
+    "n": 5
+   },
+   {
+    "box": [
+     54.1,
+     60.0,
+     42.5,
+     19.0
+    ],
+    "t": "Giới thiệu doanh nghiệp",
+    "s": "Soạn thảo có định dạng",
+    "n": 6
+   },
+   {
+    "box": [
+     54.1,
+     80.0,
+     42.5,
+     15.0
+    ],
+    "t": "Người đại diện pháp lý",
+    "s": "Họ tên, chức vụ, SĐT, email",
+    "n": 7
+   },
+   {
+    "box": [
+     88.4,
+     95.0,
+     8.9,
+     4.7
+    ],
+    "t": "Lưu thông tin",
+    "s": "Lưu mọi thay đổi",
+    "n": 8
+   }
+  ]
+ },
+ "10": {
+  "img": "image-10-4.png",
+  "steps": [
+   {
+    "box": [
+     2.5,
+     30.5,
+     10.5,
+     5.0
+    ],
+    "t": "Mở Quản lý operator",
+    "s": "Menu Doanh nghiệp",
+    "n": 1
+   },
+   {
+    "box": [
+     89.0,
+     4.5,
+     6.5,
+     4.0
+    ],
+    "t": "Thêm operator",
+    "s": "Mở form tạo tài khoản",
+    "n": 2
+   },
+   {
+    "box": [
+     34.5,
+     11.5,
+     31.0,
+     26.0
+    ],
+    "t": "Thông tin tài khoản",
+    "s": "Họ tên, SĐT, email, mật khẩu",
+    "n": 3
+   },
+   {
+    "box": [
+     34.5,
+     39.0,
+     31.0,
+     41.5
+    ],
+    "t": "Phân quyền tính năng",
+    "s": "Tích chọn module được phép",
+    "n": 4
+   },
+   {
+    "box": [
+     61.5,
+     38.8,
+     4.0,
+     3.4
+    ],
+    "t": "Chọn tất cả",
+    "s": "Cấp toàn quyền nhanh",
+    "n": 5
+   },
+   {
+    "box": [
+     55.5,
+     83.0,
+     10.0,
+     4.5
+    ],
+    "t": "Hủy / Lưu tài khoản",
+    "s": "Xác nhận tạo operator",
+    "n": 6
+   }
+  ]
+ },
+ "12": {
+  "img": "image-12-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     36.5,
+     10.0,
+     4.0
+    ],
+    "t": "Mở danh mục khóa học",
+    "s": "Đào tạo › Danh mục khóa học",
+    "n": 1
+   },
+   {
+    "box": [
+     17.0,
+     27.0,
+     79.0,
+     5.5
+    ],
+    "t": "Tìm khóa học",
+    "s": "Theo tên, mã, danh mục",
+    "n": 2
+   },
+   {
+    "box": [
+     85.0,
+     16.0,
+     9.5,
+     4.5
+    ],
+    "t": "Đăng ký của doanh nghiệp",
+    "s": "Đăng ký đào tạo tập trung",
+    "n": 3
+   },
+   {
+    "box": [
+     17.0,
+     34.5,
+     25.5,
+     45.0
+    ],
+    "t": "Thẻ khóa học",
+    "s": "Đối tượng, mã, thời lượng",
+    "n": 4
+   },
+   {
+    "box": [
+     37.0,
+     75.0,
+     5.5,
+     4.2
+    ],
+    "t": "Xem chi tiết",
+    "s": "Mở nội dung chương trình",
+    "n": 5
+   }
+  ]
+ },
+ "13": {
+  "img": "image-13-4.png",
+  "steps": [
+   {
+    "box": [
+     21.0,
+     5.0,
+     6.5,
+     3.3
+    ],
+    "t": "Quay lại danh mục",
+    "s": "Trở về danh sách khóa học",
+    "n": 1
+   },
+   {
+    "box": [
+     21.0,
+     36.0,
+     61.0,
+     14.0
+    ],
+    "t": "Thông tin khóa học",
+    "s": "Tên, mã, thời lượng, số bài",
+    "n": 2
+   },
+   {
+    "box": [
+     83.0,
+     43.5,
+     6.5,
+     7.0
+    ],
+    "t": "Đăng ký khóa học",
+    "s": "Tham gia khóa đào tạo",
+    "n": 3
+   },
+   {
+    "box": [
+     21.0,
+     56.0,
+     30.0,
+     43.5
+    ],
+    "t": "Mô tả khóa học",
+    "s": "Nội dung cốt lõi & mục tiêu",
+    "n": 4
+   },
+   {
+    "box": [
+     51.5,
+     56.0,
+     39.5,
+     43.5
+    ],
+    "t": "Chi tiết học phần",
+    "s": "Chủ đề & thời lượng từng phần",
+    "n": 5
+   }
+  ]
+ },
+ "14": {
+  "img": "image-14-4.png",
+  "steps": [
+   {
+    "box": [
+     2.0,
+     40.5,
+     10.0,
+     4.5
+    ],
+    "t": "Mở Nhân sự / Học viên",
+    "s": "Menu Đào tạo",
+    "n": 1
+   },
+   {
+    "box": [
+     20.5,
+     15.0,
+     70.5,
+     7.5
+    ],
+    "t": "Thống kê theo nhóm",
+    "s": "Bấm vào ô để lọc nhanh",
+    "n": 2
+   },
+   {
+    "box": [
+     21.0,
+     25.5,
+     70.0,
+     5.5
+    ],
+    "t": "Tìm kiếm & bộ lọc",
+    "s": "Tên, email, CCCD, mã NV",
+    "n": 3
+   },
+   {
+    "box": [
+     81.0,
+     8.5,
+     10.0,
+     4.0
+    ],
+    "t": "Thêm nhân sự / học viên",
+    "s": "Tạo hồ sơ mới",
+    "n": 4
+   },
+   {
+    "box": [
+     21.0,
+     34.0,
+     61.0,
+     65.5
+    ],
+    "t": "Danh sách nhân sự",
+    "s": "Nhóm, phòng ban, trạng thái",
+    "n": 5
+   },
+   {
+    "box": [
+     82.5,
+     39.0,
+     7.5,
+     55.0
+    ],
+    "t": "Xem · Sửa · Khóa",
+    "s": "Thao tác trên từng dòng",
+    "n": 6
+   }
+  ]
+ },
+ "15": {
+  "img": "image-15-4.png",
+  "steps": [
+   {
+    "box": [
+     8.1,
+     13.8,
+     82.4,
+     28.5
+    ],
+    "t": "Thông tin cá nhân",
+    "s": "Họ tên, CCCD, email đăng nhập",
+    "n": 1
+   },
+   {
+    "box": [
+     8.1,
+     47.2,
+     82.4,
+     14.6
+    ],
+    "t": "Thông tin công việc",
+    "s": "SĐT, mã NV, vị trí, phòng ban",
+    "n": 2
+   },
+   {
+    "box": [
+     8.1,
+     63.0,
+     82.4,
+     11.5
+    ],
+    "t": "Nhóm đào tạo ATVSLĐ",
+    "s": "Chọn một hoặc nhiều nhóm",
+    "n": 3
+   },
+   {
+    "box": [
+     8.1,
+     76.9,
+     82.4,
+     9.5
+    ],
+    "t": "Hồ sơ đính kèm",
+    "s": "Văn bằng, giấy khám SK…",
+    "n": 4
+   },
+   {
+    "box": [
+     67.6,
+     91.5,
+     23.0,
+     4.9
+    ],
+    "t": "Tạo tài khoản",
+    "s": "Hoàn tất thêm học viên",
+    "n": 5
+   }
+  ]
+ },
+ "16": {
+  "img": "image-16-4.png",
+  "steps": [
+   {
+    "box": [
+     2.0,
+     45.0,
+     9.5,
+     3.8
+    ],
+    "t": "Mở Hợp đồng đào tạo",
+    "s": "Menu Đào tạo",
+    "n": 1
+   },
+   {
+    "box": [
+     21.0,
+     15.0,
+     70.0,
+     8.0
+    ],
+    "t": "Thẻ thống kê",
+    "s": "Tổng HĐ, chờ TT, hoàn thành, giá trị",
+    "n": 2
+   },
+   {
+    "box": [
+     21.0,
+     26.0,
+     21.0,
+     4.5
+    ],
+    "t": "Tìm & lọc hợp đồng",
+    "s": "Theo mã hoặc trạng thái",
+    "n": 3
+   },
+   {
+    "box": [
+     21.0,
+     34.0,
+     49.5,
+     17.0
+    ],
+    "t": "Danh sách hợp đồng",
+    "s": "Khóa học, đơn giá, tổng tiền",
+    "n": 4
+   },
+   {
+    "box": [
+     72.0,
+     44.0,
+     4.5,
+     3.8
+    ],
+    "t": "Trạng thái thanh toán",
+    "s": "Ví dụ: Đã thanh toán",
+    "n": 5
+   },
+   {
+    "box": [
+     84.0,
+     43.5,
+     5.0,
+     4.3
+    ],
+    "t": "Chi tiết",
+    "s": "Xem sâu hợp đồng",
+    "n": 6
+   }
+  ]
+ },
+ "17": {
+  "img": "image-17-4.png",
+  "steps": [
+   {
+    "box": [
+     33.7,
+     9.5,
+     20.5,
+     3.7
+    ],
+    "t": "Mã HĐ & trạng thái",
+    "s": "Nhận diện hợp đồng",
+    "n": 1
+   },
+   {
+    "box": [
+     33.7,
+     16.5,
+     42.2,
+     35.0
+    ],
+    "t": "Khóa học trong hợp đồng",
+    "s": "Số học viên, đơn giá",
+    "n": 2
+   },
+   {
+    "box": [
+     69.9,
+     26.5,
+     5.4,
+     21.5
+    ],
+    "t": "Xem lớp",
+    "s": "Mở lớp học tương ứng",
+    "n": 3
+   },
+   {
+    "box": [
+     77.7,
+     16.0,
+     19.9,
+     17.0
+    ],
+    "t": "Tổng giá trị hợp đồng",
+    "s": "Học viên, khóa học, thanh toán",
+    "n": 4
+   },
+   {
+    "box": [
+     33.7,
+     53.0,
+     42.2,
+     23.5
+    ],
+    "t": "Thông tin & thời hạn",
+    "s": "Ngày, hình thức, sales phụ trách",
+    "n": 5
+   },
+   {
+    "box": [
+     55.4,
+     78.5,
+     20.5,
+     21.0
+    ],
+    "t": "Lịch sử trạng thái",
+    "s": "Nháp → Chờ TT → Đã TT",
+    "n": 6
+   }
+  ]
+ },
+ "18": {
+  "img": "image-18-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     55.5,
+     10.0,
+     3.7
+    ],
+    "t": "Mở Lớp học",
+    "s": "Menu Đào tạo",
+    "n": 1
+   },
+   {
+    "box": [
+     17.5,
+     23.0,
+     26.0,
+     4.5
+    ],
+    "t": "Tìm & lọc lớp học",
+    "s": "Tên lớp, mã lớp, khóa học",
+    "n": 2
+   },
+   {
+    "box": [
+     81.5,
+     10.5,
+     12.5,
+     3.5
+    ],
+    "t": "Dạng thẻ / Dạng bảng",
+    "s": "Đổi cách hiển thị",
+    "n": 3
+   },
+   {
+    "box": [
+     17.5,
+     32.0,
+     25.5,
+     25.0
+    ],
+    "t": "Thông tin lớp",
+    "s": "Hình thức, trạng thái, lịch",
+    "n": 4
+   },
+   {
+    "box": [
+     17.5,
+     57.0,
+     25.5,
+     6.0
+    ],
+    "t": "Học viên tham gia",
+    "s": "Ghế đã đăng ký / tổng ghế",
+    "n": 5
+   },
+   {
+    "box": [
+     17.5,
+     64.5,
+     25.5,
+     4.7
+    ],
+    "t": "Xem chi tiết lớp học",
+    "s": "Lịch từng buổi, học viên",
+    "n": 6
+   }
+  ]
+ },
+ "19": {
+  "img": "image-19-4.png",
+  "steps": [
+   {
+    "box": [
+     34.9,
+     8.5,
+     54.2,
+     9.0
+    ],
+    "t": "Thông tin lớp học",
+    "s": "Mã lớp, hình thức, giảng viên",
+    "n": 1
+   },
+   {
+    "box": [
+     34.9,
+     19.0,
+     62.7,
+     7.5
+    ],
+    "t": "Thống kê nhanh",
+    "s": "Buổi học, đăng ký, còn trống, đạt",
+    "n": 2
+   },
+   {
+    "box": [
+     35.5,
+     30.0,
+     25.9,
+     3.5
+    ],
+    "t": "3 tab nội dung",
+    "s": "Lịch học · Học viên · Thông tin",
+    "n": 3
+   },
+   {
+    "box": [
+     36.1,
+     41.0,
+     60.2,
+     9.5
+    ],
+    "t": "Lịch từng buổi",
+    "s": "Ngày, ca học, học phần",
+    "n": 4
+   },
+   {
+    "box": [
+     36.1,
+     51.0,
+     60.2,
+     10.0
+    ],
+    "t": "Địa điểm & tài liệu",
+    "s": "Phòng học, video đính kèm",
+    "n": 5
+   }
+  ]
+ },
+ "20": {
+  "img": "image-20-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     58.5,
+     10.0,
+     4.0
+    ],
+    "t": "Mở Hồ sơ Viện STP",
+    "s": "Menu Đào tạo",
+    "n": 1
+   },
+   {
+    "box": [
+     17.0,
+     23.0,
+     53.0,
+     12.0
+    ],
+    "t": "Thông tin định danh",
+    "s": "Tên, MST, năm thành lập",
+    "n": 2
+   },
+   {
+    "box": [
+     17.0,
+     36.5,
+     78.5,
+     6.3
+    ],
+    "t": "Liên hệ & đại diện",
+    "s": "Hotline, email, văn phòng",
+    "n": 3
+   },
+   {
+    "box": [
+     17.5,
+     46.5,
+     44.5,
+     5.0
+    ],
+    "t": "Các tab hồ sơ",
+    "s": "Năng lực, pháp lý, giảng viên",
+    "n": 4
+   },
+   {
+    "box": [
+     17.0,
+     54.0,
+     78.5,
+     45.5
+    ],
+    "t": "Giới thiệu chung",
+    "s": "Viện STP & mô hình phối hợp DAKO",
+    "n": 5
+   }
+  ]
+ },
+ "22": {
+  "img": "image-22-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     46.5,
+     10.0,
+     5.0
+    ],
+    "t": "Mở Bảng tin",
+    "n": 1
+   },
+   {
+    "box": [
+     85.0,
+     16.5,
+     8.5,
+     5.0
+    ],
+    "t": "Đăng bài mới",
+    "s": "Thông báo nhanh tới nhân viên",
+    "n": 2
+   },
+   {
+    "box": [
+     17.5,
+     35.5,
+     12.0,
+     43.0
+    ],
+    "t": "Nhóm chủ đề",
+    "s": "Thông báo chung, đào tạo, an toàn…",
+    "n": 3
+   },
+   {
+    "box": [
+     17.5,
+     80.0,
+     12.0,
+     6.5
+    ],
+    "t": "Cách hiển thị",
+    "s": "Danh sách · Theo nhóm",
+    "n": 4
+   },
+   {
+    "box": [
+     30.0,
+     35.5,
+     65.5,
+     4.7
+    ],
+    "t": "Tìm nội dung bài viết",
+    "s": "Tra cứu theo từ khóa",
+    "n": 5
+   },
+   {
+    "box": [
+     30.0,
+     46.0,
+     65.5,
+     47.5
+    ],
+    "t": "Dòng thời gian",
+    "s": "Bài đăng, lượt thích, bình luận",
+    "n": 6
+   }
+  ]
+ },
+ "23": {
+  "img": "image-23-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     50.5,
+     10.5,
+     4.7
+    ],
+    "t": "Mở Tin tức & Tài liệu",
+    "n": 1
+   },
+   {
+    "box": [
+     17.5,
+     6.0,
+     78.5,
+     13.8
+    ],
+    "t": "Banner",
+    "s": "Thông tin, thông tư, tài liệu từ STP",
+    "n": 2
+   },
+   {
+    "box": [
+     17.5,
+     22.0,
+     12.0,
+     24.3
+    ],
+    "t": "Lọc theo chủ đề",
+    "s": "Tin tức · Thông tư/NĐ · Tài liệu",
+    "n": 3
+   },
+   {
+    "box": [
+     30.0,
+     22.5,
+     66.0,
+     6.2
+    ],
+    "t": "Tìm kiếm bài viết",
+    "s": "Tra cứu theo từ khóa",
+    "n": 4
+   },
+   {
+    "box": [
+     30.0,
+     29.5,
+     66.0,
+     70.0
+    ],
+    "t": "Danh sách bài viết",
+    "s": "Ảnh, nhãn, tiêu đề, mô tả",
+    "n": 5
+   }
+  ]
+ },
+ "24": {
+  "img": "image-24-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     61.0,
+     10.5,
+     4.7
+    ],
+    "t": "Mở Quản lý công việc",
+    "n": 1
+   },
+   {
+    "box": [
+     87.0,
+     20.5,
+     9.0,
+     4.7
+    ],
+    "t": "Giao công việc",
+    "s": "Tạo nhiệm vụ mới",
+    "n": 2
+   },
+   {
+    "box": [
+     16.0,
+     34.5,
+     80.0,
+     13.7
+    ],
+    "t": "Thẻ thống kê",
+    "s": "Đang làm, sắp hạn, quá hạn, chờ duyệt",
+    "n": 3
+   },
+   {
+    "box": [
+     16.0,
+     49.5,
+     80.0,
+     6.2
+    ],
+    "t": "Tìm kiếm & bộ lọc",
+    "s": "Trạng thái, ưu tiên, thời hạn, nhân viên",
+    "n": 4
+   },
+   {
+    "box": [
+     16.0,
+     66.0,
+     40.5,
+     19.3
+    ],
+    "t": "Danh sách công việc",
+    "s": "Bấm vào công việc để sửa",
+    "n": 5
+   }
+  ]
+ },
+ "25": {
+  "img": "image-25-4.png",
+  "steps": [
+   {
+    "box": [
+     32.0,
+     17.5,
+     35.5,
+     25.0
+    ],
+    "t": "Tiêu đề & mô tả",
+    "s": "Nội dung yêu cầu",
+    "n": 1
+   },
+   {
+    "box": [
+     32.0,
+     45.5,
+     17.5,
+     6.5
+    ],
+    "t": "Mức ưu tiên",
+    "s": "Ví dụ: Bình thường",
+    "n": 2
+   },
+   {
+    "box": [
+     50.0,
+     45.5,
+     17.5,
+     6.5
+    ],
+    "t": "Thời hạn",
+    "s": "Ngày giờ hết hạn",
+    "n": 3
+   },
+   {
+    "box": [
+     32.0,
+     56.5,
+     18.0,
+     37.5
+    ],
+    "t": "Giao theo nhóm",
+    "s": "Chọn nhóm nhân viên",
+    "n": 4
+   },
+   {
+    "box": [
+     50.0,
+     62.0,
+     17.5,
+     32.0
+    ],
+    "t": "Giao theo cá nhân",
+    "s": "Tìm tên, email, mã NV",
+    "n": 5
+   },
+   {
+    "box": [
+     32.0,
+     94.0,
+     35.5,
+     4.5
+    ],
+    "t": "Tự động loại trùng",
+    "s": "Không giao trùng người",
+    "n": 6
+   }
+  ]
+ },
+ "26": {
+  "img": "image-26-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     66.0,
+     10.5,
+     4.7
+    ],
+    "t": "Mở Quản lý đơn từ",
+    "n": 1
+   },
+   {
+    "box": [
+     16.0,
+     25.5,
+     80.0,
+     9.2
+    ],
+    "t": "Thẻ thống kê",
+    "s": "Tổng · Chờ duyệt · Đã duyệt · Hoàn tất · Từ chối",
+    "n": 2
+   },
+   {
+    "box": [
+     62.0,
+     37.0,
+     34.0,
+     5.3
+    ],
+    "t": "Tìm kiếm & bộ lọc",
+    "s": "Tên, mã NV, loại đơn, trạng thái",
+    "n": 3
+   },
+   {
+    "box": [
+     16.0,
+     44.5,
+     51.5,
+     13.5
+    ],
+    "t": "Danh sách yêu cầu",
+    "s": "Nhân sự, loại đơn, nội dung",
+    "n": 4
+   },
+   {
+    "box": [
+     68.5,
+     51.3,
+     5.5,
+     4.0
+    ],
+    "t": "Trạng thái đơn",
+    "s": "Chờ duyệt · Đã duyệt · Từ chối",
+    "n": 5
+   },
+   {
+    "box": [
+     89.3,
+     51.3,
+     6.5,
+     4.4
+    ],
+    "t": "Hoàn tất · Chi tiết",
+    "s": "Duyệt, từ chối, phản hồi",
+    "n": 6
+   },
+   {
+    "box": [
+     92.3,
+     19.0,
+     4.2,
+     4.7
+    ],
+    "t": "Làm mới",
+    "s": "Cập nhật dữ liệu mới nhất",
+    "n": 7
+   }
+  ]
+ },
+ "28": {
+  "img": "image-28-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     52.0,
+     10.0,
+     4.0
+    ],
+    "t": "Mở Thiết bị – Kiểm định",
+    "s": "Menu An toàn & tài sản",
+    "n": 1
+   },
+   {
+    "box": [
+     89.0,
+     9.0,
+     6.5,
+     4.0
+    ],
+    "t": "Thêm thiết bị",
+    "s": "Tạo hồ sơ thiết bị",
+    "n": 2
+   },
+   {
+    "box": [
+     17.5,
+     17.0,
+     78.0,
+     10.5
+    ],
+    "t": "Thẻ trạng thái kiểm định",
+    "s": "Còn hạn · Sắp hết · Quá hạn",
+    "n": 3
+   },
+   {
+    "box": [
+     18.0,
+     31.5,
+     27.0,
+     4.3
+    ],
+    "t": "Tìm kiếm & lọc",
+    "s": "Mã, tên, đơn vị kiểm định",
+    "n": 4
+   },
+   {
+    "box": [
+     17.5,
+     40.5,
+     57.0,
+     46.5
+    ],
+    "t": "Danh sách thiết bị",
+    "s": "Mã, đơn vị KĐ, ngày hết hạn",
+    "n": 5
+   },
+   {
+    "box": [
+     75.0,
+     49.5,
+     9.0,
+     32.5
+    ],
+    "t": "Trạng thái màu",
+    "s": "Xanh: còn hạn · Đỏ: quá hạn",
+    "n": 6
+   },
+   {
+    "box": [
+     86.5,
+     49.5,
+     8.5,
+     32.5
+    ],
+    "t": "Thao tác",
+    "s": "Xem, lịch sử, sửa, xóa",
+    "n": 7
+   }
+  ]
+ },
+ "29": {
+  "img": "image-29-4.png",
+  "steps": [
+   {
+    "box": [
+     5.0,
+     11.0,
+     90.0,
+     20.0
+    ],
+    "t": "Thông tin cơ bản",
+    "s": "Tên, loại, số sê-ri, vị trí",
+    "n": 1
+   },
+   {
+    "box": [
+     26.0,
+     19.0,
+     9.5,
+     4.5
+    ],
+    "t": "Tự sinh mã",
+    "s": "Mã thiết bị tự động",
+    "n": 2
+   },
+   {
+    "box": [
+     5.0,
+     33.0,
+     90.0,
+     29.5
+    ],
+    "t": "Thông số & hình ảnh",
+    "s": "Mô tả kỹ thuật, ảnh đại diện",
+    "n": 3
+   },
+   {
+    "box": [
+     5.0,
+     64.5,
+     90.0,
+     25.0
+    ],
+    "t": "Lịch sử kiểm định ban đầu",
+    "s": "Ngày KĐ, hết hạn, phiếu KĐ",
+    "n": 4
+   },
+   {
+    "box": [
+     76.0,
+     91.5,
+     18.0,
+     4.3
+    ],
+    "t": "Thêm thiết bị",
+    "s": "Lưu vào hệ thống",
+    "n": 5
+   }
+  ]
+ },
+ "30": {
+  "img": "image-30-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     56.5,
+     10.0,
+     4.0
+    ],
+    "t": "Mở Tai nạn & Sự cố",
+    "s": "Menu An toàn & tài sản",
+    "n": 1
+   },
+   {
+    "box": [
+     89.0,
+     9.5,
+     6.5,
+     4.3
+    ],
+    "t": "Thêm sự cố",
+    "s": "Báo cáo sự cố mới",
+    "n": 2
+   },
+   {
+    "box": [
+     17.5,
+     17.0,
+     78.0,
+     10.5
+    ],
+    "t": "Thẻ thống kê sự cố",
+    "s": "Tổng, chưa / đã khắc phục",
+    "n": 3
+   },
+   {
+    "box": [
+     17.5,
+     30.5,
+     78.0,
+     6.3
+    ],
+    "t": "Lọc loại & trạng thái",
+    "s": "Tìm nhanh sự cố",
+    "n": 4
+   },
+   {
+    "box": [
+     17.5,
+     40.5,
+     66.5,
+     41.5
+    ],
+    "t": "Danh sách sự cố",
+    "s": "Loại, nội dung, người phụ trách",
+    "n": 5
+   },
+   {
+    "box": [
+     84.5,
+     47.0,
+     6.0,
+     30.0
+    ],
+    "t": "Trạng thái khắc phục",
+    "s": "Đỏ: chưa · Xanh: đã khắc phục",
+    "n": 6
+   },
+   {
+    "box": [
+     91.0,
+     54.0,
+     4.0,
+     4.0
+    ],
+    "t": "Sửa / Xóa",
+    "s": "Cập nhật thông tin",
+    "n": 7
+   }
+  ]
+ },
+ "31": {
+  "img": "image-31-4.png",
+  "steps": [
+   {
+    "box": [
+     6.0,
+     8.0,
+     88.0,
+     13.0
+    ],
+    "t": "Chọn loại sự cố",
+    "s": "TNLĐ, cháy nổ, rò rỉ, hóa chất…",
+    "n": 1
+   },
+   {
+    "box": [
+     6.0,
+     22.0,
+     88.0,
+     5.5
+    ],
+    "t": "Thời gian & địa điểm",
+    "s": "Khi nào, ở đâu",
+    "n": 2
+   },
+   {
+    "box": [
+     6.0,
+     28.0,
+     88.0,
+     27.0
+    ],
+    "t": "Nội dung · Nguyên nhân · Biện pháp",
+    "s": "Mô tả chi tiết sự cố",
+    "n": 3
+   },
+   {
+    "box": [
+     6.0,
+     55.5,
+     88.0,
+     16.0
+    ],
+    "t": "Phân công & trạng thái",
+    "s": "Người chịu trách nhiệm",
+    "n": 4
+   },
+   {
+    "box": [
+     6.0,
+     72.5,
+     88.0,
+     10.5
+    ],
+    "t": "File đính kèm",
+    "s": "PDF, JPG, PNG ≤ 10MB",
+    "n": 5
+   },
+   {
+    "box": [
+     63.0,
+     94.5,
+     23.0,
+     3.5
+    ],
+    "t": "Thêm sự cố",
+    "s": "Lưu báo cáo",
+    "n": 6
+   }
+  ]
+ },
+ "32": {
+  "img": "image-32-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     60.5,
+     10.0,
+     4.0
+    ],
+    "t": "Mở Vật tư & Hóa chất",
+    "s": "Menu An toàn & tài sản",
+    "n": 1
+   },
+   {
+    "box": [
+     83.0,
+     9.0,
+     10.5,
+     4.2
+    ],
+    "t": "Thêm trang bị / hóa chất",
+    "s": "Tạo vật tư mới",
+    "n": 2
+   },
+   {
+    "box": [
+     17.5,
+     19.0,
+     16.0,
+     4.2
+    ],
+    "t": "Tìm vật tư",
+    "s": "Theo tên hoặc mã",
+    "n": 3
+   },
+   {
+    "box": [
+     71.5,
+     19.0,
+     22.0,
+     4.2
+    ],
+    "t": "Lọc theo nhóm",
+    "s": "PPE · Hóa chất · Dụng cụ · Phụ tùng",
+    "n": 4
+   },
+   {
+    "box": [
+     17.5,
+     28.0,
+     40.5,
+     23.0
+    ],
+    "t": "Danh sách vật tư",
+    "s": "Mã, phân loại, tồn kho",
+    "n": 5
+   },
+   {
+    "box": [
+     45.3,
+     33.3,
+     8.2,
+     4.4
+    ],
+    "t": "Cảnh báo sắp hết hàng",
+    "s": "Theo ngưỡng tồn tối thiểu",
+    "n": 6
+   },
+   {
+    "box": [
+     90.5,
+     33.0,
+     4.0,
+     18.0
+    ],
+    "t": "Sửa / Xóa",
+    "s": "Cập nhật vật tư",
+    "n": 7
+   }
+  ]
+ },
+ "33": {
+  "img": "image-33-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     15.0,
+     91.0,
+     9.5
+    ],
+    "t": "Mã & tên vật tư",
+    "s": "Nút Tự sinh tạo mã",
+    "n": 1
+   },
+   {
+    "box": [
+     3.0,
+     26.0,
+     61.0,
+     9.0
+    ],
+    "t": "Phân loại & đơn vị tính",
+    "s": "PPE, hóa chất… / cái, cuộn, lít",
+    "n": 2
+   },
+   {
+    "box": [
+     65.0,
+     26.0,
+     29.0,
+     9.0
+    ],
+    "t": "Tồn kho tối thiểu",
+    "s": "Ngưỡng cảnh báo sắp hết",
+    "n": 3
+   },
+   {
+    "box": [
+     5.0,
+     37.0,
+     89.0,
+     20.0
+    ],
+    "t": "Thuộc tính động",
+    "s": "Thêm Size, tiêu chuẩn…",
+    "n": 4
+   },
+   {
+    "box": [
+     5.0,
+     59.0,
+     89.0,
+     23.0
+    ],
+    "t": "Hình ảnh & mô tả",
+    "s": "Ảnh sản phẩm, thông số",
+    "n": 5
+   },
+   {
+    "box": [
+     68.0,
+     86.5,
+     26.0,
+     6.3
+    ],
+    "t": "Lưu vật tư",
+    "s": "Hoàn tất khai báo",
+    "n": 6
+   }
+  ]
+ },
+ "34": {
+  "img": "image-34-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     65.0,
+     10.0,
+     4.0
+    ],
+    "t": "Mở Nhập kho & Chứng từ",
+    "s": "Menu An toàn & tài sản",
+    "n": 1
+   },
+   {
+    "box": [
+     17.5,
+     19.0,
+     20.0,
+     3.8
+    ],
+    "t": "Chọn tab",
+    "s": "Phiếu nhập · Nhật ký kho",
+    "n": 2
+   },
+   {
+    "box": [
+     87.0,
+     9.5,
+     8.5,
+     4.3
+    ],
+    "t": "Tạo phiếu nhập kho",
+    "s": "Lập phiếu mới",
+    "n": 3
+   },
+   {
+    "box": [
+     17.5,
+     26.0,
+     46.5,
+     26.0
+    ],
+    "t": "Danh sách phiếu nhập",
+    "s": "Mã, ngày, nhà cung cấp, số HĐ",
+    "n": 4
+   },
+   {
+    "box": [
+     64.0,
+     32.0,
+     18.0,
+     5.0
+    ],
+    "t": "Chứng từ hóa đơn",
+    "s": "File đính kèm trực tuyến",
+    "n": 5
+   },
+   {
+    "box": [
+     84.5,
+     26.0,
+     11.0,
+     26.0
+    ],
+    "t": "Tổng tiền & chi tiết",
+    "s": "Icon mắt để xem phiếu",
+    "n": 6
+   }
+  ]
+ },
+ "35": {
+  "img": "image-35-4.png",
+  "steps": [
+   {
+    "box": [
+     27.5,
+     19.0,
+     11.3,
+     3.8
+    ],
+    "t": "Tab Nhật ký kho",
+    "s": "Nhật ký Nhập – Xuất",
+    "n": 1
+   },
+   {
+    "box": [
+     17.5,
+     26.0,
+     15.0,
+     53.0
+    ],
+    "t": "Thời gian & vật tư",
+    "s": "Mốc giao dịch, mã & tên",
+    "n": 2
+   },
+   {
+    "box": [
+     32.5,
+     26.0,
+     10.5,
+     53.0
+    ],
+    "t": "Loại biến động",
+    "s": "Xanh: nhập · Đỏ: xuất PPE",
+    "n": 3
+   },
+   {
+    "box": [
+     43.5,
+     26.0,
+     18.5,
+     53.0
+    ],
+    "t": "Số lượng & tồn kho",
+    "s": "Tồn trước → tồn sau",
+    "n": 4
+   },
+   {
+    "box": [
+     62.0,
+     26.0,
+     34.0,
+     53.0
+    ],
+    "t": "Ghi chú",
+    "s": "Mục đích, chứng từ liên quan",
+    "n": 5
+   }
+  ]
+ },
+ "36": {
+  "img": "image-36-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     16.0,
+     91.5,
+     8.5
+    ],
+    "t": "Thông tin chung",
+    "s": "Ngày nhập, NCC, số HĐ",
+    "n": 1
+   },
+   {
+    "box": [
+     3.0,
+     29.0,
+     24.5,
+     6.8
+    ],
+    "t": "Tải hóa đơn / chứng từ",
+    "s": "Upload file minh chứng",
+    "n": 2
+   },
+   {
+    "box": [
+     7.0,
+     50.0,
+     84.0,
+     6.8
+    ],
+    "t": "Chọn vật tư",
+    "s": "Số lượng, đơn giá",
+    "n": 3
+   },
+   {
+    "box": [
+     79.0,
+     43.5,
+     13.5,
+     4.3
+    ],
+    "t": "Thêm dòng",
+    "s": "Nhập nhiều mặt hàng",
+    "n": 4
+   },
+   {
+    "box": [
+     74.0,
+     61.0,
+     18.5,
+     5.0
+    ],
+    "t": "Tổng giá trị nhập",
+    "s": "Tự động tính",
+    "n": 5
+   },
+   {
+    "box": [
+     74.0,
+     89.0,
+     20.5,
+     6.2
+    ],
+    "t": "Lưu phiếu nhập kho",
+    "s": "Hoàn tất nhập kho",
+    "n": 6
+   }
+  ]
+ },
+ "37": {
+  "img": "image-37-4.png",
+  "steps": [
+   {
+    "box": [
+     3.0,
+     70.0,
+     10.0,
+     4.8
+    ],
+    "t": "Mở Cấp phát PPE",
+    "s": "Menu An toàn & tài sản",
+    "n": 1
+   },
+   {
+    "box": [
+     87.5,
+     2.0,
+     8.0,
+     4.3
+    ],
+    "t": "Cấp phát PPE mới",
+    "s": "Lập phiếu cấp phát",
+    "n": 2
+   },
+   {
+    "box": [
+     17.5,
+     10.5,
+     76.5,
+     15.0
+    ],
+    "t": "Thẻ thống kê",
+    "s": "Tổng, còn hạn, sắp hết, hết hạn",
+    "n": 3
+   },
+   {
+    "box": [
+     73.5,
+     30.0,
+     20.5,
+     4.2
+    ],
+    "t": "Kiểu hiển thị",
+    "s": "Nhân sự · Tổng hợp · Yêu cầu",
+    "n": 4
+   },
+   {
+    "box": [
+     17.5,
+     36.0,
+     76.5,
+     5.3
+    ],
+    "t": "Tìm kiếm & bộ lọc",
+    "s": "Nhân sự, loại trang bị, thời hạn",
+    "n": 5
+   },
+   {
+    "box": [
+     17.5,
+     44.0,
+     31.5,
+     18.0
+    ],
+    "t": "Nhân sự & trang bị",
+    "s": "Trang bị đang giữ",
+    "n": 6
+   },
+   {
+    "box": [
+     51.0,
+     58.5,
+     8.5,
+     3.5
+    ],
+    "t": "Thời hạn sử dụng",
+    "s": "Còn … ngày / Quá hạn",
+    "n": 7
+   },
+   {
+    "box": [
+     84.5,
+     58.5,
+     9.5,
+     3.5
+    ],
+    "t": "Thao tác",
+    "s": "Xem, sửa, hoàn trả, thu hồi",
+    "n": 8
+   }
+  ]
+ },
+ "38": {
+  "img": "image-38-4.png",
+  "steps": [
+   {
+    "box": [
+     5.0,
+     12.0,
+     89.0,
+     8.8
+    ],
+    "t": "Chọn nhân sự",
+    "s": "Gõ để tìm kiếm",
+    "n": 1
+   },
+   {
+    "box": [
+     5.0,
+     22.0,
+     89.0,
+     8.8
+    ],
+    "t": "Ngày & người cấp phát",
+    "s": "Mặc định ngày hiện tại",
+    "n": 2
+   },
+   {
+    "box": [
+     76.0,
+     32.0,
+     18.0,
+     4.8
+    ],
+    "t": "Thêm trang bị",
+    "s": "Cấp nhiều món cùng lúc",
+    "n": 3
+   },
+   {
+    "box": [
+     7.0,
+     40.0,
+     85.0,
+     8.8
+    ],
+    "t": "Chọn trang bị từ kho",
+    "s": "Tên, số lượng, đơn vị",
+    "n": 4
+   },
+   {
+    "box": [
+     72.0,
+     60.5,
+     20.5,
+     4.3
+    ],
+    "t": "Hạn sử dụng nhanh",
+    "s": "+3 tháng · +6 tháng · +1 năm",
+    "n": 5
+   },
+   {
+    "box": [
+     5.0,
+     69.0,
+     17.0,
+     6.3
+    ],
+    "t": "Tải biên bản",
+    "s": "Biên bản giao nhận",
+    "n": 6
+   },
+   {
+    "box": [
+     69.0,
+     90.5,
+     25.0,
+     5.7
+    ],
+    "t": "Lưu phiếu cấp phát",
+    "s": "Hoàn tất cấp phát",
+    "n": 7
+   }
+  ]
+ },
+ "39": {
+  "img": "image-39-4.png",
+  "steps": []
+ }
+}

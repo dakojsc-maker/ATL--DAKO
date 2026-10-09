@@ -1,0 +1,175 @@
+{
+ "_note": "Kịch bản thuyết minh. 'say' viết theo cách đọc cho máy (STP → Ét Tê Pê); 'sub' là phụ đề hiển thị.",
+ "scenes": {
+  "s1": [
+   {
+    "say": "Hồ sơ huấn luyện nằm rải rác trong bảng tính và giấy tờ.",
+    "sub": "Hồ sơ huấn luyện nằm rải rác trong bảng tính và giấy tờ."
+   },
+   {
+    "say": "Chứng chỉ hết hạn, thiết bị quá hạn kiểm định, đôi khi không ai hay biết.",
+    "sub": "Chứng chỉ hết hạn, thiết bị quá hạn kiểm định, đôi khi không ai hay biết."
+   }
+  ],
+  "s2": [
+   {
+    "say": "Phần mềm quản lý an toàn, vệ sinh lao động của Viện Ét Tê Pê,",
+    "sub": "Phần mềm quản lý an toàn, vệ sinh lao động của Viện STP –"
+   },
+   {
+    "say": "một nền tảng số cho toàn bộ công tác an toàn của doanh nghiệp.",
+    "sub": "một nền tảng số cho toàn bộ công tác an toàn của doanh nghiệp."
+   }
+  ],
+  "s3": [
+   {
+    "say": "Năm phân hệ, ba mươi mốt màn hình chức năng:",
+    "sub": "Năm phân hệ, 31 màn hình chức năng:"
+   },
+   {
+    "say": "tổng quan và báo cáo, doanh nghiệp, đào tạo, công tác và công việc, an toàn và tài sản.",
+    "sub": "tổng quan và báo cáo, doanh nghiệp, đào tạo, công tác và công việc, an toàn và tài sản."
+   }
+  ],
+  "f1": [
+   {
+    "say": "Ngay khi đăng nhập, bảng điều khiển cho thấy tức thời tổng lao động, số người đã và chưa huấn luyện, chứng chỉ sắp hết hạn, thiết bị cần kiểm định.",
+    "sub": "Ngay khi đăng nhập, bảng điều khiển cho thấy tức thời tổng lao động, số người đã và chưa huấn luyện, chứng chỉ sắp hết hạn, thiết bị cần kiểm định."
+   },
+   {
+    "say": "Biểu đồ phân bố sáu nhóm huấn luyện, trạng thái kiểm định, và xu hướng sự cố sáu tháng gần nhất.",
+    "sub": "Biểu đồ phân bố 6 nhóm huấn luyện, trạng thái kiểm định và xu hướng sự cố 6 tháng gần nhất."
+   }
+  ],
+  "f2": [
+   {
+    "say": "Các cảnh báo cần xử lý gấp được gom về một nơi: thiết bị sắp quá hạn, chứng chỉ hết hạn trong ba mươi ngày tới, sự cố mới ghi nhận.",
+    "sub": "Các cảnh báo cần xử lý gấp được gom về một nơi: thiết bị sắp quá hạn, chứng chỉ hết hạn trong 30 ngày tới, sự cố mới ghi nhận."
+   },
+   {
+    "say": "Cùng các nút thao tác nhanh: đăng ký lớp, thêm nhân sự, báo cáo sự cố.",
+    "sub": "Cùng các nút thao tác nhanh: đăng ký lớp, thêm nhân sự, báo cáo sự cố."
+   }
+  ],
+  "f3": [
+   {
+    "say": "Báo cáo doanh nghiệp và báo cáo nhân sự theo năm, quý hoặc tháng,",
+    "sub": "Báo cáo doanh nghiệp và báo cáo nhân sự theo năm, quý hoặc tháng,"
+   },
+   {
+    "say": "lọc theo phòng ban, và xuất ra bảng tính chỉ với một cú nhấp.",
+    "sub": "lọc theo phòng ban và xuất Excel chỉ với một cú nhấp."
+   }
+  ],
+  "f4": [
+   {
+    "say": "Doanh nghiệp tự cập nhật hồ sơ, thông tin liên hệ và người đại diện pháp lý.",
+    "sub": "Doanh nghiệp tự cập nhật hồ sơ, thông tin liên hệ và người đại diện pháp lý."
+   },
+   {
+    "say": "Tạo tài khoản vận hành, cấp quyền truy cập đến từng phân hệ chỉ bằng vài cú tích chọn.",
+    "sub": "Tạo tài khoản vận hành (operator), cấp quyền truy cập đến từng phân hệ chỉ bằng vài cú tích chọn."
+   }
+  ],
+  "f5": [
+   {
+    "say": "Toàn bộ khóa học an toàn lao động của Viện Ét Tê Pê luôn có sẵn trên hệ thống.",
+    "sub": "Toàn bộ khóa học an toàn lao động của Viện STP luôn có sẵn trên hệ thống."
+   },
+   {
+    "say": "Xem chi tiết học phần, thời lượng, rồi đăng ký cho nhân sự ngay lập tức.",
+    "sub": "Xem chi tiết học phần, thời lượng, rồi đăng ký cho nhân sự ngay lập tức."
+   }
+  ],
+  "f6": [
+   {
+    "say": "Nhân sự được quản lý theo sáu nhóm huấn luyện; bấm vào từng nhóm để lọc nhanh danh sách.",
+    "sub": "Nhân sự được quản lý theo 6 nhóm huấn luyện; bấm vào từng nhóm để lọc nhanh danh sách."
+   },
+   {
+    "say": "Thêm người mới, chọn nhóm huấn luyện, đính kèm văn bằng và giấy khám sức khỏe trên cùng một màn hình.",
+    "sub": "Thêm người mới, chọn nhóm huấn luyện, đính kèm văn bằng và giấy khám sức khỏe trên cùng một màn hình."
+   }
+  ],
+  "f7": [
+   {
+    "say": "Hợp đồng đào tạo, giá trị và trạng thái thanh toán được theo dõi minh bạch.",
+    "sub": "Hợp đồng đào tạo, giá trị và trạng thái thanh toán được theo dõi minh bạch."
+   },
+   {
+    "say": "Lớp học hiển thị sĩ số, tiến độ, và lịch từng buổi học.",
+    "sub": "Lớp học hiển thị sĩ số, tiến độ và lịch từng buổi học."
+   }
+  ],
+  "f8": [
+   {
+    "say": "Bảng tin nội bộ, kho thông tư và nghị định về an toàn lao động luôn được cập nhật.",
+    "sub": "Bảng tin nội bộ, kho thông tư và nghị định về an toàn lao động luôn được cập nhật."
+   },
+   {
+    "say": "Giao việc theo nhóm hoặc từng người, theo dõi hạn chót, và duyệt đơn từ của nhân sự ngay trên phần mềm.",
+    "sub": "Giao việc theo nhóm hoặc từng người, theo dõi hạn chót và duyệt đơn từ của nhân sự ngay trên phần mềm."
+   }
+  ],
+  "f9": [
+   {
+    "say": "Mỗi thiết bị được theo dõi ngày kiểm định và ngày hết hạn.",
+    "sub": "Mỗi thiết bị được theo dõi ngày kiểm định và ngày hết hạn."
+   },
+   {
+    "say": "Hệ thống tự cảnh báo trước ba mươi ngày, nhãn đỏ báo ngay thiết bị quá hạn kiểm định.",
+    "sub": "Hệ thống tự cảnh báo trước 30 ngày, nhãn đỏ báo ngay thiết bị quá hạn kiểm định."
+   }
+  ],
+  "f10": [
+   {
+    "say": "Tai nạn và sự cố được ghi nhận kịp thời, kèm nguyên nhân, biện pháp khắc phục và người chịu trách nhiệm,",
+    "sub": "Tai nạn và sự cố được ghi nhận kịp thời, kèm nguyên nhân, biện pháp khắc phục và người chịu trách nhiệm,"
+   },
+   {
+    "say": "theo dõi đến khi xử lý xong.",
+    "sub": "theo dõi đến khi xử lý xong."
+   }
+  ],
+  "f11": [
+   {
+    "say": "Vật tư, hóa chất và kho được kiểm soát chặt chẽ:",
+    "sub": "Vật tư, hóa chất và kho được kiểm soát chặt chẽ:"
+   },
+   {
+    "say": "cảnh báo khi tồn kho xuống dưới ngưỡng, phiếu nhập kèm hóa đơn, và nhật ký nhập xuất theo thời gian thực.",
+    "sub": "cảnh báo khi tồn kho xuống dưới ngưỡng, phiếu nhập kèm hóa đơn và nhật ký nhập – xuất theo thời gian thực."
+   }
+  ],
+  "f12": [
+   {
+    "say": "Đồ bảo hộ được cấp phát cho từng người, hệ thống tự tính hạn sử dụng,",
+    "sub": "Đồ bảo hộ (PPE) được cấp phát cho từng người, hệ thống tự tính hạn sử dụng"
+   },
+   {
+    "say": "và nhắc thu hồi, cấp mới khi hết hạn.",
+    "sub": "và nhắc thu hồi, cấp mới khi hết hạn."
+   }
+  ],
+  "s4": [
+   {
+    "say": "Bắt đầu thật đơn giản: đăng nhập bằng tài khoản doanh nghiệp, thêm nhân sự và nhóm huấn luyện, khai báo thiết bị, vật tư.",
+    "sub": "Bắt đầu thật đơn giản: đăng nhập bằng tài khoản doanh nghiệp, thêm nhân sự và nhóm huấn luyện, khai báo thiết bị, vật tư."
+   },
+   {
+    "say": "Phần còn lại, phần mềm tự nhắc.",
+    "sub": "Phần còn lại, phần mềm tự nhắc."
+   }
+  ],
+  "s5": [
+   {
+    "say": "Một khóa học kết thúc sau vài ngày, nhưng an toàn lao động cần được quản lý mỗi ngày.",
+    "sub": "Một khóa học kết thúc sau vài ngày – nhưng an toàn lao động cần được quản lý mỗi ngày."
+   },
+   {
+    "say": "Liên hệ Viện Ét Tê Pê để được tư vấn và hướng dẫn triển khai.",
+    "sub": "Liên hệ Viện STP để được tư vấn và hướng dẫn triển khai."
+   }
+  ]
+ }
+}
