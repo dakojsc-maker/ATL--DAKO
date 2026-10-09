@@ -375,7 +375,7 @@ function S2(t) {
   master.fromTo('#s2 .duo .stp', { x: sh }, { x: 0, duration: 0.7, ease: 'power3.inOut', immediateRender: false }, dk);
   pop('#s2 .duo .x', dk + 0.3, { from: 0.2, ease: 'back.out(2.6)' });
   master.fromTo('#s2 .duo .dako', { x: -40, scale: 0.3, autoAlpha: 0 }, { x: 0, scale: 1, autoAlpha: 1, duration: 0.85, ease: 'back.out(2.2)' }, dk + 0.25);
-  cue(dk + 0.25, 'pop'); cue(dk + 0.35, 'ding');
+  cue(dk + 0.15, 'pop'); // không đặt tiếng chuông ở đây: trùng lúc đọc tên DAKO
   kicker('#s2 .kk', t + 0.45);
   words('#s2 .t1', B[0].t - 0.1);
   words('#s2 .t2', B.at(0, 'an toàn') - 0.1);
@@ -665,7 +665,7 @@ function F12(t) {
   const z = W.zoom(B[1].t - 0.4, [40, 78, 36, 22], 2.0, 0.8);
   W.hl(z, st(37, 7));
   W.hl(z + 0.5, [53.6, 96.2, 6.6, 3.6], { t: 'Hết hạn → thu hồi, cấp mới', n: '7', cls: 'r' });
-  toast(S, z + 0.8, { cls: 'r', i: 'hard-hat', b: 'Quá hạn 153 ngày', s: 'Cần thu hồi / cấp mới trang bị', x: 1390, y: 872, snd: 'alarm' });
+  toast(S, Math.max(z + 0.8, B.end + 0.1), { cls: 'r', i: 'hard-hat', b: 'Quá hạn 153 ngày', s: 'Cần thu hồi / cấp mới trang bị', x: 1390, y: 872, snd: 'alarm' }); // chuông báo sau câu đọc, không đè lời
   return B.end + 2.0;
 }
 
