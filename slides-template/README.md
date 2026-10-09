@@ -14,6 +14,7 @@ bộ slide mới chỉ cần đưa tài liệu vào.
 | M02 | Báo cáo Aurora — navy + aqua | `output/Mau-Bao-Cao-Aurora.pptx` | `python build_deck.py --theme aurora` |
 | M03 | Di sản Hội An — cổ điển, giấy cổ, vàng kim | `output/Mau-Bao-Cao-HoiAn.pptx` | `python build_hoian.py` |
 | M04 | Chính luận Mác – Lênin — lụa đỏ, vàng kim, huân chương | `output/Mau-Chinh-Luan-MacLenin.pptx` | `python build_maclenin.py` |
+| M05 | Lao động – Việc làm — ảnh công nhân, giấy kem – cam, bản đồ 6 vùng | `output/Mau-Lao-Dong-Viec-Lam.pptx` | `python build_laodong.py` |
 
 Làm bộ slide từ file nội dung: `python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`
 (mẫu nội dung trong `catalog/samples/`). Thêm mẫu mới xong thì chạy `python tools/update_catalog.py` và đăng lại trang thư viện.
@@ -21,7 +22,7 @@ Container mới: `bash tools/setup_env.sh`.
 
 Mở bằng **PowerPoint 2019 / Microsoft 365** để có Morph. Bản cũ hơn sẽ tự động dùng Fade thay cho Morph.
 Cài font trong `fonts/` (M01/M02: Montserrat), `fonts/heritage/` (M03: Noto Serif Display, Noto Serif, Playfair Display)
-và `fonts/maclenin/` (M04: Big Shoulders Display, Be Vietnam Pro) trước khi mở (Windows: chuột phải → Install for all users).
+`fonts/maclenin/` (M04: Big Shoulders Display, Be Vietnam Pro) và `fonts/laodong/` (M05: Anton, Lexend) trước khi mở (Windows: chuột phải → Install for all users).
 
 ---
 
@@ -130,3 +131,23 @@ nhất nguyên / nhị nguyên · hai lập trường · Cantơ – Hêghen · t
 - **Ảnh:** Open Images (CC BY 2.0) — danh sách trong `assets/images/maclenin_photos.json`, tác giả trong
   `assets/images/credits.csv`; ảnh tách nền `assets/images/cut/ml_*.png` (có thêm tượng Bác Hồ `hcm_statue`, lăng Bác
   `mausoleum`, cờ Đảng `party_flag`, cờ Tổ quốc `vn_flag` cho các môn Tư tưởng Hồ Chí Minh, Lịch sử Đảng).
+
+---
+
+## M05 — Lao động – Việc làm
+
+Theo video mẫu Địa lí 12 "Lao động và việc làm": bìa, mục lục, chuyển phần và cảm ơn dùng ảnh tràn nền tối dần từ trái
+(mũ bảo hộ, tia hàn, công nhân) với chữ khổ hẹp rất lớn (Anton), dấu "&" màu cam; slide nội dung trên nền giấy kem – cam có
+bóng người thợ mờ, tiêu đề nâu đậm + gạch cam, đường dẫn mục nhỏ góc phải, chữ Lexend với từ khóa tô cam.
+18 slide (1 slide ẩn ghi nguồn ảnh): bìa · nội dung trình bày · chuyển phần I · biểu đồ cột lực lượng lao động · bảng chất
+lượng lao động · bản đồ 6 vùng · chuyển phần II · bảng cơ cấu theo ngành · 2 biểu đồ tròn theo thành phần kinh tế · chuyển
+phần III · bảng thất nghiệp (gộp ô) · so sánh thành thị – nông thôn · 4 chỉ số · giải pháp + nhóm người tách nền trên dải
+lụa cam · quy trình 5 bước · kết luận · cảm ơn.
+
+- **Biểu đồ, bảng:** cột cam chuyển màu, biểu đồ tròn vàng – cam – đỏ (nhãn lát nhỏ tự đưa ra ngoài), bảng tiêu đề cam,
+  tất cả là đối tượng gốc của PowerPoint.
+- **Bản đồ** (`lib/laodong_assets.py` → `vn_regions()`): ranh giới tỉnh Natural Earth gộp thành 6 vùng, tô màu theo giá trị,
+  có quần đảo Hoàng Sa và Trường Sa; nhãn số liệu là hộp chữ sửa được trên slide.
+- **Ảnh:** Open Images (CC BY 2.0) — `assets/images/laodong_photos.json`, tác giả trong `assets/images/credits.csv`;
+  người tách nền `assets/images/cut/ld_*.png`. Số liệu trong file mẫu theo Niên giám thống kê; tỉ trọng lao động theo vùng
+  là số minh họa.

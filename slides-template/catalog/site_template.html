@@ -188,7 +188,7 @@ function renderCount() {
   const ready = T.filter(t => t.status === 'ready').length;
   const slides = T.reduce((n, t) => n + (t.slides ? t.slides.length : 0), 0);
   $('#count').innerHTML = `<span class="chip-stat"><b>${ready}</b> mẫu sẵn dùng</span>`
-    + `<span class="chip-stat"><b>${T.length - ready}</b> mẫu sắp làm</span>`
+    + (T.length > ready ? `<span class="chip-stat"><b>${T.length - ready}</b> mẫu sắp làm</span>` : '')
     + `<span class="chip-stat"><b>${slides}</b> slide mẫu</span>`;
 }
 function renderFilters() {

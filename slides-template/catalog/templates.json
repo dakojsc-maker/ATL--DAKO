@@ -113,11 +113,29 @@
    "code": "M05",
    "slug": "laodong",
    "name": "Lao động – Việc làm",
-   "aliases": ["lao động", "việc làm", "kinh tế xã hội", "video 4"],
-   "status": "planned",
+   "aliases": ["lao động", "việc làm", "lao động việc làm", "kinh tế xã hội", "địa lí", "dân số", "cam", "video 4"],
+   "status": "ready",
+   "added": "2026-10-09",
    "inspired_by": "Video 4 – mẫu Lao động việc làm (TikTok)",
-   "tagline": "Sắp làm: mẫu cho chủ đề kinh tế – xã hội, thị trường lao động.",
-   "category": ["Chính trị – xã hội", "Doanh nghiệp"]
+   "tagline": "Ảnh công nhân, tia hàn điện ảnh; trang giấy kem – cam với biểu đồ cột cam, bảng, biểu đồ tròn, bản đồ 6 vùng.",
+   "mood": ["Năng động", "Nhiều số liệu", "Ấm – cam"],
+   "best_for": ["Địa lí 12: lao động, việc làm, dân cư, các ngành kinh tế", "Báo cáo kinh tế – xã hội, thị trường lao động, nhân sự", "An toàn lao động, đào tạo nghề, giới thiệu ngành nghề"],
+   "category": ["Chính trị – xã hội", "Doanh nghiệp", "Báo cáo – học thuật"],
+   "palette": [["F26B1F", "Cam"], ["D9381E", "Đỏ cam"], ["F8C43A", "Vàng"], ["FFF4EA", "Kem"], ["7A2A10", "Nâu tiêu đề"]],
+   "fonts": "Anton · Lexend",
+   "builder": "python build_laodong.py",
+   "sample": "catalog/samples/M05-laodong.json",
+   "output": "output/Mau-Lao-Dong-Viec-Lam.pptx",
+   "layouts_module": "lib/layouts_laodong.py",
+   "layouts": [
+    ["cover", "Bìa ảnh tràn – chữ lớn có dấu &"], ["agenda", "Nội dung trình bày (I, II, III + mục con)"],
+    ["section", "Chuyển phần ảnh tràn"], ["chart_text", "Đoạn dẫn + ảnh + biểu đồ cột cam"],
+    ["table_text", "Gạch đầu dòng + bảng số liệu"], ["map_regions", "Bản đồ 6 vùng (Hoàng Sa, Trường Sa) + ý + 3 ảnh"],
+    ["callout_table", "Khung đứt nét + bảng (gộp ô nhóm)"], ["callout_pies", "Khung đứt nét + 2–3 biểu đồ tròn + chú thích"],
+    ["compare", "So sánh 2 cột có ảnh và chỉ số"], ["stats", "4 thẻ chỉ số + dải ảnh"],
+    ["people_list", "Danh sách giải pháp + nhóm người tách nền"], ["process", "Quy trình mũi tên 3–6 bước"],
+    ["photo_quote", "Ảnh + thông điệp chính + ý"], ["thanks", "Cảm ơn"]
+   ]
   }
  ]
 }

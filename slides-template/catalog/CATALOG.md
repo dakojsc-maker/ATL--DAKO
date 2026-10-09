@@ -10,7 +10,7 @@ Danh sách mẫu slide. Trang thư viện có ảnh xem trước: [https://claud
 | **M02** | Báo cáo Aurora | Cùng bố cục với M01, tông xanh navy + aqua – hợp báo cáo công nghệ, doanh nghiệp. | Báo cáo công nghệ, chuyển đổi số; Báo cáo kinh doanh, kết quả quý / năm; Thuyết trình dự án cho doanh nghiệp | 33 slide |
 | **M03** | Di sản Hội An | Cổ điển, điện ảnh: ảnh tràn nền phủ tối, chữ có chân mảnh, giấy cổ, ảnh polaroid mép rách. | Văn hóa, lịch sử, di sản, địa danh; Du lịch, ẩm thực, giới thiệu địa phương; Báo cáo môn Văn hóa Việt Nam, Lịch sử, Địa lý | 23 slide |
 | **M04** | Chính luận Mác – Lênin | Lụa đỏ, vàng kim, búa liềm và huân chương sao; tượng tách nền làm người dẫn chuyện, chữ áp phích khổ hẹp. | Triết học, Kinh tế chính trị, CNXH khoa học Mác – Lênin; Tư tưởng Hồ Chí Minh, Lịch sử Đảng CSVN; Thuyết trình chính trị – xã hội, sinh hoạt Đoàn – Đảng | 24 slide |
-| **M05** | Lao động – Việc làm | Sắp làm: mẫu cho chủ đề kinh tế – xã hội, thị trường lao động. | Chính trị – xã hội; Doanh nghiệp | Sắp làm |
+| **M05** | Lao động – Việc làm | Ảnh công nhân, tia hàn điện ảnh; trang giấy kem – cam với biểu đồ cột cam, bảng, biểu đồ tròn, bản đồ 6 vùng. | Địa lí 12: lao động, việc làm, dân cư, các ngành kinh tế; Báo cáo kinh tế – xã hội, thị trường lao động, nhân sự; An toàn lao động, đào tạo nghề, giới thiệu ngành nghề | 17 slide |
 
 ## M01 · Báo cáo Xanh Lime
 
@@ -74,7 +74,15 @@ Lụa đỏ, vàng kim, búa liềm và huân chương sao; tượng tách nền
 
 ## M05 · Lao động – Việc làm
 
-Sắp làm: mẫu cho chủ đề kinh tế – xã hội, thị trường lao động.
+Ảnh công nhân, tia hàn điện ảnh; trang giấy kem – cam với biểu đồ cột cam, bảng, biểu đồ tròn, bản đồ 6 vùng.
 
-- **Trạng thái:** sắp làm — Video 4 – mẫu Lao động việc làm (TikTok)
-- **Câu gọi để làm:** `Làm mẫu M05 · Lao động – Việc làm theo Video 4 – mẫu Lao động việc làm (TikTok).`
+![Lao động – Việc làm](site/previews/M05/sheet.jpg)
+
+- **Câu gọi:** `Dùng mẫu M05 · Lao động – Việc làm để làm bộ slide từ tài liệu tôi gửi kèm.`
+- **Gọi tắt:** lao động, việc làm, lao động việc làm, kinh tế xã hội, địa lí, dân số, cam, video 4
+- **Bảng màu:** `#F26B1F` Cam, `#D9381E` Đỏ cam, `#F8C43A` Vàng, `#FFF4EA` Kem, `#7A2A10` Nâu tiêu đề
+- **Font:** Anton · Lexend
+- **File mẫu:** `slides-template/output/Mau-Lao-Dong-Viec-Lam.pptx` (7.8 MB)
+- **Dựng:** `python build_laodong.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M05-laodong.json`
+- **Lấy cảm hứng từ:** Video 4 – mẫu Lao động việc làm (TikTok)
+- **Các dạng slide** (`"slide"` trong file nội dung): `cover` Bìa ảnh tràn – chữ lớn có dấu &, `agenda` Nội dung trình bày (I, II, III + mục con), `section` Chuyển phần ảnh tràn, `chart_text` Đoạn dẫn + ảnh + biểu đồ cột cam, `table_text` Gạch đầu dòng + bảng số liệu, `map_regions` Bản đồ 6 vùng (Hoàng Sa, Trường Sa) + ý + 3 ảnh, `callout_table` Khung đứt nét + bảng (gộp ô nhóm), `callout_pies` Khung đứt nét + 2–3 biểu đồ tròn + chú thích, `compare` So sánh 2 cột có ảnh và chỉ số, `stats` 4 thẻ chỉ số + dải ảnh, `people_list` Danh sách giải pháp + nhóm người tách nền, `process` Quy trình mũi tên 3–6 bước, `photo_quote` Ảnh + thông điệp chính + ý, `thanks` Cảm ơn

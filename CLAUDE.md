@@ -13,7 +13,7 @@ Trang thư viện có ảnh xem trước (Artifact): https://claude.ai/artifact/
 | M02 | Báo cáo Aurora | "aurora", "xanh navy" | `python build_deck.py --theme aurora` |
 | M03 | Di sản Hội An | "hội an", "di sản", "phố cổ", "văn hóa" | `python build_hoian.py` |
 | M04 | Chính luận Mác – Lênin | "mác lênin", "chính luận", "chính trị", "triết học" | `python build_maclenin.py` |
-| M05 | Lao động – Việc làm | (sắp làm, theo video 4) | — |
+| M05 | Lao động – Việc làm | "lao động", "việc làm", "kinh tế xã hội", "địa lí" | `python build_laodong.py` |
 
 Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"… thì tra `templates.json` (trường `code`, `name`,
 `aliases`) để biết mẫu nào. Nếu không rõ, hỏi lại kèm danh sách mã.
@@ -34,6 +34,9 @@ Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"�
    và đặt `"map": "<ten>"` trong content.json (hoặc bỏ slide `map_slide`).
    Mẫu M04 dùng tượng / chân dung tách nền làm "người dẫn chuyện" (`portrait`, `persons[].cut`): khóa có sẵn trong
    `assets/images/cut/ml_<khóa>.png`; thêm người mới thì tách nền (`cutout()`) rồi lưu đúng tên `ml_<khóa>.png`.
+   Mẫu M05 có slide `map_regions`: bản đồ 6 vùng kinh tế (kèm Hoàng Sa, Trường Sa) tự tô màu theo `values`
+   (mã vùng TDMNBB, DBSH, BTB_DHMT, TN, DNB, DBSCL); nhóm người tách nền (`people`) lấy từ
+   `assets/images/cut/ld_<khóa>.png`.
    Tìm ảnh theo chủ đề khác: `tools/find_vn_photos.py scan --pattern "<regex tiêu đề>" --name <ten>`.
 5. Dựng: `cd slides-template && python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`.
 6. Kiểm tra: `python <pptx skill>/scripts/office/validate.py <file>`, render sang ảnh (LibreOffice → PDF → PyMuPDF),
