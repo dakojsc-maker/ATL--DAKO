@@ -603,10 +603,10 @@ function P7(t) {
   W.hl(B[0].t - 0.4, st(11, 2), { pos: 'dn', rt: true });
   W.click(B[0].t + 0.1, 88.1, 21.0);
   P.in(B[0].t + 0.35);
-  P.hl(Math.max(B[0].t + 1.0, B.at(0, 'nghỉ phép') - 0.1), st(12, 1), { left: true, pos: 'in' });
+  P.hl(Math.max(B[0].t + 1.0, B.at(0, 'nghỉ phép') - 0.1), st(12, 1), { left: true });
   const r = B.at(1, 'ghi lý do');
   P.hl(r - 0.2, st(12, 3), { left: true });
-  P.type(r + 0.1, [5.2, 55.3, 91.5, 7.0], 'Đề nghị hỗ trợ chi phí khóa huấn luyện ATVSLĐ', { fs: 11, top: true, py: 6, px: 8, dur: 1.4 });
+  P.type(r + 0.1, [4.9, 53.4, 92.6, 8.6], 'Đề nghị hỗ trợ chi phí khóa huấn luyện ATVSLĐ', { fs: 11, top: true, py: 9, px: 10, dur: 1.4 });
   const a = B.at(1, 'đính kèm');
   P.hl(a - 0.1, st(12, 4), { left: true });
   P.click(a + 0.3, 11.7, 82.3);
