@@ -30,6 +30,12 @@ Mở **cuộc trò chuyện mới** với kho mã **ATL--DAKO**, rồi gõ một
 
 Tránh lọc lúc **9:00–10:00**: đầu phiên giá lên xuống thất thường, dễ báo sai.
 
+Lần lọc đầu tiên trong mỗi cuộc trò chuyện mất khoảng 5–10 phút. Claude sẽ trả lời bằng tiếng Việt và gửi kèm một bảng
+báo cáo. Bạn chỉ cần đọc các phần sau:
+- **MUA**: mua trong khoảng giá ghi sẵn, đồng thời ghi lại **giá cắt lỗ** (giá phải bán nếu sai).
+- **THEO DÕI**: vào ứng dụng chứng khoán, đặt **cảnh báo giá** đúng mức "pivot". Khi có báo, nhắn Claude "lọc nhanh".
+- **DANH MỤC**: làm theo chữ GIỮ / CHỐT LỜI MỘT PHẦN / BÁN / CẮT LỖ.
+
 ## Chạy tự động (đã cài sẵn)
 
 Từ thứ Hai đến thứ Sáu, công cụ tự chạy mà bạn không cần nhắn gì:
@@ -53,12 +59,6 @@ Từ thứ Hai đến thứ Sáu, công cụ tự chạy mà bạn không cần 
   Cách dễ hơn là nhắn Claude, ví dụ *"tắt lịch lọc tự động"* hoặc *"đổi giờ lọc 15:45 sang 19:00"*.
 - Mỗi lần chạy dùng hạn mức gói Claude của bạn như một cuộc trò chuyện bình thường.
 - Ngày nghỉ lễ lịch vẫn chạy. Khi đó báo cáo sẽ ghi rõ là kết quả của phiên giao dịch gần nhất.
-
-Lần lọc đầu tiên trong mỗi cuộc trò chuyện mất khoảng 5–10 phút. Claude sẽ trả lời bằng tiếng Việt và gửi kèm một bảng
-báo cáo. Bạn chỉ cần đọc các phần sau:
-- **MUA**: mua trong khoảng giá ghi sẵn, đồng thời ghi lại **giá cắt lỗ** (giá phải bán nếu sai).
-- **THEO DÕI**: vào ứng dụng chứng khoán, đặt **cảnh báo giá** đúng mức "pivot". Khi có báo, nhắn Claude "lọc nhanh".
-- **DANH MỤC**: làm theo chữ GIỮ / CHỐT LỜI MỘT PHẦN / BÁN / CẮT LỖ.
 
 ## Công cụ có đáng tin không? Xem "Nhật ký gợi ý"
 
