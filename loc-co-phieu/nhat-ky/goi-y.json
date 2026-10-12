@@ -1,7 +1,184 @@
 {
  "phien_ban": 1,
- "cap_nhat": "2026-10-12 10:52",
+ "cap_nhat": "2026-10-12 14:21",
  "goi_y": [],
- "kiem_dinh": null,
+ "kiem_dinh": {
+  "ngay": "2026-10-12",
+  "so_ma": 1502,
+  "tu_ngay": "2023-07-24",
+  "thong_ke": {
+   "tong": 374,
+   "da_dong": 363,
+   "dang_mo": 11,
+   "thang": 89,
+   "thua": 246,
+   "hoa": 28,
+   "ty_le_thang": 0.2452,
+   "da_ro": 366,
+   "chinh_xac": 91,
+   "ty_le_chinh_xac": 0.2486,
+   "lai_tb": -0.0021,
+   "lai_tb_thang": 0.1486,
+   "lo_tb_thua": -0.0569,
+   "he_so_loi_nhuan": 0.9452,
+   "lai_tb_mo": 0.0547,
+   "vuot_vnindex_tb": null,
+   "so_phien_tb": 12.2562,
+   "lai_lon_nhat": 0.7688,
+   "lo_lon_nhat": -0.1325
+  },
+  "gan_nhat": [
+   {
+    "ma": "ABB",
+    "ngay": "2026-09-18",
+    "gia_vao": 17.9,
+    "ket_qua": "Đang mở",
+    "lai": -0.0223,
+    "so_phien": 16,
+    "lai_max": 0.0112,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "HHP",
+    "ngay": "2026-09-21",
+    "gia_vao": 17.4,
+    "ket_qua": "Đang mở",
+    "lai": 0.0144,
+    "so_phien": 15,
+    "lai_max": 0.0402,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "MSR",
+    "ngay": "2026-09-21",
+    "gia_vao": 51.9,
+    "ket_qua": "Đang mở",
+    "lai": 0.2909,
+    "so_phien": 15,
+    "lai_max": 0.3487,
+    "cham_mt1": "2026-10-01"
+   },
+   {
+    "ma": "PET",
+    "ngay": "2026-09-22",
+    "gia_vao": 41.5,
+    "ket_qua": "Dừng lỗ động",
+    "lai": 0.2241,
+    "so_phien": 11,
+    "lai_max": 0.3831,
+    "cham_mt1": "2026-09-25"
+   },
+   {
+    "ma": "DHC",
+    "ngay": "2026-09-23",
+    "gia_vao": 37.8067,
+    "ket_qua": "Gãy MA20 kèm KL lớn",
+    "lai": -0.0346,
+    "so_phien": 12,
+    "lai_max": 0.054,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "DRI",
+    "ngay": "2026-09-23",
+    "gia_vao": 14.5,
+    "ket_qua": "Đang mở",
+    "lai": 0.1517,
+    "so_phien": 13,
+    "lai_max": 0.1862,
+    "cham_mt1": "2026-10-09"
+   },
+   {
+    "ma": "BVH",
+    "ngay": "2026-09-28",
+    "gia_vao": 73.6,
+    "ket_qua": "Đang mở",
+    "lai": 0.0258,
+    "so_phien": 10,
+    "lai_max": 0.0734,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "TRC",
+    "ngay": "2026-09-29",
+    "gia_vao": 23.8,
+    "ket_qua": "Đang mở",
+    "lai": 0.0399,
+    "so_phien": 9,
+    "lai_max": 0.084,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "PHP",
+    "ngay": "2026-09-29",
+    "gia_vao": 47.4,
+    "ket_qua": "Đang mở",
+    "lai": 0.0675,
+    "so_phien": 9,
+    "lai_max": 0.0949,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "HSL",
+    "ngay": "2026-10-01",
+    "gia_vao": 9.44,
+    "ket_qua": "Cắt lỗ",
+    "lai": -0.07,
+    "so_phien": 3,
+    "lai_max": 0.0699,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "QNS",
+    "ngay": "2026-10-02",
+    "gia_vao": 53.1,
+    "ket_qua": "Breakout thất bại",
+    "lai": -0.0452,
+    "so_phien": 6,
+    "lai_max": 0.0,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "KSV",
+    "ngay": "2026-10-07",
+    "gia_vao": 121.0,
+    "ket_qua": "Đang mở",
+    "lai": 0.0331,
+    "so_phien": 3,
+    "lai_max": 0.2074,
+    "cham_mt1": "2026-10-09"
+   },
+   {
+    "ma": "GMD",
+    "ngay": "2026-10-07",
+    "gia_vao": 54.2,
+    "ket_qua": "Đang mở",
+    "lai": -0.0018,
+    "so_phien": 3,
+    "lai_max": 0.0332,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "MSB",
+    "ngay": "2026-10-07",
+    "gia_vao": 14.65,
+    "ket_qua": "Đang mở",
+    "lai": -0.0068,
+    "so_phien": 3,
+    "lai_max": 0.0205,
+    "cham_mt1": ""
+   },
+   {
+    "ma": "HDB",
+    "ngay": "2026-10-09",
+    "gia_vao": 22.4,
+    "ket_qua": "Đang mở",
+    "lai": 0.0089,
+    "so_phien": 1,
+    "lai_max": 0.0179,
+    "cham_mt1": ""
+   }
+  ]
+ },
  "theo_doi": null
 }
