@@ -1,5 +1,7 @@
 # Công cụ lọc cổ phiếu mẫu DRI/MSR
 
+> **Không rành kỹ thuật?** Đọc [HUONG-DAN-NHANH.md](HUONG-DAN-NHANH.md): bạn chỉ cần nhắn Claude "lọc cổ phiếu", không phải cài hay gõ lệnh gì.
+
 Công cụ quét cổ phiếu HOSE, HNX và UPCOM để tìm mã đang lặp lại mẫu hình của **DRI** và **MSR** (breakout tuần 21–25/9/2026):
 
 > xu hướng lớn đi lên → rũ bỏ → tăng mạnh 4–6 tuần → **tích lũy chặt sát đỉnh 2–6 tuần, có cạn cung**
