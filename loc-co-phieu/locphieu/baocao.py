@@ -135,6 +135,118 @@ def _y_nghia_rs() -> str:
     return "RS = xếp hạng sức mạnh giá 1–99 so với toàn thị trường (≥ 80 là nhóm dẫn dắt)."
 
 
+# ---------------------------------------------------------------------------------------------- nhật ký gợi ý
+def _hs(x) -> str:
+    if _nan(x):
+        return "–"
+    return "∞" if x == float("inf") else f"{x:.2f}"
+
+
+def dong_thong_ke(tk: dict, ten: str = "gợi ý") -> list[str]:
+    """Các dòng tóm tắt thống kê (dùng cho nhật ký thực tế – "gợi ý" – và kiểm định quá khứ – "tín hiệu")."""
+    if not tk or not tk.get("tong"):
+        return ["Chưa có gợi ý nào. Nhật ký tự ghi từ lần lọc đầu tiên có tín hiệu MUA (sau giờ đóng cửa)."]
+    out = [f"Tổng {tk['tong']} {ten}: {tk['da_dong']} đã bán theo quy tắc, {tk['dang_mo']} đang giữ."]
+    if tk["da_dong"]:
+        out.append(f"Tỷ lệ thắng {pt(tk['ty_le_thang'], False, 0)} ({tk['thang']} thắng / {tk['thua']} thua"
+                   + (f" / {tk['hoa']} hoà" if tk["hoa"] else "") + f") · lãi/lỗ bình quân mỗi lệnh {pt(tk['lai_tb'])}"
+                   f" · lệnh thắng TB {pt(tk['lai_tb_thang'])} · lệnh thua TB {pt(tk['lo_tb_thua'])}"
+                   f" · hệ số lợi nhuận {_hs(tk['he_so_loi_nhuan'])}")
+    if tk.get("da_ro"):
+        out.append(f"Tỷ lệ chính xác {pt(tk['ty_le_chinh_xac'], False, 0)}: {tk['chinh_xac']}/{tk['da_ro']} {ten} chạm "
+                   "mục tiêu 1 trước khi phải bán")
+    if tk["dang_mo"]:
+        out.append(f"Các {ten} đang giữ: lãi/lỗ tạm tính bình quân {pt(tk['lai_tb_mo'])}")
+    if not _nan(tk.get("vuot_vnindex_tb")):
+        out.append(f"So với VN-Index cùng thời gian nắm giữ: {pt(tk['vuot_vnindex_tb'])} mỗi lệnh; "
+                   f"giữ bình quân {g(tk['so_phien_tb'], 0)} phiên")
+    return out
+
+
+Y_NGHIA_CHI_SO = ("Tỷ lệ thắng = % lệnh đã bán có lãi. Tỷ lệ chính xác = % gợi ý chạm mục tiêu 1 (≈ +20%) trước khi "
+                  "phải bán. Hệ số lợi nhuận = tổng % lãi ÷ tổng % lỗ (> 1,5 là tốt). Mỗi gợi ý tính như mua giá đóng "
+                  "cửa phiên gợi ý rồi bán đúng quy tắc của công cụ; chưa trừ phí, thuế.")
+
+COT_NK_MO = [
+    ("Mã", lambda x: x["ma"]), ("Ngày gợi ý", lambda x: ngay_vn(x["ngay_goi_y"])),
+    ("Giá vào", lambda x: g(x["gia_vao"])), ("Giá hiện tại", lambda x: g(x.get("gia_hien_tai"))),
+    ("Lãi/lỗ", lambda x: pt(x.get("lai"))), ("Lãi cao nhất", lambda x: pt(x.get("lai_max"), True, 0)),
+    ("Dừng lỗ hiện tại", lambda x: g(x.get("dung_lo"))), ("Chạm MT1", lambda x: ngay_vn(x.get("cham_mt1") or "")),
+    ("Số phiên", lambda x: x.get("so_phien") if x.get("so_phien") is not None else "–"),
+]
+COT_NK_DONG = [
+    ("Mã", lambda x: x["ma"]), ("Ngày gợi ý", lambda x: ngay_vn(x["ngay_goi_y"])),
+    ("Giá vào", lambda x: g(x["gia_vao"])), ("Ngày bán", lambda x: ngay_vn(x.get("ngay_dong") or "")),
+    ("Giá bán", lambda x: g(x.get("gia_dong"))), ("Lãi/lỗ", lambda x: pt(x.get("lai"))),
+    ("Lý do bán", lambda x: x.get("ket_qua") or "–"),
+    ("Số phiên", lambda x: x.get("so_phien") if x.get("so_phien") is not None else "–"),
+    ("Hơn VN-Index", lambda x: pt(x.get("vuot_vnindex"), True, 0)),
+]
+COT_KIEM_DINH = [
+    ("Ngày", lambda h: ngay_vn(h["ngay"])), ("Mã", lambda h: h["ma"]), ("Giá vào", lambda h: g(h["gia_vao"])),
+    ("Kết quả", lambda h: h["ket_qua"]), ("Lãi/lỗ", lambda h: pt(h["lai"])),
+    ("Số phiên", lambda h: h["so_phien"]), ("Lãi cao nhất", lambda h: pt(h.get("lai_max"), True, 0)),
+]
+
+
+def _nk_mo(nk: dict) -> list[dict]:
+    return sorted((x for x in nk["goi_y"] if x.get("trang_thai") != "DA_DONG"),
+                  key=lambda x: (x.get("ngay_goi_y") or "", x["ma"]), reverse=True)
+
+
+def _nk_dong(nk: dict) -> list[dict]:
+    return sorted((x for x in nk["goi_y"] if x.get("trang_thai") == "DA_DONG"),
+                  key=lambda x: (x.get("ngay_dong") or "", x["ma"]), reverse=True)
+
+
+def tom_tat_tin_cay(bc: dict) -> str:
+    """Một dòng độ tin cậy ở đầu báo cáo."""
+    nk = bc.get("nhat_ky") or {}
+    phan = []
+    if nk.get("bat"):
+        tk = nk["thong_ke"]
+        if tk["da_dong"]:
+            phan.append(f"thực tế {pt(tk['ty_le_thang'], False, 0)} thắng / {tk['da_dong']} lệnh đã bán "
+                        f"({nk['tin_cay'][0]})")
+        else:
+            phan.append(f"thực tế: {tk['tong']} gợi ý, chưa lệnh nào bán xong")
+    kd = (nk.get("kiem_dinh") or {}).get("thong_ke")
+    if kd and kd.get("da_dong"):
+        phan.append(f"kiểm định quá khứ {pt(kd['ty_le_thang'], False, 0)} thắng / {kd['da_dong']} lệnh, "
+                    f"TB {pt(kd['lai_tb'])} mỗi lệnh ({nk['tin_cay_kiem_dinh'][0]})")
+    return ("ĐỘ TIN CẬY CÔNG CỤ: " + " | ".join(phan)) if phan else ""
+
+
+def _phan_nhat_ky_text(bc: dict, tat_ca: bool = False) -> list[str]:
+    nk = bc.get("nhat_ky") or {}
+    out = []
+    if nk.get("bat"):
+        tk, (muc, giai_thich) = nk["thong_ke"], nk["tin_cay"]
+        out += ["", f"■ NHẬT KÝ GỢI Ý – HIỆU QUẢ THỰC TẾ ({tk['tong']} gợi ý)", f"Độ tin cậy: {muc}. {giai_thich}"]
+        out += ["  " + d for d in dong_thong_ke(tk)]
+        if nk.get("moi"):
+            out.append("  Gợi ý mới ghi vào nhật ký lần này: " + ", ".join(nk["moi"]))
+        mo, dong = _nk_mo(nk), _nk_dong(nk)
+        if mo:
+            out += ["", "  Đang giữ:", bang_text(COT_NK_MO, mo)]
+        if dong:
+            hien = dong if tat_ca else dong[:15]
+            out += ["", f"  Đã bán ({len(dong)}{', 15 lệnh gần nhất' if len(hien) < len(dong) else ''}):",
+                    bang_text(COT_NK_DONG, hien)]
+    kd = nk.get("kiem_dinh")
+    if kd and kd.get("thong_ke", {}).get("tong"):
+        muc, giai_thich = nk["tin_cay_kiem_dinh"]
+        out += ["", f"■ KIỂM ĐỊNH QUÁ KHỨ (ước tính): mọi tín hiệu breakout của {kd['so_ma']} mã, từ "
+                    f"{ngay_vn(kd['tu_ngay'])} đến {ngay_vn(kd['ngay'])}",
+                f"Độ tin cậy: {muc}. {giai_thich}"]
+        out += ["  " + d for d in dong_thong_ke(kd["thong_ke"], "tín hiệu")]
+        if bc.get("kiem_dinh_chi_tiet") and kd.get("gan_nhat"):
+            out += ["  Tín hiệu gần nhất:", bang_text(COT_KIEM_DINH, list(reversed(kd["gan_nhat"])))]
+    if out:
+        out += ["  " + Y_NGHIA_CHI_SO]
+    return out
+
+
 # ---------------------------------------------------------------------------------------------- màn hình
 def in_man_hinh(bc: dict) -> str:
     out = []
@@ -149,8 +261,10 @@ def in_man_hinh(bc: dict) -> str:
     tt = bc["thi_truong"]
     out.append(f"THỊ TRƯỜNG (VN-Index {g(tt['gia'])} {pt(tt['thay_doi'])}): {tt['trang_thai']}. {tt['loi_khuyen']}."
                + (f" Ngày phân phối 25 phiên: {tt['ngay_phan_phoi']}." if tt.get("ngay_phan_phoi") is not None else ""))
+    if tom_tat_tin_cay(bc):
+        out.append(tom_tat_tin_cay(bc))
     nhom = bc["nhom"]
-    for ma_nhom in ("MUA", "MUA_GAN", "CHO", "XA", "CHAY", "BAN"):
+    for ma_nhom in (() if bc.get("chi_nhat_ky") else ("MUA", "MUA_GAN", "CHO", "XA", "CHAY", "BAN")):
         ds = nhom.get(ma_nhom) or []
         if not ds:
             continue
@@ -167,9 +281,10 @@ def in_man_hinh(bc: dict) -> str:
                 ghi = "; ".join(k.get("ghi_chu") or [])
                 if cb or ghi:
                     out.append(f"  {k['ma']}: " + " | ".join(x for x in (cb, ghi) if x))
-    if not any(nhom.get(k) for k in ("MUA", "MUA_GAN", "CHO", "XA", "CHAY", "BAN")):
+    if not bc.get("chi_nhat_ky") and not any(nhom.get(k) for k in ("MUA", "MUA_GAN", "CHO", "XA", "CHAY", "BAN")):
         out.append("")
         out.append("Không có mã nào khớp mẫu hình hôm nay – đứng ngoài cũng là một vị thế.")
+    out += _phan_nhat_ky_text(bc, tat_ca=bool(bc.get("chi_nhat_ky")))
     if bc.get("danh_muc"):
         out.append("")
         out.append("■ DANH MỤC CỦA BẠN")
@@ -178,9 +293,6 @@ def in_man_hinh(bc: dict) -> str:
         for k in bc["chi_tiet"]:
             out.append("")
             out.append(chi_tiet_text(k))
-    if bc.get("kiem_dinh"):
-        out.append("")
-        out.append(bc["kiem_dinh"])
     out.append("")
     out.append(("* KL dự phóng cả ngày (chạy trong phiên). " if bc.get("du_phong") else "") + _y_nghia_rs())
     if bc.get("tep"):
@@ -235,6 +347,36 @@ def chi_tiet_text(k: dict) -> str:
 
 
 # ---------------------------------------------------------------------------------------------- Markdown
+def _phan_nhat_ky_md(bc: dict) -> list[str]:
+    nk = bc.get("nhat_ky") or {}
+    out = []
+    if nk.get("bat"):
+        tk, (muc, giai_thich) = nk["thong_ke"], nk["tin_cay"]
+        out += [f"## 📒 Nhật ký gợi ý – hiệu quả thực tế ({tk['tong']} gợi ý)", "",
+                f"**Độ tin cậy: {muc}.** {giai_thich}", ""]
+        out += [f"- {d}" for d in dong_thong_ke(tk)]
+        if nk.get("moi"):
+            out.append("- Gợi ý mới ghi vào nhật ký lần này: **" + ", ".join(nk["moi"]) + "**")
+        out.append("")
+        mo, dong = _nk_mo(nk), _nk_dong(nk)
+        if mo:
+            out += ["### Đang giữ", "", bang_md(COT_NK_MO, mo), ""]
+        if dong:
+            out += [f"### Đã bán ({len(dong)})", "", bang_md(COT_NK_DONG, dong), ""]
+    kd = nk.get("kiem_dinh")
+    if kd and kd.get("thong_ke", {}).get("tong"):
+        muc, giai_thich = nk["tin_cay_kiem_dinh"]
+        out += [f"## 🧪 Kiểm định quá khứ (ước tính): {kd['so_ma']} mã, {ngay_vn(kd['tu_ngay'])} → {ngay_vn(kd['ngay'])}",
+                "", f"**Độ tin cậy: {muc}.** {giai_thich}", ""]
+        out += [f"- {d}" for d in dong_thong_ke(kd["thong_ke"], "tín hiệu")]
+        out.append("")
+        if kd.get("gan_nhat"):
+            out += ["Tín hiệu gần nhất:", "", bang_md(COT_KIEM_DINH, list(reversed(kd["gan_nhat"]))), ""]
+    if out:
+        out += [f"*{Y_NGHIA_CHI_SO}*", ""]
+    return out
+
+
 def markdown(bc: dict) -> str:
     p, tt = bc["phien"], bc["thi_truong"]
     out = [f"# Lọc cổ phiếu mẫu DRI/MSR – {bc['thoi_diem']}", "",
@@ -246,10 +388,12 @@ def markdown(bc: dict) -> str:
             f"VN-Index **{g(tt['gia'])}** ({pt(tt['thay_doi'])}) – **{tt['trang_thai']}**. {tt['loi_khuyen']}."
             + (f" Số ngày phân phối trong 25 phiên: {tt['ngay_phan_phoi']}." if tt.get("ngay_phan_phoi") is not None else ""),
             ""]
+    if tom_tat_tin_cay(bc):
+        out += [f"**{tom_tat_tin_cay(bc)}**", ""]
     nhom = bc["nhom"]
     bieu_tuong = {"MUA": "🟢", "MUA_GAN": "🟢", "CHO": "👀", "XA": "🟠", "CHAY": "🔵", "BAN": "🔴"}
-    co = False
-    for ma_nhom in ("MUA", "MUA_GAN", "CHO", "XA", "CHAY", "BAN"):
+    co = bool(bc.get("chi_nhat_ky"))
+    for ma_nhom in (() if bc.get("chi_nhat_ky") else ("MUA", "MUA_GAN", "CHO", "XA", "CHAY", "BAN")):
         ds = nhom.get(ma_nhom) or []
         if not ds:
             continue
@@ -264,14 +408,13 @@ def markdown(bc: dict) -> str:
         out.append("")
     if not co:
         out += ["Không có mã nào khớp mẫu hình – đứng ngoài cũng là một vị thế.", ""]
+    out += _phan_nhat_ky_md(bc)
     if bc.get("danh_muc"):
         out += ["## 💼 Danh mục của bạn", "", bang_md(COT_DANH_MUC, bc["danh_muc"]), ""]
     if bc.get("chi_tiet"):
         out += ["## Phân tích chi tiết", ""]
         for k in bc["chi_tiet"]:
             out += ["```", chi_tiet_text(k), "```", ""]
-    if bc.get("kiem_dinh"):
-        out += ["## Kiểm định tín hiệu trong quá khứ", "", "```", bc["kiem_dinh"], "```", ""]
     out += ["---", "",
             "*" + ("KL/TB20 có dấu \\* là khối lượng dự phóng cả ngày khi chạy trong phiên. " if bc.get("du_phong") else "")
             + _y_nghia_rs() + "*", "",
@@ -290,12 +433,12 @@ _CSS = """
 --g:#3fbf87;--r:#f06b63;--o:#f0a040;--b:#7aa5ff;--y:#e0c050}}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
 main{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
-h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}h3{font-size:15px;margin:18px 0 6px}
 .mut{color:var(--mut)}.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
 th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
 th:first-child,td:first-child,td.l,th.l{text-align:left}th{color:var(--mut);font-weight:600}
-td.ma{font-weight:700}td.dai{white-space:normal;min-width:240px;text-align:left}.badge{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600}
+td.ma{font-weight:700}td.dai{white-space:normal;min-width:240px;text-align:left}.chi-so td.dai{min-width:0}.chi-so td{vertical-align:top}.nho{font-size:12.5px;margin-top:2px}.badge{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600}
 .MUA,.MUA_GAN{color:var(--g)}.CHO{color:var(--b)}.XA{color:var(--o)}.CHAY{color:var(--b)}.BAN{color:var(--r)}
 ul{margin:6px 0 0 18px;padding:0}li{margin:2px 0}pre{white-space:pre-wrap;font-size:13px}
 """
@@ -308,10 +451,69 @@ def _bang_html(cot, dong) -> str:
     for x in dong:
         tds = []
         for i, (ten, f) in enumerate(cot):
-            lop = "ma" if i == 0 else ("dai" if ten in ("Lý do", "Hành động") else ("l" if ten == "Sàn" else ""))
+            lop = "ma" if i == 0 else ("dai" if ten in ("Lý do", "Hành động") else
+                                       ("l" if ten in ("Sàn", "Lý do bán", "Kết quả") else ""))
             tds.append(f"<td class='{lop}'>{html.escape(str(f(x)))}</td>")
         rows.append("<tr>" + "".join(tds) + "</tr>")
     return f"<div class='wrap'><table><thead><tr>{th}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>"
+
+
+def _bang_chi_so_html(tk: dict, ten: str = "gợi ý") -> str:
+    """Bảng chỉ số kèm ý nghĩa bằng lời, dễ đọc trên điện thoại."""
+    e = html.escape
+    hang = [(f"Số {ten}", f"{tk['tong']} ({tk['da_dong']} đã bán, {tk['dang_mo']} đang giữ)", "")]
+    if tk["da_dong"]:
+        hang += [
+            ("Tỷ lệ thắng", f"{pt(tk['ty_le_thang'], False, 0)} ({tk['thang']} thắng / {tk['thua']} thua)",
+             "% lệnh đã bán có lãi"),
+            ("Lãi/lỗ bình quân mỗi lệnh", pt(tk["lai_tb"]), "dương là công cụ đang kiếm được tiền"),
+            ("Lệnh thắng / thua trung bình", f"{pt(tk['lai_tb_thang'])} / {pt(tk['lo_tb_thua'])}",
+             "lãi khi đúng phải lớn hơn lỗ khi sai"),
+            ("Hệ số lợi nhuận", _hs(tk["he_so_loi_nhuan"]), "tổng % lãi ÷ tổng % lỗ; > 1,5 là tốt"),
+        ]
+    if tk.get("da_ro"):
+        hang.append(("Tỷ lệ chính xác", f"{pt(tk['ty_le_chinh_xac'], False, 0)} ({tk['chinh_xac']}/{tk['da_ro']})",
+                     f"% {ten} chạm mục tiêu 1 (≈ +20%) trước khi phải bán"))
+    if tk["dang_mo"]:
+        hang.append(("Đang giữ – lãi/lỗ tạm tính", pt(tk["lai_tb_mo"]), f"bình quân các {ten} chưa bán"))
+    if not _nan(tk.get("vuot_vnindex_tb")):
+        hang.append(("Hơn VN-Index mỗi lệnh", pt(tk["vuot_vnindex_tb"]), "so với VN-Index cùng thời gian nắm giữ"))
+    tr = "".join(f"<tr><td class='dai'>{e(a)}" + (f"<div class='nho mut'>{e(c)}</div>" if c else "") +
+                 f"</td><td><b>{e(b)}</b></td></tr>" for a, b, c in hang)
+    return f"<table class='chi-so'><tbody>{tr}</tbody></table>"
+
+
+def _phan_nhat_ky_html(bc: dict) -> list[str]:
+    e = html.escape
+    nk = bc.get("nhat_ky") or {}
+    out = []
+    if nk.get("bat"):
+        tk, (muc, giai_thich) = nk["thong_ke"], nk["tin_cay"]
+        out.append(f"<h2>📒 Nhật ký gợi ý – hiệu quả thực tế ({tk['tong']} gợi ý)</h2>")
+        out.append(f"<p class='card'><b>Độ tin cậy: {e(muc)}.</b> {e(giai_thich)}</p>")
+        if tk["tong"]:
+            out.append(_bang_chi_so_html(tk))
+        else:
+            out.append(f"<p class='mut'>{e(dong_thong_ke(tk)[0])}</p>")
+        if nk.get("moi"):
+            out.append(f"<p>Gợi ý mới ghi vào nhật ký lần này: <b>{e(', '.join(nk['moi']))}</b></p>")
+        mo, dong = _nk_mo(nk), _nk_dong(nk)
+        if mo:
+            out.append("<h3>Đang giữ</h3>" + _bang_html(COT_NK_MO, mo))
+        if dong:
+            out.append(f"<h3>Đã bán ({len(dong)})</h3>" + _bang_html(COT_NK_DONG, dong))
+    kd = nk.get("kiem_dinh")
+    if kd and kd.get("thong_ke", {}).get("tong"):
+        muc, giai_thich = nk["tin_cay_kiem_dinh"]
+        out.append(f"<h2>🧪 Kiểm định quá khứ (ước tính)</h2><p class='mut'>Mọi tín hiệu breakout của {kd['so_ma']} mã từ "
+                   f"{e(ngay_vn(kd['tu_ngay']))} đến {e(ngay_vn(kd['ngay']))}, bán theo đúng quy tắc của công cụ.</p>")
+        out.append(f"<p class='card'><b>Độ tin cậy: {e(muc)}.</b> {e(giai_thich)}</p>")
+        out.append(_bang_chi_so_html(kd["thong_ke"], "tín hiệu"))
+        if kd.get("gan_nhat"):
+            out.append("<h3>Tín hiệu gần nhất</h3>" + _bang_html(COT_KIEM_DINH, list(reversed(kd["gan_nhat"]))))
+    if out:
+        out.append(f"<p class='mut'>{e(Y_NGHIA_CHI_SO)}</p>")
+    return out
 
 
 def html_bao_cao(bc: dict) -> str:
@@ -325,10 +527,11 @@ def html_bao_cao(bc: dict) -> str:
     if bc.get("canh_bao_phien"):
         out.append(f"<p class='card BAN'>⚠️ {e(bc['canh_bao_phien'])}</p>")
     out.append(f"<h2>Bối cảnh thị trường</h2><div class='card'>VN-Index <b>{g(tt['gia'])}</b> ({pt(tt['thay_doi'])}) – "
-               f"<b>{e(tt['trang_thai'])}</b>. {e(tt['loi_khuyen'])}.</div>")
+               f"<b>{e(tt['trang_thai'])}</b>. {e(tt['loi_khuyen'])}."
+               + (f"<br><b>{e(tom_tat_tin_cay(bc))}</b>" if tom_tat_tin_cay(bc) else "") + "</div>")
     nhom = bc["nhom"]
-    co = False
-    for ma_nhom in ("MUA", "MUA_GAN", "CHO", "XA", "CHAY", "BAN"):
+    co = bool(bc.get("chi_nhat_ky"))
+    for ma_nhom in (() if bc.get("chi_nhat_ky") else ("MUA", "MUA_GAN", "CHO", "XA", "CHAY", "BAN")):
         ds = nhom.get(ma_nhom) or []
         if not ds:
             continue
@@ -345,12 +548,11 @@ def html_bao_cao(bc: dict) -> str:
             out.append("<ul>" + "".join(li) + "</ul>")
     if not co:
         out.append("<p class='card'>Không có mã nào khớp mẫu hình – đứng ngoài cũng là một vị thế.</p>")
+    out += _phan_nhat_ky_html(bc)
     if bc.get("danh_muc"):
         out.append("<h2>Danh mục của bạn</h2>" + _bang_html(COT_DANH_MUC, bc["danh_muc"]))
     for k in bc.get("chi_tiet") or []:
         out.append(f"<h2>{e(k['ma'])}</h2><pre class='card'>{e(chi_tiet_text(k))}</pre>")
-    if bc.get("kiem_dinh"):
-        out.append(f"<h2>Kiểm định tín hiệu</h2><pre class='card'>{e(bc['kiem_dinh'])}</pre>")
     lich = "".join(f"<tr><td class='l'>{e(a)}</td><td>{b}</td><td class='l'><code>{e(c)}</code></td>"
                    f"<td class='dai'>{e(d)}</td></tr>" for a, b, c, d in LICH_CHAY)
     out.append("<h2>Giờ chạy khuyến nghị</h2><div class='wrap'><table><thead><tr><th class='l'>Thời điểm</th><th>Mức</th>"
@@ -384,6 +586,22 @@ def ghi_csv(ket_qua: list[dict], duong_dan: str):
             w.writerow(hang)
 
 
+COT_CSV_NHAT_KY = ["id", "ma", "san", "loai", "ngay_goi_y", "ngay_breakout", "gia_vao", "pivot", "cat_lo",
+                   "muc_tieu_1", "muc_tieu_2", "trang_thai", "ket_qua", "ngay_dong", "gia_dong", "gia_hien_tai",
+                   "ngay_cap_nhat", "lai", "lai_max", "lo_max", "so_phien", "cham_mt1", "cham_mt2", "dung_lo",
+                   "vnindex_lai", "vuot_vnindex", "diem", "rs_pct", "kl_ratio", "thi_truong"]
+
+
+def ghi_csv_nhat_ky(goi_y: list[dict], duong_dan: str):
+    """Nhật ký gợi ý dạng bảng tính (mở được bằng Excel)."""
+    with open(duong_dan, "w", encoding="utf-8-sig", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(COT_CSV_NHAT_KY)
+        for x in sorted(goi_y, key=lambda x: (x.get("ngay_goi_y") or "", x.get("ma") or "")):
+            w.writerow(["" if x.get(c) is None or (isinstance(x.get(c), float) and math.isnan(x[c]))
+                        else (round(x[c], 4) if isinstance(x.get(c), float) else x[c]) for c in COT_CSV_NHAT_KY])
+
+
 def ghi_tat_ca(bc: dict, thu_muc: str, ten: str) -> list[str]:
     os.makedirs(thu_muc, exist_ok=True)
     tep = []
@@ -395,7 +613,13 @@ def ghi_tat_ca(bc: dict, thu_muc: str, ten: str) -> list[str]:
         with open(os.path.join(thu_muc, f"moi-nhat.{duoi}"), "w", encoding="utf-8") as f:
             f.write(noi_dung)
         tep.append(p)
-    p = os.path.join(thu_muc, f"{ten}.csv")
-    ghi_csv(bc["tat_ca"], p)
-    tep.append(p)
+    if bc["tat_ca"]:
+        p = os.path.join(thu_muc, f"{ten}.csv")
+        ghi_csv(bc["tat_ca"], p)
+        tep.append(p)
+    nk = bc.get("nhat_ky") or {}
+    if nk.get("bat") and nk.get("goi_y"):
+        p = os.path.join(thu_muc, "nhat-ky-goi-y.csv")
+        ghi_csv_nhat_ky(nk["goi_y"], p)
+        tep.append(p)
     return tep

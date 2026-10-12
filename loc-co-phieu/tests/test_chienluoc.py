@@ -93,7 +93,12 @@ class TestMauMSR(unittest.TestCase):
         ls = lich_su_tin_hieu(du_lieu("MSR"), CFG)
         h = [x for x in ls if x["ngay"] == "2026-09-22"]
         self.assertEqual(len(h), 1)
-        self.assertTrue(h[0]["ket_qua"].startswith("Đạt"))
+        self.assertEqual(h[0]["ket_qua"], "Đang mở")          # chưa vi phạm quy tắc bán nào
+        self.assertEqual(h[0]["cham_mt1"], "2026-10-01")       # đã chạm mục tiêu 1 (59,04)
+        self.assertGreater(h[0]["lai"], 0.3)
+        dau_nam = [x for x in ls if x["ngay"] == "2026-01-20"][0]
+        self.assertEqual(dau_nam["ket_qua"], "Dừng lỗ động")  # sóng tháng 1–2: chốt theo dừng lỗ động
+        self.assertGreater(dau_nam["lai"], 0.2)
 
 
 class TestKhac(unittest.TestCase):

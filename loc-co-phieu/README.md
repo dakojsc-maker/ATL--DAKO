@@ -40,13 +40,15 @@ cáo HTML.
 | `python loc_co_phieu.py --ma DRI MSR HPG` | Phân tích chi tiết: bảng kiểm từng điều kiện, các mức giá, khung tuần, lịch sử tín hiệu của mã |
 | `python loc_co_phieu.py --ma DRI MSR --ngay 2026-09-22` | Xem công cụ sẽ báo gì vào cuối một phiên trong quá khứ (để đối chiếu, học mẫu) |
 | `python loc_co_phieu.py --von 500` | Gợi ý số cổ phiếu nên mua với tổng vốn 500 triệu (mỗi lệnh chỉ rủi ro 1% vốn, mỗi mã ≤ 25% vốn) |
-| `python loc_co_phieu.py --kiem-dinh` | Thống kê kết quả mọi tín hiệu trong ~1,5 năm dữ liệu: tỷ lệ thắng, lãi/lỗ bình quân |
+| `python loc_co_phieu.py --hieu-qua` | Chỉ cập nhật **nhật ký gợi ý**: lời/lỗ từng gợi ý trước đây, tỷ lệ thắng, độ tin cậy (nhanh) |
+| `python loc_co_phieu.py --kiem-dinh` | In thêm danh sách tín hiệu gần nhất của phần kiểm định quá khứ (~1,5 năm dữ liệu) |
 | `python loc_co_phieu.py --gio` | Xem đang ở phiên nào và lúc này nên chạy lệnh gì |
 
 Các tuỳ chọn khác: `--san UPCOM` (chỉ quét một sàn), `--gtgd 5` (GTGD tối thiểu 5 tỷ/phiên), `--gia 10`,
 `--top 50`, `--nguon KBS,VCI`, `--khong-cache`, `--csv-dir thu-muc/` (chạy offline). Xem đầy đủ bằng `python loc_co_phieu.py -h`.
 
-Kết quả được in ra màn hình và lưu vào `ket-qua/` gồm tệp `.md`, `.html` và `.csv`. Hai tệp `moi-nhat.html` và
+Kết quả được in ra màn hình và lưu vào `ket-qua/` gồm tệp `.md`, `.html`, `.csv` và `nhat-ky-goi-y.csv` (nhật ký gợi ý,
+mở được bằng Excel). Hai tệp `moi-nhat.html` và
 `moi-nhat.md` luôn là kết quả lần chạy gần nhất.
 
 ## 3. Nên gửi yêu cầu lọc lúc mấy giờ?
@@ -103,7 +105,45 @@ Giải thích các cột:
   dùng để xếp hạng.
 - **Bối cảnh thị trường** (đầu báo cáo): VN-Index so với MA20/MA50 và số ngày phân phối, kèm gợi ý tỷ trọng giải ngân.
 
-## 5. Khai báo danh mục đang giữ
+## 5. Nhật ký gợi ý: công cụ có đáng tin không?
+
+Mỗi gợi ý **MUA** (hoặc "còn trong vùng mua") được tự động ghi vào [`nhat-ky/goi-y.json`](nhat-ky/goi-y.json), mỗi
+nhịp breakout của một mã chỉ ghi một lần. Tín hiệu tạm thời trong phiên (khối lượng mới là dự phóng) không được ghi, và
+chạy lại quá khứ (`--ngay`) không đụng tới nhật ký. Mỗi lần chạy sau đó, công cụ đánh giá lại từng gợi ý chưa đóng như
+thể đã **mua giá đóng cửa phiên gợi ý** rồi **bán đúng quy tắc của công cụ**, kiểm tra theo thứ tự trong từng phiên:
+
+1. Giá thấp nhất chạm mức cắt lỗ thì bán ở mức đó (mở cửa đã thấp hơn thì bán giá mở cửa). Khi đã lãi ≥ 10%, mức này
+   được dời lên giá vào (hoà vốn).
+2. Đóng cửa thấp hơn pivot quá 3% (breakout thất bại) thì bán giá đóng cửa.
+3. Khi đã lãi ≥ 20%: đóng cửa dưới max(giá vào +5%, MA20) thì bán giá đóng cửa (dừng lỗ động). Nếu đã lãi ≥ 35% hoặc
+   giá cách MA20 ≥ 15%, dùng cả MA10.
+4. Từ phiên thứ 6: đóng cửa dưới MA20 kèm KL ≥ bình quân 20 phiên, hoặc thủng MA50, thì bán giá đóng cửa.
+
+Báo cáo luôn có bảng **Đang giữ** (lãi/lỗ đến hôm nay, mức dừng lỗ hiện tại, ngày chạm mục tiêu 1), bảng **Đã bán**
+(ngày bán, giá bán, lãi/lỗ, lý do, so với VN-Index cùng thời gian) và các chỉ số:
+
+| Chỉ số | Ý nghĩa |
+|---|---|
+| Tỷ lệ thắng | % lệnh đã bán có lãi (kèm số lệnh thắng/thua/hoà) |
+| Tỷ lệ chính xác | % gợi ý chạm mục tiêu 1 (pivot +20%) trước khi phải bán |
+| Lãi/lỗ bình quân mỗi lệnh | Kỳ vọng mỗi lần làm theo gợi ý; dương là công cụ có lợi thế |
+| Lệnh thắng / thua trung bình | Lãi khi đúng phải lớn hơn hẳn lỗ khi sai |
+| Hệ số lợi nhuận | Tổng % lãi ÷ tổng % lỗ; > 1,5 là tốt |
+| Hơn VN-Index | Mỗi lệnh hơn/kém VN-Index cùng thời gian nắm giữ bao nhiêu |
+
+**Kết luận** được ghi bằng lời: *TIN CẬY*, *CÓ LỢI THẾ NHẸ* hoặc *CHƯA HIỆU QUẢ*. Khi chưa đủ 10 lệnh đã bán thì kết
+luận là *CHƯA ĐỦ DỮ LIỆU*, và cần 30 lệnh trở lên mới bỏ được chữ "(tạm thời)". Trong lúc chờ, phần **Kiểm định quá khứ**
+áp dụng đúng bộ quy tắc trên cho mọi tín hiệu breakout trong ~1,5 năm dữ liệu của toàn thị trường để ước tính độ tin cậy
+ngay. Kết quả này chỉ là ước tính: danh sách mã hiện tại không gồm mã đã huỷ niêm yết, và chưa trừ phí, thuế.
+
+DRI và MSR (breakout 22/9/2026) là hai ca dùng để **xây dựng** quy tắc, nên không được đưa vào nhật ký thực tế để tránh tự
+chấm điểm cho mình. Hai ca này chỉ xuất hiện trong phần kiểm định quá khứ.
+
+**Không mất lịch sử khi dùng Claude trên web:** mỗi cuộc trò chuyện là một nhánh git riêng. Mỗi lần chạy, công cụ `git
+fetch` rồi gộp nhật ký của mọi nhánh trên GitHub; sau đó Claude commit tệp nhật ký lên nhánh của cuộc trò chuyện hiện tại.
+Tắt việc gộp bằng `--khong-dong-bo`, tắt hẳn nhật ký bằng `--khong-nhat-ky`, đổi tệp nhật ký bằng `--nhat-ky TỆP`.
+
+## 6. Khai báo danh mục đang giữ
 
 Tạo tệp `danh-muc.txt` theo mẫu [`danh-muc.mau.txt`](danh-muc.mau.txt). Mỗi dòng gồm: `MÃ GIÁ_MUA [SỐ_LƯỢNG] [NGÀY_MUA]`.
 Nên ghi ngày mua: công cụ dựa vào đó để tính dừng lỗ động theo mức lãi cao nhất đã đạt, nên dừng lỗ chỉ nâng lên chứ không
@@ -111,7 +151,7 @@ hạ xuống. Hành động trả về là một trong các mức: **NẮM GIỮ
 Tệp `danh-muc.txt` nằm trong `.gitignore` nên không bị đẩy lên GitHub. Khi dùng Claude trên web, chỉ cần nhắn
 danh mục trong khung chat, Claude sẽ tự tạo tệp.
 
-## 6. Dùng qua Claude ("lọc cổ phiếu cho tôi")
+## 7. Dùng qua Claude ("lọc cổ phiếu cho tôi")
 
 Repo có sẵn kỹ năng [`.claude/skills/loc-co-phieu`](../.claude/skills/loc-co-phieu/SKILL.md). Trong Claude Code, chỉ cần gõ
 **`/loc-co-phieu`** hoặc nhắn *"lọc cổ phiếu"*, *"kiểm tra danh mục"*, *"phân tích HPG theo mẫu DRI"*. Claude sẽ xem giờ
@@ -129,7 +169,7 @@ dchart-api.vndirect.com.vn
 Hướng dẫn chi tiết: <https://code.claude.com/docs/en/cloud-environments#network-access>. Cách khác là chạy công cụ trên
 máy tính của bạn (Claude Code bản cài đặt hoặc chạy trực tiếp bằng Python).
 
-## 7. Nguồn dữ liệu
+## 8. Nguồn dữ liệu
 
 Công cụ thử lần lượt các nguồn miễn phí sau. Nguồn nào lỗi liên tục sẽ bị bỏ qua và chuyển sang nguồn kế tiếp:
 
@@ -148,20 +188,23 @@ Công cụ thử lần lượt các nguồn miễn phí sau. Nguồn nào lỗi 
 - Dữ liệu đệm nằm ở `.cache/` (có thể xoá bất cứ lúc nào). Công cụ tự phát hiện khi giá lịch sử bị điều chỉnh (chia cổ tức,
   tách cổ phiếu) và tải lại toàn bộ mã đó.
 
-## 8. Tinh chỉnh
+## 9. Tinh chỉnh
 
 Mọi ngưỡng nằm trong [`locphieu/cauhinh.py`](locphieu/cauhinh.py), mỗi ngưỡng đều có chú thích, ví dụ: biên độ nền tối đa,
-mức cạn cung, KL breakout, % cắt lỗ, độ dài nền. Sau khi chỉnh, chạy `--kiem-dinh` để xem thay đổi đó tốt lên hay xấu đi
+mức cạn cung, KL breakout, % cắt lỗ, độ dài nền. Sau khi chỉnh, quét lại toàn thị trường rồi so phần kiểm định quá khứ
+để xem thay đổi đó tốt lên hay xấu đi
 trên dữ liệu quá khứ.
 
-## 9. Kiểm thử
+## 10. Kiểm thử
 
 ```bash
 python -m unittest discover -s tests -t .
 ```
 Bộ kiểm thử dùng **dữ liệu mô phỏng** DRI/MSR dựng lại từ 2 ảnh biểu đồ (`tests/du_lieu_mau.py`). Nó xác nhận công cụ báo
 "theo dõi" trong tuần tích lũy, báo **MUA đúng phiên 22/9/2026**, không báo mua lặp, báo bán khi breakout thất bại, dự phóng
-KL trong phiên và đọc đúng định dạng JSON của từng nguồn.
+KL trong phiên và đọc đúng định dạng JSON của từng nguồn. Phần nhật ký được kiểm tra: ghi gợi ý đúng một lần, cắt lỗ khi
+giá mở cửa giảm sâu, breakout thất bại, giá điều chỉnh vì cổ tức không làm sai kết quả, các chỉ số thống kê, và gộp nhật
+ký từ nhiều nhánh git.
 
 ---
 *Công cụ hỗ trợ ra quyết định, không phải lời khuyên đầu tư. Luôn tuân thủ cắt lỗ.*
