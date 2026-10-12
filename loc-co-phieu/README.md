@@ -170,8 +170,10 @@ Hướng dẫn chi tiết: <https://code.claude.com/docs/en/cloud-environments#n
 máy tính của bạn (Claude Code bản cài đặt hoặc chạy trực tiếp bằng Python).
 
 **Chạy tự động theo lịch (Routines):** hai lịch được cài cho các ngày thứ 2–6 (giờ Việt Nam): 14:05 lọc nhanh danh sách
-theo dõi (`--theo-doi`) và 15:45 quét toàn thị trường. Mỗi lần chạy là một phiên Claude Code mới: phiên tự clone kho, chạy
-công cụ theo kỹ năng `loc-co-phieu`, đẩy nhật ký gợi ý lên một nhánh git, gửi báo cáo HTML và gửi thông báo về điện thoại.
+theo dõi (`--theo-doi`) và 15:45 quét toàn thị trường. Cả hai lịch gửi yêu cầu vào cùng một phiên Claude Code riêng
+("⚡ Lọc cổ phiếu tự động") có quyền ghi vào kho: phiên lấy bản công cụ mới nhất từ nhánh chính, chạy theo kỹ năng
+`loc-co-phieu`, đẩy nhật ký gợi ý lên nhánh của phiên, gửi báo cáo HTML và gửi thông báo về điện thoại. (Lịch kiểu "mỗi lần
+một phiên mới" tạo từ công cụ của Claude không được gắn kho nên không đẩy được nhật ký lên GitHub.)
 Quản lý (tắt/bật, đổi giờ, xoá) tại <https://claude.ai/code/routines>. `.claude/settings.json` cho phép các lệnh của công cụ
 chạy không cần hỏi. Nếu bản `python3` mặc định của máy thiếu thư viện, công cụ tự chạy lại bằng bản Python có đủ thư viện.
 

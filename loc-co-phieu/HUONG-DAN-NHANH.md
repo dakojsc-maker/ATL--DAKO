@@ -39,11 +39,12 @@ Từ thứ Hai đến thứ Sáu, công cụ tự chạy mà bạn không cần 
 | **14:05** | Lọc nhanh danh sách theo dõi: mã nào đang vượt đỉnh nền ngay trong phiên, để bạn kịp mua trước 14:30 (HOSE, HNX) hoặc trước 15:00 (UPCOM). Tín hiệu lúc này chỉ là tạm thời. |
 | **15:45** | Quét toàn thị trường sau giờ đóng cửa: tín hiệu đã chốt, cập nhật lời/lỗ trong nhật ký gợi ý, lập danh sách theo dõi cho hôm sau. |
 
-- Mỗi lần chạy tạo một **cuộc trò chuyện mới** trong danh sách phiên của Claude Code. Tên phiên bắt đầu bằng ⚡ và tên lịch chạy.
-  Khi chạy xong, điện thoại sẽ nhận **thông báo**. Bạn cần cài ứng dụng Claude, đăng nhập đúng tài khoản và cho phép
-  ứng dụng gửi thông báo.
-- Bấm vào thông báo (hoặc mở ứng dụng Claude → **Code** → phiên mới nhất) để đọc tóm tắt và bảng báo cáo. Muốn hỏi thêm
-  về kết quả thì nhắn ngay trong cuộc trò chuyện đó.
+- Mọi kết quả chạy tự động nằm chung trong **một cuộc trò chuyện** tên **"⚡ Lọc cổ phiếu tự động (14:05 & 15:45, thứ
+  2–6)"** trong danh sách phiên của Claude Code. Lần chạy mới nhất ở cuối cuộc trò chuyện, kèm bảng báo cáo.
+- Khi chạy xong, điện thoại sẽ nhận **thông báo** một dòng. Bạn cần cài ứng dụng Claude, đăng nhập đúng tài khoản và cho
+  phép ứng dụng gửi thông báo.
+- Bấm vào thông báo (hoặc mở ứng dụng Claude → **Code** → cuộc trò chuyện trên) để đọc tóm tắt. Muốn hỏi thêm về kết quả
+  thì nhắn ngay trong cuộc trò chuyện đó.
 - **Tắt, đổi giờ hoặc xoá lịch:** mở <https://claude.ai/code/routines> trên trình duyệt rồi chọn lịch:
   - công tắc ở trên cùng để **tắt/bật**;
   - menu cạnh tên lịch → **Edit** để đổi giờ;
