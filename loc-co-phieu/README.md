@@ -169,6 +169,12 @@ dchart-api.vndirect.com.vn
 Hướng dẫn chi tiết: <https://code.claude.com/docs/en/cloud-environments#network-access>. Cách khác là chạy công cụ trên
 máy tính của bạn (Claude Code bản cài đặt hoặc chạy trực tiếp bằng Python).
 
+**Chạy tự động theo lịch (Routines):** hai lịch được cài cho các ngày thứ 2–6 (giờ Việt Nam): 14:05 lọc nhanh danh sách
+theo dõi (`--theo-doi`) và 15:45 quét toàn thị trường. Mỗi lần chạy là một phiên Claude Code mới: phiên tự clone kho, chạy
+công cụ theo kỹ năng `loc-co-phieu`, đẩy nhật ký gợi ý lên một nhánh git, gửi báo cáo HTML và gửi thông báo về điện thoại.
+Quản lý (tắt/bật, đổi giờ, xoá) tại <https://claude.ai/code/routines>. `.claude/settings.json` cho phép các lệnh của công cụ
+chạy không cần hỏi. Nếu bản `python3` mặc định của máy thiếu thư viện, công cụ tự chạy lại bằng bản Python có đủ thư viện.
+
 ## 8. Nguồn dữ liệu
 
 Công cụ thử lần lượt các nguồn miễn phí sau. Nguồn nào lỗi liên tục sẽ bị bỏ qua và chuyển sang nguồn kế tiếp:

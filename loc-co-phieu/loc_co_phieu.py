@@ -23,6 +23,38 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
+
+def _dam_bao_thu_vien():
+    """Máy có nhiều bản Python và bản đang chạy thiếu thư viện (gặp ở máy chủ chạy theo lịch) → tự chạy lại
+    bằng bản Python có đủ numpy, pandas, requests; không có bản nào thì báo cách cài."""
+    import importlib.util
+    thieu = [m for m in ("numpy", "pandas", "requests") if importlib.util.find_spec(m) is None]
+    if not thieu:
+        return
+    import shutil
+    import subprocess
+    if not os.environ.get("LOC_CO_PHIEU_DOI_PYTHON"):
+        da_thu = {os.path.abspath(sys.executable)}
+        for p in ("/usr/bin/python3", "/bin/python3", "/usr/local/bin/python3", shutil.which("python3"),
+                  shutil.which("python")):
+            if not p or not os.path.exists(p) or os.path.abspath(p) in da_thu:
+                continue
+            da_thu.add(os.path.abspath(p))
+            try:
+                du = subprocess.run([p, "-c", "import numpy, pandas, requests"], capture_output=True,
+                                    timeout=120).returncode == 0
+            except (OSError, subprocess.SubprocessError):
+                du = False
+            if du:
+                os.environ["LOC_CO_PHIEU_DOI_PYTHON"] = "1"
+                os.execv(p, [p, os.path.abspath(__file__), *sys.argv[1:]])
+    sys.exit(f"Thiếu thư viện: {', '.join(thieu)}. Cài bằng lệnh: "
+             f"{sys.executable} -m pip install -r {os.path.join(HERE, 'requirements.txt')}")
+
+
+if __name__ == "__main__":
+    _dam_bao_thu_vien()
+
 from locphieu import baocao, nhatky  # noqa: E402
 from locphieu.cauhinh import CauHinh  # noqa: E402
 from locphieu.chienluoc import (boi_canh_thi_truong, danh_gia_nam_giu, gan_xep_hang_rs,  # noqa: E402

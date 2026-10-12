@@ -30,6 +30,29 @@ Mở **cuộc trò chuyện mới** với kho mã **ATL--DAKO**, rồi gõ một
 
 Tránh lọc lúc **9:00–10:00**: đầu phiên giá lên xuống thất thường, dễ báo sai.
 
+## Chạy tự động (đã cài sẵn)
+
+Từ thứ Hai đến thứ Sáu, công cụ tự chạy mà bạn không cần nhắn gì:
+
+| Giờ | Công cụ làm gì |
+|---|---|
+| **14:05** | Lọc nhanh danh sách theo dõi: mã nào đang vượt đỉnh nền ngay trong phiên, để bạn kịp mua trước 14:30 (HOSE, HNX) hoặc trước 15:00 (UPCOM). Tín hiệu lúc này chỉ là tạm thời. |
+| **15:45** | Quét toàn thị trường sau giờ đóng cửa: tín hiệu đã chốt, cập nhật lời/lỗ trong nhật ký gợi ý, lập danh sách theo dõi cho hôm sau. |
+
+- Mỗi lần chạy tạo một **cuộc trò chuyện mới** trong danh sách phiên của Claude Code. Tên phiên bắt đầu bằng ⚡ và tên lịch chạy.
+  Khi chạy xong, điện thoại sẽ nhận **thông báo**. Bạn cần cài ứng dụng Claude, đăng nhập đúng tài khoản và cho phép
+  ứng dụng gửi thông báo.
+- Bấm vào thông báo (hoặc mở ứng dụng Claude → **Code** → phiên mới nhất) để đọc tóm tắt và bảng báo cáo. Muốn hỏi thêm
+  về kết quả thì nhắn ngay trong cuộc trò chuyện đó.
+- **Tắt, đổi giờ hoặc xoá lịch:** mở <https://claude.ai/code/routines> trên trình duyệt rồi chọn lịch:
+  - công tắc ở trên cùng để **tắt/bật**;
+  - menu cạnh tên lịch → **Edit** để đổi giờ;
+  - menu cạnh tên lịch → **Delete** để xoá.
+
+  Cách dễ hơn là nhắn Claude, ví dụ *"tắt lịch lọc tự động"* hoặc *"đổi giờ lọc 15:45 sang 19:00"*.
+- Mỗi lần chạy dùng hạn mức gói Claude của bạn như một cuộc trò chuyện bình thường.
+- Ngày nghỉ lễ lịch vẫn chạy. Khi đó báo cáo sẽ ghi rõ là kết quả của phiên giao dịch gần nhất.
+
 Lần lọc đầu tiên trong mỗi cuộc trò chuyện mất khoảng 5–10 phút. Claude sẽ trả lời bằng tiếng Việt và gửi kèm một bảng
 báo cáo. Bạn chỉ cần đọc các phần sau:
 - **MUA**: mua trong khoảng giá ghi sẵn, đồng thời ghi lại **giá cắt lỗ** (giá phải bán nếu sai).
