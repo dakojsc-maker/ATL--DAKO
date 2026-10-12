@@ -50,53 +50,56 @@ class TestNhatKy(unittest.TestCase):
         for d in pd.bdate_range("2026-09-14", "2026-10-09"):
             for g in chay_ngay(nk, self.dl, self.vn, d):
                 ghi[g["id"]] = d.strftime("%Y-%m-%d")
-        self.assertEqual(ghi, {"DRI-2026-09-22": "2026-09-22", "MSR-2026-09-22": "2026-09-22"})
+        self.assertEqual(ghi, {"MSR-2026-09-21": "2026-09-21", "DRI-2026-09-23": "2026-09-23"})
         self.assertEqual(len(nk["goi_y"]), 2)                       # không ghi trùng ở các ngày sau
         dri = next(g for g in nk["goi_y"] if g["ma"] == "DRI")
         self.assertEqual(dri["loai"], "MUA")
-        self.assertAlmostEqual(dri["gia_vao"], 14.32, places=2)
+        self.assertAlmostEqual(dri["gia_vao"], 14.50, places=2)
         self.assertEqual(dri["trang_thai"], "DANG_MO")
-        self.assertAlmostEqual(dri["lai"], 16.90 / 14.32 - 1, places=3)
-        self.assertEqual(dri["cham_mt1"], "2026-10-09")
-        self.assertAlmostEqual(dri["dung_lo"], 14.32, places=2)     # đã dời dừng lỗ về hoà vốn
+        self.assertAlmostEqual(dri["lai"], 16.90 / 14.50 - 1, places=3)
+        self.assertEqual(dri["cham_mt1"], "2026-10-09")              # mục tiêu 1 = 17,00; phiên 9/10 cao nhất 17,20
+        self.assertAlmostEqual(dri["dung_lo"], 14.50, places=2)     # đã dời dừng lỗ về hoà vốn
         self.assertIsNotNone(dri.get("vuot_vnindex"))
+        msr = next(g for g in nk["goi_y"] if g["ma"] == "MSR")
+        self.assertEqual(msr["trang_thai"], "DANG_MO")
+        self.assertGreater(msr["dung_lo"], 55)                      # dừng lỗ động bám MA10
 
     def test_breakout_that_bai_duoc_ghi_lo(self):
-        dl = {"DRI": them_phien(cat(self.dl["DRI"], "2026-09-22"), [
-            ("2026-09-23", 14.20, 14.30, 13.80, 13.90, 1.6e6),
-            ("2026-09-24", 13.90, 13.95, 13.50, 13.60, 1.8e6)])}
+        dl = {"DRI": them_phien(cat(self.dl["DRI"], "2026-09-23"), [
+            ("2026-09-24", 14.40, 14.45, 14.00, 14.05, 1.6e6),
+            ("2026-09-25", 14.00, 14.05, 13.60, 13.65, 1.8e6)])}         # 13,65 < 14,17 − 3%
         nk = nhatky.rong()
-        chay_ngay(nk, dl, self.vn, "2026-09-22")
-        chay_ngay(nk, dl, self.vn, "2026-09-24")
+        chay_ngay(nk, dl, self.vn, "2026-09-23")
+        chay_ngay(nk, dl, self.vn, "2026-09-25")
         g = nk["goi_y"][0]
         self.assertEqual(g["trang_thai"], "DA_DONG")
         self.assertEqual(g["ket_qua"], "Breakout thất bại")
-        self.assertAlmostEqual(g["lai"], 13.60 / 14.32 - 1, places=3)
-        self.assertEqual(g["ngay_dong"], "2026-09-24")
+        self.assertAlmostEqual(g["lai"], 13.65 / 14.50 - 1, places=3)
+        self.assertEqual(g["ngay_dong"], "2026-09-25")
 
     def test_cat_lo_khi_gap_giam(self):
-        dl = {"DRI": them_phien(cat(self.dl["DRI"], "2026-09-22"), [
-            ("2026-09-23", 13.00, 13.10, 12.80, 12.90, 2.5e6)])}           # mở cửa dưới mức cắt lỗ 13,32
+        dl = {"DRI": them_phien(cat(self.dl["DRI"], "2026-09-23"), [
+            ("2026-09-24", 13.30, 13.40, 13.10, 13.20, 2.5e6)])}         # mở cửa dưới mức cắt lỗ 13,48
         nk = nhatky.rong()
-        chay_ngay(nk, dl, self.vn, "2026-09-22")
         chay_ngay(nk, dl, self.vn, "2026-09-23")
+        chay_ngay(nk, dl, self.vn, "2026-09-24")
         g = nk["goi_y"][0]
         self.assertEqual(g["ket_qua"], "Cắt lỗ")
-        self.assertAlmostEqual(g["gia_dong"], 13.00, places=2)        # bán giá mở cửa
+        self.assertAlmostEqual(g["gia_dong"], 13.30, places=2)        # bán giá mở cửa
         self.assertLess(g["lai"], -0.07)
 
     def test_gia_dieu_chinh_co_tuc_khong_lam_sai_ket_qua(self):
         nk = nhatky.rong()
-        chay_ngay(nk, self.dl, self.vn, "2026-09-22")
+        chay_ngay(nk, self.dl, self.vn, "2026-09-23")
         dieu_chinh = {m: d.assign(**{c: d[c] * 0.9 for c in ("open", "high", "low", "close")}) for m, d in self.dl.items()}
         nhatky.cap_nhat(nk, dieu_chinh, self.vn, CFG)
         dri = next(g for g in nk["goi_y"] if g["ma"] == "DRI")
-        self.assertAlmostEqual(dri["lai"], 16.90 / 14.32 - 1, places=3)
+        self.assertAlmostEqual(dri["lai"], 16.90 / 14.50 - 1, places=3)
         self.assertAlmostEqual(dri["gia_hien_tai"], 16.90, places=2)   # hiển thị theo thang giá lúc gợi ý
 
     def test_luu_va_tai_lai(self):
         nk = nhatky.rong()
-        chay_ngay(nk, self.dl, self.vn, "2026-09-22")
+        chay_ngay(nk, self.dl, self.vn, "2026-09-23")
         nk["goi_y"][0]["gia_dong"] = float("nan")
         with tempfile.TemporaryDirectory() as tmp:
             p = os.path.join(tmp, "nhat-ky", "goi-y.json")

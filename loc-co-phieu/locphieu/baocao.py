@@ -313,7 +313,8 @@ def chi_tiet_text(k: dict) -> str:
             moc += f", breakout phiên {ngay_vn(k['ngay_breakout'])}"
         out.append(f"Bảng kiểm mẫu hình ({moc}):")
         for d in k["dieu_kien"]:
-            out.append(f"  {'✓' if d['dat'] else '✗'} {d['ten']}: {d['gia_tri']}")
+            dau = "✓" if d["dat"] else ("–" if d.get("tuy_chon") else "✗")
+            out.append(f"  {dau} {d['ten']}: {d['gia_tri']}")
     muc = []
     for ten, khoa in (("Pivot", "pivot"), ("Mua tối đa", "vung_mua"), ("Cắt lỗ", "cat_lo"),
                       ("MT1 (+20%)", "muc_tieu_1"), ("MT2 (đo cán cờ)", "muc_tieu_2"), ("Dừng lỗ động", "dung_lo_dong")):

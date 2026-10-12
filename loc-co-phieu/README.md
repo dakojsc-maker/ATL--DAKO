@@ -4,7 +4,7 @@
 
 Công cụ quét cổ phiếu HOSE, HNX và UPCOM để tìm mã đang lặp lại mẫu hình của **DRI** và **MSR** (breakout tuần 21–25/9/2026):
 
-> xu hướng lớn đi lên → rũ bỏ → tăng mạnh 4–6 tuần → **tích lũy chặt sát đỉnh 2–6 tuần, có cạn cung**
+> xu hướng lớn đi lên → rũ bỏ → tăng mạnh 4–6 tuần → **tích lũy chặt sát đỉnh 2–6 tuần, không bán tháo**
 > → **phiên vượt đỉnh nền với khối lượng ≥ 1,5× bình quân** → nắm giữ theo dừng lỗ động.
 
 Mỗi lần chạy, công cụ chia cổ phiếu thành các nhóm: **MUA** (breakout hôm nay), **còn trong vùng mua**, **theo dõi**
@@ -200,9 +200,10 @@ trên dữ liệu quá khứ.
 ```bash
 python -m unittest discover -s tests -t .
 ```
-Bộ kiểm thử dùng **dữ liệu mô phỏng** DRI/MSR dựng lại từ 2 ảnh biểu đồ (`tests/du_lieu_mau.py`). Nó xác nhận công cụ báo
-"theo dõi" trong tuần tích lũy, báo **MUA đúng phiên 22/9/2026**, không báo mua lặp, báo bán khi breakout thất bại, dự phóng
-KL trong phiên và đọc đúng định dạng JSON của từng nguồn. Phần nhật ký được kiểm tra: ghi gợi ý đúng một lần, cắt lỗ khi
+Bộ kiểm thử dùng **dữ liệu ngày thật** của DRI, MSR và VN-Index (lưu sẵn trong `tests/du_lieu/`, chạy không cần mạng).
+Nó xác nhận công cụ báo "theo dõi" trong giai đoạn tích lũy, báo **MUA MSR phiên 21/9/2026** và **MUA DRI phiên 23/9/2026**,
+không để một cây nến mở cửa vọt đẩy đỉnh nền lên, không báo mua lặp, báo bán khi breakout thất bại, dự phóng KL trong phiên
+và đọc đúng định dạng JSON của từng nguồn. Phần nhật ký được kiểm tra: ghi gợi ý đúng một lần, cắt lỗ khi
 giá mở cửa giảm sâu, breakout thất bại, giá điều chỉnh vì cổ tức không làm sai kết quả, các chỉ số thống kê, và gộp nhật
 ký từ nhiều nhánh git.
 

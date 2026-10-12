@@ -17,7 +17,10 @@ Công cụ nằm ở `loc-co-phieu/`. Quy tắc mua/bán đầy đủ ở `loc-c
 
 ## Các bước
 
-1. **Xem giờ phiên:** `python loc-co-phieu/loc_co_phieu.py --gio`. Từ đó chọn chế độ chạy (`python loc-co-phieu/loc_co_phieu.py` + tuỳ chọn):
+Chạy mọi lệnh từ thư mục gốc của kho, đúng dạng `python3 loc-co-phieu/loc_co_phieu.py …` (không ghép `cd … &&`), để khớp
+danh sách lệnh được phép chạy không cần hỏi trong `.claude/settings.json` (quan trọng khi chạy tự động theo lịch).
+
+1. **Xem giờ phiên:** `python3 loc-co-phieu/loc_co_phieu.py --gio`. Từ đó chọn chế độ chạy (`python3 loc-co-phieu/loc_co_phieu.py` + tuỳ chọn):
    - Sau 15:30, buổi tối hoặc cuối tuần → quét đầy đủ, không cần tuỳ chọn.
    - Người dùng nói "lọc nhanh"/"theo dõi", hoặc đang 14:00–14:30 hay nghỉ trưa 11:30–13:00 → `--theo-doi`. Nếu báo
      chưa có danh sách theo dõi (cuộc trò chuyện mới thường chưa có), chạy quét đầy đủ thay thế.

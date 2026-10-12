@@ -24,17 +24,23 @@ class CauHinh:
     can_co_phien: int = 60           # tìm đáy rũ bỏ trong 60 phiên (12 tuần) trước nền
     can_co_tang_min: float = 0.15    # từ đáy đó lên đỉnh nền tăng ≥ 15% (DRI +23%, MSR +58%)
 
-    # ---------- Nền tích lũy sát đỉnh ----------
-    nen_do_dai: tuple = (10, 15, 20, 25, 30)   # 2–6 tuần (DRI 4 tuần, MSR 3 tuần)
-    nen_bien_do_max: float = 0.12              # (cao nhất − thấp nhất)/cao nhất; DRI ~9%, MSR ~8%
-    nen_bien_do_dong_cua_max: float = 0.08     # cùng phép đo nhưng theo giá đóng cửa
+    # ---------- Nền tích lũy sát đỉnh (hiệu chỉnh theo dữ liệu ngày thật của DRI, MSR tháng 9/2026) ----------
+    nen_do_dai: tuple = (10, 15, 20, 25, 30)   # 2–6 tuần (DRI 3–4 tuần, MSR 3 tuần)
+    nen_bien_do_max: float = 0.15              # (cao nhất − thấp nhất)/cao nhất; DRI ~11%, MSR ~8%
+    nen_bien_do_dong_cua_max: float = 0.10     # cùng phép đo nhưng theo giá đóng cửa; DRI ~6%, MSR ~3%
     nen_hoi_max: float = 0.50                  # nền không hồi quá 50% nhịp tăng trước đó
-    kl_can_max: float = 0.75                   # KL TB 5 phiên thấp nhất trong nền ≤ 75% KL TB 50 phiên
+    phan_phoi_toi_da: int = 2                  # trong nền tối đa 2 phiên phân phối:
+    phan_phoi_giam: float = 0.02               #   giảm ≥ 2% …
+    phan_phoi_kl: float = 1.5                  #   … kèm KL ≥ 1,5× TB 50 phiên
+    kl_can_max: float = 0.75                   # điểm cộng (không bắt buộc): KL TB 5 phiên thấp nhất trong nền
+                                               # ≤ 75% KL tham chiếu (lớn hơn giữa TB 50 phiên và KL nhịp tăng)
 
     # ---------- Điểm mua (breakout) ----------
     kl_breakout_min: float = 1.5             # KL phiên vượt nền ≥ 1,5× TB 20 phiên trước đó
     vi_tri_dong_cua_min: float = 0.5         # đóng cửa ở nửa trên biên độ phiên
-    mua_toi_da_tren_pivot: float = 0.05      # không mua đuổi quá 5% trên pivot
+    mua_toi_da_tren_pivot: float = 0.05      # vùng mua tối thiểu: pivot +5% …
+    mua_toi_da_atr: float = 2.0              # … nới theo biến động: pivot + 2× ATR% (MSR: ~7%) …
+    mua_toi_da_tran: float = 0.08            # … nhưng không quá pivot +8%
     so_phien_breakout_gan: int = 5           # breakout ≤ 5 phiên trước vẫn mua được nếu còn trong vùng mua
     that_bai_duoi_pivot: float = 0.03        # đóng cửa thấp hơn pivot > 3% sau breakout = thất bại
 

@@ -3,9 +3,10 @@
 Trình tự mẫu hình (xem PHAN-TICH-DRI-MSR.md):
  1. Xu hướng lớn đi lên: giá ≥ MA100 (≈ MA20 tuần), MA100 đi lên và ≥ MA250 (≈ MA50 tuần).
  2. Rũ bỏ rồi tăng mạnh ("cán cờ"): từ đáy trong 12 tuần trước nền tăng ≥ 15%.
- 3. Nền tích lũy chặt sát đỉnh 2–6 tuần: biên độ ≤ 12% (đóng cửa ≤ 8%), không hồi quá 50% nhịp tăng,
-    có giai đoạn cạn cung (KL TB 5 phiên ≤ 75% KL TB 50 phiên), đỉnh nền ≥ 75% đỉnh 1 năm.
- 4. Điểm mua: phiên đóng cửa vượt đỉnh nền (pivot) với KL ≥ 1,5× TB 20 phiên, đóng cửa nửa trên nến.
+ 3. Nền tích lũy chặt sát đỉnh 2–6 tuần: biên độ ≤ 15% (đóng cửa ≤ 10%), không hồi quá 50% nhịp tăng,
+    không có phân phối mạnh (≤ 2 phiên giảm ≥ 1% kèm KL lớn), đỉnh nền ≥ 75% đỉnh 1 năm; cạn cung là điểm cộng.
+ 4. Điểm mua: phiên đóng cửa vượt đỉnh nền (pivot) với KL ≥ 1,5× TB 20 phiên, đóng cửa nửa trên nến; mua tối đa
+    pivot + 5–8% tuỳ độ biến động.
  5. Quản trị: cắt lỗ ≤ 7% / thủng đáy nền; chốt một phần khi +20% hoặc tăng nóng;
     phần còn lại giữ đến khi đóng cửa dưới MA20 kèm KL lớn (dừng lỗ động).
 """
@@ -17,7 +18,7 @@ import numpy as np
 import pandas as pd
 
 from .cauhinh import CauHinh
-from .chibao import hieu_suat, nen_tuan, rs_tho, rsi, sma
+from .chibao import atr, hieu_suat, nen_tuan, rs_tho, rsi, sma
 
 COT = ["open", "high", "low", "close", "volume"]
 
@@ -64,7 +65,10 @@ def tinh_chuoi(df: pd.DataFrame, kl: pd.Series, cfg: CauHinh):
     t["gtgd20"] = (C * df["volume"]).rolling(20, min_periods=10).mean() / 1e6
     t["hi250"] = H.rolling(250, min_periods=60).max()
     t["rsi14"] = rsi(C)
+    t["atr_pct"] = atr(df, 14) / C
     v5 = sma(V, 5, 3)
+    # phiên phân phối: giảm ≥ 1% kèm KL ≥ 1,5× TB 50 phiên
+    phan_phoi = ((C.pct_change() <= -cfg.phan_phoi_giam) & (V >= cfg.phan_phoi_kl * t["vol50"])).astype(int)
 
     xu_huong = (C >= t["ma100"]) & (t["ma100"] >= t["ma100"].shift(10) * 0.995)
     xu_huong &= t["ma250"].isna() | (t["ma100"] >= t["ma250"])
@@ -72,7 +76,7 @@ def tinh_chuoi(df: pd.DataFrame, kl: pd.Series, cfg: CauHinh):
     t["thanh_khoan"] = ((t["gtgd20"] >= cfg.gtgd_min) & (C >= cfg.gia_min)).fillna(False).astype(bool)
 
     cot_nen = ["pivot", "day_nen", "day_can_co", "bien_do", "bien_do_dc", "tang_truoc", "hoi",
-               "can_cung", "gan_dinh"]
+               "can_cung", "phan_phoi", "gan_dinh"]
     t["do_dai"] = np.nan
     for c in cot_nen:
         t[c] = np.nan
@@ -83,6 +87,8 @@ def tinh_chuoi(df: pd.DataFrame, kl: pd.Series, cfg: CauHinh):
         ch = C.rolling(n).max()
         cl = C.rolling(n).min()
         day_cc = L.shift(n).rolling(cfg.can_co_phien, min_periods=20).min()
+        # KL tham chiếu cho "cạn cung": lớn hơn giữa TB 50 phiên và KL bình quân của nhịp tăng ngay trước nền
+        kl_tham_chieu = pd.concat([t["vol50"], V.shift(n).rolling(20, min_periods=10).mean()], axis=1).max(axis=1)
         m = pd.DataFrame({
             "pivot": hh,
             "day_nen": ll,
@@ -91,7 +97,8 @@ def tinh_chuoi(df: pd.DataFrame, kl: pd.Series, cfg: CauHinh):
             "bien_do_dc": (ch - cl) / ch,
             "tang_truoc": hh / day_cc - 1,
             "hoi": (hh - ll) / (hh - day_cc),
-            "can_cung": v5.rolling(max(n - 4, 1)).min() / t["vol50"],
+            "can_cung": v5.rolling(max(n - 4, 1)).min() / kl_tham_chieu,
+            "phan_phoi": phan_phoi.rolling(n).sum(),
             "gan_dinh": hh / t["hi250"],
         })
         dk = {
@@ -99,7 +106,7 @@ def tinh_chuoi(df: pd.DataFrame, kl: pd.Series, cfg: CauHinh):
             "bien_do_dc": m["bien_do_dc"] <= cfg.nen_bien_do_dong_cua_max,
             "tang_truoc": m["tang_truoc"] >= cfg.can_co_tang_min,
             "hoi": (m["hoi"] <= cfg.nen_hoi_max) & (m["hoi"] >= 0),
-            "can_cung": m["can_cung"] <= cfg.kl_can_max,
+            "phan_phoi": m["phan_phoi"] <= cfg.phan_phoi_toi_da,
             "gan_dinh": m["gan_dinh"] >= cfg.gan_dinh_1nam,
         }
         hop_le = t["xu_huong"] & t["thanh_khoan"]
@@ -115,17 +122,26 @@ def tinh_chuoi(df: pd.DataFrame, kl: pd.Series, cfg: CauHinh):
     t["hop_le"] = t["do_dai"].notna()
     t["vi_tri"] = ((C - L) / (H - L)).where(H > L, 1.0)
     t["kl_ratio"] = V / t["vol20_truoc"]
-    t["pivot_truoc"] = t["pivot"].shift(1)
-    hop_le_truoc = t["hop_le"].shift(1, fill_value=False).astype(bool)
+    pv1, pv2 = t["pivot"].shift(1), t["pivot"].shift(2)
+    hl1 = t["hop_le"].shift(1, fill_value=False).astype(bool)
+    hl2 = t["hop_le"].shift(2, fill_value=False).astype(bool)
+    # Hôm qua giá chỉ "thò" lên trên đỉnh nền trong phiên (ví dụ mở cửa vọt rồi bị bán xuống) mà đóng cửa vẫn dưới
+    # đỉnh cũ: giữ đỉnh nền cũ làm pivot, không để một cây nến lẻ đẩy pivot lên (DRI 22–23/9/2026).
+    giu_cu = (hl2 & (C.shift(1) <= pv2) & (~hl1 | (pv2 < pv1))).fillna(False).astype(bool)
+    t["lech_nen"] = np.where(giu_cu, 2, 1)
+    t["pivot_truoc"] = pv1.where(~giu_cu, pv2)
+    hop_le_truoc = hl1 | giu_cu
     tho = (hop_le_truoc & (C > t["pivot_truoc"]) & (t["kl_ratio"] >= cfg.kl_breakout_min)
            & (t["vi_tri"] >= cfg.vi_tri_dong_cua_min)).fillna(False).to_numpy(bool)
     # Một nhịp breakout chỉ tính một lần: bỏ tín hiệu mà nền của nó còn chồng lên phiên breakout trước
     # (pivot bị đẩy lên theo chính nhịp tăng), trừ khi lần breakout trước đã thất bại.
-    gia, pv, dd = C.to_numpy(float), t["pivot_truoc"].to_numpy(float), t["do_dai"].shift(1).to_numpy(float)
+    gia, pv = C.to_numpy(float), t["pivot_truoc"].to_numpy(float)
+    lech, dd = t["lech_nen"].to_numpy(int), t["do_dai"].to_numpy(float)
     giu = tho.copy()
     truoc = None
     for k in np.flatnonzero(tho):
-        if truoc is not None and k - dd[k] <= truoc \
+        j = k - lech[k]
+        if truoc is not None and j - dd[j] + 1 <= truoc \
                 and np.all(gia[truoc:k] >= pv[truoc] * (1 - cfg.that_bai_duoi_pivot)):
             giu[k] = False
             continue
@@ -174,7 +190,15 @@ def tin_hieu_ban(df: pd.DataFrame, t: pd.DataFrame, kl: pd.Series, i: int, cfg: 
     r = _f(t["rsi14"].iat[i])
     if _ok(r) and r >= 80:
         kq.append(("CHU_Y", f"RSI(14) = {r:.0f} – vùng quá mua"))
+    if _ok(lai) and lai < 0.10:  # chưa có lãi đáng kể thì chưa nói chuyện chốt lời, chỉ lưu ý
+        kq = [("CHU_Y" if m == "CHOT" else m, s) for m, s in kq]
     return kq
+
+
+def vung_mua_pct(atr_pct: float, cfg: CauHinh) -> float:
+    """Khoảng được phép mua trên pivot: tối thiểu 5%, nới theo biến động (2× ATR%), tối đa 8%."""
+    nhan = cfg.mua_toi_da_atr * atr_pct if _ok(atr_pct) else 0.0
+    return min(max(cfg.mua_toi_da_tren_pivot, nhan), cfg.mua_toi_da_tran)
 
 
 def dung_lo_dong(gia: float, goc: float, cat_lo: float, ma10: float, ma20: float, cfg: CauHinh,
@@ -234,13 +258,16 @@ def _dieu_kien(t: pd.DataFrame, m: pd.DataFrame | None, df: pd.DataFrame, i: int
               _f(r["bien_do_dc"]) <= cfg.nen_bien_do_dong_cua_max, f"{_f(r['bien_do_dc']):.1%}"),
             d(f"Nền không hồi quá {cfg.nen_hoi_max:.0%} nhịp tăng", 0 <= _f(r["hoi"]) <= cfg.nen_hoi_max,
               f"hồi {_f(r['hoi']):.0%}"),
-            d(f"Cạn cung: KL TB5 thấp nhất ≤ {cfg.kl_can_max:.0%} TB50", _f(r["can_cung"]) <= cfg.kl_can_max,
-              f"{_f(r['can_cung']):.0%}"),
+            d(f"Không phân phối mạnh trong nền (≤ {cfg.phan_phoi_toi_da} phiên giảm ≥{cfg.phan_phoi_giam:.0%} "
+              f"kèm KL ≥{cfg.phan_phoi_kl:g}× TB50)", _f(r["phan_phoi"]) <= cfg.phan_phoi_toi_da,
+              f"{_f(r['phan_phoi']):.0f} phiên"),
+            dict(d(f"Cạn cung – điểm cộng: KL TB5 thấp nhất ≤ {cfg.kl_can_max:.0%} KL tham chiếu",
+                   _f(r["can_cung"]) <= cfg.kl_can_max, f"{_f(r['can_cung']):.0%}"), tuy_chon=True),
             d(f"Sát đỉnh 1 năm (≥ {cfg.gan_dinh_1nam:.0%})", _f(r["gan_dinh"]) >= cfg.gan_dinh_1nam,
               f"{_f(r['gan_dinh']):.0%} đỉnh 1 năm {_f(t['hi250'].iat[j]):.2f}"),
         ]
     if i > j:  # đánh giá phiên vượt nền
-        pv = _f(m["pivot"].iat[j]) if m is not None else float("nan")
+        pv = _f(t["pivot_truoc"].iat[i])
         out += [
             d("Đóng cửa vượt pivot", C.iat[i] > pv, f"{C.iat[i]:.2f} / pivot {pv:.2f}"),
             d(f"KL ≥ {cfg.kl_breakout_min:g}× TB20", _f(t["kl_ratio"].iat[i]) >= cfg.kl_breakout_min,
@@ -278,7 +305,13 @@ def phan_tich_ma(ma: str, df: pd.DataFrame, cfg: CauHinh | None = None, *, san: 
     b = int(bo[-1]) if len(bo) else None
     hop_le_nay = bool(t["hop_le"].iat[i])
     n_nay = int(t["do_dai"].iat[i]) if hop_le_nay else None
-    if b is not None and hop_le_nay and i - n_nay + 1 > b:
+    j_cho = i
+    # Hôm nay chỉ "thò" lên trên đỉnh nền hôm qua rồi đóng cửa lại bên dưới: phiên mai vẫn so với đỉnh nền cũ
+    # (giống quy tắc kích hoạt trong tinh_chuoi), nên hiển thị đỉnh nền cũ.
+    if i >= 1 and bool(t["hop_le"].iat[i - 1]) and C.iat[i] <= _f(t["pivot"].iat[i - 1]) and \
+            (not hop_le_nay or _f(t["pivot"].iat[i - 1]) < _f(t["pivot"].iat[i])):
+        j_cho, hop_le_nay, n_nay = i - 1, True, int(t["do_dai"].iat[i - 1])
+    if b is not None and hop_le_nay and j_cho - n_nay + 1 > b:
         b = None  # đã hình thành nền mới sau lần breakout trước → coi như thiết lập mới
 
     kq: dict = {
@@ -314,14 +347,15 @@ def phan_tich_ma(ma: str, df: pd.DataFrame, cfg: CauHinh | None = None, *, san: 
         })
         pv, dn, dcc = kq["pivot"], kq["day_nen"], kq["day_can_co"]
         kq["cat_lo"] = max(dn * 0.99, pv * (1 - cfg.cat_lo_max))
-        kq["vung_mua"] = pv * (1 + cfg.mua_toi_da_tren_pivot)
+        kq["vung_mua_pct"] = vung_mua_pct(_f(t["atr_pct"].iat[j]), cfg)
+        kq["vung_mua"] = pv * (1 + kq["vung_mua_pct"])
         kq["muc_tieu_1"] = pv * (1 + cfg.chot_loi_1)
         kq["muc_tieu_2"] = pv + (pv - dcc) if _ok(dcc) and dcc < pv else float("nan")
         kq["cach_pivot"] = gia / pv - 1
 
     # --- xác định trạng thái ---
     if b is not None:
-        j = b - 1
+        j = b - int(t["lech_nen"].iat[b])
         n_b = int(t["do_dai"].iat[j])
         gan_nen(j, n_b)
         pv = kq["pivot"]
@@ -329,25 +363,30 @@ def phan_tich_ma(ma: str, df: pd.DataFrame, cfg: CauHinh | None = None, *, san: 
         kq["so_phien_sau_bo"] = i - b
         kq["lai_tu_pivot"] = gia / pv - 1
         kq["kl_ratio_breakout"] = _f(t["kl_ratio"].iat[b])
+        gia_bo = float(C.iat[b])           # giá đóng cửa phiên breakout = giá mua chuẩn
+        kq["gia_breakout"] = gia_bo
+        # cắt lỗ: không lỗ quá 7% từ giá mua (mua hôm nay nếu còn trong vùng mua, nếu không thì giá phiên breakout)
+        kq["cat_lo"] = max(kq["day_nen"] * 0.99, gia_bo * (1 - cfg.cat_lo_max))
         if b == i:
             ma_tt = "MUA" if gia <= kq["vung_mua"] else "XA"
-            kq["cat_lo"] = max(kq["day_nen"] * 0.99, gia * (1 - cfg.cat_lo_max))
         elif gia < pv * (1 - cfg.that_bai_duoi_pivot) or gia < kq["day_nen"]:
             ma_tt = "BAN"
             kq["canh_bao"].append(f"Breakout {kq['ngay_breakout']} thất bại: giá quay lại dưới pivot "
                                   f"{pv:.2f} hơn {cfg.that_bai_duoi_pivot:.0%}")
         elif i - b <= cfg.so_phien_breakout_gan and gia <= kq["vung_mua"]:
             ma_tt = "MUA_GAN"
+            kq["cat_lo"] = max(kq["day_nen"] * 0.99, gia * (1 - cfg.cat_lo_max))
         else:
             ma_tt = "CHAY"
         if ma_tt in ("CHAY", "MUA_GAN", "XA"):
-            th = tin_hieu_ban(df, t, kl, i, cfg, gia_von=pv)
+            th = tin_hieu_ban(df, t, kl, i, cfg, gia_von=gia_bo)
             kq["canh_bao"] += [s for _, s in th]
             if any(m == "BAN" for m, _ in th) and ma_tt == "CHAY":
                 ma_tt = "BAN"
             kq["chot_mot_phan"] = any(m == "CHOT" for m, _ in th)
             dinh = float(C.iloc[b:i + 1].max())
-            muc, quy_tac = dung_lo_dong(gia, pv, kq["cat_lo"], kq["ma10"], kq["ma20"], cfg, dinh=dinh)
+            cat_lo_bo = max(kq["day_nen"] * 0.99, gia_bo * (1 - cfg.cat_lo_max))
+            muc, quy_tac = dung_lo_dong(gia, gia_bo, cat_lo_bo, kq["ma10"], kq["ma20"], cfg, dinh=dinh)
             kq["dung_lo_dong"], kq["quy_tac_dung_lo"] = muc, quy_tac
             kq["lai_cao_nhat"] = dinh / pv - 1
             if gia < muc and ma_tt == "CHAY":
@@ -363,7 +402,7 @@ def phan_tich_ma(ma: str, df: pd.DataFrame, cfg: CauHinh | None = None, *, san: 
         dk_j, dk_i, dk_n = j, b, n_b
     elif hop_le_nay:
         ma_tt = "CHO"
-        gan_nen(i, n_nay)
+        gan_nen(j_cho, n_nay)
         pv = kq["pivot"]
         if i >= 1 and _ok(t["pivot_truoc"].iat[i]) and gia > _f(t["pivot_truoc"].iat[i]):
             kq["ghi_chu"].append(f"Đã vượt đỉnh nền cũ nhưng chưa đủ điều kiện (KL {kq['kl_ratio']:.1f}× TB20, "
@@ -372,7 +411,7 @@ def phan_tich_ma(ma: str, df: pd.DataFrame, cfg: CauHinh | None = None, *, san: 
             kq["ghi_chu"].append(f"Giá đang ở nửa dưới nền: có thể mua thăm dò ≤30% quanh "
                                  f"{kq['day_nen']:.2f}–{kq['day_nen'] * 1.03:.2f}, cắt lỗ dưới "
                                  f"{kq['day_nen'] * 0.98:.2f}")
-        dk_j, dk_i, dk_n = i, i, n_nay
+        dk_j, dk_i, dk_n = j_cho, j_cho, n_nay
     else:
         ma_tt = "KHONG"
         # nền ứng viên gần nhất để giải thích còn thiếu điều kiện nào
@@ -588,8 +627,9 @@ def lich_su_tin_hieu(df: pd.DataFrame, cfg: CauHinh | None = None, t: pd.DataFra
     for b in np.flatnonzero(t["breakout"].to_numpy()):
         vao = float(C[b])
         pv = _f(t["pivot_truoc"].iat[b])
-        cat_lo = max(_f(t["day_nen"].iat[b - 1]) * 0.99, vao * (1 - cfg.cat_lo_max))
-        dcc = _f(t["day_can_co"].iat[b - 1])
+        j = b - int(t["lech_nen"].iat[b])
+        cat_lo = max(_f(t["day_nen"].iat[j]) * 0.99, vao * (1 - cfg.cat_lo_max))
+        dcc = _f(t["day_can_co"].iat[j])
         mt1 = pv * (1 + cfg.chot_loi_1)
         mt2 = pv + (pv - dcc) if _ok(dcc) and dcc < pv else float("nan")
         r = mo_phong_lenh(df, t["ma10"], t["ma20"], b, vao, pv, cat_lo, mt1, mt2, cfg, so_phien_toi_da,
