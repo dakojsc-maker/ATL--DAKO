@@ -238,7 +238,8 @@ class NguonVCI(Nguon):
             df = df[df["type"].astype(str).str.upper() == "STOCK"]
         san = df["board"] if "board" in df.columns else df.get("exchange", "")
         ten = df["organShortName"] if "organShortName" in df.columns else df.get("organName", "")
-        return pd.DataFrame({"ma": df["symbol"], "san": san, "ten": ten})
+        nganh = df["icbCode2"] if "icbCode2" in df.columns else ""
+        return pd.DataFrame({"ma": df["symbol"], "san": san, "ten": ten, "nganh": nganh})
 
 
 class NguonKBS(Nguon):

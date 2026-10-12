@@ -14,6 +14,17 @@ mức cắt lỗ, hai mục tiêu và số cổ phiếu nên mua. Nếu bạn kh
 
 Phân tích chi tiết vì sao DRI và MSR tăng, cùng toàn bộ quy tắc mua/bán: **[PHAN-TICH-DRI-MSR.md](PHAN-TICH-DRI-MSR.md)**.
 
+**Lướt sóng 5–7% (từ 10/2026).** Đây là chiến lược thứ hai, rút ra từ nghiên cứu 14 năm dữ liệu (2012–2026) của
+1.522 mã, mô phỏng đúng luật T+2, biên độ giá, phí và thuế. Chiến lược chỉ mua trong hai tình huống:
+- ngày thị trường xác nhận tăng lại sau điều chỉnh: mua mã mạnh nhất;
+- thị trường tăng thuận lợi: mua mã dẫn dắt ít biến động, sát đỉnh.
+
+Mỗi ngày tối đa 3 mã, xếp theo điểm của các chỉ báo đúng chiều ≥ 70% số năm. Chốt lời +7%, cắt lỗ −7%, giữ tối đa 20
+phiên. Kiểm định đi tiếp 2017–2026: 2.138 lệnh, thắng 55%, +0,38%/lệnh sau phí. Riêng loại "xác nhận tăng": thắng 62%,
++1,55%/lệnh. Khi thị trường giảm, chiến lược đứng ngoài. Kết quả đầy đủ, kể cả những cách đã thử nhưng thất bại (học
+máy, bắt đáy…): **[NGHIEN-CUU-LUOT-SONG.md](NGHIEN-CUU-LUOT-SONG.md)**. Mã nguồn: `locphieu/luotsong.py`; script
+nghiên cứu trong `nghien-cuu/`.
+
 ---
 
 ## 1. Cài đặt (làm một lần)

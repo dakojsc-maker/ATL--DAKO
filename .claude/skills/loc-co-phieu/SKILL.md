@@ -1,6 +1,6 @@
 ---
 name: loc-co-phieu
-description: Lọc cổ phiếu Việt Nam (HOSE/HNX/UPCOM) theo mẫu hình DRI/MSR – nền chặt sát đỉnh rồi bùng nổ khối lượng – kiểm tra tín hiệu mua/bán cho danh mục và theo dõi hiệu quả (lời/lỗ, tỷ lệ thắng) của mọi gợi ý trước đây. Dùng khi người dùng nói "lọc cổ phiếu", "quét thị trường", "lọc nhanh", "hôm nay có mã nào breakout", "kiểm tra danh mục", "nên mua/bán mã X", "phân tích mã X theo mẫu DRI/MSR", "xem hiệu quả gợi ý", "tỷ lệ thắng", "công cụ có tin cậy không" hoặc hỏi nên chạy lọc lúc mấy giờ.
+description: Lọc cổ phiếu Việt Nam (HOSE/HNX/UPCOM): chiến lược lướt sóng 5–7% đã kiểm định 13 năm và mẫu hình DRI/MSR – nền chặt sát đỉnh rồi bùng nổ khối lượng – kiểm tra tín hiệu mua/bán cho danh mục và theo dõi hiệu quả (lời/lỗ, tỷ lệ thắng) của mọi gợi ý trước đây. Dùng khi người dùng nói "lọc cổ phiếu", "quét thị trường", "lọc nhanh", "hôm nay có mã nào breakout", "kiểm tra danh mục", "nên mua/bán mã X", "phân tích mã X theo mẫu DRI/MSR", "xem hiệu quả gợi ý", "tỷ lệ thắng", "công cụ có tin cậy không" hoặc hỏi nên chạy lọc lúc mấy giờ.
 ---
 
 # Lọc cổ phiếu mẫu DRI/MSR
@@ -52,19 +52,25 @@ danh sách lệnh được phép chạy không cần hỏi trong `.claude/settin
       thực tế (từ nhật ký) và số ước tính (kiểm định quá khứ) là hai thứ khác nhau; khi "CHƯA ĐỦ DỮ LIỆU" thì không được
       nói công cụ đã đáng tin. Liệt kê gợi ý mới ghi lần này và gợi ý vừa bán (lãi/lỗ, lý do).
    3. Thị trường chung đang tốt hay xấu, nên dùng bao nhiêu % vốn.
-   4. **Mã có thể mua:** mã, giá mua trong khoảng nào (pivot → giá mua tối đa), giá cắt lỗ, giá mục tiêu, khối lượng gợi ý
+   4. **Lướt sóng 5–7%** (phần "LƯỚT SÓNG" – chiến lược đã kiểm định 13 năm, đáng tin hơn breakout): mã, giá mua tối đa,
+      chốt lời +7%, cắt lỗ −7%, giữ tối đa 20 phiên, lý do ngắn; hoặc nói rõ "không có tín hiệu – đứng ngoài" khi thị
+      trường chưa thuận lợi. Nêu kết quả kiểm định (thắng ~55%, +0,4%/lệnh; ngày xác nhận tăng thắng ~62%) và nhật ký
+      lướt sóng thực tế nếu đã có.
+   5. **Mã có thể mua (breakout DRI/MSR):** mã, giá mua trong khoảng nào (pivot → giá mua tối đa), giá cắt lỗ, giá mục tiêu, khối lượng gợi ý
       nếu có vốn.
-   5. **Mã cần theo dõi** (5–10 mã điểm cao nhất): giá cần vượt (pivot). Nhắc người dùng đặt "cảnh báo giá" tại mức đó trên
+   6. **Mã cần theo dõi** (5–10 mã điểm cao nhất): giá cần vượt (pivot). Nhắc người dùng đặt "cảnh báo giá" tại mức đó trên
       ứng dụng công ty chứng khoán.
-   6. **Danh mục đang giữ:** từng mã giữ / chốt lời một phần / bán / cắt lỗ, kèm lý do ngắn và mức dừng lỗ.
-   7. Mã đang chạy có cảnh báo tăng nóng hoặc bán.
-   8. Lần chạy tiếp theo nên vào lúc nào (14:00–14:25 nếu muốn mua trong phiên; sau 15:30 để có tín hiệu chốt).
+   7. **Danh mục đang giữ:** từng mã giữ / chốt lời một phần / bán / cắt lỗ, kèm lý do ngắn và mức dừng lỗ.
+   8. Mã đang chạy có cảnh báo tăng nóng hoặc bán.
+   9. Lần chạy tiếp theo nên vào lúc nào (14:00–14:25 nếu muốn mua trong phiên; sau 15:30 để có tín hiệu chốt).
    Không có mã nào thì nói thẳng là không có; đứng ngoài cũng là một quyết định.
 6. Không tự sửa ngưỡng trong `locphieu/cauhinh.py` trừ khi người dùng yêu cầu. Nếu sửa, chạy `--kiem-dinh` trước và sau để
    so sánh, rồi chạy `python -m unittest discover -s tests -t .` trong thư mục `loc-co-phieu`.
 
 ## Nguyên tắc khi tư vấn
 - Mọi gợi ý mua đều phải kèm giá cắt lỗ; không khuyến khích mua đuổi quá pivot +5%.
-- Thị trường chung "ĐIỀU CHỈNH / GIẢM" thì nhấn mạnh việc hạn chế mua mới.
+- Thị trường chung "ĐIỀU CHỈNH / GIẢM" thì nhấn mạnh việc hạn chế mua mới. Nghiên cứu 14 năm
+  (`loc-co-phieu/NGHIEN-CUU-LUOT-SONG.md`) cho thấy mua lúc này lỗ bình quân – đứng ngoài là quyết định đúng nhất.
+- Không hứa tỷ lệ thắng cao hơn số đã kiểm định; nhắc lợi thế lướt sóng là mỏng và cần nhật ký ≥ 30 lệnh đã đóng.
 - Công cụ không tự đặt lệnh: người dùng tự đặt lệnh và cảnh báo giá trên ứng dụng chứng khoán của họ.
 - Ghi rõ đây là công cụ hỗ trợ, không phải lời khuyên đầu tư.

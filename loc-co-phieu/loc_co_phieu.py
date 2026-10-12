@@ -55,7 +55,9 @@ def _dam_bao_thu_vien():
 if __name__ == "__main__":
     _dam_bao_thu_vien()
 
-from locphieu import baocao, nhatky  # noqa: E402
+import pandas as pd  # noqa: E402
+
+from locphieu import baocao, luotsong, nhatky  # noqa: E402
 from locphieu.cauhinh import CauHinh  # noqa: E402
 from locphieu.chienluoc import (boi_canh_thi_truong, danh_gia_nam_giu, gan_xep_hang_rs,  # noqa: E402
                                 phan_tich_ma)
@@ -212,6 +214,7 @@ def main(argv=None) -> int:
 
     # ---- vũ trụ cổ phiếu ----
     ma_chi_tiet = [m.upper() for m in args.ma] if args.ma else []
+    dsm = None
     if args.hieu_qua:
         ds = sorted(set(ma_nk_mo))
         che_do = f"nhật ký gợi ý ({len(nk['goi_y'])} gợi ý, {len(ds)} mã đang theo dõi lời/lỗ)"
@@ -327,6 +330,18 @@ def main(argv=None) -> int:
 
     tt = boi_canh_thi_truong(vnindex)
 
+    # ---- lướt sóng 5–7% (cần toàn bộ thị trường để xếp hạng chéo) ----
+    luot_song = None
+    if che_do_day_du and vnindex is not None and len(du_lieu) >= 100:
+        try:
+            ds_ls = {m: cat_den_ngay(d, den_ngay) for m, d in du_lieu.items()}
+            ty_le = ty_le_kl_da_khop(now, "HOSE") if trong_phien else 1.0
+            ls_ds, ls_tt = luotsong.goi_y(ds_ls, vnindex, pd.Series(san_da_biet), luotsong.doc_nganh(dsm),
+                                          toi_da=3, ty_le_kl=ty_le)
+            luot_song = {"goi_y": ls_ds, "thi_truong": ls_tt, "lich_su": luotsong.LICH_SU}
+        except Exception as e:  # noqa: BLE001 – không để lỗi chiến lược phụ làm hỏng cả lần lọc
+            luot_song = {"goi_y": [], "thi_truong": {}, "lich_su": luotsong.LICH_SU, "loi": str(e)}
+
     # ---- nhật ký gợi ý: ghi gợi ý MUA mới (chỉ từ nến đã hoàn chỉnh) rồi đánh giá lại các gợi ý chưa đóng ----
     goi_y_moi, kiem_dinh = [], None
     if che_do_day_du and ket_qua:
@@ -334,6 +349,8 @@ def main(argv=None) -> int:
     if dung_nk:
         if not args.hieu_qua:
             goi_y_moi = nhatky.ghi_goi_y_moi(nk, ket_qua, tt, vnindex, cfg)
+            if luot_song and luot_song["goi_y"] and not trong_phien:
+                goi_y_moi += nhatky.ghi_goi_y_luot_song(nk, luot_song["goi_y"], tt, vnindex)
         def bo_nen_do(df):  # bỏ nến hôm nay nếu đang giao dịch dở
             return df.iloc[:-1] if df is not None and trong_phien and la_ngay_hom_nay(df, now) else df
         nhatky.cap_nhat(nk, {m: bo_nen_do(d) for m, d in du_lieu.items()}, bo_nen_do(vnindex), cfg)
@@ -348,7 +365,8 @@ def main(argv=None) -> int:
         nhatky.luu_neu_doi(tep_nk, nk)
         if goi_y_moi:
             print(f"  Nhật ký: ghi thêm {len(goi_y_moi)} gợi ý mua mới – {', '.join(g['ma'] for g in goi_y_moi)}")
-    tk_nk = nhatky.thong_ke(nk["goi_y"])
+    tk_nk = nhatky.thong_ke([g for g in nk["goi_y"] if nhatky.chien_luoc(g) != nhatky.LUOT_SONG])
+    tk_ls = nhatky.thong_ke([g for g in nk["goi_y"] if nhatky.chien_luoc(g) == nhatky.LUOT_SONG])
     tk_kd = (kiem_dinh or nk.get("kiem_dinh") or {}).get("thong_ke")
 
     hien_thi = [] if args.hieu_qua else (ket_qua if not args.ma else [k for k in ket_qua if k["ma"] in ma_chi_tiet])
@@ -367,7 +385,9 @@ def main(argv=None) -> int:
             "moi": [g["id"] for g in goi_y_moi], "tep": tep_nk,
             "kiem_dinh": kiem_dinh or nk.get("kiem_dinh"),
             "tin_cay_kiem_dinh": nhatky.danh_gia_tin_cay(tk_kd, kiem_dinh=True) if tk_kd else None,
+            "thong_ke_ls": tk_ls, "tin_cay_ls": nhatky.danh_gia_tin_cay(tk_ls),
         },
+        "luot_song": luot_song,
         "chi_nhat_ky": bool(args.hieu_qua),
     }
     if not args.khong_ghi:

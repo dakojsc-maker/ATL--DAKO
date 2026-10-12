@@ -32,6 +32,10 @@ Tránh lọc lúc **9:00–10:00**: đầu phiên giá lên xuống thất thư�
 
 Lần lọc đầu tiên trong mỗi cuộc trò chuyện mất khoảng 5–10 phút. Claude sẽ trả lời bằng tiếng Việt và gửi kèm một bảng
 báo cáo. Bạn chỉ cần đọc các phần sau:
+- **🎯 LƯỚT SÓNG 5–7%** (phần đáng tin nhất, đã kiểm định 13 năm): nếu có mã, hãy mua đầu phiên sau, nhưng chỉ khi giá
+  không vượt "mua tối đa". Mua xong, đặt ngay lệnh **chốt lời +7%** và **cắt lỗ −7%** tính từ giá mua. Sau 20 phiên
+  mà chưa chạm mức nào thì bán hết. Nếu báo **"KHÔNG có tín hiệu"**, hãy đứng ngoài: theo dữ liệu, đó là quyết định
+  đúng nhất lúc thị trường giảm.
 - **MUA**: mua trong khoảng giá ghi sẵn, đồng thời ghi lại **giá cắt lỗ** (giá phải bán nếu sai).
 - **THEO DÕI**: vào ứng dụng chứng khoán, đặt **cảnh báo giá** đúng mức "pivot". Khi có báo, nhắn Claude "lọc nhanh".
 - **DANH MỤC**: làm theo chữ GIỮ / CHỐT LỜI MỘT PHẦN / BÁN / CẮT LỖ.

@@ -19,6 +19,7 @@ import pandas as pd
 from .cauhinh import CauHinh
 from .chibao import sma
 from .chienluoc import KET_QUA_MO, mo_phong_lenh
+from .luotsong import mo_phong_mot_ma
 from .thoigian import gio_vn
 
 PHIEN_BAN = 1
@@ -191,6 +192,82 @@ def ghi_goi_y_moi(nk: dict, ket_qua: list[dict], thi_truong: dict, vnindex: pd.D
     return moi
 
 
+LUOT_SONG = "luot_song"
+
+
+def chien_luoc(g: dict) -> str:
+    return g.get("chien_luoc") or "nen_chat"
+
+
+def ghi_goi_y_luot_song(nk: dict, goi_y: list[dict], thi_truong: dict, vnindex: pd.DataFrame | None) -> list[dict]:
+    """Ghi các gợi ý lướt sóng (tín hiệu cuối phiên, mua mở cửa phiên sau). Một mã đang có lệnh lướt sóng chưa đóng
+    thì không ghi thêm. Chỉ gọi với dữ liệu đã chốt phiên (không ghi tín hiệu tạm thời trong phiên)."""
+    da_co = {g.get("id") for g in nk["goi_y"]}
+    dang_mo = {g["ma"] for g in nk["goi_y"] if chien_luoc(g) == LUOT_SONG and g.get("trang_thai") != "DA_DONG"}
+    moi = []
+    for k in goi_y:
+        if k.get("du_phong_kl"):
+            continue
+        gid = f"{k['ma']}-LS-{k['ngay']}"
+        if gid in da_co or k["ma"] in dang_mo:
+            continue
+        g = {
+            "id": gid, "chien_luoc": LUOT_SONG, "ma": k["ma"], "san": k.get("san") or "", "loai": "LUOT_SONG",
+            "ngay_goi_y": k["ngay"], "ghi_luc": gio_vn().strftime("%Y-%m-%d %H:%M"),
+            "gia_tham_chieu": k["gia"], "xac_suat": k.get("p"), "chot_loi_pct": k["chot_loi_pct"],
+            "cat_lo_pct": k["cat_lo_pct"], "han_phien": k["so_phien"], "ly_do": k.get("ly_do", []),
+            "thi_truong": thi_truong.get("trang_thai", ""), "muc_thi_truong": thi_truong.get("muc"),
+            "vnindex_vao": _gia_ngay(vnindex, k["ngay"]),
+            "trang_thai": "CHO_MUA", "ket_qua": "Chờ mua", "gia_vao": None, "ngay_mua": "",
+            "ngay_dong": "", "gia_dong": None, "gia_hien_tai": k["gia"], "ngay_cap_nhat": k["ngay"],
+            "lai": None, "lai_max": None, "lo_max": None, "so_phien": 0, "cham_mt1": "", "cham_mt2": "",
+            "cat_lo": k["cat_lo"], "muc_tieu_1": k["chot_loi"], "dung_lo": k["cat_lo"],
+        }
+        nk["goi_y"].append(g)
+        da_co.add(gid)
+        dang_mo.add(k["ma"])
+        moi.append(g)
+    return moi
+
+
+def _cap_nhat_luot_song(g: dict, df: pd.DataFrame, vnindex: pd.DataFrame | None) -> bool:
+    ngay = pd.Timestamp(g["ngay_goi_y"])
+    if ngay not in df.index:
+        return False
+    # giá lịch sử có thể đã được điều chỉnh (cổ tức, tách cổ phiếu) → quy về giá lúc gợi ý
+    he_so = float(df["close"].at[ngay]) / float(g["gia_tham_chieu"])
+    if abs(he_so - 1) < 0.005:
+        he_so = 1.0
+    r = mo_phong_mot_ma(df, g.get("san") or "HOSE", ngay, g["chot_loi_pct"], g["cat_lo_pct"], int(g["han_phien"]))
+    kq = r["ket_qua"]
+    if kq == "Chờ mua":
+        return False
+    g["ngay_mua"] = r.get("ngay_mua", "")
+    if _ok(r.get("gia_vao")):
+        gv = r["gia_vao"] / he_so
+        g.update({"gia_vao": gv, "cat_lo": gv * (1 - g["cat_lo_pct"]), "dung_lo": gv * (1 - g["cat_lo_pct"]),
+                  "muc_tieu_1": gv * (1 + g["chot_loi_pct"])})
+    if kq == "Không mua được":
+        g.update({"trang_thai": "DA_DONG", "ket_qua": kq, "lai": None, "ngay_dong": g["ngay_mua"]})
+        return True
+    g.update({"lai": r.get("lai"), "lai_max": r.get("lai_max"), "lo_max": r.get("lo_max"),
+              "so_phien": r.get("so_phien", 0), "he_so_dieu_chinh": he_so if he_so != 1.0 else None})
+    if kq == "Đang giữ":
+        g.update({"trang_thai": "DANG_MO", "ket_qua": KET_QUA_MO, "gia_hien_tai": r["gia_hien_tai"] / he_so,
+                  "ngay_cap_nhat": r["ngay_cap_nhat"]})
+        ngay_cuoi = r["ngay_cap_nhat"]
+    else:
+        g.update({"trang_thai": "DA_DONG", "ket_qua": kq, "ngay_dong": r["ngay_dong"],
+                  "gia_dong": r["gia_dong"] / he_so, "gia_hien_tai": r["gia_dong"] / he_so,
+                  "ngay_cap_nhat": r["ngay_dong"], "cham_mt1": r["ngay_dong"] if kq == "Chốt lời" else ""})
+        ngay_cuoi = r["ngay_dong"]
+    vn_vao, vn_cuoi = _gia_ngay(vnindex, g["ngay_goi_y"]), _gia_ngay(vnindex, ngay_cuoi)
+    if vn_vao and vn_cuoi and _ok(g.get("lai")):
+        g["vnindex_lai"] = vn_cuoi / vn_vao - 1
+        g["vuot_vnindex"] = g["lai"] - g["vnindex_lai"]
+    return True
+
+
 def cap_nhat(nk: dict, du_lieu: dict[str, pd.DataFrame], vnindex: pd.DataFrame | None,
              cfg: CauHinh | None = None) -> int:
     """Đánh giá lại mọi gợi ý chưa đóng bằng dữ liệu mới nhất (chỉ truyền vào nến đã hoàn chỉnh).
@@ -203,6 +280,9 @@ def cap_nhat(nk: dict, du_lieu: dict[str, pd.DataFrame], vnindex: pd.DataFrame |
         df = du_lieu.get(g["ma"])
         ngay = pd.Timestamp(g["ngay_goi_y"])
         if df is None or df.empty or ngay not in df.index:
+            continue
+        if chien_luoc(g) == LUOT_SONG:
+            dem += _cap_nhat_luot_song(g, df, vnindex)
             continue
         i_vao = int(df.index.get_loc(ngay))
         # giá lịch sử có thể đã được điều chỉnh (cổ tức, tách cổ phiếu) → quy đổi các mức giá theo cùng tỷ lệ

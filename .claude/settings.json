@@ -10,7 +10,9 @@
       "Bash(git fetch:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(git merge --no-edit origin/claude/safety-training-intro-video-m2isyl:*)",
+      "Bash(git checkout -B loc-co-phieu-tu-dong:*)"
     ]
   }
 }
