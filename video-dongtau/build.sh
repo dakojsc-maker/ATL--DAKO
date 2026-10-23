@@ -5,7 +5,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 OUT=build
-NAME=Vien-STP_DAKO_Tu-van-ATVSLD-nganh-dong-tau_1080p
+NAME=Vien-STP_DAKO_Tu-van-ATVSLD-nganh-dong-tau
 FFMPEG=${FFMPEG:-ffmpeg}
 PORT=8135
 mkdir -p "$OUT"
