@@ -31,6 +31,8 @@ var FLAGTXT = {
   svc: 'Dịch vụ sơ cấp cứu, không thuộc 6 nhóm'
 };
 var STORE_KEY = 'stp_dako_tracuu_v2';
+/* chạy trong artifact của claude.ai: không tự tải file, không mở được hộp thoại in, không chia sẻ được */
+var FRAMED = !!(window.claude && typeof window.claude.use === 'function');
 
 /* Khái niệm rộng. Gõ "công nhân" thì ngoài các vị trí có chữ "công nhân" còn hiện các vị trí mà cẩm nang gọi bằng tên khác
    (thợ..., phụ hồ...) và các vị trí thuộc khối "lao động trực tiếp" của ngành. Mở rộng một chiều: gõ "thợ" chỉ ra vị trí có chữ "thợ". */
@@ -581,7 +583,7 @@ function renderListOut() {
   k += '<span>' + m.usedGroups.map(function (g) { return gb(g); }).join(' ') + '</span></div>';
   top.innerHTML = '<h2>Danh sách tư vấn' + (nm ? ' · ' + esc(nm) : '') + '</h2>' + k +
     '<div class="res-actions"><button class="btn pri" data-act="export">Tải file Word</button>' +
-    '<button class="btn" data-act="copy">Sao chép tóm tắt</button><button class="btn" data-act="print">In hoặc lưu PDF</button>' +
+    '<button class="btn" data-act="copy">Sao chép tóm tắt</button>' + (FRAMED ? '' : '<button class="btn" data-act="print">In hoặc lưu PDF</button>') +
     '<button class="btn ghost" data-act="clear-all">Xóa danh sách</button></div>';
   $('print-area').innerHTML = '<p class="print-head"><b>VIỆN STP – DAKO</b> · Đề xuất nhóm huấn luyện ATVSLĐ · Ngành ' + esc(m.ind.name) + ' · Ngày lập ' + ddmmyyyy(m.date) + '</p>' +
     '<h3 class="sec">Bảng nhân sự và nhóm huấn luyện</h3>' + tableView(m);
@@ -755,7 +757,7 @@ function renderExport() {
   });
   h += '</div><p class="hint">Tên file: ' + esc(fileName(m)) + '</p>';
   h += '<div class="sheet-actions"><button class="btn" data-act="x-close">Đóng</button>';
-  if (window.File && navigator.canShare) h += '<button class="btn" data-act="x-share">Chia sẻ</button>';
+  if (!FRAMED && window.File && navigator.canShare) h += '<button class="btn" data-act="x-share">Chia sẻ</button>';
   h += '<button class="btn pri" data-act="x-go" id="x-go">Tải file Word</button></div>';
   $('sheet').innerHTML = h;
 }
@@ -771,6 +773,19 @@ function download(blob, name) {
   document.body.appendChild(a); a.click();
   setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 6000);
 }
+/* bản HTML ngoại tuyến tải thẳng; trong artifact của claude.ai trang không được tự tải file,
+   phải lưu qua quyền "downloads" (người xem xác nhận trước khi lưu) */
+function saveFile(blob, name) {
+  if (!FRAMED) { download(blob, name); toast('Đã tạo file ' + name); return Promise.resolve(); }
+  closeExport();
+  return window.claude.use('downloads').then(function (dl) {
+    if (!dl) { toast('Trang này chưa được phép lưu file. Hãy dùng bản HTML ngoại tuyến để tải file Word.'); return; }
+    return dl.save({ filename: name, data: blob }).then(function () { toast('Đã lưu file ' + name); }, function (e) {
+      var c = e && e.code;
+      toast(c === 'declined' ? 'Đã hủy lưu file.' : c === 'rate_limited' ? 'Đang có hộp thoại lưu file mở. Đóng hộp thoại đó rồi thử lại.' : 'Không lưu được file Word. Tải lại trang rồi thử lại.');
+    });
+  });
+}
 function doExport(share) {
   var btn = $('x-go');
   if (btn) { btn.disabled = true; btn.textContent = 'Đang tạo file…'; }
@@ -783,8 +798,7 @@ function doExport(share) {
         return navigator.share({ files: [file], title: name }).catch(function () { });
       }
     }
-    download(blob, name);
-    toast('Đã tạo file ' + name);
+    return saveFile(blob, name);
   }).catch(function (e) {
     console.error(e);
     toast('Không tạo được file Word. Tải lại trang rồi thử lại.');
@@ -957,6 +971,7 @@ function init() {
   var latest = IND.map(function (i) { return i.legal.split('/').reverse().join('-'); }).sort().pop().split('-').reverse().join('/');
   $('legal-date').textContent = latest;
   $('cust-det').open = !!(S.cust.name || S.cust.heads || S.cust.contact || S.cust.advisor);
+  document.documentElement.lang = 'vi';
   document.body.dataset.view = 'find';
   renderAll();
 }

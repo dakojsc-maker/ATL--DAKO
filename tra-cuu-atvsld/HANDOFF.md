@@ -40,6 +40,16 @@ Dựng lại từ gói: HTML, data.json, app_data.json giống hệt; t3, t10, t
 - Chỉ chọn vị trí chưa có nhóm: màn hình và Word không còn bảng tổng hợp/bảng nội dung khung rỗng.
 - Logistics: thêm `'15': 'EF'` (Kho; Cảng, ICD, bãi container) vào `WORKER_BLOCKS`; "công nhân" từ 7 lên 17 vị trí (có lái xe nâng, lái cẩu, vận hành băng tải…).
 - Thêm `tests/t12.py` cho các điểm trên (bản v3 cũ: 187 lỗi; v3.1: 0).
+- Ô "Số người" rộng hơn để không cắt chữ "Chưa nhập".
+
+### Bản artifact trên claude.ai (23/10/2026)
+Đã đăng: https://claude.ai/artifact/Ev6ysu6K1HUJmPaUdLyJv9 (riêng tư, chỉ chủ sở hữu mở được cho tới khi chia sẻ từ menu Share của trang). Khai báo quyền `downloads`.
+- Cùng mã nguồn với bản ngoại tuyến. `python3 build.py --artifact` ghi `artifact/tra-cuu-atvsld.html`: không có doctype/html/head/body (claude.ai tự bọc), `<title>` "Tra cứu nhóm huấn luyện ATVSLĐ" đứng đầu.
+- `app.js` tự nhận biết đang chạy trong artifact (`window.claude.use` có sẵn, biến `FRAMED`): lưu Word qua `claude.use("downloads").save()` (người xem xác nhận), ẩn nút "In hoặc lưu PDF" và "Chia sẻ" vì khung artifact chặn in và Web Share. Bản ngoại tuyến giữ nguyên hành vi cũ.
+- Thanh dính và thông báo cộng thêm `env(safe-area-inset-*)` (vùng tai thỏ trong ứng dụng Claude); bằng 0 ở trình duyệt thường.
+- Giao diện chỉ có nền sáng (chủ đích, khớp màu tài liệu Word); nền `body` đặt rõ.
+- Thư viện docx vẫn nhúng sẵn (không lấy từ CDN). `build.py` ghi 4 ký tự U+FFFD trong thư viện thành `\uFFFD` vì công cụ đăng artifact từ chối file có ký tự này.
+- Cập nhật artifact: dựng lại bằng `build.py --artifact`, chạy `t13.py`, rồi đăng lại đúng file `artifact/tra-cuu-atvsld.html` (từ cuộc hội thoại khác thì truyền URL ở trên).
 
 ## 4. Cấu trúc gói
 
@@ -56,7 +66,8 @@ source/
   data/extract.py, mapcl.py, grp_parse.py, build_data.py, grp.py, dump.py  <- đường ống dữ liệu
   lib/docx.iife.js              <- thư viện docx 8.5.0 (bản IIFE, nhúng vào HTML)
   handbooks/01..17.docx         <- 17 cẩm nang gốc của người dùng
-  tests/t3.py, t10.py, t11.py, t12.py   <- kiểm thử tự động (Playwright)
+  tests/t3.py, t10.py, t11.py, t12.py, t13.py   <- kiểm thử tự động (Playwright)
+artifact/tra-cuu-atvsld.html   <- bản đăng artifact (build.py --artifact)
 ```
 
 ### Dựng lại và kiểm thử
@@ -77,6 +88,8 @@ python3 t10.py   # tìm kiếm: tính chất + tô vàng (kỳ vọng nbad 0, ba
 python3 t3.py    # xuất Word cả 17 ngành (kỳ vọng 17 dòng "err": None, ERRS [])
 python3 t11.py   # luồng desktop + điện thoại, có ảnh chụp trong tests/out
 python3 t12.py   # chống lặp ý, tóm tắt, in, Word khi chưa có nhóm (kỳ vọng BAD [], ERRS [])
+cd .. && python3 build.py --artifact && cd tests
+python3 t13.py   # bản artifact: bọc khung như claude.ai, giả lập quyền downloads (kỳ vọng BAD [], ERRS [])
 ```
 Xem file Word bằng mắt: `soffice --headless --convert-to pdf file.docx` rồi `pdftoppm -r 70 -png`.
 

@@ -24,7 +24,8 @@ button{cursor:pointer}
 h1,h2,h3{font-family:var(--serif);margin:0;line-height:1.25}
 
 /* ---------- top ---------- */
-.top{background:var(--green);color:#fff;position:sticky;top:0;z-index:30;box-shadow:0 1px 0 rgba(0,0,0,.15)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:31;background:var(--green)}
+.top{background:var(--green);color:#fff;position:sticky;top:env(safe-area-inset-top,0px);z-index:30;box-shadow:0 1px 0 rgba(0,0,0,.15)}
 .top-in{max-width:1280px;margin:0 auto;padding:0 16px;height:60px;display:flex;align-items:center;gap:14px}
 .brand{font-family:var(--serif);font-weight:700;font-size:1.25rem;letter-spacing:.01em;white-space:nowrap;line-height:1.2}
 .brand small{display:block;font-family:var(--sans);font-weight:400;font-size:.74rem;opacity:.85;letter-spacing:0}
@@ -95,7 +96,7 @@ button.gb[aria-pressed="false"]{background:#fff;color:var(--gx);border-style:das
 .gb.lg{font-size:.9rem;min-height:28px;padding:2px 10px}
 
 /* ---------- position list ---------- */
-.blk{position:sticky;top:60px;z-index:2;background:var(--mint);color:var(--green);font-family:var(--serif);font-weight:700;padding:8px 12px;display:flex;gap:8px;align-items:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.blk{position:sticky;top:calc(60px + env(safe-area-inset-top,0px));z-index:2;background:var(--mint);color:var(--green);font-family:var(--serif);font-weight:700;padding:8px 12px;display:flex;gap:8px;align-items:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .blk span.t{flex:1}
 .blk button{font-family:var(--sans);font-weight:600;font-size:.8rem;border:1px solid var(--green);background:#fff;color:var(--green);border-radius:var(--r);padding:3px 10px;min-height:30px}
 .plist{border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}
@@ -113,7 +114,7 @@ button.gb[aria-pressed="false"]{background:#fff;color:var(--gx);border-style:das
 .cfg-l{font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:3px}
 .stepper{display:inline-flex;align-items:center;border:1px solid var(--rule-d);border-radius:var(--r);overflow:hidden;background:#fff}
 .stepper button{width:40px;min-height:40px;border:0;background:var(--paper);font-size:1.2rem;font-weight:700;color:var(--green)}
-.stepper input{width:76px;min-height:40px;text-align:center;border:0;border-left:1px solid var(--rule);border-right:1px solid var(--rule);-moz-appearance:textfield}
+.stepper input{width:100px;min-height:40px;padding:0 4px;text-align:center;border:0;border-left:1px solid var(--rule);border-right:1px solid var(--rule);-moz-appearance:textfield}
 .stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .cond{display:flex;gap:8px;align-items:flex-start;font-size:.85rem}
@@ -190,7 +191,7 @@ details.cl[open]>summary::before{content:"–"}
 .preset b{display:block;color:var(--green)}
 .preset small{color:var(--muted)}
 .sheet-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
-.toast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);background:#12301F;color:#fff;border-radius:8px;padding:10px 16px;z-index:80;font-size:.92rem;display:none;max-width:calc(100vw - 32px)}
+.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#12301F;color:#fff;border-radius:8px;padding:10px 16px;z-index:80;font-size:.92rem;display:none;max-width:calc(100vw - 32px)}
 .toast.show{display:block}
 .noprint-note{display:none}
 
@@ -239,9 +240,9 @@ details.cl[open]>summary::before{content:"–"}
 .pane-result{background:#fff;border:1px solid var(--rule);border-radius:var(--r);min-width:0}
 @media(min-width:1000px){
   .shell{grid-template-columns:minmax(360px,4fr) minmax(0,8fr);padding-bottom:32px;align-items:start}
-  .pane-input{position:sticky;top:76px}
+  .pane-input{position:sticky;top:calc(76px + env(safe-area-inset-top,0px))}
   .bottom-nav{display:none!important}
-  .tabs{position:sticky;top:60px}
+  .tabs{position:sticky;top:calc(60px + env(safe-area-inset-top,0px))}
 }
 @media(max-width:999px){
   .pane-input{display:contents}
@@ -249,7 +250,7 @@ details.cl[open]>summary::before{content:"–"}
   body[data-view="list"] .pane-input{display:none}
   .pane-result{border:0;background:transparent}
   #pane-find .res-top,#pane-list .res-top{border:1px solid var(--rule);border-radius:var(--r)}
-  .searchbar{position:sticky;top:60px;z-index:6;padding:8px 12px;box-shadow:0 6px 10px -8px rgba(0,0,0,.3)}
+  .searchbar{position:sticky;top:calc(60px + env(safe-area-inset-top,0px));z-index:6;padding:8px 12px;box-shadow:0 6px 10px -8px rgba(0,0,0,.3)}
   .searchbar .panel-h{display:none}
   #step1.panel{padding:12px}
 }
@@ -6072,17 +6073,17 @@ var __async = (__this, __arguments, generator) => {
     function utf8CheckExtraBytes(self2, buf, p) {
       if ((buf[0] & 192) !== 128) {
         self2.lastNeed = 0;
-        return "�";
+        return "\uFFFD";
       }
       if (self2.lastNeed > 1 && buf.length > 1) {
         if ((buf[1] & 192) !== 128) {
           self2.lastNeed = 1;
-          return "�";
+          return "\uFFFD";
         }
         if (self2.lastNeed > 2 && buf.length > 2) {
           if ((buf[2] & 192) !== 128) {
             self2.lastNeed = 2;
-            return "�";
+            return "\uFFFD";
           }
         }
       }
@@ -6111,7 +6112,7 @@ var __async = (__this, __arguments, generator) => {
     function utf8End(buf) {
       var r = buf && buf.length ? this.write(buf) : "";
       if (this.lastNeed)
-        return r + "�";
+        return r + "\uFFFD";
       return r;
     }
     function utf16Text(buf, i) {
@@ -20847,6 +20848,8 @@ var FLAGTXT = {
   svc: 'Dịch vụ sơ cấp cứu, không thuộc 6 nhóm'
 };
 var STORE_KEY = 'stp_dako_tracuu_v2';
+/* chạy trong artifact của claude.ai: không tự tải file, không mở được hộp thoại in, không chia sẻ được */
+var FRAMED = !!(window.claude && typeof window.claude.use === 'function');
 
 /* Khái niệm rộng. Gõ "công nhân" thì ngoài các vị trí có chữ "công nhân" còn hiện các vị trí mà cẩm nang gọi bằng tên khác
    (thợ..., phụ hồ...) và các vị trí thuộc khối "lao động trực tiếp" của ngành. Mở rộng một chiều: gõ "thợ" chỉ ra vị trí có chữ "thợ". */
@@ -21397,7 +21400,7 @@ function renderListOut() {
   k += '<span>' + m.usedGroups.map(function (g) { return gb(g); }).join(' ') + '</span></div>';
   top.innerHTML = '<h2>Danh sách tư vấn' + (nm ? ' · ' + esc(nm) : '') + '</h2>' + k +
     '<div class="res-actions"><button class="btn pri" data-act="export">Tải file Word</button>' +
-    '<button class="btn" data-act="copy">Sao chép tóm tắt</button><button class="btn" data-act="print">In hoặc lưu PDF</button>' +
+    '<button class="btn" data-act="copy">Sao chép tóm tắt</button>' + (FRAMED ? '' : '<button class="btn" data-act="print">In hoặc lưu PDF</button>') +
     '<button class="btn ghost" data-act="clear-all">Xóa danh sách</button></div>';
   $('print-area').innerHTML = '<p class="print-head"><b>VIỆN STP – DAKO</b> · Đề xuất nhóm huấn luyện ATVSLĐ · Ngành ' + esc(m.ind.name) + ' · Ngày lập ' + ddmmyyyy(m.date) + '</p>' +
     '<h3 class="sec">Bảng nhân sự và nhóm huấn luyện</h3>' + tableView(m);
@@ -21571,7 +21574,7 @@ function renderExport() {
   });
   h += '</div><p class="hint">Tên file: ' + esc(fileName(m)) + '</p>';
   h += '<div class="sheet-actions"><button class="btn" data-act="x-close">Đóng</button>';
-  if (window.File && navigator.canShare) h += '<button class="btn" data-act="x-share">Chia sẻ</button>';
+  if (!FRAMED && window.File && navigator.canShare) h += '<button class="btn" data-act="x-share">Chia sẻ</button>';
   h += '<button class="btn pri" data-act="x-go" id="x-go">Tải file Word</button></div>';
   $('sheet').innerHTML = h;
 }
@@ -21587,6 +21590,19 @@ function download(blob, name) {
   document.body.appendChild(a); a.click();
   setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 6000);
 }
+/* bản HTML ngoại tuyến tải thẳng; trong artifact của claude.ai trang không được tự tải file,
+   phải lưu qua quyền "downloads" (người xem xác nhận trước khi lưu) */
+function saveFile(blob, name) {
+  if (!FRAMED) { download(blob, name); toast('Đã tạo file ' + name); return Promise.resolve(); }
+  closeExport();
+  return window.claude.use('downloads').then(function (dl) {
+    if (!dl) { toast('Trang này chưa được phép lưu file. Hãy dùng bản HTML ngoại tuyến để tải file Word.'); return; }
+    return dl.save({ filename: name, data: blob }).then(function () { toast('Đã lưu file ' + name); }, function (e) {
+      var c = e && e.code;
+      toast(c === 'declined' ? 'Đã hủy lưu file.' : c === 'rate_limited' ? 'Đang có hộp thoại lưu file mở. Đóng hộp thoại đó rồi thử lại.' : 'Không lưu được file Word. Tải lại trang rồi thử lại.');
+    });
+  });
+}
 function doExport(share) {
   var btn = $('x-go');
   if (btn) { btn.disabled = true; btn.textContent = 'Đang tạo file…'; }
@@ -21599,8 +21615,7 @@ function doExport(share) {
         return navigator.share({ files: [file], title: name }).catch(function () { });
       }
     }
-    download(blob, name);
-    toast('Đã tạo file ' + name);
+    return saveFile(blob, name);
   }).catch(function (e) {
     console.error(e);
     toast('Không tạo được file Word. Tải lại trang rồi thử lại.');
@@ -21773,6 +21788,7 @@ function init() {
   var latest = IND.map(function (i) { return i.legal.split('/').reverse().join('-'); }).sort().pop().split('-').reverse().join('/');
   $('legal-date').textContent = latest;
   $('cust-det').open = !!(S.cust.name || S.cust.heads || S.cust.contact || S.cust.advisor);
+  document.documentElement.lang = 'vi';
   document.body.dataset.view = 'find';
   renderAll();
 }
