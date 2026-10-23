@@ -639,6 +639,10 @@ def people_list(prs, ctx, c):
     paper(s, ctx)
     hd = header(s, ctx, c['title'], c.get('crumb', ''))
     ppl = []
+    if c.get('image'):     # framed photo instead of cut-out people; the swoosh still sweeps over its corner
+        ix = c.get('image_x', 7.95)
+        ppl.append(photo(s, ctx, c['image'], ix, 1.3, SW - ML - ix, c.get('image_h', 4.5),
+                         focus=c.get('focus', (0.5, 0.5)), radius=0.18))
     for k, (x, bot, w, h) in zip(c.get('people', [])[:4], SLOTS):
         ppl.append(K.picture(s, pic_path(ctx, k, prefer_cut=True), x, bot - h, w, h, fit='contain', nm=f'!!p_{k}'))
     sw = K.picture(s, ctx['art']['swoosh'], 6.9, SH - 2.95, 6.8, 2.98, nm='!!swoosh')

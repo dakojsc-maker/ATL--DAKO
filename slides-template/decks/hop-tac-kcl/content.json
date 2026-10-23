@@ -2,7 +2,7 @@
  "template": "M05",
  "title": "Hợp tác Doanh nghiệp – Nhà trường (KCL Trading)",
  "source": "Noi_dung_PPT_Hop_tac_Doanh_nghiep_Nha_truong_KCL_Trading-1.docx",
- "credits_intro": "Ảnh sự kiện (slide 1–8): do người dùng cung cấp. Ảnh người tách nền và hình mờ trên nền giấy: bộ dữ liệu Open Images (Google), giấy phép CC BY 2.0. Icon: Lucide (ISC). Font: Anton, Lexend (SIL OFL).",
+ "credits_intro": "Ảnh sự kiện trên các slide: do người dùng cung cấp. Hình mờ trên nền giấy: bộ dữ liệu Open Images (Google), giấy phép CC BY 2.0. Icon: Lucide (ISC). Font: Anton, Lexend (SIL OFL).",
  "photos": {
   "hanbok_aodai": "decks/hop-tac-kcl/images/hanbok-aodai.jpg",
   "chosun_camp": "decks/hop-tac-kcl/images/chosun-camp.jpg",
@@ -11,7 +11,8 @@
   "tu_van_sv": "decks/hop-tac-kcl/images/tu-van-sinh-vien.jpg",
   "sv_bao_ho": "decks/hop-tac-kcl/images/sv-thuy-loi-bao-ho.jpg",
   "ky_ket": "decks/hop-tac-kcl/images/ky-ket.jpg",
-  "le_ky_ket": "decks/hop-tac-kcl/images/le-ky-ket-mou.jpg"
+  "le_ky_ket": "decks/hop-tac-kcl/images/le-ky-ket-mou.jpg",
+  "sv_thuc_hanh": "decks/hop-tac-kcl/images/sv-thuy-loi-thuc-hanh.jpg"
  },
  "slides": [
   {
@@ -76,13 +77,14 @@
     ]
    ],
    "message": "Doanh nghiệp cần **tham gia từ quá trình đào tạo**, thay vì chỉ chờ đợi nguồn nhân lực sau tốt nghiệp.",
-   "people": [
-    "worker",
-    "businessman",
-    "businesswoman"
-   ],
    "notes": "TRANG 3. VAI TRÒ CỦA DOANH NGHIỆP TRONG GIÁO DỤC\nDoanh nghiệp không chỉ là nơi tuyển dụng sinh viên sau khi tốt nghiệp, mà còn là đối tác đồng hành cùng nhà trường trong suốt quá trình đào tạo.\n- Tham gia tư vấn chương trình đào tạo sát với nhu cầu thực tế.\n- Tạo điều kiện thực tập, trải nghiệm và tham quan doanh nghiệp.\n- Chia sẻ kinh nghiệm nghề nghiệp, kỹ năng làm việc và văn hóa doanh nghiệp.\n- Hỗ trợ kết nối việc làm trong nước và quốc tế.\n- Cùng nhà trường xây dựng những chương trình đào tạo có giá trị thực tiễn.\nThông điệp: Doanh nghiệp cần tham gia từ quá trình đào tạo, thay vì chỉ chờ đợi nguồn nhân lực sau tốt nghiệp.",
-   "pill_size": 12
+   "pill_size": 12,
+   "image": "tu_van_sv",
+   "focus": [
+    0.33,
+    0.45
+   ],
+   "image_h": 5.45
   },
   {
    "slide": "process",
@@ -115,10 +117,10 @@
      "Phát triển chương trình trao đổi, đào tạo và cơ hội làm việc tại Hàn Quốc."
     ]
    ],
-   "image": "tu_van_sv",
+   "image": "sv_thuc_hanh",
    "focus": [
-    0.4,
-    0.42
+    0.5,
+    0.5
    ],
    "message": "Hợp tác hiệu quả cần có **chương trình cụ thể**, **mục tiêu rõ ràng** và **lợi ích thiết thực** cho sinh viên.",
    "notes": "TRANG 4. CÁC MÔ HÌNH HỢP TÁC THIẾT THỰC\n1. Đào tạo gắn với thực tiễn: Doanh nghiệp tham gia góp ý giáo trình và nội dung đào tạo.\n2. Thực tập doanh nghiệp: Sinh viên được trải nghiệm môi trường làm việc thực tế.\n3. Định hướng nghề nghiệp: Tổ chức hội thảo, giao lưu với chuyên gia và nhà tuyển dụng.\n4. Hỗ trợ tuyển dụng: Kết nối sinh viên với các vị trí việc làm phù hợp.\n5. Hợp tác quốc tế: Phát triển chương trình trao đổi, đào tạo và cơ hội làm việc tại Hàn Quốc.\nThông điệp: Hợp tác hiệu quả cần có chương trình cụ thể, mục tiêu rõ ràng và lợi ích thiết thực cho sinh viên."
