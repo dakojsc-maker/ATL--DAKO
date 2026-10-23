@@ -309,7 +309,10 @@ mark{background:#FFE08A;color:inherit;border-radius:2px;padding:0 1px}
   #pane-list{display:block!important}
   .print-only{display:block!important}
   .pane-result{border:0!important;background:#fff!important}
+  .gb,.tbl th,.tbl tr.bk td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+.print-head{margin:0 0 4px;font-size:.9rem;color:var(--muted)}
+.print-head b{color:var(--green)}
 input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none;appearance:none}
 .gl{flex-wrap:nowrap}
 .gl>span:last-child{flex:1;min-width:0;overflow-wrap:anywhere}

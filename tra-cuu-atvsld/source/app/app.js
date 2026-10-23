@@ -24,7 +24,7 @@ var GLABEL = {
 };
 var FLAGTXT = {
   dia: 'Cần chuyên viên xác nhận',
-  rev: 'Trường hợp ranh giới',
+  rev: 'Chuyên viên xác nhận theo công việc thực tế',
   alt: 'Có thể thuộc nhóm khác: chọn theo thực tế',
   work: 'Xác định theo công việc thực tế',
   none: 'Không thuộc 6 nhóm huấn luyện',
@@ -45,7 +45,7 @@ var EXPAND = [
 /* các khối lao động trực tiếp theo từng ngành (mã ngành -> mã khối), dùng cho khái niệm "công nhân" */
 var WORKER_BLOCKS = {
   '01': 'GHI', '02': 'GHIJK', '03': 'GHI', '04': 'HI', '05': 'IJK', '07': 'GHIK', '09': 'GHI',
-  '10': 'EFGK', '11': 'IJKLM', '12': 'HIL', '13': 'GHIKL'
+  '10': 'EFGK', '11': 'IJKLM', '12': 'HIL', '13': 'GHIKL', '15': 'EF'
 };
 var KW = ['Công nhân', 'Thợ', 'Kỹ sư', 'Giám sát', 'Giám đốc', 'Trưởng phòng', 'Kế toán', 'Bảo vệ', 'Lái xe', 'Vận hành', 'Thủ kho', 'Nhân viên'];
 
@@ -324,6 +324,32 @@ function optLine(m) {
   var gs = m.gs.map(function (g) { return 'Nhóm ' + g; }).join(' và ');
   return m.k === 'alt' ? 'Hoặc ' + gs + ': ' + m.w : 'Lưu ý: ' + m.w;
 }
+/* câu giải thích đứng ngay sau nhãn nhóm: bỏ phần nhắc lại tên nhóm ở đầu câu ("Nhóm 3 nếu…" -> "Nếu…") */
+function optWhy(m) {
+  var x = /^(Thêm |Thường thêm |Xem xét thêm |Xem xét |Chỉ xem xét |Có thể xem xét |Có thể thêm |Khuyến nghị thêm )?(Nhóm \d(?:(?: và\/hoặc| và| hoặc) Nhóm \d)*) (?=(?:nếu|khi|tùy) )/.exec(m.w);
+  if (!x || x[2].match(/\d/g).map(Number).sort().join() !== m.gs.slice().sort().join()) return m.w;
+  var w = (x[1] === 'Thêm ' ? '' : x[1] || '') + m.w.slice(x[0].length);
+  return w.charAt(0).toUpperCase() + w.slice(1);
+}
+
+/* vị trí không có nhóm mặc định: cột nhóm trong cẩm nang có khi chỉ nhắc lại các nhóm tùy chọn đã hiện riêng */
+function rawRepeatsOpts(r) {
+  var said = (r.raw.match(/Nhóm \d/g) || []).map(function (s) { return +s.slice(-1); });
+  return said.length > 0 && said.every(function (g) { return r.o.some(function (o) { return o.g === g; }); });
+}
+/* các dòng mô tả trên màn hình: nguyên văn cẩm nang, thêm "Cần chuyên viên xác nhận" khi nguyên văn chưa nói */
+function noGroupLines(r) {
+  var out = rawRepeatsOpts(r) ? [] : [r.raw];
+  if ((r.f.indexOf('dia') >= 0 || r.f.indexOf('rev') >= 0) && !/chuyên viên/i.test(out.join(' '))) out.push(FLAGTXT.dia);
+  if (!out.length) out.push(FLAGTXT.work);
+  return out;
+}
+/* một nhãn gọn cho bảng, file Word và tóm tắt */
+function noGroupLabel(r) {
+  var fl = r.f.filter(function (f) { return FLAGTXT[f]; })[0];
+  return fl ? FLAGTXT[fl] : rawRepeatsOpts(r) ? FLAGTXT.work : r.raw;
+}
+function ddmmyyyy(d) { function p(x) { return (x < 10 ? '0' : '') + x; } return p(d.getDate()) + '/' + p(d.getMonth() + 1) + '/' + d.getFullYear(); }
 
 function renderIndustry() {
   var box = $('ind-box');
@@ -370,12 +396,10 @@ function findRowHTML(x, res, showBlock) {
       h += '<div class="gl">' + gb(g) + '<span>' + esc(GLABEL[g]) + ' · ' + esc(hours(g)) + '</span></div>';
     });
   } else {
-    var fl = r.f.filter(function (f) { return FLAGTXT[f]; })[0];
-    h += '<div class="gl"><span class="flag">' + esc(r.raw) + '</span></div>';
-    if (fl && fl !== 'none' && fl !== 'svc') h += '<div class="gl"><span class="flag">' + esc(FLAGTXT[fl]) + '</span></div>';
+    noGroupLines(r).forEach(function (t) { h += '<div class="gl"><span class="flag">' + esc(t) + '</span></div>'; });
   }
   optMerge(r.o.filter(function (o) { return dflt.indexOf(o.g) < 0; })).forEach(function (m) {
-    h += '<div class="gl cd"><span class="ld">' + optLead(m.k) + '</span>' + m.gs.map(function (g) { return gb(g, 'off'); }).join('') + '<span>' + esc(m.w) + '</span></div>';
+    h += '<div class="gl cd"><span class="ld">' + optLead(m.k) + '</span>' + m.gs.map(function (g) { return gb(g, 'off'); }).join('') + '<span>' + esc(optWhy(m)) + '</span></div>';
   });
   r.x.forEach(function (e) { h += '<div class="gl"><span class="flag x">+ ' + esc(e) + '</span></div>'; });
   h += '</div>';
@@ -494,14 +518,17 @@ function selCardHTML(r) {
     '<input inputmode="numeric" pattern="[0-9]*" data-in="n" data-id="' + r.id + '" value="' + esc(sel.n) + '" placeholder="Chưa nhập" aria-label="Số người"><button type="button" data-act="inc" data-id="' + r.id + '" aria-label="Tăng">+</button></div></div>';
   h += '<div><div class="cfg-l">Nhóm huấn luyện áp dụng</div><div class="chips">';
   r.g.forEach(function (g) { h += '<button type="button" class="gb g' + g + '" data-act="tg" data-id="' + r.id + '" data-g="' + g + '" aria-pressed="' + hasOn(sel, g) + '">Nhóm ' + g + '</button>'; });
-  if (!r.g.length) h += '<span class="rawtxt">' + esc(r.raw) + '. Chọn nhóm theo công việc thực tế bên dưới.</span>';
+  if (!r.g.length) {
+    var outside = r.f.indexOf('none') >= 0 || r.f.indexOf('svc') >= 0;
+    h += '<span class="rawtxt">' + esc(noGroupLines(r).join('. ')) + (outside ? '.' : '. Bật nhóm phù hợp bên dưới.') + '</span>';
+  }
   h += '</div></div>';
   if (r.o.length) {
     h += '<div><div class="cfg-l">Bật nếu đúng với khách</div>';
     optMerge(r.o).forEach(function (m) {
       h += '<div class="cond"><span class="ld">' + optLead(m.k) + '</span>' + m.gs.map(function (g) {
         return '<button type="button" class="gb g' + g + '" data-act="tg" data-id="' + r.id + '" data-g="' + g + '" aria-pressed="' + hasOn(sel, g) + '">Nhóm ' + g + '</button>';
-      }).join('') + '<span class="why">' + esc(m.w) + '</span></div>';
+      }).join('') + '<span class="why">' + esc(optWhy(m)) + '</span></div>';
     });
     h += '</div>';
   }
@@ -556,7 +583,8 @@ function renderListOut() {
     '<div class="res-actions"><button class="btn pri" data-act="export">Tải file Word</button>' +
     '<button class="btn" data-act="copy">Sao chép tóm tắt</button><button class="btn" data-act="print">In hoặc lưu PDF</button>' +
     '<button class="btn ghost" data-act="clear-all">Xóa danh sách</button></div>';
-  $('print-area').innerHTML = '<h3 class="sec">Bảng nhân sự và nhóm huấn luyện</h3>' + tableView(m);
+  $('print-area').innerHTML = '<p class="print-head"><b>VIỆN STP – DAKO</b> · Đề xuất nhóm huấn luyện ATVSLĐ · Ngành ' + esc(m.ind.name) + ' · Ngày lập ' + ddmmyyyy(m.date) + '</p>' +
+    '<h3 class="sec">Bảng nhân sự và nhóm huấn luyện</h3>' + tableView(m);
   out.innerHTML = '<h3 class="sec">Tổng hợp theo nhóm huấn luyện</h3>' + summaryView(m) +
     '<h3 class="sec">Nội dung huấn luyện</h3>' + contentView(m);
 }
@@ -566,7 +594,7 @@ function renderList() { renderListRows(); renderListOut(); }
 function groupCellHTML(x) {
   var h = '<div class="gbs">';
   if (x.groups.length) h += groupPlates(x.groups);
-  else h += '<span class="flag">' + esc(FLAGTXT[x.r.f.filter(function (f) { return FLAGTXT[f]; })[0]] || x.r.raw) + '</span>';
+  else h += '<span class="flag">' + esc(noGroupLabel(x.r)) + '</span>';
   h += '</div>';
   x.r.x.forEach(function (e) { h += '<span class="sub">+ ' + esc(e) + '</span>'; });
   optMerge(x.off).forEach(function (m) { h += '<span class="sub i">' + esc(optLine(m)) + '</span>'; });
@@ -591,6 +619,7 @@ function tableView(m) {
 }
 
 function summaryView(m) {
+  if (!m.usedGroups.length) return '<p class="hint">Các vị trí đã chọn chưa có nhóm huấn luyện. Bật nhóm phù hợp ở từng vị trí phía trên, hoặc để chuyên viên xác định theo công việc thực tế.</p>';
   var h = '<table class="tbl stack"><thead><tr><th>Nhóm</th><th>Đối tượng</th><th style="width:96px">Số vị trí</th><th style="width:96px">Số người</th><th>Huấn luyện lần đầu</th><th>Huấn luyện định kỳ</th></tr></thead><tbody>';
   m.usedGroups.forEach(function (g) {
     var G = GR[g - 1], st = m.gs[g];
@@ -669,7 +698,10 @@ function summaryText(m) {
   if (m.heads) L.push('Quy mô: ' + fmt(m.heads) + ' lao động');
   L.push('');
   m.rows.forEach(function (x, i) {
-    L.push((i + 1) + '. ' + x.r.p + (x.n ? ' (' + fmt(x.n) + ' người)' : '') + ' → ' + (x.groups.length ? x.groups.map(function (g) { return 'Nhóm ' + g; }).join(', ') : (FLAGTXT[x.r.f[0]] || x.r.raw)));
+    var alt = optMerge(x.off.filter(function (o) { return o.k === 'alt'; })).map(function (a) {
+      return ' (hoặc ' + a.gs.map(function (g) { return 'Nhóm ' + g; }).join(' và ') + ': ' + a.w.charAt(0).toLowerCase() + a.w.slice(1) + ')';
+    }).join('');
+    L.push((i + 1) + '. ' + x.r.p + (x.n ? ' (' + fmt(x.n) + ' người)' : '') + ' → ' + (x.groups.length ? x.groups.map(function (g) { return 'Nhóm ' + g; }).join(', ') + alt : noGroupLabel(x.r)));
   });
   L.push('');
   L.push('Tổng hợp:');
@@ -730,7 +762,7 @@ function renderExport() {
 function closeExport() { $('scrim').classList.remove('open'); $('sheet').classList.remove('open'); }
 function makeDoc() {
   var m = buildModel();
-  return window.STPExport.build(m, EXP.o, { GR: GR, GSHORT: GSHORT, FLAGTXT: FLAGTXT, cust: S.cust });
+  return window.STPExport.build(m, EXP.o, { GR: GR, GSHORT: GSHORT, noGroupLabel: noGroupLabel, cust: S.cust });
 }
 function download(blob, name) {
   var url = URL.createObjectURL(blob);
@@ -897,6 +929,16 @@ document.addEventListener('toggle', function (e) {
   var d = e.target;
   if (d && d.tagName === 'DETAILS' && d.dataset.k) S.openCl[d.dataset.k] = d.open;
 }, true);
+
+/* khi in: mở mọi thẻ nội dung để in đủ (thẻ đóng không in được phần thân), in xong trả lại như cũ */
+var printOpened = [];
+window.addEventListener('beforeprint', function () {
+  [].forEach.call(document.querySelectorAll('details.cl'), function (d) { if (!d.open) { d.open = true; printOpened.push(d); } });
+});
+window.addEventListener('afterprint', function () {
+  printOpened.forEach(function (d) { d.open = false; });
+  printOpened = [];
+});
 
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') closeExport();

@@ -31,6 +31,16 @@ File kết quả: `Tra_cuu_nhom_huan_luyen_ATVSLD_VienSTP_DAKO.html` (≈2,2 MB,
 
 Lưu ý còn mở với người dùng: nhóm huấn luyện trong công cụ là **ước tính ban đầu** từ cẩm nang; các dòng ghi "ranh giới / chuyên viên xác nhận" cần chuyên viên rà soát trước khi gửi khách.
 
+### Bản v3.1 (23/10/2026, tự rà soát sau khi nhận bàn giao, người dùng chưa xem)
+Dựng lại từ gói: HTML, data.json, app_data.json giống hệt; t3, t10, t11 đạt. Rà soát thêm và sửa:
+- Vị trí không có nhóm mặc định (80 dòng): bỏ dòng lặp ý ("Theo công việc" + "Xác định theo công việc thực tế", "Ranh giới" + "Trường hợp ranh giới"; 07.B4 nhắc lại đúng các nhóm tùy chọn). Hàm `noGroupLines` (màn hình) và `noGroupLabel` (bảng, Word, tóm tắt) trong `app.js`; Word nhận `noGroupLabel` qua `meta`. Nhãn cờ `rev` đổi thành "Chuyên viên xác nhận theo công việc thực tế" (không dùng chữ "ranh giới" trong tài liệu gửi khách). Thẻ danh sách không còn bảo "chọn nhóm" với người ngoài 6 nhóm.
+- Câu cạnh nhãn nhóm: bỏ phần nhắc lại tên nhóm ở đầu câu ("[Nhóm 3] Nhóm 3 nếu…" → "[Nhóm 3] Nếu…"), hàm `optWhy`, chỉ trên màn hình; file Word giữ nguyên câu đầy đủ.
+- "In hoặc lưu PDF": trước đây các mục nội dung đóng chỉ in tiêu đề. Nay `beforeprint` mở hết, `afterprint` đóng lại; giữ màu nhãn nhóm khi in; thêm dòng "VIỆN STP – DAKO · … · Ngành · Ngày lập" đầu bản in.
+- "Sao chép tóm tắt": thêm "(hoặc Nhóm X: …)" giống file Word.
+- Chỉ chọn vị trí chưa có nhóm: màn hình và Word không còn bảng tổng hợp/bảng nội dung khung rỗng.
+- Logistics: thêm `'15': 'EF'` (Kho; Cảng, ICD, bãi container) vào `WORKER_BLOCKS`; "công nhân" từ 7 lên 17 vị trí (có lái xe nâng, lái cẩu, vận hành băng tải…).
+- Thêm `tests/t12.py` cho các điểm trên (bản v3 cũ: 187 lỗi; v3.1: 0).
+
 ## 4. Cấu trúc gói
 
 ```
@@ -46,7 +56,7 @@ source/
   data/extract.py, mapcl.py, grp_parse.py, build_data.py, grp.py, dump.py  <- đường ống dữ liệu
   lib/docx.iife.js              <- thư viện docx 8.5.0 (bản IIFE, nhúng vào HTML)
   handbooks/01..17.docx         <- 17 cẩm nang gốc của người dùng
-  tests/t3.py, t10.py, t11.py   <- kiểm thử tự động (Playwright)
+  tests/t3.py, t10.py, t11.py, t12.py   <- kiểm thử tự động (Playwright)
 ```
 
 ### Dựng lại và kiểm thử
@@ -66,6 +76,7 @@ cd tests
 python3 t10.py   # tìm kiếm: tính chất + tô vàng (kỳ vọng nbad 0, bad highlight 0)
 python3 t3.py    # xuất Word cả 17 ngành (kỳ vọng 17 dòng "err": None, ERRS [])
 python3 t11.py   # luồng desktop + điện thoại, có ảnh chụp trong tests/out
+python3 t12.py   # chống lặp ý, tóm tắt, in, Word khi chưa có nhóm (kỳ vọng BAD [], ERRS [])
 ```
 Xem file Word bằng mắt: `soffice --headless --convert-to pdf file.docx` rồi `pdftoppm -r 70 -png`.
 
@@ -108,6 +119,9 @@ Mọi chỉnh sửa/khắc phục dữ liệu nhóm nên làm trong `build_data.
 - Với Playwright, thanh dính (sticky) có thể chặn click: dùng `el.scrollIntoView({block:'center'}); el.click()` bằng JS. Thông báo "proxy" của Chromium trong log là nhiễu, bỏ qua.
 - Không dùng CDN: toàn bộ thư viện nhúng sẵn để chạy offline. JSON nhúng phải thay `</` bằng `<\/` và `<!--` bằng `<!--` (đã làm trong `build.py`).
 - Kiểm tra hiển thị ở 390 px: không được tràn ngang (`scrollWidth - clientWidth = 0`).
+- Thẻ `<details>` đóng không in được phần thân dù CSS ép `display:block`; phải mở bằng JS khi `beforeprint`. Chromium khi xuất PDF có thể phát `beforeprint` hai lần, nên danh sách thẻ cần đóng lại phải cộng dồn, không ghi đè.
+- Ngoài bộ kiểm thử, nên đọc hết các dòng đặc biệt (không có nhóm mặc định, nhóm tùy chọn) như người dùng sẽ thấy: lỗi lặp ý không làm hỏng logic nên kiểm thử cũ không bắt được.
+- Trong môi trường đám mây: `pip install playwright python-docx`; Chromium ở `/opt/pw-browsers/chromium` (các bài kiểm thử tự dò).
 
 ## 9. Việc có thể làm tiếp (người dùng chưa yêu cầu, chỉ là gợi ý)
 

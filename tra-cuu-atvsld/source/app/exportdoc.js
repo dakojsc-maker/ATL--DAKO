@@ -88,7 +88,7 @@ function mergeOff(list) {
 }
 
 function build(m, o, meta) {
-  var GR = meta.GR, GSHORT = meta.GSHORT, FLAGTXT = meta.FLAGTXT, cust = meta.cust;
+  var GR = meta.GR, GSHORT = meta.GSHORT, cust = meta.cust;
   var ind = m.ind;
   var kids = [];
   var A = D.AlignmentType;
@@ -143,8 +143,7 @@ function build(m, o, meta) {
     if (x.groups.length) {
       x.groups.forEach(function (g) { gp.push(para([run('Nhóm ' + g, { b: true, size: 26, color: GREEN }), run(' – ' + DOC_SHORT[g], { size: 24 })], { after: 20 })); });
     } else {
-      var fl = x.r.f.filter(function (f) { return FLAGTXT[f]; })[0];
-      gp.push(para([run(fl ? FLAGTXT[fl] : x.r.raw, { i: true, size: 24 })], { after: 20 }));
+      gp.push(para([run(meta.noGroupLabel(x.r), { i: true, size: 24 })], { after: 20 }));
     }
     x.r.x.forEach(function (e) { gp.push(para([run('+ ' + e, { i: true, size: 22, color: MUTED })], { after: 20 })); });
     if (o.cond) mergeOff(x.off).forEach(function (c) { gp.push(para([run(c.text, { i: true, size: 21, color: MUTED })], { after: 20 })); });
@@ -160,29 +159,33 @@ function build(m, o, meta) {
 
   /* ---------- III. tổng hợp ---------- */
   kids.push(h1('III. TỔNG HỢP THEO NHÓM HUẤN LUYỆN'));
-  var c3 = [1150, 2750, 1050, 1050, 1300, W - 1150 - 2750 - 1050 - 1050 - 1300];
-  var rows3 = [headRow(c3, ['Nhóm', 'Đối tượng', 'Số vị trí', 'Số người', 'Lần đầu', 'Định kỳ'], 24)];
-  m.usedGroups.forEach(function (g) {
-    var G = GR[g - 1], st = m.gs[g];
-    rows3.push(row([
-      cell([para([run('Nhóm ' + g, { b: true, color: GREEN, size: 24 })], { after: 0 })], { w: c3[0], fill: PAPER }),
-      cell([para([run(GSHORT[g], { size: 24 })], { after: 0 })], { w: c3[1] }),
-      cell([para([run(String(st.pos), { size: 24 })], { after: 0, align: A.CENTER })], { w: c3[2] }),
-      cell([para([run(st.hasN ? fmt(st.ppl) : '–', { size: 24 })], { after: 0, align: A.CENTER })], { w: c3[3] }),
-      cell([para([run(G.first.replace(/\s*\(.*\)/, ''), { size: 24 })], { after: 0 })], { w: c3[4] }),
-      cell([para([run(G.again, { size: 22 })], { after: 0 })], { w: c3[5] })
-    ]));
-  });
-  kids.push(table(c3, rows3));
-  kids.push(para([run('Số giờ là mức tối thiểu theo quy định; thời lượng và chương trình thực tế do Viện STP – DAKO xác định theo đối tượng. Một người có thể thuộc nhiều nhóm nên tổng theo nhóm có thể lớn hơn tổng số người' + (m.anyN ? ' (' + fmt(m.totalPpl) + ' người).' : '.'), { i: true, size: 24 })], { before: 100, after: 80 }));
+  if (!m.usedGroups.length) kids.push(text('Các vị trí đã chọn chưa xác định được nhóm huấn luyện. Chuyên viên Viện STP – DAKO sẽ xác định nhóm theo công việc thực tế của từng người.', { size: 26, after: 80 }));
+  else {
+    var c3 = [1150, 2750, 1050, 1050, 1300, W - 1150 - 2750 - 1050 - 1050 - 1300];
+    var rows3 = [headRow(c3, ['Nhóm', 'Đối tượng', 'Số vị trí', 'Số người', 'Lần đầu', 'Định kỳ'], 24)];
+    m.usedGroups.forEach(function (g) {
+      var G = GR[g - 1], st = m.gs[g];
+      rows3.push(row([
+        cell([para([run('Nhóm ' + g, { b: true, color: GREEN, size: 24 })], { after: 0 })], { w: c3[0], fill: PAPER }),
+        cell([para([run(GSHORT[g], { size: 24 })], { after: 0 })], { w: c3[1] }),
+        cell([para([run(String(st.pos), { size: 24 })], { after: 0, align: A.CENTER })], { w: c3[2] }),
+        cell([para([run(st.hasN ? fmt(st.ppl) : '–', { size: 24 })], { after: 0, align: A.CENTER })], { w: c3[3] }),
+        cell([para([run(G.first.replace(/\s*\(.*\)/, ''), { size: 24 })], { after: 0 })], { w: c3[4] }),
+        cell([para([run(G.again, { size: 22 })], { after: 0 })], { w: c3[5] })
+      ]));
+    });
+    kids.push(table(c3, rows3));
+    kids.push(para([run('Số giờ là mức tối thiểu theo quy định; thời lượng và chương trình thực tế do Viện STP – DAKO xác định theo đối tượng. Một người có thể thuộc nhiều nhóm nên tổng theo nhóm có thể lớn hơn tổng số người' + (m.anyN ? ' (' + fmt(m.totalPpl) + ' người).' : '.'), { i: true, size: 24 })], { before: 100, after: 80 }));
+  }
   var ex = Object.keys(m.extras);
   if (ex.length) {
     kids.push(text('**Dịch vụ huấn luyện đi kèm có thể bổ sung:** ' + ex.join('; ') + '.', { size: 26, after: 80 }));
   }
 
   /* ---------- IV. nội dung huấn luyện ---------- */
-  if (o.frame || o.detail) kids.push(h1('IV. NỘI DUNG HUẤN LUYỆN'));
-  if (o.frame) {
+  var frame = o.frame && m.usedGroups.length > 0;
+  if (frame || (o.detail && m.clusters.length)) kids.push(h1('IV. NỘI DUNG HUẤN LUYỆN'));
+  if (frame) {
     kids.push(h2('IV.1. Nội dung khung theo từng nhóm'));
     var c4 = [1800, W - 1800];
     var rows4 = [headRow(c4, ['Nhóm', 'Nội dung khung'])];
@@ -196,7 +199,7 @@ function build(m, o, meta) {
     kids.push(table(c4, rows4));
   }
   if (o.detail && m.clusters.length) {
-    kids.push(h2((o.frame ? 'IV.2. ' : 'IV.1. ') + 'Nội dung đặc thù ngành ' + ind.name.toLowerCase() + ' theo cụm vị trí'));
+    kids.push(h2((frame ? 'IV.2. ' : 'IV.1. ') +'Nội dung đặc thù ngành ' + ind.name.toLowerCase() + ' theo cụm vị trí'));
     var c5 = [2250, W - 2250];
     m.clusters.forEach(function (x) {
       kids.push(para([run('Cụm ' + x.c.no + '. ' + x.c.t, { b: true, color: GREEN, size: 27 })], { before: 160, after: 80, keepNext: true }));
