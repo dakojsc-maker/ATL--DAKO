@@ -1056,7 +1056,18 @@ def finalize(s):
         clr = sld.find(qn('p:clrMapOvr'))
         clr.addnext(tr)
     # ---- timing
+    media = getattr(s, '_media', [])
     if not s._anims:
+        if media:
+            ids = [1]
+            tm = etree.fromstring(f'<p:timing xmlns:p="{P}"><p:tnLst><p:par><p:cTn id="1" dur="indefinite" '
+                                  f'restart="never" nodeType="tmRoot"><p:childTnLst>{_media_nodes(ids, media)}'
+                                  f'</p:childTnLst></p:cTn></p:par></p:tnLst></p:timing>')
+            ext = sld.find(qn('p:extLst'))
+            if ext is not None:
+                ext.addprevious(tm)
+            else:
+                sld.append(tm)
         return
     ids = [4]
     effects_xml = []
@@ -1088,6 +1099,7 @@ def finalize(s):
               f'</p:childTnLst></p:cTn></p:par>'
               f'</p:childTnLst></p:cTn><p:prevCondLst><p:cond evt="onPrev" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:prevCondLst>'
               f'<p:nextCondLst><p:cond evt="onNext" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:nextCondLst></p:seq>'
+              f'{_media_nodes(ids, media)}'
               f'</p:childTnLst></p:cTn></p:par></p:tnLst>'
               f'{"<p:bldLst>" + "".join(bld) + "</p:bldLst>" if bld else ""}</p:timing>')
     tm = etree.fromstring(timing)
@@ -1096,6 +1108,41 @@ def finalize(s):
         ext.addprevious(tm)
     else:
         sld.append(tm)
+
+
+def _media_nodes(ids, media):
+    """<p:video> timing nodes so PowerPoint shows play controls for the slide's video shapes."""
+    out = []
+    for shp in media:
+        ids[0] += 1
+        out.append(f'<p:video><p:cMediaNode vol="80000"><p:cTn id="{ids[0]}" fill="hold" display="0"><p:stCondLst>'
+                   f'<p:cond delay="indefinite"/></p:stCondLst></p:cTn>{_tgt(shp.shape_id)}</p:cMediaNode></p:video>')
+    return ''.join(out)
+
+
+def online_video(s, url, poster, x, y, w, h, nm='Online Media'):
+    """Online video (YouTube embed URL) shown as its poster image; plays inside PowerPoint 2019 / 365 when online."""
+    from pptx.opc.constants import RELATIONSHIP_TYPE as RT
+    pic = s.shapes.add_picture(poster, E(x), E(y), E(w), E(h))
+    pic.name = nm
+    el = pic._element
+    cNvPr = el.nvPicPr.cNvPr
+    hl = etree.SubElement(cNvPr, qn('a:hlinkClick'))
+    hl.set(qn('r:id'), '')
+    hl.set('action', 'ppaction://media')
+    rid = s.part.relate_to(url, RT.VIDEO, is_external=True)
+    vf = etree.SubElement(el.nvPicPr.nvPr, qn('a:videoFile'))
+    vf.set(qn('r:link'), rid)
+    if not hasattr(s, '_media'):
+        s._media = []
+    s._media.append(pic)
+    return pic
+
+
+def link(shape, url):
+    """Make a shape / picture open a URL when clicked in the slide show."""
+    shape.click_action.hyperlink.address = url
+    return shape
 
 
 def notes(s, t):

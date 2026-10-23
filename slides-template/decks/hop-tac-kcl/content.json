@@ -1,0 +1,275 @@
+{
+ "template": "M05",
+ "title": "Hợp tác Doanh nghiệp – Nhà trường (KCL Trading)",
+ "source": "Noi_dung_PPT_Hop_tac_Doanh_nghiep_Nha_truong_KCL_Trading-1.docx",
+ "credits_intro": "Ảnh sự kiện (slide 1–8): do người dùng cung cấp. Ảnh người tách nền và hình mờ trên nền giấy: bộ dữ liệu Open Images (Google), giấy phép CC BY 2.0. Icon: Lucide (ISC). Font: Anton, Lexend (SIL OFL).",
+ "photos": {
+  "hanbok_aodai": "decks/hop-tac-kcl/images/hanbok-aodai.jpg",
+  "chosun_camp": "decks/hop-tac-kcl/images/chosun-camp.jpg",
+  "giang_duong": "decks/hop-tac-kcl/images/giang-duong.jpg",
+  "sv_thu_vien": "decks/hop-tac-kcl/images/sinh-vien-thu-vien.jpg",
+  "tu_van_sv": "decks/hop-tac-kcl/images/tu-van-sinh-vien.jpg",
+  "sv_bao_ho": "decks/hop-tac-kcl/images/sv-thuy-loi-bao-ho.jpg",
+  "ky_ket": "decks/hop-tac-kcl/images/ky-ket.jpg",
+  "le_ky_ket": "decks/hop-tac-kcl/images/le-ky-ket-mou.jpg"
+ },
+ "slides": [
+  {
+   "slide": "cover",
+   "image": "sv_bao_ho",
+   "focus": [
+    0.5,
+    0.58
+   ],
+   "kicker": "Hợp tác",
+   "title1": "Doanh nghiệp",
+   "title2": "Nhà trường",
+   "subtitle": "Kết nối giáo dục với doanh nghiệp –\nKiến tạo nguồn nhân lực chất lượng cao",
+   "message": "Cùng hợp tác hôm nay để tạo dựng **cơ hội nghề nghiệp** và **phát triển bền vững** cho thế hệ trẻ Việt Nam.",
+   "presenter": "Người trình bày: Ông Kim Sang Won – Đại diện KCL Trading",
+   "notes": "TRANG 1. HỢP TÁC DOANH NGHIỆP – NHÀ TRƯỜNG\nChủ đề: Kết nối giáo dục với doanh nghiệp – Kiến tạo nguồn nhân lực chất lượng cao.\nThông điệp chính: Cùng hợp tác hôm nay để tạo dựng cơ hội nghề nghiệp và phát triển bền vững cho thế hệ trẻ Việt Nam.\nNgười trình bày: Ông Kim Sang Won – Đại diện KCL Trading.",
+   "strength": 1.15
+  },
+  {
+   "slide": "photo_quote",
+   "title": "Tại sao cần hợp tác giữa doanh nghiệp và nhà trường?",
+   "crumb": "Hợp tác Doanh nghiệp – Nhà trường",
+   "image": "sv_thu_vien",
+   "focus": [
+    0.42,
+    0.5
+   ],
+   "quote": "Đào tạo không chỉ để sinh viên tốt nghiệp, mà còn để các em có thể **làm việc, phát triển và đóng góp** cho xã hội.",
+   "points": [
+    "**Nhà trường** cung cấp nền tảng kiến thức, kỹ năng và tư duy chuyên môn.",
+    "**Doanh nghiệp** mang đến môi trường thực tế, kinh nghiệm và yêu cầu của thị trường lao động.",
+    "**Sinh viên** được tiếp cận công việc thực tế ngay trong quá trình học tập.",
+    "Hai bên phối hợp để **thu hẹp khoảng cách** giữa đào tạo và nhu cầu tuyển dụng."
+   ],
+   "notes": "TRANG 2. TẠI SAO CẦN HỢP TÁC GIỮA DOANH NGHIỆP VÀ NHÀ TRƯỜNG?\n- Nhà trường cung cấp nền tảng kiến thức, kỹ năng và tư duy chuyên môn.\n- Doanh nghiệp mang đến môi trường thực tế, kinh nghiệm và yêu cầu của thị trường lao động.\n- Sinh viên được tiếp cận công việc thực tế ngay trong quá trình học tập.\n- Hai bên phối hợp để thu hẹp khoảng cách giữa đào tạo và nhu cầu tuyển dụng.\nThông điệp: Đào tạo không chỉ để sinh viên tốt nghiệp, mà còn để các em có thể làm việc, phát triển và đóng góp cho xã hội."
+  },
+  {
+   "slide": "people_list",
+   "title": "Vai trò của doanh nghiệp trong giáo dục",
+   "crumb": "Hợp tác Doanh nghiệp – Nhà trường",
+   "pill": "Doanh nghiệp không chỉ là nơi tuyển dụng sinh viên sau khi tốt nghiệp, mà còn là đối tác đồng hành cùng nhà trường trong suốt quá trình đào tạo.",
+   "items": [
+    [
+     "Tham gia tư vấn",
+     "chương trình đào tạo sát với nhu cầu thực tế."
+    ],
+    [
+     "Tạo điều kiện thực tập,",
+     "trải nghiệm và tham quan doanh nghiệp."
+    ],
+    [
+     "Chia sẻ kinh nghiệm nghề nghiệp,",
+     "kỹ năng làm việc và văn hóa doanh nghiệp."
+    ],
+    [
+     "Hỗ trợ kết nối việc làm",
+     "trong nước và quốc tế."
+    ],
+    [
+     "Cùng nhà trường xây dựng",
+     "những chương trình đào tạo có giá trị thực tiễn."
+    ]
+   ],
+   "message": "Doanh nghiệp cần **tham gia từ quá trình đào tạo**, thay vì chỉ chờ đợi nguồn nhân lực sau tốt nghiệp.",
+   "people": [
+    "worker",
+    "businessman",
+    "businesswoman"
+   ],
+   "notes": "TRANG 3. VAI TRÒ CỦA DOANH NGHIỆP TRONG GIÁO DỤC\nDoanh nghiệp không chỉ là nơi tuyển dụng sinh viên sau khi tốt nghiệp, mà còn là đối tác đồng hành cùng nhà trường trong suốt quá trình đào tạo.\n- Tham gia tư vấn chương trình đào tạo sát với nhu cầu thực tế.\n- Tạo điều kiện thực tập, trải nghiệm và tham quan doanh nghiệp.\n- Chia sẻ kinh nghiệm nghề nghiệp, kỹ năng làm việc và văn hóa doanh nghiệp.\n- Hỗ trợ kết nối việc làm trong nước và quốc tế.\n- Cùng nhà trường xây dựng những chương trình đào tạo có giá trị thực tiễn.\nThông điệp: Doanh nghiệp cần tham gia từ quá trình đào tạo, thay vì chỉ chờ đợi nguồn nhân lực sau tốt nghiệp.",
+   "pill_size": 12
+  },
+  {
+   "slide": "process",
+   "title": "Các mô hình hợp tác thiết thực",
+   "crumb": "Hợp tác Doanh nghiệp – Nhà trường",
+   "steps": [
+    [
+     "book-open",
+     "Đào tạo gắn với thực tiễn",
+     "Doanh nghiệp tham gia góp ý giáo trình và nội dung đào tạo."
+    ],
+    [
+     "briefcase",
+     "Thực tập doanh nghiệp",
+     "Sinh viên được trải nghiệm môi trường làm việc thực tế."
+    ],
+    [
+     "compass",
+     "Định hướng nghề nghiệp",
+     "Tổ chức hội thảo, giao lưu với chuyên gia và nhà tuyển dụng."
+    ],
+    [
+     "user-check",
+     "Hỗ trợ tuyển dụng",
+     "Kết nối sinh viên với các vị trí việc làm phù hợp."
+    ],
+    [
+     "globe",
+     "Hợp tác quốc tế",
+     "Phát triển chương trình trao đổi, đào tạo và cơ hội làm việc tại Hàn Quốc."
+    ]
+   ],
+   "image": "tu_van_sv",
+   "focus": [
+    0.4,
+    0.42
+   ],
+   "message": "Hợp tác hiệu quả cần có **chương trình cụ thể**, **mục tiêu rõ ràng** và **lợi ích thiết thực** cho sinh viên.",
+   "notes": "TRANG 4. CÁC MÔ HÌNH HỢP TÁC THIẾT THỰC\n1. Đào tạo gắn với thực tiễn: Doanh nghiệp tham gia góp ý giáo trình và nội dung đào tạo.\n2. Thực tập doanh nghiệp: Sinh viên được trải nghiệm môi trường làm việc thực tế.\n3. Định hướng nghề nghiệp: Tổ chức hội thảo, giao lưu với chuyên gia và nhà tuyển dụng.\n4. Hỗ trợ tuyển dụng: Kết nối sinh viên với các vị trí việc làm phù hợp.\n5. Hợp tác quốc tế: Phát triển chương trình trao đổi, đào tạo và cơ hội làm việc tại Hàn Quốc.\nThông điệp: Hợp tác hiệu quả cần có chương trình cụ thể, mục tiêu rõ ràng và lợi ích thiết thực cho sinh viên."
+  },
+  {
+   "slide": "photos_list",
+   "title": "Kết nối doanh nghiệp Việt Nam – Hàn Quốc",
+   "crumb": "Hợp tác Doanh nghiệp – Nhà trường",
+   "side": "right",
+   "photos": [
+    [
+     "chosun_camp",
+     [
+      0.5,
+      0.5
+     ]
+    ],
+    [
+     "hanbok_aodai",
+     [
+      0.5,
+      0.6
+     ]
+    ]
+   ],
+   "pill": "Trong bối cảnh hợp tác kinh tế Việt Nam – Hàn Quốc ngày càng phát triển, nhu cầu về nguồn nhân lực có chuyên môn, ngoại ngữ và khả năng thích nghi quốc tế ngày càng quan trọng.",
+   "items": [
+    [
+     "Tăng cường đào tạo tiếng Hàn",
+     "và kỹ năng giao tiếp trong môi trường quốc tế."
+    ],
+    [
+     "Kết nối sinh viên",
+     "với doanh nghiệp Hàn Quốc đang hoạt động tại Việt Nam."
+    ],
+    [
+     "Mở rộng cơ hội thực tập, việc làm",
+     "và phát triển nghề nghiệp xuyên quốc gia."
+    ],
+    [
+     "Chia sẻ văn hóa làm việc,",
+     "tác phong chuyên nghiệp và tinh thần trách nhiệm."
+    ],
+    [
+     "Xây dựng mạng lưới hợp tác",
+     "giữa trường đại học, doanh nghiệp và các đối tác quốc tế."
+    ]
+   ],
+   "message": "Giáo dục là **cầu nối quan trọng** giúp nhân lực trẻ Việt Nam tiếp cận cơ hội phát triển trong môi trường toàn cầu.",
+   "notes": "TRANG 5. KẾT NỐI DOANH NGHIỆP VIỆT NAM – HÀN QUỐC\nTrong bối cảnh hợp tác kinh tế Việt Nam – Hàn Quốc ngày càng phát triển, nhu cầu về nguồn nhân lực có chuyên môn, ngoại ngữ và khả năng thích nghi quốc tế ngày càng quan trọng.\n- Tăng cường đào tạo tiếng Hàn và kỹ năng giao tiếp trong môi trường quốc tế.\n- Kết nối sinh viên với doanh nghiệp Hàn Quốc đang hoạt động tại Việt Nam.\n- Mở rộng cơ hội thực tập, việc làm và phát triển nghề nghiệp xuyên quốc gia.\n- Chia sẻ văn hóa làm việc, tác phong chuyên nghiệp và tinh thần trách nhiệm.\n- Xây dựng mạng lưới hợp tác giữa trường đại học, doanh nghiệp và các đối tác quốc tế.\nThông điệp: Giáo dục là cầu nối quan trọng giúp nhân lực trẻ Việt Nam tiếp cận cơ hội phát triển trong môi trường toàn cầu."
+  },
+  {
+   "slide": "photos_list",
+   "title": "Cam kết đồng hành cùng nhà trường",
+   "crumb": "Hợp tác Doanh nghiệp – Nhà trường",
+   "side": "left",
+   "photos": [
+    [
+     "le_ky_ket",
+     [
+      0.5,
+      0.5
+     ]
+    ],
+    [
+     "ky_ket",
+     [
+      0.55,
+      0.5
+     ]
+    ]
+   ],
+   "pill": "Với kinh nghiệm kết nối doanh nghiệp và hợp tác giáo dục Việt Nam – Hàn Quốc, KCL Trading mong muốn tiếp tục đồng hành cùng các trường đại học trên những phương diện phù hợp với năng lực và nhu cầu thực tế của hai bên.",
+   "items": [
+    [
+     "Tăng cường kết nối",
+     "giữa nhà trường và doanh nghiệp."
+    ],
+    [
+     "Hỗ trợ định hướng nghề nghiệp",
+     "và tiếp cận cơ hội thực tập."
+    ],
+    [
+     "Phối hợp tổ chức",
+     "các chương trình giao lưu, hội thảo chuyên đề."
+    ],
+    [
+     "Tìm kiếm cơ hội việc làm",
+     "phù hợp cho sinh viên."
+    ],
+    [
+     "Từng bước mở rộng hợp tác",
+     "với mạng lưới doanh nghiệp Hàn Quốc."
+    ]
+   ],
+   "message": "Chúng tôi mong muốn xây dựng **quan hệ đối tác lâu dài**, dựa trên sự tin tưởng, trách nhiệm và lợi ích chung.",
+   "notes": "TRANG 6. CAM KẾT ĐỒNG HÀNH CÙNG NHÀ TRƯỜNG\nVới kinh nghiệm kết nối doanh nghiệp và hợp tác giáo dục Việt Nam – Hàn Quốc, KCL Trading mong muốn tiếp tục đồng hành cùng các trường đại học trên những phương diện phù hợp với năng lực và nhu cầu thực tế của hai bên.\n- Tăng cường kết nối giữa nhà trường và doanh nghiệp.\n- Hỗ trợ định hướng nghề nghiệp và tiếp cận cơ hội thực tập.\n- Phối hợp tổ chức các chương trình giao lưu, hội thảo chuyên đề.\n- Tìm kiếm cơ hội việc làm phù hợp cho sinh viên.\n- Từng bước mở rộng hợp tác với mạng lưới doanh nghiệp Hàn Quốc.\nThông điệp: Chúng tôi mong muốn xây dựng quan hệ đối tác lâu dài, dựa trên sự tin tưởng, trách nhiệm và lợi ích chung."
+  },
+  {
+   "slide": "speech",
+   "image": "giang_duong",
+   "focus": [
+    0.5,
+    0.55
+   ],
+   "kicker": "Bài phát biểu kết thúc",
+   "title": "Cùng kiến tạo tương lai",
+   "salutation": "Kính thưa quý vị đại biểu, quý thầy cô và các bạn sinh viên!",
+   "paragraphs": [
+    "Tôi tin rằng sự hợp tác giữa doanh nghiệp và nhà trường không chỉ mang lại lợi ích cho hai bên, mà còn **mở ra những cơ hội mới cho thế hệ trẻ**.",
+    "Nhà trường đào tạo tri thức và nhân cách; doanh nghiệp tạo môi trường để tri thức được vận dụng vào thực tiễn. Khi hai bên **cùng chung tầm nhìn**, chúng ta có thể đào tạo nguồn nhân lực đáp ứng yêu cầu của xã hội và hội nhập quốc tế.",
+    "KCL Trading mong muốn trở thành **cầu nối tích cực** giữa nhà trường, sinh viên và cộng đồng doanh nghiệp Việt Nam – Hàn Quốc.",
+    "Tôi hy vọng hôm nay sẽ là khởi đầu cho những chương trình hợp tác **thiết thực, hiệu quả và bền vững**."
+   ],
+   "notes": "TRANG 7. CÙNG KIẾN TẠO TƯƠNG LAI – BÀI PHÁT BIỂU KẾT THÚC\nKính thưa quý vị đại biểu, quý thầy cô và các bạn sinh viên!\nTôi tin rằng sự hợp tác giữa doanh nghiệp và nhà trường không chỉ mang lại lợi ích cho hai bên, mà còn mở ra những cơ hội mới cho thế hệ trẻ.\nNhà trường đào tạo tri thức và nhân cách; doanh nghiệp tạo môi trường để tri thức được vận dụng vào thực tiễn. Khi hai bên cùng chung tầm nhìn, chúng ta có thể đào tạo nguồn nhân lực đáp ứng yêu cầu của xã hội và hội nhập quốc tế.\nKCL Trading mong muốn trở thành cầu nối tích cực giữa nhà trường, sinh viên và cộng đồng doanh nghiệp Việt Nam – Hàn Quốc.\nTôi hy vọng hôm nay sẽ là khởi đầu cho những chương trình hợp tác thiết thực, hiệu quả và bền vững.\n(Chuyển sang slide cuối: lời chúc, cảm ơn và video.)",
+   "width": 8.0
+  },
+  {
+   "slide": "thanks_video",
+   "image": "sv_bao_ho",
+   "focus": [
+    0.5,
+    0.58
+   ],
+   "title1": "Xin trân trọng",
+   "title2": "Cảm ơn!",
+   "subtitle": "Xin kính chúc quý vị **sức khỏe, thành công**.\nChúc quý nhà trường **ngày càng phát triển**!",
+   "presenter": "Ông Kim Sang Won – Đại diện KCL Trading",
+   "video": {
+    "url": "https://www.youtube.com/embed/snzSo2rnOo8?feature=oembed",
+    "poster_image": "le_ky_ket",
+    "poster_focus": [
+     0.5,
+     0.5
+    ],
+    "poster_caption": "Bấm để phát video",
+    "links": [
+     [
+      "Xem trên YouTube",
+      "https://youtu.be/snzSo2rnOo8",
+      "circle-play"
+     ],
+     [
+      "Mở trên Google Drive",
+      "https://drive.google.com/file/d/1LCbgjreNxFcYkaJbH8vhz7fwgys_f7Fv/view?usp=drive_link",
+      "external-link"
+     ]
+    ],
+    "note": "Video phát ngay trong khung khi trình chiếu bằng PowerPoint 2019 / Microsoft 365 có kết nối Internet. Nếu không phát được, bấm một trong hai nút để mở video."
+   },
+   "notes": "Xin kính chúc quý vị sức khỏe, thành công. Chúc quý nhà trường ngày càng phát triển!\nXin trân trọng cảm ơn!\n\nVIDEO: bấm vào khung video để phát (cần Internet, PowerPoint 2019 / Microsoft 365). Dự phòng: nút “Xem trên YouTube” (https://youtu.be/snzSo2rnOo8) hoặc “Mở trên Google Drive” (https://drive.google.com/file/d/1LCbgjreNxFcYkaJbH8vhz7fwgys_f7Fv/view?usp=drive_link)."
+  }
+ ]
+}

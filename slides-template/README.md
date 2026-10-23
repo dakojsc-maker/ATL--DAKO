@@ -151,3 +151,8 @@ lụa cam · quy trình 5 bước · kết luận · cảm ơn.
 - **Ảnh:** Open Images (CC BY 2.0) — `assets/images/laodong_photos.json`, tác giả trong `assets/images/credits.csv`;
   người tách nền `assets/images/cut/ld_*.png`. Số liệu trong file mẫu theo Niên giám thống kê; tỉ trọng lao động theo vùng
   là số minh họa.
+- **Dạng slide bổ sung** (dùng trong `decks/hop-tac-kcl`): `photos_list` (1–3 ảnh xếp dọc + khung cam + danh sách ý),
+  `speech` (bài phát biểu trên ảnh tràn nền tối), `thanks_video` (cảm ơn + khung video YouTube phát ngay trong PowerPoint
+  2019 / 365 khi có mạng, kèm nút mở link). `cover` nhận thêm `subtitle`, `message`, `strength`; `people_list`, `process`
+  nhận thêm `message` (khung "Thông điệp" viền đứt nét). Trường `notes` của mỗi slide trong content.json thành ghi chú
+  người trình bày.

@@ -14,6 +14,7 @@ Look & feel
       consecutive content slides only animate what changes.
 Each layout: fn(prs, ctx, c) -> slide.   ctx = dict(n, img{key: path}, cut{key: path}, art{key: path}, maps{...})
 """
+import os
 import re
 
 import pptkit as K
@@ -190,6 +191,26 @@ def callout(s, x, y, w, h, t, size=13, align='c'):
     return [box, tb]
 
 
+def message_h(t, w, size=13):
+    nl = K.n_lines(plain(t), F('medium'), size, w - 1.3)
+    return max(0.85, nl * size / 72 * 1.28 + 0.5)
+
+
+def message(s, x, y, w, t, size=13, label='Thông điệp', h=None):
+    """Key message: dashed orange box, orange label tab on the top edge, megaphone icon. -> (shapes, height)"""
+    h = h or message_h(t, w, size)
+    box = K.rect(s, x, y, w, h, fill=P['white'], radius=0.14, alpha=62)
+    K.set_line(box, P['orange'], 1.25, dash='dash')
+    lab = label.upper()
+    tw = K.text_w(lab, F('disp'), 11) + len(lab) * 1.5 / 72 + 0.4
+    tag = K.rect(s, x + 0.3, y - 0.16, tw, 0.32, fill=P['orange'], radius=0.08)
+    K.shape_text(tag, lab, size=11, color=P['white'], font=F('disp'), spacing=1.5, margin=(0.05, 0.0))
+    ic = K.icon(s, 'megaphone', x + 0.32, y + h / 2 - 0.2, 0.4, P['orange'], stroke=2.0)
+    tb = rich(s, x + 0.95, y + 0.14, w - 1.25, h - 0.22, t, size=size, font=F('medium'), color=P['ink'],
+              anchor='m', line_sp=1.25, space_after=0)
+    return [box, tag, ic, tb], h
+
+
 def photo(s, ctx, key, x, y, w, h, focus=(0.5, 0.5), radius=0.14, border=P['white'], bw=2.5, nm=None):
     p = K.picture(s, pic_path(ctx, key), x, y, w, h, radius=radius, focus=tuple(focus), border=border, border_w=bw,
                   nm=nm)
@@ -305,7 +326,7 @@ def pie_chart(s, x, y, d, cats, values, fmt='0.0', size=11):
 # ================================================================== 1. cover
 def cover(prs, ctx, c):
     s = _new(prs, ctx, dark=True)
-    bg = photo_bg(s, ctx, c['image'], focus=c.get('focus', (0.6, 0.5)), shade='left')
+    bg = photo_bg(s, ctx, c['image'], focus=c.get('focus', (0.6, 0.5)), shade='left', strength=c.get('strength', 1.0))
     out = []
     if c.get('kicker'):
         kt = c['kicker'].upper()
@@ -314,8 +335,12 @@ def cover(prs, ctx, c):
         K.shape_text(tag, kt, size=13, color=P['white'], font=F('disp'), spacing=2.5, margin=(0.12, 0.02))
         out.append(tag)
     t1, t2 = c['title1'].upper(), c['title2'].upper()
+    sub, msg = c.get('subtitle', ''), c.get('message', '')
+    sub_h = K.n_lines(sub, F('semi'), 17, 8.2) * 17 / 72 * 1.15 + 0.2 if sub else 0
+    msg_h = K.n_lines(plain(msg), F('body'), 13.5, 7.4) * 13.5 / 72 * 1.3 + 0.05 if msg else 0
     size = 120
-    while max(K.text_w(t1, F('disp'), size), K.text_w(t2, F('disp'), size) + 0.6) > 7.3 and size > 60:
+    while (max(K.text_w(t1, F('disp'), size), K.text_w(t2, F('disp'), size) + 0.6) > 7.3
+           or 1.35 + size / 72 * 1.18 * 1.95 + sub_h + msg_h > SH - 1.5) and size > 60:
         size -= 4
     lh = size / 72 * 1.18
     a = K.text(s, ML, 1.25, 8.0, lh, t1, size=size, font=F('disp'), color=P['white'], nm='!!t1', wrap=False,
@@ -326,13 +351,26 @@ def cover(prs, ctx, c):
                wrap=False, anchor='t')
     for t in (a, b):
         text_shadow(t, alpha=65, blur=0.14, dist=0.06, angle=90)
+    extra = []
+    y = 1.25 + lh * 1.95 + 0.1
+    if sub:      # tagline under the title
+        st = K.text(s, ML + 0.05, y, 8.2, sub_h, sub, size=17, font=F('semi'), color=P['peach2'], line_sp=1.15)
+        text_shadow(st, alpha=60, blur=0.08, dist=0.03, angle=90)
+        extra.append(st)
+        y += sub_h
+    if msg:      # key message with an orange rule
+        bar = K.rect(s, ML + 0.07, y + 0.05, 0.06, msg_h - 0.1, fill=P['orange'])
+        mt = rich(s, ML + 0.3, y, 7.4, msg_h, msg, size=13.5, color='F2E6DE', bold_color=P['orange2'], line_sp=1.3,
+                  space_after=0)
+        extra.append([bar, mt])
     pres = presenter(s, c.get('presenter', ''), ML, SH - 1.3)
     K.anim(s, bg[0], 'zoom', 0.0, 1.4)
     K.anims(s, out, 'wipe_l', 0.4, 0.1, 0.5)
     K.anim(s, a, 'rise', 0.6, 0.7)
     K.anim(s, amp, 'turn', 0.95, 0.6)
     K.anim(s, b, 'rise', 1.1, 0.7)
-    K.anims(s, pres, 'fade', 1.6, 0.0, 0.6)
+    t = K.anims(s, extra, 'fade', 1.5, 0.3, 0.6)
+    K.anims(s, pres, 'fade', max(1.6, t), 0.0, 0.6)
     K.notes(s, c.get('notes', 'Slide bìa.'))
     return s
 
@@ -605,26 +643,38 @@ def people_list(prs, ctx, c):
         ppl.append(K.picture(s, pic_path(ctx, k, prefer_cut=True), x, bot - h, w, h, fit='contain', nm=f'!!p_{k}'))
     sw = K.picture(s, ctx['art']['swoosh'], 6.9, SH - 2.95, 6.8, 2.98, nm='!!swoosh')
     pw = 7.0
-    nl = K.n_lines(c['pill'], F('semi'), 12.5, pw - 0.5)
+    psz = c.get('pill_size', 12.5)
+    nl = K.n_lines(c['pill'], F('semi'), psz, pw - 0.5)
     ph_ = 0.32 + 0.24 * nl
-    pl = pill(s, ML, 1.3, pw, ph_, c['pill'], size=12.5)
+    pl = pill(s, ML, 1.3, pw, ph_, c['pill'], size=psz)
     y = 1.3 + ph_ + 0.25
     items = []
     n = len(c['items'])
     size = 12.5 if n <= 4 else 12
-    for lead, txt in c['items']:
-        t = f'**{lead}** {txt}' if lead else txt
-        nlines = K.n_lines(plain(t), F('body'), size, pw - 0.55)
-        hh = nlines * size / 72 * 1.3 + 0.05
+    msg = c.get('message')
+    mw = pw - 0.3
+    mh = message_h(msg, mw) if msg else 0
+    texts = [f'**{lead}** {txt}' if lead else txt for lead, txt in c['items']]
+
+    def heights(sz):
+        return [K.n_lines(plain(t), F('body'), sz, pw - 0.55) * sz / 72 * 1.3 + 0.05 for t in texts]
+    gap = 0.2
+    if msg:      # leave room for the message box at the bottom
+        while y + sum(heights(size)) + gap * n > SH - 0.75 - mh - 0.15 and size > 11:
+            size -= 0.5
+        gap = min(0.3, max(0.12, (SH - 0.75 - mh - 0.2 - y - sum(heights(size))) / n))
+    for t, hh in zip(texts, heights(size)):
         ic = check_icon(s, ML, y + 0.02, 0.3)
         tb = rich(s, ML + 0.45, y, pw - 0.45, hh, t, size=size, line_sp=1.22, space_after=0)
         items.append([ic, tb])
-        y += hh + 0.2
+        y += hh + gap
+    ms = message(s, ML, SH - 0.75 - mh, mw, msg, h=mh)[0] if msg else []
     K.anims(s, hd, 'wipe_l', 0.0, 0.1, 0.5)
     K.anims(s, ppl, 'rise', 0.3, 0.15, 0.6)
     K.anim(s, sw, 'wipe_l', 0.6, 0.8)
     K.anim(s, pl, 'wipe_l', 0.5, 0.5)
-    K.anims(s, items, 'rise', 0.9, 0.18, 0.45)
+    t = K.anims(s, items, 'rise', 0.9, 0.18, 0.45)
+    K.anims(s, ms, 'zoom', t + 0.2, 0.05, 0.5)
     return s
 
 
@@ -729,7 +779,8 @@ def process(prs, ctx, c):
     steps = c['steps'][:6]
     n = len(steps)
     w = (SW - 2 * ML + 0.25 * (n - 1)) / n
-    y = 2.2
+    msg = c.get('message')
+    y = 1.45 if msg and lead is None else 2.2
     out = []
     shades = ['FFB04A', 'FF9A35', 'F98227', 'F26B1F', 'E3521C', 'D9381E']
     off = max(0, 6 - n)
@@ -750,14 +801,28 @@ def process(prs, ctx, c):
         tx = K.text(s, x + 0.2, y + 2.4, w - 0.45, 0.75, txt, size=11, font=F('body'), color=P['text'], align='c',
                     line_sp=1.15)
         out.append([ch, icn, num, tt, tx])
-    ph = photo(s, ctx, c['image'], ML, 5.55, SW - 2 * ML, 1.35, focus=c.get('focus', (0.5, 0.5)), radius=0.12) \
-        if c.get('image') else None
+    ms = []
+    if msg:      # bottom band: photo on the left, key message beside it
+        by = y + 3.3
+        bh = SH - 0.62 - by
+        mx, mw = ML, SW - 2 * ML
+        ph = None
+        if c.get('image'):
+            iw = c.get('image_w', 4.6)
+            ph = photo(s, ctx, c['image'], ML, by, iw, bh, focus=c.get('focus', (0.5, 0.5)), radius=0.12)
+            mx, mw = ML + iw + 0.45, SW - 2 * ML - iw - 0.45
+        mh = message_h(msg, mw)
+        ms = message(s, mx, by + (bh - mh) / 2, mw, msg, h=mh)[0]
+    else:
+        ph = photo(s, ctx, c['image'], ML, 5.55, SW - 2 * ML, 1.35, focus=c.get('focus', (0.5, 0.5)), radius=0.12) \
+            if c.get('image') else None
     K.anims(s, hd, 'wipe_l', 0.0, 0.1, 0.5)
     if lead is not None:
         K.anim(s, lead, 'fade', 0.3, 0.5)
     K.anims(s, out, 'fly_l', 0.5, 0.2, 0.5)
     if ph is not None:
         K.anim(s, ph, 'wipe_l', 0.6 + 0.2 * n, 0.8)
+    K.anims(s, ms, 'zoom', 1.0 + 0.2 * n, 0.05, 0.5)
     return s
 
 
@@ -806,6 +871,193 @@ def thanks(prs, ctx, c):
     K.anim(s, a, 'rise', 0.5, 0.7)
     K.anim(s, b, 'rise', 0.85, 0.7)
     K.anims(s, pres, 'fade', 1.4, 0.0, 0.6)
+    return s
+
+
+# ================================================================== 15. photos + pill + check list + message
+def photos_list(prs, ctx, c):
+    """1–3 stacked photos on one side; intro pill, check list and key message on the other."""
+    s = _new(prs, ctx)
+    paper(s, ctx)
+    hd = header(s, ctx, c['title'], c.get('crumb', ''))
+    pw, gap = c.get('photo_w', 4.75), 0.45
+    tw = SW - 2 * ML - pw - gap
+    right = c.get('side', 'right') == 'right'
+    tx0 = ML if right else ML + pw + gap
+    px0 = ML + tw + gap if right else ML
+    top, bot = 1.35, SH - 0.62
+    phs = []
+    ims = c.get('photos', [])[:3]
+    if ims:
+        g = 0.22
+        ratios = c.get('photo_ratios') or [1] * len(ims)
+        avail = bot - top - g * (len(ims) - 1)
+        yy = top
+        for k, r in zip(ims, ratios):
+            key, focus = (k, (0.5, 0.5)) if isinstance(k, str) else (k[0], k[1])
+            hh = avail * r / sum(ratios)
+            phs.append(photo(s, ctx, key, px0, yy, pw, hh, focus=focus, radius=0.14))
+            yy += hh + g
+    msg = c.get('message')
+    mh = message_h(msg, tw) if msg else 0
+    limit = bot - (mh + 0.3 if msg else 0)
+    texts = [(f'**{it[0]}** {it[1]}' if it[0] else it[1]) if isinstance(it, (list, tuple)) else it
+             for it in c['items']]
+    pill_t = c.get('pill', '')
+    size = 12.5
+    while True:
+        pl_h = 0.3 + K.n_lines(pill_t, F('semi'), size, tw - 0.5) * size / 72 * 1.35 if pill_t else 0
+        hs = [K.n_lines(plain(t), F('body'), size, (tw - 0.45) * 0.92) * size / 72 * 1.3 + 0.05 for t in texts]
+        used = (pl_h + 0.3 if pill_t else 0) + sum(hs)
+        if top + used + 0.15 * len(hs) <= limit or size <= 11:
+            break
+        size -= 0.5
+    gap_i = min(0.34, max(0.12, (limit - top - used) / max(1, len(hs))))
+    pl = pill(s, tx0, top, tw, pl_h, pill_t, size=size) if pill_t else None
+    y = top + (pl_h + 0.3 if pill_t else 0)
+    items = []
+    for t, hh in zip(texts, hs):
+        ic = check_icon(s, tx0, y + 0.02, 0.3)
+        tb = rich(s, tx0 + 0.45, y, tw - 0.45, hh, t, size=size, line_sp=1.22, space_after=0)
+        items.append([ic, tb])
+        y += hh + gap_i
+    ms = message(s, tx0, bot - mh, tw, msg, h=mh)[0] if msg else []
+    K.anims(s, hd, 'wipe_l', 0.0, 0.1, 0.5)
+    K.anims(s, phs, 'zoom', 0.3, 0.2, 0.7)
+    if pl is not None:
+        K.anim(s, pl, 'wipe_l', 0.5, 0.5)
+    t = K.anims(s, items, 'rise', 0.9, 0.18, 0.45)
+    K.anims(s, ms, 'zoom', t + 0.2, 0.05, 0.5)
+    return s
+
+
+# ================================================================== 16. speech on a dark photo
+def speech(prs, ctx, c):
+    """Kicker tag, big title, salutation and the paragraphs of a speech over a darkened full-bleed photo."""
+    s = _new(prs, ctx, dark=True, tr=1.3)
+    photo_bg(s, ctx, c['image'], focus=c.get('focus', (0.5, 0.5)), shade='left', strength=c.get('strength', 1.1))
+    veil = K.rect(s, 0, 0, 10.2, SH)      # extra shade behind the text column
+    K.grad_fill(veil, [(0, P['dark'], 70), (68, P['dark'], 55), (100, P['dark'], 0)], angle=0)
+    w = c.get('width', 7.7)
+    out = []
+    if c.get('kicker'):
+        kt = c['kicker'].upper()
+        kw = K.text_w(kt, F('disp'), 13) + len(kt) * 2.5 / 72 + 0.5
+        tag = K.rect(s, ML, 0.5, kw, 0.36, fill=P['orange'], nm='!!kicker')
+        K.shape_text(tag, kt, size=13, color=P['white'], font=F('disp'), spacing=2.5, margin=(0.12, 0.02))
+        out.append(tag)
+    title = c['title'].upper()
+    tsize = 54
+    while K.text_w(title, F('disp'), tsize) > w and tsize > 34:
+        tsize -= 2
+    tt = K.text(s, ML, 0.95, w + 1, tsize / 72 * 1.25, title, size=tsize, font=F('disp'), color=P['white'],
+                wrap=False, anchor='b', nm='!!ttl')
+    text_shadow(tt, alpha=60, blur=0.12, dist=0.05, angle=90)
+    y = 0.95 + tsize / 72 * 1.25 + 0.12
+    bar = K.rect(s, ML + 0.03, y, 1.4, 0.07, fill=P['orange'], nm='!!bar')
+    y += 0.3
+    sal = None
+    if c.get('salutation'):
+        sal = K.text(s, ML, y, w, 0.45, c['salutation'], size=15.5, font=F('semi'), color=P['orange2'])
+        y += K.n_lines(c['salutation'], F('semi'), 15.5, w) * 15.5 / 72 * 1.2 + 0.18
+    paras = c['paragraphs']
+    size = c.get('size', 14.5)
+    while sum(K.n_lines(plain(p), F('body'), size, w * 0.95) * size / 72 * 1.3 + 9 / 72 for p in paras) > SH - 0.55 - y \
+            and size > 11:
+        size -= 0.5
+    body = rich(s, ML, y, w, SH - 0.55 - y, '\n'.join(paras), size=size, color='F2E6DE', bold_color=P['orange2'],
+                line_sp=1.3, space_after=9)
+    K.anims(s, out, 'wipe_l', 0.1, 0.1, 0.5)
+    K.anim(s, tt, 'rise', 0.3, 0.7)
+    K.anim(s, bar, 'wipe_l', 0.8, 0.4)
+    if sal is not None:
+        K.anim(s, sal, 'fade', 1.0, 0.5)
+    K.anim(s, body, 'fade', 1.3, 0.8)
+    return s
+
+
+# ================================================================== 17. thanks + video
+def thanks_video(prs, ctx, c):
+    """Closing slide: big thank-you on a dark photo, presenter, and a video frame with buttons that open it online.
+    video = dict(url=<embed URL played inside PowerPoint>, poster=<image>, poster_image=<photo key for an
+                 auto-made poster>, title=..., links=[[label, url, icon], ...], note=...)"""
+    import laodong_assets as A
+    s = _new(prs, ctx, dark=True, tr=1.3)
+    bg = photo_bg(s, ctx, c['image'], focus=c.get('focus', (0.6, 0.5)), shade='left', strength=1.1)
+    rv = K.rect(s, 6.2, 0, SW - 6.2, SH)
+    K.grad_fill(rv, [(0, P['dark'], 0), (30, P['dark'], 45), (100, P['dark'], 62)], angle=0)
+    tw = 5.9
+    t1, t2 = c.get('title1', 'Xin cảm ơn').upper(), c.get('title2', 'đã lắng nghe').upper()
+    s1, s2 = 60, 104
+    while K.text_w(t1, F('disp'), s1) > tw and s1 > 34:
+        s1 -= 2
+    while K.text_w(t2, F('disp'), s2) > tw and s2 > 56:
+        s2 -= 4
+    y = 1.15
+    a = K.text(s, ML, y, tw + 0.5, s1 / 72 * 1.2, t1, size=s1, font=F('disp'), color=P['white'], nm='!!t1',
+               wrap=False, anchor='b')
+    y += s1 / 72 * 1.2 + 0.2     # stacked accents (Ả, Ấ…) on line 2 reach above the cap height
+    b = K.text(s, ML, y - 0.05, tw + 0.5, s2 / 72 * 1.18, t2, size=s2, font=F('disp'), color=P['orange2'], nm='!!t2',
+               wrap=False)
+    y += s2 / 72 * 1.18 + 0.05
+    for t in (a, b):
+        text_shadow(t, alpha=65, blur=0.14, dist=0.06, angle=90)
+    bar = K.rect(s, ML + 0.05, y, 1.4, 0.07, fill=P['orange'])
+    sub = rich(s, ML + 0.05, y + 0.25, tw, 1.2, c.get('subtitle', ''), size=15, color='F2E6DE',
+               bold_color=P['orange2'], line_sp=1.3, space_after=4) if c.get('subtitle') else None
+    pres = presenter(s, c.get('presenter', ''), ML, SH - 1.3)
+    # video frame
+    v = c['video']
+    vx, vw = 6.95, SW - ML - 6.95
+    vh = vw * 9 / 16
+    vy = 1.45
+    kt = (v.get('label') or 'Video').upper()
+    kw = K.text_w(kt, F('disp'), 12) + len(kt) * 2 / 72 + 0.45
+    tag = K.rect(s, vx, vy - 0.52, kw, 0.34, fill=P['orange'])
+    K.shape_text(tag, kt, size=12, color=P['white'], font=F('disp'), spacing=2, margin=(0.1, 0.0))
+    head = [tag]
+    if v.get('title'):
+        head.append(K.text(s, vx + kw + 0.15, vy - 0.55, vw - kw - 0.15, 0.4, v['title'], size=12.5, font=F('medium'),
+                           color='F2E6DE', anchor='m'))
+    poster = v.get('poster')
+    if not poster:
+        poster = A.video_poster(pic_path(ctx, v['poster_image']),
+                                os.path.join(os.path.dirname(ctx['art']['paper']), f'poster_{v["poster_image"]}.jpg'),
+                                focus=v.get('poster_focus', (0.5, 0.5)), caption=v.get('poster_caption', ''))
+    vid = K.online_video(s, v['url'], poster, vx, vy, vw, vh, nm='Online Media ' + kt.title())
+    K.set_line(vid, P['white'], 2.5)
+    K.shadow(vid, blur=0.35, dist=0.1, alpha=45, color='000000', angle=90)
+    K._ensure_ln_before_effects(vid)
+    btns = []
+    links = v.get('links', [])
+    if links:
+        gap = 0.25
+        bw = (vw - gap * (len(links) - 1)) / len(links)
+        by = vy + vh + 0.3
+        for i, (label, url, ic) in enumerate(links):
+            bx = vx + i * (bw + gap)
+            bt = K.rect(s, bx, by, bw, 0.5, fill=P['orange'] if i == 0 else '000000', alpha=None if i == 0 else 40,
+                        radius=0.25)
+            if i:
+                K.set_line(bt, P['white'], 1.0, alpha=55)
+            K.shape_text(bt, label, size=12, color=P['white'], font=F('semi'), margin=(0.1, 0.0))
+            bt.text_frame.margin_left = K.E(0.55)
+            K.link(bt, url)
+            icp = K.icon(s, ic, bx + 0.2, by + 0.11, 0.28, P['white'])
+            K.link(icp, url)
+            btns.append([bt, icp])
+        if v.get('note'):
+            btns.append(K.text(s, vx, by + 0.6, vw, 0.5, v['note'], size=9.5, font=F('body'), italic=True,
+                               color='D9C7BC', line_sp=1.15))
+    K.anim(s, bg[0], 'zoom', 0.0, 1.4)
+    K.anim(s, a, 'rise', 0.4, 0.7)
+    K.anim(s, b, 'rise', 0.75, 0.7)
+    K.anim(s, bar, 'wipe_l', 1.2, 0.4)
+    if sub is not None:
+        K.anim(s, sub, 'fade', 1.35, 0.6)
+    K.anims(s, head, 'wipe_l', 0.5, 0.1, 0.5)
+    K.anims(s, btns, 'rise', 1.0, 0.15, 0.45)
+    K.anims(s, pres, 'fade', 1.6, 0.0, 0.6)
     return s
 
 

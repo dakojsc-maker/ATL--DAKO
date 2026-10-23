@@ -247,16 +247,20 @@ def credit_lines(content):
     return [f"• {r['title'][:46]} — {r['author']} (Flickr, CC BY 2.0)" for r in rows if r['image_id'] in used]
 
 
-def build(out_dir, content=None, name=None):
+def build(out_dir, content=None, name=None, credits_intro=None):
     L.register()
     content = content or build_content()
     res = prepare(content)
     prs = K.new_presentation()
     ctx = dict(n=0, **res)
-    slides = [fn(prs, ctx, c) for fn, c in content]
-    slides.append(L.credits(prs, ctx, dict(intro='Ảnh: bộ dữ liệu Open Images (Google), giấy phép CC BY 2.0; người '
-                                                 'được tách nền từ ảnh. Bản đồ: Natural Earth (public domain). '
-                                                 'Icon: Lucide (ISC). Font: Anton, Lexend (SIL OFL).',
+    slides = []
+    for fn, c in content:
+        slides.append(fn(prs, ctx, c))
+        if c.get('notes'):          # speaker notes from the content file
+            K.notes(slides[-1], c['notes'])
+    slides.append(L.credits(prs, ctx, dict(intro=credits_intro or 'Ảnh: bộ dữ liệu Open Images (Google), giấy phép '
+                                                 'CC BY 2.0; người được tách nền từ ảnh. Bản đồ: Natural Earth (public '
+                                                 'domain). Icon: Lucide (ISC). Font: Anton, Lexend (SIL OFL).',
                                            lines=credit_lines(content))))
     for s in slides:
         K.finalize(s)
@@ -279,9 +283,9 @@ if __name__ == '__main__':
         print('wrote', CIO.save(a.dump_sample, build_content(), template='M05', title='Lao động và việc làm',
                                 photos=PHOTOS))
         raise SystemExit(0)
-    content = None
+    content, meta = None, {}
     if a.content:
         meta, content = CIO.load(a.content, L)
         PHOTOS.update(meta.get('photos', {}))
     os.makedirs(a.out, exist_ok=True)
-    build(a.out, content, a.name)
+    build(a.out, content, a.name, meta.get('credits_intro'))

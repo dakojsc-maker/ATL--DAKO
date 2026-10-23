@@ -206,3 +206,38 @@ def vn_regions(out, values, highlight=None, w=1100, base='FBDCC4', low='FDBA86',
     canvas.save(out, optimize=True)
     anchors = {code: (proj(*ll)[0] / w, proj(*ll)[1] / h) for code, ll in ANCHORS.items()}
     return dict(path=out, anchors=anchors, names={k: v[0] for k, v in REGIONS.items()})
+
+
+# ------------------------------------------------------------------ video poster
+def video_poster(src, out, w=1600, h=900, focus=(0.5, 0.5), caption='', play='F26B1F'):
+    """Poster frame for an online video: the photo cropped to 16:9, darkened, with a round play button."""
+    im = Image.open(src).convert('RGB')
+    r = w / h
+    if im.width / im.height > r:
+        cw = int(im.height * r)
+        x0 = int(min(max(focus[0] * im.width - cw / 2, 0), im.width - cw))
+        im = im.crop((x0, 0, x0 + cw, im.height))
+    else:
+        ch = int(im.width / r)
+        y0 = int(min(max(focus[1] * im.height - ch / 2, 0), im.height - ch))
+        im = im.crop((0, y0, im.width, y0 + ch))
+    im = im.resize((w, h), Image.LANCZOS)
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    d = np.sqrt(((xx - w / 2) / (w * 0.75)) ** 2 + ((yy - h / 2) / (h * 0.75)) ** 2)
+    shade = (0.42 + 0.35 * np.clip(d, 0, 1))[..., None]          # darker towards the corners
+    arr = np.asarray(im).astype(np.float32) * (1 - shade) + np.array([20, 13, 10], np.float32) * shade
+    im = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), 'RGB').convert('RGBA')
+    ov = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+    dr = ImageDraw.Draw(ov)
+    cx, cy, rad = w / 2, h / 2 - (30 if caption else 0), 112
+    dr.ellipse((cx - rad - 18, cy - rad - 18, cx + rad + 18, cy + rad + 18), fill=(255, 255, 255, 60))
+    dr.ellipse((cx - rad, cy - rad, cx + rad, cy + rad), fill=_hex(play) + (255,))
+    k = rad * 0.46
+    dr.polygon([(cx - k * 0.75, cy - k), (cx - k * 0.75, cy + k), (cx + k * 1.05, cy)], fill=(255, 255, 255, 255))
+    if caption:
+        f = ImageFont.truetype(os.path.join(ROOT, 'fonts', 'laodong', 'Lexend-SemiBold.ttf'), 40)
+        tw = dr.textlength(caption, font=f)
+        dr.text((cx - tw / 2, cy + rad + 42), caption, font=f, fill=(255, 255, 255, 235))
+    im.alpha_composite(ov)
+    im.convert('RGB').save(out, quality=90)
+    return out
