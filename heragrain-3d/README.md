@@ -14,6 +14,8 @@ Sơ đồ 3D toàn cảnh nhà máy HTX Heragrain theo hiện trạng: **xưởn
 | `du-lieu.js` | **Dữ liệu**: 4 giai đoạn, 31 khu kèm đồ đạc, 11 bước quy trình, tuyến luồng hàng, mặt bằng, góc nhìn, phần phân tích |
 | `nha-may.js` | Dựng cảnh 3D (three.js r128), tô màu theo giai đoạn, nhãn, camera, tương tác |
 | `tai-lieu/Heragrain_Lo-trinh-dau-tu-giai-doan-dau.pptx` | Bộ slide lộ trình đầu tư làm căn cứ |
+| `xuat-html.py`, `thu-vien/` | Đóng gói thành một file HTML để gửi đi, kèm three.js r128 (giấy phép MIT) |
+| `ban-gui/Nha-may-Heragrain-3D.html` | File HTML đã đóng gói, mở được không cần mạng |
 
 Phần lớn chỉnh sửa chỉ cần sửa `du-lieu.js`.
 
@@ -116,3 +118,11 @@ __plant.zones            // danh sách khu kèm trạng thái hiện tại
 ## Cập nhật bản trực tuyến
 
 `index.html` là mã nguồn của trang trực tuyến, nên không có thẻ `<!doctype>`, `<html>`, `<head>`, `<body>`: khi xuất bản, hệ thống tự bọc các thẻ này. Sau khi sửa, xuất bản lại `index.html` kèm `du-lieu.js` và `nha-may.js` vào cùng đường dẫn ở trên để giữ nguyên link.
+
+## Xuất file HTML để gửi
+
+```sh
+python3 xuat-html.py
+```
+
+Lệnh tạo `ban-gui/Nha-may-Heragrain-3D.html` (khoảng 700 KB): một file duy nhất đã nhúng dữ liệu, phần dựng cảnh và thư viện 3D, gửi qua email hoặc Zalo, người nhận mở bằng trình duyệt là xem được, kể cả khi không có mạng (khi đó phông chữ dùng phông có sẵn của máy). Sửa `du-lieu.js` xong thì chạy lại lệnh để cập nhật file gửi.
