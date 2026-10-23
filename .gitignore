@@ -12,3 +12,7 @@ video-atld/build/
 video-hv/build/
 video-all/build/
 video-dongtau/build/
+loc-co-phieu/.cache/
+loc-co-phieu/ket-qua/
+loc-co-phieu/danh-muc.txt
+__pycache__/

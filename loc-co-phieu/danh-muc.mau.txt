@@ -1,0 +1,6 @@
+# Danh mục đang nắm giữ – sao chép tệp này thành danh-muc.txt rồi sửa.
+# Mỗi dòng: MÃ  GIÁ_MUA  [SỐ_LƯỢNG]  [NGÀY_MUA yyyy-mm-dd]
+# Giá nhập theo nghìn đồng (14.3) hoặc theo đồng (14300) đều được. Dòng bắt đầu bằng # là ghi chú.
+# Nên ghi ngày mua để dừng lỗ động tính theo mức lãi cao nhất kể từ ngày mua.
+DRI  14.3   2000  2026-09-22
+MSR  49.9   500   2026-09-22

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 loc-co-phieu/loc_co_phieu.py:*)",
+      "Bash(python loc-co-phieu/loc_co_phieu.py:*)",
+      "Bash(pip install -r loc-co-phieu/requirements.txt:*)",
+      "Bash(git add loc-co-phieu/nhat-ky/goi-y.json:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git fetch:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git merge --no-edit origin/claude/safety-training-intro-video-m2isyl:*)",
+      "Bash(git checkout -B loc-co-phieu-tu-dong:*)"
+    ]
+  }
+}
