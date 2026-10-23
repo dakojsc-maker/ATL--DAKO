@@ -10,8 +10,8 @@ Chuyên gia hơn 10 năm lập báo cáo huấn luyện ATLĐ cho doanh nghiệp
 
 ## Đầu vào cho mỗi khách hàng
 - Người dùng tải lên: hồ sơ năng lực, website, sơ đồ tổ chức, danh sách vị trí (nếu có).
-- Bộ nguồn cố định ở `tai-lieu-nguon/`: 17 file Word tư vấn ATVSLĐ theo ngành (cùng cấu trúc 9 phần; dùng chính là Phần 2–6); PPT thuyết trình dịch vụ ATLĐ (hồ sơ năng lực Viện STP – DAKO, 30 slide); 2 file hướng dẫn sử dụng phần mềm cho doanh nghiệp và học viên.
-- PPT hướng dẫn phần mềm 31 màn hình (bản gốc `HuongDan_PhanMem_DoanhNghiep_VienSTP_v2.pptx`) không có trong `tai-lieu-nguon/`; nội dung và ghi chú đã trích ở `hai-minh/tai_lieu_trich_xuat/PPT_HuongDan_PhanMem_31_ManHinh_vaGhiChu.md`, hình ở `hai-minh/hinh_giao_dien/`.
+- Bộ nguồn cố định ở `tai-lieu-nguon/`: 17 file Word tư vấn ATVSLĐ theo ngành (cùng cấu trúc 9 phần; dùng chính là Phần 2–6); PPT thuyết trình dịch vụ ATLĐ (hồ sơ năng lực Viện STP – DAKO, dùng cho dịch vụ đi kèm); 2 file Word hướng dẫn sử dụng phần mềm cho doanh nghiệp và cho học viên.
+- **Nguồn duy nhất cho phần tính năng phần mềm: 2 file Word hướng dẫn sử dụng.** Bản chữ và hình đã trích sẵn ở `thu-vien-phan-mem/`: `noi-dung-HDSD-doanh-nghiep.md`, `noi-dung-HDSD-hoc-vien.md`, 42 hình trong `hinh/` (31 màn hình doanh nghiệp, 11 màn hình học viên và trang tra cứu), bảng tra `DANH_MUC_HINH.md`, kích thước `dims.json`.
 
 ## Bảng đối chiếu 17 ngành (số theo tên file)
 | Số | Ngành | Phạm vi theo Phần 1 của file |
@@ -33,11 +33,8 @@ Chuyên gia hơn 10 năm lập báo cáo huấn luyện ATLĐ cho doanh nghiệp
 | 15 | Logistics – Kho vận | Vận tải hàng hóa, kho bãi, cảng và bốc xếp, giao nhận, chuyển phát |
 | 16 | Giáo dục | Mầm non đến THPT, liên cấp, quốc tế, trung tâm, giáo dục nghề nghiệp, đại học, ký túc xá |
 | 17 | Y tế | Bệnh viện, phòng khám, trung tâm y tế, xét nghiệm, chẩn đoán hình ảnh, dược, chăm sóc người bệnh, nhà thầu hỗ trợ |
-
-Lưu ý: một số tham chiếu chéo bên trong các file dùng số cũ (file 12 và 14 ghi "tài liệu số 02" cho cả ngành cơ khí – chế tạo lẫn điện – điện tử). Trong báo cáo luôn ghi số theo tên file như bảng trên.
-
 ## Các bước
-**Bước 1. Xác định ngành.** Đối chiếu ngành nghề đăng ký, sản phẩm, quy trình sản xuất và từng bộ phận, xưởng với 17 file ngành. Một công ty có thể cần một ngành chính và vài ngành phụ theo bộ phận (Hải Minh: ngành 12 chính; 04 cho xưởng cơ khí; 11 cho xưởng mộc). Ghi rõ lý do chọn ngành.
+**Bước 1. Xác định chính xác ngành (bước quyết định nội dung).** Đối chiếu ngành nghề kinh doanh chính đã đăng ký, sản phẩm, quy trình sản xuất, cơ sở vật chất và từng bộ phận, xưởng với phạm vi của 17 file ngành (bảng trên). Một công ty có thể cần một ngành chính và vài ngành phụ theo bộ phận (Hải Minh: ngành 12 chính; 04 cho xưởng cơ khí; 11 cho xưởng mộc). Ghi rõ căn cứ chọn ngành kèm nguồn; nếu hoạt động thực tế nằm ngoài phạm vi của file ngành thì nêu rõ phần nào cần chuyên viên xác nhận.
 
 **Bước 2. Nghiên cứu khách hàng.** Đọc kỹ tài liệu tải lên, rồi tra nguồn chính thống: Cổng thông tin quốc gia về đăng ký doanh nghiệp, website chính thức, báo chí chính thống, công bố thông tin nếu niêm yết, cơ quan chủ quản. Tin tuyển dụng chỉ là nguồn thứ cấp (⚠). Kiểm tra trùng tên với doanh nghiệp khác. Ghi nguồn và ngày cho từng dữ kiện; dữ kiện cũ ghi rõ năm; hai nguồn mâu thuẫn thì nêu cả hai và đánh dấu cần xác nhận.
 
@@ -47,14 +44,14 @@ Lưu ý: một số tham chiếu chéo bên trong các file dùng số cũ (file
 - Bộ phận ATVSLĐ theo Điều 36 Nghị định 39/2016/NĐ-CP: xác định khoản 1 hay khoản 2 theo ngành; chỉ kết luận số người khi có tổng số lao động.
 - Kiểm tra hiệu lực pháp lý tại ngày lập báo cáo (dự án Luật ATVSLĐ sửa đổi, Nghị quyết 66.18/2026/NQ-CP).
 
-**Bước 4. Tính năng phần mềm.** Đối chiếu việc khách hàng phải quản lý (nhân sự, chứng chỉ, thiết bị kiểm định, sự cố, PPE, hóa chất, báo cáo) với 31 màn hình, Learner Portal và cổng tra cứu chứng chỉ. Chọn 4–5 cụm ưu tiên theo người sẽ gặp. Mỗi mục: hình, đường dẫn, mục đích, chức năng chính (lấy đúng tài liệu hướng dẫn), lợi ích, giá trị, vị trí áp dụng, lưu ý. Thêm kịch bản demo và mục "những điều không hứa".
+**Bước 4. Tính năng phần mềm.** Dùng thông tin của 2 file Word hướng dẫn sử dụng (doanh nghiệp và học viên). Đối chiếu việc khách hàng phải quản lý (nhân sự, chứng chỉ, thiết bị kiểm định, sự cố, PPE, hóa chất, báo cáo) với các màn hình trong 2 file này, gồm cổng doanh nghiệp, cổng người lao động và cổng tra cứu chứng chỉ; tham khảo thêm Phần 6 của file ngành để biết tính năng nào ngành đó cần. Chọn 4–5 cụm ưu tiên theo người sẽ gặp. Mỗi mục: hình (từ `thu-vien-phan-mem/hinh/`), đường dẫn, mục đích, chức năng chính (lấy đúng 2 file hướng dẫn), lợi ích, giá trị, vị trí áp dụng, lưu ý. Thêm kịch bản demo và mục "những điều không hứa".
 
 **Bước 5. Việc tiếp theo.** Câu hỏi xác nhận khi gặp khách, bảng thu thập số liệu theo bộ phận và nhóm, bảng nguồn và độ tin cậy, danh sách khoảng trống.
 
-**Bước 6. Dựng file.** Sao chép `hai-minh/ma_nguon/` sang thư mục khách hàng mới, viết lại `content_a.js` (Phần 1–4) và `content_b.js` (Phần 5–6, Phụ lục), chạy `node build.js` rồi `python3 finalize.py <tên file>.docx`; kiểm tra bản PDF từng trang.
+**Bước 6. Dựng file.** Tạo thư mục khách hàng mới trong `bao-cao-atld/`, sao chép `hai-minh/ma_nguon/` vào; `build.js` đọc hình ở `../hinh_giao_dien/` và kích thước ở `dims.json`, nên sao chép `thu-vien-phan-mem/hinh/` thành `hinh_giao_dien/` và dùng `thu-vien-phan-mem/dims.json`. Viết lại `content_a.js` (Phần 1–4) và `content_b.js` (Phần 5–6, Phụ lục), chạy `node build.js` rồi `python3 finalize.py <tên file>.docx`; kiểm tra bản PDF từng trang.
 
 ## Cấu trúc báo cáo chuẩn
-Bìa, Mục lục; 1. Tóm tắt điều hành; 2. Hồ sơ khách hàng; 3. Sáu nhóm huấn luyện; 4. Vị trí nhân sự và nhóm huấn luyện; 5. Tính năng phần mềm; 6. Việc tiếp theo và nguồn; Phụ lục 31 màn hình và mức ưu tiên.
+Bìa, Mục lục; 1. Tóm tắt điều hành; 2. Hồ sơ khách hàng; 3. Sáu nhóm huấn luyện; 4. Vị trí nhân sự và nhóm huấn luyện; 5. Tính năng phần mềm; 6. Việc tiếp theo và nguồn; Phụ lục danh mục màn hình phần mềm và mức ưu tiên cho khách hàng.
 
 ## Nguyên tắc
 - Không suy diễn, không bịa; không ước lượng số người. Ký hiệu: ✅ có nguồn; ⚠ cần xác nhận (kể cả nhận định chuyên gia); ✗ khoảng trống.
