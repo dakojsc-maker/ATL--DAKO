@@ -1,0 +1,163 @@
+<meta charset="utf-8">
+<title>Nhà máy Heragrain 3D</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: ban điều hành xem một bản vẽ 3D lớn bên trái, bảng giải thích giai đoạn bên phải.
+   Màu lấy từ bộ nhận diện Heragrain: xanh lá đậm, vàng, tím, xanh lá sáng; mỗi giai đoạn một màu. */
+:root {
+  --bg: #F1F5F2; --panel: #FFFFFF; --panel2: #E9EFEB; --ink: #15231C; --muted: #566860; --line: #D3DDD6;
+  --brand: #1D4B3A; --gold: #E4A92A;
+  --p1: #5E9E68; --p2: #23765C; --p3: #E4A92A; --p4: #86479B;
+  --t1: #FFFFFF; --t2: #FFFFFF; --t3: #2A1E00; --t4: #FFFFFF;
+  --wait: #3E4A55; --stage: #E4ECE7;
+  --font-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1310; --panel: #141D18; --panel2: #1B2620; --ink: #E5EEE8; --muted: #95A89E; --line: #263229;
+    --brand: #6FBF93; --wait: #55626E; --stage: #0F1713;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1310; --panel: #141D18; --panel2: #1B2620; --ink: #E5EEE8; --muted: #95A89E; --line: #263229;
+  --brand: #6FBF93; --wait: #55626E; --stage: #0F1713;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, .pin:focus-visible, .zrow:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.app { height: 100%; display: flex; flex-direction: column; }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-block: 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); border-bottom: 1px solid var(--line); background: var(--panel); }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.mark { flex: none; width: 38px; height: 38px; border-radius: 9px; background: var(--p2); color: #fff; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 22px; }
+.brand h1 { margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 1.15; font-weight: 700; text-wrap: balance; }
+.brand p { margin: 0; color: var(--muted); font-size: 12px; }
+
+.phases { display: flex; gap: 6px; flex-wrap: wrap; flex: 1 1 420px; }
+.ph { flex: 1 1 120px; min-width: 0; display: grid; grid-template-columns: auto 1fr; column-gap: 8px; align-items: center; text-align: left; padding: 7px 12px; border: 1px solid var(--line); background: var(--panel2); border-radius: 10px; transition: background .2s, border-color .2s, color .2s; }
+.ph i { grid-row: span 2; width: 12px; height: 12px; border-radius: 50%; background: var(--pc); }
+.ph b { font-size: 13px; line-height: 1.2; }
+.ph span { font-size: 11.5px; color: var(--muted); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ph:hover { border-color: var(--pc); }
+.ph[aria-selected="true"] { background: var(--pc); border-color: var(--pc); color: var(--pt); }
+.ph[aria-selected="true"] i { background: var(--pt); }
+.ph[aria-selected="true"] span { color: var(--pt); opacity: .85; }
+
+.tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.tb { padding: 7px 11px; border: 1px solid var(--line); background: var(--panel2); border-radius: 8px; font-size: 12.5px; font-weight: 500; }
+.tb[aria-pressed="true"] { border-color: var(--brand); box-shadow: inset 0 0 0 1px var(--brand); }
+.tb:hover { border-color: var(--brand); }
+
+.main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 372px; }
+.stage { position: relative; min-height: 0; background: var(--stage); overflow: hidden; }
+#gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+#pins, #steps { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.pin { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 6px; height: 22px; min-width: 22px; padding: 0 6px; border-radius: 11px; font-size: 11px; font-weight: 700; justify-content: center; pointer-events: auto; cursor: pointer; border: 1.5px solid var(--panel); background: var(--wait); color: #fff; white-space: nowrap; will-change: transform; transition: background .25s, opacity .25s; }
+.pin .t { display: none; font-weight: 600; max-width: 210px; overflow: hidden; text-overflow: ellipsis; }
+.pin.new { background: var(--pc); color: var(--pt); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc) 35%, transparent); height: 26px; min-width: 26px; border-radius: 13px; padding: 0 8px; z-index: 3; }
+#pins.names .pin.new .t, .pin.sel .t, .pin:hover .t, .pin.hov .t { display: inline; }
+.pin.active { background: color-mix(in srgb, var(--pc) 80%, #000); color: #fff; }
+.pin.standby { background: #7B8A84; opacity: .8; }
+.pin.wait { opacity: .75; }
+.pin.sel { z-index: 5; outline: 2px solid var(--gold); outline-offset: 1px; }
+.pin.hide { opacity: 0; pointer-events: none; }
+.step { position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; background: var(--ink); color: var(--bg); border: 2px solid var(--gold); transition: opacity .25s; will-change: transform; }
+.step.dim { opacity: .35; border-color: var(--wait); }
+.stage .hint { position: absolute; left: 12px; bottom: 10px; font-size: 11.5px; color: var(--muted); background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 4px 9px; border-radius: 7px; pointer-events: none; }
+.key { position: absolute; right: 12px; bottom: 10px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; font-size: 11.5px; background: color-mix(in srgb, var(--panel) 88%, transparent); padding: 5px 10px; border-radius: 8px; pointer-events: none; }
+.key span { display: inline-flex; align-items: center; gap: 6px; }
+.key s { width: 11px; height: 11px; border-radius: 3px; display: inline-block; text-decoration: none; background: var(--c); }
+.fallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
+
+.side { min-height: 0; overflow-y: auto; background: var(--panel); border-left: 1px solid var(--line); padding: 16px max(16px, env(safe-area-inset-right, 0px)) 18px 16px; display: flex; flex-direction: column; gap: 14px; }
+.pcard { border-radius: 12px; padding: 14px 14px 12px; background: var(--pc); color: var(--pt); }
+.pcard small { display: block; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; opacity: .85; }
+.pcard h2 { margin: 2px 0 6px; font-family: var(--font-display); font-size: 21px; line-height: 1.2; text-wrap: balance; }
+.pcard p { margin: 0 0 6px; font-size: 13px; }
+.pcard .row { display: grid; grid-template-columns: 74px 1fr; gap: 8px; font-size: 12.5px; padding-top: 6px; border-top: 1px solid color-mix(in srgb, var(--pt) 25%, transparent); margin-top: 6px; }
+.pcard .row b { font-weight: 600; opacity: .85; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { background: var(--panel2); border-radius: 10px; padding: 8px 10px; }
+.stat b { display: block; font-family: var(--font-display); font-size: 24px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 11.5px; color: var(--muted); line-height: 1.25; display: block; }
+.stat.n b { color: var(--pc); }
+.zcard { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 13px; background: var(--panel); }
+.zcard h3 { margin: 0 0 2px; font-size: 15px; line-height: 1.3; }
+.zcard .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: var(--wait); color: #fff; margin-bottom: 6px; }
+.zcard dl { margin: 6px 0 0; display: grid; grid-template-columns: 84px 1fr; gap: 5px 10px; }
+.zcard dt { color: var(--muted); font-size: 12px; }
+.zcard dd { margin: 0; }
+.zcard .empty { color: var(--muted); }
+.sec-t { margin: 0 0 6px; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.zgrp { margin-bottom: 8px; }
+.zrow { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 5px 8px; border: 0; background: transparent; border-radius: 7px; font-size: 12.5px; line-height: 1.3; }
+.zrow:hover, .zrow.sel { background: var(--panel2); }
+.zrow em { flex: none; width: 20px; height: 20px; border-radius: 10px; display: grid; place-items: center; font-style: normal; font-size: 10.5px; font-weight: 700; background: var(--wait); color: #fff; }
+.zrow.new em { background: var(--pc); color: var(--pt); }
+.zrow.active em { background: color-mix(in srgb, var(--pc) 80%, #000); }
+.zrow.standby em { background: #7B8A84; }
+.zrow.wait { color: var(--muted); }
+.zrow small { flex: none; }
+.basis { margin: 0; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+.basis b { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 900px) {
+  html, body { height: auto; }
+  .app { height: auto; min-height: 100%; }
+  .main { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; }
+  .stage { height: 62vh; min-height: 360px; }
+  .side { overflow: visible; border-left: 0; border-top: 1px solid var(--line); padding-left: max(16px, env(safe-area-inset-left, 0px)); }
+  .key { display: none; }
+  .tools { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .pin, .step, .ph { transition: none; } }
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">H</div>
+      <div><h1>Nhà máy Heragrain</h1><p>Sơ đồ 3D toàn cảnh theo 4 giai đoạn đầu tư</p></div>
+    </div>
+    <nav class="phases" role="tablist" aria-label="Giai đoạn đầu tư" id="phaseTabs"></nav>
+    <div class="tools">
+      <button class="tb" id="bPlay" aria-pressed="false" title="Tự chạy lần lượt 4 giai đoạn">Tự chạy</button>
+      <button class="tb" id="bFlow" aria-pressed="true" title="Hiện luồng quy trình 10 bước">Luồng quy trình</button>
+      <button class="tb" id="bPins" aria-pressed="true" title="Đổi kiểu nhãn các khu: số, tên, ẩn">Nhãn khu: số</button>
+      <button class="tb" id="bView" title="Đổi góc nhìn">Góc nhìn: toàn cảnh</button>
+    </div>
+  </header>
+  <main class="main">
+    <section class="stage" id="stage" aria-label="Sơ đồ 3D nhà máy">
+      <canvas id="gl"></canvas>
+      <div id="steps"></div>
+      <div id="pins"></div>
+      <div class="hint">Kéo để xoay, cuộn hoặc chụm hai ngón để phóng to, bấm vào khu để xem chi tiết</div>
+      <div class="key" aria-hidden="true">
+        <span><s style="--c:var(--pc)"></s>Mới trong giai đoạn này</span>
+        <span><s style="--c:color-mix(in srgb, var(--pc) 70%, #555)"></s>Đang hoạt động</span>
+        <span><s style="--c:var(--wait)"></s>Chờ giai đoạn sau</span>
+      </div>
+    </section>
+    <aside class="side" id="side">
+      <div class="pcard" id="pcard"></div>
+      <div class="stats" id="stats"></div>
+      <div class="zcard" id="zcard"><div class="empty">Bấm vào một khu trên sơ đồ hoặc trong danh sách để xem công năng, bộ phận phụ trách và căn cứ bố trí.</div></div>
+      <div id="zlist"></div>
+      <p class="basis"><b>Cách đọc.</b> Sơ đồ minh họa, chưa theo tỷ lệ. Bố trí là đề xuất sơ bộ của tư vấn, dựa trên GB 14881-2013 (tiêu chuẩn vệ sinh sản xuất thực phẩm của Trung Quốc), Codex CAC/RCP 1 và Điều 19 Luật An toàn thực phẩm 2010. Chưa tìm thấy bản vẽ bố trí công khai của Green Tropical, Vinamit hay Nafoods để đối chiếu. Diện tích, công suất và thiết bị cần đơn vị thiết kế nhà máy xác nhận trước khi xây.</p>
+    </aside>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="du-lieu.js"></script>
+<script src="nha-may.js"></script>
