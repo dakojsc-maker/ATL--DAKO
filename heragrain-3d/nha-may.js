@@ -1,7 +1,7 @@
 /* Dựng cảnh 3D và giao diện từ dữ liệu trong du-lieu.js (window.HERAGRAIN). Đơn vị: mét. */
 (function () {
 "use strict";
-const { PH, ZONES, STEPS, ROUTES, MAT_BANG, NHAN_PHU, KHUNG, GOC_NHIN, DIEU_CHINH, CAN_XAC_NHAN } = window.HERAGRAIN;
+const { PH, ZONES, STEPS, ROUTES, MAT_BANG, NHAN_PHU, KHUNG, GOC_NHIN, DIEU_CHINH, UOC_KICH_THUOC, CAN_XAC_NHAN } = window.HERAGRAIN;
 
 /* ===== CẢNH 3D: dựng các khu, thiết bị, đường, luồng ===== */
 const stage = document.getElementById('stage');
@@ -16,7 +16,7 @@ if (!renderer) {
 
 const SCENE_PH = { 1: '#5E9E68', 2: '#23765C', 3: '#E4A92A', 4: '#86479B', 5: '#7B8A84' };
 const THEMES = {
-  light: { bg: 0xE4ECE7, ground: 0xD3DED7, apron: 0xE9EFEB, road: 0xBCC7C0, line: 0x7E9086, steelNew: 0xF3F6F4, steel: 0xC4CEC8,
+  light: { bg: 0xE4ECE7, ground: 0xD3DED7, apron: 0xE9EFEB, road: 0xB0BCB4, line: 0x7E9086, steelNew: 0xF3F6F4, steel: 0xC4CEC8,
     wait: { wall: 0x434F5A, floor: 0x56626D, prop: 0x35404A, accent: 0x66727E, edge: 0x232B32, op: 0.9 } },
   dark: { bg: 0x0F1713, ground: 0x121B16, apron: 0x18231D, road: 0x27322C, line: 0x3E4E44, steelNew: 0xDDE7E1, steel: 0x8FA097,
     wait: { wall: 0x313C47, floor: 0x252F38, prop: 0x3D4955, accent: 0x4C5967, edge: 0x5E6D7B, op: 0.92 } }
@@ -200,6 +200,16 @@ function detector(z) {
   put(z, bx(alongZ ? 0.55 : L, 0.06, alongZ ? L : 0.55), z.m.accent, k.cx, FY + 0.83, k.cz, { edge: false });
   put(z, bx(alongZ ? 1.1 : 0.7, 0.9, alongZ ? 0.7 : 1.1), z.m.accent, k.cx, FY + 1.25, k.cz);
 }
+/* tủ sấy hai cửa đặt xuyên vách: cửa nạp phía tây (khu bẩn), cửa lấy phía đông (khu sạch) */
+function passdryer(z) {
+  const k = dims(z), n = Math.max(1, Math.round(k.d / 1.5)), L = k.d / n;
+  for (let i = 0; i < n; i++) {
+    const cz = k.z0 + L * (i + 0.5);
+    put(z, bx(k.w, 2.1, L - 0.12), z.m.prop, k.cx, FY + 1.05, cz);
+    [k.x0 - 0.03, k.x1 + 0.03].forEach((x) => put(z, bx(0.06, 1.7, L - 0.5), z.m.accent, x, FY + 1, cz, { edge: false }));
+  }
+  put(z, bx(k.w * 0.6, 0.45, k.d * 0.5), z.m.accent, k.cx, FY + 2.35, k.cz);
+}
 function equip(z) {
   const k = dims(z), bw = k.w - 0.9, bcx = k.x0 + bw / 2;
   put(z, bx(k.w, 0.1, k.d), z.m.floor, k.cx, FY + 0.05, k.cz, { cast: false, edge: false });
@@ -214,25 +224,32 @@ function cont(z) {
   put(z, bx(len, 2.5, 2.4), z.m.accent, k.x1 - len / 2, FY + 2, cz);
   [k.x0 + 1.1, k.x1 - 3, k.x1 - 1.6].forEach((x) => [-0.95, 0.95].forEach((dz) => put(z, cylG(0.45, 0.3, 12), z.m.wall, x, 0.45, cz + dz, { rx: Math.PI / 2, edge: false })));
 }
+/* hàng rào theo đường gấp khúc poly (mặc định là chu vi box), chừa cổng tại gates */
 function fence(z) {
   const k = dims(z), step = 3;
-  const inGate = (s, t) => (z.doors || []).some((d) => d.side === s && Math.abs(t - d.at) < d.w / 2);
-  [['N', k.x0, k.x1, k.z0], ['S', k.x0, k.x1, k.z1], ['W', k.z0, k.z1, k.x0], ['E', k.z0, k.z1, k.x1]].forEach(([s, a, b, f]) => {
-    const n = Math.max(1, Math.round((b - a) / step));
-    for (let i = 0; i <= n; i++) {
-      const t = a + (b - a) * i / n;
-      if (inGate(s, t)) continue;
-      const horiz = s === 'N' || s === 'S';
-      put(z, bx(0.12, 1.8, 0.12), z.m.prop, horiz ? t : f, FY + 0.9, horiz ? f : t, { edge: false });
-    }
+  const P = z.poly || [[k.x0, k.z0], [k.x1, k.z0], [k.x1, k.z1], [k.x0, k.z1]];
+  P.forEach((a, i) => {
+    const b = P[(i + 1) % P.length], dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz), ux = dx / L, uz = dz / L;
+    // khoảng cổng trên cạnh này, tính theo khoảng cách từ đầu cạnh
+    const gaps = (z.gates || []).map((g) => {
+      const px = g.at[0] - a[0], pz = g.at[1] - a[1], s = px * ux + pz * uz, off = Math.abs(px * uz - pz * ux);
+      return off < 0.3 && s >= 0 && s <= L ? [s - g.w / 2, s + g.w / 2] : null;
+    }).filter(Boolean).sort((p, q) => p[0] - q[0]);
+    const inGap = (s) => gaps.some(([g0, g1]) => s > g0 && s < g1);
+    const n = Math.max(1, Math.round(L / step));
+    for (let j = 0; j < n; j++) { const s = L * j / n; if (!inGap(s)) put(z, bx(0.12, 1.8, 0.12), z.m.prop, a[0] + ux * s, FY + 0.9, a[1] + uz * s, { edge: false }); }
+    let cur = 0; const segs = [];
+    gaps.forEach(([g0, g1]) => { if (g0 > cur) segs.push([cur, g0]); cur = Math.max(cur, g1); });
+    if (cur < L) segs.push([cur, L]);
+    segs.forEach(([s0, s1]) => [0.6, 1.5].forEach((y) => put(z, bx(s1 - s0, 0.1, 0.08), z.m.prop, a[0] + ux * (s0 + s1) / 2, FY + y + 0.05, a[1] + uz * (s0 + s1) / 2, { ry: -Math.atan2(dz, dx) })));
+    gaps.forEach(([g0, g1]) => [g0, g1].forEach((s) => put(z, bx(0.3, 2.4, 0.3), z.m.accent, a[0] + ux * s, FY + 1.2, a[1] + uz * s)));
   });
-  ['N', 'S', 'W', 'E'].forEach((s) => { wallSide(z, s, FY + 1.5, 0.1, z.m.prop, 0.08); wallSide(z, s, FY + 0.6, 0.1, z.m.prop, 0.08); });
   (z.cams || []).forEach(([x, zz]) => {
     put(z, cylG(0.08, 3.2, 8), z.m.prop, x, FY + 1.6, zz, { edge: false });
     put(z, bx(0.5, 0.3, 0.3), z.m.accent, x, FY + 3.2, zz, { edge: false });
   });
 }
-const KIND = { hall, block, house, path, trees, woodshed, dryhouse, utility, bins, detector, equip, cont, fence };
+const KIND = { hall, block, house, path, trees, woodshed, dryhouse, utility, bins, passdryer, detector, equip, cont, fence };
 
 /* ---------- đồ đạc, thiết bị (khai báo trong z.do) ---------- */
 const PROPS = {
@@ -321,9 +338,8 @@ const dashMat = new THREE.MeshLambertMaterial({ color: 0x777777 });
 (MAT_BANG.nen || []).forEach(({ box: [x0, x1, z0, z1] }) => {
   const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, 0.1, z1 - z0), apronMat);
   m.position.set((x0 + x1) / 2, 0.05, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m);
-  const pts = [[x0, z0], [x1, z0], [x1, z1], [x0, z1]].map(([a, b]) => new THREE.Vector3(a, 0.12, b));
-  scene.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts), lineMat));
 });
+if (MAT_BANG.vien) scene.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(MAT_BANG.vien.map(([a, b]) => new THREE.Vector3(a, 0.12, b))), lineMat));
 (MAT_BANG.duong || []).forEach(({ box: [x0, x1, z0, z1] }) => {
   const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, 0.08, z1 - z0), roadMat);
   m.position.set((x0 + x1) / 2, 0.04, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m);
@@ -482,7 +498,9 @@ function renderNotes() {
   if (!box) return;
   let html = '';
   if (DIEU_CHINH && DIEU_CHINH.length) html += `<details open><summary>Điều chỉnh so với phác thảo (${DIEU_CHINH.length})</summary><ul>${DIEU_CHINH.map((d) => `<li><b>${d.t}</b> ${d.d}${d.cc ? ` <span class="cc">${d.cc}</span>` : ''}</li>`).join('')}</ul></details>`;
-  if (CAN_XAC_NHAN && CAN_XAC_NHAN.length) html += `<details open><summary>Cần HTX xác nhận (${CAN_XAC_NHAN.length})</summary><ul>${CAN_XAC_NHAN.map((t) => `<li>${t}</li>`).join('')}</ul></details>`;
+  [[UOC_KICH_THUOC, 'Cách ước kích thước'], [CAN_XAC_NHAN, 'Cần HTX xác nhận']].forEach(([list, title]) => {
+    if (list && list.length) html += `<details open><summary>${title} (${list.length})</summary><ul>${list.map((t) => `<li>${t}</li>`).join('')}</ul></details>`;
+  });
   box.innerHTML = html;
 }
 
@@ -509,7 +527,7 @@ function assignTargets(snap) {
     m.wall.userData.base = T.emis.clone();
   });
   ROUTES.forEach((r) => {
-    const zz = ZBY[r.need], on = zz.state === 'new' || zz.state === 'active';
+    const zz = ZBY[r.need], on = (zz.state === 'new' || zz.state === 'active') && (!r.den || phase <= r.den);
     r.on = on;
     const col = on ? C('#E4A92A') : C(TH().wait.accent);
     r.m.userData.t = { color: col, opacity: on ? 0.95 : 0.5 };
