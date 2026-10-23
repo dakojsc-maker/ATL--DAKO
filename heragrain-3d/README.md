@@ -1,6 +1,6 @@
 # Nhà máy Heragrain 3D
 
-Sơ đồ 3D toàn cảnh nhà máy Heragrain theo 4 giai đoạn đầu tư. Chọn một giai đoạn thì các khu hoạt động ở giai đoạn đó sáng màu, các khu của giai đoạn sau tối màu (chờ xây dựng). Ban lãnh đạo nhìn được cả quy trình lẫn phần đang chạy ở từng giai đoạn.
+Sơ đồ 3D toàn cảnh nhà máy HTX Heragrain theo hiện trạng: **xưởng có sẵn** (vào bằng lối đi xuyên qua nhà ở) và **xưởng mới 17 × 10 m** chuẩn bị xây, chia theo 4 giai đoạn đầu tư. Chọn một giai đoạn thì các khu hoạt động ở giai đoạn đó sáng màu, các khu của giai đoạn sau tối màu.
 
 - Bản xem trực tuyến: https://claude.ai/artifact/1ekUePnCtFc2QaB53NHKxR
 - Mở thẳng một giai đoạn: thêm `#gd1` … `#gd4` vào cuối đường dẫn.
@@ -11,86 +11,93 @@ Sơ đồ 3D toàn cảnh nhà máy Heragrain theo 4 giai đoạn đầu tư. Ch
 | File | Nội dung |
 |---|---|
 | `index.html` | Khung trang: thanh giai đoạn, nút công cụ, bảng giải thích bên phải, toàn bộ CSS |
-| `du-lieu.js` | **Dữ liệu**: 4 giai đoạn, 25 khu, 10 bước quy trình, tuyến luồng, ranh giới khuôn viên |
+| `du-lieu.js` | **Dữ liệu**: 4 giai đoạn, 31 khu kèm đồ đạc, 10 bước quy trình, tuyến luồng hàng, mặt bằng, góc nhìn, phần phân tích |
 | `nha-may.js` | Dựng cảnh 3D (three.js r128), tô màu theo giai đoạn, nhãn, camera, tương tác |
-| `tai-lieu/Heragrain_Lo-trinh-dau-tu-giai-doan-dau.pptx` | Bộ slide gốc làm căn cứ cho sơ đồ |
+| `tai-lieu/Heragrain_Lo-trinh-dau-tu-giai-doan-dau.pptx` | Bộ slide lộ trình đầu tư làm căn cứ |
 
-Phần lớn chỉnh sửa nội dung chỉ cần sửa `du-lieu.js`.
+Phần lớn chỉnh sửa chỉ cần sửa `du-lieu.js`.
+
+## Hiện trạng đã đưa vào sơ đồ
+
+Theo ba ảnh phác thảo tay của HTX:
+
+1. **Xưởng có sẵn** (giai đoạn 1): phòng 1 kho bao bì, 2 kho thành phẩm, 3 khu đóng gói, 4 dụng cụ đóng gói, 5 kho để đồ, 6 nhà vệ sinh, 7 nhà ở; lối đi dọc phía tây, cửa vào xưởng ở đầu lối. Muốn vào xưởng phải đi xuyên qua nhà ở, nên xưởng này chỉ nhận túi thành phẩm đã hàn kín để dán nhãn, đóng thùng, lưu kho.
+2. **Xưởng mới 17 × 10 m** (giai đoạn 2): dãy phòng 4 m bên trái gồm văn phòng 4 × 3 m, phòng nghỉ 4 × 5 m, ô 4 × 2 m; hành lang 2 m có cửa hai đầu; khu chế biến 11 × 10 m; khu sao trà bếp củi gắn góc đông nam; nhà phơi trà phía nam.
+3. **Yêu cầu của HTX**: có phòng kế toán để họp, phòng nghỉ, nhà vệ sinh và nhà ăn cho công nhân; nhà vệ sinh và nhà ăn đặt sát khu sao trà; khu sao trà bếp củi là một khu riêng.
+
+Các điều chỉnh để đạt tiêu chuẩn (vách ngăn hành lang, đổi ô nhà vệ sinh thành phòng thay bảo hộ, tách cửa nhập và cửa xuất, chia khu bẩn và khu sạch, bếp nạp củi từ ngoài tường, nhà phơi kín…) và các giả định cần HTX xác nhận nằm trong `DIEU_CHINH` và `CAN_XAC_NHAN` ở `du-lieu.js`, hiện ở cuối bảng bên phải.
 
 ## Sửa thường gặp
 
 | Muốn sửa | Sửa ở đâu |
 |---|---|
-| Thời gian, nhân sự, chứng nhận, mục tiêu của giai đoạn | `PH` trong `du-lieu.js` |
+| Thời gian, nhân sự, chứng nhận, hạng mục xây của giai đoạn | `PH` trong `du-lieu.js` |
 | Tên, công năng, bộ phận, yêu cầu, căn cứ của một khu | `ZONES` trong `du-lieu.js` |
-| Dời khu, đổi kích thước | `box` và `h` của khu đó; nếu khu có `pin` thì dời `pin` theo |
-| Khu chuyển sang giai đoạn khác | `phase` của khu (5 = đất dự trữ sau giai đoạn 4) |
-| Khu chạy chính đến một giai đoạn rồi thành dự phòng | thêm `until` (như đơn vị gia công `toller`) |
-| Thêm khu mới | thêm một dòng vào `ZONES` với `id` và `n` chưa dùng; chọn `kind` có sẵn |
-| Lối đi trên tường nhà xưởng | `doors` của khu: `{ side: 'N'/'S'/'W'/'E', at: tọa độ tâm lối, w: bề rộng }` |
-| Thiết bị bên trong khu (máy sấy, kệ, bàn…) | hàm `addProps` trong `nha-may.js`, theo `id` khu |
-| 10 bước quy trình, vị trí số bước | `STEPS` trong `du-lieu.js` |
-| Mũi tên luồng hàng | `ROUTES` trong `du-lieu.js`; tuyến sáng khi khu `need` đang hoạt động |
+| Dời khu, đổi kích thước (mét) | `box` và `h` của khu; nếu khu có `pin` thì dời `pin` theo |
+| Khu chuyển sang giai đoạn khác | `phase` của khu |
+| Tường chung giữa hai khu liền nhau | chỉ một khu vẽ tường đó, khu kia ghi mặt ấy vào `open` |
+| Lối đi, cửa trên tường hoặc cổng rào | `doors` của khu: `{ side: 'N'/'S'/'W'/'E', at: tọa độ tâm lối, w: bề rộng }` |
+| Đồ đạc, thiết bị trong khu | mảng `do` của khu (danh sách loại đồ ở đầu `du-lieu.js`) |
+| Diện tích xây mới cộng vào thẻ giai đoạn | đánh dấu `xay: true` cho khu |
+| 10 bước quy trình, vị trí số bước | `STEPS` |
+| Mũi tên luồng hàng | `ROUTES`; tuyến sáng khi khu `need` đang hoạt động |
+| Sân, đường | `MAT_BANG` |
+| Nhãn chữ trên mặt đất | `NHAN_PHU` |
+| Góc nhìn có sẵn, độ phóng | `GOC_NHIN`, `KHUNG` |
+| Điều chỉnh so với phác thảo, điểm cần xác nhận | `DIEU_CHINH`, `CAN_XAC_NHAN` |
 | Màu từng giai đoạn | `--p1` … `--p4` trong `index.html` **và** `SCENE_PH` trong `nha-may.js` (hai chỗ phải khớp) |
-| Góc nhìn có sẵn | `VIEWS` trong `nha-may.js` |
 
-Kiểu dựng (`kind`) có sẵn: `hall` nhà xưởng có tường thấp và mái trong suốt, `block` khối nhà kín (văn phòng, nhà phúc lợi), `canopy` mái che, `gate` cổng và trạm cân, `shed` nhà phụ, `tanks` bể xử lý, `cage` khu rào giữ lô, `cont` xe container, `equip` dây chuyền đặt trong nhà xưởng khác, `fence` hàng rào quanh khuôn viên, `trees` vườn cây, `pad` đất trống.
+Kiểu dựng (`kind`) có sẵn: `hall` nhà có tường thấp và mái trong suốt, `block` khối nhà kín, `house` nhà ở mái dốc, `path` lối đi kèm cổng, `dryhouse` nhà phơi vách lưới, `woodshed` lán có mái, `utility` bồn nước và bể tự hoại, `bins` điểm rác, `detector` máy dò kim loại, `equip` buồng sấy, `cont` xe container, `fence` hàng rào có cổng và camera, `trees` vườn cây.
 
-## Hệ tọa độ
+## Hệ tọa độ (mét)
 
-- Trục `x` theo hướng dòng chảy sản phẩm, từ tây (vùng nguyên liệu) sang đông (xuất hàng).
-- Trục `z` từ bắc xuống nam. Dây chuyền chính chạy dọc `z = -4`.
-- Khuôn viên nhà máy (`SITE`): `x` từ -88 đến 92, `z` từ -50 đến 52. Vùng nguyên liệu và đơn vị gia công nằm ngoài khuôn viên, phía tây.
-- Đơn vị tương đối, sơ đồ chưa theo tỷ lệ.
+- Trục `x` từ tây sang đông, trục `z` từ bắc xuống nam.
+- Xưởng mới chiếm `x` từ -4 đến 13, `z` từ 0 đến 10; mặt bắc quay ra đường liên thôn (`z` từ -7,5 đến -2).
+- Nhà ở và xưởng có sẵn nằm phía bắc đường; vùng nguyên liệu và đơn vị gia công nằm ngoài khuôn viên, phía tây.
+- Vị trí tương đối giữa hai lô là giả định theo ảnh tổng quan; kích thước ghi "ước" lấy từ ảnh vẽ tay, khoảng 2 m mỗi ô vở.
 
-| Số | id | Khu | GĐ | kind | box [x0, x1, z0, z1] |
-|---|---|---|---|---|---|
-| 1 | `vung` | Vùng nguyên liệu, nhà vườn liên kết | 1 | trees | -126, -96, -12, 26 |
-| 2 | `gate` | Cổng chính và trạm cân xe | 1 | gate | -86, -64, 6, 16 |
-| 3 | `recv` | Khu tiếp nhận nguyên liệu (mái che) | 1 | canopy | -62, -44, -14, 14 |
-| 4 | `qc1` | Phòng QC tiếp nhận | 1 | hall | -62, -52, 18, 26 |
-| 5 | `rawst` | Kho nguyên liệu mát | 1 | hall | -44, -26, -22, 16 |
-| 6 | `office` | Khối văn phòng điều hành (2 tầng) | 1 | block | -44, -24, 32, 46 |
-| 7 | `toller` | Đơn vị gia công liên kết (ngoài khuôn viên) | 1 (chính đến GĐ2) | hall | -114, -92, 28, 46 |
-| 8 | `prep` | Khu sơ chế (khu nguy cơ cao) | 2 | hall | -26, -6, -22, 16 |
-| 9 | `dry1` | Khu sấy, dây chuyền 1 | 2 | hall | -6, 16, -22, 16 |
-| 10 | `airlock` | Phòng thay bảo hộ và phòng đệm | 2 | hall | 16, 28, 16, 26 |
-| 11 | `clean` | Khu sạch (nguy cơ thấp) | 2 | hall | 16, 50, -22, 16 |
-| 12 | `pack` | Kho bao bì và nhãn | 2 | hall | 24, 42, -36, -22 |
-| 13 | `fg` | Kho thành phẩm | 2 | hall | 50, 70, -22, 16 |
-| 14 | `welfare` | Nhà phúc lợi công nhân | 2 | block | -6, 14, 34, 46 |
-| 15 | `util` | Khu tiện ích (điện, khí nén, nước) | 2 | shed | -6, 16, -44, -30 |
-| 16 | `waste` | Khu tập kết rác và phế phẩm hữu cơ | 2 | shed | -30, -14, -44, -30 |
-| 17 | `wwtp` | Trạm xử lý nước thải | 2 | tanks | -72, -50, -46, -26 |
-| 18 | `lab` | Phòng QC/lab và lưu mẫu | 3 | hall | 50, 62, 18, 28 |
-| 19 | `hold` | Khu giữ lô chờ kết quả kiểm nghiệm | 3 | cage | 52, 60, -20, -8 |
-| 20 | `dock` | Khu đóng thùng và xuất hàng | 3 | hall | 70, 86, -22, 16 |
-| 21 | `cn` | Xuất khẩu: Trung Quốc | 3 | cont | 90, 106, -14, -3 |
-| 22 | `dry2` | Dây chuyền sấy 2 (mở rộng công suất) | 4 | equip | -2, 13, 5, 14 |
-| 23 | `sec` | Hàng rào, cổng kiểm soát ra vào, camera | 4 | fence | -88, 92, -50, 52 |
-| 24 | `eu` | Xuất khẩu: Châu Âu | 4 | cont | 90, 106, 1, 12 |
-| 25 | `land` | Đất dự trữ mở rộng (sau giai đoạn 4) | dự trữ | pad | 52, 90, 24, 48 |
+| Số | id | Khu | GĐ | kind | box [x0, x1, z0, z1] | Diện tích |
+|---|---|---|---|---|---|---|
+| 1 | `vung` | Vùng nguyên liệu, nhà vườn liên kết | 1 | trees | -42, -28, 1, 15 |  |
+| 2 | `toller` | Đơn vị gia công liên kết (ngoài khuôn viên) | 1 (chính đến GĐ2) | hall | -42, -30, -22, -11 |  |
+| 3 | `nha` | Nhà ở gia đình (phòng 7) | 1 (có sẵn) | house | -5.5, 11, -15, -7.5 | 123,8 m² (ước) |
+| 4 | `wc1` | Nhà vệ sinh có sẵn (phòng 6) | 1 (có sẵn) | block | 4, 10.5, -19.5, -15 | 29,3 m² (ước) |
+| 5 | `loidi` | Lối đi và cửa vào xưởng có sẵn | 1 (có sẵn) | path | -3.5, 0, -33.5, -19.5 | 49 m² (ước) |
+| 6 | `kbb` | Kho bao bì (phòng 1) | 1 | hall | 0, 10, -24, -19.5 | 45 m² (ước) |
+| 7 | `dg` | Khu đóng gói thành phẩm (phòng 3) | 1 | hall | 0, 5.5, -28.5, -24 | 24,8 m² (ước) |
+| 8 | `dc` | Phòng dụng cụ đóng gói (phòng 4) | 1 | hall | 0, 2, -26, -24 | 4 m² (ước) |
+| 9 | `ktp` | Kho thành phẩm (phòng 2) | 1 | hall | 5.5, 10, -28.5, -24 | 20,3 m² (ước) |
+| 10 | `kdd` | Kho để đồ (nửa tây phòng 5) | 1 | hall | 0, 5, -33.5, -28.5 | 25 m² (ước) |
+| 11 | `vp` | Phòng kế toán và họp | 2 | hall | -4, 0, 0, 3 | 12 m² (phác thảo) |
+| 12 | `nghi` | Phòng nghỉ công nhân | 2 | hall | -4, 0, 3, 8 | 20 m² (phác thảo) |
+| 13 | `thay` | Phòng thay bảo hộ, rửa tay | 2 | hall | -4, 0, 8, 10 | 8 m² (phác thảo) |
+| 14 | `hl` | Hành lang 2 m (lối người) | 2 | hall | 0, 2, 0, 10 | 20 m² (phác thảo) |
+| 15 | `tn` | Khu tiếp nhận nguyên liệu (khu bẩn) | 2 | hall | 2, 7.5, 0, 4 | 22 m² (đề xuất) |
+| 16 | `sc` | Khu sơ chế (khu bẩn) | 2 | hall | 2, 7.5, 4, 10 | 33 m² (đề xuất) |
+| 17 | `dem` | Phòng đệm vào khu sạch | 2 | hall | 7.5, 9.5, 7.5, 10 | 5 m² (đề xuất) |
+| 18 | `sach` | Khu sạch: làm nguội, chọn lọc, đóng túi | 2 | hall | 7.5, 13, 0, 10 | 55 m² (đề xuất) |
+| 19 | `sao` | Khu sao trà bếp củi | 2 | hall | 8, 13, 10, 14 | 20 m² (ước) |
+| 20 | `cui` | Kho củi | 2 | woodshed | 8, 13, 14, 16.5 | 12,5 m² (đề xuất) |
+| 21 | `an` | Nhà ăn và bếp nấu | 2 | hall | 13, 18, 10, 14 | 20 m² (đề xuất) |
+| 22 | `wc` | Nhà vệ sinh công nhân | 2 | block | 13, 18, 14, 16.5 | 12,5 m² (đề xuất) |
+| 23 | `phoi` | Nhà phơi kín | 2 | dryhouse | -3.5, 12.5, 18, 23 | 80 m² (ước) |
+| 24 | `nuoc` | Bồn nước sạch, bể tự hoại, hố lắng | 2 | utility | 18.5, 22, 10, 16.5 | 22,8 m² (đề xuất) |
+| 25 | `rac` | Điểm tập kết rác, bã | 2 | bins | -7.5, -4.5, 11, 13.5 | 7,5 m² (đề xuất) |
+| 26 | `qc` | Phòng QC, lưu mẫu, giữ lô (nửa đông phòng 5) | 3 | hall | 5, 10, -33.5, -28.5 | 25 m² (ước) |
+| 27 | `dkl` | Máy dò kim loại | 3 | detector | 10.4, 11.6, 3, 6 |  |
+| 28 | `cn` | Xuất khẩu: Trung Quốc | 3 | cont | 15, 28, -7.3, -4.9 |  |
+| 29 | `say` | Buồng sấy bơm nhiệt | 4 | equip | 9, 12, 18.8, 22.2 |  |
+| 30 | `rao` | Hàng rào, cổng khóa, camera | 4 | fence | -9, 23.5, -1.2, 25.5 |  |
+| 31 | `eu` | Xuất khẩu: Châu Âu | 4 | cont | 15, 28, -4.6, -2.2 |  |
 
 ## Trạng thái của một khu ở mỗi giai đoạn
 
 | Trạng thái | Khi nào | Hiển thị |
 |---|---|---|
 | Mới | giai đoạn đang xem = `phase` của khu | màu giai đoạn, sáng, nhấp nháy nhẹ |
-| Đang hoạt động | giai đoạn đang xem > `phase` | màu giai đoạn, trầm hơn |
+| Đang hoạt động | giai đoạn đang xem > `phase`, hoặc công trình có sẵn (`sanCo`) | màu giai đoạn, trầm hơn |
 | Dự phòng | giai đoạn đang xem > `until` | xám nhạt, mờ |
-| Chờ xây dựng | giai đoạn đang xem < `phase` | xám tối |
-
-## Đối chiếu bộ slide
-
-| Nội dung trên sơ đồ | Slide |
-|---|---|
-| 4 giai đoạn: thời gian, mô hình, nhân sự cuối giai đoạn, mốc kết thúc | 4–8 |
-| 7 bộ phận phụ trách | 9, 12 |
-| 10 bước quy trình, khu sơ chế (nguy cơ cao) và khu sạch (nguy cơ thấp) | 14 |
-| Thang chứng nhận ATTP → HACCP/ISO 22000 → BRCGS/FSSC 22000 | 15 |
-| Xuất khẩu Trung Quốc (GACC, Lệnh 280) và Châu Âu (EUR.1) | 16–19 |
-
-Bố trí là đề xuất sơ bộ của tư vấn, dựa trên GB 14881-2013, Codex CAC/RCP 1 và Điều 19 Luật An toàn thực phẩm 2010. Diện tích, công suất và thiết bị cần đơn vị thiết kế nhà máy xác nhận trước khi xây.
+| Chờ giai đoạn sau | giai đoạn đang xem < `phase` | xám tối |
 
 ## Kiểm tra nhanh trong trình duyệt
 
@@ -98,8 +105,8 @@ Mở Console (F12) trên trang:
 
 ```js
 __plant.setPhase(3)      // chuyển sang giai đoạn 3
-__plant.select('hold')   // chọn khu theo id
-__plant.setView('plan')  // góc nhìn: 'iso' toàn cảnh, 'plan' mặt bằng, 'prod' khu sản xuất
+__plant.select('sao')    // chọn khu theo id
+__plant.setView('moi')   // góc nhìn: 'iso' toàn cảnh, 'plan' mặt bằng, 'moi' xưởng mới, 'cu' xưởng có sẵn
 __plant.zones            // danh sách khu kèm trạng thái hiện tại
 ```
 

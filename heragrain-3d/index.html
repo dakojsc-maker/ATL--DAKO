@@ -59,7 +59,9 @@ button:focus-visible, .pin:focus-visible, .zrow:focus-visible { outline: 2px sol
 .main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 372px; }
 .stage { position: relative; min-height: 0; background: var(--stage); overflow: hidden; }
 #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
-#pins, #steps { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+#pins, #steps, #tags { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.tagl { position: absolute; left: 0; top: 0; font-size: 11px; font-weight: 500; color: var(--muted); white-space: nowrap; background: color-mix(in srgb, var(--panel) 78%, transparent); padding: 1px 7px; border-radius: 6px; will-change: transform; }
+.tagl.hide { opacity: 0; }
 .pin { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 6px; height: 22px; min-width: 22px; padding: 0 6px; border-radius: 11px; font-size: 11px; font-weight: 700; justify-content: center; pointer-events: auto; cursor: pointer; border: 1.5px solid var(--panel); background: var(--wait); color: #fff; white-space: nowrap; will-change: transform; transition: background .25s, opacity .25s; }
 .pin .t { display: none; font-weight: 600; max-width: 210px; overflow: hidden; text-overflow: ellipsis; }
 .pin.new { background: var(--pc); color: var(--pt); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc) 35%, transparent); height: 26px; min-width: 26px; border-radius: 13px; padding: 0 8px; z-index: 3; }
@@ -108,6 +110,13 @@ button:focus-visible, .pin:focus-visible, .zrow:focus-visible { outline: 2px sol
 .zrow small { flex: none; }
 .basis { margin: 0; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
 .basis b { color: var(--ink); font-weight: 600; }
+.notes { display: flex; flex-direction: column; gap: 10px; }
+.notes details { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; background: var(--panel); }
+.notes summary { cursor: pointer; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.notes summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.notes ul { margin: 8px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; font-size: 12.5px; line-height: 1.45; }
+.notes li b { font-weight: 600; }
+.notes .cc { display: inline-block; font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; margin-left: 2px; }
 
 @media (max-width: 900px) {
   html, body { height: auto; }
@@ -125,7 +134,7 @@ button:focus-visible, .pin:focus-visible, .zrow:focus-visible { outline: 2px sol
   <header class="top">
     <div class="brand">
       <div class="mark" aria-hidden="true">H</div>
-      <div><h1>Nhà máy Heragrain</h1><p>Sơ đồ 3D toàn cảnh theo 4 giai đoạn đầu tư</p></div>
+      <div><h1>Nhà máy Heragrain</h1><p>Hai lô xưởng theo 4 giai đoạn đầu tư</p></div>
     </div>
     <nav class="phases" role="tablist" aria-label="Giai đoạn đầu tư" id="phaseTabs"></nav>
     <div class="tools">
@@ -138,6 +147,7 @@ button:focus-visible, .pin:focus-visible, .zrow:focus-visible { outline: 2px sol
   <main class="main">
     <section class="stage" id="stage" aria-label="Sơ đồ 3D nhà máy">
       <canvas id="gl"></canvas>
+      <div id="tags"></div>
       <div id="steps"></div>
       <div id="pins"></div>
       <div class="hint">Kéo để xoay, cuộn hoặc chụm hai ngón để phóng to, bấm vào khu để xem chi tiết</div>
@@ -150,9 +160,10 @@ button:focus-visible, .pin:focus-visible, .zrow:focus-visible { outline: 2px sol
     <aside class="side" id="side">
       <div class="pcard" id="pcard"></div>
       <div class="stats" id="stats"></div>
-      <div class="zcard" id="zcard"><div class="empty">Bấm vào một khu trên sơ đồ hoặc trong danh sách để xem công năng, bộ phận phụ trách và căn cứ bố trí.</div></div>
+      <div class="zcard" id="zcard"><div class="empty">Bấm vào một khu trên sơ đồ hoặc trong danh sách để xem công năng, diện tích, bộ phận phụ trách và căn cứ bố trí.</div></div>
       <div id="zlist"></div>
-      <p class="basis"><b>Cách đọc.</b> Sơ đồ minh họa, chưa theo tỷ lệ. Bố trí là đề xuất sơ bộ của tư vấn, dựa trên GB 14881-2013 (tiêu chuẩn vệ sinh sản xuất thực phẩm của Trung Quốc), Codex CAC/RCP 1 và Điều 19 Luật An toàn thực phẩm 2010. Chưa tìm thấy bản vẽ bố trí công khai của Green Tropical, Vinamit hay Nafoods để đối chiếu. Diện tích, công suất và thiết bị cần đơn vị thiết kế nhà máy xác nhận trước khi xây.</p>
+      <section class="notes" id="notes" aria-label="Phân tích hiện trạng"></section>
+      <p class="basis"><b>Cách đọc.</b> Sơ đồ minh họa theo mét. Xưởng mới 17 × 10 m vẽ theo số đo trên phác thảo; xưởng có sẵn, nhà ở, khu sao trà và nhà phơi ước từ ảnh vẽ tay, vị trí giữa hai lô là giả định. Bố trí dựa trên GB 14881-2013 (tiêu chuẩn vệ sinh sản xuất thực phẩm của Trung Quốc), Codex CAC/RCP 1, CAC/RCP 68-2009 và Điều 19 Luật An toàn thực phẩm 2010. Kết cấu, diện tích và thiết bị cần đơn vị thiết kế xác nhận trước khi xây.</p>
     </aside>
   </main>
 </div>
