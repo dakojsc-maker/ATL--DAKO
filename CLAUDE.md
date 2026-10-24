@@ -1,0 +1,79 @@
+# ATL--DAKO
+
+Kho chứa video giới thiệu (thư mục `video*`) và **Kho Mẫu Slide DAKO** (`slides-template/`).
+
+## Kho Mẫu Slide DAKO — đọc trước khi làm slide
+
+Danh sách mẫu nằm ở `slides-template/catalog/templates.json` (nguồn duy nhất). Bản dễ đọc: `slides-template/catalog/CATALOG.md`.
+Trang thư viện có ảnh xem trước (Artifact): https://claude.ai/artifact/JmoetKFXwLHYifaeGuBUih (`catalog_url` trong `templates.json`).
+
+| Mã | Tên | Gọi tắt | Dựng bằng |
+|---|---|---|---|
+| M01 | Báo cáo Xanh Lime | "xanh lime", "lime", "báo cáo xanh" | `python build_deck.py --theme lime` |
+| M02 | Báo cáo Aurora | "aurora", "xanh navy" | `python build_deck.py --theme aurora` |
+| M03 | Di sản Hội An | "hội an", "di sản", "phố cổ", "văn hóa" | `python build_hoian.py` |
+| M04 | Chính luận Mác – Lênin | "mác lênin", "chính luận", "chính trị", "triết học" | `python build_maclenin.py` |
+| M05 | Lao động – Việc làm | "lao động", "việc làm", "kinh tế xã hội", "địa lí" | `python build_laodong.py` |
+| M06 | Sản phẩm Thiên nhiên | "thiên nhiên", "th true milk", "phân bón", "sản phẩm xanh" | `python build_thiennhien.py` |
+| M07 | Nông sản Đặc sản | "nông sản", "highlands", "đặc sản", "sấy khô", "heragrain" | `python build_nongsan.py` |
+| M08 | Hồ sơ Doanh nghiệp | "hồ sơ năng lực", "giới thiệu công ty", "cotecons", "xây dựng" | `python build_doanhnghiep.py` |
+| M09 | Giới thiệu Dịch vụ | "dịch vụ", "bảo hiểm", "gói dịch vụ", "manulife" | `python build_dichvu.py` |
+| M10 | Du lịch Đà Nẵng | "đà nẵng", "du lịch", "cẩm nang du lịch", "điểm đến" | `python build_danang.py` |
+
+Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"… thì tra `templates.json` (trường `code`, `name`,
+`aliases`) để biết mẫu nào. Nếu không rõ, hỏi lại kèm danh sách mã.
+
+### Làm bộ slide từ tài liệu người dùng gửi
+
+1. Cài môi trường (container mới): `bash slides-template/tools/setup_env.sh`.
+2. Đọc tài liệu (docx/pdf/pptx/ghi chú) bằng skill tương ứng; lập dàn ý theo các dạng slide của mẫu
+   (`layouts` trong `templates.json`, mã nguồn trong `layouts_module`).
+3. Chép file nội dung mẫu (`sample` trong `templates.json`, ví dụ `catalog/samples/M03-hoian.json`) sang
+   `slides-template/decks/<ten-tai-lieu>/content.json` rồi thay chữ, số liệu, ảnh. Mỗi slide là
+   `{"slide": "<tên layout>", ...tham số}` — giữ đúng cấu trúc tham số như file mẫu. Định dạng: `lib/content_io.py`.
+4. Ảnh: ưu tiên ảnh đúng chủ đề. Mạng chỉ cho phép một số máy chủ; nguồn dùng được: Open Images
+   (`tools/find_vn_photos.py` tìm ảnh chụp ở Việt Nam theo tiêu đề, `tools/oisearch.py` tìm theo nhãn), tải từ
+   `open-images-dataset.s3.amazonaws.com`. Chép ảnh vào `assets/images/src/`, ghi tác giả vào
+   `assets/images/credits.csv`, khai báo trong `"photos"` của content.json. Tách nền: `lib/imgproc.py` → `cutout()`.
+   Mẫu M03 có slide bản đồ: tạo bản đồ mới bằng `tools/make_map.py --name <ten> --center lon,lat --place key:lon,lat`
+   và đặt `"map": "<ten>"` trong content.json (hoặc bỏ slide `map_slide`).
+   Mẫu M04 dùng tượng / chân dung tách nền làm "người dẫn chuyện" (`portrait`, `persons[].cut`): khóa có sẵn trong
+   `assets/images/cut/ml_<khóa>.png`; thêm người mới thì tách nền (`cutout()`) rồi lưu đúng tên `ml_<khóa>.png`.
+   Mẫu M05 có slide `map_regions`: bản đồ 6 vùng kinh tế (kèm Hoàng Sa, Trường Sa) tự tô màu theo `values`
+   (mã vùng TDMNBB, DBSH, BTB_DHMT, TN, DNB, DBSCL); nhóm người tách nền (`people`) lấy từ
+   `assets/images/cut/ld_<khóa>.png`.
+   Mẫu M06/M07 (giới thiệu sản phẩm, chung `lib/layouts_showcase.py`): `"products"` trong content.json ánh xạ khóa →
+   ảnh PNG tách nền của sản phẩm thật (đường dẫn) hoặc bao bì minh họa `{"type": "sack" | "jug" | "pouch", ...}`
+   (`lib/product_assets.py`). Có ảnh sản phẩm thật thì tách nền bằng `cutout()`, lưu vào `assets/images/src/` và trỏ
+   khóa sản phẩm tới file đó; `"brand"` đặt tên thương hiệu, icon, menu thanh điều hướng và `"colors"` (màu thương
+   hiệu: `title`, `accent`, `accent2`, `bg`, `chart`). Bao bì minh họa có sẵn: `agri_pack` (bao / can / thùng / chai
+   theo concept `c1`–`c4` của Á Châu) và `pouch_h` (túi cửa sổ chữ H của Heragrain). Slide `concepts` so sánh 2–4
+   phương án bao bì cùng lúc.
+   Mẫu M08/M09 (hồ sơ doanh nghiệp / giới thiệu dịch vụ, chung `lib/layouts_corporate.py`): `"brand"` gồm `name`,
+   `short`, `initial` (chữ trong biểu tượng vòng sáng của M08) và `"colors"` ghi đè màu theme (`dark`, `primary`,
+   `light`, `accent`, `bg`…); chân dung slide `letter` lấy từ `assets/images/cut/ld_<khóa>.png`.
+   Mẫu M10 (du lịch): bản đồ đêm tạo bằng `tools/make_map.py --name <ten> --style navy --center lon,lat --place key:lon,lat`,
+   đặt `"map": "<ten>"` trong content.json, slide `map_info` ghim các `key` qua `"pins"`; máy ảnh tách nền
+   `assets/images/cut/dn_<khóa>.png`. Ảnh mẫu không chụp tại địa phương phải thay bằng ảnh đúng địa danh.
+   Tìm ảnh theo chủ đề khác: `tools/find_vn_photos.py scan --pattern "<regex tiêu đề>" --name <ten>`.
+5. Dựng: `cd slides-template && python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`.
+6. Kiểm tra: `python <pptx skill>/scripts/office/validate.py <file>`, render sang ảnh (LibreOffice → PDF → PyMuPDF),
+   xem từng slide, sửa chữ tràn/chồng lấn, rồi gửi file cho người dùng.
+
+### Thêm một mẫu mới vào kho
+
+1. Viết layouts + builder (theo khuôn `build_hoian.py`: hỗ trợ `--content`, `--name`, `--dump-sample`).
+2. Dựng file mẫu vào `slides-template/output/`, xuất nội dung mẫu: `--dump-sample catalog/samples/<MÃ>-<slug>.json`.
+3. Thêm mục vào `catalog/templates.json` (mã kế tiếp, `status: "ready"`, `aliases`, `best_for`, `palette`, `layouts`…).
+4. Chạy `python tools/update_catalog.py` → tự chụp ảnh xem trước, cập nhật `CATALOG.md`, `catalog/site/index.html`.
+5. Đăng lại trang thư viện lên cùng URL: Artifact publish `catalog/site/index.html` với `url` = `catalog_url`,
+   `root` = `slides-template/catalog/site`, `files` = các khóa trong `catalog/site/files.json`. Cập nhật bảng ở đầu file CLAUDE.md này.
+6. Commit + push.
+
+### Quy ước thiết kế chung
+
+- Khung 16:9 (13,333 × 7,5 in), chữ tiếng Việt đầy đủ dấu, font kèm trong `slides-template/fonts/`.
+- Mọi slide có Morph transition; đối tượng cần trượt giữa các slide đặt tên bắt đầu bằng `!!`.
+- Hiệu ứng xuất hiện tự chạy sau transition (`pptkit.anim` / `anims`), lệch thời gian theo thứ tự đọc.
+- Biểu đồ và bảng phải là đối tượng gốc của PowerPoint (sửa được số liệu).
+- Ảnh có giấy phép CC BY: luôn thêm slide ẩn "Nguồn hình ảnh".
