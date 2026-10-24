@@ -15,6 +15,8 @@ bộ slide mới chỉ cần đưa tài liệu vào.
 | M03 | Di sản Hội An — cổ điển, giấy cổ, vàng kim | `output/Mau-Bao-Cao-HoiAn.pptx` | `python build_hoian.py` |
 | M04 | Chính luận Mác – Lênin — lụa đỏ, vàng kim, huân chương | `output/Mau-Chinh-Luan-MacLenin.pptx` | `python build_maclenin.py` |
 | M05 | Lao động – Việc làm — ảnh công nhân, giấy kem – cam, bản đồ 6 vùng | `output/Mau-Lao-Dong-Viec-Lam.pptx` | `python build_laodong.py` |
+| M06 | Sản phẩm Thiên nhiên — trắng – xanh, chữ nâu + viết tay, băng chuyền sản phẩm | `output/Mau-San-Pham-Thien-Nhien.pptx` | `python build_thiennhien.py` |
+| M07 | Nông sản Đặc sản — giấy kem, chữ đỏ thẫm, sản phẩm giữa chữ lớn | `output/Mau-San-Pham-Nong-San.pptx` | `python build_nongsan.py` |
 
 Làm bộ slide từ file nội dung: `python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`
 (mẫu nội dung trong `catalog/samples/`). Thêm mẫu mới xong thì chạy `python tools/update_catalog.py` và đăng lại trang thư viện.
@@ -22,7 +24,8 @@ Container mới: `bash tools/setup_env.sh`.
 
 Mở bằng **PowerPoint 2019 / Microsoft 365** để có Morph. Bản cũ hơn sẽ tự động dùng Fade thay cho Morph.
 Cài font trong `fonts/` (M01/M02: Montserrat), `fonts/heritage/` (M03: Noto Serif Display, Noto Serif, Playfair Display)
-`fonts/maclenin/` (M04: Big Shoulders Display, Be Vietnam Pro) và `fonts/laodong/` (M05: Anton, Lexend) trước khi mở (Windows: chuột phải → Install for all users).
+`fonts/maclenin/` (M04: Big Shoulders Display, Be Vietnam Pro), `fonts/laodong/` (M05: Anton, Lexend),
+`fonts/thiennhien/` (M06: Oswald, Nunito Sans, Great Vibes) và `fonts/nongsan/` (M07: Baloo 2, Mulish, Dancing Script) trước khi mở (Windows: chuột phải → Install for all users).
 
 ---
 
@@ -151,3 +154,24 @@ lụa cam · quy trình 5 bước · kết luận · cảm ơn.
 - **Ảnh:** Open Images (CC BY 2.0) — `assets/images/laodong_photos.json`, tác giả trong `assets/images/credits.csv`;
   người tách nền `assets/images/cut/ld_*.png`. Số liệu trong file mẫu theo Niên giám thống kê; tỉ trọng lao động theo vùng
   là số minh họa.
+
+---
+
+## M06 / M07 — Giới thiệu sản phẩm (Thiên nhiên · Nông sản Đặc sản)
+
+Hai mẫu dùng chung bộ dạng slide `lib/layouts_showcase.py`, khác bảng màu, font và nền:
+**M06** theo video TH true MILK (nền trắng – xanh, ảnh đồng cỏ, tiêu đề Oswald nâu + chữ viết tay Great Vibes, chữ
+thương hiệu nổi khối), **M07** theo video Highlands Coffee (giấy kem, tiêu đề Baloo 2 đỏ thẫm + Dancing Script, sản phẩm
+nằm trong khoảng trống giữa chữ khổng lồ, dải cỏ, đồng ruộng phủ sương).
+
+- **Thanh điều hướng kiểu website** trên mọi slide nội dung (logo, menu có gạch chân di chuyển, icon tìm kiếm / tài khoản
+  / giỏ hàng) — giữ nguyên vị trí khi chuyển slide.
+- **Băng chuyền sản phẩm** (`carousel`): mỗi sản phẩm một slide; sản phẩm chính ở giữa, các sản phẩm khác nhỏ, mờ xung
+  quanh, tên + chữ viết tay góc trái, hình thu nhỏ góc phải. Mỗi sản phẩm giữ cùng tên đối tượng nên Morph trượt sản
+  phẩm này ra, đưa sản phẩm kế tiếp vào giữa.
+- **Bao bì minh họa** vẽ bằng mã (`lib/product_assets.py`): bao phân bón, can nhựa, túi zip (giấy kraft hoặc màu) có ô
+  cửa sổ nhìn thấy sản phẩm; thay bằng ảnh tách nền của sản phẩm thật qua `"products"` trong file nội dung.
+- Lá bay, hạt phân, lát trái cây sấy, hạt gạo làm họa tiết bay (có bản mờ); sương mù, giấy kem, dải cỏ sinh bằng mã.
+- Nội dung mẫu: M06 — phân bón hữu cơ (Công ty CP Công nghệ Môi trường Nông nghiệp Á Châu); M07 — nông sản sấy (HTX
+  Heragrain). Tên sản phẩm, thông số và số liệu là **minh họa**, cần thay bằng hồ sơ thật.
+- `tools/static_font.py`: tạo file font tĩnh, đặt tên đúng chuẩn Office từ font biến thiên của Google Fonts.

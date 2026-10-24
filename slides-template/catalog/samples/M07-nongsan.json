@@ -1,0 +1,490 @@
+{
+ "template": "M07",
+ "title": "Nông sản sấy – HTX Heragrain",
+ "brand": {
+  "name": "Heragrain",
+  "icon": "wheat",
+  "menu": [
+   "Về chúng tôi",
+   "Sản phẩm",
+   "Quy trình",
+   "Liên hệ"
+  ]
+ },
+ "photos": {
+  "mango_cubes": "64917ae04162dac7",
+  "banana_plate": "c13956a12cfdfa10",
+  "banana_green": "826f141e2fd26cd8",
+  "sweet_potato": "d18f0fe3c620cfec",
+  "longan": "302556e1dd8c6194",
+  "longan_basket": "cf5b6dcce2c23df9",
+  "mango_vendor": "7abbdbeec845e36b",
+  "rice_drying": "760bc123b45835ec",
+  "jackfruit_tree": "700bb625238b9941",
+  "dried_apricot": "b029a064611efc1e",
+  "mixed_nuts": "a3c5326f7f625969",
+  "almonds": "2dfd9353d16f0198",
+  "raisins": "b84eb8ce9df7d755",
+  "mango_slice": "8d7b3fbbe9d36153",
+  "mango_plate": "7ad86187efab11f0",
+  "granola": "1beb688e19c67ca0",
+  "banana_dried": "f2232b59f5d57bbc",
+  "rice_field": "1faab6249daa61bd",
+  "terrace": "1272118b3c317d0a",
+  "hills": "eaee7fecc7286deb",
+  "valley": "9947b3eb395cd5b6"
+ },
+ "products": {
+  "xoai": {
+   "type": "pouch",
+   "brand": "Heragrain",
+   "accent": "F2C14E",
+   "name": "Xoài sấy dẻo",
+   "sub": "Dẻo thơm tự nhiên",
+   "weight": "200g",
+   "color": "B5172F",
+   "photo": "dried_apricot",
+   "badge": "100%\ntự nhiên"
+  },
+  "chuoi": {
+   "type": "pouch",
+   "brand": "Heragrain",
+   "accent": "F2C14E",
+   "name": "Chuối sấy",
+   "sub": "Giòn tan",
+   "weight": "250g",
+   "kraft": true,
+   "photo": "banana_dried",
+   "color": "B5172F"
+  },
+  "khoai": {
+   "type": "pouch",
+   "brand": "Heragrain",
+   "accent": "F2C14E",
+   "name": "Khoai lang sấy",
+   "sub": "Ngọt bùi",
+   "weight": "250g",
+   "color": "6B2D5C",
+   "photo": "sweet_potato",
+   "photo_focus": [
+    0.5,
+    0.45
+   ]
+  },
+  "ngucoc": {
+   "type": "pouch",
+   "brand": "Heragrain",
+   "accent": "F2C14E",
+   "name": "Ngũ cốc sấy",
+   "sub": "Bữa sáng dinh dưỡng",
+   "weight": "400g",
+   "kraft": true,
+   "photo": "granola",
+   "color": "6E8B3D"
+  },
+  "hat": {
+   "type": "pouch",
+   "brand": "Heragrain",
+   "accent": "F2C14E",
+   "name": "Hạt dinh dưỡng",
+   "sub": "Mix 5 loại hạt",
+   "weight": "300g",
+   "color": "3E6B2E",
+   "photo": "mixed_nuts",
+   "badge": "Không\nđường"
+  }
+ },
+ "slides": [
+  {
+   "slide": "cover",
+   "word": "Heragrain",
+   "script": "Nông sản sấy",
+   "products": [
+    "xoai",
+    "chuoi",
+    "hat"
+   ],
+   "kicker": "Giới thiệu sản phẩm",
+   "tagline": "Hợp tác xã Heragrain · Nông sản sấy tự nhiên",
+   "height": 4.6,
+   "notes": "Tên sản phẩm, quy cách và số liệu là MINH HỌA — thay bằng danh mục và hồ sơ sản phẩm thật của HTX."
+  },
+  {
+   "slide": "intro",
+   "title": "Heragrain",
+   "script": "câu chuyện của chúng tôi",
+   "text": "**Hợp tác xã Heragrain** liên kết các hộ nông dân, chế biến trái cây và nông sản theo phương pháp **sấy lạnh – sấy dẻo**, giữ trọn màu sắc, hương vị và dinh dưỡng tự nhiên. Không phẩm màu, không chất bảo quản, truy xuất được nguồn gốc từ vùng trồng."
+  },
+  {
+   "slide": "story_product",
+   "nav": 0,
+   "title": "Lịch sử",
+   "script": "hình thành",
+   "product": "chuoi",
+   "second": "xoai",
+   "side": "right",
+   "text": "Khởi đầu từ những nông hộ trồng xoài, chuối, khoai lang, Heragrain tìm cách **giữ giá trị nông sản sau thu hoạch**, giảm hư hao và nâng giá bán cho bà con."
+  },
+  {
+   "slide": "story_product",
+   "nav": 0,
+   "title": "Sứ mệnh",
+   "script": "nông sản Việt",
+   "product": "xoai",
+   "second": "hat",
+   "side": "left",
+   "text": "Mang **nông sản sạch – an toàn – tiện lợi** đến người tiêu dùng; tạo việc làm ổn định và **thu nhập bền vững** cho thành viên hợp tác xã."
+  },
+  {
+   "slide": "values_row",
+   "nav": 0,
+   "title": "Giá trị",
+   "script": "cốt lõi",
+   "text": "Ba cam kết theo suốt từng mẻ sấy: **nguyên liệu tuyển chọn**, **quy trình sạch** và **hương vị tự nhiên**.",
+   "items": [
+    {
+     "product": "khoai",
+     "label": "Tự nhiên",
+     "text": "Không phẩm màu, chất bảo quản"
+    },
+    {
+     "product": "xoai",
+     "label": "Chất lượng",
+     "text": "Tuyển chọn từ vùng trồng"
+    },
+    {
+     "product": "ngucoc",
+     "label": "Bền vững",
+     "text": "Đồng hành cùng nông hộ"
+    }
+   ]
+  },
+  {
+   "slide": "lineup",
+   "nav": 1,
+   "title": "Sản phẩm",
+   "script": "Heragrain",
+   "items": [
+    {
+     "word": "Sấy dẻo",
+     "product": "xoai",
+     "caption": "Trái cây sấy dẻo"
+    },
+    {
+     "word": "Sấy giòn",
+     "product": "chuoi",
+     "caption": "Trái cây, củ sấy giòn"
+    },
+    {
+     "word": "Ngũ cốc",
+     "product": "ngucoc",
+     "caption": "Ngũ cốc & hạt"
+    }
+   ]
+  },
+  {
+   "slide": "category",
+   "nav": 1,
+   "word": "Sấy dẻo",
+   "script": "trái cây",
+   "product": "xoai",
+   "caption": "Giữ độ dẻo, màu sắc và vị ngọt tự nhiên của trái cây"
+  },
+  {
+   "slide": "carousel",
+   "nav": 1,
+   "height": 4.7,
+   "items": [
+    {
+     "product": "xoai",
+     "name": "Xoài sấy dẻo",
+     "script": "Dẻo thơm",
+     "photo": "terrace",
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "text": "Xoài chín cây, **sấy lạnh** giữ vị chua ngọt hài hòa; túi zip 200 g."
+    },
+    {
+     "product": "khoai",
+     "name": "Khoai lang sấy",
+     "script": "Ngọt bùi",
+     "photo": "hills",
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "text": "Khoai lang tím, **sấy dẻo không đường**, ăn vặt lành mạnh cho cả nhà."
+    }
+   ]
+  },
+  {
+   "slide": "category",
+   "nav": 1,
+   "word": "Sấy giòn",
+   "script": "ăn vặt",
+   "product": "chuoi",
+   "caption": "Giòn rụm, ít dầu — món ăn vặt lành mạnh"
+  },
+  {
+   "slide": "carousel",
+   "nav": 1,
+   "height": 4.7,
+   "items": [
+    {
+     "product": "chuoi",
+     "name": "Chuối sấy giòn",
+     "script": "Giòn tan",
+     "photo": "rice_field",
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "text": "Chuối chín vàng, **sấy giòn ít dầu**, vị ngọt tự nhiên."
+    },
+    {
+     "product": "hat",
+     "name": "Hạt dinh dưỡng",
+     "script": "Mix 5 loại",
+     "photo": "valley",
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "text": "Hạt điều, hạnh nhân, óc chó… **rang sấy**, không thêm đường."
+    },
+    {
+     "product": "ngucoc",
+     "name": "Ngũ cốc sấy",
+     "script": "Bữa sáng",
+     "photo": "terrace",
+     "focus": [
+      0.5,
+      0.4
+     ],
+     "text": "Yến mạch, hạt và trái cây sấy — **bữa sáng nhanh** và đủ chất."
+    }
+   ]
+  },
+  {
+   "slide": "features",
+   "nav": 1,
+   "title": "Vì sao chọn",
+   "script": "Heragrain",
+   "product": "xoai",
+   "items": [
+    [
+     "leaf",
+     "Nguyên liệu sạch",
+     "Thu mua trực tiếp từ vùng trồng của thành viên HTX."
+    ],
+    [
+     "sun",
+     "Sấy lạnh hiện đại",
+     "Giữ màu, mùi và vitamin tốt hơn sấy nhiệt thông thường."
+    ],
+    [
+     "shield-check",
+     "An toàn",
+     "Không phẩm màu, không chất bảo quản."
+    ],
+    [
+     "package-open",
+     "Tiện lợi",
+     "Túi zip nhỏ gọn, bảo quản dễ dàng."
+    ]
+   ]
+  },
+  {
+   "slide": "specs",
+   "nav": 1,
+   "title": "Thông tin sản phẩm",
+   "script": "Xoài sấy dẻo",
+   "product": "xoai",
+   "col_w": [
+    2.4,
+    2.0
+   ],
+   "rows": [
+    [
+     "Thông tin",
+     "Chi tiết"
+    ],
+    [
+     "Thành phần",
+     "100% xoài cát chín"
+    ],
+    [
+     "Khối lượng",
+     "200 g / túi zip"
+    ],
+    [
+     "Hạn sử dụng",
+     "12 tháng"
+    ],
+    [
+     "Bảo quản",
+     "Nơi khô ráo, thoáng mát"
+    ],
+    [
+     "Tiêu chuẩn",
+     "[TCCS / OCOP …]"
+    ]
+   ],
+   "note": "Thông tin **minh họa** — thay bằng nhãn và hồ sơ công bố sản phẩm của HTX."
+  },
+  {
+   "slide": "usage",
+   "nav": 2,
+   "title": "Quy trình",
+   "script": "sản xuất",
+   "steps": [
+    [
+     "apple",
+     "Tuyển chọn",
+     "Trái chín đều, không dập, đúng độ chín."
+    ],
+    [
+     "droplets",
+     "Sơ chế",
+     "Rửa sạch, gọt, cắt lát đều tay."
+    ],
+    [
+     "sun",
+     "Sấy lạnh",
+     "Sấy ở nhiệt độ thấp, giữ màu và dinh dưỡng."
+    ],
+    [
+     "package-open",
+     "Đóng gói",
+     "Đóng túi zip, hút ẩm, dán nhãn truy xuất."
+    ],
+    [
+     "truck",
+     "Phân phối",
+     "Cửa hàng, siêu thị và kênh online."
+    ]
+   ]
+  },
+  {
+   "slide": "results",
+   "nav": 2,
+   "title": "Kết quả",
+   "script": "hợp tác xã",
+   "photo": "mango_vendor",
+   "focus": [
+    0.5,
+    0.45
+   ],
+   "chart": {
+    "cats": [
+     "2023",
+     "2024",
+     "2025",
+     "2026"
+    ],
+    "series": [
+     [
+      "Sản lượng (tấn)",
+      [
+       12,
+       18,
+       26,
+       35
+      ]
+     ]
+    ],
+    "fmt": "0",
+    "max": 40
+   },
+   "kpis": [
+    [
+     "120",
+     "+",
+     "Hộ thành viên liên kết"
+    ],
+    [
+     "5",
+     "",
+     "Dòng sản phẩm chủ lực"
+    ],
+    [
+     "+30",
+     "%",
+     "Thu nhập nông hộ"
+    ]
+   ],
+   "note": "Số liệu minh họa — thay bằng số liệu thực tế của HTX."
+  },
+  {
+   "slide": "window_cards",
+   "nav": 2,
+   "title": "Vùng nguyên liệu",
+   "script": "từ nông trại",
+   "text": "Hình ảnh **vùng trồng và nông sản** — thay bằng ảnh thật của HTX Heragrain.",
+   "items": [
+    {
+     "photo": "mango_vendor",
+     "name": "Xoài chín cây",
+     "focus": [
+      0.5,
+      0.55
+     ]
+    },
+    {
+     "photo": "jackfruit_tree",
+     "focus": [
+      0.5,
+      0.5
+     ]
+    },
+    {
+     "photo": "rice_drying",
+     "focus": [
+      0.5,
+      0.6
+     ]
+    }
+   ]
+  },
+  {
+   "slide": "conclusion",
+   "nav": 0,
+   "title": "Heragrain",
+   "script": "trọn vị nông sản Việt",
+   "text": "Nông sản sấy Heragrain: **tự nhiên – an toàn – tiện lợi**, góp phần nâng giá trị nông sản và thu nhập cho bà con nông dân.",
+   "products": [
+    "khoai",
+    "chuoi",
+    "xoai",
+    "hat",
+    "ngucoc"
+   ]
+  },
+  {
+   "slide": "contact",
+   "word": "Cảm ơn",
+   "script": "Heragrain",
+   "product": "xoai",
+   "lines": [
+    [
+     "phone",
+     "Hotline: 0xxx xxx xxx"
+    ],
+    [
+     "globe",
+     "www.heragrain.vn"
+    ],
+    [
+     "mail",
+     "lienhe@heragrain.vn"
+    ],
+    [
+     "map-pin",
+     "Địa chỉ: [cập nhật địa chỉ HTX]"
+    ]
+   ]
+  }
+ ]
+}

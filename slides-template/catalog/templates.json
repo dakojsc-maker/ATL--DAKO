@@ -136,6 +136,84 @@
     ["people_list", "Danh sách giải pháp + nhóm người tách nền"], ["process", "Quy trình mũi tên 3–6 bước"],
     ["photo_quote", "Ảnh + thông điệp chính + ý"], ["thanks", "Cảm ơn"]
    ]
+  },
+  {
+   "code": "M06",
+   "slug": "thiennhien",
+   "name": "Sản phẩm Thiên nhiên",
+   "aliases": ["thiên nhiên", "th true milk", "th milk", "sản phẩm xanh", "phân bón", "nông nghiệp", "giới thiệu sản phẩm", "á châu"],
+   "status": "ready",
+   "added": "2026-10-24",
+   "inspired_by": "Video TH true MILK – mẫu giới thiệu sản phẩm (TikTok)",
+   "tagline": "Trắng – xanh thiên nhiên kiểu website: chữ nâu khổ hẹp + chữ viết tay, băng chuyền sản phẩm trên đồng cỏ.",
+   "mood": ["Tươi mát", "Thiên nhiên", "Thương mại"],
+   "best_for": ["Giới thiệu sản phẩm nông nghiệp, phân bón, thực phẩm, đồ uống", "Ra mắt dòng sản phẩm, catalogue bán hàng", "Hồ sơ năng lực sản phẩm cho đối tác, nhà phân phối"],
+   "category": ["Giới thiệu sản phẩm", "Doanh nghiệp"],
+   "palette": [["7A3B22", "Nâu tiêu đề"], ["3E8E3A", "Xanh lá"], ["A8D26B", "Xanh non"], ["F2F5EE", "Nền sáng"], ["3B2A20", "Chữ"]],
+   "fonts": "Oswald · Nunito Sans · Great Vibes",
+   "builder": "python build_thiennhien.py",
+   "sample": "catalog/samples/M06-thiennhien.json",
+   "output": "output/Mau-San-Pham-Thien-Nhien.pptx",
+   "layouts_module": "lib/layouts_showcase.py",
+   "layouts": [
+    ["cover", "Bìa – chữ thương hiệu lớn sau sản phẩm, chữ viết tay"], ["intro", "Giới thiệu + dải ảnh / cỏ"],
+    ["story_cards", "3 thẻ câu chuyện ảnh nâu cổ (khởi nguồn, giá trị, định vị)"], ["story_product", "Câu chuyện + sản phẩm lớn"],
+    ["values_row", "Giá trị cốt lõi – 3–4 sản phẩm"], ["lineup", "Dòng sản phẩm – thẻ chữ lớn có sản phẩm ở giữa"],
+    ["category", "Chữ danh mục khổng lồ + sản phẩm"], ["carousel", "Băng chuyền sản phẩm (Morph trượt từng sản phẩm)"],
+    ["features", "4 ưu điểm quanh sản phẩm"], ["specs", "Bảng thông số + sản phẩm"], ["usage", "Hướng dẫn / quy trình 3–5 bước"],
+    ["results", "Biểu đồ hiệu quả + 3 chỉ số + ảnh"], ["window_cards", "Ảnh thực tế trong khung cửa sổ trình duyệt"],
+    ["conclusion", "Kết luận + hàng sản phẩm"], ["contact", "Cảm ơn + liên hệ"]
+   ]
+  },
+  {
+   "code": "M07",
+   "slug": "nongsan",
+   "name": "Nông sản Đặc sản",
+   "aliases": ["nông sản", "highlands", "highland", "đặc sản", "sấy khô", "thực phẩm", "đồ uống", "heragrain", "đỏ kem"],
+   "status": "ready",
+   "added": "2026-10-24",
+   "inspired_by": "Video Highlands Coffee – mẫu giới thiệu sản phẩm (TikTok)",
+   "tagline": "Giấy kem ấm, chữ đỏ thẫm bo tròn + chữ viết tay, sản phẩm nằm giữa chữ khổng lồ, đồng ruộng phủ sương.",
+   "mood": ["Ấm áp", "Đặc sản", "Thương mại"],
+   "best_for": ["Giới thiệu nông sản, đặc sản, sản phẩm OCOP, đồ sấy", "Cà phê, trà, bánh, đồ uống, F&B", "Hợp tác xã, cơ sở sản xuất giới thiệu sản phẩm"],
+   "category": ["Giới thiệu sản phẩm", "Doanh nghiệp"],
+   "palette": [["B5172F", "Đỏ thẫm"], ["E8A93A", "Vàng nghệ"], ["6E8B3D", "Xanh lá"], ["F6EFE3", "Giấy kem"], ["3B2416", "Nâu chữ"]],
+   "fonts": "Baloo 2 · Mulish · Dancing Script",
+   "builder": "python build_nongsan.py",
+   "sample": "catalog/samples/M07-nongsan.json",
+   "output": "output/Mau-San-Pham-Nong-San.pptx",
+   "layouts_module": "lib/layouts_showcase.py",
+   "layouts": "same_as:M06"
+  },
+  {
+   "code": "M08",
+   "slug": "doanhnghiep",
+   "name": "Hồ sơ Doanh nghiệp",
+   "aliases": ["cotecons", "giới thiệu công ty", "hồ sơ năng lực", "company profile", "doanh nghiệp"],
+   "status": "planned",
+   "inspired_by": "Video Cotecons – mẫu giới thiệu công ty (TikTok)",
+   "tagline": "Sắp làm: mẫu giới thiệu công ty, hồ sơ năng lực.",
+   "category": ["Doanh nghiệp"]
+  },
+  {
+   "code": "M09",
+   "slug": "dichvu",
+   "name": "Giới thiệu Dịch vụ",
+   "aliases": ["manulife", "dịch vụ", "bảo hiểm", "tư vấn", "giới thiệu dịch vụ"],
+   "status": "planned",
+   "inspired_by": "Video Manulife – mẫu giới thiệu dịch vụ (TikTok)",
+   "tagline": "Sắp làm: mẫu giới thiệu dịch vụ, gói giải pháp.",
+   "category": ["Doanh nghiệp"]
+  },
+  {
+   "code": "M10",
+   "slug": "danang",
+   "name": "Du lịch Đà Nẵng",
+   "aliases": ["đà nẵng", "du lịch", "thành phố", "điểm đến", "khám phá"],
+   "status": "planned",
+   "inspired_by": "Video Du lịch Đà Nẵng – mẫu giới thiệu điểm đến (TikTok)",
+   "tagline": "Sắp làm: mẫu du lịch, giới thiệu thành phố, điểm đến.",
+   "category": ["Văn hóa – du lịch"]
   }
  ]
 }

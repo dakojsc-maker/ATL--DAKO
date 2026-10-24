@@ -14,6 +14,11 @@ Trang thư viện có ảnh xem trước (Artifact): https://claude.ai/artifact/
 | M03 | Di sản Hội An | "hội an", "di sản", "phố cổ", "văn hóa" | `python build_hoian.py` |
 | M04 | Chính luận Mác – Lênin | "mác lênin", "chính luận", "chính trị", "triết học" | `python build_maclenin.py` |
 | M05 | Lao động – Việc làm | "lao động", "việc làm", "kinh tế xã hội", "địa lí" | `python build_laodong.py` |
+| M06 | Sản phẩm Thiên nhiên | "thiên nhiên", "th true milk", "phân bón", "sản phẩm xanh" | `python build_thiennhien.py` |
+| M07 | Nông sản Đặc sản | "nông sản", "highlands", "đặc sản", "sấy khô", "heragrain" | `python build_nongsan.py` |
+| M08 | Hồ sơ Doanh nghiệp | (sắp làm, theo video Cotecons) | — |
+| M09 | Giới thiệu Dịch vụ | (sắp làm, theo video Manulife) | — |
+| M10 | Du lịch Đà Nẵng | (sắp làm, theo video Đà Nẵng) | — |
 
 Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"… thì tra `templates.json` (trường `code`, `name`,
 `aliases`) để biết mẫu nào. Nếu không rõ, hỏi lại kèm danh sách mã.
@@ -37,6 +42,10 @@ Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"�
    Mẫu M05 có slide `map_regions`: bản đồ 6 vùng kinh tế (kèm Hoàng Sa, Trường Sa) tự tô màu theo `values`
    (mã vùng TDMNBB, DBSH, BTB_DHMT, TN, DNB, DBSCL); nhóm người tách nền (`people`) lấy từ
    `assets/images/cut/ld_<khóa>.png`.
+   Mẫu M06/M07 (giới thiệu sản phẩm, chung `lib/layouts_showcase.py`): `"products"` trong content.json ánh xạ khóa →
+   ảnh PNG tách nền của sản phẩm thật (đường dẫn) hoặc bao bì minh họa `{"type": "sack" | "jug" | "pouch", ...}`
+   (`lib/product_assets.py`). Có ảnh sản phẩm thật thì tách nền bằng `cutout()`, lưu vào `assets/images/src/` và trỏ
+   khóa sản phẩm tới file đó; `"brand"` đặt tên thương hiệu, icon và menu thanh điều hướng.
    Tìm ảnh theo chủ đề khác: `tools/find_vn_photos.py scan --pattern "<regex tiêu đề>" --name <ten>`.
 5. Dựng: `cd slides-template && python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`.
 6. Kiểm tra: `python <pptx skill>/scripts/office/validate.py <file>`, render sang ảnh (LibreOffice → PDF → PyMuPDF),

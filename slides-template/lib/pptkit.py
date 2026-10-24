@@ -364,8 +364,13 @@ def freeform(s, pts, fill=None, line=None, lw=0.75, alpha=None, nm=None):
 
 
 # ================================================================ text
+BOLD_FACES = set()   # faces that only ship a Bold file: every run in them is flagged bold so Office picks it
+
+
 def _apply_run(run, text, font=F_BODY, size=14, color=None, bold=False, italic=False, spacing=None,
                outline=None, outline_w=1.0, caps=False, alpha=None):
+    if font in BOLD_FACES:
+        bold = True
     run.text = text
     f = run.font
     f.size = Pt(size)

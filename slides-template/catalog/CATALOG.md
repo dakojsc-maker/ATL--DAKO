@@ -11,6 +11,11 @@ Danh sách mẫu slide. Trang thư viện có ảnh xem trước: [https://claud
 | **M03** | Di sản Hội An | Cổ điển, điện ảnh: ảnh tràn nền phủ tối, chữ có chân mảnh, giấy cổ, ảnh polaroid mép rách. | Văn hóa, lịch sử, di sản, địa danh; Du lịch, ẩm thực, giới thiệu địa phương; Báo cáo môn Văn hóa Việt Nam, Lịch sử, Địa lý | 23 slide |
 | **M04** | Chính luận Mác – Lênin | Lụa đỏ, vàng kim, búa liềm và huân chương sao; tượng tách nền làm người dẫn chuyện, chữ áp phích khổ hẹp. | Triết học, Kinh tế chính trị, CNXH khoa học Mác – Lênin; Tư tưởng Hồ Chí Minh, Lịch sử Đảng CSVN; Thuyết trình chính trị – xã hội, sinh hoạt Đoàn – Đảng | 24 slide |
 | **M05** | Lao động – Việc làm | Ảnh công nhân, tia hàn điện ảnh; trang giấy kem – cam với biểu đồ cột cam, bảng, biểu đồ tròn, bản đồ 6 vùng. | Địa lí 12: lao động, việc làm, dân cư, các ngành kinh tế; Báo cáo kinh tế – xã hội, thị trường lao động, nhân sự; An toàn lao động, đào tạo nghề, giới thiệu ngành nghề | 17 slide |
+| **M06** | Sản phẩm Thiên nhiên | Trắng – xanh thiên nhiên kiểu website: chữ nâu khổ hẹp + chữ viết tay, băng chuyền sản phẩm trên đồng cỏ. | Giới thiệu sản phẩm nông nghiệp, phân bón, thực phẩm, đồ uống; Ra mắt dòng sản phẩm, catalogue bán hàng; Hồ sơ năng lực sản phẩm cho đối tác, nhà phân phối | 19 slide |
+| **M07** | Nông sản Đặc sản | Giấy kem ấm, chữ đỏ thẫm bo tròn + chữ viết tay, sản phẩm nằm giữa chữ khổng lồ, đồng ruộng phủ sương. | Giới thiệu nông sản, đặc sản, sản phẩm OCOP, đồ sấy; Cà phê, trà, bánh, đồ uống, F&B; Hợp tác xã, cơ sở sản xuất giới thiệu sản phẩm | 20 slide |
+| **M08** | Hồ sơ Doanh nghiệp | Sắp làm: mẫu giới thiệu công ty, hồ sơ năng lực. | Doanh nghiệp | Sắp làm |
+| **M09** | Giới thiệu Dịch vụ | Sắp làm: mẫu giới thiệu dịch vụ, gói giải pháp. | Doanh nghiệp | Sắp làm |
+| **M10** | Du lịch Đà Nẵng | Sắp làm: mẫu du lịch, giới thiệu thành phố, điểm đến. | Văn hóa – du lịch | Sắp làm |
 
 ## M01 · Báo cáo Xanh Lime
 
@@ -86,3 +91,54 @@ Lụa đỏ, vàng kim, búa liềm và huân chương sao; tượng tách nền
 - **Dựng:** `python build_laodong.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M05-laodong.json`
 - **Lấy cảm hứng từ:** Video 4 – mẫu Lao động việc làm (TikTok)
 - **Các dạng slide** (`"slide"` trong file nội dung): `cover` Bìa ảnh tràn – chữ lớn có dấu &, `agenda` Nội dung trình bày (I, II, III + mục con), `section` Chuyển phần ảnh tràn, `chart_text` Đoạn dẫn + ảnh + biểu đồ cột cam, `table_text` Gạch đầu dòng + bảng số liệu, `map_regions` Bản đồ 6 vùng (Hoàng Sa, Trường Sa) + ý + 3 ảnh, `callout_table` Khung đứt nét + bảng (gộp ô nhóm), `callout_pies` Khung đứt nét + 2–3 biểu đồ tròn + chú thích, `compare` So sánh 2 cột có ảnh và chỉ số, `stats` 4 thẻ chỉ số + dải ảnh, `people_list` Danh sách giải pháp + nhóm người tách nền, `process` Quy trình mũi tên 3–6 bước, `photo_quote` Ảnh + thông điệp chính + ý, `thanks` Cảm ơn
+
+## M06 · Sản phẩm Thiên nhiên
+
+Trắng – xanh thiên nhiên kiểu website: chữ nâu khổ hẹp + chữ viết tay, băng chuyền sản phẩm trên đồng cỏ.
+
+![Sản phẩm Thiên nhiên](site/previews/M06/sheet.jpg)
+
+- **Câu gọi:** `Dùng mẫu M06 · Sản phẩm Thiên nhiên để làm bộ slide từ tài liệu tôi gửi kèm.`
+- **Gọi tắt:** thiên nhiên, th true milk, th milk, sản phẩm xanh, phân bón, nông nghiệp, giới thiệu sản phẩm, á châu
+- **Bảng màu:** `#7A3B22` Nâu tiêu đề, `#3E8E3A` Xanh lá, `#A8D26B` Xanh non, `#F2F5EE` Nền sáng, `#3B2A20` Chữ
+- **Font:** Oswald · Nunito Sans · Great Vibes
+- **File mẫu:** `slides-template/output/Mau-San-Pham-Thien-Nhien.pptx` (13.8 MB)
+- **Dựng:** `python build_thiennhien.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M06-thiennhien.json`
+- **Lấy cảm hứng từ:** Video TH true MILK – mẫu giới thiệu sản phẩm (TikTok)
+- **Các dạng slide** (`"slide"` trong file nội dung): `cover` Bìa – chữ thương hiệu lớn sau sản phẩm, chữ viết tay, `intro` Giới thiệu + dải ảnh / cỏ, `story_cards` 3 thẻ câu chuyện ảnh nâu cổ (khởi nguồn, giá trị, định vị), `story_product` Câu chuyện + sản phẩm lớn, `values_row` Giá trị cốt lõi – 3–4 sản phẩm, `lineup` Dòng sản phẩm – thẻ chữ lớn có sản phẩm ở giữa, `category` Chữ danh mục khổng lồ + sản phẩm, `carousel` Băng chuyền sản phẩm (Morph trượt từng sản phẩm), `features` 4 ưu điểm quanh sản phẩm, `specs` Bảng thông số + sản phẩm, `usage` Hướng dẫn / quy trình 3–5 bước, `results` Biểu đồ hiệu quả + 3 chỉ số + ảnh, `window_cards` Ảnh thực tế trong khung cửa sổ trình duyệt, `conclusion` Kết luận + hàng sản phẩm, `contact` Cảm ơn + liên hệ
+
+## M07 · Nông sản Đặc sản
+
+Giấy kem ấm, chữ đỏ thẫm bo tròn + chữ viết tay, sản phẩm nằm giữa chữ khổng lồ, đồng ruộng phủ sương.
+
+![Nông sản Đặc sản](site/previews/M07/sheet.jpg)
+
+- **Câu gọi:** `Dùng mẫu M07 · Nông sản Đặc sản để làm bộ slide từ tài liệu tôi gửi kèm.`
+- **Gọi tắt:** nông sản, highlands, highland, đặc sản, sấy khô, thực phẩm, đồ uống, heragrain, đỏ kem
+- **Bảng màu:** `#B5172F` Đỏ thẫm, `#E8A93A` Vàng nghệ, `#6E8B3D` Xanh lá, `#F6EFE3` Giấy kem, `#3B2416` Nâu chữ
+- **Font:** Baloo 2 · Mulish · Dancing Script
+- **File mẫu:** `slides-template/output/Mau-San-Pham-Nong-San.pptx` (11.7 MB)
+- **Dựng:** `python build_nongsan.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M07-nongsan.json`
+- **Lấy cảm hứng từ:** Video Highlands Coffee – mẫu giới thiệu sản phẩm (TikTok)
+- **Các dạng slide:** giống M06
+
+## M08 · Hồ sơ Doanh nghiệp
+
+Sắp làm: mẫu giới thiệu công ty, hồ sơ năng lực.
+
+- **Trạng thái:** sắp làm — Video Cotecons – mẫu giới thiệu công ty (TikTok)
+- **Câu gọi để làm:** `Làm mẫu M08 · Hồ sơ Doanh nghiệp theo Video Cotecons – mẫu giới thiệu công ty (TikTok).`
+
+## M09 · Giới thiệu Dịch vụ
+
+Sắp làm: mẫu giới thiệu dịch vụ, gói giải pháp.
+
+- **Trạng thái:** sắp làm — Video Manulife – mẫu giới thiệu dịch vụ (TikTok)
+- **Câu gọi để làm:** `Làm mẫu M09 · Giới thiệu Dịch vụ theo Video Manulife – mẫu giới thiệu dịch vụ (TikTok).`
+
+## M10 · Du lịch Đà Nẵng
+
+Sắp làm: mẫu du lịch, giới thiệu thành phố, điểm đến.
+
+- **Trạng thái:** sắp làm — Video Du lịch Đà Nẵng – mẫu giới thiệu điểm đến (TikTok)
+- **Câu gọi để làm:** `Làm mẫu M10 · Du lịch Đà Nẵng theo Video Du lịch Đà Nẵng – mẫu giới thiệu điểm đến (TikTok).`
