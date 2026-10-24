@@ -1232,9 +1232,10 @@ button:focus-visible, .pin:focus-visible, .zrow:focus-visible { outline: 2px sol
 
 </script>
 <script>
-/* Dữ liệu nhà máy Heragrain theo hiện trạng: xưởng cũ (đi qua nhà ở) và xưởng mới 17 × 10 m trong cùng một khuôn viên.
+/* Dữ liệu nhà máy Heragrain theo hiện trạng: khu nhà ở và xưởng cũ, cách khoảng 200 m là lô xưởng mới biệt lập
+   (ngang 17 m, chạy dài từ đường trước đến đường sau).
    Sửa nội dung, thêm hoặc dời khu ở file này; nha-may.js chỉ đọc dữ liệu để dựng cảnh 3D.
-   Đơn vị: mét. Nguồn: ba ảnh phác thảo tay của HTX và bộ slide tai-lieu/Heragrain_Lo-trinh-dau-tu-giai-doan-dau.pptx. */
+   Đơn vị: mét. Nguồn: ba ảnh phác thảo tay của HTX, mô tả của HTX và bộ slide tai-lieu/Heragrain_Lo-trinh-dau-tu-giai-doan-dau.pptx. */
 (function () {
 "use strict";
 
@@ -1246,9 +1247,9 @@ const PH = [
     build: 'Không xây mới. Sắp xếp lại 5 phòng xưởng cũ: kệ, pallet, bàn đóng gói, máy hàn túi, bồn rửa tay.',
     goal: 'Chốt bản vẽ xưởng mới 17 × 10 m; có nguồn hàng ổn định từ nhà vườn.' },
   { n: 2, name: 'Giai đoạn 2 · Chế biến', tab: 'Chế biến', when: 'Q2 – Q3/2027', people: '19–27 người',
-    model: 'Xây xưởng mới trong khuôn viên, làm cả trà sao bếp củi và trái cây sấy (sầu riêng, chanh dây, gừng, mãng cầu); xưởng cũ chuyển hẳn sang đóng thùng và kho thành phẩm.',
+    model: 'Xây xưởng mới ở lô riêng cách nhà khoảng 200 m, làm cả trà sao bếp củi và trái cây sấy (sầu riêng, chanh dây, gừng, mãng cầu). Túi đã hàn kín chở về xưởng cũ đóng thùng, lưu kho.',
     cert: 'Giấy chứng nhận cơ sở đủ điều kiện ATTP (NĐ 15/2018); xây HACCP.',
-    build: 'Xưởng 17 × 10 m có tủ sấy hai cửa xuyên vách, khu sao trà bếp củi và lán củi, nhà ăn, nhà vệ sinh, nhà phơi kín, bồn nước và bể tự hoại.',
+    build: 'Xưởng 17 × 10 m có tủ sấy hai cửa xuyên vách; dãy phòng kéo dài thêm bếp, nhà ăn, nhà vệ sinh (bồn nước trên mái); khu sao trà bếp củi và lán củi; nhà phơi kín; cuối lô là bể tự hoại, hố lắng, điểm rác.',
     goal: 'Dây chuyền ổn định, truy xuất đến nhà vườn.' },
   { n: 3, name: 'Giai đoạn 3 · Sản xuất đạt chuẩn', tab: 'Đạt chuẩn xuất khẩu', when: 'Q4/2027 – Q1/2028', people: '25–35 người',
     model: 'Không xây thêm nhà. Ngăn nửa kho để đồ làm phòng QC và khu giữ lô; xuất Trung Quốc qua nhà nhập khẩu.',
@@ -1258,20 +1259,32 @@ const PH = [
   { n: 4, name: 'Giai đoạn 4 · Xuất khẩu', tab: 'Xuất khẩu', when: 'từ Q2/2028', people: '28–40 người',
     model: 'Tự chủ xuất khẩu Trung Quốc và Châu Âu; thêm buồng sấy để sấy trà khi trời mưa và tăng công suất. Nhân sự đông thì ăn, nghỉ chia ca.',
     cert: 'BRCGS hoặc FSSC 22000; EUR.1 hưởng thuế EVFTA.',
-    build: 'Buồng sấy bơm nhiệt cuối nhà phơi; hàng rào, cổng khóa, camera quanh khuôn viên.',
+    build: 'Buồng sấy bơm nhiệt cuối nhà phơi; hàng rào, cổng trước, cổng sau, camera lô xưởng mới.',
     goal: 'Lô đầu sang EU kèm EUR.1.' }
 ];
 
 /* 7 bộ phận (slide 9, 12) */
 const D = { gd: 'Giám đốc điều hành', sx: 'Sản xuất và kỹ thuật', qa: 'QA/QC và ATTP', vn: 'Vùng nguyên liệu, TXNG', kho: 'Kho và logistics', xk: 'Xuất khẩu, thị trường', hc: 'Hành chính, kế toán' };
 
+/* Khu nhà ở và xưởng cũ vẽ theo tọa độ riêng (như ảnh vẽ tay) rồi dời sang trái X_CU mét.
+   Hai khu thật cách nhau khoảng 200 m; sơ đồ rút ngắn khoảng cách để cả hai cùng vừa màn hình. */
+const X_CU = -46;
+const DO_HAI_X = { ke: [1, 2], cui: [1, 2], gian: [1, 2], long: [1, 2] }; // đồ có tham số x0, x1; các đồ khác tham số 1 là x
+function doiX(z, dx) {
+  z.box = [z.box[0] + dx, z.box[1] + dx, z.box[2], z.box[3]];
+  (z.doors || []).forEach((d) => { if (d.side === 'N' || d.side === 'S') d.at += dx; });
+  if (z.pin) z.pin = [z.pin[0] + dx, z.pin[1], z.pin[2]];
+  (z.do || []).forEach((p) => (DO_HAI_X[p[0]] || [1]).forEach((i) => { p[i] += dx; }));
+  return z;
+}
+
 /* Mỗi khu:
    id      mã khu, dùng trong STEPS và ROUTES
    n       số hiện trên nhãn và trong danh sách
    kind    kiểu dựng: hall (nhà có tường thấp, mái trong), block (khối nhà kín), house (nhà ở mái dốc),
-           path (lối đi), dryhouse (nhà phơi lưới), woodshed (lán có mái), utility (bồn nước, bể tự hoại),
-           bins (điểm rác), passdryer (tủ sấy hai cửa), detector (máy dò kim loại), equip (buồng sấy),
-           cont (xe container), fence (hàng rào), trees (vườn cây)
+           path (lối đi), dryhouse (nhà phơi lưới), woodshed (lán có mái), septic (bể tự hoại, hố lắng),
+           utility (bồn nước trên chân, bể tự hoại), bins (điểm rác), passdryer (tủ sấy hai cửa),
+           detector (máy dò kim loại), equip (buồng sấy), cont (xe container), fence (hàng rào), trees (vườn cây)
    phase   giai đoạn bắt đầu hoạt động (1–4)
    until   (tùy chọn) giai đoạn cuối còn chạy chính; sau đó chuyển sang dự phòng
    sanCo   (tùy chọn) công trình có sẵn, không tính là hạng mục mới của giai đoạn 1
@@ -1279,29 +1292,28 @@ const D = { gd: 'Giám đốc điều hành', sx: 'Sản xuất và kỹ thuật
    h       chiều cao mái; wallH (tùy chọn) chiều cao tường hiện trên sơ đồ
    open    (tùy chọn) các mặt không vẽ tường vì khu bên cạnh đã có tường chung
    doors   (tùy chọn) lối đi trổ trên tường {side: N/S/W/E, at: tọa độ tâm lối, w: bề rộng}
-   poly, gates (chỉ hàng rào) đường rào [[x, z], ...] và cổng {at: [x, z], w}
+   cua     (chỉ block) mặt có cửa: N/S/W/E, mặc định S
+   lines, gates (chỉ hàng rào) các đoạn rào [[[x, z], ...], ...] và cổng {at: [x, z], w}
    noFloor, noRoof (tùy chọn) khu nằm trong khu khác
    xay     (tùy chọn) hạng mục xây mới, cộng vào tổng diện tích xây của giai đoạn
    kt      (tùy chọn) nguồn kích thước: 'phac' theo số đo trên phác thảo, 'uoc' ước theo tỷ lệ ảnh vẽ tay, 'de' đề xuất
    noArea  (tùy chọn) không hiện diện tích
    pin     (tùy chọn) [x, y, z] vị trí nhãn số; bỏ trống thì đặt giữa nóc khu
    do      (tùy chọn) đồ đạc, thiết bị: ['ban', x, z, rộng, sâu], ['ghe', x, z, rộng, sâu], ['may', x, z, rộng, cao, sâu],
-           ['bon', x, z, bán kính, cao], ['ke', x0, x1, z0, z1, số tầng], ['thung', x, z, số cột, số hàng],
+           ['bon', x, z, bán kính, cao, độ cao chân], ['ke', x0, x1, z0, z1, số tầng], ['thung', x, z, số cột, số hàng],
            ['pallet', x, z], ['bep', x, z, khoảng dời ống khói theo z], ['cui', x0, x1, z0, z1],
            ['gian', x0, x1, z0, z1], ['long', x0, x1, z0, z1]
    dept, role, req, basis: bộ phận phụ trách, công năng, yêu cầu, căn cứ bố trí (hiện ở bảng bên phải) */
-const ZONES = [
-  /* ---------- Giai đoạn 1: vùng nguyên liệu, xưởng cũ ---------- */
-  { id: 'vung', n: 1, name: 'Vùng nguyên liệu, nhà vườn và cơ sở liên kết', kind: 'trees', phase: 1, box: [-40, -26, -6, 8], h: 6, noArea: true, dept: [D.vn],
-    role: 'GĐ1 cung cấp hàng đã sấy, sao, đóng bao kín để xưởng cũ gia công đóng gói. Từ GĐ2 cung cấp trà tươi và trái cây (sầu riêng, chanh dây, gừng, mãng cầu) cho xưởng mới.',
-    req: 'Hợp đồng thu mua, danh sách vùng nguyên liệu, nhật ký sản xuất; kiểm dư lượng từng lô.', basis: 'Luật ATTP 2010 Điều 19; slide 13.' },
+
+/* ---------- Khu nhà ở và xưởng cũ (tọa độ riêng, dời bằng X_CU) ---------- */
+const KHU_CU = [
   { id: 'nha', n: 2, name: 'Nhà ở gia đình (phòng 7)', kind: 'house', phase: 1, sanCo: true, box: [-5, 11, -15, -7.5], h: 6, wallH: 2.6, kt: 'uoc', dept: [],
     doors: [{ side: 'S', at: -1.5, w: 3.6 }, { side: 'N', at: -1.5, w: 3.6 }],
     do: [['ban', 6, -11.5, 2.2, 1], ['ghe', 6, -12.6, 2.2, 0.5], ['ghe', 8.8, -9, 2.4, 0.8]],
-    role: 'Nằm giữa xưởng cũ và sân chung; lối duy nhất vào xưởng cũ đi xuyên qua nhà. Vì vậy chỉ cho hàng đã đóng bao, đóng túi kín và bao bì còn nguyên kiện đi qua.',
+    role: 'Mặt tiền ra đường liên thôn; lối duy nhất vào xưởng cũ đi xuyên qua nhà. Vì vậy chỉ cho hàng đã đóng bao, đóng túi kín và bao bì còn nguyên kiện đi qua.',
     req: 'Hàng qua nhà phải đóng kín, đi theo lối cố định, không để lại trong nhà.', basis: 'GB 14881 §3.2.2 (tách khu sinh hoạt với khu sản xuất); đề xuất của tư vấn.' },
   { id: 'wc1', n: 3, name: 'Nhà vệ sinh có sẵn (phòng 6)', kind: 'block', phase: 1, sanCo: true, box: [4, 10.7, -19.6, -15], h: 3.2, kt: 'uoc', dept: [D.hc],
-    role: 'Dùng cho người làm ở xưởng cũ. Từ GĐ2 công nhân chế biến dùng nhà vệ sinh mới cạnh nhà ăn.',
+    role: 'Dùng cho người làm ở xưởng cũ. Công nhân xưởng mới dùng nhà vệ sinh cuối dãy phòng bên đó.',
     req: 'Cửa không mở thẳng vào kho hay khu đóng gói; có chỗ rửa tay.', basis: 'GB 14881 §5.1.5.3.' },
   { id: 'loidi', n: 4, name: 'Lối đi và cửa vào xưởng cũ', kind: 'path', phase: 1, sanCo: true, box: [-3.5, 0, -34.2, -19.6], h: 2.8, kt: 'uoc', pin: [-1.75, 3.5, -31.5], dept: [D.kho],
     role: 'Lối đi dọc phía tây xưởng (nét chấm trên bản vẽ) từ cửa vào xưởng đến cửa từng phòng; mọi hàng vào ra xưởng cũ đi trên lối này.',
@@ -1314,7 +1326,7 @@ const ZONES = [
   { id: 'dg', n: 6, name: 'Khu gia công đóng gói (phòng 3)', kind: 'hall', phase: 1, box: [0, 5.5, -29, -24.2], h: 4.2, wallH: 2, kt: 'uoc', open: ['S'], dept: [D.kho, D.qa],
     doors: [{ side: 'N', at: 3.8, w: 1.2 }, { side: 'W', at: -27, w: 1.2 }, { side: 'E', at: -27, w: 1.2 }],
     do: [['ban', 3.2, -28.2, 3, 0.9], ['ban', 3.9, -25.3, 2.2, 0.9], ['may', 1.1, -28.4, 0.8, 1, 0.6], ['bon', 5, -24.8, 0.22, 0.85]],
-    role: 'GĐ1: chia túi, hàn túi, dán nhãn, đóng hộp hàng nhận từ nhà vườn và cơ sở liên kết. Từ GĐ2: chỉ dán nhãn, đóng hộp, đóng thùng túi đã hàn kín ở xưởng mới (bước 10).',
+    role: 'GĐ1: chia túi, hàn túi, dán nhãn, đóng hộp hàng nhận từ nhà vườn và cơ sở liên kết. Từ GĐ2: chỉ dán nhãn, đóng hộp, đóng thùng túi đã hàn kín chở từ xưởng mới về (bước 10).',
     req: 'GĐ1 chia túi trong phòng đóng cửa, rửa tay trước khi làm, mặc tạp dề, đội mũ. Từ GĐ2 không mở túi tại đây; mã lô trên nhãn khớp với túi.',
     basis: 'Slide 14, 20; lối vào xưởng cũ đi qua nhà ở nên phần để hở sản phẩm dồn về xưởng mới từ GĐ2.' },
   { id: 'dc', n: 7, name: 'Phòng dụng cụ đóng gói (phòng 4)', kind: 'hall', phase: 1, box: [0, 1.9, -26.2, -24.2], h: 3, wallH: 2, kt: 'uoc', open: ['W', 'S'], noFloor: true, noRoof: true, pin: [1, 4.6, -25.2], dept: [D.kho],
@@ -1332,8 +1344,21 @@ const ZONES = [
     do: [['ke', 0.4, 4.7, -33.9, -33.2, 2], ['thung', 2.2, -31.2, 3, 2]],
     role: 'Đồ dùng chung, vật tư không tiếp xúc thực phẩm. Từ GĐ3 nửa phía đông ngăn ra làm phòng QC.',
     req: 'Không để hóa chất chung với bao bì, thành phẩm.', basis: 'GB 14881 §5.1.8.4.' },
+  { id: 'qc', n: 26, name: 'Phòng QC, lưu mẫu, giữ lô (nửa đông phòng 5)', kind: 'hall', phase: 3, box: [5.1, 10.2, -34.2, -29], h: 4.2, wallH: 2, kt: 'uoc', open: ['S'], dept: [D.qa],
+    doors: [{ side: 'W', at: -31.6, w: 1 }],
+    do: [['ban', 7.6, -33.6, 3.6, 0.8], ['may', 9.7, -32.2, 0.6, 1.8, 1.2], ['long', 5.6, 8.7, -31.5, -29.5], ['thung', 6, -31, 3, 2]],
+    role: 'Ngăn nửa đông kho để đồ: bàn kiểm, tủ lưu mẫu, khu rào giữ lô chờ kết quả kiểm nghiệm và mã GACC. Cửa thông sang kho thành phẩm. Mẫu gửi phòng thí nghiệm bên ngoài, không xây lab.',
+    req: 'Chỉ xuất lô khi có kết quả đạt; hàng không đạt tách riêng, ghi rõ.', basis: 'GB 14881 §4.1.4, §7.2.2, §9.2–9.3; slide 7.' }
+].map((z) => doiX(z, X_CU));
 
-  /* ---------- Giai đoạn 2: xưởng mới 17 × 10 m và các hạng mục phụ ---------- */
+const ZONES = [
+  /* ---------- Giai đoạn 1: vùng nguyên liệu, khu nhà ở và xưởng cũ ---------- */
+  { id: 'vung', n: 1, name: 'Vùng nguyên liệu, nhà vườn và cơ sở liên kết', kind: 'trees', phase: 1, box: [X_CU - 7, X_CU + 7, 7, 21], h: 6, noArea: true, dept: [D.vn],
+    role: 'GĐ1 cung cấp hàng đã sấy, sao, đóng bao kín để xưởng cũ gia công đóng gói. Từ GĐ2 cung cấp trà tươi và trái cây (sầu riêng, chanh dây, gừng, mãng cầu) cho xưởng mới.',
+    req: 'Hợp đồng thu mua, danh sách vùng nguyên liệu, nhật ký sản xuất; kiểm dư lượng từng lô.', basis: 'Luật ATTP 2010 Điều 19; slide 13.' },
+  ...KHU_CU.filter((z) => z.phase === 1),
+
+  /* ---------- Giai đoạn 2: lô xưởng mới, ngang 17 m, chạy dài từ đường trước đến đường sau ---------- */
   { id: 'vp', n: 10, name: 'Phòng kế toán và họp', kind: 'hall', phase: 2, xay: true, box: [-4, 0, 0, 3], h: 4.5, wallH: 2, kt: 'phac', dept: [D.gd, D.hc, D.xk],
     doors: [{ side: 'E', at: 1.5, w: 1 }],
     do: [['ban', -2.2, 1.6, 2.2, 1.1], ['may', -3.6, 0.6, 0.5, 1.8, 0.9]],
@@ -1347,22 +1372,22 @@ const ZONES = [
   { id: 'thay', n: 12, name: 'Phòng thay bảo hộ, rửa tay', kind: 'hall', phase: 2, xay: true, box: [-4, 0, 8, 10], h: 4.5, wallH: 2, kt: 'phac', open: ['N'], dept: [D.qa],
     doors: [{ side: 'E', at: 9, w: 1 }],
     do: [['may', -3, 8.4, 1.6, 1.8, 0.5], ['bon', -1, 9.5, 0.25, 0.85]],
-    role: 'Ô 4 × 2 m trên phác thảo vốn là nhà vệ sinh; đổi thành chỗ thay áo, mũ, ủng, cất đồ cá nhân và rửa tay trước khi vào khu chế biến. Nhà vệ sinh dời ra cạnh nhà ăn.',
+    role: 'Ô 4 × 2 m trên phác thảo vốn là nhà vệ sinh; đổi thành chỗ thay áo, mũ, ủng, cất đồ cá nhân và rửa tay trước khi vào khu chế biến. Nhà vệ sinh dời xuống cuối dãy phòng.',
     req: 'Vệ sinh cá nhân; khám sức khỏe và tập huấn công nhân.', basis: 'GB 14881 §5.1.5.1, §5.1.5.3; Codex §4.4.4.' },
   { id: 'hl', n: 13, name: 'Hành lang 2 m (lối người)', kind: 'hall', phase: 2, xay: true, box: [0, 2, 0, 10], h: 4.5, wallH: 2, kt: 'phac', open: ['W'], pin: [1, 6.4, 4.5], dept: [D.hc],
     doors: [{ side: 'N', at: 1, w: 1.6 }, { side: 'S', at: 1, w: 1.6 }, { side: 'E', at: 9, w: 1.2 }],
-    role: 'Lối cho người: cửa bắc ra sân chung cho nhân viên và khách; cửa nam ra nhà phơi, nhà ăn. Thêm vách ngăn phía đông (phác thảo để mở) để hành lang không thông thẳng vào khu chế biến.',
+    role: 'Lối cho người: cửa bắc ra đường cho nhân viên và khách; cửa nam ra bếp, nhà ăn, nhà vệ sinh và nhà phơi. Thêm vách ngăn phía đông (phác thảo để mở) để hành lang không thông thẳng vào khu chế biến.',
     req: 'Không chuyển nguyên liệu, thành phẩm qua hành lang.', basis: 'Codex CAC/RCP 1 §4.2.1; GB 14881 §4.1.3.' },
   { id: 'tn', n: 14, name: 'Khu tiếp nhận nguyên liệu (khu bẩn)', kind: 'hall', phase: 2, xay: true, box: [2, 7.5, 0, 4], h: 4.5, wallH: 2, kt: 'de', open: ['W', 'S'], dept: [D.vn, D.qa],
     doors: [{ side: 'N', at: 4.75, w: 3 }],
     do: [['thung', 2.5, 0.7, 1, 4], ['may', 6.7, 0.9, 1, 0.8, 0.8], ['ban', 6.7, 2.9, 1.2, 0.8]],
-    role: 'Cửa nhập riêng từ sân chung. Cân, lấy mẫu, kiểm cảm quan, gắn mã lô cho trà tươi và trái cây trước khi sơ chế (bước 1).',
+    role: 'Cửa nhập riêng từ đường trước. Cân, lấy mẫu, kiểm cảm quan, gắn mã lô cho trà tươi và trái cây trước khi sơ chế (bước 1).',
     req: 'Kiểm dư lượng, kim loại nặng từng lô; lô không đạt để riêng, ghi rõ.', basis: 'Codex CAC/RCP 1 §4.2.1; GB 14881 §7.2.2.' },
   { id: 'sc', n: 15, name: 'Khu sơ chế (khu bẩn)', kind: 'hall', phase: 2, xay: true, box: [2, 7.5, 4, 10], h: 4.5, wallH: 2, kt: 'de', open: ['W', 'N'], dept: [D.sx],
     doors: [{ side: 'S', at: 4.75, w: 2 }, { side: 'E', at: 5.8, w: 3 }, { side: 'E', at: 8.75, w: 1.2 }],
     do: [['may', 3.1, 5.4, 1, 0.9, 1.8], ['bon', 3.1, 7.6, 0.45, 0.9], ['ban', 6, 4.8, 1.2, 0.8], ['ban', 6.1, 8.6, 1.2, 0.8]],
-    role: 'Rửa, phân loại, gọt, cắt (bước 2–3). Trái cây nạp thẳng vào tủ sấy xuyên vách; trà đi cửa nam sang nhà phơi. Không có cửa người thông thẳng sang khu sạch.',
-    req: 'Nước đạt quy chuẩn; thoát nước sàn riêng ra hố lắng.', basis: 'GB 14881 §4.1.3, §5.1.1–5.1.2; Luật ATTP Điều 19.' },
+    role: 'Rửa, phân loại, gọt, cắt (bước 2–3). Trái cây nạp thẳng vào tủ sấy xuyên vách; trà đi cửa nam xuống nhà phơi. Không có cửa người thông thẳng sang khu sạch.',
+    req: 'Nước đạt quy chuẩn; thoát nước sàn theo rãnh kín xuống hố lắng cuối lô.', basis: 'GB 14881 §4.1.3, §5.1.1–5.1.2; Luật ATTP Điều 19.' },
   { id: 'say', n: 16, name: 'Tủ sấy hai cửa xuyên vách', kind: 'passdryer', phase: 2, box: [6.6, 8.4, 4.3, 7.3], h: 2.6, noArea: true, pin: [7.5, 5.2, 5.8], dept: [D.sx],
     role: 'Sấy sầu riêng, chanh dây, gừng, mãng cầu (bước 4). Tủ đặt xuyên vách giữa khu sơ chế và khu sạch: nạp khay bên bẩn, lấy khay bên sạch, sản phẩm không quay lại khu bẩn và không tốn thêm diện tích.',
     req: 'HACCP: nhiệt độ, thời gian sấy, độ ẩm thành phẩm.', basis: 'GB 14881 §4.1.3; slide 6 (lắp dây chuyền sấy ở GĐ2), slide 14.' },
@@ -1374,62 +1399,60 @@ const ZONES = [
   { id: 'sach', n: 18, name: 'Khu sạch: làm nguội, chọn lọc, đóng túi', kind: 'hall', phase: 2, xay: true, box: [7.5, 13, 0, 10], h: 4.5, wallH: 2, kt: 'de', open: ['W'], pin: [9.4, 7, 2.6], dept: [D.sx, D.qa],
     doors: [{ side: 'N', at: 11, w: 2.4 }, { side: 'S', at: 11, w: 2 }],
     do: [['ban', 12.4, 8.3, 0.9, 2.4], ['ban', 12.4, 5.2, 0.9, 1.8], ['may', 9.4, 1.6, 1.4, 1.1, 0.9], ['ban', 12.4, 1.6, 0.9, 1.4], ['may', 8, 2.4, 0.7, 1.8, 1.4]],
-    role: 'Nhận trà từ khu sao và trái cây từ tủ sấy: làm nguội, nhặt dị vật, cân, hàn miệng túi, in mã lô (bước 7, 9). Cửa xuất riêng ra sân chung; túi kín mang sang xưởng cũ.',
+    role: 'Nhận trà từ khu sao và trái cây từ tủ sấy: làm nguội, nhặt dị vật, cân, hàn miệng túi, in mã lô (bước 7, 9). Cửa xuất riêng ra đường trước; túi kín xếp thùng có nắp, chở về xưởng cũ.',
     req: 'Người và không khí đi từ sạch sang bẩn, không ngược lại; tủ túi bao bì đặt ngay trong khu.', basis: 'GB 14881 §4.1.3, §5.1.6.1.' },
-  { id: 'sao', n: 19, name: 'Khu sao trà bếp củi', kind: 'hall', phase: 2, xay: true, box: [8, 13, 10, 14], h: 4.2, wallH: 2, kt: 'uoc', open: ['N'], dept: [D.sx],
+  { id: 'an', n: 19, name: 'Bếp và nhà ăn', kind: 'hall', phase: 2, xay: true, box: [-4, 0, 10, 14], h: 3.8, wallH: 2, kt: 'de', open: ['N'], pin: [-2, 6, 12], dept: [D.hc],
+    doors: [{ side: 'E', at: 12, w: 1 }],
+    do: [['ban', -2.6, 11.6, 1, 2.2], ['ghe', -3.4, 11.6, 0.35, 2.2], ['ghe', -1.8, 11.6, 0.35, 2.2], ['bep', -2.8, 13.3, 0]],
+    role: 'Nối tiếp dãy phòng bên trái, ngay dưới phòng thay bảo hộ, để lô không phải mở rộng bề ngang. Bếp nấu ở góc trong, khoảng 8–10 chỗ ngồi, ăn chia ca; củi lấy từ lán củi.',
+    req: 'Thức ăn của công nhân không mang vào khu chế biến.', basis: 'GB 14881 §3.2.6: nhà ăn ngăn cách khu sản xuất.' },
+  { id: 'wc', n: 20, name: 'Nhà vệ sinh, bồn nước trên mái', kind: 'block', phase: 2, xay: true, box: [-4, 0, 14, 16.5], h: 3.2, kt: 'de', cua: 'E', pin: [-2, 6.6, 15.25], dept: [D.hc],
+    do: [['bon', -2, 15.25, 0.65, 1.2, 3.35], ['bon', -0.8, 15.25, 0.25, 0.9, 3.35]],
+    role: 'Cuối dãy phòng bên trái: hai buồng vệ sinh và chỗ rửa tay, cửa mở ra sân phía đông, không mở vào khu sản xuất. Bồn nước sạch có lọc đặt trên mái, cấp xuống sơ chế và các chỗ rửa tay, không chiếm đất.',
+    req: 'Công nhân cởi tạp dề trước khi vào nhà vệ sinh, rửa tay trước khi quay lại xưởng. Nước đạt quy chuẩn nước sạch sinh hoạt; xét nghiệm định kỳ.',
+    basis: 'GB 14881 §5.1.5.3, §5.1.1; Luật ATTP Điều 19.' },
+  { id: 'sao', n: 21, name: 'Khu sao trà bếp củi', kind: 'hall', phase: 2, xay: true, box: [8, 13, 10, 14], h: 4.2, wallH: 2, kt: 'uoc', open: ['N'], dept: [D.sx],
     doors: [{ side: 'W', at: 12, w: 1.4 }],
     do: [['bep', 9.4, 13.2, 1.3], ['bep', 11.7, 13.2, 1.3], ['ban', 10.5, 10.8, 2.4, 0.7]],
     role: 'Sao trà trên chảo bếp củi (bước 6). Củi nạp và tro rút từ lán củi phía ngoài tường nam; ống khói cao hơn mái nên khói, tro không vào phòng sao. Cửa bắc mở thẳng vào khu sạch.',
     req: 'HACCP: nhiệt độ, thời gian sao, độ ẩm thành phẩm; theo dõi nhiễm khói (PAH) khi người mua yêu cầu.',
     basis: 'Codex CAC/RCP 68-2009 (giảm nhiễm PAH khi hun khói, sấy trực tiếp); phác thảo khu sao trà.' },
-  { id: 'cui', n: 20, name: 'Lán củi', kind: 'woodshed', phase: 2, xay: true, box: [8, 13, 14, 15.5], h: 2.6, kt: 'de', pin: [10.5, 4.8, 14.8], dept: [D.sx],
+  { id: 'cui', n: 22, name: 'Lán củi', kind: 'woodshed', phase: 2, xay: true, box: [8, 13, 14, 15.5], h: 2.6, kt: 'de', pin: [10.5, 4.8, 14.8], dept: [D.sx],
     do: [['cui', 8.4, 12.7, 14.6, 15.3]],
     role: 'Lán củi sát mặt ngoài tường nam khu sao, cũng là chỗ đứng nạp củi và rút tro; bếp nhà ăn lấy củi từ đây.',
     req: 'Củi khô, không sơn, không tẩm hóa chất.', basis: 'Codex CAC/RCP 68-2009 (chọn nhiên liệu); đề xuất của tư vấn.' },
-  { id: 'an', n: 21, name: 'Nhà ăn và bếp nấu', kind: 'hall', phase: 2, xay: true, box: [13, 18, 10, 14], h: 3.8, wallH: 2, kt: 'de', open: ['W'], dept: [D.hc],
-    doors: [{ side: 'S', at: 15.5, w: 1.2 }],
-    do: [['ban', 15.8, 11.4, 3, 0.9], ['ghe', 15.8, 10.65, 3, 0.35], ['ghe', 15.8, 12.15, 3, 0.35], ['bep', 13.9, 13.2, 0]],
-    role: 'Nấu ăn cho công nhân, sát khu sao trà như yêu cầu để dùng chung lán củi và cụm ống khói; ngăn với phòng sao bằng tường kín. Khoảng 10–15 chỗ; khi đông người thì ăn chia ca.',
-    req: 'Thức ăn của công nhân không mang vào khu chế biến.', basis: 'GB 14881 §3.2.6: nhà ăn ngăn cách khu sản xuất.' },
-  { id: 'wc', n: 22, name: 'Nhà vệ sinh công nhân', kind: 'block', phase: 2, xay: true, box: [18, 21, 10, 14], h: 3.2, kt: 'de', dept: [D.hc],
-    role: 'Hai buồng vệ sinh và chỗ rửa tay, sát nhà ăn như yêu cầu, cửa quay ra sân phía nam; cách nhà phơi và khu sao trà, không mở vào khu sản xuất. Dùng chung bể tự hoại với nhà ăn.',
-    req: 'Công nhân cởi tạp dề trước khi vào nhà vệ sinh, rửa tay trước khi quay lại xưởng.', basis: 'GB 14881 §5.1.5.3.' },
-  { id: 'phoi', n: 23, name: 'Nhà phơi kín', kind: 'dryhouse', phase: 2, xay: true, box: [-3.5, 13, 16.5, 20.5], h: 3.4, wallH: 2.3, kt: 'uoc', dept: [D.sx],
+  { id: 'phoi', n: 23, name: 'Nhà phơi kín', kind: 'dryhouse', phase: 2, xay: true, box: [-2.5, 13, 17, 21], h: 3.4, wallH: 2.3, kt: 'uoc', dept: [D.sx],
     doors: [{ side: 'N', at: 4.75, w: 2 }, { side: 'N', at: 7.5, w: 1.6 }],
-    do: [['gian', -2.8, 9, 17.8, 18.7], ['gian', -2.8, 9, 19.4, 20.2]],
-    role: 'Phơi trà trên giàn (bước 5). Mái lấy sáng, vách lưới chắn côn trùng, giàn cách đất; hai cửa riêng: khay vào từ khu sơ chế, khay ra sang khu sao trà.',
+    do: [['gian', -1.8, 9, 18.3, 19.2], ['gian', -1.8, 9, 19.9, 20.7]],
+    role: 'Phơi trà trên giàn (bước 5). Gần hết bề ngang lô, chừa lối 1,5 m phía tây xuống khu sau. Mái lấy sáng, vách lưới chắn côn trùng, giàn cách đất; hai cửa riêng: khay vào từ khu sơ chế, khay ra sang khu sao trà.',
     req: 'Không phơi trên sân đất; khay có nắp khi chuyển.', basis: 'GB 14881 §6.4 (kiểm soát côn trùng); phác thảo nhà phơi trà.' },
-  { id: 'nuoc', n: 24, name: 'Bồn nước sạch, bể tự hoại, hố lắng', kind: 'utility', phase: 2, box: [21.5, 25, 9.5, 16], h: 4, kt: 'de', pin: [23, 7, 11], dept: [D.sx],
-    role: 'Bồn nước có lọc cấp cho sơ chế và rửa tay; bể tự hoại cho nhà vệ sinh; hố lắng nước rửa trước khi xả.',
-    req: 'Nước đạt quy chuẩn nước sạch sinh hoạt; xét nghiệm định kỳ.', basis: 'Luật ATTP Điều 19; GB 14881 §5.1.1, §5.1.2.5.' },
-  { id: 'rac', n: 25, name: 'Điểm tập kết rác, bã', kind: 'bins', phase: 2, box: [-8.5, -5.5, 11, 13.5], h: 2.2, kt: 'de', open: ['E'], dept: [D.sx],
-    role: 'Thùng có nắp cho rác, vỏ, bã sau sơ chế; đặt góc tây nam khuôn viên, xa khu sạch và nhà phơi.',
+  { id: 'xlnt', n: 24, name: 'Bể tự hoại, hố lắng nước thải', kind: 'septic', phase: 2, box: [2.5, 11, 22, 25], h: 1.2, kt: 'de', dept: [D.sx],
+    role: 'Cuối lô, sát đường sau nhà phơi như yêu cầu: bể tự hoại cho nhà vệ sinh, hố lắng nước rửa của khu sơ chế. Xe hút bể phốt vào bằng cổng sau, không đi qua cổng trước nơi nhập nguyên liệu và xuất thành phẩm.',
+    req: 'Nước thải xử lý đạt yêu cầu trước khi xả ra mương đường sau.', basis: 'GB 14881 §5.1.2.5; Luật ATTP Điều 19.' },
+  { id: 'rac', n: 25, name: 'Điểm tập kết rác, bã', kind: 'bins', phase: 2, box: [-3.5, -0.5, 22, 24.5], h: 2.2, kt: 'de', open: ['N', 'S'], dept: [D.sx],
+    role: 'Thùng có nắp cho rác, vỏ, bã sau sơ chế; cuối lô cạnh cổng sau, xe rác lấy từ đường sau, xa khu sạch.',
     req: 'Đổ hằng ngày, rửa thùng định kỳ.', basis: 'GB 14881 §5.1.4, §6.5.2.' },
 
   /* ---------- Giai đoạn 3: đạt chuẩn, không xây thêm nhà ---------- */
-  { id: 'qc', n: 26, name: 'Phòng QC, lưu mẫu, giữ lô (nửa đông phòng 5)', kind: 'hall', phase: 3, box: [5.1, 10.2, -34.2, -29], h: 4.2, wallH: 2, kt: 'uoc', open: ['S'], dept: [D.qa],
-    doors: [{ side: 'W', at: -31.6, w: 1 }],
-    do: [['ban', 7.6, -33.6, 3.6, 0.8], ['may', 9.7, -32.2, 0.6, 1.8, 1.2], ['long', 5.6, 8.7, -31.5, -29.5], ['thung', 6, -31, 3, 2]],
-    role: 'Ngăn nửa đông kho để đồ: bàn kiểm, tủ lưu mẫu, khu rào giữ lô chờ kết quả kiểm nghiệm và mã GACC. Cửa thông sang kho thành phẩm. Mẫu gửi phòng thí nghiệm bên ngoài, không xây lab.',
-    req: 'Chỉ xuất lô khi có kết quả đạt; hàng không đạt tách riêng, ghi rõ.', basis: 'GB 14881 §4.1.4, §7.2.2, §9.2–9.3; slide 7.' },
+  ...KHU_CU.filter((z) => z.phase === 3),
   { id: 'dkl', n: 27, name: 'Máy dò kim loại', kind: 'detector', phase: 3, box: [10.4, 11.6, 3, 6], h: 1.7, noArea: true, pin: [11.9, 4.6, 4.5], dept: [D.sx, D.qa],
     role: 'Đặt trên đường đi của sản phẩm trong khu sạch, trước máy hàn túi (bước 8). Lùi từ GĐ2 (theo bộ slide) sang GĐ3, khi xây HACCP, để giảm vốn ban đầu.',
     req: 'HACCP: CCP dò kim loại; thử mẫu chuẩn đầu ca.', basis: 'Slide 14.' },
-  { id: 'cn', n: 28, name: 'Xuất khẩu: Trung Quốc', kind: 'cont', phase: 3, box: [12.5, 25.5, -7.2, -4.8], h: 3.2, noArea: true, pin: [19, 5.4, -6], dept: [D.xk],
-    role: 'Xe container vào sân chung nhận hàng; lô đầu qua nhà nhập khẩu (GĐ3), sau đó tự chủ.',
+  { id: 'cn', n: 28, name: 'Xuất khẩu: Trung Quốc', kind: 'cont', phase: 3, box: [X_CU + 11, X_CU + 24, -1.4, 1], h: 3.2, noArea: true, pin: [X_CU + 17.5, 5.4, -0.2], dept: [D.xk],
+    role: 'Xe container đỗ ở bãi xe trước khu nhà (giả định), nhận hàng từ kho thành phẩm xưởng cũ; lô đầu qua nhà nhập khẩu (GĐ3), sau đó tự chủ.',
     req: 'Mã GACC trên CIFER; nhãn tiếng Trung; HACCP/ISO 22000.', basis: 'Lệnh 280; slide 16–17.' },
 
   /* ---------- Giai đoạn 4: xuất khẩu, mở rộng ---------- */
-  { id: 'say2', n: 29, name: 'Buồng sấy bơm nhiệt', kind: 'equip', phase: 4, box: [9.6, 12.6, 17.4, 20.1], h: 2.4, noArea: true, pin: [11.1, 5.6, 18.8], dept: [D.sx],
+  { id: 'say2', n: 29, name: 'Buồng sấy bơm nhiệt', kind: 'equip', phase: 4, box: [9.6, 12.6, 17.8, 20.6], h: 2.4, noArea: true, pin: [11.1, 5.6, 19.2], dept: [D.sx],
     role: 'Đặt cuối nhà phơi: sấy trà khi trời mưa để không chậm đơn hàng xuất khẩu, thêm công suất sấy trái cây khi đơn hàng tăng.',
     req: 'Ghi nhiệt độ, độ ẩm từng mẻ.', basis: 'Đề xuất của tư vấn.' },
-  { id: 'rao', n: 30, name: 'Hàng rào, cổng khóa, camera', kind: 'fence', phase: 4, box: [-9.5, 26, -35.5, 22.5], h: 2, noArea: true, pin: [-9.5, 4.5, 8], dept: [D.hc, D.kho],
-    poly: [[-9.5, -35.5], [13, -35.5], [13, -7.5], [26, -7.5], [26, 22.5], [-9.5, 22.5]],
-    gates: [{ at: [-9.5, -4], w: 6 }],
-    cams: [[-9.5, -35.5], [13, -35.5], [26, -7.5], [26, 22.5], [-9.5, 22.5], [-9.5, -7.4], [-4.2, 16]],
-    role: 'Rào quanh toàn khuôn viên, cổng chính có khóa mở vào sân chung; camera ở cổng, cửa nhập, cửa xuất, nhà phơi và các góc rào.',
+  { id: 'rao', n: 30, name: 'Hàng rào, cổng trước, cổng sau, camera', kind: 'fence', phase: 4, box: [-4, 13, -2, 25.5], h: 2, noArea: true, pin: [-4.6, 4.5, 21], dept: [D.hc, D.kho],
+    lines: [[[-4, 0], [-4, -2], [13, -2], [13, 0]], [[-4, 16.5], [-4, 25.5], [13, 25.5], [13, 15.5]]],
+    gates: [{ at: [1, -2], w: 2.4 }, { at: [4.75, -2], w: 3.6 }, { at: [11, -2], w: 3 }, { at: [-2, 25.5], w: 3 }],
+    cams: [[-4, -2], [13, -2], [-4, 25.5], [13, 25.5], [7.9, -2], [-4, 17]],
+    role: 'Lô xưởng mới: hai bên đã là tường xưởng, chỉ rào mặt trước và phần sau. Cổng trước có khóa cho nhập nguyên liệu, xuất thành phẩm; cổng sau cho xe rác, xe hút bể phốt. Camera ở các cổng, cửa nhập, cửa xuất, nhà phơi.',
     req: 'Nhóm yêu cầu an ninh thực phẩm (food defence) trong BRCGS và FSSC 22000.', basis: 'Chưa đối chiếu bản tiêu chuẩn hiện hành; xác nhận theo phiên bản khi đánh giá.' },
-  { id: 'eu', n: 31, name: 'Xuất khẩu: Châu Âu', kind: 'cont', phase: 4, box: [12.5, 25.5, -4.4, -2], h: 3.2, noArea: true, pin: [19, 5.4, -3.2], dept: [D.xk],
+  { id: 'eu', n: 31, name: 'Xuất khẩu: Châu Âu', kind: 'cont', phase: 4, box: [X_CU + 11, X_CU + 24, 1.4, 3.8], h: 3.2, noArea: true, pin: [X_CU + 17.5, 5.4, 2.6], dept: [D.xk],
     role: 'Lô đầu sang EU kèm EUR.1; nhà nhập khẩu EU chịu trách nhiệm pháp lý.',
     req: 'BRCGS hoặc FSSC 22000 theo yêu cầu người mua; nhãn Quy định 1169/2011; EUR.1.', basis: 'CBI; Thông tư 11/2020/TT-BCT.' }
 ];
@@ -1440,68 +1463,76 @@ const STEPS = [
   { n: 2, name: 'Rửa, phân loại', zone: 'sc', p: [3.2, 5.4] },
   { n: 3, name: 'Gọt, cắt, tách', zone: 'sc', p: [6.1, 8.6] },
   { n: 4, name: 'Sấy trái cây (tủ sấy hai cửa)', zone: 'say', p: [7.5, 5.4] },
-  { n: 5, name: 'Phơi trà trong nhà phơi kín', zone: 'phoi', p: [2.5, 18.5] },
+  { n: 5, name: 'Phơi trà trong nhà phơi kín', zone: 'phoi', p: [1, 19.5] },
   { n: 6, name: 'Sao trà trên bếp củi', zone: 'sao', p: [10.5, 13] },
   { n: 7, name: 'Làm nguội, chọn lọc', zone: 'sach', p: [12.4, 7.6] },
   { n: 8, name: 'Dò kim loại', zone: 'dkl', p: [11, 4.5] },
   { n: 9, name: 'Hàn túi kín, in mã lô', zone: 'sach', p: [9.6, 2.4] },
-  { n: 10, name: 'Dán nhãn, đóng hộp, đóng thùng', zone: 'dg', p: [3, -27.8] },
-  { n: 11, name: 'Kho thành phẩm, xuất hàng', zone: 'ktp', p: [7.8, -26.4] }
+  { n: 10, name: 'Dán nhãn, đóng hộp, đóng thùng', zone: 'dg', p: [X_CU + 3, -27.8] },
+  { n: 11, name: 'Kho thành phẩm, xuất hàng', zone: 'ktp', p: [X_CU + 7.8, -26.4] }
 ];
 
 /* Tuyến luồng hàng: sáng khi khu need đang hoạt động (và giai đoạn ≤ den nếu có); pts = các điểm [x, z] */
 const ROUTES = [
-  { id: 'gd1', need: 'dg', den: 1, pts: [[-26, -3.2], [-2.7, -3.2], [-2.7, -27.2], [0.4, -27.2]] },
-  { id: 'in', need: 'tn', pts: [[-26, -1.8], [4.75, -1.8], [4.75, 1.6]] },
+  { id: 'gd1', need: 'dg', den: 1, pts: [[X_CU - 2.7, 7], [X_CU - 2.7, -27.2], [X_CU + 0.4, -27.2]] },
+  { id: 'in', need: 'tn', pts: [[X_CU + 7, 10], [X_CU + 8.5, -3.1], [4.75, -3.1], [4.75, 1.6]] },
   { id: 'sc', need: 'sc', pts: [[4.75, 1.6], [4.75, 7.2]] },
   { id: 'say', need: 'say', pts: [[5.2, 6.6], [10.6, 6.6]] },
-  { id: 'phoi', need: 'phoi', pts: [[4.75, 7.2], [4.75, 17.6]] },
-  { id: 'sao', need: 'sao', pts: [[7.5, 17.6], [7.5, 12], [10.4, 12]] },
+  { id: 'phoi', need: 'phoi', pts: [[4.75, 7.2], [4.75, 18]] },
+  { id: 'sao', need: 'sao', pts: [[7.5, 18], [7.5, 12], [10.4, 12]] },
   { id: 'sach', need: 'sach', pts: [[10.4, 12], [11, 9.4], [11, 0.6]] },
-  { id: 'out', need: 'sach', pts: [[11, 0.6], [11, -4.4], [-1.6, -4.4], [-1.6, -26.8], [0.4, -26.8]] },
-  { id: 'kho', need: 'ktp', pts: [[0.4, -27], [7.4, -27]] },
-  { id: 'xuat', need: 'ktp', pts: [[8.5, -25.6], [8.5, -21.9], [-0.5, -21.9], [-0.5, -6.6], [-12.5, -6.6]] },
-  { id: 'cn', need: 'cn', pts: [[-0.5, -6.6], [12.2, -6]] },
-  { id: 'eu', need: 'eu', pts: [[5, -6.6], [12.2, -3.2]] }
+  { id: 'out', need: 'sach', pts: [[11, 0.6], [11, -4.4], [X_CU - 1.6, -4.4], [X_CU - 1.6, -26.8], [X_CU + 0.4, -26.8]] },
+  { id: 'kho', need: 'ktp', pts: [[X_CU + 0.4, -27], [X_CU + 7.4, -27]] },
+  { id: 'xuat', need: 'ktp', pts: [[X_CU + 8.5, -25.6], [X_CU + 8.5, -21.9], [X_CU - 0.5, -21.9], [X_CU - 0.5, -6.6], [X_CU - 10, -6.6]] },
+  { id: 'cn', need: 'cn', pts: [[X_CU - 0.5, -6.6], [X_CU + 8.5, -6.6], [X_CU + 10.6, -0.2]] },
+  { id: 'eu', need: 'eu', pts: [[X_CU + 6, -6.6], [X_CU + 10.6, 2.6]] }
 ];
 
-/* Mặt bằng: nền khuôn viên (hình chữ L), đường ranh, đường vào */
+/* Mặt bằng: nền các lô, đường ranh, đường, chỗ rút ngắn khoảng cách */
 const MAT_BANG = {
-  nen: [{ box: [-9.5, 13, -35.5, -7.5] }, { box: [-9.5, 26, -7.5, 22.5] }, { box: [-10.5, -9.5, -7, -1] }],
-  vien: [[-9.5, -35.5], [13, -35.5], [13, -7.5], [26, -7.5], [26, 22.5], [-9.5, 22.5]],
-  duong: [{ box: [-16, -10.5, -42, 28] }]
+  nen: [{ box: [X_CU - 6.5, X_CU + 12.5, -35.5, -7.5] }, { box: [X_CU + 10, X_CU + 25, -2, 4.4] }, { box: [-4, 13, -2, 25.5] }],
+  vien: [
+    [[X_CU - 6.5, -35.5], [X_CU + 12.5, -35.5], [X_CU + 12.5, -7.5], [X_CU - 6.5, -7.5]],
+    [[-4, -2], [13, -2], [13, 25.5], [-4, 25.5]]
+  ],
+  duong: [{ box: [X_CU - 14, 30, -7.5, -2] }, { box: [-12, 21, 25.5, 29.5] }],
+  ngat: [{ x: -16, z0: -7.5, z1: -2 }]
 };
 
 /* Nhãn phụ trên mặt đất */
 const NHAN_PHU = [
-  { t: 'Đường vào (giả định)', p: [-13.2, 0.3, 14] },
-  { t: 'Cổng chính', p: [-13.2, 0.3, -10] },
-  { t: 'Sân chung', p: [19, 0.3, -0.9] },
-  { t: 'Sân trong nhà', p: [-4.4, 0.3, -17.3] },
-  { t: 'Khuôn viên HTX Heragrain', p: [4, 0.3, 24.2] }
+  { t: 'Đường liên thôn', p: [22, 0.3, -4.75] },
+  { t: 'Hai khu cách nhau khoảng 200 m (sơ đồ rút ngắn)', p: [-16, 0.3, -9.8] },
+  { t: 'Đường phía sau', p: [-7, 0.3, 27.5] },
+  { t: 'Lô xưởng mới, ngang 17 m', p: [21.5, 0.3, 12] },
+  { t: 'Bãi xe (giả định)', p: [X_CU + 17.5, 0.3, 5.4] },
+  { t: 'Sân trong nhà', p: [X_CU - 4.4, 0.3, -17.3] },
+  { t: 'Khu nhà ở và xưởng cũ', p: [X_CU + 3, 0.3, -37.4] }
 ];
 
 /* Khung nhìn: bề rộng, chiều cao tối thiểu (mét) cần vừa màn hình */
-const KHUNG = { w: 90, h: 62 };
+const KHUNG = { w: 98, h: 68 };
 
 /* Góc nhìn có sẵn: dir = hướng đặt camera, tgt = điểm nhìn, zoom = độ phóng */
 const GOC_NHIN = {
-  iso: { dir: [-1, 0.95, 1], tgt: [-3, 0, -7], zoom: 1, label: 'toàn cảnh' },
-  plan: { dir: [0, 1, 0.02], tgt: [-6, 0, -7], zoom: 0.95, label: 'mặt bằng' },
-  moi: { dir: [-0.85, 1, 1.1], tgt: [8, 0, 8], zoom: 2.3, label: 'xưởng mới' },
-  cu: { dir: [-1, 1, 0.85], tgt: [4, 0, -24], zoom: 2.5, label: 'xưởng cũ' }
+  iso: { dir: [-1, 0.95, 1], tgt: [-18, 0, -4], zoom: 1, label: 'toàn cảnh' },
+  plan: { dir: [0, 1, 0.02], tgt: [-18, 0, -4], zoom: 0.9, label: 'mặt bằng' },
+  moi: { dir: [-0.85, 1, 1.1], tgt: [4.5, 0, 12], zoom: 1.9, label: 'xưởng mới' },
+  cu: { dir: [-1, 1, 0.85], tgt: [X_CU + 4, 0, -23], zoom: 2.5, label: 'xưởng cũ' }
 };
 
 /* Phân tích: điều chỉnh so với phác thảo tay */
 const DIEU_CHINH = [
   { t: 'Thêm vách ngăn hành lang.', d: 'Phác thảo để hành lang 2 m mở thẳng vào khu chế biến (nét đứt), văn phòng và phòng nghỉ cùng mở ra hành lang này. Thêm vách dọc nét đứt để khách họp, người nghỉ không đi qua khu chế biến.', cc: 'GB 14881 §3.2.2, §4.1.3' },
-  { t: 'Ô nhà vệ sinh 4 × 2 m thành phòng thay bảo hộ.', d: 'Nhà vệ sinh dời ra sát nhà ăn, cạnh khu sao trà như yêu cầu, cửa quay ra sân. Ô cũ dùng để thay áo, ủng, rửa tay trước khi vào xưởng, không tốn thêm diện tích.', cc: 'GB 14881 §5.1.5' },
-  { t: 'Tách cửa nhập nguyên liệu và cửa xuất thành phẩm.', d: 'Cả hai mở ra sân chung nhưng vào hai nửa khác nhau của khu chế biến; cửa hành lang chỉ cho người.', cc: 'Codex CAC/RCP 1 §4.2.1' },
+  { t: 'Gom bếp, nhà ăn, nhà vệ sinh vào dãy phòng bên trái.', d: 'Lô xưởng mới chỉ ngang khoảng 17 m, bằng bề ngang xưởng, nên không đặt nhà ăn, nhà vệ sinh lấn sang bên. Dãy phòng 4 m kéo thẳng xuống: văn phòng → phòng nghỉ → thay bảo hộ → bếp, nhà ăn → nhà vệ sinh; bồn nước đặt trên mái nhà vệ sinh.', cc: 'Tiết kiệm đất' },
+  { t: 'Ô nhà vệ sinh 4 × 2 m thành phòng thay bảo hộ.', d: 'Ô này nằm sát hành lang thông vào xưởng nên đổi thành chỗ thay áo, ủng, rửa tay; nhà vệ sinh xuống cuối dãy phòng, cửa quay ra sân, không mở vào khu sản xuất.', cc: 'GB 14881 §5.1.5' },
+  { t: 'Tách cửa nhập nguyên liệu và cửa xuất thành phẩm.', d: 'Cả hai mở ra đường trước nhưng vào hai nửa khác nhau của khu chế biến; cửa hành lang chỉ cho người.', cc: 'Codex CAC/RCP 1 §4.2.1' },
   { t: 'Chia khu chế biến 11 × 10 m làm khu bẩn và khu sạch.', d: 'Khu bẩn (tiếp nhận, sơ chế) sát hành lang; khu sạch (làm nguội, chọn lọc, đóng túi) phía đông, sát cửa ra của sao trà. Người sang khu sạch qua phòng đệm rửa tay.', cc: 'GB 14881 §4.1.3' },
-  { t: 'Tủ sấy hai cửa xuyên vách cho trái cây.', d: 'Sầu riêng, chanh dây, gừng, mãng cầu làm ở xưởng mới nên cần sấy từ GĐ2. Tủ đặt trong vách giữa khu bẩn và khu sạch: nạp bên bẩn, lấy bên sạch, không tốn thêm diện tích. Trà đi vòng khu bẩn → nhà phơi → sao trà → khu sạch.', cc: 'GB 14881 §4.1.3' },
-  { t: 'Bếp sao nạp củi từ ngoài tường.', d: 'Miệng lò quay ra lán củi, ống khói cao hơn mái nên khói, tro không vào phòng sao. Bếp nhà ăn dùng chung lán củi.', cc: 'Codex CAC/RCP 68-2009' },
+  { t: 'Tủ sấy hai cửa xuyên vách cho trái cây.', d: 'Tủ đặt trong vách giữa khu bẩn và khu sạch: nạp bên bẩn, lấy bên sạch, không tốn thêm diện tích. Trà đi vòng khu bẩn → nhà phơi → sao trà → khu sạch.', cc: 'GB 14881 §4.1.3' },
+  { t: 'Bếp sao nạp củi từ ngoài tường.', d: 'Miệng lò quay ra lán củi, ống khói cao hơn mái nên khói, tro không vào phòng sao.', cc: 'Codex CAC/RCP 68-2009' },
   { t: 'Nhà phơi kín thay cho phơi sân.', d: 'Mái lấy sáng, vách lưới chắn côn trùng, giàn cách đất; hai cửa riêng cho khay vào và khay ra.', cc: 'GB 14881 §6.4' },
-  { t: 'Xưởng cũ: GĐ1 gia công đóng gói, từ GĐ2 chỉ nhận túi kín.', d: 'Lối vào đi qua nhà ở nên hàng qua nhà luôn đóng bao, đóng túi kín. GĐ1 chia túi trong phòng 3 có cửa đóng và bồn rửa tay; từ GĐ2 mọi công đoạn để hở sản phẩm làm ở xưởng mới.', cc: 'GB 14881 §5.1.8' },
+  { t: 'Nước thải, rác ra cổng sau.', d: 'Bể tự hoại, hố lắng và điểm rác đặt cuối lô sát đường sau nhà phơi; xe hút bể phốt, xe rác vào cổng sau, tách hẳn cổng trước nơi nhập nguyên liệu và xuất thành phẩm.', cc: 'GB 14881 §5.1.2.5, §5.1.4' },
+  { t: 'Xưởng cũ: GĐ1 gia công đóng gói, từ GĐ2 chỉ nhận túi kín.', d: 'Lối vào đi qua nhà ở nên hàng qua nhà luôn đóng bao, đóng túi kín. Xưởng mới cách khoảng 200 m: túi kín xếp thùng có nắp, chở bằng xe có mui về xưởng cũ.', cc: 'GB 14881 §5.1.8' },
   { t: 'Giai đoạn 3, 4 không xây thêm nhà.', d: 'Ngăn nửa đông kho để đồ làm phòng QC, lưu mẫu, giữ lô; mẫu gửi phòng thí nghiệm bên ngoài. Máy dò kim loại lùi sang GĐ3, buồng sấy bơm nhiệt thứ hai đặt trong nhà phơi ở GĐ4.', cc: 'Tối ưu vốn' }
 ];
 
@@ -1509,17 +1540,17 @@ const DIEU_CHINH = [
 const UOC_KICH_THUOC = [
   'Tỷ lệ lấy từ chính ảnh xưởng mới có số đo: ô văn phòng 4 m vẽ 2 ô vở, phòng nghỉ 5 m vẽ 2,5 ô, ô 2 m vẽ 1 ô, nên mỗi ô vở khoảng 2 m.',
   'Áp cùng tỷ lệ cho ảnh xưởng cũ (cùng cuốn vở): 5 phòng xưởng 10,2 × 14,6 m, khoảng 149 m² (phòng 5 sâu 5,2 m; dãy phòng 3, 4, 2 sâu 4,8 m; phòng 1 sâu 4,6 m); lối đi phía tây rộng 3,5 m; nhà vệ sinh có sẵn 6,7 × 4,6 m; nhà ở 16 × 7,5 m.',
-  'Khu sao trà rộng 5 m, đo trên ảnh xưởng mới theo cạnh 17 m; sâu 4 m để đặt hai bếp (ảnh xưởng mới vẽ khoảng 2 m, ảnh tổng quan vẽ khoảng 5 m).',
-  'Nhà phơi 16,5 × 4 m, đo trên ảnh xưởng mới; đặt sau lán củi.'
+  'Lô xưởng mới ngang 17 m, bằng bề ngang xưởng; dài khoảng 27,5 m từ mép đường trước đến đường sau, vừa đủ xếp xưởng, dãy bếp và nhà vệ sinh, nhà phơi, bể tự hoại.',
+  'Khu sao trà rộng 5 m, đo trên ảnh xưởng mới theo cạnh 17 m; sâu 4 m để đặt hai bếp. Nhà phơi 15,5 × 4 m, chừa lối 1,5 m phía tây.'
 ];
 
 /* Giả định cần HTX xác nhận */
 const CAN_XAC_NHAN = [
-  'Vị trí cổng, đường vào và ranh đất: sơ đồ giả định đường nằm phía tây, cổng mở vào sân chung giữa nhà ở và xưởng mới; ranh khuôn viên vẽ ôm sát các công trình.',
+  'Hai khu đang đặt cùng một đường liên thôn, khu nhà ở và xưởng cũ một bên đường, lô xưởng mới bên kia đường, cách khoảng 200 m (vẽ rút ngắn). Nếu hai khu ở hai đường khác nhau, chỉ cần dời vị trí trên sơ đồ.',
+  'Chiều dài lô xưởng mới (khoảng 27,5 m) và đường phía sau nhà phơi là giả định theo mô tả; vị trí bãi xe container trước khu nhà cũng là giả định.',
   'GĐ1 "gia công ở xưởng cũ" đang hiểu là chia túi, đóng gói hàng đã sấy, sao từ nhà vườn và cơ sở liên kết. Nếu GĐ1 còn sơ chế, sấy hoặc sao tại xưởng cũ, cần thêm chỗ cho các công đoạn này và tính lại lối qua nhà ở.',
-  'Loại trà sao bếp củi, để chốt chỉ tiêu kiểm nghiệm.',
-  'Nguồn nước (giếng khoan hay nước máy) và nơi xả nước thải sau hố lắng.',
-  'Đo thực tế xưởng cũ và nhà ở trước khi thiết kế cải tạo; số trên sơ đồ là số ước.'
+  'Loại trà sao bếp củi, để chốt chỉ tiêu kiểm nghiệm; nguồn nước (giếng khoan hay nước máy).',
+  'Đo thực tế xưởng cũ, nhà ở và lô xưởng mới trước khi thiết kế; số trên sơ đồ là số ước.'
 ];
 
 window.HERAGRAIN = { PH, D, ZONES, STEPS, ROUTES, MAT_BANG, NHAN_PHU, KHUNG, GOC_NHIN, DIEU_CHINH, UOC_KICH_THUOC, CAN_XAC_NHAN };
@@ -1664,7 +1695,9 @@ function block(z) {
   put(z, bx(k.w + 0.4, 0.25, k.d + 0.4), z.m.prop, k.cx, z.h + 0.125, k.cz);
   put(z, bx(k.w * 0.8, 0.5, 0.06), z.m.accent, k.cx, FY + H * 0.68, k.z1 + 0.03, { edge: false });
   put(z, bx(0.06, 0.5, k.d * 0.7), z.m.accent, k.x0 - 0.03, FY + H * 0.68, k.cz, { edge: false });
-  put(z, bx(0.9, 2, 0.1), z.m.accent, k.cx, FY + 1, k.z1 + 0.05, { edge: false });
+  const cua = z.cua || 'S', ns = cua === 'N' || cua === 'S';
+  const cx = cua === 'W' ? k.x0 - 0.05 : cua === 'E' ? k.x1 + 0.05 : k.cx, cz = cua === 'N' ? k.z0 - 0.05 : cua === 'S' ? k.z1 + 0.05 : k.cz;
+  put(z, ns ? bx(0.9, 2, 0.1) : bx(0.1, 2, 0.9), z.m.accent, cx, FY + 1, cz, { edge: false });
 }
 function house(z) { const wh = wallHOf(z); floorSlab(z); walls(z, wh); gableRoof(z, FY + wh, z.h, z.m.roof); }
 function path(z) {
@@ -1716,6 +1749,19 @@ function utility(z) {
   put(z, bx(k.w - 0.4, 0.12, 1.8), z.m.wall, k.cx, FY + 0.06, k.z1 - 1.1, { cast: false });
   [k.x0 + 1, k.x1 - 1].forEach((x) => put(z, cylG(0.35, 0.1), z.m.accent, x, FY + 0.17, k.z1 - 1.1, { edge: false }));
 }
+/* bể tự hoại, hố lắng: nắp bể trên mặt đất, máy bơm, ống xả ra phía đường sau */
+function septic(z) {
+  const k = dims(z);
+  floorSlab(z);
+  const n = Math.max(2, Math.round(k.w / 2.6)), L = (k.w - 0.6) / n;
+  for (let i = 0; i < n; i++) {
+    const x = k.x0 + 0.3 + L * (i + 0.5);
+    put(z, bx(L - 0.3, 0.35, k.d - 0.8), z.m.wall, x, FY + 0.175, k.cz);
+    put(z, cylG(0.32, 0.08), z.m.accent, x, FY + 0.39, k.cz, { edge: false });
+  }
+  put(z, bx(0.7, 0.6, 0.6), z.m.prop, k.x1 - 0.5, FY + 0.3, k.z0 + 0.4);
+  put(z, bx(0.16, 0.16, 1.2), z.m.accent, k.x1 - 0.5, FY + 0.1, k.z1 + 0.4, { edge: false });
+}
 function bins(z) {
   const k = dims(z);
   floorSlab(z);
@@ -1753,12 +1799,12 @@ function cont(z) {
   put(z, bx(len, 2.5, 2.4), z.m.accent, k.x1 - len / 2, FY + 2, cz);
   [k.x0 + 1.1, k.x1 - 3, k.x1 - 1.6].forEach((x) => [-0.95, 0.95].forEach((dz) => put(z, cylG(0.45, 0.3, 12), z.m.wall, x, 0.45, cz + dz, { rx: Math.PI / 2, edge: false })));
 }
-/* hàng rào theo đường gấp khúc poly (mặc định là chu vi box), chừa cổng tại gates */
+/* hàng rào theo các đoạn lines (mặc định là chu vi box), chừa cổng tại gates */
 function fence(z) {
   const k = dims(z), step = 3;
-  const P = z.poly || [[k.x0, k.z0], [k.x1, k.z0], [k.x1, k.z1], [k.x0, k.z1]];
-  P.forEach((a, i) => {
-    const b = P[(i + 1) % P.length], dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz), ux = dx / L, uz = dz / L;
+  const lines = z.lines || [[[k.x0, k.z0], [k.x1, k.z0], [k.x1, k.z1], [k.x0, k.z1], [k.x0, k.z0]]];
+  lines.forEach((P) => P.slice(0, -1).forEach((a, i) => {
+    const b = P[i + 1], dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz), ux = dx / L, uz = dz / L, last = i === P.length - 2;
     // khoảng cổng trên cạnh này, tính theo khoảng cách từ đầu cạnh
     const gaps = (z.gates || []).map((g) => {
       const px = g.at[0] - a[0], pz = g.at[1] - a[1], s = px * ux + pz * uz, off = Math.abs(px * uz - pz * ux);
@@ -1766,26 +1812,26 @@ function fence(z) {
     }).filter(Boolean).sort((p, q) => p[0] - q[0]);
     const inGap = (s) => gaps.some(([g0, g1]) => s > g0 && s < g1);
     const n = Math.max(1, Math.round(L / step));
-    for (let j = 0; j < n; j++) { const s = L * j / n; if (!inGap(s)) put(z, bx(0.12, 1.8, 0.12), z.m.prop, a[0] + ux * s, FY + 0.9, a[1] + uz * s, { edge: false }); }
+    for (let j = 0; j < n + (last ? 1 : 0); j++) { const s = L * j / n; if (!inGap(s)) put(z, bx(0.12, 1.8, 0.12), z.m.prop, a[0] + ux * s, FY + 0.9, a[1] + uz * s, { edge: false }); }
     let cur = 0; const segs = [];
     gaps.forEach(([g0, g1]) => { if (g0 > cur) segs.push([cur, g0]); cur = Math.max(cur, g1); });
     if (cur < L) segs.push([cur, L]);
     segs.forEach(([s0, s1]) => [0.6, 1.5].forEach((y) => put(z, bx(s1 - s0, 0.1, 0.08), z.m.prop, a[0] + ux * (s0 + s1) / 2, FY + y + 0.05, a[1] + uz * (s0 + s1) / 2, { ry: -Math.atan2(dz, dx) })));
     gaps.forEach(([g0, g1]) => [g0, g1].forEach((s) => put(z, bx(0.3, 2.4, 0.3), z.m.accent, a[0] + ux * s, FY + 1.2, a[1] + uz * s)));
-  });
+  }));
   (z.cams || []).forEach(([x, zz]) => {
     put(z, cylG(0.08, 3.2, 8), z.m.prop, x, FY + 1.6, zz, { edge: false });
     put(z, bx(0.5, 0.3, 0.3), z.m.accent, x, FY + 3.2, zz, { edge: false });
   });
 }
-const KIND = { hall, block, house, path, trees, woodshed, dryhouse, utility, bins, passdryer, detector, equip, cont, fence };
+const KIND = { hall, block, house, path, trees, woodshed, dryhouse, utility, septic, bins, passdryer, detector, equip, cont, fence };
 
 /* ---------- đồ đạc, thiết bị (khai báo trong z.do) ---------- */
 const PROPS = {
   ban(z, x, zz, w, d) { put(z, bx(w, 0.8, d), z.m.prop, x, FY + 0.4, zz); put(z, bx(w + 0.06, 0.06, d + 0.06), z.m.accent, x, FY + 0.83, zz, { edge: false }); },
   ghe(z, x, zz, w, d) { put(z, bx(w, 0.45, d), z.m.prop, x, FY + 0.225, zz); },
   may(z, x, zz, w, h, d) { put(z, bx(w, h, d), z.m.prop, x, FY + h / 2, zz); put(z, bx(w * 0.7, Math.min(0.25, h * 0.2), d * 1.02), z.m.accent, x, FY + h * 0.75, zz, { edge: false }); },
-  bon(z, x, zz, r, h) { put(z, cylG(r, h), z.m.prop, x, FY + h / 2, zz, { edge: false }); put(z, cylG(r * 1.06, 0.08), z.m.accent, x, FY + h, zz, { edge: false }); },
+  bon(z, x, zz, r, h, y0) { const y = FY + (y0 || 0); put(z, cylG(r, h), z.m.prop, x, y + h / 2, zz, { edge: false }); put(z, cylG(r * 1.06, 0.08), z.m.accent, x, y + h, zz, { edge: false }); },
   ke(z, x0, x1, z0, z1, tang) {
     const alongX = x1 - x0 >= z1 - z0, L = alongX ? x1 - x0 : z1 - z0, Dp = alongX ? z1 - z0 : x1 - x0, cx = (x0 + x1) / 2, cz = (z0 + z1) / 2;
     const B = (len, h, dep) => (alongX ? bx(len, h, dep) : bx(dep, h, len));
@@ -1868,7 +1914,14 @@ const dashMat = new THREE.MeshLambertMaterial({ color: 0x777777 });
   const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, 0.1, z1 - z0), apronMat);
   m.position.set((x0 + x1) / 2, 0.05, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m);
 });
-if (MAT_BANG.vien) scene.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(MAT_BANG.vien.map(([a, b]) => new THREE.Vector3(a, 0.12, b))), lineMat));
+const VIEN = !MAT_BANG.vien ? [] : typeof MAT_BANG.vien[0][0] === 'number' ? [MAT_BANG.vien] : MAT_BANG.vien;
+VIEN.forEach((poly) => scene.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(poly.map(([a, b]) => new THREE.Vector3(a, 0.12, b))), lineMat)));
+/* chỗ đường được vẽ rút ngắn: hai vạch chéo màu nền cắt ngang đường */
+const breakMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+(MAT_BANG.ngat || []).forEach(({ x, z0, z1 }) => [-1.2, 1.2].forEach((dx) => {
+  const m = new THREE.Mesh(bx(0.9, 0.06, (z1 - z0) + 2), breakMat);
+  m.position.set(x + dx, 0.11, (z0 + z1) / 2); m.rotation.y = 0.35; scene.add(m);
+}));
 (MAT_BANG.duong || []).forEach(({ box: [x0, x1, z0, z1] }) => {
   const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, 0.08, z1 - z0), roadMat);
   m.position.set((x0 + x1) / 2, 0.04, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m);
@@ -2176,7 +2229,7 @@ function applyTheme() {
   const th = TH();
   scene.background = new THREE.Color(th.bg);
   if (renderer) renderer.setClearColor(th.bg, 1);
-  ground.material.color.setHex(th.ground); apronMat.color.setHex(th.apron); roadMat.color.setHex(th.road); lineMat.color.setHex(th.line); dashMat.color.setHex(th.apron);
+  ground.material.color.setHex(th.ground); apronMat.color.setHex(th.apron); roadMat.color.setHex(th.road); lineMat.color.setHex(th.line); dashMat.color.setHex(th.apron); breakMat.color.setHex(th.bg);
   hemi.intensity = isDark() ? 0.62 : 0.78; sun.intensity = isDark() ? 0.62 : 0.8;
   hemi.groundColor.setHex(isDark() ? 0x1b2620 : 0x8a99a8);
   assignTargets(true);

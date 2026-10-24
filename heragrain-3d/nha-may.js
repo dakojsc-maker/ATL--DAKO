@@ -135,7 +135,9 @@ function block(z) {
   put(z, bx(k.w + 0.4, 0.25, k.d + 0.4), z.m.prop, k.cx, z.h + 0.125, k.cz);
   put(z, bx(k.w * 0.8, 0.5, 0.06), z.m.accent, k.cx, FY + H * 0.68, k.z1 + 0.03, { edge: false });
   put(z, bx(0.06, 0.5, k.d * 0.7), z.m.accent, k.x0 - 0.03, FY + H * 0.68, k.cz, { edge: false });
-  put(z, bx(0.9, 2, 0.1), z.m.accent, k.cx, FY + 1, k.z1 + 0.05, { edge: false });
+  const cua = z.cua || 'S', ns = cua === 'N' || cua === 'S';
+  const cx = cua === 'W' ? k.x0 - 0.05 : cua === 'E' ? k.x1 + 0.05 : k.cx, cz = cua === 'N' ? k.z0 - 0.05 : cua === 'S' ? k.z1 + 0.05 : k.cz;
+  put(z, ns ? bx(0.9, 2, 0.1) : bx(0.1, 2, 0.9), z.m.accent, cx, FY + 1, cz, { edge: false });
 }
 function house(z) { const wh = wallHOf(z); floorSlab(z); walls(z, wh); gableRoof(z, FY + wh, z.h, z.m.roof); }
 function path(z) {
@@ -187,6 +189,19 @@ function utility(z) {
   put(z, bx(k.w - 0.4, 0.12, 1.8), z.m.wall, k.cx, FY + 0.06, k.z1 - 1.1, { cast: false });
   [k.x0 + 1, k.x1 - 1].forEach((x) => put(z, cylG(0.35, 0.1), z.m.accent, x, FY + 0.17, k.z1 - 1.1, { edge: false }));
 }
+/* bể tự hoại, hố lắng: nắp bể trên mặt đất, máy bơm, ống xả ra phía đường sau */
+function septic(z) {
+  const k = dims(z);
+  floorSlab(z);
+  const n = Math.max(2, Math.round(k.w / 2.6)), L = (k.w - 0.6) / n;
+  for (let i = 0; i < n; i++) {
+    const x = k.x0 + 0.3 + L * (i + 0.5);
+    put(z, bx(L - 0.3, 0.35, k.d - 0.8), z.m.wall, x, FY + 0.175, k.cz);
+    put(z, cylG(0.32, 0.08), z.m.accent, x, FY + 0.39, k.cz, { edge: false });
+  }
+  put(z, bx(0.7, 0.6, 0.6), z.m.prop, k.x1 - 0.5, FY + 0.3, k.z0 + 0.4);
+  put(z, bx(0.16, 0.16, 1.2), z.m.accent, k.x1 - 0.5, FY + 0.1, k.z1 + 0.4, { edge: false });
+}
 function bins(z) {
   const k = dims(z);
   floorSlab(z);
@@ -224,12 +239,12 @@ function cont(z) {
   put(z, bx(len, 2.5, 2.4), z.m.accent, k.x1 - len / 2, FY + 2, cz);
   [k.x0 + 1.1, k.x1 - 3, k.x1 - 1.6].forEach((x) => [-0.95, 0.95].forEach((dz) => put(z, cylG(0.45, 0.3, 12), z.m.wall, x, 0.45, cz + dz, { rx: Math.PI / 2, edge: false })));
 }
-/* hàng rào theo đường gấp khúc poly (mặc định là chu vi box), chừa cổng tại gates */
+/* hàng rào theo các đoạn lines (mặc định là chu vi box), chừa cổng tại gates */
 function fence(z) {
   const k = dims(z), step = 3;
-  const P = z.poly || [[k.x0, k.z0], [k.x1, k.z0], [k.x1, k.z1], [k.x0, k.z1]];
-  P.forEach((a, i) => {
-    const b = P[(i + 1) % P.length], dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz), ux = dx / L, uz = dz / L;
+  const lines = z.lines || [[[k.x0, k.z0], [k.x1, k.z0], [k.x1, k.z1], [k.x0, k.z1], [k.x0, k.z0]]];
+  lines.forEach((P) => P.slice(0, -1).forEach((a, i) => {
+    const b = P[i + 1], dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz), ux = dx / L, uz = dz / L, last = i === P.length - 2;
     // khoảng cổng trên cạnh này, tính theo khoảng cách từ đầu cạnh
     const gaps = (z.gates || []).map((g) => {
       const px = g.at[0] - a[0], pz = g.at[1] - a[1], s = px * ux + pz * uz, off = Math.abs(px * uz - pz * ux);
@@ -237,26 +252,26 @@ function fence(z) {
     }).filter(Boolean).sort((p, q) => p[0] - q[0]);
     const inGap = (s) => gaps.some(([g0, g1]) => s > g0 && s < g1);
     const n = Math.max(1, Math.round(L / step));
-    for (let j = 0; j < n; j++) { const s = L * j / n; if (!inGap(s)) put(z, bx(0.12, 1.8, 0.12), z.m.prop, a[0] + ux * s, FY + 0.9, a[1] + uz * s, { edge: false }); }
+    for (let j = 0; j < n + (last ? 1 : 0); j++) { const s = L * j / n; if (!inGap(s)) put(z, bx(0.12, 1.8, 0.12), z.m.prop, a[0] + ux * s, FY + 0.9, a[1] + uz * s, { edge: false }); }
     let cur = 0; const segs = [];
     gaps.forEach(([g0, g1]) => { if (g0 > cur) segs.push([cur, g0]); cur = Math.max(cur, g1); });
     if (cur < L) segs.push([cur, L]);
     segs.forEach(([s0, s1]) => [0.6, 1.5].forEach((y) => put(z, bx(s1 - s0, 0.1, 0.08), z.m.prop, a[0] + ux * (s0 + s1) / 2, FY + y + 0.05, a[1] + uz * (s0 + s1) / 2, { ry: -Math.atan2(dz, dx) })));
     gaps.forEach(([g0, g1]) => [g0, g1].forEach((s) => put(z, bx(0.3, 2.4, 0.3), z.m.accent, a[0] + ux * s, FY + 1.2, a[1] + uz * s)));
-  });
+  }));
   (z.cams || []).forEach(([x, zz]) => {
     put(z, cylG(0.08, 3.2, 8), z.m.prop, x, FY + 1.6, zz, { edge: false });
     put(z, bx(0.5, 0.3, 0.3), z.m.accent, x, FY + 3.2, zz, { edge: false });
   });
 }
-const KIND = { hall, block, house, path, trees, woodshed, dryhouse, utility, bins, passdryer, detector, equip, cont, fence };
+const KIND = { hall, block, house, path, trees, woodshed, dryhouse, utility, septic, bins, passdryer, detector, equip, cont, fence };
 
 /* ---------- đồ đạc, thiết bị (khai báo trong z.do) ---------- */
 const PROPS = {
   ban(z, x, zz, w, d) { put(z, bx(w, 0.8, d), z.m.prop, x, FY + 0.4, zz); put(z, bx(w + 0.06, 0.06, d + 0.06), z.m.accent, x, FY + 0.83, zz, { edge: false }); },
   ghe(z, x, zz, w, d) { put(z, bx(w, 0.45, d), z.m.prop, x, FY + 0.225, zz); },
   may(z, x, zz, w, h, d) { put(z, bx(w, h, d), z.m.prop, x, FY + h / 2, zz); put(z, bx(w * 0.7, Math.min(0.25, h * 0.2), d * 1.02), z.m.accent, x, FY + h * 0.75, zz, { edge: false }); },
-  bon(z, x, zz, r, h) { put(z, cylG(r, h), z.m.prop, x, FY + h / 2, zz, { edge: false }); put(z, cylG(r * 1.06, 0.08), z.m.accent, x, FY + h, zz, { edge: false }); },
+  bon(z, x, zz, r, h, y0) { const y = FY + (y0 || 0); put(z, cylG(r, h), z.m.prop, x, y + h / 2, zz, { edge: false }); put(z, cylG(r * 1.06, 0.08), z.m.accent, x, y + h, zz, { edge: false }); },
   ke(z, x0, x1, z0, z1, tang) {
     const alongX = x1 - x0 >= z1 - z0, L = alongX ? x1 - x0 : z1 - z0, Dp = alongX ? z1 - z0 : x1 - x0, cx = (x0 + x1) / 2, cz = (z0 + z1) / 2;
     const B = (len, h, dep) => (alongX ? bx(len, h, dep) : bx(dep, h, len));
@@ -339,7 +354,14 @@ const dashMat = new THREE.MeshLambertMaterial({ color: 0x777777 });
   const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, 0.1, z1 - z0), apronMat);
   m.position.set((x0 + x1) / 2, 0.05, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m);
 });
-if (MAT_BANG.vien) scene.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(MAT_BANG.vien.map(([a, b]) => new THREE.Vector3(a, 0.12, b))), lineMat));
+const VIEN = !MAT_BANG.vien ? [] : typeof MAT_BANG.vien[0][0] === 'number' ? [MAT_BANG.vien] : MAT_BANG.vien;
+VIEN.forEach((poly) => scene.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(poly.map(([a, b]) => new THREE.Vector3(a, 0.12, b))), lineMat)));
+/* chỗ đường được vẽ rút ngắn: hai vạch chéo màu nền cắt ngang đường */
+const breakMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+(MAT_BANG.ngat || []).forEach(({ x, z0, z1 }) => [-1.2, 1.2].forEach((dx) => {
+  const m = new THREE.Mesh(bx(0.9, 0.06, (z1 - z0) + 2), breakMat);
+  m.position.set(x + dx, 0.11, (z0 + z1) / 2); m.rotation.y = 0.35; scene.add(m);
+}));
 (MAT_BANG.duong || []).forEach(({ box: [x0, x1, z0, z1] }) => {
   const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, 0.08, z1 - z0), roadMat);
   m.position.set((x0 + x1) / 2, 0.04, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m);
@@ -647,7 +669,7 @@ function applyTheme() {
   const th = TH();
   scene.background = new THREE.Color(th.bg);
   if (renderer) renderer.setClearColor(th.bg, 1);
-  ground.material.color.setHex(th.ground); apronMat.color.setHex(th.apron); roadMat.color.setHex(th.road); lineMat.color.setHex(th.line); dashMat.color.setHex(th.apron);
+  ground.material.color.setHex(th.ground); apronMat.color.setHex(th.apron); roadMat.color.setHex(th.road); lineMat.color.setHex(th.line); dashMat.color.setHex(th.apron); breakMat.color.setHex(th.bg);
   hemi.intensity = isDark() ? 0.62 : 0.78; sun.intensity = isDark() ? 0.62 : 0.8;
   hemi.groundColor.setHex(isDark() ? 0x1b2620 : 0x8a99a8);
   assignTargets(true);
