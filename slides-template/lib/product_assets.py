@@ -531,3 +531,300 @@ def sepia(src, out, w=1200, h=800, focus=(0.5, 0.5), fade=0.25):
     rgb = rgb * (1 - fade) + light * fade
     Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8)).save(out, quality=88)
     return out
+
+
+# ================================================================== concept packaging (Á Châu / Heragrain)
+SCHEMES = {   # Á Châu packaging concepts: primary, secondary, accent, soil, sky, lid
+    'c1': dict(name='Xanh lá', primary='1E7B34', secondary='7CC242', accent='F2B705', soil='5A8F2E', sky='DCEFF7',
+               lid='FFFFFF', hills=('7CC242', '3E9B3A', '1E7B34')),
+    'c2': dict(name='Đất đỏ bazan', primary='C62828', secondary='2E7D32', accent='F2B705', soil='B5442B', sky='FBE3C8',
+               lid='C62828', hills=('E57339', 'C24A2A', '8E2A1A')),
+    'c3': dict(name='Trắng – xanh dương', primary='1565C0', secondary='43A047', accent='90A4AE', soil='3E8E41', sky='E3F0FB',
+               lid='1565C0', hills=('8BC34A', '43A047', '2E7D32'), qr=True),
+    'c4': dict(name='Xanh tối giản', primary='2E7D32', secondary='9CCC65', accent='CDDC39', soil='7CB342', sky='F1F8E9',
+               lid='2E7D32', hills=('C5E1A5', '8BC34A', '43A047')),
+}
+
+
+def leaf_logo(d, cx, cy, s, c1, c2):
+    """Two-leaf sprout mark centred at (cx, cy), size s (PIL draw on RGB)."""
+    def leaf(x0, y0, length, ang, width, col):
+        pts = []
+        for i in range(31):
+            t = i / 30
+            wv = math.sin(math.pi * t) * width * (1 - 0.3 * t)
+            pts.append((t, wv))
+        ca, sa = math.cos(ang), math.sin(ang)
+        poly = [(x0 + (t * length) * ca - wv * sa, y0 + (t * length) * sa + wv * ca) for t, wv in pts]
+        poly += [(x0 + (t * length) * ca + wv * 0.6 * sa, y0 + (t * length) * sa - wv * 0.6 * ca) for t, wv in pts[::-1]]
+        d.polygon(poly, fill=col)
+    leaf(cx - s * 0.05, cy + s * 0.35, s * 0.62, math.radians(-118), s * 0.2, c2)
+    leaf(cx + s * 0.02, cy + s * 0.35, s * 0.72, math.radians(-62), s * 0.24, c1)
+    d.line([(cx, cy + s * 0.45), (cx, cy + s * 0.05)], fill=c1, width=max(2, int(s * 0.05)))
+
+
+def _landscape(W, H, y0, sch, seed=4):
+    """Rolling hills + field rows from y0 to H (RGB float array, alpha mask)."""
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    rgb = np.zeros((H, W, 3), np.float32)
+    a = np.zeros((H, W), np.float32)
+    sky = _hex(sch['sky'])
+    band = np.clip((yy - y0) / max(1, (H - y0) * 0.12), 0, 1)
+    t = np.clip((yy - y0) / max(1, H - y0), 0, 1)
+    rgb += (np.array(sky, np.float32) * (1 - t[..., None] * 0.3)) * band[..., None]
+    a = np.maximum(a, band)
+    rng = np.random.default_rng(seed)
+    hh = H - y0
+    for k, col in enumerate(sch['hills']):
+        base = y0 + hh * (0.18 + 0.2 * k)
+        amp = hh * (0.08 + 0.03 * k)
+        ph = rng.uniform(0, 6)
+        curve = base + amp * np.sin(xx / W * math.pi * (1.3 + 0.4 * k) + ph)
+        m = (yy > curve).astype(np.float32)
+        c = np.array(_hex(col), np.float32)
+        shade = 1 - 0.18 * np.clip((yy - curve) / hh, 0, 1)
+        rgb = rgb * (1 - m[..., None]) + (c * shade[..., None]) * m[..., None]
+    # field rows converging to a vanishing point
+    vx, vy = W * 0.5, y0 + hh * 0.42
+    rows = np.zeros((H, W), np.float32)
+    for k in range(-14, 15):
+        ang = math.atan2(1, k * 0.16)
+        d = (xx - vx) * math.sin(ang) - (yy - vy) * math.cos(ang)
+        rows += np.exp(-(d / (W * 0.004)) ** 2) * (yy > y0 + hh * 0.62)
+    rows = np.clip(rows, 0, 1) * 0.35
+    rgb = rgb * (1 - rows[..., None]) + np.array(_hex(sch['hills'][0]), np.float32) * rows[..., None]
+    return rgb, a
+
+
+def _balanced_lines(d, text, font, max_w):
+    """Split text into the fewest lines that fit max_w, balancing line widths."""
+    words = text.split()
+    if d.textlength(text, font=font) <= max_w or len(words) == 1:
+        return [text]
+    best = None
+    n = len(words)
+    for k in (2, 3):
+        import itertools
+        for cuts in itertools.combinations(range(1, n), k - 1):
+            parts = [' '.join(words[a:b]) for a, b in zip((0,) + cuts, cuts + (n,))]
+            ws = [d.textlength(p_, font=font) for p_ in parts]
+            if max(ws) <= max_w and (best is None or max(ws) < best[0]):
+                best = (max(ws), parts)
+        if best:
+            return best[1]
+    return [text]
+
+
+def _agri_label(W, H, kind, name, sub, brand, tagline, volume, sch, title_font, body_font, top=0.0, seed=4):
+    """Flat label artwork (RGB PIL image) for one Á Châu product in a concept scheme."""
+    lab = Image.new('RGB', (W, H), (252, 252, 250))
+    arr = np.asarray(lab).astype(np.float32)
+    land_y = int(H * (0.5 if kind == 'sack' else 0.58))
+    l_rgb, l_a = _landscape(W, H, land_y, sch, seed)
+    arr = arr * (1 - l_a[..., None]) + l_rgb * l_a[..., None]
+    lab = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+    d = ImageDraw.Draw(lab)
+    P, S2 = _hex(sch["primary"]), _hex(sch["secondary"])
+    y = H * (top + 0.04)
+    ls = W * 0.16
+    leaf_logo(d, W / 2 - W * 0.18, y + ls * 0.4, ls, P, S2)
+    f = _fit(d, brand, title_font, H * 0.06, W * 0.4)
+    d.text((W / 2 - W * 0.07, y + ls * 0.02), brand, font=f, fill=P)
+    if tagline:
+        bb = d.textbbox((W / 2 - W * 0.07, y + ls * 0.02), brand, font=f)
+        ft = _fit(d, tagline, body_font, H * 0.017, W * 0.44)
+        d.text((W / 2 - W * 0.07, bb[3] + H * 0.006), tagline, font=ft, fill=P)
+    y += ls * 1.0 + H * 0.02
+    fs = H * (0.075 if kind == 'sack' else 0.07)
+    lines = _balanced_lines(d, name.upper(), _font(title_font, fs), W * 0.84)
+    for ln in lines[:3]:
+        fl = _fit(d, ln, title_font, fs, W * 0.86)
+        _text_center(d, W / 2, y, ln, fl, P)
+        y += fs * 1.04
+    if sub:
+        fsb = _fit(d, sub, body_font, H * 0.026, W * 0.8)
+        _text_center(d, W / 2, y + H * 0.018, sub, fsb, P)
+    # sprout illustration on the landscape
+    sp = W * (0.3 if kind == 'sack' else 0.22)
+    leaf_logo(d, W / 2, land_y + (H - land_y) * 0.2, sp, S2, P)
+    # volume badge
+    fv = _fit(d, volume, title_font, H * 0.045, W * 0.3)
+    vw = d.textlength(volume, font=fv) + W * 0.06
+    bx, by = W * (0.1 if kind == 'sack' else 0.16), H * 0.87
+    d.rounded_rectangle((bx, by, bx + vw, by + H * 0.06), radius=int(H * 0.012), fill=(255, 255, 255))
+    d.text((bx + W * 0.03, by + H * 0.006), volume, font=fv, fill=P)
+    if sch.get('qr'):
+        q = W * 0.16
+        qx, qy = W * 0.76, H * 0.8
+        d.rectangle((qx, qy, qx + q, qy + q), fill=(255, 255, 255))
+        rng = np.random.default_rng(seed)
+        n = 9
+        c = q / (n + 2)
+        for i in range(n):
+            for j in range(n):
+                corner = (i < 3 and j < 3) or (i < 3 and j > n - 4) or (i > n - 4 and j < 3)
+                if corner or rng.random() > 0.5:
+                    d.rectangle((qx + c * (i + 1), qy + c * (j + 1), qx + c * (i + 2), qy + c * (j + 2)), fill=(30, 30, 30))
+    return lab
+
+
+def agri_pack(out, kind, name, sub='', brand='Á Châu', tagline='Vì một nền nông nghiệp xanh', volume='25kg',
+              scheme='c1', title_font=None, body_font=None, ss=2, seed=3):
+    """White concept packaging: kind = sack | jug | bucket | bottle (shape, label and shading per kind)."""
+    sch = SCHEMES[scheme] if isinstance(scheme, str) else scheme
+    size = dict(sack=(760, 1100), jug=(640, 900), bucket=(820, 860), bottle=(380, 980))[kind]
+    W, H = size[0] * ss, size[1] * ss
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    mask = Image.new('L', (W, H), 0)
+    md = ImageDraw.Draw(mask)
+    extra = np.zeros((H, W), np.float32)          # cap / lid / handle areas (flat colour)
+    extra_col = _hex(sch['lid'])
+    if kind == 'sack':
+        seal = H * 0.04
+        md.rounded_rectangle((W * 0.04, seal, W * 0.96, H - seal), radius=int(W * 0.06), fill=255)
+        md.rectangle((W * 0.06, 0, W * 0.94, seal + 6), fill=255)
+        md.rectangle((W * 0.06, H - seal - 6, W * 0.94, H), fill=255)
+        lab = _agri_label(W, H, kind, name, sub, brand, tagline, volume, sch, title_font, body_font, top=0.03, seed=seed)
+        warp = 0.22
+    elif kind == 'jug':
+        cap_h, neck_w = H * 0.07, W * 0.24
+        md.rounded_rectangle((W * 0.04, H * 0.2, W * 0.96, H * 0.995), radius=int(W * 0.1), fill=255)
+        md.polygon([(W * 0.04, H * 0.3), (W * 0.18, H * 0.13), (W * 0.18 + neck_w * 0.2, H * 0.12),
+                    (W * 0.5, H * 0.12), (W * 0.96, H * 0.24)], fill=255)
+        md.rectangle((W * 0.18, cap_h, W * 0.18 + neck_w, H * 0.14), fill=255)
+        md.rounded_rectangle((W * 0.58, H * 0.07, W * 0.92, H * 0.26), radius=int(W * 0.08), fill=255)
+        hole = Image.new('L', (W, H), 0)
+        ImageDraw.Draw(hole).rounded_rectangle((W * 0.64, H * 0.11, W * 0.86, H * 0.2), radius=int(W * 0.05), fill=255)
+        m = np.asarray(mask).astype(np.float32) - np.asarray(hole).astype(np.float32)
+        mask = Image.fromarray(np.clip(m, 0, 255).astype(np.uint8))
+        cv2.rectangle(extra, (int(W * 0.16), 0), (int(W * 0.2 + neck_w), int(cap_h)), 1, -1)
+        lab = _agri_label(W, H, kind, name, sub, brand, tagline, volume, sch, title_font, body_font, top=0.24, seed=seed)
+        warp = 0.3
+    elif kind == 'bucket':
+        lid_h = H * 0.11
+        md.polygon([(W * 0.06, lid_h), (W * 0.94, lid_h), (W * 0.9, H * 0.995), (W * 0.1, H * 0.995)], fill=255)
+        md.rounded_rectangle((W * 0.02, 0, W * 0.98, lid_h + 4), radius=int(H * 0.02), fill=255)
+        cv2.rectangle(extra, (int(W * 0.02), 0), (int(W * 0.98), int(lid_h)), 1, -1)
+        lab = _agri_label(W, H, kind, name, sub, brand, tagline, volume, sch, title_font, body_font, top=0.12, seed=seed)
+        warp = 0.32
+    else:   # bottle
+        cap_h = H * 0.08
+        md.rounded_rectangle((W * 0.06, H * 0.22, W * 0.94, H * 0.995), radius=int(W * 0.14), fill=255)
+        md.polygon([(W * 0.06, H * 0.28), (W * 0.3, H * 0.12), (W * 0.7, H * 0.12), (W * 0.94, H * 0.28)], fill=255)
+        md.rectangle((W * 0.3, cap_h, W * 0.7, H * 0.14), fill=255)
+        cv2.rectangle(extra, (int(W * 0.27), 0), (int(W * 0.73), int(cap_h)), 1, -1)
+        lab = _agri_label(W, H, kind, name, sub, brand, tagline, volume, sch, title_font, body_font, top=0.25, seed=seed)
+        warp = 0.38
+    arr = _cyl_warp(np.asarray(lab).astype(np.float32), warp)
+    arr = np.where((extra > 0)[..., None], extra_col, arr)
+    alpha = np.maximum(np.asarray(mask.filter(ImageFilter.GaussianBlur(1.0))).astype(np.float32),
+                       cv2.GaussianBlur(extra * 255, (0, 0), 1.0))
+    shade, spec = _cyl_shade(W, H, edge=0.72, gloss=0.3 if kind != 'sack' else 0.12, seed=seed,
+                             wrinkle=0.012 if kind == 'sack' else 0.0)
+    if kind == 'sack':
+        in_seal = ((yy < H * 0.04) | (yy > H * 0.96)).astype(np.float32)
+        shade = shade * (1 - in_seal * 0.06 * (1 + np.sin(xx / (W * 0.006))))
+    if kind == 'bucket':   # lid rim + ridges
+        ridge = ((yy > H * 0.1) & (yy < H * 0.125)).astype(np.float32) * 0.18
+        shade = shade * (1 - ridge)
+    rgb = arr * shade[..., None] + spec[..., None] * 255
+    res = _finish(rgb, alpha, out, ss)
+    return res
+
+
+# ------------------------------------------------------------------ Heragrain "H window" pouch
+def _h_mask(W, H, x0, y0, w, h, radius=0.06):
+    m = Image.new('L', (W, H), 0)
+    d = ImageDraw.Draw(m)
+    bar = w * 0.34
+    r = int(w * radius)
+    d.rounded_rectangle((x0, y0, x0 + bar, y0 + h), radius=r, fill=255)
+    d.rounded_rectangle((x0 + w - bar, y0, x0 + w, y0 + h), radius=r, fill=255)
+    d.rectangle((x0 + bar - 2, y0 + h * 0.38, x0 + w - bar + 2, y0 + h * 0.62), fill=255)
+    return m
+
+
+def pouch_h(out, name_en, name_vi, brand='Heragrain', brand_sub='FOODS', weight='100g', photo=None,
+            photo_focus=(0.5, 0.5), band='1D4B3A', band_light=None, accent='E4A92A', ink='1D4B3A',
+            notes='100% Natural · No Preservatives', title_font=None, body_font=None, w=760, h=1080, ss=2, seed=11):
+    """White stand-up pouch with the brand's H-shaped window and a coloured band (Heragrain concept)."""
+    W, H = w * ss, h * ss
+    base = np.array([248, 245, 237], np.float32)
+    n = _noise(H, W, 6, seed) * 0.5 + _noise(H, W, 40, seed + 1) * 0.5
+    arr = base[None, None, :] * (0.97 + 0.04 * n[..., None])
+    lab = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+    d = ImageDraw.Draw(lab)
+    INK, ACC, BAND = _hex(ink), _hex(accent), _hex(band)
+    # logo
+    fb = _fit(d, brand, title_font, H * 0.075, W * 0.62)
+    bw = d.textlength(brand, font=fb)
+    lx, ly = W / 2 - bw / 2, H * 0.105
+    d.text((lx, ly), brand, font=fb, fill=INK)
+    leaf_logo(d, lx + W * 0.03, ly - H * 0.02, W * 0.08, _hex('5E9E68'), INK)
+    fs = _fit(d, brand_sub, body_font, H * 0.024, W * 0.3)
+    _text_center(d, lx + bw - d.textlength(brand_sub, font=fs) / 2 - W * 0.01, ly + H * 0.078, brand_sub, fs, ACC,
+                 spacing=int(W * 0.008))
+    # H window with the product photo
+    hx, hy, hw, hh = W * 0.24, H * 0.25, W * 0.52, H * 0.36
+    hm = _h_mask(W, H, hx, hy, hw, hh)
+    if photo:
+        ph = _photo_fill(photo, int(hw), int(hh), photo_focus)
+        layer = Image.new('RGB', (W, H), (0, 0, 0))
+        layer.paste(ph, (int(hx), int(hy)))
+        lab.paste(layer, (0, 0), hm)
+        edge = hm.filter(ImageFilter.MaxFilter(5))
+        e = Image.fromarray(np.clip(np.asarray(edge).astype(np.int16) - np.asarray(hm).astype(np.int16), 0, 255)
+                            .astype(np.uint8))
+        lab.paste(Image.new('RGB', (W, H), tuple(int(v) for v in INK)), (0, 0), e)
+        gl = Image.new('L', (W, H), 0)
+        ImageDraw.Draw(gl).polygon([(hx + hw * 0.1, hy), (hx + hw * 0.3, hy), (hx + hw * 0.05, hy + hh),
+                                    (hx - hw * 0.15, hy + hh)], fill=60)
+        gl = Image.fromarray(np.minimum(np.asarray(gl), np.asarray(hm)))
+        lab.paste(Image.new('RGB', (W, H), (255, 255, 255)), (0, 0), gl.filter(ImageFilter.GaussianBlur(10)))
+    # coloured band with a soft wave top
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    top = H * 0.68 + H * 0.018 * np.sin(xx / W * math.pi * 1.4 + 0.4)
+    bm = (yy > top).astype(np.float32)
+    arr = np.asarray(lab).astype(np.float32)
+    bl = _hex(band_light or band)
+    t = np.clip((yy - H * 0.68) / (H * 0.32), 0, 1)[..., None]
+    bc = BAND * (1 - t * 0.25) + bl * t * 0.25
+    arr = arr * (1 - bm[..., None]) + bc * bm[..., None]
+    lab = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+    d = ImageDraw.Draw(lab)
+    fe = _fit(d, name_en.upper(), title_font, H * 0.05, W * 0.8)
+    _text_center(d, W / 2, H * 0.735, name_en.upper(), fe, (255, 255, 255))
+    fv = _fit(d, name_vi.upper(), body_font, H * 0.026, W * 0.8)
+    _text_center(d, W / 2, H * 0.8, name_vi.upper(), fv, (255, 255, 255), spacing=int(W * 0.004))
+    fn = _fit(d, notes, body_font, H * 0.017, W * 0.5)
+    d.text((W * 0.1, H * 0.88), notes, font=fn, fill=(255, 255, 255))
+    fw = _fit(d, weight, title_font, H * 0.032, W * 0.25)
+    d.text((W * 0.9 - d.textlength(weight, font=fw), H * 0.87), weight, font=fw, fill=(255, 255, 255))
+    return _pouch_finish(lab, out, W, H, ss, seed, gloss=0.18)
+
+
+def _pouch_finish(lab, out, W, H, ss, seed, gloss=0.2):
+    arr = _cyl_warp(np.asarray(lab).astype(np.float32), 0.18)
+    mask = Image.new('L', (W, H), 0)
+    md = ImageDraw.Draw(mask)
+    pts = [(W * 0.06, H * 0.0), (W * 0.94, H * 0.0)]
+    n = 40
+    for i in range(n + 1):
+        t = i / n
+        pts.append((W * (0.94 + 0.03 * t ** 2), H * (0.97 * t)))
+    for i in range(n + 1):
+        t = i / n
+        pts.append((W * (0.97 - 0.94 * t), H * (0.97 + 0.03 * math.sin(math.pi * t))))
+    for i in range(n + 1):
+        t = 1 - i / n
+        pts.append((W * (0.06 - 0.03 * t ** 2), H * (0.97 * t)))
+    md.polygon(pts, fill=255)
+    for sx in (W * 0.06, W * 0.94):
+        md.polygon([(sx, H * 0.08), (sx + (W * 0.025 if sx < W / 2 else -W * 0.025), H * 0.09), (sx, H * 0.1)], fill=0)
+    alpha = np.asarray(mask.filter(ImageFilter.GaussianBlur(1.0))).astype(np.float32)
+    shade, spec = _cyl_shade(W, H, edge=0.7, gloss=gloss, seed=seed, wrinkle=0.035)
+    yy = np.arange(H)[:, None].astype(np.float32)
+    shade = shade * (1 - np.exp(-((yy - H * 0.065) / (H * 0.004)) ** 2) * 0.22 - (yy < H * 0.04) * 0.08
+                     - np.clip((yy - H * 0.9) / (H * 0.1), 0, 1) * 0.16)
+    rgb = arr * shade[..., None] + spec[..., None] * 255
+    return _finish(rgb, alpha, out, ss)

@@ -58,10 +58,23 @@ def make_product(theme, key, spec, out_dir, photos):
     if 'photo' in spec and spec['photo']:
         spec['photo'] = CIO.photo_path(photos.get(spec['photo'], spec['photo']))
     fonts = dict(title_font=font(theme, 'title'), body_font=font(theme, 'semi'))
+    if kind == 'agri_pack':                    # condensed title face suits the agri labels best
+        fonts['title_font'] = _p('fonts', 'thiennhien', 'Oswald-Bold.ttf')
     if kind == 'pouch':
         fonts['script_font'] = font(theme, 'script')
     getattr(A, kind)(out, **fonts, **spec)
     open(sfile, 'w', encoding='utf-8').write(stamp)
+    return out
+
+
+def concept_variants(content):
+    """(product key, scheme) pairs needed by concept-comparison slides."""
+    out = []
+    for fn, c in content:
+        if fn is L.concepts:
+            for it in c['items']:
+                if it.get('scheme'):
+                    out += [(k, it['scheme']) for k in it.get('products', [])]
     return out
 
 
@@ -86,9 +99,10 @@ def prepare(mod, content):
             fn(p)
         art[key] = p
 
-    T = L.THEMES[theme]
+    T = dict(L.THEMES[theme])
+    T.update(mod.BRAND.get('colors', {}))
     make('white', 'white.jpg', lambda p: _white(p))
-    make('paper', 'paper.jpg', lambda p: A.paper(p, base=T['bg']))
+    make('paper', f'paper_{T["bg"]}.jpg', lambda p: A.paper(p, base=T['bg']))
     make('mist', 'mist.png', lambda p: A.mist(p))
     grass_src = img.get(getattr(mod, 'GRASS', ''), None)
     if grass_src:
@@ -107,6 +121,13 @@ def prepare(mod, content):
         if not os.path.exists(bl) or _mtime(bl) < _mtime(path):
             blurred_png(path, bl, radius=6, alpha=0.9)
         prod[key] = dict(path=path, blur=bl)
+    for key, scheme in concept_variants(content):
+        spec = mod.PRODUCTS[key]
+        if not isinstance(spec, dict):
+            continue
+        spec = dict(spec, scheme=scheme)
+        vk = f'{key}@{scheme}'
+        prod[vk] = dict(path=make_product(theme, vk, spec, out, mod.PHOTOS), blur=None)
     return dict(img=img, art=art, prod=prod, brand=mod.BRAND, decor=list(mod.DECOR_ART.keys()))
 
 
@@ -149,7 +170,7 @@ def credit_lines(mod, content):
 
 
 def build(mod, out_dir, content=None, name=None):
-    L.register(mod.THEME)
+    L.register(mod.THEME, mod.BRAND.get('colors'))
     content = content or mod.build_content()
     res = prepare(mod, content)
     prs = K.new_presentation()

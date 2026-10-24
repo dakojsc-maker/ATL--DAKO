@@ -45,7 +45,10 @@ Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"�
    Mẫu M06/M07 (giới thiệu sản phẩm, chung `lib/layouts_showcase.py`): `"products"` trong content.json ánh xạ khóa →
    ảnh PNG tách nền của sản phẩm thật (đường dẫn) hoặc bao bì minh họa `{"type": "sack" | "jug" | "pouch", ...}`
    (`lib/product_assets.py`). Có ảnh sản phẩm thật thì tách nền bằng `cutout()`, lưu vào `assets/images/src/` và trỏ
-   khóa sản phẩm tới file đó; `"brand"` đặt tên thương hiệu, icon và menu thanh điều hướng.
+   khóa sản phẩm tới file đó; `"brand"` đặt tên thương hiệu, icon, menu thanh điều hướng và `"colors"` (màu thương
+   hiệu: `title`, `accent`, `accent2`, `bg`, `chart`). Bao bì minh họa có sẵn: `agri_pack` (bao / can / thùng / chai
+   theo concept `c1`–`c4` của Á Châu) và `pouch_h` (túi cửa sổ chữ H của Heragrain). Slide `concepts` so sánh 2–4
+   phương án bao bì cùng lúc.
    Tìm ảnh theo chủ đề khác: `tools/find_vn_photos.py scan --pattern "<regex tiêu đề>" --name <ten>`.
 5. Dựng: `cd slides-template && python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`.
 6. Kiểm tra: `python <pptx skill>/scripts/office/validate.py <file>`, render sang ảnh (LibreOffice → PDF → PyMuPDF),

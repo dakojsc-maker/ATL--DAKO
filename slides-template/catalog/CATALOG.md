@@ -11,8 +11,8 @@ Danh sách mẫu slide. Trang thư viện có ảnh xem trước: [https://claud
 | **M03** | Di sản Hội An | Cổ điển, điện ảnh: ảnh tràn nền phủ tối, chữ có chân mảnh, giấy cổ, ảnh polaroid mép rách. | Văn hóa, lịch sử, di sản, địa danh; Du lịch, ẩm thực, giới thiệu địa phương; Báo cáo môn Văn hóa Việt Nam, Lịch sử, Địa lý | 23 slide |
 | **M04** | Chính luận Mác – Lênin | Lụa đỏ, vàng kim, búa liềm và huân chương sao; tượng tách nền làm người dẫn chuyện, chữ áp phích khổ hẹp. | Triết học, Kinh tế chính trị, CNXH khoa học Mác – Lênin; Tư tưởng Hồ Chí Minh, Lịch sử Đảng CSVN; Thuyết trình chính trị – xã hội, sinh hoạt Đoàn – Đảng | 24 slide |
 | **M05** | Lao động – Việc làm | Ảnh công nhân, tia hàn điện ảnh; trang giấy kem – cam với biểu đồ cột cam, bảng, biểu đồ tròn, bản đồ 6 vùng. | Địa lí 12: lao động, việc làm, dân cư, các ngành kinh tế; Báo cáo kinh tế – xã hội, thị trường lao động, nhân sự; An toàn lao động, đào tạo nghề, giới thiệu ngành nghề | 17 slide |
-| **M06** | Sản phẩm Thiên nhiên | Trắng – xanh thiên nhiên kiểu website: chữ nâu khổ hẹp + chữ viết tay, băng chuyền sản phẩm trên đồng cỏ. | Giới thiệu sản phẩm nông nghiệp, phân bón, thực phẩm, đồ uống; Ra mắt dòng sản phẩm, catalogue bán hàng; Hồ sơ năng lực sản phẩm cho đối tác, nhà phân phối | 19 slide |
-| **M07** | Nông sản Đặc sản | Giấy kem ấm, chữ đỏ thẫm bo tròn + chữ viết tay, sản phẩm nằm giữa chữ khổng lồ, đồng ruộng phủ sương. | Giới thiệu nông sản, đặc sản, sản phẩm OCOP, đồ sấy; Cà phê, trà, bánh, đồ uống, F&B; Hợp tác xã, cơ sở sản xuất giới thiệu sản phẩm | 20 slide |
+| **M06** | Sản phẩm Thiên nhiên | Trắng – xanh thiên nhiên kiểu website: chữ khổ hẹp + chữ viết tay, băng chuyền sản phẩm, so sánh 4 concept bao bì. Demo: Á Châu. | Giới thiệu sản phẩm nông nghiệp, phân bón, thực phẩm, đồ uống; Ra mắt dòng sản phẩm, catalogue bán hàng; Hồ sơ năng lực sản phẩm cho đối tác, nhà phân phối | 18 slide |
+| **M07** | Nông sản Đặc sản | Giấy kem ấm, chữ bo tròn + chữ viết tay, sản phẩm giữa chữ khổng lồ, đồng ruộng phủ sương. Demo: Heragrain Foods (cửa sổ chữ H). | Giới thiệu nông sản, đặc sản, sản phẩm OCOP, đồ sấy; Cà phê, trà, bánh, đồ uống, F&B; Hợp tác xã, cơ sở sản xuất giới thiệu sản phẩm | 19 slide |
 | **M08** | Hồ sơ Doanh nghiệp | Sắp làm: mẫu giới thiệu công ty, hồ sơ năng lực. | Doanh nghiệp | Sắp làm |
 | **M09** | Giới thiệu Dịch vụ | Sắp làm: mẫu giới thiệu dịch vụ, gói giải pháp. | Doanh nghiệp | Sắp làm |
 | **M10** | Du lịch Đà Nẵng | Sắp làm: mẫu du lịch, giới thiệu thành phố, điểm đến. | Văn hóa – du lịch | Sắp làm |
@@ -94,28 +94,28 @@ Lụa đỏ, vàng kim, búa liềm và huân chương sao; tượng tách nền
 
 ## M06 · Sản phẩm Thiên nhiên
 
-Trắng – xanh thiên nhiên kiểu website: chữ nâu khổ hẹp + chữ viết tay, băng chuyền sản phẩm trên đồng cỏ.
+Trắng – xanh thiên nhiên kiểu website: chữ khổ hẹp + chữ viết tay, băng chuyền sản phẩm, so sánh 4 concept bao bì. Demo: Á Châu.
 
 ![Sản phẩm Thiên nhiên](site/previews/M06/sheet.jpg)
 
 - **Câu gọi:** `Dùng mẫu M06 · Sản phẩm Thiên nhiên để làm bộ slide từ tài liệu tôi gửi kèm.`
-- **Gọi tắt:** thiên nhiên, th true milk, th milk, sản phẩm xanh, phân bón, nông nghiệp, giới thiệu sản phẩm, á châu
-- **Bảng màu:** `#7A3B22` Nâu tiêu đề, `#3E8E3A` Xanh lá, `#A8D26B` Xanh non, `#F2F5EE` Nền sáng, `#3B2A20` Chữ
+- **Gọi tắt:** thiên nhiên, th true milk, th milk, sản phẩm xanh, phân bón, nông nghiệp, giới thiệu sản phẩm, á châu, concept bao bì
+- **Bảng màu:** `#1E6B30` Xanh tiêu đề, `#2E8B3A` Xanh lá, `#A8D26B` Xanh non, `#F2B705` Vàng, `#F2F5EE` Nền sáng
 - **Font:** Oswald · Nunito Sans · Great Vibes
-- **File mẫu:** `slides-template/output/Mau-San-Pham-Thien-Nhien.pptx` (13.8 MB)
+- **File mẫu:** `slides-template/output/Mau-San-Pham-Thien-Nhien.pptx` (12.0 MB)
 - **Dựng:** `python build_thiennhien.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M06-thiennhien.json`
 - **Lấy cảm hứng từ:** Video TH true MILK – mẫu giới thiệu sản phẩm (TikTok)
-- **Các dạng slide** (`"slide"` trong file nội dung): `cover` Bìa – chữ thương hiệu lớn sau sản phẩm, chữ viết tay, `intro` Giới thiệu + dải ảnh / cỏ, `story_cards` 3 thẻ câu chuyện ảnh nâu cổ (khởi nguồn, giá trị, định vị), `story_product` Câu chuyện + sản phẩm lớn, `values_row` Giá trị cốt lõi – 3–4 sản phẩm, `lineup` Dòng sản phẩm – thẻ chữ lớn có sản phẩm ở giữa, `category` Chữ danh mục khổng lồ + sản phẩm, `carousel` Băng chuyền sản phẩm (Morph trượt từng sản phẩm), `features` 4 ưu điểm quanh sản phẩm, `specs` Bảng thông số + sản phẩm, `usage` Hướng dẫn / quy trình 3–5 bước, `results` Biểu đồ hiệu quả + 3 chỉ số + ảnh, `window_cards` Ảnh thực tế trong khung cửa sổ trình duyệt, `conclusion` Kết luận + hàng sản phẩm, `contact` Cảm ơn + liên hệ
+- **Các dạng slide** (`"slide"` trong file nội dung): `cover` Bìa – chữ thương hiệu lớn sau sản phẩm, chữ viết tay, `intro` Giới thiệu + dải ảnh / cỏ, `story_cards` 3 thẻ câu chuyện ảnh nâu cổ (khởi nguồn, giá trị, định vị), `story_product` Câu chuyện + sản phẩm lớn, `values_row` Giá trị cốt lõi – 3–4 sản phẩm, `lineup` Dòng sản phẩm – thẻ chữ lớn có sản phẩm ở giữa, `category` Chữ danh mục khổng lồ + sản phẩm, `carousel` Băng chuyền sản phẩm (Morph trượt từng sản phẩm), `features` 4 ưu điểm quanh sản phẩm, `specs` Bảng thông số + sản phẩm, `usage` Hướng dẫn / quy trình 3–5 bước, `results` Biểu đồ hiệu quả + 3 chỉ số + ảnh, `window_cards` Ảnh thực tế trong khung cửa sổ trình duyệt, `concepts` So sánh 2–4 concept bao bì / thiết kế, `conclusion` Kết luận + hàng sản phẩm, `contact` Cảm ơn + liên hệ
 
 ## M07 · Nông sản Đặc sản
 
-Giấy kem ấm, chữ đỏ thẫm bo tròn + chữ viết tay, sản phẩm nằm giữa chữ khổng lồ, đồng ruộng phủ sương.
+Giấy kem ấm, chữ bo tròn + chữ viết tay, sản phẩm giữa chữ khổng lồ, đồng ruộng phủ sương. Demo: Heragrain Foods (cửa sổ chữ H).
 
 ![Nông sản Đặc sản](site/previews/M07/sheet.jpg)
 
 - **Câu gọi:** `Dùng mẫu M07 · Nông sản Đặc sản để làm bộ slide từ tài liệu tôi gửi kèm.`
-- **Gọi tắt:** nông sản, highlands, highland, đặc sản, sấy khô, thực phẩm, đồ uống, heragrain, đỏ kem
-- **Bảng màu:** `#B5172F` Đỏ thẫm, `#E8A93A` Vàng nghệ, `#6E8B3D` Xanh lá, `#F6EFE3` Giấy kem, `#3B2416` Nâu chữ
+- **Gọi tắt:** nông sản, highlands, highland, đặc sản, sấy khô, trái cây sấy, thực phẩm, đồ uống, heragrain, đắk lắk
+- **Bảng màu:** `#1D4B3A` Xanh rêu, `#E4A92A` Vàng nghệ, `#7A3E8F` Tím, `#5E9E68` Xanh lá, `#F6F1E6` Giấy kem
 - **Font:** Baloo 2 · Mulish · Dancing Script
 - **File mẫu:** `slides-template/output/Mau-San-Pham-Nong-San.pptx` (11.7 MB)
 - **Dựng:** `python build_nongsan.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M07-nongsan.json`

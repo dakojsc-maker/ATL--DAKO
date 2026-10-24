@@ -55,9 +55,11 @@ def BOLD():
     return T['fonts']['bold'][2]
 
 
-def register(key):
+def register(key, colors=None):
+    """Activate a theme; colors (from the brand) override palette entries: title, accent, accent2, ink, text, bg…"""
     global T
-    T = THEMES[key]
+    T = dict(THEMES[key])
+    T.update(colors or {})
     K.THEMES['showcase_' + key] = dict(
         name=T['name'], key='showcase_' + key, bg_light=T['bg'], bg_dark='1E1A16', ink=T['ink'], text=T['text'],
         muted=T['muted'], soft=T['soft'], card=T['card'], card2=T['soft'], accent=T['accent'], accent_ink='FFFFFF',
@@ -222,6 +224,10 @@ def nav(s, ctx, active=0, dark=False):
     out.append(ic)
     out.append(K.text(s, ML + 0.42, 0.25, 3.0, 0.44, b['name'].upper(), size=13, font=F('title'), color=T['title']
                       if not dark else 'FFFFFF', anchor='m', spacing=1.2, nm='!!nav_brand', wrap=False))
+    if b.get('sub'):
+        bw = K.text_w(b['name'].upper(), F('title'), 13) + len(b['name']) * 1.2 / 72
+        out.append(K.text(s, ML + 0.42 + bw + 0.1, 0.33, 1.2, 0.3, b['sub'].upper(), size=8, font=F('bold'),
+                          bold=BOLD(), color=T['accent2'], anchor='m', spacing=2, nm='!!nav_sub', wrap=False))
     menu = b.get('menu', [])
     x = 4.3
     pos = []
@@ -566,7 +572,7 @@ def category(prs, ctx, c):
 
 # ================================================================== 8. carousel (one slide per product)
 SLOTS = [  # (cx, bottom, height, rot) for the non-hero products, nearest first
-    (2.35, 3.1, 1.55, -14), (11.15, 4.3, 1.9, 12), (1.2, 5.6, 1.05, 18), (12.4, 2.4, 1.0, -20), (9.6, 2.2, 0.8, 8)]
+    (2.35, 3.1, 1.55, -14), (11.15, 4.3, 1.9, 12), (4.7, 2.3, 0.95, 18), (12.4, 2.4, 1.0, -20), (9.6, 2.2, 0.8, 8)]
 
 
 def carousel(prs, ctx, c):
@@ -795,6 +801,56 @@ def window_cards(prs, ctx, c):
     K.anims(s, out, 'zoom', 0.3, 0.25, 0.6)
     K.anim(s, tx, 'fade', 1.0, 0.6)
     page_no(s, ctx)
+    return s
+
+
+# ================================================================== 13b. packaging concepts (2×2)
+def concepts(prs, ctx, c):
+    """Compare packaging / design concepts: each card = tag, slogan, product line-up in that concept, palette."""
+    s = _new(prs, ctx)
+    background(s, ctx)
+    nv = nav(s, ctx, c.get('nav', 1))
+    hd = heading(s, c['title'], c.get('script', ''), y=0.85, size=30)
+    items = c['items'][:4]
+    gx, gy = 0.3, 0.25
+    cw = (SW - 2 * ML - gx) / 2
+    ch = (SH - 2.15 - 0.55 - gy) / 2
+    out = []
+    for i, it in enumerate(items):
+        x = ML + (i % 2) * (cw + gx)
+        y = 2.15 + (i // 2) * (ch + gy)
+        cd = card(s, x, y, cw, ch, radius=0.14)
+        col = it.get('color', T['accent'])
+        tag = K.rect(s, x, y + 0.15, 1.55, 0.42, fill=col, shp=MSO_SHAPE.PENTAGON)
+        K.shape_text(tag, it.get('label', f'Concept {i + 1}').upper(), size=12, color='FFFFFF', font=F('bold'),
+                     bold=BOLD(), margin=(0.12, 0.02), align='l')
+        sl = K.text(s, x + 1.7, y + 0.12, cw - 1.85, 0.48, it.get('slogan', ''), size=11.5, font=F('semi'),
+                    color=col, anchor='m', line_sp=1.05)
+        prods = []
+        keys = it.get('products', [])
+        n = max(1, len(keys))
+        pw = (cw * 0.62) / n
+        for k, key in enumerate(keys):
+            pk = f'{key}@{it["scheme"]}' if it.get('scheme') else key
+            if pk not in ctx['prod']:
+                continue
+            hgt = ch - 0.85 if k == 0 else (ch - 0.85) * 0.8
+            prods.append(product(s, ctx, pk, x + 0.2 + pw * (k + 0.5), y + ch - 0.12, hgt, w=pw * (1.05 if k else 1.2)))
+        rx = x + cw * 0.66
+        rw = cw * 0.32
+        sw_ = []
+        for k, hx in enumerate(it.get('palette', [])[:5]):
+            sw_.append(K.oval(s, rx + k * 0.3, y + 0.82, 0.24, fill=hx, line='FFFFFF', lw=1))
+        vals = K.text(s, rx, y + 1.2, rw, ch - 1.3, ['✓  ' + v for v in it.get('values', [])], size=10.5,
+                      font=F('body'), color=T['text'], line_sp=1.15, space_after=4)
+        out.append([cd, tag, sl] + prods + sw_ + [vals])
+    note = K.text(s, ML, SH - 0.38, SW - 2 * ML, 0.28, c.get('note', ''), size=9, font=F('body'), color=T['muted'],
+                  align='c') if c.get('note') else None
+    K.anims(s, nv, 'fade', 0.0, 0.0, 0.4)
+    K.anims(s, hd, 'zoom', 0.1, 0.15, 0.6)
+    K.anims(s, out, 'rise', 0.4, 0.2, 0.6)
+    if note is not None:
+        K.anim(s, note, 'fade', 1.4, 0.4)
     return s
 
 
