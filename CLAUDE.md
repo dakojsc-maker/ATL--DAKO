@@ -16,9 +16,9 @@ Trang thư viện có ảnh xem trước (Artifact): https://claude.ai/artifact/
 | M05 | Lao động – Việc làm | "lao động", "việc làm", "kinh tế xã hội", "địa lí" | `python build_laodong.py` |
 | M06 | Sản phẩm Thiên nhiên | "thiên nhiên", "th true milk", "phân bón", "sản phẩm xanh" | `python build_thiennhien.py` |
 | M07 | Nông sản Đặc sản | "nông sản", "highlands", "đặc sản", "sấy khô", "heragrain" | `python build_nongsan.py` |
-| M08 | Hồ sơ Doanh nghiệp | (sắp làm, theo video Cotecons) | — |
-| M09 | Giới thiệu Dịch vụ | (sắp làm, theo video Manulife) | — |
-| M10 | Du lịch Đà Nẵng | (sắp làm, theo video Đà Nẵng) | — |
+| M08 | Hồ sơ Doanh nghiệp | "hồ sơ năng lực", "giới thiệu công ty", "cotecons", "xây dựng" | `python build_doanhnghiep.py` |
+| M09 | Giới thiệu Dịch vụ | "dịch vụ", "bảo hiểm", "gói dịch vụ", "manulife" | `python build_dichvu.py` |
+| M10 | Du lịch Đà Nẵng | "đà nẵng", "du lịch", "cẩm nang du lịch", "điểm đến" | `python build_danang.py` |
 
 Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"… thì tra `templates.json` (trường `code`, `name`,
 `aliases`) để biết mẫu nào. Nếu không rõ, hỏi lại kèm danh sách mã.
@@ -49,6 +49,12 @@ Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"�
    hiệu: `title`, `accent`, `accent2`, `bg`, `chart`). Bao bì minh họa có sẵn: `agri_pack` (bao / can / thùng / chai
    theo concept `c1`–`c4` của Á Châu) và `pouch_h` (túi cửa sổ chữ H của Heragrain). Slide `concepts` so sánh 2–4
    phương án bao bì cùng lúc.
+   Mẫu M08/M09 (hồ sơ doanh nghiệp / giới thiệu dịch vụ, chung `lib/layouts_corporate.py`): `"brand"` gồm `name`,
+   `short`, `initial` (chữ trong biểu tượng vòng sáng của M08) và `"colors"` ghi đè màu theme (`dark`, `primary`,
+   `light`, `accent`, `bg`…); chân dung slide `letter` lấy từ `assets/images/cut/ld_<khóa>.png`.
+   Mẫu M10 (du lịch): bản đồ đêm tạo bằng `tools/make_map.py --name <ten> --style navy --center lon,lat --place key:lon,lat`,
+   đặt `"map": "<ten>"` trong content.json, slide `map_info` ghim các `key` qua `"pins"`; máy ảnh tách nền
+   `assets/images/cut/dn_<khóa>.png`. Ảnh mẫu không chụp tại địa phương phải thay bằng ảnh đúng địa danh.
    Tìm ảnh theo chủ đề khác: `tools/find_vn_photos.py scan --pattern "<regex tiêu đề>" --name <ten>`.
 5. Dựng: `cd slides-template && python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`.
 6. Kiểm tra: `python <pptx skill>/scripts/office/validate.py <file>`, render sang ảnh (LibreOffice → PDF → PyMuPDF),

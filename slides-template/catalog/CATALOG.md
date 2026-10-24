@@ -13,9 +13,9 @@ Danh sách mẫu slide. Trang thư viện có ảnh xem trước: [https://claud
 | **M05** | Lao động – Việc làm | Ảnh công nhân, tia hàn điện ảnh; trang giấy kem – cam với biểu đồ cột cam, bảng, biểu đồ tròn, bản đồ 6 vùng. | Địa lí 12: lao động, việc làm, dân cư, các ngành kinh tế; Báo cáo kinh tế – xã hội, thị trường lao động, nhân sự; An toàn lao động, đào tạo nghề, giới thiệu ngành nghề | 17 slide |
 | **M06** | Sản phẩm Thiên nhiên | Trắng – xanh thiên nhiên kiểu website: chữ khổ hẹp + chữ viết tay, băng chuyền sản phẩm, so sánh 4 concept bao bì. Demo: Á Châu. | Giới thiệu sản phẩm nông nghiệp, phân bón, thực phẩm, đồ uống; Ra mắt dòng sản phẩm, catalogue bán hàng; Hồ sơ năng lực sản phẩm cho đối tác, nhà phân phối | 18 slide |
 | **M07** | Nông sản Đặc sản | Giấy kem ấm, chữ bo tròn + chữ viết tay, sản phẩm giữa chữ khổng lồ, đồng ruộng phủ sương. Demo: Heragrain Foods (cửa sổ chữ H). | Giới thiệu nông sản, đặc sản, sản phẩm OCOP, đồ sấy; Cà phê, trà, bánh, đồ uống, F&B; Hợp tác xã, cơ sở sản xuất giới thiệu sản phẩm | 19 slide |
-| **M08** | Hồ sơ Doanh nghiệp | Sắp làm: mẫu giới thiệu công ty, hồ sơ năng lực. | Doanh nghiệp | Sắp làm |
-| **M09** | Giới thiệu Dịch vụ | Sắp làm: mẫu giới thiệu dịch vụ, gói giải pháp. | Doanh nghiệp | Sắp làm |
-| **M10** | Du lịch Đà Nẵng | Sắp làm: mẫu du lịch, giới thiệu thành phố, điểm đến. | Văn hóa – du lịch | Sắp làm |
+| **M08** | Hồ sơ Doanh nghiệp | Xanh hoàng gia, biểu tượng vòng sáng 3D, chữ rộng Lexend Exa, nhãn phần dạng viên thuốc, số chương viền sáng. Demo: tổng công ty xây dựng giả định "Kiến Tạo". | Hồ sơ năng lực, giới thiệu công ty; Đấu thầu, chào hàng B2B; Báo cáo thường niên, đại hội cổ đông | 17 slide |
+| **M09** | Giới thiệu Dịch vụ | Xanh lá tươi, vạch xiên, ảnh khung hình bình hành, tiêu đề hai tầng. Demo: dịch vụ bảo hiểm giả định "An Tâm Life". | Giới thiệu dịch vụ, gói sản phẩm, bảng giá; Bảo hiểm, ngân hàng, y tế, giáo dục; Tư vấn khách hàng, hội thảo bán hàng | 17 slide |
+| **M10** | Du lịch Đà Nẵng | Nền giấy xanh đêm, chữ vàng Playfair, đèn trời bay qua các slide, ảnh polaroid dán băng keo, máy ảnh cổ, khung ngắm máy quay, cuộn phim, lịch 12 tháng, vé lịch trình. | Giới thiệu điểm đến, thành phố, tour du lịch; Cẩm nang du lịch, lịch trình, ẩm thực địa phương; Bài thuyết trình địa lí – văn hóa vùng miền | 15 slide |
 
 ## M01 · Báo cáo Xanh Lime
 
@@ -124,21 +124,45 @@ Giấy kem ấm, chữ bo tròn + chữ viết tay, sản phẩm giữa chữ kh
 
 ## M08 · Hồ sơ Doanh nghiệp
 
-Sắp làm: mẫu giới thiệu công ty, hồ sơ năng lực.
+Xanh hoàng gia, biểu tượng vòng sáng 3D, chữ rộng Lexend Exa, nhãn phần dạng viên thuốc, số chương viền sáng. Demo: tổng công ty xây dựng giả định "Kiến Tạo".
 
-- **Trạng thái:** sắp làm — Video Cotecons – mẫu giới thiệu công ty (TikTok)
-- **Câu gọi để làm:** `Làm mẫu M08 · Hồ sơ Doanh nghiệp theo Video Cotecons – mẫu giới thiệu công ty (TikTok).`
+![Hồ sơ Doanh nghiệp](site/previews/M08/sheet.jpg)
+
+- **Câu gọi:** `Dùng mẫu M08 · Hồ sơ Doanh nghiệp để làm bộ slide từ tài liệu tôi gửi kèm.`
+- **Gọi tắt:** hồ sơ doanh nghiệp, hồ sơ năng lực, giới thiệu công ty, company profile, doanh nghiệp, cotecons, xây dựng, tổng thầu
+- **Bảng màu:** `#061A5E` Navy đậm, `#1F4FD8` Xanh hoàng gia, `#3FA9FF` Xanh sáng, `#FFC531` Vàng nhấn, `#F4F7FB` Nền sáng
+- **Font:** Lexend Exa · Be Vietnam Pro · Great Vibes
+- **File mẫu:** `slides-template/output/Mau-Ho-So-Doanh-Nghiep.pptx` (5.1 MB)
+- **Dựng:** `python build_doanhnghiep.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M08-doanhnghiep.json`
+- **Lấy cảm hứng từ:** Video Cotecons – mẫu giới thiệu công ty (TikTok)
+- **Các dạng slide** (`"slide"` trong file nội dung): `cover` Bìa – biểu tượng vòng sáng (M08) / 2 ảnh hình bình hành (M09), `letter` Thư ngỏ lãnh đạo – chân dung tách nền + chữ ký, `agenda` Mục lục – vòng quanh biểu tượng (M08) / thẻ xiên + ảnh (M09), `section` Chuyển phần – số lớn trên ảnh phủ màu, `overview` Tổng quan + ảnh + 4 chỉ số, `milestones` Lịch sử / quy trình – trục thời gian so le, `org_chart` Sơ đồ tổ chức 4 cấp, `pillars` 3 trụ cột (tầm nhìn – sứ mệnh – giá trị), `services` Danh sách lĩnh vực / sản phẩm + ảnh (nền sáng hoặc tối), `projects` 3 thẻ dự án / gói dịch vụ có ảnh + nhãn, `big_numbers` 4 con số lớn + ảnh, `phone_app` Ứng dụng số – điện thoại vẽ bằng hình, `chart` Biểu đồ cột/đường gốc + 3 KPI, `table_slide` Bảng gốc (chứng chỉ, so sánh quyền lợi), `thanks` Cảm ơn + liên hệ
 
 ## M09 · Giới thiệu Dịch vụ
 
-Sắp làm: mẫu giới thiệu dịch vụ, gói giải pháp.
+Xanh lá tươi, vạch xiên, ảnh khung hình bình hành, tiêu đề hai tầng. Demo: dịch vụ bảo hiểm giả định "An Tâm Life".
 
-- **Trạng thái:** sắp làm — Video Manulife – mẫu giới thiệu dịch vụ (TikTok)
-- **Câu gọi để làm:** `Làm mẫu M09 · Giới thiệu Dịch vụ theo Video Manulife – mẫu giới thiệu dịch vụ (TikTok).`
+![Giới thiệu Dịch vụ](site/previews/M09/sheet.jpg)
+
+- **Câu gọi:** `Dùng mẫu M09 · Giới thiệu Dịch vụ để làm bộ slide từ tài liệu tôi gửi kèm.`
+- **Gọi tắt:** giới thiệu dịch vụ, dịch vụ, bảo hiểm, tài chính, tư vấn, gói dịch vụ, manulife, xanh lá
+- **Bảng màu:** `#0A5C36` Xanh rừng, `#00A758` Xanh lá, `#7FD6A3` Xanh mint, `#1F3C99` Xanh dương nhấn, `#F5F8F6` Nền sáng
+- **Font:** Be Vietnam Pro (ExtraBold / SemiBold) · Great Vibes
+- **File mẫu:** `slides-template/output/Mau-Gioi-Thieu-Dich-Vu.pptx` (4.1 MB)
+- **Dựng:** `python build_dichvu.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M09-dichvu.json`
+- **Lấy cảm hứng từ:** Video Manulife – mẫu giới thiệu dịch vụ (TikTok)
+- **Các dạng slide:** giống M08
 
 ## M10 · Du lịch Đà Nẵng
 
-Sắp làm: mẫu du lịch, giới thiệu thành phố, điểm đến.
+Nền giấy xanh đêm, chữ vàng Playfair, đèn trời bay qua các slide, ảnh polaroid dán băng keo, máy ảnh cổ, khung ngắm máy quay, cuộn phim, lịch 12 tháng, vé lịch trình.
 
-- **Trạng thái:** sắp làm — Video Du lịch Đà Nẵng – mẫu giới thiệu điểm đến (TikTok)
-- **Câu gọi để làm:** `Làm mẫu M10 · Du lịch Đà Nẵng theo Video Du lịch Đà Nẵng – mẫu giới thiệu điểm đến (TikTok).`
+![Du lịch Đà Nẵng](site/previews/M10/sheet.jpg)
+
+- **Câu gọi:** `Dùng mẫu M10 · Du lịch Đà Nẵng để làm bộ slide từ tài liệu tôi gửi kèm.`
+- **Gọi tắt:** đà nẵng, du lịch, cẩm nang du lịch, thành phố, điểm đến, khám phá, tour, đèn trời
+- **Bảng màu:** `#0D1B34` Xanh đêm, `#1E3561` Navy, `#D9B26A` Vàng đồng, `#F29A3A` Cam đèn trời, `#F5ECDD` Kem
+- **Font:** Playfair Display · Be Vietnam Pro · Dancing Script · Great Vibes
+- **File mẫu:** `slides-template/output/Mau-Du-Lich-Da-Nang.pptx` (10.6 MB)
+- **Dựng:** `python build_danang.py --content <file.json> --name <Ten-file>` — nội dung mẫu: `catalog/samples/M10-danang.json`
+- **Lấy cảm hứng từ:** Video Du lịch Đà Nẵng – mẫu giới thiệu điểm đến (TikTok)
+- **Các dạng slide** (`"slide"` trong file nội dung): `cover` Bìa – chữ vàng, 3 polaroid, máy ảnh cổ, đèn trời, `agenda` Mục lục – cuộn phim 5 khung, `section` Chuyển phần – số vàng lớn + polaroid, `map_info` Bản đồ đêm + ghim địa điểm + 4 thông tin, `reasons` 4 lý do – hàng polaroid, `seasons` Lịch 12 tháng theo mùa + gợi ý, `viewfinder_place` Điểm đến qua khung ngắm máy quay, `place_collage` Điểm đến – cụm 3 polaroid + máy ảnh, `food` 4 món ăn – đĩa tròn + giá, `events` Lễ hội – ảnh lớn + dòng thời gian, `itinerary` Lịch trình – 3 thẻ vé lên tàu, `thanks` Hẹn gặp lại + liên hệ

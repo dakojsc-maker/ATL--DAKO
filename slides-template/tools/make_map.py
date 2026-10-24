@@ -4,6 +4,7 @@ Render the stylised location map used by the Heritage (Hội An) template.
     python tools/make_map.py                                  # Đà Nẵng – Hội An (default)
     python tools/make_map.py --name hue_map --center 107.58,16.46 --span 1.6 \
         --place hue:107.5909,16.4637 --place danang:108.2022,16.0544
+    python tools/make_map.py --name danang_map --style navy --center 108.05,16.03 --span 1.5 --place ...   # M10
 
 Data: Natural Earth 1:10m admin-1 provinces (public domain), downloaded once into .cache/.
 Output: assets/maps/hoian_map.png (16:9, sea on the right) + hoian_map.json with the slide-relative
@@ -41,7 +42,7 @@ def fetch():
 
 
 def render(admin_path, rivers_path, out_png, out_json, lon0=107.35, lon1=109.05, lat_c=15.98, w=2400, h=1350,
-           borders_on=False, places=None):
+           borders_on=False, places=None, style='heritage'):
     places = places or PLACES
     lon_span = lon1 - lon0
     lat_span = lon_span * math.cos(math.radians(lat_c)) * h / w
@@ -77,6 +78,9 @@ def render(admin_path, rivers_path, out_png, out_json, lon0=107.35, lon1=109.05,
     rng = np.random.default_rng(5)
     L = np.asarray(land).astype(np.float32) / 255
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    if style == 'navy':
+        return _render_navy(land, L, xx, yy, rng, w, h, proj, near, rivers_path, out_png, out_json, places,
+                            (lon0, lat0, lon1, lat1))
     # sea
     sea_top = np.array([19, 55, 85], np.float32)
     sea_bot = np.array([12, 32, 54], np.float32)
@@ -135,6 +139,56 @@ def render(admin_path, rivers_path, out_png, out_json, lon0=107.35, lon1=109.05,
     return out_png, pts
 
 
+def _render_navy(land, L, xx, yy, rng, w, h, proj, near, rivers_path, out_png, out_json, places, bbox):
+    """Night-chart style (Đà Nẵng template M10): navy land and sea, gold coastline, dashed graticule."""
+    t = (yy / h)[..., None]
+    sea = np.array([14, 30, 58], np.float32) * (1 - t) + np.array([8, 18, 38], np.float32) * t
+    sea *= (0.95 + 0.1 * A._fbm(h, w, rng)[..., None])
+    band = land.filter(ImageFilter.MaxFilter(41)).filter(ImageFilter.GaussianBlur(36))
+    B = np.asarray(band).astype(np.float32) / 255
+    sea = sea * (1 - B[..., None] * 0.5) + np.array([28, 62, 98], np.float32) * (B[..., None] * 0.5)
+    landrgb = np.array([36, 56, 92], np.float32) * (0.9 + 0.2 * A._fbm(h, w, rng)[..., None])
+    img = sea * (1 - L[..., None]) + landrgb * L[..., None]
+    im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8), 'RGB').convert('RGBA')
+    ov = Image.new('RGBA', (w, h), (0, 0, 0, 0))
+    do = ImageDraw.Draw(ov)
+    lon0, lat0, lon1, lat1 = bbox
+    step = 0.1 if lon1 - lon0 < 1.5 else 0.25
+    for k in range(int(lon0 / step) + 1, int(lon1 / step) + 1):          # dashed graticule
+        x = proj(k * step, lat0)[0]
+        for y0 in range(0, h, 28):
+            do.line([(x, y0), (x, y0 + 14)], fill=(217, 178, 106, 40), width=2)
+    for k in range(int(lat0 / step) + 1, int(lat1 / step) + 1):
+        y = proj(lon0, k * step)[1]
+        for x0 in range(0, w, 28):
+            do.line([(x0, y), (x0 + 14, y)], fill=(217, 178, 106, 40), width=2)
+    if rivers_path and os.path.exists(rivers_path):
+        rv = json.load(open(rivers_path, encoding='utf-8'))
+        for f in rv['features']:
+            gm = f['geometry']
+            lines = [gm['coordinates']] if gm['type'] == 'LineString' else gm['coordinates'] if gm['type'] == 'MultiLineString' else []
+            for ln in lines:
+                if near(ln):
+                    do.line([proj(p[0], p[1]) for p in ln], fill=(120, 170, 210, 150), width=4)
+    im = Image.alpha_composite(im, ov)
+    edge = land.filter(ImageFilter.MaxFilter(5))
+    E = (np.asarray(edge).astype(np.int16) - np.asarray(land).astype(np.int16)).clip(0, 255).astype(np.uint8)
+    glow = Image.new('RGBA', (w, h), (217, 178, 106, 0))
+    glow.putalpha(Image.fromarray(E).filter(ImageFilter.MaxFilter(7)).filter(ImageFilter.GaussianBlur(10))
+                  .point(lambda v: int(v * 0.55)))
+    coast = Image.new('RGBA', (w, h), (232, 200, 130, 0))
+    coast.putalpha(Image.fromarray(E).filter(ImageFilter.GaussianBlur(0.8)))
+    im = Image.alpha_composite(Image.alpha_composite(im, glow), coast)
+    r = np.sqrt(((xx / w - 0.5) / 0.75) ** 2 + ((yy / h - 0.5) / 0.75) ** 2)            # vignette
+    vg = np.dstack([np.full((h, w), 4), np.full((h, w), 10), np.full((h, w), 24),
+                    np.clip((r - 0.45) * 1.4, 0, 0.6) * 255]).astype(np.uint8)
+    im = Image.alpha_composite(im, Image.fromarray(vg, 'RGBA'))
+    im.convert('RGB').resize((1920, 1080), Image.LANCZOS).save(out_png, optimize=True)
+    pts = {k: (proj(*v)[0] / w, proj(*v)[1] / h) for k, v in places.items()}
+    json.dump({'points': pts, 'bbox': list(bbox)}, open(out_json, 'w'), indent=1)
+    return out_png, pts
+
+
 if __name__ == '__main__':
     import argparse
     ap = argparse.ArgumentParser()
@@ -142,11 +196,14 @@ if __name__ == '__main__':
     ap.add_argument('--center', help='lon,lat of the map centre (default: Đà Nẵng – Hội An)')
     ap.add_argument('--span', type=float, default=1.7, help='longitude span in degrees')
     ap.add_argument('--place', action='append', default=[], help='key:lon,lat (repeatable)')
+    ap.add_argument('--style', default='heritage', choices=['heritage', 'navy'],
+                    help='heritage = parchment land (M03), navy = night chart with gold coastline (M10)')
     a = ap.parse_args()
     kw = {}
     if a.center:
         lon, lat = map(float, a.center.split(','))
         kw = dict(lon0=lon - a.span / 2, lon1=lon + a.span / 2, lat_c=lat)
+    kw['style'] = a.style
     places = {p.split(':')[0]: tuple(map(float, p.split(':')[1].split(','))) for p in a.place} or None
     os.makedirs(OUTDIR, exist_ok=True)
     admin, rivers = fetch()

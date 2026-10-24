@@ -1,0 +1,593 @@
+{
+ "template": "M10",
+ "title": "Cẩm nang du lịch Đà Nẵng",
+ "map": "danang_map",
+ "photos": {
+  "cam_nikon": "5c2477c697f3be9f",
+  "cam_leica": "8e0cc5199a0ee659",
+  "cam_polaroid": "2b4967f5dd01e94a",
+  "cablecar": "ae6762f8d7a0a4e9",
+  "beach_island": "7da227681460d500",
+  "beach_boat": "ea04525778b42f2d",
+  "beach_bay": "e4a54207d2de13e8",
+  "pho": "b9057253f3de2302",
+  "noodle_green": "0035c28612c035fd",
+  "spring_rolls": "9dccf45b7dbfe493",
+  "bun_bo": "17977eb0a71815c7",
+  "rolls_plate": "873b4a54924a67a7",
+  "fireworks_city": "4a3c4d0bc25b33a0",
+  "fireworks_harbor": "c18db743e81be336",
+  "fireworks_river": "852ae01c746cfc1f",
+  "marble_view": "0c8ae4acded777e5",
+  "marble_view2": "0afd354575692a31",
+  "marble_statue": "6852675af0d9070f",
+  "han_sail": "9bf92b3209c35699",
+  "banh_xeo": "958dd0ef5110115b",
+  "cave_temple": "78886345f843e103",
+  "hoian_bridge": "d25716f4209559a8",
+  "hoian_bridge_night": "7571cf107f006fb7",
+  "hoian_lanterns": "42cda569f6e0996e",
+  "hoian_lanterns2": "ef6b3bd6de20622e",
+  "hoian_river_night": "942a4ff30aa5e899",
+  "hoian_street": "cee9d1014782f696",
+  "hoian_old_house": "995f1704c3239ebe",
+  "hoian_assembly": "25915af442cae885",
+  "hoian_vendor": "3add3d3ee7ed2588",
+  "hoian_cover": "c0f36480d0d659de",
+  "hoian_roofs": "c6b982fec402a398",
+  "hoian_lantern_market": "2acc5655fb4fbe20",
+  "hoian_river_blue": "cc6ecb9cb35b1b85",
+  "hoian_flower_lantern": "f6e141c86b62ee05",
+  "hoian_food3": "99d88e58829db665"
+ },
+ "slides": [
+  {
+   "slide": "cover",
+   "kicker": "Cẩm nang du lịch",
+   "title": "Đà Nẵng",
+   "sub": "Thành phố đáng sống\nbên bờ biển Đông",
+   "photos": [
+    "han_sail",
+    "marble_view",
+    "cablecar"
+   ],
+   "captions": [
+    "Sông Hàn",
+    "Ngũ Hành Sơn",
+    "Cáp treo"
+   ],
+   "camera": "leica",
+   "presenter": "Trình bày: Nhóm Hướng dẫn viên  ·  2026",
+   "notes": "Slide bìa. Ảnh, giá vé, giá món ăn và lịch trình là MINH HỌA — kiểm tra và thay bằng thông tin, hình ảnh thực tế."
+  },
+  {
+   "slide": "agenda",
+   "kicker": "Nội dung",
+   "title": "Hành trình khám phá",
+   "items": [
+    [
+     "marble_view2",
+     "Tổng quan & bản đồ"
+    ],
+    [
+     "beach_bay",
+     "Biển & thiên nhiên"
+    ],
+    [
+     "hoian_lanterns",
+     "Di sản lân cận"
+    ],
+    [
+     "banh_xeo",
+     "Ẩm thực đặc sắc"
+    ],
+    [
+     "fireworks_river",
+     "Lễ hội & lịch trình"
+    ]
+   ]
+  },
+  {
+   "slide": "section",
+   "num": 1,
+   "title": "Tổng quan",
+   "desc": "Thành phố biển năng động của miền Trung",
+   "photo": "han_sail",
+   "caption": "Thuyền buồm trên sông Hàn",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "slide": "map_info",
+   "kicker": "Vị trí",
+   "title": "Đà Nẵng",
+   "text": "**Trung tâm của miền Trung**, nằm giữa ba di sản thế giới **Huế – Hội An – Mỹ Sơn**. Phía bắc là đèo Hải Vân, phía đông hướng ra biển Đông.",
+   "facts": [
+    [
+     "plane",
+     "Sân bay quốc tế",
+     "cách trung tâm thành phố khoảng 3 km"
+    ],
+    [
+     "landmark",
+     "3 di sản UNESCO",
+     "Huế, Hội An, Mỹ Sơn trong bán kính ~100 km"
+    ],
+    [
+     "waves",
+     "Biển Mỹ Khê",
+     "bãi cát trắng dài, sóng êm, nước trong"
+    ],
+    [
+     "mountain",
+     "Bán đảo Sơn Trà",
+     "“lá phổi xanh” của thành phố"
+    ]
+   ],
+   "pins": [
+    [
+     "hai_van",
+     "Đèo Hải Vân",
+     "r"
+    ],
+    [
+     "son_tra",
+     "Bán đảo Sơn Trà",
+     "r"
+    ],
+    [
+     "cau_rong",
+     "Cầu Rồng",
+     "l"
+    ],
+    [
+     "ngu_hanh_son",
+     "Ngũ Hành Sơn",
+     "r"
+    ],
+    [
+     "ba_na",
+     "Bà Nà Hills",
+     "r"
+    ],
+    [
+     "hoian",
+     "Hội An",
+     "r"
+    ]
+   ]
+  },
+  {
+   "slide": "reasons",
+   "kicker": "Vì sao chọn Đà Nẵng?",
+   "title": "4 lý do để yêu Đà Nẵng",
+   "items": [
+    {
+     "photo": "beach_bay",
+     "caption": "Biển xanh",
+     "title": "Biển đẹp quanh năm",
+     "text": "Bãi cát trắng dài, nước trong, sóng êm — lý tưởng để tắm biển."
+    },
+    {
+     "photo": "han_sail",
+     "caption": "Thành phố cầu",
+     "title": "Thành phố của những cây cầu",
+     "text": "Cầu Rồng phun lửa cuối tuần, cầu sông Hàn rực rỡ về đêm."
+    },
+    {
+     "photo": "marble_statue",
+     "caption": "Tâm linh",
+     "focus": [
+      0.5,
+      0.35
+     ],
+     "title": "Danh thắng & tâm linh",
+     "text": "Ngũ Hành Sơn, chùa Linh Ứng, những hang động kỳ thú."
+    },
+    {
+     "photo": "bun_bo",
+     "caption": "Ẩm thực",
+     "title": "Ẩm thực phong phú",
+     "text": "Mì Quảng, bánh tráng cuốn thịt heo, hải sản tươi ngon."
+    }
+   ]
+  },
+  {
+   "slide": "seasons",
+   "kicker": "Lịch du lịch 12 tháng",
+   "title": "Thời điểm lý tưởng",
+   "months": [
+    [
+     "TH 1",
+     "cloud-sun",
+     "22°C",
+     "good"
+    ],
+    [
+     "TH 2",
+     "cloud-sun",
+     "23°C",
+     "good"
+    ],
+    [
+     "TH 3",
+     "sun",
+     "25°C",
+     "best"
+    ],
+    [
+     "TH 4",
+     "sun",
+     "27°C",
+     "best"
+    ],
+    [
+     "TH 5",
+     "sun",
+     "29°C",
+     "best"
+    ],
+    [
+     "TH 6",
+     "sun",
+     "30°C",
+     "best"
+    ],
+    [
+     "TH 7",
+     "sun",
+     "30°C",
+     "best"
+    ],
+    [
+     "TH 8",
+     "sun",
+     "30°C",
+     "best"
+    ],
+    [
+     "TH 9",
+     "cloud-sun-rain",
+     "28°C",
+     "rain"
+    ],
+    [
+     "TH 10",
+     "cloud-rain",
+     "26°C",
+     "rain"
+    ],
+    [
+     "TH 11",
+     "cloud-rain",
+     "24°C",
+     "rain"
+    ],
+    [
+     "TH 12",
+     "cloud-rain",
+     "22°C",
+     "rain"
+    ]
+   ],
+   "legend": [
+    [
+     "best",
+     "Nắng đẹp – mùa du lịch"
+    ],
+    [
+     "good",
+     "Mát mẻ, ít mưa"
+    ],
+    [
+     "rain",
+     "Mùa mưa bão"
+    ]
+   ],
+   "tips": [
+    [
+     "sun",
+     "Tháng 3 – 8",
+     "Mùa khô, biển êm — **thời điểm lý tưởng** để tắm biển và khám phá."
+    ],
+    [
+     "sparkles",
+     "Tháng 6 – 7",
+     "Mùa lễ hội pháo hoa quốc tế, thành phố rực rỡ về đêm."
+    ],
+    [
+     "umbrella",
+     "Tháng 9 – 12",
+     "Mùa mưa bão: theo dõi thời tiết, ưu tiên điểm tham quan trong nhà."
+    ]
+   ]
+  },
+  {
+   "slide": "section",
+   "num": 2,
+   "title": "Điểm đến\nnổi bật",
+   "desc": "Từ núi non hùng vĩ đến biển xanh cát trắng",
+   "photo": "marble_view2",
+   "caption": "Toàn cảnh từ Ngũ Hành Sơn",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "slide": "viewfinder_place",
+   "kicker": "Điểm đến 01",
+   "title": "Ngũ Hành Sơn",
+   "photo": "marble_view",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "text": "Quần thể năm ngọn núi đá vôi **Kim – Mộc – Thủy – Hỏa – Thổ**, nổi tiếng với hang động, chùa chiền và làng đá mỹ nghệ Non Nước.",
+   "chips": [
+    [
+     "clock-3",
+     "7:00 – 17:30"
+    ],
+    [
+     "ticket",
+     "Vé ~40.000đ"
+    ],
+    [
+     "map-pin",
+     "Cách trung tâm 8 km"
+    ]
+   ]
+  },
+  {
+   "slide": "viewfinder_place",
+   "kicker": "Điểm đến 02",
+   "title": "Bà Nà Hills",
+   "photo": "cablecar",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "info": [
+    "REC",
+    "00:27:51",
+    "4K · 30P",
+    "ISO 200   F4   1/500"
+   ],
+   "text": "Khu du lịch trên đỉnh núi cao **gần 1.500 m**: tuyến cáp treo dài, Cầu Vàng và làng Pháp cổ kính giữa mây ngàn.",
+   "chips": [
+    [
+     "thermometer-sun",
+     "Mát mẻ 15 – 20°C"
+    ],
+    [
+     "ticket",
+     "Vé cáp treo trọn gói"
+    ],
+    [
+     "map-pin",
+     "Cách trung tâm 25 km"
+    ]
+   ]
+  },
+  {
+   "slide": "place_collage",
+   "kicker": "Di sản lân cận",
+   "title": "Phố cổ Hội An",
+   "text": "Thương cảng sầm uất từ thế kỷ XVI, nay là **khu phố cổ được bảo tồn nguyên vẹn** với nhà cổ, hội quán và những dãy đèn lồng rực rỡ mỗi tối.",
+   "facts": [
+    [
+     "landmark",
+     "Di sản văn hóa thế giới UNESCO (1999)"
+    ],
+    [
+     "car-taxi-front",
+     "Cách trung tâm Đà Nẵng khoảng 30 km"
+    ],
+    [
+     "sparkles",
+     "Thả đèn hoa đăng trên sông Hoài"
+    ]
+   ],
+   "photos": [
+    "hoian_bridge",
+    "hoian_lanterns",
+    "hoian_river_blue"
+   ],
+   "captions": [
+    "Chùa Cầu",
+    "Đèn lồng",
+    "Sông Hoài"
+   ],
+   "camera": "nikon"
+  },
+  {
+   "slide": "section",
+   "num": 3,
+   "title": "Ẩm thực\n& lễ hội",
+   "desc": "Hương vị miền Trung đậm đà, phố biển rộn ràng",
+   "photo": "hoian_lantern_market",
+   "caption": "Chợ đêm đèn lồng",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "slide": "food",
+   "kicker": "Đặc sản nên thử",
+   "title": "Ẩm thực Đà Nẵng",
+   "items": [
+    {
+     "photo": "banh_xeo",
+     "focus": [
+      0.62,
+      0.6
+     ],
+     "name": "Bánh xèo",
+     "text": "Vỏ giòn rụm, nhân tôm thịt, chấm nước lèo đậm đà.",
+     "price": "30.000 – 60.000đ"
+    },
+    {
+     "photo": "rolls_plate",
+     "focus": [
+      0.3,
+      0.5
+     ],
+     "name": "Bánh tráng cuốn",
+     "text": "Thịt heo luộc cuốn rau sống, chấm mắm nêm.",
+     "price": "60.000 – 120.000đ"
+    },
+    {
+     "photo": "hoian_food3",
+     "name": "Cơm gà",
+     "text": "Cơm vàng thơm, gà xé trộn rau răm — đặc sản xứ Quảng.",
+     "price": "35.000 – 60.000đ"
+    },
+    {
+     "photo": "bun_bo",
+     "name": "Bún bò",
+     "text": "Nước dùng thơm sả, chả cua, giò heo.",
+     "price": "35.000 – 50.000đ"
+    }
+   ]
+  },
+  {
+   "slide": "events",
+   "kicker": "Thành phố lễ hội",
+   "title": "Lễ hội & sự kiện",
+   "photo": "fireworks_river",
+   "caption": "Đêm pháo hoa",
+   "focus": [
+    0.4,
+    0.5
+   ],
+   "items": [
+    [
+     "TH\n6 – 7",
+     "Lễ hội pháo hoa quốc tế",
+     "Các đội pháo hoa quốc tế tranh tài trên sông Hàn."
+    ],
+    [
+     "Cuối\ntuần",
+     "Cầu Rồng phun lửa",
+     "21:00 thứ Bảy và Chủ nhật hằng tuần."
+    ],
+    [
+     "19/2\nÂL",
+     "Lễ hội Quán Thế Âm",
+     "Lễ hội văn hóa – tâm linh tại Ngũ Hành Sơn."
+    ],
+    [
+     "Tết",
+     "Đêm giao thừa",
+     "Pháo hoa chào năm mới, đường hoa xuân bên sông."
+    ]
+   ]
+  },
+  {
+   "slide": "itinerary",
+   "kicker": "Gợi ý cho chuyến đi",
+   "title": "Lịch trình 3 ngày 2 đêm",
+   "days": [
+    {
+     "day": "Ngày 1",
+     "theme": "Biển & thành phố",
+     "icon": "plane",
+     "code": "DAD · D1",
+     "stops": [
+      [
+       "Sáng",
+       "Nhận phòng, tắm biển Mỹ Khê"
+      ],
+      [
+       "Trưa",
+       "Bánh tráng cuốn thịt heo"
+      ],
+      [
+       "Chiều",
+       "Bán đảo Sơn Trà, chùa Linh Ứng"
+      ],
+      [
+       "Tối",
+       "Cầu Rồng, du thuyền sông Hàn"
+      ]
+     ]
+    },
+    {
+     "day": "Ngày 2",
+     "theme": "Bà Nà Hills",
+     "icon": "mountain",
+     "code": "DAD · D2",
+     "stops": [
+      [
+       "Sáng",
+       "Cáp treo lên Bà Nà, Cầu Vàng"
+      ],
+      [
+       "Trưa",
+       "Ăn trưa trên đỉnh núi"
+      ],
+      [
+       "Chiều",
+       "Làng Pháp, vườn hoa"
+      ],
+      [
+       "Tối",
+       "Chợ đêm Sơn Trà"
+      ]
+     ]
+    },
+    {
+     "day": "Ngày 3",
+     "theme": "Ngũ Hành Sơn – Hội An",
+     "icon": "landmark",
+     "code": "DAD · D3",
+     "stops": [
+      [
+       "Sáng",
+       "Ngũ Hành Sơn, làng đá Non Nước"
+      ],
+      [
+       "Trưa",
+       "Cơm gà, cao lầu Hội An"
+      ],
+      [
+       "Chiều",
+       "Dạo phố cổ, Chùa Cầu"
+      ],
+      [
+       "Tối",
+       "Thả đèn hoa đăng sông Hoài"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "slide": "thanks",
+   "script": "Hẹn gặp lại",
+   "title": "Đà Nẵng",
+   "sub": "Thành phố đáng sống – Điểm đến khó quên",
+   "lines": [
+    [
+     "phone",
+     "Hotline: 0900 000 000"
+    ],
+    [
+     "mail",
+     "dulich@tencongty.vn"
+    ],
+    [
+     "globe",
+     "www.tencongty.vn"
+    ]
+   ],
+   "photo": "hoian_flower_lantern",
+   "caption": "Hẹn mùa sau!",
+   "camera": "polaroid"
+  }
+ ]
+}

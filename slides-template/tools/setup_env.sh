@@ -11,7 +11,7 @@ if ! dpkg -s libreoffice-impress >/dev/null 2>&1; then
 fi
 
 mkdir -p ~/.fonts
-cp "$HERE"/fonts/*.ttf "$HERE"/fonts/heritage/*.ttf "$HERE"/fonts/maclenin/*.ttf "$HERE"/fonts/laodong/*.ttf "$HERE"/fonts/thiennhien/*.ttf "$HERE"/fonts/nongsan/*.ttf ~/.fonts/ 2>/dev/null || true
+cp "$HERE"/fonts/*.ttf "$HERE"/fonts/heritage/*.ttf "$HERE"/fonts/maclenin/*.ttf "$HERE"/fonts/laodong/*.ttf "$HERE"/fonts/thiennhien/*.ttf "$HERE"/fonts/nongsan/*.ttf "$HERE"/fonts/doanhnghiep/*.ttf "$HERE"/fonts/dichvu/*.ttf "$HERE"/fonts/danang/*.ttf ~/.fonts/ 2>/dev/null || true
 fc-cache -f >/dev/null
 
-echo "ready: python-pptx, LibreOffice Impress, fonts (Montserrat, Noto Serif Display, Playfair Display, Big Shoulders Display, Be Vietnam Pro, Anton, Lexend, Oswald, Nunito Sans, Great Vibes, Baloo 2, Mulish, Dancing Script)"
+echo "ready: python-pptx, LibreOffice Impress, fonts (Montserrat, Noto Serif Display, Playfair Display, Big Shoulders Display, Be Vietnam Pro, Anton, Lexend, Oswald, Nunito Sans, Great Vibes, Baloo 2, Mulish, Dancing Script, Lexend Exa)"

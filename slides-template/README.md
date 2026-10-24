@@ -17,6 +17,9 @@ bộ slide mới chỉ cần đưa tài liệu vào.
 | M05 | Lao động – Việc làm — ảnh công nhân, giấy kem – cam, bản đồ 6 vùng | `output/Mau-Lao-Dong-Viec-Lam.pptx` | `python build_laodong.py` |
 | M06 | Sản phẩm Thiên nhiên — trắng – xanh, chữ nâu + viết tay, băng chuyền sản phẩm | `output/Mau-San-Pham-Thien-Nhien.pptx` | `python build_thiennhien.py` |
 | M07 | Nông sản Đặc sản — giấy kem, chữ đỏ thẫm, sản phẩm giữa chữ lớn | `output/Mau-San-Pham-Nong-San.pptx` | `python build_nongsan.py` |
+| M08 | Hồ sơ Doanh nghiệp — xanh hoàng gia, biểu tượng vòng sáng 3D, chữ rộng | `output/Mau-Ho-So-Doanh-Nghiep.pptx` | `python build_doanhnghiep.py` |
+| M09 | Giới thiệu Dịch vụ — xanh lá, vạch xiên, ảnh hình bình hành | `output/Mau-Gioi-Thieu-Dich-Vu.pptx` | `python build_dichvu.py` |
+| M10 | Du lịch Đà Nẵng — xanh đêm, chữ vàng, đèn trời, polaroid, khung ngắm máy quay | `output/Mau-Du-Lich-Da-Nang.pptx` | `python build_danang.py` |
 
 Làm bộ slide từ file nội dung: `python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`
 (mẫu nội dung trong `catalog/samples/`). Thêm mẫu mới xong thì chạy `python tools/update_catalog.py` và đăng lại trang thư viện.
@@ -25,7 +28,9 @@ Container mới: `bash tools/setup_env.sh`.
 Mở bằng **PowerPoint 2019 / Microsoft 365** để có Morph. Bản cũ hơn sẽ tự động dùng Fade thay cho Morph.
 Cài font trong `fonts/` (M01/M02: Montserrat), `fonts/heritage/` (M03: Noto Serif Display, Noto Serif, Playfair Display)
 `fonts/maclenin/` (M04: Big Shoulders Display, Be Vietnam Pro), `fonts/laodong/` (M05: Anton, Lexend),
-`fonts/thiennhien/` (M06: Oswald, Nunito Sans, Great Vibes) và `fonts/nongsan/` (M07: Baloo 2, Mulish, Dancing Script) trước khi mở (Windows: chuột phải → Install for all users).
+`fonts/thiennhien/` (M06: Oswald, Nunito Sans, Great Vibes), `fonts/nongsan/` (M07: Baloo 2, Mulish, Dancing Script),
+`fonts/doanhnghiep/` (M08: Lexend Exa, Be Vietnam Pro), `fonts/dichvu/` (M09: Be Vietnam Pro) và `fonts/danang/`
+(M10: Playfair Display, Be Vietnam Pro, Dancing Script, Great Vibes) trước khi mở (Windows: chuột phải → Install for all users).
 
 ---
 
@@ -175,3 +180,32 @@ nằm trong khoảng trống giữa chữ khổng lồ, dải cỏ, đồng ru�
 - Nội dung mẫu: M06 — phân bón hữu cơ (Công ty CP Công nghệ Môi trường Nông nghiệp Á Châu); M07 — nông sản sấy (HTX
   Heragrain). Tên sản phẩm, thông số và số liệu là **minh họa**, cần thay bằng hồ sơ thật.
 - `tools/static_font.py`: tạo file font tĩnh, đặt tên đúng chuẩn Office từ font biến thiên của Google Fonts.
+
+## M08 / M09 — Hồ sơ Doanh nghiệp · Giới thiệu Dịch vụ
+
+Hai mẫu dùng chung bộ dạng slide `lib/layouts_corporate.py` (builder chung `lib/corporate_build.py`), khác phong cách:
+**M08** theo video Cotecons (nền xanh hoàng gia phát sáng, biểu tượng vòng tròn 3D có chữ cái đầu thương hiệu, tiêu đề
+Lexend Exa rộng, nhãn phần dạng viên thuốc, số chương lớn viền sáng), **M09** theo video Manulife (xanh lá tươi, logo
+3 vạch xiên, ảnh khung hình bình hành, tiêu đề hai tầng chữ đậm + dòng phụ màu).
+
+- Dạng slide: bìa, thư ngỏ lãnh đạo (chân dung tách nền + chữ ký), mục lục, chuyển phần, tổng quan + 4 chỉ số, trục thời
+  gian so le, sơ đồ tổ chức, 3 trụ cột, danh sách dịch vụ (nền sáng/tối), 3 thẻ dự án / gói dịch vụ, 4 con số lớn,
+  ứng dụng số (điện thoại vẽ bằng hình, sửa được), biểu đồ gốc + KPI, bảng gốc, cảm ơn.
+- `"brand"` trong file nội dung: `name`, `short`, `initial` (chữ trong biểu tượng vòng sáng), `colors` (ghi đè `dark`,
+  `primary`, `light`, `accent`, `bg`… của `THEMES` để theo màu thương hiệu). Nền, biểu tượng, ảnh chuyển phần phủ màu sinh
+  bằng `lib/corporate_assets.py`.
+- Nội dung mẫu là doanh nghiệp **giả định** ("Kiến Tạo" — xây dựng, "An Tâm Life" — bảo hiểm); tên người, số liệu,
+  chứng chỉ là minh họa.
+
+## M10 — Du lịch Đà Nẵng
+
+Theo video du lịch Đà Nẵng: nền giấy xanh đêm, tiêu đề Playfair Display vàng đồng, **đèn trời** bay qua mọi slide (cùng
+tên đối tượng nên Morph cho đèn trôi giữa các slide), ảnh **polaroid dán băng keo** với chú thích viết tay, **máy ảnh cổ**
+tách nền, **khung ngắm máy quay** (REC, pin, thang phơi sáng, khung lấy nét — dựng bằng hình, sửa được), **cuộn phim**
+mục lục, **lịch 12 tháng** theo mùa, **bản đồ đêm** viền bờ biển vàng, đĩa món ăn tròn, **vé lịch trình** kiểu thẻ lên tàu.
+
+- Bản đồ: `python tools/make_map.py --name <ten> --style navy --center lon,lat --span 1.4 --place key:lon,lat ...`, đặt
+  `"map": "<ten>"` trong file nội dung và dùng các `key` trong `"pins"` của slide `map_info`.
+- Máy ảnh tách nền: `assets/images/cut/dn_<khóa>.png` (`nikon`, `leica`, `polaroid`).
+- Một số ảnh mẫu (biển, pháo hoa, cáp treo) chỉ để minh họa, không chụp tại Đà Nẵng — thay bằng ảnh thật khi làm bộ
+  slide thực tế; giá vé, giá món ăn, lịch trình cũng là minh họa.
