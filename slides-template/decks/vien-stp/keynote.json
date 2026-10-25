@@ -1,0 +1,697 @@
+{
+ "template": "keynote",
+ "title": "Viện STP – Kết nối tri thức, kiến tạo giá trị",
+ "art": {
+  "core": "assets/images/src/stp3d/core.png",
+  "research": "assets/images/src/stp3d/research.png",
+  "training": "assets/images/src/stp3d/training.png",
+  "trace": "assets/images/src/stp3d/trace.png",
+  "iot": "assets/images/src/stp3d/iot.png",
+  "digital": "assets/images/src/stp3d/digital.png",
+  "ai": "assets/images/src/stp3d/ai.png",
+  "laptop": "assets/images/src/stp3d/laptop.png",
+  "phone": "assets/images/src/stp3d/phone.png"
+ },
+ "photos": {
+  "engineers": "assets/images/src/stp/atld_engineers.jpg",
+  "exam_room": "assets/images/src/stp/exam_room.jpg",
+  "cambridge": "assets/images/src/stp/cambridge_center.jpg",
+  "classroom": "assets/images/src/stp/classroom.jpg",
+  "coffee": "assets/images/src/stp/coffee_harvest.jpg",
+  "solar_node": "assets/images/src/stp/iot_solar_node.jpg",
+  "prawns": "6bff01cbd438a9e7",
+  "pills": "4bd3837a5811c377",
+  "aisle": "2fb758af358ea115",
+  "processing": "2067dfd164cd8e64",
+  "rolls": "9dccf45b7dbfe493",
+  "qr": "assets/images/src/stp/qr_stp.png",
+  "client128": "assets/images/src/stp/client_128.jpg",
+  "client129": "assets/images/src/stp/client_129.jpg",
+  "client130": "assets/images/src/stp/client_130.jpg",
+  "client131": "assets/images/src/stp/client_131.jpg",
+  "client132": "assets/images/src/stp/client_132.jpg",
+  "client133": "assets/images/src/stp/client_133.jpg",
+  "client134": "assets/images/src/stp/client_134.jpg",
+  "client135": "assets/images/src/stp/client_135.jpg",
+  "p1": "assets/images/src/stp/partner_1_t.jpg",
+  "p2": "assets/images/src/stp/partner_2_t.jpg",
+  "p3": "assets/images/src/stp/partner_3_t.jpg",
+  "p4": "assets/images/src/stp/partner_4_t.jpg",
+  "p5": "assets/images/src/stp/partner_5_t.jpg",
+  "p6": "assets/images/src/stp/partner_6_t.jpg",
+  "p7": "assets/images/src/stp/partner_7_t.jpg",
+  "p8": "assets/images/src/stp/partner_8_t.jpg",
+  "p9": "assets/images/src/stp/partner_9_t.jpg",
+  "p10": "assets/images/src/stp/partner_10_t.jpg",
+  "p11": "assets/images/src/stp/partner_11_t.jpg",
+  "p12": "assets/images/src/stp/partner_12_t.jpg",
+  "p13": "assets/images/src/stp/partner_13_t.jpg",
+  "p14": "assets/images/src/stp/partner_14_t.jpg",
+  "p15": "assets/images/src/stp/partner_15_t.jpg",
+  "p16": "assets/images/src/stp/partner_16_t.jpg"
+ },
+ "brand": {
+  "name": "Viện STP",
+  "logo": "assets/images/src/stp/logo_stp.png"
+ },
+ "credit_intro": "Hình 3D: dựng riêng cho bộ slide (Blender). Ảnh: tư liệu của Viện STP, Công ty CP Kỹ thuật Hàng hải DAKO và đối tác; ảnh minh họa ngành hàng từ Open Images (Google), giấy phép CC BY 2.0 — danh sách bên dưới. Bản đồ: Natural Earth. Icon: Lucide (ISC). Font: Be Vietnam Pro (SIL OFL).",
+ "slides": [
+  {
+   "slide": "cover",
+   "kicker": "STP Institute · VUSTA",
+   "title": "Kết nối tri thức\n**Kiến tạo giá trị**",
+   "lead": "Viện Nghiên cứu Phát triển Giáo dục và Nghề nghiệp STP — hệ sinh thái **nghiên cứu, đào tạo và công nghệ** đồng hành cùng địa phương và doanh nghiệp.",
+   "footer": "Tổ chức khoa học và công nghệ trực thuộc\nLiên hiệp các Hội Khoa học và Kỹ thuật Việt Nam",
+   "notes": "Kính thưa Quý vị đại biểu, Quý khách quý. Thay mặt Viện STP, tôi xin trân trọng giới thiệu với Quý vị những năng lực cốt lõi và những giá trị Viện có thể cùng Quý vị kiến tạo."
+  },
+  {
+   "slide": "statement",
+   "kicker": "Về Viện STP",
+   "title": "Cầu nối tri thức giữa **Nhà nước, doanh nghiệp và cộng đồng**",
+   "lead": "Viện STP kết nối nguồn lực khoa học – giáo dục – công nghệ để biến tri thức thành giá trị thiết thực, đo đếm được cho từng địa phương, từng doanh nghiệp.",
+   "items": [
+    [
+     "landmark",
+     "Trực thuộc VUSTA",
+     "Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam"
+    ],
+    [
+     "file-check",
+     "Pháp lý vững chắc",
+     "Giấy chứng nhận hoạt động KH&CN số 234/QĐ-LHHVN (2020)"
+    ],
+    [
+     "map-pin",
+     "Hiện diện toàn quốc",
+     "Hà Nội · Nha Trang · TP. Hồ Chí Minh"
+    ]
+   ],
+   "notes": "Viện STP là tổ chức khoa học và công nghệ trực thuộc VUSTA, được cấp Giấy chứng nhận hoạt động năm 2020. Sứ mệnh của chúng tôi là làm cầu nối: đưa tri thức và công nghệ đến đúng nơi cần, tạo ra giá trị cụ thể."
+  },
+  {
+   "slide": "ecosystem",
+   "kicker": "Hệ sinh thái",
+   "title": "Bốn trụ cột\n**một đầu mối**",
+   "items": [
+    [
+     "Nghiên cứu & chuyển giao",
+     "Dữ liệu thực chứng, dự án KH&CN, chuyển đổi số"
+    ],
+    [
+     "Đào tạo & chứng chỉ",
+     "An toàn lao động, chứng chỉ nghiệp vụ, AI, khảo thí"
+    ],
+    [
+     "Truy xuất nguồn gốc",
+     "Chuẩn GS1, tem điện tử, bảo vệ thương hiệu"
+    ],
+    [
+     "Nông nghiệp số IoT",
+     "Cảm biến, LoRaWAN, AI & Blockchain"
+    ]
+   ],
+   "notes": "Hoạt động của Viện được tổ chức thành bốn trụ cột bổ trợ nhau. Quý vị chỉ cần một đầu mối để có giải pháp trọn vẹn: từ nghiên cứu, đào tạo con người đến công nghệ truy xuất và nông nghiệp số."
+  },
+  {
+   "slide": "chapter",
+   "piece": "research",
+   "num": "01",
+   "kicker": "Trụ cột 01",
+   "title": "Nghiên cứu khoa học\n& chuyển giao",
+   "lead": "Từ **dữ liệu thực chứng** đến giải pháp ứng dụng cho địa phương và doanh nghiệp.",
+   "chips": [
+    "Khảo sát – đánh giá",
+    "Dự án KH&CN",
+    "Chuyển đổi số"
+   ],
+   "notes": "Trụ cột thứ nhất: nghiên cứu khoa học và chuyển giao công nghệ."
+  },
+  {
+   "slide": "steps",
+   "piece": "research",
+   "kicker": "Nghiên cứu & chuyển giao",
+   "title": "Đồng hành **trọn vòng đời** dự án",
+   "items": [
+    [
+     "Khảo sát & đánh giá",
+     "Cùng Sở, ban, ngành nhận diện bài toán; dữ liệu thực chứng cho chính sách."
+    ],
+    [
+     "Tư vấn & lập dự án",
+     "Dự án KH&CN trọng điểm, bám sát định hướng phát triển kinh tế – xã hội."
+    ],
+    [
+     "Công bố khoa học",
+     "Hỗ trợ công bố kết quả trên tạp chí uy tín trong và ngoài nước."
+    ],
+    [
+     "Chuyển giao ứng dụng",
+     "Đưa kết quả thành giải pháp quản lý, công nghệ dùng ngay."
+    ]
+   ],
+   "notes": "Viện đồng hành trọn vòng đời một dự án: khảo sát và đánh giá, lập dự án, công bố kết quả và quan trọng nhất là chuyển giao để kết quả đi vào thực tiễn."
+  },
+  {
+   "slide": "detail",
+   "image": "digital",
+   "kicker": "Chuyển đổi số doanh nghiệp",
+   "title": "Không chỉ tư vấn — **trực tiếp triển khai**",
+   "items": [
+    [
+     "search",
+     "Khảo sát & chẩn đoán",
+     "Đo mức độ trưởng thành số, thiết kế lộ trình phù hợp, tránh lãng phí."
+    ],
+    [
+     "cpu",
+     "Phát triển giải pháp",
+     "Phần mềm quản lý, tự động hóa quy trình, dashboard điều hành."
+    ],
+    [
+     "bot",
+     "Giải pháp AI đa thể thức",
+     "May đo theo đặc thù kinh doanh và quản lý nhà nước."
+    ],
+    [
+     "handshake",
+     "Chuyển giao & đồng hành",
+     "Tư vấn thẩm định giá, hội nghị – hội thảo khoa học công nghệ."
+    ]
+   ],
+   "notes": "Với doanh nghiệp, Viện không dừng ở tư vấn: chúng tôi chẩn đoán, phát triển và tích hợp giải pháp, đồng hành đến khi giải pháp vận hành hiệu quả."
+  },
+  {
+   "slide": "chapter",
+   "piece": "training",
+   "num": "02",
+   "kicker": "Trụ cột 02",
+   "bg": "bg_left",
+   "title": "Đào tạo\n& cấp chứng chỉ",
+   "lead": "Nâng tầm nguồn nhân lực — **học đến đâu, làm được đến đó**.",
+   "chips": [
+    "An toàn lao động",
+    "Chứng chỉ nghiệp vụ",
+    "Ứng dụng AI",
+    "Khảo thí"
+   ],
+   "notes": "Trụ cột thứ hai — và là lĩnh vực Viện có bề dày triển khai lớn nhất: đào tạo và cấp chứng chỉ."
+  },
+  {
+   "slide": "proof",
+   "kicker": "Huấn luyện an toàn, vệ sinh lao động",
+   "title": "Đủ **6 nhóm đối tượng**, đúng quy định",
+   "lead": "Theo Nghị định 44/2016 và 140/2018; lý thuyết gắn thực hành ngay tại doanh nghiệp.",
+   "list": [
+    "**Nhóm 1** · Quản lý, chỉ huy",
+    "**Nhóm 2** · Cán bộ ATVSLĐ",
+    "**Nhóm 3** · Việc nghiêm ngặt",
+    "**Nhóm 4** · Người lao động",
+    "**Nhóm 5** · Công tác y tế",
+    "**Nhóm 6** · An toàn vệ sinh viên"
+   ],
+   "note": "Triển khai cùng Công ty CP Kỹ thuật Hàng hải DAKO — đơn vị huấn luyện theo giấy phép.",
+   "photos": [
+    [
+     "client130",
+     "Hogetsu Việt Nam"
+    ],
+    [
+     "client131",
+     "Thang máy Pacific"
+    ],
+    [
+     "client128",
+     "Asanka"
+    ],
+    [
+     "client132",
+     "HT Vina"
+    ],
+    [
+     "client135",
+     "P.Dussmann Việt Nam"
+    ]
+   ],
+   "notes": "Viện huấn luyện đủ 6 nhóm đối tượng theo đúng quy định. Những hình ảnh Quý vị đang thấy là các lớp huấn luyện thực tế tại doanh nghiệp khách hàng, phối hợp cùng DAKO."
+  },
+  {
+   "slide": "device",
+   "image": "laptop",
+   "kicker": "Số hóa quản lý ATVSLĐ",
+   "title": "Khóa học kết thúc sau vài ngày — **an toàn cần quản lý mỗi ngày**",
+   "items": [
+    [
+     "layout-dashboard",
+     "Dashboard tuân thủ real-time",
+     "Lãnh đạo nắm tỷ lệ huấn luyện, rủi ro theo thời gian thực."
+    ],
+    [
+     "bell-ring",
+     "Cảnh báo tự động",
+     "Chứng chỉ sắp hết hạn trước 30 ngày, thiết bị đến hạn kiểm định."
+    ],
+    [
+     "qr-code",
+     "Tra cứu chứng chỉ 24/7",
+     "Theo mã chứng chỉ hoặc số CCCD, chống giả mạo."
+    ],
+    [
+     "gift",
+     "Không phải mua phần mềm",
+     "Ký hợp đồng đào tạo là có tài khoản quản lý riêng."
+    ]
+   ],
+   "notes": "Điểm khác biệt của Viện: doanh nghiệp ký hợp đồng đào tạo được cấp ngay tài khoản quản lý ATVSLĐ, mỗi học viên có tài khoản riêng, tra cứu chứng chỉ 24/7 — không phải đầu tư phần mềm."
+  },
+  {
+   "slide": "detail",
+   "image": "ai",
+   "kicker": "Đào tạo ứng dụng AI",
+   "title": "AI **may đo** theo nghiệp vụ từng đơn vị",
+   "numbers": [
+    [
+     "30%",
+     "kiến thức nền tảng"
+    ],
+    [
+     "70%",
+     "thực hành trên việc thật"
+    ]
+   ],
+   "items": [
+    [
+     "landmark",
+     "Cơ quan nhà nước",
+     "Văn bản đúng NĐ 30/2020, tóm tắt, tổng hợp báo cáo."
+    ],
+    [
+     "building-2",
+     "Doanh nghiệp",
+     "Lãnh đạo, marketing, nhân sự, sản xuất, bán hàng."
+    ],
+    [
+     "graduation-cap",
+     "Giáo dục",
+     "Chuẩn hóa năng lực số cho giáo viên, giảng viên."
+    ],
+    [
+     "shield-check",
+     "An toàn, đúng quy định",
+     "Bảo vệ dữ liệu, kiểm chứng trước khi dùng."
+    ]
+   ],
+   "notes": "Chương trình AI được thiết kế riêng cho từng đơn vị, 70% thời lượng thực hành trên chính công việc hằng ngày, với nguyên tắc dùng AI an toàn, đúng quy định."
+  },
+  {
+   "slide": "numbers",
+   "photo": "exam_room",
+   "kicker": "Khảo thí & tuyển sinh",
+   "title": "Trung tâm khảo thí **chuẩn Cambridge**",
+   "lead": "Đầu mối tuyển sinh chính quy từ Sơ cấp đến Tiến sĩ.",
+   "items": [
+    [
+     "250",
+     "",
+     "thí sinh mỗi ca tại phòng thi máy tính"
+    ],
+    [
+     "10",
+     "",
+     "chứng chỉ Cambridge: Starters → Proficiency"
+    ],
+    [
+     "6",
+     "",
+     "bậc tuyển sinh liên kết, Sơ cấp → Tiến sĩ"
+    ]
+   ],
+   "notes": "Trung tâm khảo thí có phòng thi máy tính 250 thí sinh mỗi ca, tổ chức các kỳ thi chuẩn Cambridge; Viện đồng thời là đầu mối tuyển sinh chính quy nhiều bậc học."
+  },
+  {
+   "slide": "chapter",
+   "piece": "trace",
+   "num": "03",
+   "kicker": "Trụ cột 03",
+   "title": "Truy xuất nguồn gốc\nchuẩn GS1",
+   "lead": "Minh bạch chuỗi giá trị — **bảo vệ thương hiệu** sản phẩm địa phương.",
+   "chips": [
+    "HLHT TRACE",
+    "Tem điện tử",
+    "Chống giả AI"
+   ],
+   "notes": "Trụ cột thứ ba: truy xuất nguồn gốc chuẩn GS1, triển khai cùng HL&HT."
+  },
+  {
+   "slide": "steps",
+   "piece": "trace",
+   "kicker": "Truy xuất nguồn gốc",
+   "title": "Ba bước đến **thị trường minh bạch**",
+   "lead": "Tuân thủ Thông tư 02/2024/TT-BKHCN và Nghị định 37/2026/NĐ-CP.",
+   "items": [
+    [
+     "Khởi tạo dữ liệu",
+     "Hồ sơ điện tử cho từng lô sản phẩm, kê khai ngay trên điện thoại."
+    ],
+    [
+     "Đồng bộ hệ thống",
+     "Kết nối HLHT TRACE với Cổng thông tin truy xuất nguồn gốc quốc gia."
+    ],
+    [
+     "Tiếp cận thị trường",
+     "Gia tăng niềm tin người tiêu dùng, đủ điều kiện xuất khẩu."
+    ]
+   ],
+   "chips_label": "Giải pháp tem:",
+   "chips": [
+    "Tem điện tử",
+    "Tem vật lý",
+    "Hộ chiếu số",
+    "Tem chống giả"
+   ],
+   "notes": "Chỉ ba bước, sản phẩm của địa phương, hợp tác xã có hồ sơ điện tử minh bạch, đáp ứng quy định mới và đủ điều kiện vươn ra thị trường xuất khẩu."
+  },
+  {
+   "slide": "device",
+   "image": "phone",
+   "side": "right",
+   "kicker": "Trải nghiệm người tiêu dùng",
+   "title": "Minh bạch **trong tầm tay**",
+   "items": [
+    [
+     "scan-line",
+     "Quét bằng camera thường",
+     "Không cần tải ứng dụng, xem ngay hành trình sản phẩm."
+    ],
+    [
+     "badge-check",
+     "Dấu tích “Đã xác thực”",
+     "Thông tin doanh nghiệp, sản phẩm được kiểm chứng."
+    ],
+    [
+     "map",
+     "Bản đồ vùng trồng",
+     "Tọa độ vùng nguyên liệu, cơ sở sản xuất trên bản đồ số."
+    ],
+    [
+     "shield-check",
+     "Tháp điều khiển chống giả AI",
+     "Tự khóa mã khi một serial bị quét bất thường."
+    ]
+   ],
+   "notes": "Người tiêu dùng chỉ cần quét mã để thấy hành trình sản phẩm và dấu tích đã xác thực; doanh nghiệp có tháp điều khiển phát hiện và khóa mã giả ngay lập tức. Giao diện trên màn hình là minh họa."
+  },
+  {
+   "slide": "tiles",
+   "kicker": "Lĩnh vực áp dụng",
+   "title": "Một nền tảng — **mọi ngành hàng**",
+   "cols": 3,
+   "items": [
+    {
+     "photo": "prawns",
+     "caption": "Thủy sản"
+    },
+    {
+     "photo": "coffee",
+     "caption": "Nông sản"
+    },
+    {
+     "photo": "rolls",
+     "caption": "Thực phẩm"
+    },
+    {
+     "photo": "pills",
+     "caption": "Dược phẩm"
+    },
+    {
+     "photo": "aisle",
+     "caption": "Hàng tiêu dùng"
+    },
+    {
+     "photo": "processing",
+     "caption": "Công nghiệp chế biến",
+     "focus": [
+      0.5,
+      0.4
+     ]
+    }
+   ],
+   "notes": "Giải pháp áp dụng cho thủy sản, nông sản, thực phẩm, dược phẩm, hàng tiêu dùng và công nghiệp chế biến."
+  },
+  {
+   "slide": "chapter",
+   "piece": "iot",
+   "num": "04",
+   "kicker": "Trụ cột 04",
+   "bg": "bg_left",
+   "title": "Nông nghiệp thông minh\nBOM IoT",
+   "lead": "Chạm vào dữ liệu — **dẫn đầu nghề nông**. Đại diện giải pháp BOM Software (LATOI Australia) tại Việt Nam.",
+   "chips": [
+    "Cảm biến 9 trong 1",
+    "LoRaWAN 15 km",
+    "AI GreenDoctor"
+   ],
+   "notes": "Trụ cột thứ tư: nông nghiệp thông minh với hệ sinh thái BOM IoT."
+  },
+  {
+   "slide": "steps",
+   "piece": "iot",
+   "kicker": "Kiến trúc hệ thống",
+   "title": "Từ cánh đồng đến **quyết định**",
+   "items": [
+    [
+     "Cảm biến 9 trong 1",
+     "Nhiệt độ, độ ẩm, pH, EC, N-P-K, độ mặn, TDS — đo ngay tại nguồn."
+    ],
+    [
+     "LoRaWAN tầm xa",
+     "Phủ sóng đến 15 km, năng lượng mặt trời, không kéo dây điện."
+    ],
+    [
+     "Cloud & App 24/7",
+     "Giám sát trên web, Android, iOS; cảnh báo SMS khi vượt ngưỡng."
+    ],
+    [
+     "AI & Blockchain",
+     "Chẩn đoán sâu bệnh, phát hiện phân bón giả; dữ liệu không thể sửa."
+    ]
+   ],
+   "notes": "Dữ liệu đi từ cảm biến ngoài đồng, qua mạng LoRaWAN tầm xa, lên nền tảng Cloud, và được AI phân tích để người nông dân, nhà quản lý ra quyết định kịp thời."
+  },
+  {
+   "slide": "chart",
+   "piece": "iot",
+   "kicker": "Hiệu quả đã kiểm chứng",
+   "title": "Giá trị kinh tế **vượt trội**",
+   "chart": {
+    "cats": [
+     "Tăng năng suất",
+     "Giảm phân bón lãng phí",
+     "Tiết kiệm nhân công"
+    ],
+    "series": [
+     [
+      "Mức cải thiện",
+      [
+       20,
+       30,
+       50
+      ]
+     ]
+    ],
+    "fmt": "0\"%\"",
+    "max": 60
+   },
+   "kpis": [
+    [
+     "+20%",
+     "năng suất cây trồng"
+    ],
+    [
+     "−30%",
+     "phân bón lãng phí"
+    ],
+    [
+     "−50%",
+     "nhân công giám sát"
+    ]
+   ],
+   "note": "Nguồn: BOM Technology — số liệu tại các trang trại đã triển khai.",
+   "notes": "Tại các trang trại đã triển khai: năng suất tăng 20%, phân bón lãng phí giảm 30%, nhân công giám sát giảm 50%."
+  },
+  {
+   "slide": "logos",
+   "kicker": "Mạng lưới",
+   "title": "Đối tác **chiến lược**",
+   "groups": [
+    {
+     "label": "Công nghệ & truy xuất",
+     "logos": [
+      "p11",
+      "p15",
+      "p14",
+      "p12",
+      "p6",
+      "p16",
+      "p13"
+     ]
+    },
+    {
+     "label": "Giáo dục & tuyển sinh",
+     "logos": [
+      "p5",
+      "p7",
+      "p8",
+      "p4",
+      "p9"
+     ]
+    },
+    {
+     "label": "Du lịch & dịch vụ",
+     "logos": [
+      "p1",
+      "p2",
+      "p3",
+      "p10"
+     ]
+    }
+   ],
+   "notes": "Viện có mạng lưới đối tác chiến lược trong công nghệ – truy xuất, giáo dục – tuyển sinh và du lịch – dịch vụ."
+  },
+  {
+   "slide": "tiles",
+   "kicker": "Khách hàng tiêu biểu",
+   "title": "Tin cậy từ **nhà máy đến công trường**",
+   "cols": 4,
+   "items": [
+    {
+     "photo": "client128",
+     "caption": "Asanka",
+     "size": 12.5
+    },
+    {
+     "photo": "client129",
+     "caption": "Emivest Feedmill",
+     "size": 12.5
+    },
+    {
+     "photo": "client130",
+     "caption": "Hogetsu Việt Nam",
+     "size": 12.5
+    },
+    {
+     "photo": "client131",
+     "caption": "Thang máy Pacific",
+     "size": 12.5
+    },
+    {
+     "photo": "client132",
+     "caption": "HT Vina",
+     "size": 12.5
+    },
+    {
+     "photo": "client133",
+     "caption": "Toyota Thanh Xuân",
+     "size": 12.5
+    },
+    {
+     "photo": "client134",
+     "caption": "Vina T&T",
+     "size": 12.5
+    },
+    {
+     "photo": "client135",
+     "caption": "P.Dussmann Việt Nam",
+     "size": 12.5
+    }
+   ],
+   "notes": "Một số doanh nghiệp đã tin tưởng lựa chọn Viện STP và DAKO cho công tác huấn luyện an toàn lao động."
+  },
+  {
+   "slide": "map_offices",
+   "kicker": "Hệ thống văn phòng",
+   "title": "Sẵn sàng đồng hành **trên cả nước**",
+   "offices": [
+    {
+     "name": "Trụ sở Hà Nội",
+     "lonlat": [
+      105.8,
+      21.0
+     ],
+     "address": "Tầng 12, Tòa nhà Diamond Flower, 48 Lê Văn Lương, phường Yên Hòa, TP. Hà Nội"
+    },
+    {
+     "name": "Văn phòng Nha Trang",
+     "lonlat": [
+      109.19,
+      12.24
+     ],
+     "address": "B19-03 Khu đô thị An Bình Tân, phường Nam Nha Trang, tỉnh Khánh Hòa"
+    },
+    {
+     "name": "Trung tâm tuyển sinh TP.HCM",
+     "lonlat": [
+      106.7,
+      10.8
+     ],
+     "address": "Số 28, đường D9, KDC Carric, phường An Khánh, TP. Hồ Chí Minh"
+    }
+   ],
+   "notes": "Với văn phòng tại ba miền, Viện sẵn sàng đồng hành cùng các địa phương trên cả nước."
+  },
+  {
+   "slide": "offer",
+   "kicker": "Đề xuất hợp tác",
+   "title": "Cùng Viện STP **kiến tạo giá trị**",
+   "lead": "Những mô hình hợp tác có thể triển khai ngay với Quý cơ quan, địa phương và doanh nghiệp.",
+   "items": [
+    {
+     "piece": "research",
+     "tag": "Địa phương",
+     "title": "Đề án KH&CN, đào tạo AI cho cán bộ",
+     "text": "Khảo sát, lập đề án theo định hướng phát triển; bồi dưỡng năng lực số cho công chức."
+    },
+    {
+     "piece": "trace",
+     "tag": "OCOP · Hợp tác xã",
+     "title": "Truy xuất nguồn gốc GS1",
+     "text": "Tem điện tử, chống giả, bảo vệ thương hiệu sản phẩm địa phương."
+    },
+    {
+     "piece": "iot",
+     "tag": "Vùng nông nghiệp",
+     "title": "Thí điểm nông nghiệp IoT",
+     "text": "Giám sát đất – nước, cảnh báo sớm, phát hiện phân bón giả."
+    },
+    {
+     "piece": "training",
+     "tag": "Doanh nghiệp",
+     "title": "ATVSLĐ & chuyển đổi số",
+     "text": "Huấn luyện đủ 6 nhóm kèm tài khoản quản lý số; giải pháp AI."
+    }
+   ],
+   "notes": "Viện xin đề xuất bốn mô hình hợp tác có thể triển khai ngay: với địa phương, với sản phẩm OCOP và hợp tác xã, với vùng nông nghiệp, và với doanh nghiệp."
+  },
+  {
+   "slide": "closing",
+   "title": "Trân trọng\n**cảm ơn**",
+   "sub": "Rất mong được **đồng hành cùng Quý vị**.",
+   "lines": [
+    [
+     "globe",
+     "www.vienstp.com"
+    ],
+    [
+     "mail",
+     "viencongnghestp@gmail.com"
+    ],
+    [
+     "phone",
+     "0827.695.368 · 0968.702.701"
+    ]
+   ],
+   "qr": "qr",
+   "qr_label": "Quét mã để kết nối\nvới Viện STP",
+   "notes": "Xin trân trọng cảm ơn Quý vị đã lắng nghe. Viện STP rất mong được hợp tác, đồng hành cùng Quý vị."
+  }
+ ]
+}

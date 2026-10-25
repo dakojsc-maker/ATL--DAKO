@@ -1,0 +1,508 @@
+{
+ "template": "M07",
+ "title": "Heragrain Foods – Trái cây sấy & trà Đắk Lắk",
+ "brand": {
+  "name": "Heragrain",
+  "sub": "Foods",
+  "icon": "leaf",
+  "menu": [
+   "Về chúng tôi",
+   "Sản phẩm",
+   "Vùng nguyên liệu",
+   "Liên hệ"
+  ],
+  "tagline": "Trái cây sấy & trà · Đắk Lắk · Việt Nam",
+  "colors": {
+   "title": "1D4B3A",
+   "accent": "1D4B3A",
+   "accent2": "E4A92A",
+   "bg": "F6F1E6",
+   "chart": [
+    "1D4B3A",
+    "E4A92A",
+    "7A3E8F",
+    "5E9E68"
+   ]
+  }
+ },
+ "photos": {
+  "mango_cubes": "64917ae04162dac7",
+  "banana_plate": "c13956a12cfdfa10",
+  "banana_green": "826f141e2fd26cd8",
+  "sweet_potato": "d18f0fe3c620cfec",
+  "longan": "302556e1dd8c6194",
+  "longan_basket": "cf5b6dcce2c23df9",
+  "mango_vendor": "7abbdbeec845e36b",
+  "rice_drying": "760bc123b45835ec",
+  "jackfruit_tree": "700bb625238b9941",
+  "dried_apricot": "b029a064611efc1e",
+  "mixed_nuts": "a3c5326f7f625969",
+  "almonds": "2dfd9353d16f0198",
+  "raisins": "b84eb8ce9df7d755",
+  "mango_slice": "8d7b3fbbe9d36153",
+  "mango_plate": "7ad86187efab11f0",
+  "granola": "1beb688e19c67ca0",
+  "banana_dried": "f2232b59f5d57bbc",
+  "rice_field": "1faab6249daa61bd",
+  "terrace": "1272118b3c317d0a",
+  "hills": "eaee7fecc7286deb",
+  "valley": "9947b3eb395cd5b6",
+  "durian_flesh": "2c9d52a291b78b73",
+  "durian_open": "0c5b86f09b96dda0",
+  "durian_tray": "f2b21c6f4795dcb3",
+  "durian_whole": "b3cc17312453defe",
+  "durian_pile": "87e63e824b33b7de",
+  "soursop_tree": "4b3c6afd44adbe59",
+  "soursop_hand": "b825dc68b7d070eb",
+  "sugar_apple": "762dcfe9c738426b",
+  "ginger_dried": "6261ff86801279a1",
+  "ginger_root": "364d058a3fe54efe",
+  "ginger_pile": "cb614d8545d6b06c",
+  "passion_flower": "353d6b05a9a00901"
+ },
+ "products": {
+  "sau_rieng": {
+   "type": "pouch_h",
+   "brand": "Heragrain",
+   "brand_sub": "FOODS",
+   "ink": "1D4B3A",
+   "accent": "E4A92A",
+   "name_en": "Dried Durian",
+   "name_vi": "Sầu riêng sấy",
+   "weight": "100g",
+   "band": "2F6B3F",
+   "photo": "durian_flesh"
+  },
+  "chanh_day": {
+   "type": "pouch_h",
+   "brand": "Heragrain",
+   "brand_sub": "FOODS",
+   "ink": "1D4B3A",
+   "accent": "E4A92A",
+   "name_en": "Passion & Ginger",
+   "name_vi": "Chanh dây gừng sấy",
+   "weight": "100g",
+   "band": "7A3E8F",
+   "photo": "dried_apricot"
+  },
+  "mang_cau": {
+   "type": "pouch_h",
+   "brand": "Heragrain",
+   "brand_sub": "FOODS",
+   "ink": "1D4B3A",
+   "accent": "E4A92A",
+   "name_en": "Dried Soursop",
+   "name_vi": "Mãng cầu sấy",
+   "weight": "100g",
+   "band": "5E9E68",
+   "photo": "soursop_hand"
+  },
+  "gung": {
+   "type": "pouch_h",
+   "brand": "Heragrain",
+   "brand_sub": "FOODS",
+   "ink": "1D4B3A",
+   "accent": "E4A92A",
+   "name_en": "Dried Ginger",
+   "name_vi": "Gừng sấy dẻo",
+   "weight": "100g",
+   "band": "C8901E",
+   "photo": "ginger_dried"
+  },
+  "chuoi": {
+   "type": "pouch_h",
+   "brand": "Heragrain",
+   "brand_sub": "FOODS",
+   "ink": "1D4B3A",
+   "accent": "E4A92A",
+   "name_en": "Banana Chips",
+   "name_vi": "Chuối sấy giòn",
+   "weight": "150g",
+   "band": "8A6A2E",
+   "photo": "banana_dried"
+  }
+ },
+ "slides": [
+  {
+   "slide": "cover",
+   "word": "Heragrain",
+   "script": "Foods",
+   "products": [
+    "sau_rieng",
+    "chanh_day",
+    "mang_cau"
+   ],
+   "kicker": "Giới thiệu sản phẩm",
+   "tagline": "Thấy tận mắt, ăn yên tâm · Trái cây sấy & trà từ Đắk Lắk",
+   "height": 4.6,
+   "notes": "Tên sản phẩm, quy cách và số liệu là MINH HỌA — thay bằng danh mục và hồ sơ sản phẩm thật của HTX."
+  },
+  {
+   "slide": "intro",
+   "title": "Heragrain Foods",
+   "script": "hương vị Tây Nguyên",
+   "text": "**Hợp tác xã Heragrain** (Đắk Lắk) chế biến **trái cây sấy và trà** từ vùng nguyên liệu Tây Nguyên: sầu riêng, chanh dây, mãng cầu, gừng… Sấy lạnh giữ trọn màu sắc, hương vị và dinh dưỡng — **không phẩm màu, không chất bảo quản**, truy xuất được nguồn gốc."
+  },
+  {
+   "slide": "story_product",
+   "nav": 0,
+   "title": "Cửa sổ H",
+   "script": "The H Window",
+   "product": "sau_rieng",
+   "second": "chanh_day",
+   "side": "right",
+   "text": "Chữ **H** trong Heragrain trở thành **cửa sổ trong suốt** trên bao bì, để khách hàng thấy tận mắt miếng trái cây thật bên trong. **Đơn giản – Tinh tế – Đáng tin cậy** – sẵn sàng cho thị trường quốc tế."
+  },
+  {
+   "slide": "story_product",
+   "nav": 2,
+   "title": "Vùng nguyên liệu",
+   "script": "Đắk Lắk",
+   "product": "gung",
+   "second": "mang_cau",
+   "side": "left",
+   "text": "Đất đỏ bazan và khí hậu cao nguyên cho trái cây **thơm, ngọt đậm**. Heragrain thu mua trực tiếp từ **nông hộ thành viên**, kiểm soát từ vườn đến từng mẻ sấy."
+  },
+  {
+   "slide": "values_row",
+   "nav": 0,
+   "title": "Giá trị",
+   "script": "thương hiệu",
+   "text": "Bốn cam kết trên mỗi gói sản phẩm: **minh bạch**, **tự nhiên**, **cao cấp** và **sẵn sàng xuất khẩu**.",
+   "items": [
+    {
+     "product": "sau_rieng",
+     "label": "Minh bạch",
+     "text": "Thấy tận mắt qua cửa sổ H"
+    },
+    {
+     "product": "mang_cau",
+     "label": "Tự nhiên thật",
+     "text": "Không phẩm màu, chất bảo quản"
+    },
+    {
+     "product": "chanh_day",
+     "label": "Hiện đại",
+     "text": "Bao bì cao cấp, tinh tế"
+    },
+    {
+     "product": "gung",
+     "label": "Xuất khẩu",
+     "text": "Sẵn sàng thị trường quốc tế"
+    }
+   ]
+  },
+  {
+   "slide": "lineup",
+   "nav": 1,
+   "title": "Sản phẩm",
+   "script": "Heragrain Foods",
+   "items": [
+    {
+     "word": "Sầu riêng",
+     "product": "sau_rieng",
+     "caption": "Sầu riêng sấy"
+    },
+    {
+     "word": "Chanh dây",
+     "product": "chanh_day",
+     "caption": "Chanh dây gừng sấy"
+    },
+    {
+     "word": "Mãng cầu",
+     "product": "mang_cau",
+     "caption": "Mãng cầu sấy"
+    }
+   ]
+  },
+  {
+   "slide": "category",
+   "nav": 1,
+   "word": "Sầu riêng",
+   "script": "sấy lạnh",
+   "product": "sau_rieng",
+   "caption": "Đặc sản Đắk Lắk — giữ trọn vị béo thơm của sầu riêng chín cây"
+  },
+  {
+   "slide": "carousel",
+   "nav": 1,
+   "height": 4.7,
+   "items": [
+    {
+     "product": "sau_rieng",
+     "name": "Sầu riêng sấy",
+     "script": "Dried Durian",
+     "photo": "terrace",
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "text": "Sầu riêng Đắk Lắk chín cây, **sấy lạnh** giữ vị béo, thơm đặc trưng; túi 100 g."
+    },
+    {
+     "product": "chanh_day",
+     "name": "Chanh dây gừng",
+     "script": "Passion & Ginger",
+     "photo": "hills",
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "text": "Chanh dây kết hợp gừng, **chua ngọt – ấm nồng**; ăn vặt hoặc pha trà."
+    },
+    {
+     "product": "mang_cau",
+     "name": "Mãng cầu sấy",
+     "script": "Dried Soursop",
+     "photo": "valley",
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "text": "Mãng cầu **sấy dẻo**, vị chua dịu tự nhiên, giàu vitamin C."
+    },
+    {
+     "product": "gung",
+     "name": "Gừng sấy dẻo",
+     "script": "Dried Ginger",
+     "photo": "rice_field",
+     "focus": [
+      0.5,
+      0.6
+     ],
+     "text": "Gừng Tây Nguyên **sấy dẻo**, ấm bụng, hợp dùng với trà."
+    },
+    {
+     "product": "chuoi",
+     "name": "Chuối sấy giòn",
+     "script": "Banana Chips",
+     "photo": "terrace",
+     "focus": [
+      0.5,
+      0.4
+     ],
+     "text": "Chuối chín vàng **sấy giòn ít dầu**, ăn vặt lành mạnh cho cả nhà."
+    }
+   ]
+  },
+  {
+   "slide": "features",
+   "nav": 1,
+   "title": "Vì sao chọn",
+   "script": "Heragrain",
+   "product": "sau_rieng",
+   "items": [
+    [
+     "eye",
+     "Thấy tận mắt",
+     "Cửa sổ H cho thấy miếng trái cây thật bên trong."
+    ],
+    [
+     "leaf",
+     "Tự nhiên thật",
+     "100% trái cây, không phẩm màu, không chất bảo quản."
+    ],
+    [
+     "shield-check",
+     "Minh bạch chất lượng",
+     "Truy xuất nguồn gốc từ vùng trồng Đắk Lắk."
+    ],
+    [
+     "globe",
+     "Xuất khẩu sẵn sàng",
+     "Bao bì song ngữ, quy cách theo chuẩn quốc tế."
+    ]
+   ]
+  },
+  {
+   "slide": "specs",
+   "nav": 1,
+   "title": "Thông tin sản phẩm",
+   "script": "Sầu riêng sấy",
+   "product": "sau_rieng",
+   "col_w": [
+    2.4,
+    2.0
+   ],
+   "rows": [
+    [
+     "Thông tin",
+     "Chi tiết"
+    ],
+    [
+     "Thành phần",
+     "100% sầu riêng Đắk Lắk"
+    ],
+    [
+     "Khối lượng",
+     "100 g / túi zip"
+    ],
+    [
+     "Hạn sử dụng",
+     "12 tháng"
+    ],
+    [
+     "Bảo quản",
+     "Nơi khô ráo, thoáng mát"
+    ],
+    [
+     "Tiêu chuẩn",
+     "[TCCS / OCOP …]"
+    ]
+   ],
+   "note": "Thông tin **minh họa** — thay bằng nhãn và hồ sơ công bố sản phẩm của HTX."
+  },
+  {
+   "slide": "usage",
+   "nav": 2,
+   "title": "Quy trình",
+   "script": "từ vườn đến tay bạn",
+   "steps": [
+    [
+     "apple",
+     "Tuyển chọn",
+     "Trái chín cây từ nông hộ thành viên."
+    ],
+    [
+     "droplets",
+     "Sơ chế",
+     "Rửa sạch, tách múi, cắt lát đều tay."
+    ],
+    [
+     "sun",
+     "Sấy lạnh",
+     "Nhiệt độ thấp, giữ màu, mùi và dinh dưỡng."
+    ],
+    [
+     "package-open",
+     "Đóng gói",
+     "Túi zip cửa sổ H, dán nhãn truy xuất."
+    ],
+    [
+     "truck",
+     "Phân phối",
+     "Cửa hàng, sàn TMĐT và xuất khẩu."
+    ]
+   ]
+  },
+  {
+   "slide": "results",
+   "nav": 2,
+   "title": "Kết quả",
+   "script": "hợp tác xã",
+   "photo": "durian_tray",
+   "focus": [
+    0.5,
+    0.5
+   ],
+   "chart": {
+    "cats": [
+     "2023",
+     "2024",
+     "2025",
+     "2026"
+    ],
+    "series": [
+     [
+      "Sản lượng (tấn)",
+      [
+       12,
+       18,
+       26,
+       35
+      ]
+     ]
+    ],
+    "fmt": "0",
+    "max": 40
+   },
+   "kpis": [
+    [
+     "120",
+     "+",
+     "Hộ thành viên liên kết"
+    ],
+    [
+     "5",
+     "",
+     "Dòng sản phẩm chủ lực"
+    ],
+    [
+     "+30",
+     "%",
+     "Thu nhập nông hộ"
+    ]
+   ],
+   "note": "Số liệu minh họa — thay bằng số liệu thực tế của HTX."
+  },
+  {
+   "slide": "window_cards",
+   "nav": 2,
+   "title": "Vùng nguyên liệu",
+   "script": "Tây Nguyên",
+   "text": "Hình ảnh **vùng trồng và nông sản** — thay bằng ảnh thật của HTX Heragrain.",
+   "items": [
+    {
+     "photo": "durian_whole",
+     "name": "Sầu riêng Đắk Lắk",
+     "focus": [
+      0.5,
+      0.5
+     ]
+    },
+    {
+     "photo": "soursop_tree",
+     "focus": [
+      0.5,
+      0.5
+     ]
+    },
+    {
+     "photo": "ginger_pile",
+     "focus": [
+      0.5,
+      0.5
+     ]
+    }
+   ]
+  },
+  {
+   "slide": "conclusion",
+   "nav": 0,
+   "title": "Heragrain Foods",
+   "script": "Thấy tận mắt, ăn yên tâm",
+   "text": "Trái cây sấy & trà từ Đắk Lắk: **tự nhiên – minh bạch – cao cấp**, nâng giá trị nông sản Tây Nguyên và thu nhập cho bà con.",
+   "products": [
+    "gung",
+    "chanh_day",
+    "sau_rieng",
+    "mang_cau",
+    "chuoi"
+   ]
+  },
+  {
+   "slide": "contact",
+   "word": "Cảm ơn",
+   "script": "Heragrain Foods",
+   "product": "sau_rieng",
+   "lines": [
+    [
+     "phone",
+     "Hotline: 0xxx xxx xxx"
+    ],
+    [
+     "globe",
+     "www.heragrain.vn"
+    ],
+    [
+     "mail",
+     "lienhe@heragrain.vn"
+    ],
+    [
+     "map-pin",
+     "Đắk Lắk, Việt Nam [cập nhật địa chỉ]"
+    ]
+   ]
+  }
+ ]
+}

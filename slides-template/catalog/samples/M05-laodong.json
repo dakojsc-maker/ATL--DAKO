@@ -1,0 +1,550 @@
+{
+ "template": "M05",
+ "title": "Lao động và việc làm",
+ "photos": {
+  "hardhats": "d119e878424a5b1c",
+  "crew": "b546453e5a77a149",
+  "welder": "0dadb05222306ab8",
+  "sparks": "8732ae26e489596d",
+  "sparks_blue": "6a6a2288244b0297",
+  "tunnel": "cdccdf75b3b8e98c",
+  "crew_yellow": "ca82c23ece62563f",
+  "carpenter": "7b04f5074a2fad76",
+  "worker_portrait": "05c6fc62d2980f50",
+  "harvest": "2c876896fc126711",
+  "harvest2": "5c0882d88c80ab1c",
+  "doctor2": "56fd536256dae19b",
+  "businesswoman": "1012be5da4a238ab",
+  "businessmen": "b3326da0ca981d1a",
+  "vn_traffic": "7ee98d67d1689b95",
+  "vn_market": "5d944a35b5ecc2b0",
+  "vn_mekong": "ae5c888e72a3a9c4",
+  "vn_hue_market": "229fdb06735b52a4"
+ },
+ "slides": [
+  {
+   "slide": "cover",
+   "image": "hardhats",
+   "focus": [
+    0.62,
+    0.5
+   ],
+   "kicker": "Địa lí 12 · Kinh tế – xã hội",
+   "title1": "Lao động",
+   "title2": "Việc làm",
+   "presenter": "Trình bày: Nhóm 2 – Lớp 12A1"
+  },
+  {
+   "slide": "agenda",
+   "image": "sparks",
+   "focus": [
+    0.7,
+    0.5
+   ],
+   "heading": "Nội dung trình bày",
+   "sections": [
+    [
+     "Đặc điểm nguồn lao động",
+     [
+      "Số lượng lao động",
+      "Chất lượng lao động",
+      "Phân bố lao động"
+     ]
+    ],
+    [
+     "Sử dụng lao động",
+     [
+      "Theo ngành kinh tế",
+      "Theo thành phần kinh tế"
+     ]
+    ],
+    [
+     "Vấn đề việc làm & hướng giải quyết",
+     [
+      "Vấn đề việc làm",
+      "Hướng giải quyết việc làm"
+     ]
+    ]
+   ]
+  },
+  {
+   "slide": "section",
+   "num": "I.",
+   "title": "Đặc điểm nguồn lao động",
+   "image": "crew",
+   "focus": [
+    0.5,
+    0.45
+   ],
+   "desc": "Số lượng, chất lượng và sự phân bố của lực lượng lao động nước ta."
+  },
+  {
+   "slide": "chart_text",
+   "title": "1. Số lượng lao động",
+   "crumb": "I. Đặc điểm nguồn lao động",
+   "lead": "**Nước ta có nguồn lao động dồi dào.**\nNăm 2024, lực lượng lao động (dân số hoạt động kinh tế) của nước ta là **52,9 triệu người**, chiếm **52,2%** tổng số dân.",
+   "image": "vn_traffic",
+   "chart": {
+    "cats": [
+     "2010",
+     "2015",
+     "2020",
+     "2021",
+     "2024"
+    ],
+    "values": [
+     50.4,
+     54.3,
+     54.8,
+     50.6,
+     52.9
+    ],
+    "name": "Lực lượng lao động",
+    "fmt": "0.0",
+    "y_title": "Lực lượng lao động (triệu người)",
+    "max": 60
+   },
+   "caption": "Hình 1. Lực lượng lao động từ 15 tuổi trở lên của nước ta giai đoạn 2010 – 2024",
+   "source": "Nguồn: Niên giám thống kê Việt Nam các năm, Tổng cục Thống kê"
+  },
+  {
+   "slide": "table_text",
+   "title": "2. Chất lượng lao động",
+   "crumb": "I. Đặc điểm nguồn lao động",
+   "bullets": [
+    "Lao động nước ta **cần cù, sáng tạo, có nhiều kinh nghiệm** sản xuất trong nông nghiệp, lâm nghiệp, thủy sản, tiểu thủ công nghiệp.",
+    "Chất lượng lao động **ngày càng được nâng lên** nhờ thành tựu phát triển kinh tế, y tế, văn hóa, giáo dục – đào tạo. **Năm 2024**, tỉ lệ lao động qua đào tạo từ sơ cấp trở lên đạt **28,4%**.",
+    "So với yêu cầu công nghiệp hóa, hiện đại hóa, lao động có trình độ chuyên môn kĩ thuật cao **còn hạn chế**; lao động **năng động, dễ tiếp thu** khoa học – công nghệ."
+   ],
+   "caption": "Bảng 1. Tỉ lệ lao động từ 15 tuổi trở lên đã qua đào tạo phân theo trình độ chuyên môn kĩ thuật, giai đoạn 2010 – 2024",
+   "unit": "(Đơn vị: %)",
+   "col_w": [
+    2.2,
+    1,
+    1,
+    1,
+    1
+   ],
+   "rows": [
+    [
+     "Trình độ",
+     "2010",
+     "2015",
+     "2020",
+     "2024"
+    ],
+    [
+     "Đã qua đào tạo",
+     "14,6",
+     "20,4",
+     "24,1",
+     "28,4"
+    ],
+    [
+     "Sơ cấp",
+     "3,8",
+     "3,3",
+     "4,7",
+     "6,3"
+    ],
+    [
+     "Trung cấp",
+     "3,4",
+     "5,4",
+     "4,5",
+     "4,3"
+    ],
+    [
+     "Cao đẳng",
+     "1,7",
+     "3,0",
+     "3,8",
+     "4,2"
+    ],
+    [
+     "Đại học trở lên",
+     "5,7",
+     "8,7",
+     "11,1",
+     "13,6"
+    ],
+    [
+     "Chưa qua đào tạo",
+     "85,4",
+     "79,6",
+     "75,9",
+     "71,6"
+    ]
+   ],
+   "source": "Nguồn: Niên giám thống kê Việt Nam các năm, Tổng cục Thống kê"
+  },
+  {
+   "slide": "map_regions",
+   "title": "3. Phân bố lao động",
+   "crumb": "I. Đặc điểm nguồn lao động",
+   "pill": "Phân bố lao động có sự khác nhau giữa các khu vực, các vùng",
+   "bullets": [
+    "Năm 2024, lao động ở nông thôn nước ta là hơn **32,5 triệu người**, ở thành thị là **20,4 triệu người**.",
+    "**Đồng bằng sông Hồng** là vùng có nhiều lao động nhất; **Tây Nguyên** có ít lao động nhất."
+   ],
+   "values": {
+    "TDMNBB": 13.9,
+    "DBSH": 23.3,
+    "BTB_DHMT": 20.4,
+    "TN": 7.0,
+    "DNB": 18.6,
+    "DBSCL": 16.8
+   },
+   "photos": [
+    "vn_market",
+    "harvest",
+    "vn_mekong"
+   ],
+   "note": "Tỉ trọng lao động theo vùng (%) — số liệu minh họa, thay bằng số liệu thực tế."
+  },
+  {
+   "slide": "section",
+   "num": "II.",
+   "title": "Sử dụng lao động",
+   "image": "tunnel",
+   "focus": [
+    0.55,
+    0.45
+   ],
+   "desc": "Cơ cấu lao động theo ngành và theo thành phần kinh tế."
+  },
+  {
+   "slide": "callout_table",
+   "title": "1. Theo ngành kinh tế",
+   "crumb": "II. Sử dụng lao động",
+   "callout": "Theo ngành kinh tế, **cơ cấu lao động nước ta có sự chuyển dịch** phù hợp với đường lối công nghiệp hóa, hiện đại hóa: giảm tỉ lệ lao động trong nông, lâm nghiệp và thủy sản; tăng tỉ lệ lao động trong công nghiệp, xây dựng và dịch vụ.",
+   "caption": "Bảng 2. Cơ cấu lao động có việc làm phân theo ngành kinh tế, giai đoạn 2010 – 2024",
+   "unit": "(Đơn vị: %)",
+   "col_w": [
+    3.2,
+    1,
+    1,
+    1,
+    1
+   ],
+   "rows": [
+    [
+     "Ngành",
+     "2010",
+     "2015",
+     "2020",
+     "2024"
+    ],
+    [
+     "Nông nghiệp, lâm nghiệp và thủy sản",
+     "49,5",
+     "43,6",
+     "33,1",
+     "26,4"
+    ],
+    [
+     "Công nghiệp và xây dựng",
+     "20,9",
+     "23,0",
+     "30,8",
+     "33,4"
+    ],
+    [
+     "Dịch vụ",
+     "29,6",
+     "33,4",
+     "36,1",
+     "40,2"
+    ]
+   ],
+   "source": "Nguồn: Niên giám thống kê Việt Nam các năm, Tổng cục Thống kê"
+  },
+  {
+   "slide": "callout_pies",
+   "title": "2. Theo thành phần kinh tế",
+   "crumb": "II. Sử dụng lao động",
+   "callout": "Việt Nam phát triển nền kinh tế thị trường định hướng xã hội chủ nghĩa, nhiều thành phần kinh tế. Cơ cấu lao động **giảm tỉ lệ ở khu vực Nhà nước và ngoài Nhà nước**, **tăng tỉ lệ ở khu vực có vốn đầu tư nước ngoài**.",
+   "cats": [
+    "Kinh tế Nhà nước",
+    "Kinh tế ngoài Nhà nước",
+    "Khu vực có vốn đầu tư nước ngoài"
+   ],
+   "pies": [
+    [
+     "Năm 2010",
+     [
+      10.4,
+      86.1,
+      3.5
+     ]
+    ],
+    [
+     "Năm 2024",
+     [
+      7.7,
+      81.9,
+      10.4
+     ]
+    ]
+   ],
+   "caption": "Hình 2. Cơ cấu lao động có việc làm theo thành phần kinh tế năm 2010 và 2024 (%)",
+   "source": "Nguồn: Niên giám thống kê Việt Nam các năm, Tổng cục Thống kê"
+  },
+  {
+   "slide": "section",
+   "num": "III.",
+   "title": "Vấn đề việc làm & hướng giải quyết",
+   "image": "welder",
+   "focus": [
+    0.6,
+    0.5
+   ],
+   "desc": "Tỉ lệ thất nghiệp, thiếu việc làm và các giải pháp tạo việc làm bền vững."
+  },
+  {
+   "slide": "callout_table",
+   "title": "1. Vấn đề việc làm",
+   "crumb": "III. Vấn đề việc làm & hướng giải quyết",
+   "callout": "Việc làm có vai trò đặc biệt quan trọng đối với mỗi cá nhân, gia đình và toàn xã hội. **Hầu hết lao động nước ta có việc làm; tỉ lệ thất nghiệp và thiếu việc làm khá thấp.** Thành thị có tỉ lệ thất nghiệp cao hơn nông thôn, nhưng thiếu việc làm thì ngược lại.",
+   "caption": "Bảng 3. Tỉ lệ thất nghiệp và thiếu việc làm trong độ tuổi lao động phân theo thành thị, nông thôn, giai đoạn 2010 – 2024",
+   "unit": "(Đơn vị: %)",
+   "col_w": [
+    2.2,
+    1.4,
+    1,
+    1,
+    1,
+    1
+   ],
+   "rows": [
+    [
+     "Chỉ tiêu",
+     "Khu vực",
+     "2010",
+     "2015",
+     "2020",
+     "2024"
+    ],
+    [
+     "Tỉ lệ thất nghiệp",
+     "Thành thị",
+     "4,29",
+     "3,37",
+     "3,89",
+     "2,53"
+    ],
+    [
+     "",
+     "Nông thôn",
+     "2,35",
+     "1,82",
+     "1,75",
+     "2,04"
+    ],
+    [
+     "Tỉ lệ thiếu việc làm",
+     "Thành thị",
+     "1,82",
+     "0,84",
+     "1,69",
+     "1,29"
+    ],
+    [
+     "",
+     "Nông thôn",
+     "4,26",
+     "2,39",
+     "2,94",
+     "2,22"
+    ]
+   ],
+   "source": "Nguồn: Niên giám thống kê Việt Nam các năm, Tổng cục Thống kê"
+  },
+  {
+   "slide": "compare",
+   "title": "Thành thị và nông thôn năm 2024",
+   "crumb": "III. Vấn đề việc làm & hướng giải quyết",
+   "cols": [
+    {
+     "title": "Thành thị",
+     "image": "vn_traffic",
+     "stats": [
+      [
+       "20,4",
+       "triệu lao động"
+      ],
+      [
+       "2,53%",
+       "tỉ lệ thất nghiệp"
+      ],
+      [
+       "1,29%",
+       "tỉ lệ thiếu việc làm"
+      ]
+     ],
+     "text": "Thất nghiệp cao hơn do **lao động tập trung đông**, yêu cầu tay nghề cao."
+    },
+    {
+     "title": "Nông thôn",
+     "image": "harvest2",
+     "focus": [
+      0.5,
+      0.4
+     ],
+     "stats": [
+      [
+       "32,5",
+       "triệu lao động"
+      ],
+      [
+       "2,04%",
+       "tỉ lệ thất nghiệp"
+      ],
+      [
+       "2,22%",
+       "tỉ lệ thiếu việc làm"
+      ]
+     ],
+     "text": "Thiếu việc làm cao hơn do **tính mùa vụ** của sản xuất nông nghiệp."
+    }
+   ],
+   "note": "Nguồn: Niên giám thống kê Việt Nam các năm, Tổng cục Thống kê"
+  },
+  {
+   "slide": "stats",
+   "title": "Thị trường lao động năm 2024",
+   "crumb": "III. Vấn đề việc làm & hướng giải quyết",
+   "lead": "Một số chỉ tiêu chính về lao động – việc làm của nước ta (**năm 2024**).",
+   "items": [
+    [
+     "users",
+     "52,9",
+     "triệu",
+     "Lực lượng lao động từ 15 tuổi trở lên"
+    ],
+    [
+     "graduation-cap",
+     "28,4",
+     "%",
+     "Lao động đã qua đào tạo từ sơ cấp trở lên"
+    ],
+    [
+     "briefcase",
+     "40,2",
+     "%",
+     "Lao động làm việc trong khu vực dịch vụ"
+    ],
+    [
+     "trending-down",
+     "2,53",
+     "%",
+     "Tỉ lệ thất nghiệp ở khu vực thành thị"
+    ]
+   ],
+   "image": "crew_yellow",
+   "focus": [
+    0.5,
+    0.35
+   ]
+  },
+  {
+   "slide": "people_list",
+   "title": "2. Hướng giải quyết việc làm",
+   "crumb": "III. Vấn đề việc làm & hướng giải quyết",
+   "pill": "Để đảm bảo đủ việc làm cho người lao động, nước ta cần thực hiện các giải pháp chủ yếu sau:",
+   "items": [
+    [
+     "Hoàn thiện chính sách, pháp luật",
+     "về lao động nhằm khuyến khích, hỗ trợ, huy động mọi nguồn lực đầu tư tạo việc làm."
+    ],
+    [
+     "Thúc đẩy tạo việc làm mới",
+     "thông qua phát triển các ngành kinh tế, kinh tế số, đổi mới sáng tạo."
+    ],
+    [
+     "Đẩy mạnh đào tạo, dạy nghề",
+     "nâng cao trình độ chuyên môn kĩ thuật, kĩ năng làm việc, tác phong công nghiệp."
+    ],
+    [
+     "Phát triển hệ thống thông tin thị trường lao động",
+     "để người lao động tìm việc nhanh, minh bạch."
+    ],
+    [
+     "Thực hiện tốt bảo hiểm xã hội, bảo hiểm thất nghiệp",
+     "hỗ trợ người mất việc sớm trở lại làm việc."
+    ]
+   ],
+   "people": [
+    "worker",
+    "businessman",
+    "nurse",
+    "businesswoman"
+   ]
+  },
+  {
+   "slide": "process",
+   "title": "Từ đào tạo đến việc làm bền vững",
+   "crumb": "III. Vấn đề việc làm & hướng giải quyết",
+   "lead": "Chuỗi giải pháp gắn **giáo dục nghề nghiệp** với **nhu cầu của thị trường lao động**.",
+   "steps": [
+    [
+     "search",
+     "Định hướng nghề nghiệp",
+     "Tư vấn chọn nghề phù hợp năng lực và nhu cầu xã hội."
+    ],
+    [
+     "graduation-cap",
+     "Đào tạo, dạy nghề",
+     "Gắn nhà trường với doanh nghiệp, đào tạo kĩ năng số."
+    ],
+    [
+     "handshake",
+     "Kết nối việc làm",
+     "Sàn giao dịch việc làm, thông tin thị trường lao động."
+    ],
+    [
+     "building-2",
+     "Việc làm bền vững",
+     "Phát triển doanh nghiệp, thu hút đầu tư tạo việc làm mới."
+    ],
+    [
+     "shield-check",
+     "An sinh xã hội",
+     "Bảo hiểm thất nghiệp, hỗ trợ chuyển đổi nghề."
+    ]
+   ],
+   "image": "sparks_blue",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "slide": "photo_quote",
+   "title": "Kết luận",
+   "crumb": "III. Vấn đề việc làm & hướng giải quyết",
+   "image": "carpenter",
+   "focus": [
+    0.5,
+    0.35
+   ],
+   "quote": "Nguồn lao động **dồi dào, chất lượng ngày càng nâng lên** là lợi thế lớn cho phát triển kinh tế – xã hội của nước ta.",
+   "points": [
+    "Cơ cấu lao động chuyển dịch theo hướng **công nghiệp hóa, hiện đại hóa**.",
+    "Tỉ lệ thất nghiệp và thiếu việc làm **ở mức thấp**.",
+    "Cần **nâng cao chất lượng** lao động để đáp ứng thời kì mới."
+   ]
+  },
+  {
+   "slide": "thanks",
+   "image": "hardhats",
+   "focus": [
+    0.62,
+    0.5
+   ],
+   "title1": "Xin cảm ơn",
+   "title2": "đã lắng nghe",
+   "presenter": "Trình bày: Nhóm 2 – Lớp 12A1"
+  }
+ ]
+}
