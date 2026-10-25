@@ -51,7 +51,11 @@ Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"�
    phương án bao bì cùng lúc.
    Mẫu M08/M09 (hồ sơ doanh nghiệp / giới thiệu dịch vụ, chung `lib/layouts_corporate.py`): `"brand"` gồm `name`,
    `short`, `initial` (chữ trong biểu tượng vòng sáng của M08) và `"colors"` ghi đè màu theme (`dark`, `primary`,
-   `light`, `accent`, `bg`…); chân dung slide `letter` lấy từ `assets/images/cut/ld_<khóa>.png`.
+   `light`, `accent`, `bg`…, `ring`), `logo` (PNG logo thật thay cho chữ cái trong vòng sáng), `pattern: "circuit"`
+   (họa tiết mạch điện tử), `watermark: false`; chân dung slide `letter` lấy từ `assets/images/cut/ld_<khóa>.png`.
+   Dạng slide thêm: `hub` (4 trụ cột quanh logo), `spotlight` (hình tách nền / ảnh màn hình trong khung trình duyệt
+   + 4 chú thích), `cards` (lưới thẻ ảnh), `partners` (logo đối tác), `offices` (bản đồ văn phòng). Mọi slide nhận
+   `"notes"` (ghi chú thuyết trình). Ví dụ đầy đủ: `decks/vien-stp/` (bộ slide Viện STP, dựng từ `make_content.py`).
    Mẫu M10 (du lịch): bản đồ đêm tạo bằng `tools/make_map.py --name <ten> --style navy --center lon,lat --place key:lon,lat`,
    đặt `"map": "<ten>"` trong content.json, slide `map_info` ghim các `key` qua `"pins"`; máy ảnh tách nền
    `assets/images/cut/dn_<khóa>.png`. Ảnh mẫu không chụp tại địa phương phải thay bằng ảnh đúng địa danh.

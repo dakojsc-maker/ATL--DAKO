@@ -209,7 +209,9 @@
     ["section", "Chuyển phần – số lớn trên ảnh phủ màu"], ["overview", "Tổng quan + ảnh + 4 chỉ số"], ["milestones", "Lịch sử / quy trình – trục thời gian so le"],
     ["org_chart", "Sơ đồ tổ chức 4 cấp"], ["pillars", "3 trụ cột (tầm nhìn – sứ mệnh – giá trị)"], ["services", "Danh sách lĩnh vực / sản phẩm + ảnh (nền sáng hoặc tối)"],
     ["projects", "3 thẻ dự án / gói dịch vụ có ảnh + nhãn"], ["big_numbers", "4 con số lớn + ảnh"], ["phone_app", "Ứng dụng số – điện thoại vẽ bằng hình"],
-    ["chart", "Biểu đồ cột/đường gốc + 3 KPI"], ["table_slide", "Bảng gốc (chứng chỉ, so sánh quyền lợi)"], ["thanks", "Cảm ơn + liên hệ"]
+    ["chart", "Biểu đồ cột/đường gốc + 3 KPI"], ["table_slide", "Bảng gốc (chứng chỉ, so sánh quyền lợi)"], ["thanks", "Cảm ơn + liên hệ (+ mã QR)"],
+    ["hub", "4 trụ cột quanh logo"], ["spotlight", "Hình nổi bật / ảnh màn hình + 4 chú thích"], ["cards", "Lưới thẻ ảnh, ảnh có chú thích"],
+    ["partners", "Tường logo đối tác theo nhóm"], ["offices", "Bản đồ + hệ thống văn phòng"]
    ]
   },
   {

@@ -3,9 +3,10 @@ Procedural artwork for the corporate templates (M08 "Hồ sơ Doanh nghiệp", M
 
 Every function writes a PNG/JPG and returns its path.
     tech_bg()      deep blue cover / section background: radial glow, diagonal light streaks, fine grid, bokeh
-    light_bg()     near-white content background with a soft tint, diagonal light planes and an optional faint
-                   architectural photo watermark on one side
-    ring_emblem()  glowing 3D ring logo with an orbit and the brand initial (stand-in for the client's logo)
+    light_bg()     near-white content background with a soft tint, diagonal light planes, an optional faint
+                   architectural photo watermark on one side and optional circuit traces
+    circuit()      printed-circuit trace mask (used by tech_bg / light_bg with traces=True)
+    ring_emblem()  glowing 3D ring with an orbit and the brand initial or the client's logo in the centre
     chevron_bg()   green gradient with large translucent chevrons (service template cover / sections)
     photo_tint()   photo with a colour gradient overlay baked in (section slides)
 """
@@ -39,8 +40,35 @@ def _save(arr, out, quality=90):
 
 
 # ------------------------------------------------------------------ backgrounds
+def circuit(h, w, seed=11, n=34, width=2, avoid=None):
+    """Faint printed-circuit traces (float mask 0..1): horizontal runs with 45° bends ending in round pads.
+    avoid = (x0, y0, x1, y1) fractions kept free of traces (e.g. the title area)."""
+    rng = np.random.default_rng(seed)
+    m = np.zeros((h, w), np.float32)
+    for _ in range(n):
+        x, y = rng.uniform(0, w), rng.uniform(0, h)
+        if avoid and avoid[0] * w < x < avoid[2] * w and avoid[1] * h < y < avoid[3] * h:
+            continue
+        pts = [(x, y)]
+        dx = rng.choice((-1, 1))
+        for k in range(rng.integers(2, 4)):
+            run = rng.uniform(0.04, 0.16) * w
+            x += dx * run
+            pts.append((x, y))
+            if k < 2:
+                d = rng.uniform(0.02, 0.07) * w
+                x += dx * d
+                y += rng.choice((-1, 1)) * d
+                pts.append((x, y))
+        p = np.array(pts, np.int32)
+        cv2.polylines(m, [p], False, 1.0, width, lineType=cv2.LINE_AA)
+        for (px, py) in (pts[0], pts[-1]):
+            cv2.circle(m, (int(px), int(py)), width * 3, 1.0, width, lineType=cv2.LINE_AA)
+    return m
+
+
 def tech_bg(out, w=1920, h=1080, dark='04145A', mid='0B3BD1', light='3FA9FF', glow=(0.68, 0.5), seed=3,
-            streaks=True, grid=True):
+            streaks=True, grid=True, traces=False):
     rng = np.random.default_rng(seed)
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
     gx, gy = glow
@@ -65,6 +93,9 @@ def tech_bg(out, w=1920, h=1080, dark='04145A', mid='0B3BD1', light='3FA9FF', gl
         g[(xx.astype(int) % step) == 0] = 1
         g = cv2.GaussianBlur(g, (0, 0), 0.6) * 0.05 * np.clip(1.1 - r, 0, 1)
         img = img + (_hex(light) - img) * g[..., None]
+    if traces:
+        tr = circuit(h, w, seed + 20, n=40)
+        img = img + (_hex(light) - img) * (tr * 0.16)[..., None]
     # bokeh
     bok = np.zeros((h, w), np.float32)
     for _ in range(26):
@@ -77,7 +108,7 @@ def tech_bg(out, w=1920, h=1080, dark='04145A', mid='0B3BD1', light='3FA9FF', gl
 
 
 def light_bg(out, w=1920, h=1080, base='F4F7FB', tint='DCE7F7', accent='1F4FD8', photo=None, photo_side='right',
-             photo_alpha=0.12, seed=5, planes=True):
+             photo_alpha=0.12, seed=5, planes=True, traces=False):
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
     t = np.clip(xx / w * 0.6 + yy / h * 0.4, 0, 1)[..., None]
     img = _hex(base) * (1 - t) + _hex(tint) * t
@@ -99,6 +130,9 @@ def light_bg(out, w=1920, h=1080, base='F4F7FB', tint='DCE7F7', accent='1F4FD8',
         x0 = w - pw if photo_side == 'right' else 0
         reg = img[:, x0:x0 + pw]
         img[:, x0:x0 + pw] = reg * (1 - a[..., None]) + _hex(accent) * 0.6 * a[..., None]
+    if traces:   # faint circuit traces, kept off the title band
+        tr = circuit(h, w, seed + 7, n=30, avoid=(0, 0, 0.75, 0.22))
+        img = img + (_hex(accent) - img) * (tr * 0.07)[..., None]
     img += np.random.default_rng(seed).normal(0, 0.8, (h, w, 1))
     return _save(img, out)
 
@@ -142,7 +176,9 @@ def photo_tint(src, out, color='0A5C36', w=1920, h=1080, focus=(0.5, 0.5), stren
 
 
 # ------------------------------------------------------------------ emblem
-def ring_emblem(out, letter='C', size=900, c1='0B3BD1', c2='7FD4FF', glow='3FA9FF', font_path=None, ss=2):
+def ring_emblem(out, letter='C', size=900, c1='0B3BD1', c2='7FD4FF', glow='3FA9FF', font_path=None, ss=2, logo=None,
+                logo_scale=0.44):
+    """Glowing ring; the centre holds the brand initial (letter + font_path) or the brand's own logo (PNG path)."""
     S = size * ss
     yy, xx = np.mgrid[0:S, 0:S].astype(np.float32)
     cx = cy = S / 2
@@ -188,6 +224,16 @@ def ring_emblem(out, letter='C', size=900, c1='0B3BD1', c2='7FD4FF', glow='3FA9F
         a = np.maximum(a, lm * 255)
     big = Image.fromarray(np.dstack([np.clip(rgb, 0, 255), np.clip(a, 0, 255)]).astype(np.uint8), 'RGBA')
     big = big.resize((size, size), Image.LANCZOS)
+    if logo:
+        lg = Image.open(logo).convert('RGBA')
+        lg = lg.crop(lg.getbbox())
+        k = size * logo_scale / max(lg.size)
+        lg = lg.resize((int(lg.width * k), int(lg.height * k)), Image.LANCZOS)
+        sh = Image.new('RGBA', lg.size, (0, 0, 0, 0))
+        sh.putalpha(lg.split()[3].filter(ImageFilter.GaussianBlur(size * 0.012)).point(lambda v: int(v * 0.45)))
+        x, y = (size - lg.width) // 2, (size - lg.height) // 2
+        big.alpha_composite(sh, (x, y + int(size * 0.012)))
+        big.alpha_composite(lg, (x, y))
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     big.save(out, optimize=True)
     return out

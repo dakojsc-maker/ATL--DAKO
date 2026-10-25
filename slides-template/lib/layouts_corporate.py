@@ -145,7 +145,10 @@ def logo(s, ctx, x=None, y=0.32, dark=False, size=0.42):
     nw = K.text_w(name, F('title'), 11) + len(name) * 1.5 / 72 + 0.1
     x = x if x is not None else SW - ML - nw - size - 0.1
     out = []
-    if TECH():
+    if ctx['art'].get('logo'):
+        out.append(K.picture(s, ctx['art']['logo'], x, y - 0.06, size + 0.12, size + 0.12, fit='contain',
+                             nm='!!logo_mark'))
+    elif TECH():
         out.append(K.picture(s, ctx['art']['emblem'], x, y - 0.05, size + 0.1, size + 0.1, nm='!!logo_mark'))
     else:
         for k in range(3):
@@ -381,10 +384,13 @@ def section(prs, ctx, c):
             if sf is not None:
                 c_ = sf.find(K.qn('a:srgbClr'))
                 K.etree.SubElement(c_, K.qn('a:alpha')).set('val', '45000')
+    cut = None
+    if c.get('cut'):                                   # cut-out person / object standing on the left
+        cut = K.picture(s, pic(ctx, c['cut'], prefer_cut=True), 0.0, 0.9, 5.6, SH - 0.9, fit='contain', nm='!!cut')
     t = c['title'].upper() if TECH() else c['title']
     lines = t.split('\n')
     size = 44
-    while max(K.text_w(x, F('title'), size) for x in lines) > 7.6 and size > 26:
+    while max(K.text_w(x, F('title'), size) for x in lines) > (6.8 if cut is not None else 7.6) and size > 26:
         size -= 2
     tt = title_text(s, SW - ML - 8.0, 4.1, 8.0, size / 72 * 1.25 * len(lines) + 0.1, t, size, color='FFFFFF',
                     align='r', nm='!!sectitle', line_sp=0.95)
@@ -393,6 +399,8 @@ def section(prs, ctx, c):
     ds = K.text(s, SW - ML - 7.0, 4.25 + size / 72 * 1.25 * len(lines), 7.0, 0.9, c.get('desc', ''), size=13,
                 font=F('body'), color='E6EEFF', align='r', line_sp=1.2) if c.get('desc') else None
     lg = logo(s, ctx, dark=True)
+    if cut is not None:
+        K.anim(s, cut, 'fly_l', 0.2, 0.8)
     K.anim(s, nb, 'zoom', 0.1, 0.9)
     K.anim(s, tt, 'rise', 0.5, 0.7)
     if ds is not None:
@@ -781,7 +789,9 @@ def thanks(prs, ctx, c):
     out = []
     if TECH():
         bg_dark(s, ctx, 'cover_bg')
-        out.append(K.picture(s, ctx['art']['emblem'], 8.2, 1.1, 4.6, 4.6, nm='!!emblem'))
+        ed = 4.2 if c.get('qr') else 4.6
+        out.append(K.picture(s, ctx['art']['emblem'], 10.5 - ed / 2, 0.75 if c.get('qr') else 1.1, ed, ed,
+                             nm='!!emblem'))
     else:
         bg_dark(s, ctx, 'cover_bg')
         out.append(photo(s, ctx, c['photo'], 7.2, 0.0, 6.2, SH, focus=c.get('focus', (0.5, 0.5)), nm='!!ph1'))
@@ -799,11 +809,333 @@ def thanks(prs, ctx, c):
                      K.text(s, ML + 0.5, y, 6.2, 0.42, tx, size=13, font=F('semi'), color='FFFFFF', anchor='m')])
         y += 0.52
     lg = logo(s, ctx, x=ML, y=0.45, dark=True)
+    qr = []
+    if c.get('qr'):
+        qx, qy = (9.65, 5.0) if TECH() else (ML + 4.9, 5.0)
+        qc = K.rect(s, qx, qy, 1.7, 2.0, fill='FFFFFF', radius=0.12)
+        K.shadow(qc, blur=0.35, dist=0.1, alpha=35, color='000000', angle=90)
+        K._ensure_ln_before_effects(qc)
+        qr = [qc, K.picture(s, pic(ctx, c['qr']), qx + 0.15, qy + 0.13, 1.4, 1.4),
+              K.text(s, qx, qy + 1.55, 1.7, 0.35, c.get('qr_label', 'Quét mã QR'), size=9.5, font=F('semi'),
+                     color=T['ink'], align='c', anchor='m')]
     K.anims(s, out, 'zoom' if TECH() else 'fly_r', 0.0, 0.0, 1.0)
     K.anim(s, tt, 'rise', 0.4, 0.8)
+    if qr:
+        K.anims(s, [qr], 'zoom', 1.5, 0.0, 0.5)
     K.anim(s, sub, 'fade', 0.9, 0.5)
     K.anims(s, rows, 'wipe_l', 1.1, 0.12, 0.4)
     K.anims(s, lg, 'fade', 0.2, 0.0, 0.4)
+    return s
+
+
+# ================================================================== helpers for image-led slides
+def _img_size(path):
+    from PIL import Image
+    return Image.open(path).size
+
+
+def _contain(s, path, x, y, w, h, nm=None, valign='m'):
+    """Picture scaled to fit inside the box; returns (shape, (x, y, w, h) actually used)."""
+    iw, ih = _img_size(path)
+    r = min(w / iw, h / ih)
+    pw, ph = iw * r, ih * r
+    px = x + (w - pw) / 2
+    py = y + {'t': 0, 'm': (h - ph) / 2, 'b': h - ph}[valign]
+    return K.picture(s, path, px, py, pw, ph, nm=nm), (px, py, pw, ph)
+
+
+def browser(s, path, x, y, w, url='', nm=None):
+    """Screenshot inside a browser window (title bar with three dots and the address); height follows the image."""
+    iw, ih = _img_size(path)
+    bar = 0.34
+    h = (w - 0.1) * ih / iw + bar + 0.05
+    fr = K.rect(s, x, y, w, h, fill='FFFFFF', radius=0.1, line=T['line'], lw=0.75, nm=nm)
+    K.shadow(fr, blur=0.45, dist=0.12, alpha=28, color='0B1F2A', angle=90)
+    K._ensure_ln_before_effects(fr)
+    out = [fr] + [K.oval(s, x + 0.16 + k * 0.17, y + 0.12, 0.1, fill=col)
+                  for k, col in enumerate(('FF5F57', 'FEBC2E', '28C840'))]
+    if url:
+        ub = K.rect(s, x + 0.75, y + 0.075, min(3.4, w - 1.0), 0.2, fill=T['bg'], radius=0.1)
+        K.shape_text(ub, url, size=7.5, font=F('body'), color=T['muted'], align='l', margin=(0.12, 0))
+        out.append(ub)
+    out.append(K.picture(s, path, x + 0.05, y + bar, w - 0.1, h - bar - 0.05))
+    return out, h
+
+
+def _callout(s, x, y, w, h, ic, title, text, compact=False):
+    cd = card(s, x, y, w, h)
+    if compact:          # icon left, title + text to the right (stacked lists)
+        bd = icon_badge(s, ic, x + 0.5, y + h / 2, 0.58)
+        t1 = K.text(s, x + 0.95, y + 0.1, w - 1.1, 0.4, title, size=13, font=F('bold'), bold=B('bold'),
+                    color=T['ink'], anchor='m')
+        t2 = rich(s, x + 0.95, y + 0.5, w - 1.1, h - 0.55, text, size=10.5, line_sp=1.12, space_after=0)
+    else:                # icon + title on top, text below (2 + 2 around an image)
+        bd = icon_badge(s, ic, x + 0.55, y + 0.55, 0.62)
+        t1 = K.text(s, x + 1.0, y + 0.18, w - 1.15, 0.75, title, size=14, font=F('bold'), bold=B('bold'),
+                    color=T['ink'], anchor='m', line_sp=1.0)
+        t2 = rich(s, x + 0.28, y + 1.05, w - 0.5, h - 1.12, text, size=11, line_sp=1.18, space_after=0)
+    return [cd] + bd + [t1, t2]
+
+
+# ================================================================== 16. hub: emblem + 4 pillars
+def hub(prs, ctx, c):
+    """Brand emblem in the centre, four pillar cards in the corners linked to it (ecosystem / 4 business lines)."""
+    import math
+    s = _new(prs, ctx)
+    bg_light(s, ctx)
+    hd = header(s, ctx, c['title'], c.get('sub', ''), c.get('tag', ''), c.get('num'))
+    cx, cy, d = SW / 2, 4.42, 2.75
+    rr = d * 0.6
+    glow = K.glow_img(s, cx, cy, d * 1.7, T['light'], 40)
+    ring = K.oval(s, cx - rr, cy - rr, 2 * rr, fill=None, line=T['primary'], lw=1.25, dash='dash')
+    em = K.picture(s, ctx['art']['emblem'], cx - d / 2, cy - d / 2, d, d, nm='!!emblem')
+    cw, ch = 4.1, 2.2
+    pos = [(ML, 1.95), (SW - ML - cw, 1.95), (ML, 4.62), (SW - ML - cw, 4.62)]
+    links, cards_ = [], []
+    for i, (ic, tt, tx) in enumerate(c['items'][:4]):
+        x, y = pos[i]
+        ex, ey = (x + cw) if i % 2 == 0 else x, y + ch / 2
+        ang = math.atan2(ey - cy, ex - cx)
+        rx, ry = cx + math.cos(ang) * rr, cy + math.sin(ang) * rr
+        links.append([K.line(s, ex, ey, rx, ry, T['primary'], 1.25),
+                      K.oval(s, rx - 0.08, ry - 0.08, 0.16, fill=T['light'], line='FFFFFF', lw=1.25)])
+        cd = card(s, x, y, cw, ch)
+        bd = icon_badge(s, ic, x + 0.6, y + 0.6, 0.66)
+        nb = title_text(s, x + cw - 1.05, y + 0.12, 0.85, 0.55, f'{i + 1:02d}', 24, color=K.mix(T['light'], 'FFFFFF',
+                                                                                              0.45),
+                        align='r', anchor='m', wrap=False)
+        t1 = K.text(s, x + 1.1, y + 0.22, cw - 2.0, 0.75, tt, size=15, font=F('bold'), bold=B('bold'),
+                    color=T['ink'], anchor='m', line_sp=1.0)
+        t2 = rich(s, x + 0.3, y + 1.12, cw - 0.55, ch - 1.2, tx, size=11.5, line_sp=1.2, space_after=0)
+        cards_.append([cd] + bd + [nb, t1, t2])
+    K.anims(s, hd, 'fade', 0.0, 0.05, 0.4)
+    K.anim(s, glow, 'fade', 0.1, 0.6)
+    K.anim(s, em, 'turn', 0.2, 0.9)
+    K.anim(s, ring, 'zoom', 0.6, 0.5)
+    K.anims(s, links, 'fade', 0.9, 0.1, 0.4)
+    K.anims(s, cards_, 'zoom', 1.0, 0.18, 0.5)
+    return s
+
+
+# ================================================================== 17. spotlight: hero image + callouts
+def spotlight(prs, ctx, c):
+    """A hero image (cut-out, illustration or a screenshot in a browser frame) with up to 4 callout cards.
+    mode 'center': image in the middle, 2 callouts each side; 'left' / 'right': image on that side, callouts
+    stacked on the other. Optional image2 (smaller, overlapping the corner), soft=True fades the image edges."""
+    s = _new(prs, ctx)
+    bg_light(s, ctx)
+    hd = header(s, ctx, c['title'], c.get('sub', ''), c.get('tag', ''), c.get('num'))
+    mode = c.get('mode', 'center')
+    items = c['items'][:4]
+    top, bot = 1.95, SH - 0.45
+    if mode == 'center':
+        cw = 3.45
+        bx, bw = ML + cw + 0.3, SW - 2 * (ML + cw + 0.3)
+    else:
+        bw = c.get('image_w', 6.55)
+        bx = ML if mode == 'left' else SW - ML - bw
+    by, bh = top, bot - top
+    path = pic(ctx, c['image'], prefer_cut=True)
+    glow = K.glow_img(s, bx + bw / 2, by + bh / 2, min(bw, bh) * 1.3, T['light'], 38)
+    hero = []
+    if c.get('frame') == 'browser':
+        fw = bw - (0.9 if c.get('image2') else 0.1)
+        parts, fh = browser(s, path, bx + 0.05, 0, fw, c.get('url', ''), nm='!!hero')
+        dy = by + max(0.1, (bh - fh) / 2 - (0.35 if c.get('image2') else 0))
+        for sh in parts:
+            sh.top = sh.top + K.E(dy)
+        hero += parts
+        box = (bx + 0.05, dy, fw, fh)
+    else:
+        p, box = _contain(s, path, bx, by, bw, bh, nm='!!hero')
+        if c.get('soft'):
+            K.soft_edge(p, 0.3)
+        hero.append(p)
+    if c.get('image2'):
+        p2path = pic(ctx, c['image2'], prefer_cut=True)
+        w2 = bw * c.get('image2_w', 0.42)
+        if c.get('frame2') == 'browser':
+            parts2, h2 = browser(s, p2path, 0, 0, w2, c.get('url2', ''))
+            x2, y2 = bx + bw - w2, bot - h2
+            for sh in parts2:
+                sh.left = sh.left + K.E(x2)
+                sh.top = sh.top + K.E(y2)
+            hero.append(parts2)
+        else:
+            iw, ih = _img_size(p2path)
+            h2 = min(w2 * ih / iw, bh * 0.5)
+            w2 = h2 * iw / ih
+            p2 = K.picture(s, p2path, bx + bw - w2, bot - h2, w2, h2)
+            K.shadow(p2, blur=0.3, dist=0.08, alpha=30, color='0B1F2A', angle=90)
+            K._ensure_ln_before_effects(p2)
+            hero.append(p2)
+    out, links = [], []
+    if mode == 'center':
+        ch = 2.3
+        ys = (2.0, SH - 0.5 - ch)
+        for i, (ic, tt, tx) in enumerate(items):
+            right = i >= 2
+            x = SW - ML - cw if right else ML
+            y = ys[i % 2]
+            out.append(_callout(s, x, y, cw, ch, ic, tt, tx))
+            ex = x if right else x + cw
+            ix = box[0] + 0.1 if right is False else box[0] + box[2] - 0.1
+            ix = min(max(ix, bx), bx + bw)
+            ey = y + ch / 2
+            iy = min(max(ey, box[1] + 0.3), box[1] + box[3] - 0.3)
+            links.append([K.line(s, ex, ey, ix, iy, T['primary'], 1.0, dash='dash'),
+                          K.oval(s, ix - 0.07, iy - 0.07, 0.14, fill=T['light'], line='FFFFFF', lw=1.25)])
+    else:
+        gx = (bx + bw + 0.45) if mode == 'left' else ML
+        gw = (SW - ML - gx) if mode == 'left' else (bx - 0.45 - ML)
+        n = len(items)
+        gap = 0.17
+        ch = (bh - gap * (n - 1)) / n
+        for i, (ic, tt, tx) in enumerate(items):
+            out.append(_callout(s, gx, by + i * (ch + gap), gw, ch, ic, tt, tx, compact=True))
+    K.anims(s, hd, 'fade', 0.0, 0.05, 0.4)
+    K.anim(s, glow, 'fade', 0.1, 0.6)
+    K.anims(s, hero, 'zoom' if mode == 'center' else ('fly_l' if mode == 'left' else 'fly_r'), 0.2, 0.25, 0.7)
+    K.anims(s, links, 'fade', 0.8, 0.1, 0.35)
+    K.anims(s, out, 'zoom' if mode == 'center' else ('fly_r' if mode == 'left' else 'fly_l'), 0.7, 0.15, 0.45)
+    return s
+
+
+# ================================================================== 18. cards: photo grid
+def cards(prs, ctx, c):
+    """Grid of photo cards. Items {photo, title?, text?, badge?, caption?, focus?}; cols (default up to 4).
+    Items with only a caption become full-bleed photos with the caption on a dark gradient."""
+    import math
+    s = _new(prs, ctx)
+    bg_light(s, ctx)
+    hd = header(s, ctx, c['title'], c.get('sub', ''), c.get('tag', ''), c.get('num'))
+    items = c['items']
+    n = len(items)
+    cols = c.get('cols', min(4, n))
+    rows = math.ceil(n / cols)
+    gap = 0.25
+    top, bot = 1.95, SH - 0.45
+    w = (SW - 2 * ML - gap * (cols - 1)) / cols
+    h = (bot - top - gap * (rows - 1)) / rows
+    out = []
+    for i, it in enumerate(items):
+        x = ML + (i % cols) * (w + gap)
+        y = top + (i // cols) * (h + gap)
+        foc = tuple(it.get('focus', (0.5, 0.5)))
+        if not (it.get('title') or it.get('text')):
+            p = K.picture(s, pic(ctx, it['photo']), x, y, w, h, radius=0.14, focus=foc)
+            K.shadow(p, blur=0.3, dist=0.08, alpha=22, color='0B1F2A', angle=90)
+            K._ensure_ln_before_effects(p)
+            gh = min(h * 0.55, 1.2)
+            sh = K.rect(s, x, y + h - gh, w, gh, shp=MSO_SHAPE.ROUND_2_SAME_RECTANGLE, rot=180)
+            sh.adjustments[0] = min(0.5, 0.14 / gh)
+            K.grad_fill(sh, [(0, T['dark'], 88), (100, T['dark'], 0)], angle=90)
+            cap = K.text(s, x + 0.2, y + h - 0.62, w - 0.4, 0.5, it.get('caption', ''), size=it.get('size', 13),
+                         font=F('bold'), bold=B('bold'), color='FFFFFF', anchor='m', line_sp=1.0)
+            out.append([p, sh, cap])
+            continue
+        cd = card(s, x, y, w, h)
+        ph_h = h * c.get('photo_ratio', 0.55)
+        p = K.picture(s, pic(ctx, it['photo']), x, y, w, ph_h, focus=foc, geom='round2SameRect')
+        av = p._element.spPr.find(K.qn('a:prstGeom')).find(K.qn('a:avLst'))
+        for nm_, v in (('adj1', int(min(0.5, 0.14 / ph_h) * 100000)), ('adj2', 0)):
+            gd = K.etree.SubElement(av, K.qn('a:gd'))
+            gd.set('name', nm_)
+            gd.set('fmla', f'val {v}')
+        grp = [cd, p]
+        if it.get('badge'):
+            bw_ = K.text_w(it['badge'], F('semi'), 9) + 0.36
+            b_ = K.rect(s, x + 0.15, y + 0.15, bw_, 0.3, fill=T['primary'], radius=0.15)
+            K.shape_text(b_, it['badge'], size=9, color='FFFFFF', font=F('semi'), margin=(0.05, 0.0))
+            grp.append(b_)
+        ty = y + ph_h + 0.12
+        grp.append(K.text(s, x + 0.2, ty, w - 0.4, 0.42, it.get('title', ''), size=c.get('title_size', 13),
+                          font=F('bold'), bold=B('bold'), color=T['ink'], anchor='m', line_sp=1.0))
+        if it.get('text'):
+            grp.append(rich(s, x + 0.2, ty + 0.45, w - 0.4, h - ph_h - 0.6, it['text'], size=c.get('text_size', 10.5),
+                            line_sp=1.15, space_after=0))
+        out.append(grp)
+    K.anims(s, hd, 'fade', 0.0, 0.05, 0.4)
+    K.anims(s, out, 'rise', 0.3, 0.12 if n > 4 else 0.18, 0.5)
+    return s
+
+
+# ================================================================== 19. partners: grouped logo wall
+def partners(prs, ctx, c):
+    """Logo wall in labelled rows. groups = [{label, logos: [photo keys]}]."""
+    s = _new(prs, ctx)
+    bg_light(s, ctx)
+    hd = header(s, ctx, c['title'], c.get('sub', ''), c.get('tag', ''), c.get('num'))
+    groups = c['groups']
+    lh, gap = 0.34, 0.22
+    avail = SH - 0.45 - 1.95
+    rh = min(1.1, (avail - len(groups) * (lh + 0.1) - gap * (len(groups) - 1)) / len(groups))
+    y = 1.95
+    out = []
+    for g in groups:
+        lab = g['label'].upper()
+        tw = K.text_w(lab, F('semi'), 10) + len(lab) * 1.2 / 72 + 0.1
+        row = [K.text(s, ML, y, tw, lh, lab, size=10, font=F('semi'), color=T['primary'], anchor='m', spacing=1.2,
+                      wrap=False),
+               K.line(s, ML + tw + 0.15, y + lh / 2, SW - ML, y + lh / 2, T['line'], 1.0)]
+        logos = g['logos']
+        n = len(logos)
+        lw = min(1.6, (SW - 2 * ML - 0.18 * (n - 1)) / n)
+        x0 = (SW - (n * lw + (n - 1) * 0.18)) / 2
+        yy = y + lh + 0.1
+        for k, key in enumerate(logos):
+            x = x0 + k * (lw + 0.18)
+            cd = card(s, x, yy, lw, rh, radius=0.1)
+            lp, _ = _contain(s, pic(ctx, key), x + 0.12, yy + 0.1, lw - 0.24, rh - 0.2)
+            row.append([cd, lp])
+        out.append(row)
+        y = yy + rh + gap
+    K.anims(s, hd, 'fade', 0.0, 0.05, 0.4)
+    t = 0.3
+    for row in out:
+        K.anims(s, row[:2], 'wipe_l', t, 0.0, 0.4)
+        K.anims(s, row[2:], 'zoom', t + 0.15, 0.06, 0.35)
+        t += 0.45
+    return s
+
+
+# ================================================================== 20. offices: map + office list
+def offices(prs, ctx, c):
+    """Map image on the left with numbered pins (fx, fy as fractions of the map image), office cards on the right.
+    offices = [{name, address, phone?, pin: [fx, fy]}]."""
+    s = _new(prs, ctx)
+    bg_light(s, ctx)
+    hd = header(s, ctx, c['title'], c.get('sub', ''), c.get('tag', ''), c.get('num'))
+    mp, (mx, my, mw, mh) = _contain(s, pic(ctx, c['map']), ML, 1.8, 5.9, SH - 1.8 - 0.3, nm='!!map')
+    offs = c['offices'][:4]
+    pins, rows = [], []
+    gx = 7.0
+    gw = SW - ML - gx
+    n = len(offs)
+    gap = 0.2
+    ch = min(1.5, (SH - 0.45 - 1.95 - gap * (n - 1)) / n)
+    y0 = 1.95 + ((SH - 0.45 - 1.95) - (n * ch + gap * (n - 1))) / 2
+    for i, o in enumerate(offs):
+        fx, fy = o['pin']
+        px, py = mx + fx * mw, my + fy * mh
+        gl = K.glow_img(s, px, py, 0.9, T['light'], 60)
+        dot = K.oval(s, px - 0.17, py - 0.17, 0.34, fill=T['primary'], line='FFFFFF', lw=1.5)
+        K.shape_text(dot, str(i + 1), size=9, color='FFFFFF', font=F('bold'), bold=B('bold'), margin=(0, 0))
+        pins.append([gl, dot])
+        y = y0 + i * (ch + gap)
+        cd = card(s, gx, y, gw, ch)
+        nb = K.oval(s, gx + 0.25, y + 0.22, 0.42, fill=T['primary'])
+        K.shape_text(nb, str(i + 1), size=12, color='FFFFFF', font=F('bold'), bold=B('bold'), margin=(0, 0))
+        t1 = K.text(s, gx + 0.85, y + 0.14, gw - 1.0, 0.42, o['name'], size=14, font=F('bold'), bold=B('bold'),
+                    color=T['ink'], anchor='m')
+        t2 = K.text(s, gx + 0.85, y + 0.56, gw - 1.0, ch - 0.6, o['address'] + (('\n' + o['phone']) if o.get('phone')
+                                                                                 else ''),
+                    size=10.5, font=F('body'), color=T['text'], line_sp=1.15)
+        rows.append([cd, nb, t1, t2])
+    K.anims(s, hd, 'fade', 0.0, 0.05, 0.4)
+    K.anim(s, mp, 'fade', 0.2, 0.7)
+    K.anims(s, pins, 'zoom', 0.7, 0.2, 0.4)
+    K.anims(s, rows, 'fly_r', 0.8, 0.2, 0.45)
     return s
 
 

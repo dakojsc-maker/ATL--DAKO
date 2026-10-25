@@ -2,11 +2,15 @@
 Shared builder for the corporate templates (M08 build_doanhnghiep.py, M09 build_dichvu.py).
 
 A builder module provides THEME, CODE, TITLE, DEFAULT_NAME, PHOTOS (key -> Open Images id or path), BRAND
-{name, short, initial, tagline, colors?}, LIGHT_PHOTO (photo printed faintly into the light background),
-CREDIT_INTRO and build_content(). Content files (JSON) may override "photos" and "brand".
+{name, short, initial, tagline, colors?, logo?, pattern?}, LIGHT_PHOTO (photo printed faintly into the light
+background), CREDIT_INTRO and build_content(). Content files (JSON) may override "photos", "brand" and
+"credit_intro". brand.logo (PNG with transparency) replaces the drawn initial in the emblem and the corner mark;
+brand.pattern = "circuit" adds faint circuit traces to the backgrounds; brand.watermark = false drops the faint
+LIGHT_PHOTO from the light background.
 Cut-out people (letter slide "portrait"): assets/images/cut/ld_<key>.png (shared with M05).
 """
 import csv
+import hashlib
 import os
 
 import pptkit as K
@@ -55,19 +59,29 @@ def prepare(mod, content):
             fn(p)
         art[key] = p
 
-    wm = img.get(getattr(mod, 'LIGHT_PHOTO', None))
-    make('light_bg', f'light_{tag}.jpg', lambda p: A.light_bg(p, base=T['bg'], tint=T['pale'], accent=T['primary'],
-                                                                photo=wm, photo_alpha=0.1), _mtime(wm or ''))
+    b = mod.BRAND
+    traces = b.get('pattern') == 'circuit'          # faint printed-circuit traces on the backgrounds
+    tag += 'c' if traces else ''
+    wm = img.get(getattr(mod, 'LIGHT_PHOTO', None)) if b.get('watermark', True) else None
+    wtag = hashlib.md5(str(wm).encode()).hexdigest()[:6]
+    make('light_bg', f'light_{tag}_{wtag}.jpg', lambda p: A.light_bg(p, base=T['bg'], tint=T['pale'],
+                                                                       accent=T['primary'], photo=wm, photo_alpha=0.1,
+                                                                       traces=traces), _mtime(wm or ''))
+    logo = CIO.photo_path(b['logo']) if b.get('logo') else None
+    if logo:                                         # the client's own logo replaces the drawn initial
+        art['logo'] = logo
     if T['style'] == 'tech':
         make('dark_bg', f'dark_{tag}.jpg', lambda p: A.tech_bg(p, dark=T['dark'], mid=T['primary'], light=T['light'],
-                                                              glow=(0.5, 0.52)))
+                                                              glow=(0.5, 0.52), traces=traces))
         make('cover_bg', f'cover_{tag}.jpg', lambda p: A.tech_bg(p, dark=T['dark'], mid=T['primary'],
-                                                                light=T['light'], glow=(0.76, 0.48), seed=7))
-        b = mod.BRAND
-        make('emblem', f'emblem_{b.get("initial", "A")}_{tag}.png',
-             lambda p: A.ring_emblem(p, letter=b.get('initial', b['name'][0]), c1=T['primary'], c2='9FDCFF',
-                                     glow=T['light'], font_path=_p('fonts', T['fonts']['title'][1])))
-        make('ring', f'ring_{tag}.png', lambda p: A.ring_emblem(p, letter=None, c1=T['primary'], c2='9FDCFF',
+                                                                light=T['light'], glow=(0.76, 0.48), seed=7,
+                                                                traces=traces))
+        ltag = hashlib.md5(str(logo).encode()).hexdigest()[:6] if logo else b.get('initial', 'A')
+        make('emblem', f'emblem_{ltag}_{tag}{T.get("ring", "")}.png',
+             lambda p: A.ring_emblem(p, letter=b.get('initial', b['name'][0]), c1=T['primary'], c2=T.get('ring', '9FDCFF'),
+                                     glow=T['light'], font_path=_p('fonts', T['fonts']['title'][1]), logo=logo),
+             _mtime(logo or ''))
+        make('ring', f'ring_{tag}{T.get("ring", "")}.png', lambda p: A.ring_emblem(p, letter=None, c1=T['primary'], c2=T.get('ring', '9FDCFF'),
                                                                glow=T['light']))
     else:
         make('dark_bg', f'dark_{tag}.jpg', lambda p: A.chevron_bg(p, dark=T['dark'], mid=T['primary'],
@@ -78,7 +92,8 @@ def prepare(mod, content):
         if fn is L.section:
             src = img.get(c['photo'], CIO.photo_path(c['photo']))
             foc = tuple(c.get('focus', (0.5, 0.5)))
-            make('sec_' + c['photo'], f'sec_{c["photo"]}_{tag}_{foc[0]:.2f}_{foc[1]:.2f}.jpg',
+            stag = hashlib.md5(src.encode()).hexdigest()[:6]
+            make('sec_' + c['photo'], f'sec_{c["photo"]}_{stag}_{tag}_{foc[0]:.2f}_{foc[1]:.2f}.jpg',
                  lambda p, src=src, foc=foc: A.photo_tint(src, p, color=T['dark'], light=T['primary'], focus=foc,
                                                           strength=0.82), _mtime(src))
     return dict(img=img, art=art, cut=cut_paths(out), brand=mod.BRAND)
@@ -102,7 +117,7 @@ def credit_lines(mod, content):
         walk(c)
         if fn is L.letter and c.get('portrait') in CUT_SOURCE:
             used.add(CUT_SOURCE[c['portrait']])
-    if getattr(mod, 'LIGHT_PHOTO', None) in mod.PHOTOS:
+    if mod.BRAND.get('watermark', True) and getattr(mod, 'LIGHT_PHOTO', None) in mod.PHOTOS:
         used.add(mod.PHOTOS[mod.LIGHT_PHOTO])
     return [f"• {r['title'][:46]} — {r['author']} (Flickr, CC BY 2.0)" for r in rows if r['image_id'] in used]
 
@@ -113,7 +128,12 @@ def build(mod, out_dir, content=None, name=None):
     res = prepare(mod, content)
     prs = K.new_presentation()
     ctx = dict(n=0, **res)
-    slides = [fn(prs, ctx, c) for fn, c in content]
+    slides = []
+    for fn, c in content:
+        sl = fn(prs, ctx, c)
+        if c.get('notes'):                      # speaker notes for any slide
+            K.notes(sl, c['notes'])
+        slides.append(sl)
     slides.append(L.credits(prs, ctx, dict(intro=mod.CREDIT_INTRO, lines=credit_lines(mod, content))))
     for s in slides:
         K.finalize(s)
@@ -141,5 +161,7 @@ def main(mod, here):
         meta, content = CIO.load(a.content, L)
         mod.PHOTOS.update(meta.get('photos', {}))
         mod.BRAND.update(meta.get('brand', {}))
+        if meta.get('credit_intro'):
+            mod.CREDIT_INTRO = meta['credit_intro']
     os.makedirs(a.out, exist_ok=True)
     build(mod, a.out, content, a.name)

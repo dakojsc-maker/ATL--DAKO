@@ -126,7 +126,8 @@ def _load_geo():
 
 
 def vn_regions(out, values, highlight=None, w=1100, base='FBDCC4', low='FDBA86', high='D9381E',
-               font_path=None, island_labels=('QĐ. Hoàng Sa', 'QĐ. Trường Sa'), label_color=(150, 90, 60)):
+               font_path=None, island_labels=('QĐ. Hoàng Sa', 'QĐ. Trường Sa'), label_color=(150, 90, 60),
+               shadow=(150, 70, 20)):
     """values = {region code: number}. Regions in `highlight` (default: all with values) get a colour from
     low -> high by value; others stay pale. Writes out (PNG) and returns dict(path, anchors{code: (fx, fy)})."""
     lon0, lon1, lat0, lat1 = 101.9, 117.6, 7.6, 23.6
@@ -197,7 +198,7 @@ def vn_regions(out, values, highlight=None, w=1100, base='FBDCC4', low='FDBA86',
     im = im.resize((w, h), Image.LANCZOS)
     # soft shadow under the land
     a = im.split()[3].filter(ImageFilter.GaussianBlur(10)).point(lambda v: int(v * 0.25))
-    sh = Image.new('RGBA', (w, h), (150, 70, 20, 0))
+    sh = Image.new('RGBA', (w, h), tuple(shadow) + (0,))
     sh.putalpha(a)
     sh = sh.transform((w, h), Image.AFFINE, (1, 0, -6, 0, 1, -10))
     canvas = Image.new('RGBA', (w, h), (0, 0, 0, 0))
