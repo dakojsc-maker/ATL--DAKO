@@ -149,7 +149,7 @@ slides = [
          sub='Trung tâm đào tạo, khảo thí tiếng Anh và đầu mối tuyển sinh chính quy',
          photo='cambridge', focus=[0.5, 0.5],
          items=[['monitor', '250', '', 'thí sinh / ca thi tại phòng thi máy tính'],
-                ['award', '11', '', 'chứng chỉ chuẩn Cambridge: Starters → Proficiency, Linguaskill, CEST'],
+                ['award', '10', '', 'chứng chỉ chuẩn Cambridge: Starters → Proficiency, Linguaskill, CEST'],
                 ['graduation-cap', '6', '', 'bậc tuyển sinh liên kết: Sơ cấp → Tiến sĩ'],
                 ['presentation', '24/7', '', 'tra cứu chứng chỉ trực tuyến; tổ chức hội nghị, hội thảo']]),
     dict(slide='section', num=4, title='Truy xuất\nnguồn gốc', photo='coffee', focus=[0.5, 0.5],
