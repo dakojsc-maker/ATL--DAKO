@@ -209,3 +209,20 @@ mục lục, **lịch 12 tháng** theo mùa, **bản đồ đêm** viền bờ b
 - Máy ảnh tách nền: `assets/images/cut/dn_<khóa>.png` (`nikon`, `leica`, `polaroid`).
 - Một số ảnh mẫu (biển, pháo hoa, cáp treo) chỉ để minh họa, không chụp tại Đà Nẵng — thay bằng ảnh thật khi làm bộ
   slide thực tế; giá vé, giá món ăn, lịch trình cũng là minh họa.
+
+## Bộ slide sân khấu (keynote) — Viện STP
+
+Bộ slide thuyết trình cho lãnh đạo Viện STP (`decks/vien-stp/Vien-STP-Keynote.pptx`), dựng bằng hệ dạng slide riêng
+`lib/layouts_keynote.py` + `build_keynote.py`: **sân khấu tối** xanh rêu – lime theo logo STP, chữ một họ **Be Vietnam Pro**
+(Black → Thin, `fonts/keynote/`), và **5 khối 3D** (lõi STP, nghiên cứu, đào tạo, truy xuất, IoT) có mặt trên mọi slide
+— khi không dùng thì đậu ngoài khung, nên Morph cho các khối bay giữa các bố cục (cụm → hàng → cận cảnh → thẻ → cụm).
+
+- Hình 3D dựng bằng Blender (Cycles, nền trong suốt, cùng một máy ảnh isometric nên ghép thành một cảnh):
+  `python tools/render3d/textures.py <thư mục tex>` rồi
+  `python tools/render3d/stp_scenes.py all assets/images/build/stp3d 96` → chép sang `assets/images/src/stp3d/`.
+  Bộ công cụ `tools/render3d/kit.py` (bệ kính, vật liệu, camera, ánh sáng) dùng lại được cho thương hiệu khác.
+- Dạng slide: `cover`, `statement`, `ecosystem`, `chapter`, `detail`, `steps`, `proof`, `device`, `numbers`, `chart`,
+  `tiles`, `logos`, `map_offices` (bản đồ có Hoàng Sa, Trường Sa), `offer`, `closing`; chữ `**…**` tô lime.
+- Nội dung: `decks/vien-stp/make_keynote.py` → `keynote.json`; dựng:
+  `python build_keynote.py --content decks/vien-stp/keynote.json --out decks/vien-stp --name Vien-STP-Keynote`.
+- Ảnh thật của Viện chỉ dùng làm minh chứng (lớp đào tạo, phòng thi); giao diện điện thoại truy xuất là dữ liệu demo.

@@ -60,6 +60,10 @@ Khi người dùng nói "dùng mẫu M03", "mẫu hội an", "mẫu xanh lime"�
    đặt `"map": "<ten>"` trong content.json, slide `map_info` ghim các `key` qua `"pins"`; máy ảnh tách nền
    `assets/images/cut/dn_<khóa>.png`. Ảnh mẫu không chụp tại địa phương phải thay bằng ảnh đúng địa danh.
    Tìm ảnh theo chủ đề khác: `tools/find_vn_photos.py scan --pattern "<regex tiêu đề>" --name <ten>`.
+   Bộ slide sân khấu (keynote) cho lãnh đạo: `build_keynote.py` + `lib/layouts_keynote.py` (nền tối, Be Vietnam Pro,
+   khối 3D Blender bay bằng Morph). Hình 3D: `tools/render3d/stp_scenes.py` (bộ công cụ `kit.py`); ví dụ
+   `decks/vien-stp/keynote.json` (sinh từ `make_keynote.py`). Hình minh họa nên **dựng mới cho đúng bộ slide** (render
+   3D, giao diện vẽ lại từ ảnh màn hình thật) thay vì cắt lại hình cũ trong tài liệu.
 5. Dựng: `cd slides-template && python <builder> --content decks/<ten>/content.json --out decks/<ten> --name <Ten-File>`.
 6. Kiểm tra: `python <pptx skill>/scripts/office/validate.py <file>`, render sang ảnh (LibreOffice → PDF → PyMuPDF),
    xem từng slide, sửa chữ tràn/chồng lấn, rồi gửi file cho người dùng.
