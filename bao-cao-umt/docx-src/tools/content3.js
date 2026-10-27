@@ -214,7 +214,7 @@ T('phuongan', 'Phương án tham gia của nhà đầu tư Hàn Quốc', [3.6, 4
 ], 'Khuyến nghị của đơn vị tư vấn; cần ý kiến pháp lý trước khi triển khai.', { size: 21, boldFirst: true }),
 T('lotrinh', 'Lộ trình đề xuất', [2.6, 13.4], ['Thời gian', 'Công việc'], [
   ['Tháng 1', 'Ký thỏa thuận bảo mật; gửi danh mục hồ sơ (Chương 17); làm việc với Hội đồng trường, Ban Giám hiệu và đại diện chủ sở hữu'],
-  ['Tháng 2–3', 'Thẩm định pháp lý (sở hữu, đất đai, cam kết không vì lợi nhuận, bên liên quan); tài chính (BCTC kiểm toán); vận hành (tuyển sinh, đội ngũ, chuẩn); khảo sát hiện trường theo mục 5.7'],
+  ['Tháng 2–3', 'Thẩm định pháp lý (sở hữu, đất đai, cam kết không vì lợi nhuận, bên liên quan); tài chính (BCTC kiểm toán); vận hành (tuyển sinh, đội ngũ, chuẩn); khảo sát hiện trường theo mục 17.2'],
   ['Tháng 4', 'Thỏa thuận khung cho phương án A hoặc B, kèm KPI tuyển sinh, chất lượng và điều kiện tiên quyết về minh bạch'],
   ['Tháng 5–12', 'Triển khai thí điểm (một chương trình học bổng, thực tập hoặc một hợp đồng dịch vụ); đánh giá trước khi mở rộng'],
 ], 'Nguồn: đề xuất của đơn vị tư vấn.', { size: 22, boldFirst: true }),

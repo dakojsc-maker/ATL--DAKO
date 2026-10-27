@@ -28,7 +28,8 @@ assert pe, 'no TOC end'
 doc = doc[:pe.start()] + '<w:p><w:pPr><w:spacing w:after="0" w:lineRule="auto" w:line="240"/></w:pPr><w:r><w:fldChar w:fldCharType="end"/></w:r></w:p>' + doc[pe.end():]
 items['word/document.xml'] = doc.encode('utf-8')
 st = items['word/styles.xml'].decode('utf-8')
-st = st.replace('<w:pPrDefault><w:pPr>', '<w:pPrDefault><w:pPr><w:widowControl/>', 1)
+ko = len(sys.argv) > 3 and sys.argv[3] == 'ko'
+st = st.replace('<w:pPrDefault><w:pPr>', '<w:pPrDefault><w:pPr><w:widowControl/>' + ('<w:wordWrap w:val="0"/>' if ko else ''), 1)
 items['word/styles.xml'] = st.encode('utf-8')
 for n in list(items):
     if n in ('word/styles.xml',) or n.startswith('word/header') or n.startswith('word/footer'):

@@ -13,18 +13,34 @@ const WK = process.argv[2];
 const OUT = process.argv[3];
 const refs = JSON.parse(fs.readFileSync(path.join(WK, 'tools/refs.json'), 'utf8'));
 const imgsz = JSON.parse(fs.readFileSync(path.join(WK, 'tools/imgsizes.json'), 'utf8'));
-const tocPagesFile = path.join(WK, 'tools/toc_pages.json');
+// ---------- ngôn ngữ: DOC_LANG=vi (mặc định) hoặc ko ----------
+const LANG = process.env.DOC_LANG || 'vi';
+const KO = LANG === 'ko';
+const SFX = KO ? '_ko' : '';
+const L = KO ? {
+  fig: '그림', tab: '표', toc: '목   차', creator: '컨설팅사', title: 'UMT 예비 실사 보고서', desc: '한국 투자자용 UMT 보고서',
+  header: 'UMT · 예비 실사 보고서 · 공식 자료 기준 표준화본 · 기준일 2026.10.27',
+  footer: ['- ', PageNumber.CURRENT, ' / ', PageNumber.TOTAL_PAGES, ' -'],
+} : {
+  fig: 'Hình', tab: 'Bảng', toc: 'MỤC LỤC', creator: 'Đơn vị tư vấn', title: 'Báo cáo thẩm định sơ bộ UMT – bản chuẩn hoá', desc: 'Hồ sơ UMT cho nhà đầu tư Hàn Quốc',
+  header: 'UMT · Báo cáo thẩm định sơ bộ · Bản chuẩn hoá theo tài liệu chính thức · Dữ liệu đến 27/10/2026',
+  footer: ['Trang ', PageNumber.CURRENT, ' / ', PageNumber.TOTAL_PAGES],
+};
+// cỡ chữ (nửa điểm) và giãn dòng: bản tiếng Hàn dùng Malgun Gothic, nhỏ hơn 1 pt, giãn dòng hẹp hơn
+const Z = x => KO ? x - 2 : x;
+const LS = x => KO ? Math.max(240, Math.round(x * 0.88)) : x;
+const tocPagesFile = path.join(WK, `tools/toc_pages${SFX}.json`);
 const tocPages = fs.existsSync(tocPagesFile) ? JSON.parse(fs.readFileSync(tocPagesFile, 'utf8')) : {};
-const blocks = require(path.join(WK, 'tools/content.js'));
+const blocks = require(path.join(WK, `tools/content${SFX}.js`));
 
 // ---------- hằng số trình bày ----------
 const TW = 9071;               // bề rộng vùng chữ (twip) = 16,0 cm
 const PX_CM = 96 / 2.54;       // px trên cm (docx-js tính ảnh theo 96 dpi)
-const FONT = 'Times New Roman';
+const FONT = KO ? { ascii: 'Arial', hAnsi: 'Arial', cs: 'Arial', eastAsia: 'Malgun Gothic' } : 'Times New Roman';
 const NAVY = '0F2A4D', ACCENT = '1E5AA8', INK = '0D1B2E', INK2 = '435066', MUTED = '6A7487';
 const RULE = 'B7C1D0', TINT = 'EAF1FB', ZEBRA = 'F5F7FA';
 const CHIP = { good: '006300', warn: '8A5A00', bad: 'B42318', info: ACCENT };
-const BODY = 26, SMALL = 22, CAP = 24;  // nửa điểm: 13pt, 11pt, 12pt
+const BODY = Z(26), SMALL = Z(22), CAP = Z(24);  // nửa điểm: 13pt, 11pt, 12pt (bản Hàn: 12, 10, 11)
 
 // ---------- đánh số hình, bảng, trích dẫn ----------
 let chap = '0', nFig = 0, nTab = 0;
@@ -48,8 +64,8 @@ function cite(keys) {
 }
 
 // ---------- phân tích định dạng nội dòng ----------
-// **đậm**, *nghiêng*, [[nguồn1, nguồn2]], {fig:key}, {tab:key}
-const TOKEN = /(\*\*[^*]+\*\*|\*[^*\s][^*]*\*|\[\[[^\]]+\]\]|\{(?:fig|tab):[A-Za-z0-9_-]+\})/g;
+// **đậm**, [[nguồn1, nguồn2]], {fig:key}, {tab:key}; dấu * đơn được giữ nguyên (đánh dấu chú thích)
+const TOKEN = /(\*\*[^*]+\*\*|\[\[[^\]]+\]\]|\{(?:fig|tab):[A-Za-z0-9_-]+\})/g;
 function runs(str, base = {}) {
   const out = [];
   const opts = Object.assign({ font: FONT, size: BODY, color: INK }, base);
@@ -60,9 +76,8 @@ function runs(str, base = {}) {
     const tk = m[0];
     if (tk.startsWith('**')) out.push(new TextRun(Object.assign({}, opts, { text: tk.slice(2, -2), bold: true })));
     else if (tk.startsWith('[[')) out.push(new TextRun(Object.assign({}, opts, { text: cite(tk.slice(2, -2).split(',')), color: ACCENT })));
-    else if (tk.startsWith('{fig:')) { const k = tk.slice(5, -1); if (!figMap[k]) throw new Error('Thiếu hình ' + k); out.push(new TextRun(Object.assign({}, opts, { text: 'Hình ' + figMap[k] }))); }
-    else if (tk.startsWith('{tab:')) { const k = tk.slice(5, -1); if (!tabMap[k]) throw new Error('Thiếu bảng ' + k); out.push(new TextRun(Object.assign({}, opts, { text: 'Bảng ' + tabMap[k] }))); }
-    else out.push(new TextRun(Object.assign({}, opts, { text: tk.slice(1, -1), italics: true })));
+    else if (tk.startsWith('{fig:')) { const k = tk.slice(5, -1); if (!figMap[k]) throw new Error('Thiếu hình ' + k); out.push(new TextRun(Object.assign({}, opts, { text: L.fig + ' ' + figMap[k] }))); }
+    else if (tk.startsWith('{tab:')) { const k = tk.slice(5, -1); if (!tabMap[k]) throw new Error('Thiếu bảng ' + k); out.push(new TextRun(Object.assign({}, opts, { text: L.tab + ' ' + tabMap[k] }))); }
     last = m.index + tk.length;
   }
   if (last < str.length) out.push(new TextRun(Object.assign({}, opts, { text: str.slice(last) })));
@@ -75,7 +90,7 @@ const tocEntries = [];
 function para(str, o = {}) {
   return new Paragraph({
     alignment: o.align || AlignmentType.JUSTIFIED,
-    spacing: { before: o.before || 0, after: o.after === undefined ? 120 : o.after, line: o.line || 300 },
+    spacing: { before: o.before || 0, after: o.after === undefined ? 120 : o.after, line: LS(o.line || 300) },
     keepNext: !!o.keepNext,
     indent: o.indent,
     children: runs(str, o.run || {}),
@@ -96,7 +111,7 @@ function hair(color = RULE, size = 4) { return { style: BorderStyle.SINGLE, size
 function caption(kind, num, text, o = {}) {
   return new Paragraph({
     alignment: AlignmentType.CENTER,
-    spacing: { before: o.before === undefined ? 60 : o.before, after: o.after === undefined ? 40 : o.after, line: 264 },
+    spacing: { before: o.before === undefined ? 60 : o.before, after: o.after === undefined ? 40 : o.after, line: LS(264) },
     keepNext: !!o.keepNext,
     children: [new TextRun({ text: `${kind} ${num}. `, font: FONT, size: CAP, bold: true, color: NAVY }), ...runs(text, { size: CAP, italics: false, color: INK })],
   });
@@ -104,8 +119,8 @@ function caption(kind, num, text, o = {}) {
 function sourceLine(text) {
   return new Paragraph({
     alignment: AlignmentType.LEFT,
-    spacing: { before: 20, after: 200, line: 252 },
-    children: runs(text, { size: 21, italics: true, color: INK2 }),
+    spacing: { before: 20, after: 200, line: LS(252) },
+    children: runs(text, { size: Z(21), italics: !KO, color: INK2 }),
   });
 }
 
@@ -113,13 +128,13 @@ function sourceLine(text) {
 function cellParas(c, o) {
   const al = { l: AlignmentType.LEFT, r: AlignmentType.RIGHT, c: AlignmentType.CENTER, j: AlignmentType.JUSTIFIED }[o.align || 'l'];
   const base = { size: o.size, color: o.color || INK, bold: o.bold };
-  const mk = (s, extra = {}) => new Paragraph({ alignment: al, keepNext: !!o.keepNext, spacing: { before: 0, after: 0, line: o.line || 252 }, children: runs(s, Object.assign({}, base, extra)) });
+  const mk = (s, extra = {}) => new Paragraph({ alignment: al, keepNext: !!o.keepNext, spacing: { before: 0, after: 0, line: LS(o.line || 252) }, children: runs(s, Object.assign({}, base, extra)) });
   if (c === null || c === undefined) return [mk('')];
   if (Array.isArray(c)) return c.map(s => (typeof s === 'string' && s.startsWith('• ')) ?
-    new Paragraph({ alignment: AlignmentType.LEFT, spacing: { before: 0, after: 0, line: o.line || 252 }, indent: { left: 200, hanging: 160 }, children: runs('• ' + s.slice(2), base) }) : mk(s));
+    new Paragraph({ alignment: AlignmentType.LEFT, spacing: { before: 0, after: 0, line: LS(o.line || 252) }, indent: { left: 200, hanging: 160 }, children: runs('• ' + s.slice(2), base) }) : mk(s));
   if (typeof c === 'object') {
     if (c.chip) {
-      return [new Paragraph({ alignment: al, spacing: { before: 0, after: 0, line: o.line || 252 }, children: [
+      return [new Paragraph({ alignment: al, spacing: { before: 0, after: 0, line: LS(o.line || 252) }, children: [
         new TextRun({ text: '● ', font: FONT, size: o.size, color: CHIP[c.chip] }),
         new TextRun({ text: c.s, font: FONT, size: o.size, bold: true, color: CHIP[c.chip] })] })];
     }
@@ -131,7 +146,7 @@ function cellParas(c, o) {
 function table(b) {
   const widths = b.w.map(x => Math.round(x / b.w.reduce((a, c) => a + c, 0) * TW));
   const diff = TW - widths.reduce((a, c) => a + c, 0); widths[widths.length - 1] += diff;
-  const size = b.size || SMALL;
+  const size = b.size ? Z(b.size) : SMALL;
   const aligns = b.align || [];
   const rows = [];
   if (b.head) {
@@ -173,10 +188,10 @@ function table(b) {
 
 function note(b) {
   const kids = [];
-  if (b.title) kids.push(new Paragraph({ spacing: { before: 0, after: 80 }, keepNext: true, children: [new TextRun({ text: b.title, font: FONT, size: 24, bold: true, color: NAVY })] }));
+  if (b.title) kids.push(new Paragraph({ spacing: { before: 0, after: 80 }, keepNext: true, children: [new TextRun({ text: b.title, font: FONT, size: Z(24), bold: true, color: NAVY })] }));
   for (const p of b.p) {
-    if (p.startsWith('• ')) kids.push(new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 60, line: 288 }, indent: { left: 300, hanging: 220 }, children: runs('• ' + p.slice(2), { size: 24 }) }));
-    else kids.push(new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 80, line: 288 }, children: runs(p, { size: 24 }) }));
+    if (p.startsWith('• ')) kids.push(new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 60, line: LS(288) }, indent: { left: 300, hanging: 220 }, children: runs('• ' + p.slice(2), { size: Z(24) }) }));
+    else kids.push(new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 80, line: LS(288) }, children: runs(p, { size: Z(24) }) }));
   }
   const fill = b.kind === 'warn' ? 'FDF3E3' : TINT;
   const edge = b.kind === 'warn' ? 'C98500' : ACCENT;
@@ -201,8 +216,8 @@ function kpis(b) {
       margins: { top: 110, bottom: 100, left: 120, right: 100 },
       borders: { top: { style: BorderStyle.SINGLE, size: 18, color: it ? ACCENT : 'FFFFFF' }, bottom: { style: BorderStyle.SINGLE, size: 12, color: 'FFFFFF' }, left: { style: BorderStyle.SINGLE, size: 12, color: 'FFFFFF' }, right: { style: BorderStyle.SINGLE, size: 12, color: 'FFFFFF' } },
       children: it ? [
-        new Paragraph({ spacing: { before: 0, after: 20, line: 240 }, children: [new TextRun({ text: it.v, font: FONT, size: 34, bold: true, color: NAVY })] }),
-        new Paragraph({ spacing: { before: 0, after: 0, line: 240 }, children: runs(it.l, { size: 20, color: INK2 }) }),
+        new Paragraph({ spacing: { before: 0, after: 20, line: 240 }, children: [new TextRun({ text: it.v, font: FONT, size: Z(34), bold: true, color: NAVY })] }),
+        new Paragraph({ spacing: { before: 0, after: 0, line: 240 }, children: runs(it.l, { size: Z(20), color: INK2 }) }),
       ] : [new Paragraph('')],
     })) }));
   }
@@ -222,7 +237,7 @@ function grid(b) {
       margins: { top: 40, bottom: 60, left: 50, right: 50 },
       children: it ? [
         new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, spacing: { before: 0, after: 30 }, children: [image(it.img, it.w || imgW)] }),
-        new Paragraph({ alignment: AlignmentType.CENTER, keepNext: i + cols >= b.items.length, spacing: { before: 0, after: 0, line: 240 }, children: runs(it.label, { size: 20, color: INK2 }) }),
+        new Paragraph({ alignment: AlignmentType.CENTER, keepNext: i + cols >= b.items.length, spacing: { before: 0, after: 0, line: 240 }, children: runs(it.label, { size: Z(20), color: INK2 }) }),
       ] : [new Paragraph('')],
     })) }));
   }
@@ -250,21 +265,21 @@ for (const b of blocks) {
     case 'h2': tocEntries.push({ lvl: 2, text: b.s }); children.push(new Paragraph({ heading: HeadingLevel.HEADING_2, keepNext: true, children: [new TextRun({ text: b.s })] })); break;
     case 'h3': children.push(new Paragraph({ heading: HeadingLevel.HEADING_3, keepNext: true, children: [new TextRun({ text: b.s })] })); break;
     case 'p': children.push(para(b.s, b.o || {})); break;
-    case 'ul': for (const it of b.items) children.push(new Paragraph({ numbering: { reference: 'bul', level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 80, line: 290 }, children: runs(it) })); break;
-    case 'ol': for (const it of b.items) children.push(new Paragraph({ numbering: { reference: b.ref || 'num', level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 80, line: 290 }, children: runs(it) })); break;
+    case 'ul': for (const it of b.items) children.push(new Paragraph({ numbering: { reference: 'bul', level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 80, line: LS(290) }, children: runs(it) })); break;
+    case 'ol': for (const it of b.items) children.push(new Paragraph({ numbering: { reference: b.ref || 'num', level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { before: 0, after: 80, line: LS(290) }, children: runs(it) })); break;
     case 'table':
-      children.push(caption('Bảng', b.num, b.cap, { keepNext: true, before: 120, after: 80 }));
+      children.push(caption(L.tab, b.num, b.cap, { keepNext: true, before: 120, after: 80 }));
       children.push(table(b));
       children.push(sourceLine(b.src || ''));
       break;
     case 'fig':
       children.push(new Paragraph({ alignment: AlignmentType.CENTER, keepNext: true, spacing: { before: 120, after: 40 }, children: [image(b.img, b.w || 16)] }));
-      children.push(caption('Hình', b.num, b.cap, { keepNext: true }));
+      children.push(caption(L.fig, b.num, b.cap, { keepNext: true }));
       children.push(sourceLine(b.src || ''));
       break;
     case 'grid':
       children.push(grid(b));
-      children.push(caption('Hình', b.num, b.cap, { keepNext: true }));
+      children.push(caption(L.fig, b.num, b.cap, { keepNext: true }));
       children.push(sourceLine(b.src || ''));
       break;
     case 'note': children.push(note(b)); children.push(new Paragraph({ spacing: { before: 0, after: 120 }, children: [] })); break;
@@ -280,20 +295,21 @@ for (const b of blocks) {
 function buildCover(b) {
   const P = (text, o) => new Paragraph({ alignment: o.align || AlignmentType.LEFT, spacing: { before: o.before || 0, after: o.after || 0, line: o.line || 276 }, children: [new TextRun({ text, font: FONT, size: o.size, bold: o.bold, color: o.color || INK, allCaps: o.caps, characterSpacing: o.cs })] });
   children.push(new Paragraph({ spacing: { before: 0, after: 0 }, border: { top: { style: BorderStyle.SINGLE, size: 36, color: NAVY, space: 6 } }, children: [] }));
-  children.push(P('BÁO CÁO THẨM ĐỊNH SƠ BỘ · DESKTOP DUE DILIGENCE', { size: 22, bold: true, color: ACCENT, before: 120, after: 160, cs: 20 }));
-  children.push(P('TRƯỜNG ĐẠI HỌC', { size: 48, bold: true, color: NAVY, line: 252 }));
-  children.push(P('QUẢN LÝ VÀ CÔNG NGHỆ', { size: 48, bold: true, color: NAVY, line: 252 }));
-  children.push(P('THÀNH PHỐ HỒ CHÍ MINH (UMT)', { size: 48, bold: true, color: NAVY, after: 220, line: 252 }));
-  children.push(P('Hồ sơ thông tin phục vụ quyết định đầu tư của nhà đầu tư Hàn Quốc', { size: 28, color: INK, after: 40 }));
-  children.push(P('Bản chuẩn hoá theo tài liệu chính thức, kèm hình ảnh minh chứng', { size: 28, color: INK2, after: 240 }));
+  const eyebrow = b.eyebrow || 'BÁO CÁO THẨM ĐỊNH SƠ BỘ · DESKTOP DUE DILIGENCE';
+  const tl = b.titleLines || ['TRƯỜNG ĐẠI HỌC', 'QUẢN LÝ VÀ CÔNG NGHỆ', 'THÀNH PHỐ HỒ CHÍ MINH (UMT)'];
+  const sub = b.subtitles || ['Hồ sơ thông tin phục vụ quyết định đầu tư của nhà đầu tư Hàn Quốc', 'Bản chuẩn hoá theo tài liệu chính thức, kèm hình ảnh minh chứng'];
+  children.push(P(eyebrow, { size: 22, bold: true, color: ACCENT, before: 120, after: 160, cs: KO ? 0 : 20 }));
+  tl.forEach((t, i) => children.push(P(t, { size: KO ? 44 : 48, bold: true, color: NAVY, line: 252, after: i === tl.length - 1 ? 220 : 0 })));
+  children.push(P(sub[0], { size: Z(28), color: INK, after: 40 }));
+  children.push(P(sub[1], { size: Z(28), color: INK2, after: 240 }));
   children.push(grid({ cols: 3, items: b.photos }));
-  children.push(new Paragraph({ alignment: AlignmentType.LEFT, spacing: { before: 60, after: 280 }, children: runs(b.photoNote, { size: 20, italics: true, color: INK2 }) }));
+  children.push(new Paragraph({ alignment: AlignmentType.LEFT, spacing: { before: 60, after: 280 }, children: runs(b.photoNote, { size: Z(20), italics: !KO, color: INK2 }) }));
   children.push(table({ w: [4.2, 11.8], rows: b.meta, size: 22, zebra: false, boldFirst: true }));
-  children.push(new Paragraph({ spacing: { before: 280, after: 0 }, children: runs(b.foot, { size: 20, italics: true, color: MUTED }) }));
+  children.push(new Paragraph({ spacing: { before: 280, after: 0 }, children: runs(b.foot, { size: Z(20), italics: !KO, color: MUTED }) }));
 }
 
 function buildToc() {
-  children.push(new Paragraph({ pageBreakBefore: true, alignment: AlignmentType.CENTER, spacing: { before: 0, after: 240 }, children: [new TextRun({ text: 'MỤC LỤC', font: FONT, size: 32, bold: true, color: NAVY })] }));
+  children.push(new Paragraph({ pageBreakBefore: true, alignment: AlignmentType.CENTER, spacing: { before: 0, after: 240 }, children: [new TextRun({ text: L.toc, font: FONT, size: 32, bold: true, color: NAVY })] }));
   children.push(new Paragraph({ children: [new TextRun({ text: '§TOC_BEGIN§', font: FONT, size: 2 })] }));
   // tocEntries chưa có ở thời điểm này nếu duyệt tuần tự → dùng danh sách tính trước
   for (const e of PRE_TOC) {
@@ -301,7 +317,7 @@ function buildToc() {
     children.push(new Paragraph({
       style: e.lvl === 1 ? 'TOC1' : 'TOC2',
       tabStops: [{ type: TabStopType.RIGHT, position: TW, leader: LeaderType.DOT }],
-      children: [new TextRun({ text: e.text, font: FONT, size: e.lvl === 1 ? 25 : 24, bold: e.lvl === 1, color: e.lvl === 1 ? NAVY : INK }), new TextRun({ text: '\t' + pg, font: FONT, size: e.lvl === 1 ? 25 : 24, bold: e.lvl === 1, color: e.lvl === 1 ? NAVY : INK })],
+      children: [new TextRun({ text: e.text, font: FONT, size: Z(e.lvl === 1 ? 25 : 24), bold: e.lvl === 1, color: e.lvl === 1 ? NAVY : INK }), new TextRun({ text: '\t' + pg, font: FONT, size: Z(e.lvl === 1 ? 25 : 24), bold: e.lvl === 1, color: e.lvl === 1 ? NAVY : INK })],
     }));
   }
   children.push(new Paragraph({ children: [new TextRun({ text: '§TOC_END§', font: FONT, size: 2 })] }));
@@ -327,24 +343,24 @@ function buildRefs(b) {
 
 // ---------- tài liệu ----------
 const header = new Header({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, spacing: { after: 0 }, border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: RULE, space: 4 } },
-  children: [new TextRun({ text: 'UMT · Báo cáo thẩm định sơ bộ · Bản chuẩn hoá theo tài liệu chính thức · Dữ liệu đến 27/10/2026', font: FONT, size: 19, italics: true, color: MUTED })] })] });
+  children: [new TextRun({ text: L.header, font: FONT, size: Z(19), italics: !KO, color: MUTED })] })] });
 const footer = new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 0, after: 0 },
-  children: [new TextRun({ children: ['Trang ', PageNumber.CURRENT, ' / ', PageNumber.TOTAL_PAGES], font: FONT, size: 21, color: INK2 })] })] });
+  children: [new TextRun({ children: L.footer, font: FONT, size: Z(21), color: INK2 })] })] });
 const empty = () => new Paragraph({ children: [] });
 
 const doc = new Document({
-  creator: 'Đơn vị tư vấn', title: 'Báo cáo thẩm định sơ bộ UMT – bản chuẩn hoá', description: 'Hồ sơ UMT cho nhà đầu tư Hàn Quốc',
+  creator: L.creator, title: L.title, description: L.desc,
   styles: {
     default: {
-      document: { run: { font: FONT, size: BODY, color: INK }, paragraph: { spacing: { line: 300, after: 120 } } },
-      heading1: { run: { font: FONT, size: 34, bold: true, color: NAVY }, paragraph: { spacing: { before: 0, after: 240, line: 276 }, keepNext: true,
+      document: { run: Object.assign({ font: FONT, size: BODY, color: INK }, KO ? { language: { value: 'en-US', eastAsia: 'ko-KR' } } : {}), paragraph: { spacing: { line: LS(300), after: 120 } } },
+      heading1: { run: { font: FONT, size: Z(34), bold: true, color: NAVY }, paragraph: { spacing: { before: 0, after: 240, line: 276 }, keepNext: true,
         border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: ACCENT, space: 6 } } } },
-      heading2: { run: { font: FONT, size: 29, bold: true, color: NAVY }, paragraph: { spacing: { before: 280, after: 120, line: 276 }, keepNext: true } },
-      heading3: { run: { font: FONT, size: 27, bold: true, italics: true, color: ACCENT }, paragraph: { spacing: { before: 200, after: 80, line: 276 }, keepNext: true } },
+      heading2: { run: { font: FONT, size: Z(29), bold: true, color: NAVY }, paragraph: { spacing: { before: 280, after: 120, line: 276 }, keepNext: true } },
+      heading3: { run: { font: FONT, size: Z(27), bold: true, italics: !KO, color: ACCENT }, paragraph: { spacing: { before: 200, after: 80, line: 276 }, keepNext: true } },
     },
     paragraphStyles: [
-      { id: 'TOC1', name: 'toc 1', basedOn: 'Normal', next: 'Normal', run: { font: FONT, size: 25, bold: true, color: NAVY }, paragraph: { spacing: { before: 100, after: 20, line: 264 } } },
-      { id: 'TOC2', name: 'toc 2', basedOn: 'Normal', next: 'Normal', run: { font: FONT, size: 24, color: INK }, paragraph: { spacing: { before: 0, after: 10, line: 264 }, indent: { left: 400 } } },
+      { id: 'TOC1', name: 'toc 1', basedOn: 'Normal', next: 'Normal', run: { font: FONT, size: Z(25), bold: true, color: NAVY }, paragraph: { spacing: { before: 100, after: 20, line: 264 } } },
+      { id: 'TOC2', name: 'toc 2', basedOn: 'Normal', next: 'Normal', run: { font: FONT, size: Z(24), color: INK }, paragraph: { spacing: { before: 0, after: 10, line: 264 }, indent: { left: 400 } } },
     ],
   },
   numbering: { config: [
@@ -366,7 +382,7 @@ const doc = new Document({
 
 Packer.toBuffer(doc).then(buf => {
   fs.writeFileSync(OUT, buf);
-  fs.writeFileSync(path.join(WK, 'tools/toc_entries.json'), JSON.stringify(PRE_TOC, null, 1));
-  fs.writeFileSync(path.join(WK, 'tools/cite_order.json'), JSON.stringify(citeOrder));
+  fs.writeFileSync(path.join(WK, `tools/toc_entries${SFX}.json`), JSON.stringify(PRE_TOC, null, 1));
+  fs.writeFileSync(path.join(WK, `tools/cite_order${SFX}.json`), JSON.stringify(citeOrder));
   console.log('OK', OUT, 'nguồn trích dẫn:', citeOrder.length, 'mục lục:', PRE_TOC.length);
 });

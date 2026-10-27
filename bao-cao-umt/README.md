@@ -8,6 +8,8 @@ Báo cáo thẩm định sơ bộ (desktop due diligence) về Trường Đại 
 | --- | --- | --- |
 | **2.0 (hiện hành)** | `UMT_Bao-cao-tham-dinh_v2.docx` | Word, 63 trang A4. Chuẩn hoá theo Báo cáo công khai 16/2026/BC-UMT, tờ rơi tuyển sinh 2026 và bản ghi màn hình website; 39 ảnh và ảnh chụp màn hình của trường, 10 biểu đồ và sơ đồ, 44 bảng, 82 nguồn |
 | 2.0 | `UMT_Bao-cao-tham-dinh_v2_xem-truoc.pdf` | Bản PDF xuất từ chính tệp DOCX để xem nhanh |
+| **2.0 tiếng Hàn** | `UMT_Due-Diligence_v2_KO.docx` | Bản dịch tiếng Hàn của bản 2.0, 53 trang: 17 chương, bỏ phụ lục và nguồn tham khảo; biểu đồ, sơ đồ vẽ lại bằng tiếng Hàn; số theo định dạng Hàn (1,234.5), tiền quy đổi sang won |
+| 2.0 tiếng Hàn | `UMT_Due-Diligence_v2_KO_preview.pdf` | Bản PDF xem nhanh của bản tiếng Hàn |
 | 1.0 (đã thay thế) | `UMT_Ho-so-tham-dinh.html`, `UMT_Ho-so-tham-dinh.pdf` | Dựa trên nguồn công khai qua chỉ mục tìm kiếm, chưa có ảnh. Nhiều số liệu đã được đính chính ở bản 2.0 (Bảng 2.2 của bản 2.0) |
 
 ## Bản 2.0
@@ -23,6 +25,8 @@ Những thay đổi chính so với bản 1.0:
 - Mức đáp ứng 14 chỉ số chuẩn; ký túc xá, sân thể thao, thư viện; chưa có liên kết đào tạo, chưa kiểm định.
 - Ảnh cơ sở vật chất, đội ngũ, sinh viên lấy từ tờ rơi; ảnh chụp màn hình website lấy từ video; mỗi ảnh ghi nguồn. Phụ lục A đối chiếu các điểm khác nhau giữa các nguồn của UMT.
 
+Bản tiếng Hàn dùng phông Malgun Gothic (chữ Hàn) và Arial (chữ Latin, tên riêng tiếng Việt), thân bài 12 pt, tiêu đề 16 / 14 / 13 pt, cùng khổ giấy, lề và cách đánh số trang; ngắt dòng theo từ (어절).
+
 ### Dựng lại bản 2.0
 
 Mã nguồn trong `docx-src/`:
@@ -30,18 +34,25 @@ Mã nguồn trong `docx-src/`:
 | Thư mục, tệp | Nội dung |
 | --- | --- |
 | `tools/content1.js`, `content2.js`, `content3.js` | Nội dung báo cáo; trích dẫn ghi `[[khóa-nguồn]]`, tham chiếu hình, bảng ghi `{fig:khóa}`, `{tab:khóa}` |
+| `tools/content_ko1.js`, `content_ko2.js`, `content_ko3.js` | Nội dung bản tiếng Hàn |
 | `tools/refs.json` | Danh mục nguồn |
 | `tools/build_docx.js` | Dựng DOCX bằng thư viện `docx` (Node) |
 | `tools/postprocess.py` | Thêm trường mục lục, kiểm soát dòng mồ côi |
 | `tools/pipeline.sh`, `findpages.py` | Dựng, xuất PDF bằng LibreOffice, dò số trang cho mục lục |
 | `tools/charts.py`, `html/org.html` + `tools/shot.js` | Vẽ biểu đồ và sơ đồ tổ chức |
-| `ready/`, `fig/`, `charts/` | Ảnh cắt từ tờ rơi, ảnh màn hình website, biểu đồ |
+| `tools/charts_ko.py` (sinh từ `charts.py` bằng `make_charts_ko.py`), `html/org_ko.html` | Biểu đồ, sơ đồ tiếng Hàn (cần phông Noto Sans KR) |
+| `ready/`, `fig/`, `charts/`, `charts_ko/` | Ảnh cắt từ tờ rơi, ảnh màn hình website, biểu đồ |
 
 ```bash
 cd docx-src
 bash tools/pipeline.sh "$PWD" UMT_v2          # lần 1: dò số trang
 cp tools/toc_found.json tools/toc_pages.json
 bash tools/pipeline.sh "$PWD" UMT_v2          # lần 2: mục lục có số trang → out/UMT_v2.docx
+
+# bản tiếng Hàn: thêm DOC_LANG=ko, số trang mục lục lưu ở tools/toc_pages_ko.json
+DOC_LANG=ko bash tools/pipeline.sh "$PWD" UMT_ko
+cp tools/toc_found_ko.json tools/toc_pages_ko.json
+DOC_LANG=ko bash tools/pipeline.sh "$PWD" UMT_ko
 ```
 
 Ảnh màn hình website (`fig/web_*.jpg`) được ghép từ khung hình của video khách hàng cung cấp bằng `tools/montage.py`; video không lưu trong kho mã.
