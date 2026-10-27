@@ -1,0 +1,1193 @@
+<title>Hồ sơ thẩm định UMT</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Báo cáo thẩm định sơ bộ về Trường Đại học Quản lý và Công nghệ TP.HCM (UMT) cho nhà đầu tư Hàn Quốc. Dữ liệu đến 27/10/2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: navy cover band with KPI strip, then a sticky contents rail beside one reading column; exhibits (charts, tables) may run wider than the text measure. */
+:root{
+  --paper:#f5f7fa;
+  --surface:#ffffff;
+  --ink:#0d1b2e;
+  --ink-2:#435066;
+  --muted:#6a7487;
+  --rule:#d9dfe8;
+  --rule-strong:#b7c1d0;
+  --tint:#eaf1fb;
+  --accent:#1e5aa8;
+  --navy:#0f2a4d;
+  --navy-ink:#eef3fa;
+  --navy-muted:#a9bcd6;
+  --navy-rule:rgba(238,243,250,.16);
+  --seal:#ff8a7a;
+  --viz-1:#2a78d6;
+  --viz-mute:#9aa3b2;
+  --viz-grid:#e4e8ee;
+  --viz-axis:#c3cad5;
+  --ord-1:#104281; --ord-2:#2a78d6; --ord-3:#86b6ef;
+  --seq-1:#cde2fb; --seq-2:#9ec5f4; --seq-3:#6da7ec; --seq-4:#3987e5; --seq-5:#256abf; --seq-6:#184f95;
+  --seq-ink-light:#0b0b0b; --seq-ink-dark:#ffffff;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --good-ink:#006300; --warning-ink:#8a5a00; --serious-ink:#a8431c; --critical-ink:#b42318;
+  --good-wash:rgba(12,163,12,.10); --warning-wash:rgba(250,178,25,.16); --serious-wash:rgba(236,131,90,.16); --critical-wash:rgba(208,59,59,.12);
+  --na-wash:rgba(106,116,135,.12);
+  --font-ui:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-text:"Source Serif 4","Noto Serif",Georgia,"Times New Roman",serif;
+  --font-kr:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --measure:70ch;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0b1220; --surface:#111a2b; --ink:#e7ecf4; --ink-2:#aeb8c9; --muted:#8b95a8;
+    --rule:#22304a; --rule-strong:#34445f; --tint:#16233a; --accent:#7ea8ee;
+    --navy:#0a1d38; --navy-ink:#eef3fa; --navy-muted:#a9bcd6; --navy-rule:rgba(238,243,250,.14); --seal:#ff8a7a;
+    --viz-1:#3987e5; --viz-mute:#5b667a; --viz-grid:#1f2a3e; --viz-axis:#34445f;
+    --ord-1:#9ec5f4; --ord-2:#3987e5; --ord-3:#184f95;
+    --seq-1:#184f95; --seq-2:#1c5cab; --seq-3:#256abf; --seq-4:#3987e5; --seq-5:#6da7ec; --seq-6:#9ec5f4;
+    --seq-ink-light:#ffffff; --seq-ink-dark:#0b0b0b;
+    --good-ink:#4cc94c; --warning-ink:#f5c04d; --serious-ink:#f2a27f; --critical-ink:#ff8b84;
+    --good-wash:rgba(12,163,12,.18); --warning-wash:rgba(250,178,25,.16); --serious-wash:rgba(236,131,90,.18); --critical-wash:rgba(208,59,59,.22);
+    --na-wash:rgba(139,149,168,.16);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0b1220; --surface:#111a2b; --ink:#e7ecf4; --ink-2:#aeb8c9; --muted:#8b95a8;
+  --rule:#22304a; --rule-strong:#34445f; --tint:#16233a; --accent:#7ea8ee;
+  --navy:#0a1d38; --navy-ink:#eef3fa; --navy-muted:#a9bcd6; --navy-rule:rgba(238,243,250,.14); --seal:#ff8a7a;
+  --viz-1:#3987e5; --viz-mute:#5b667a; --viz-grid:#1f2a3e; --viz-axis:#34445f;
+  --ord-1:#9ec5f4; --ord-2:#3987e5; --ord-3:#184f95;
+  --seq-1:#184f95; --seq-2:#1c5cab; --seq-3:#256abf; --seq-4:#3987e5; --seq-5:#6da7ec; --seq-6:#9ec5f4;
+  --seq-ink-light:#ffffff; --seq-ink-dark:#0b0b0b;
+  --good-ink:#4cc94c; --warning-ink:#f5c04d; --serious-ink:#f2a27f; --critical-ink:#ff8b84;
+  --good-wash:rgba(12,163,12,.18); --warning-wash:rgba(250,178,25,.16); --serious-wash:rgba(236,131,90,.18); --critical-wash:rgba(208,59,59,.22);
+  --na-wash:rgba(139,149,168,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:2px}
+a:focus-visible,[tabindex]:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.band-inner{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- cover ---------- */
+.cover{background:var(--navy);color:var(--navy-ink);position:relative;overflow:hidden}
+.cover::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--navy-rule) 1px,transparent 1px),linear-gradient(90deg,var(--navy-rule) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:linear-gradient(115deg,transparent 35%,#000 100%);-webkit-mask-image:linear-gradient(115deg,transparent 35%,#000 100%)}
+.cover .band-inner{position:relative;padding-block:44px 28px}
+.cover-top{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-start;justify-content:space-between}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-muted)}
+.cover h1{font-size:clamp(28px,4.4vw,50px);line-height:1.12;font-weight:800;letter-spacing:-.015em;margin:14px 0 12px;max-width:28ch;text-wrap:balance}
+.cover .lede{font-family:var(--font-text);font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--navy-ink);opacity:.92;max-width:58ch;margin:0}
+.stamp{flex:none;border:2px solid var(--seal);color:var(--seal);border-radius:6px;padding:8px 14px;transform:rotate(-4deg);text-align:center;font-weight:800;letter-spacing:.16em;font-size:13px;line-height:1.35;margin-top:6px}
+.stamp span{display:block;font-family:var(--font-kr);letter-spacing:.3em;font-weight:700}
+.cover-meta{display:flex;flex-wrap:wrap;gap:8px 28px;margin:26px 0 0;padding:14px 0 0;border-top:1px solid var(--navy-rule);font-size:13.5px;color:var(--navy-muted)}
+.cover-meta b{color:var(--navy-ink);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--navy-rule);border:1px solid var(--navy-rule);border-radius:10px;overflow:hidden;margin-top:28px}
+.kpi{background:var(--navy);padding:16px 16px 14px;min-width:0}
+.kpi .v{font-size:clamp(22px,2.4vw,30px);font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.kpi .l{font-size:12.5px;color:var(--navy-muted);margin-top:6px;line-height:1.35}
+@media (max-width:980px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- layout ---------- */
+.layout{display:grid;grid-template-columns:232px minmax(0,1fr);gap:48px;padding-block:40px 64px}
+@media (max-width:1080px){.layout{grid-template-columns:minmax(0,1fr);gap:0}}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;font-size:13px;max-height:calc(100vh - 40px);overflow:auto;padding-right:4px}
+.toc h2{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:600}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
+.toc li{counter-increment:toc}
+.toc a{display:grid;grid-template-columns:24px 1fr;gap:4px;padding:5px 8px;border-radius:6px;color:var(--ink-2);text-decoration:none;line-height:1.35}
+.toc a::before{content:counter(toc,decimal-leading-zero);color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px;padding-top:1px}
+.toc a:hover{background:var(--tint);color:var(--ink)}
+.toc a.active{background:var(--tint);color:var(--ink);font-weight:600}
+@media (max-width:1080px){.toc{position:static;max-height:none;margin-bottom:24px}
+  .toc details{border:1px solid var(--rule);border-radius:10px;background:var(--surface);padding:10px 14px}
+  .toc summary{cursor:pointer;font-weight:600}
+}
+@media (min-width:1081px){.toc summary{display:none}.toc details>ol{display:block}}
+main{min-width:0}
+
+/* ---------- sections ---------- */
+section.chapter{padding-top:8px;margin-bottom:64px;scroll-margin-top:16px}
+.chapter-head{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:baseline;border-top:2px solid var(--ink);padding-top:14px;margin-bottom:22px}
+.chapter-no{font-size:13px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.chapter-head h2{font-size:clamp(23px,2.4vw,29px);line-height:1.2;margin:0;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.chapter-head .kicker{grid-column:2;color:var(--muted);font-size:14px;margin:2px 0 0}
+h3{font-size:18.5px;line-height:1.3;margin:34px 0 12px;font-weight:650;text-wrap:balance}
+h4{font-size:15px;margin:0 0 8px;font-weight:650}
+.prose p,.prose li{font-family:var(--font-text);font-size:17px;line-height:1.66;max-width:var(--measure)}
+.prose p{margin:0 0 14px}
+.prose ul,.prose ol{padding-left:1.25em;margin:0 0 14px}
+.prose li{margin-bottom:6px}
+.prose strong{font-weight:600}
+sup.ref{font-family:var(--font-ui);font-size:11px;line-height:0;font-weight:500;color:var(--muted);margin-left:1px;white-space:nowrap}
+sup.ref a{color:var(--accent);text-decoration:none}
+sup.ref a:hover{text-decoration:underline}
+
+/* ---------- callouts & chips ---------- */
+.callout{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:20px 0;max-width:860px}
+.callout .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.callout.analysis{background:var(--tint);border-color:transparent}
+.callout p,.callout li{font-family:var(--font-text);font-size:16.5px;line-height:1.6;margin:0 0 10px}
+.callout p:last-child{margin-bottom:0}
+.callout ul{margin:0;padding-left:1.2em}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;line-height:1;padding:5px 9px 5px 7px;border-radius:999px;white-space:nowrap;vertical-align:baseline}
+.chip::before{font-size:11px;font-weight:800;display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;color:#fff}
+.chip.good{background:var(--good-wash);color:var(--good-ink)} .chip.good::before{content:"✓";background:var(--good)}
+.chip.warn{background:var(--warning-wash);color:var(--warning-ink)} .chip.warn::before{content:"!";background:var(--warning);color:#0b0b0b}
+.chip.serious{background:var(--serious-wash);color:var(--serious-ink)} .chip.serious::before{content:"▲";background:var(--serious);font-size:8px}
+.chip.crit{background:var(--critical-wash);color:var(--critical-ink)} .chip.crit::before{content:"✕";background:var(--critical)}
+.chip.na{background:var(--na-wash);color:var(--ink-2)} .chip.na::before{content:"?";background:var(--muted)}
+.tier{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:4px;font-size:11px;font-weight:800;color:#fff;vertical-align:1px}
+.tier.tA{background:var(--accent)} .tier.tB{background:var(--ink-2)} .tier.tC{background:var(--muted)}
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:var(--na-wash);color:var(--ink-2);vertical-align:2px}
+
+/* ---------- findings grid ---------- */
+.findings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0 8px}
+@media (max-width:760px){.findings{grid-template-columns:minmax(0,1fr)}}
+.finding{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;min-width:0}
+.finding .hd{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.finding .hd h4{margin:0;font-size:15.5px}
+.finding p{font-family:var(--font-text);font-size:15.5px;line-height:1.55;margin:0;color:var(--ink)}
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:var(--ink);color:var(--paper);border-radius:12px;padding:20px 22px;margin:22px 0;max-width:980px}
+.verdict .lbl{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.75;writing-mode:horizontal-tb}
+.verdict p{margin:0;font-family:var(--font-text);font-size:17px;line-height:1.55}
+@media (max-width:640px){.verdict{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- tables ---------- */
+.tbl-wrap{overflow-x:auto;margin:14px 0 6px;border:1px solid var(--rule);border-radius:10px;background:var(--surface);max-width:100%}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45}
+.tbl th,.tbl td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+.tbl thead th{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);background:var(--tint);border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+.tbl tbody tr:last-child th,.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody th{font-weight:600}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .code{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-2)}
+.tbl td.k{width:30%;color:var(--ink-2);font-weight:500}
+.tbl.compact th,.tbl.compact td{padding:8px 10px}
+.tbl.wide{min-width:760px}
+.tbl.mid{min-width:620px}
+.tbl tr.group th{background:var(--paper);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.heat td.num{font-weight:600;cursor:default}
+.heat td.s1{background:var(--seq-1);color:var(--seq-ink-light)}
+.heat td.s2{background:var(--seq-2);color:var(--seq-ink-light)}
+.heat td.s3{background:var(--seq-3);color:var(--seq-ink-light)}
+.heat td.s4{background:var(--seq-4);color:var(--seq-ink-dark)}
+.heat td.s5{background:var(--seq-5);color:var(--seq-ink-dark)}
+.heat td.s6{background:var(--seq-6);color:var(--seq-ink-dark)}
+.heat td{border-left:2px solid var(--surface)}
+
+/* ---------- exhibits & charts ---------- */
+figure.exhibit{margin:22px 0 10px;max-width:980px}
+figure.exhibit figcaption{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin-bottom:8px}
+.ex-no{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.ex-title{font-weight:650;font-size:15.5px}
+.ex-src{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.45}
+.chart-wrap{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px 12px}
+/* horizontal bars and dot/range rows: label above, plot below, values to the right */
+.hb{font-size:13.5px}
+.hb-row{padding:7px 4px;border-radius:6px;outline:none}
+.hb-row:hover{background:var(--paper)}
+.hb-row:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.hb-lbl{color:var(--ink-2);line-height:1.35;margin-bottom:6px}
+.hb-lbl.gap{margin-top:22px}
+.hb-plot{position:relative;height:18px;margin-right:96px;border-right:1px solid var(--viz-grid);
+  background-image:linear-gradient(to right,var(--viz-grid) 1px,transparent 1px);background-size:calc(100% / var(--n,4)) 100%}
+.hb-bar{position:absolute;left:0;top:0;bottom:0;background:var(--viz-1);border-radius:0 4px 4px 0}
+.hb-bar.mute{background:var(--viz-mute)}
+.hb-val{position:absolute;top:50%;transform:translateY(-50%);margin-left:8px;font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.hb-val.dotval{margin-left:14px}
+.hb-range{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--viz-mute)}
+.hb-range.emph{background:var(--viz-1)}
+.hb-dot{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--viz-mute);box-shadow:0 0 0 2px var(--surface)}
+.hb-dot.emph{background:var(--viz-1)}
+.hb-axis{position:relative;height:18px;margin:8px 100px 0 4px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.hb-axis span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.hb-axis span:first-child{transform:none}
+.hb-axis span:last-child{transform:translateX(-100%)}
+.hb-unit{color:var(--muted);font-size:12px;margin:2px 100px 0 4px;text-align:right}
+@media (max-width:560px){.hb-axis span:not(:first-child):not(:last-child){display:none}}
+/* vertical columns with a reference line */
+.vc{font-size:13px}
+.vc-plot{position:relative;height:250px;margin:10px 0 0 44px}
+.vc-grid{position:absolute;left:0;right:0;border-top:1px solid var(--viz-grid)}
+.vc-grid span{position:absolute;right:100%;margin-right:8px;transform:translateY(-50%);color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.vc-cols{position:absolute;inset:0;display:flex}
+.vc-col{flex:1;position:relative;display:flex;justify-content:center;outline:none;border-radius:6px}
+.vc-col:hover{background:color-mix(in srgb,var(--paper) 70%,transparent)}
+.vc-col:focus-visible{outline:2px solid var(--accent)}
+.vc-bar{position:absolute;bottom:0;width:24px;left:50%;margin-left:-12px;background:var(--viz-1);border-radius:4px 4px 0 0}
+.vc-val{position:absolute;left:50%;transform:translate(-50%,-6px);margin-bottom:0;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.vc-val.side{transform:translate(18px,140%)}
+.vc-na{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:var(--muted);font-style:italic;font-size:12px;line-height:1.3;padding:0 4px}
+.vc-whisker{position:absolute;left:50%;width:0;border-left:1.5px solid var(--ink-2)}
+.vc-whisker::after{content:"";position:absolute;top:0;left:-8px;width:15px;border-top:1.5px solid var(--ink-2)}
+.vc-alt{position:absolute;left:50%;transform:translate(14px,50%);color:var(--muted);font-size:12px;white-space:nowrap}
+.vc-ref{position:absolute;left:0;right:0;border-top:1.5px solid var(--ink-2);z-index:1;pointer-events:none}
+.vc-ref span{position:absolute;right:0;bottom:4px;font-size:12px;font-weight:600;color:var(--ink-2);background:var(--surface);padding:0 4px}
+.vc-x{display:flex;margin:8px 0 0 44px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.vc-x span{flex:1;text-align:center}
+.key-line{height:0!important;border-top:2px solid var(--ink-2);border-radius:0!important;width:18px!important}
+.key-whisker{height:12px!important;width:10px!important;border-left:1.5px solid var(--ink-2);border-top:1.5px solid var(--ink-2);background:none!important;border-radius:0!important}
+/* stacked bar + meter */
+.st{display:flex;gap:2px;height:24px}
+.st-seg{height:100%;outline:none}
+.st-seg:last-child{border-radius:0 4px 4px 0}
+.st-seg:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.o1{background:var(--ord-1)} .o2{background:var(--ord-2)} .o3{background:var(--ord-3)}
+.st-key{width:14px;height:14px;border-radius:3px;display:inline-block}
+.mt{outline:none;padding:4px 0}
+.mt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mt-track{position:relative;height:16px;background:var(--tint);border-radius:0 4px 4px 0}
+.mt-bar{position:absolute;left:0;top:0;bottom:0;background:var(--viz-1);border-radius:0 4px 4px 0}
+.mt-val{position:absolute;top:50%;transform:translateY(-50%);margin-left:8px;font-weight:700;font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.mt-mark{position:absolute;top:-6px;bottom:-6px;width:0;border-left:1.5px solid var(--ink-2)}
+.mt-labels{position:relative;height:20px;margin-top:10px;font-size:12px;color:var(--ink-2);font-weight:600}
+.mt-labels span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.mt-labels span:first-child{transform:none;color:var(--muted);font-weight:400}
+.mt-labels span.end{transform:translateX(-100%);color:var(--muted);font-weight:400}
+details.tableview{margin-top:8px;font-size:13.5px}
+details.tableview summary{cursor:pointer;color:var(--accent);font-weight:600;padding:4px 0}
+#tip{position:fixed;z-index:50;pointer-events:none;max-width:320px;background:var(--ink);color:var(--paper);font-size:13px;line-height:1.4;padding:8px 10px;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+
+/* ---------- timeline ---------- */
+.timeline{list-style:none;margin:16px 0;padding:0;max-width:880px;position:relative}
+.timeline::before{content:"";position:absolute;left:118px;top:6px;bottom:6px;width:1px;background:var(--rule-strong)}
+.timeline li{display:grid;grid-template-columns:104px 1fr;gap:28px;padding:9px 0;position:relative}
+.timeline li::before{content:"";position:absolute;left:113px;top:16px;width:11px;height:11px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.timeline li.key::before{background:var(--accent)}
+.timeline .d{font-weight:700;font-variant-numeric:tabular-nums;text-align:right;font-size:14px;padding-top:2px}
+.timeline .e{font-family:var(--font-text);font-size:16px;line-height:1.5}
+@media (max-width:560px){.timeline::before{left:7px}.timeline li{grid-template-columns:minmax(0,1fr);gap:2px;padding-left:28px}.timeline li::before{left:2px}.timeline .d{text-align:left}}
+
+/* ---------- diagrams ---------- */
+.diagram{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px;max-width:980px}
+.node{border:1px solid var(--rule-strong);border-radius:8px;padding:10px 12px;background:var(--surface);min-width:0}
+.node b{display:block;font-size:14.5px}
+.node small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4;margin-top:2px}
+.node.key{border:2px solid var(--accent);background:var(--tint)}
+.node.dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.node.dark small{color:var(--paper);opacity:.75}
+.tier-row{display:grid;gap:12px}
+.tier-row.c1{grid-template-columns:minmax(0,1fr);max-width:520px;margin:0 auto}
+.tier-row.c5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.tier-row.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.tier-row.c5,.tier-row.c4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.tier-row.c5,.tier-row.c4{grid-template-columns:minmax(0,1fr)}}
+.connector{height:22px;position:relative;margin:2px 0}
+.connector::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--rule-strong)}
+.org-col ul{list-style:none;margin:6px 0 0;padding:0;font-size:13.5px}
+.org-col li{padding:5px 0;border-top:1px dashed var(--rule);line-height:1.35}
+.org-col li:first-child{border-top:0}
+
+/* ---------- risk matrix ---------- */
+.matrix{display:grid;grid-template-columns:28px repeat(5,minmax(0,1fr));gap:4px;max-width:640px;font-size:12.5px}
+.matrix .ax{display:grid;place-items:center;color:var(--muted);font-variant-numeric:tabular-nums}
+.matrix .cell{min-height:58px;border-radius:6px;padding:6px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start}
+.matrix .lv1{background:var(--good-wash)} .matrix .lv2{background:var(--warning-wash)} .matrix .lv3{background:var(--serious-wash)} .matrix .lv4{background:var(--critical-wash)}
+.matrix .rid{font-weight:700;background:var(--surface);border:1px solid var(--rule-strong);border-radius:4px;padding:1px 5px;font-size:12px}
+.matrix-wrap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;max-width:700px}
+.matrix-wrap .ylab{writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;color:var(--ink-2);font-weight:600;letter-spacing:.04em}
+.matrix-x{text-align:center;font-size:12px;color:var(--ink-2);font-weight:600;margin-top:6px;max-width:640px;padding-left:32px}
+.legend-row{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12.5px;color:var(--ink-2);margin-top:10px}
+.legend-row span{display:inline-flex;align-items:center;gap:6px}
+.legend-row i{width:14px;height:14px;border-radius:3px;display:inline-block}
+
+/* ---------- SWOT ---------- */
+.swot{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:980px}
+@media (max-width:720px){.swot{grid-template-columns:minmax(0,1fr)}}
+.swot>div{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;min-width:0}
+.swot h4{display:flex;align-items:center;gap:10px;font-size:15px}
+.swot h4 .k{font-size:22px;font-weight:800;color:var(--accent);line-height:1}
+.swot ul{margin:0;padding-left:1.1em;font-family:var(--font-text);font-size:15.5px;line-height:1.55}
+.swot li{margin-bottom:6px}
+
+/* ---------- korean ---------- */
+.kr{font-family:var(--font-kr);background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px;max-width:980px;word-break:keep-all}
+.kr h3{font-family:var(--font-kr);margin-top:0}
+.kr p,.kr li{font-size:15.5px;line-height:1.75}
+.kr ul{padding-left:1.1em;margin:0 0 12px}
+.kr li{margin-bottom:8px}
+.kr .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+
+/* ---------- references ---------- */
+.ref-group{display:flex;align-items:center;gap:10px;font-size:15px;margin:26px 0 10px}
+ol.refs{margin:0;padding-left:2.6em;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+ol.refs li{margin-bottom:9px;padding-left:4px;scroll-margin-top:24px}
+ol.refs li:target{background:var(--tint);border-radius:4px}
+.ref-pub{font-weight:600;color:var(--ink)}
+.ref-date{color:var(--muted)}
+.ref-url a{color:var(--accent);word-break:break-all;font-size:12.5px}
+footer.colophon{border-top:1px solid var(--rule);padding-block:22px 40px;color:var(--muted);font-size:13px}
+footer.colophon p{max-width:90ch;margin:0 0 8px}
+
+/* ---------- print / PDF ---------- */
+@media print{
+  @page{size:A4;margin:14mm 13mm 16mm}
+  body{font-size:12.5px;background:#fff}
+  .toc,details.tableview,#tip{display:none!important}
+  .layout{display:block;padding-block:16px 0}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cover .band-inner{padding-block:28px 20px}
+  section.chapter{margin-bottom:28px;break-before:auto}
+  .chapter-head{break-after:avoid}
+  figure.exhibit,.callout,.finding,.swot>div,.diagram,.verdict,.kr,.matrix-wrap,.tbl tr{break-inside:avoid}
+  .tbl-wrap{overflow:visible}
+  .tbl.wide,.tbl.mid{min-width:0}
+  a{color:inherit;text-decoration:none}
+  .prose p,.prose li{font-size:13.5px}
+  .chip,.heat td,.tier,.matrix .cell,.verdict,.kpis,.kpi,.node.dark,.node.key{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+
+<header class="cover">
+  <div class="band-inner">
+    <div class="cover-top">
+      <div>
+        <div class="eyebrow">Báo cáo thẩm định sơ bộ · Desktop due diligence · Bản 1.0</div>
+        <h1>Trường Đại&nbsp;học Quản&nbsp;lý và Công&nbsp;nghệ TP.&nbsp;Hồ&nbsp;Chí&nbsp;Minh (UMT)</h1>
+        <p class="lede">Hồ sơ thông tin toàn diện phục vụ quyết định đầu tư, lập cho nhà đầu tư Hàn Quốc. Mọi số liệu đều dẫn nguồn; phần nhận định của đơn vị tư vấn được tách riêng và ghi rõ.</p>
+      </div>
+      <div class="stamp" aria-label="Tài liệu bảo mật">BẢO MẬT<span>대외비</span></div>
+    </div>
+    <div class="cover-meta">
+      <div><b>Dữ liệu đến:</b> 27/10/2026</div>
+      <div><b>Phạm vi:</b> nguồn công khai chính thống ({{REF_COUNT}} nguồn)</div>
+      <div><b>Ngôn ngữ:</b> Tiếng Việt · 한국어 요약</div>
+      <div><b>Tỷ giá tham chiếu:</b> 1 USD = 25.634 đ · 1 KRW ≈ 18,47 đ</div>
+    </div>
+    <div class="kpis" role="list">
+      <div class="kpi" role="listitem"><div class="v">27/3/2021</div><div class="l">Thành lập theo QĐ 467/QĐ-TTg · tư thục không vì lợi nhuận</div></div>
+      <div class="kpi" role="listitem"><div class="v">80.092 m²</div><div class="l">Diện tích đất cơ sở chính, Phường Cát Lái</div></div>
+      <div class="kpi" role="listitem"><div class="v">16.884 m²</div><div class="l">Sàn xây dựng Tòa nhà Sáng tạo 9 tầng</div></div>
+      <div class="kpi" role="listitem"><div class="v">≈ 700</div><div class="l">Sinh viên đang học (11/2025), 4 khóa</div></div>
+      <div class="kpi" role="listitem"><div class="v">259</div><div class="l">Giảng viên, nhân viên cơ hữu (11/2025)</div></div>
+      <div class="kpi" role="listitem"><div class="v">10 ngành</div><div class="l">Đại học chính quy năm 2026 · 24 chuyên ngành</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="band-inner">
+<div class="layout">
+<nav class="toc" aria-label="Mục lục">
+  <details open>
+    <summary>Mục lục</summary>
+    <h2>Mục lục</h2>
+    <ol>
+      <li><a href="#tom-tat">Tóm tắt điều hành</a></li>
+      <li><a href="#han-quoc">한국어 요약</a></li>
+      <li><a href="#phuong-phap">Phạm vi &amp; phương pháp</a></li>
+      <li><a href="#phap-ly">Pháp lý &amp; lịch sử</a></li>
+      <li><a href="#chu-dau-tu">Chủ đầu tư &amp; sở hữu</a></li>
+      <li><a href="#quan-tri">Quản trị &amp; bộ máy</a></li>
+      <li><a href="#dao-tao">Đào tạo &amp; hợp tác</a></li>
+      <li><a href="#tuyen-sinh">Tuyển sinh &amp; người học</a></li>
+      <li><a href="#hoc-phi">Học phí &amp; học bổng</a></li>
+      <li><a href="#doi-ngu">Đội ngũ &amp; tiền lương</a></li>
+      <li><a href="#co-so">Cơ sở vật chất</a></li>
+      <li><a href="#tai-chinh">Tài chính &amp; chi phí</a></li>
+      <li><a href="#truyen-thong">Truyền thông &amp; thương hiệu</a></li>
+      <li><a href="#thi-truong">Thị trường &amp; cạnh tranh</a></li>
+      <li><a href="#tuan-thu">Pháp lý đầu tư &amp; tuân thủ chuẩn</a></li>
+      <li><a href="#rui-ro">SWOT &amp; ma trận rủi ro</a></li>
+      <li><a href="#phuong-an">Phương án tham gia</a></li>
+      <li><a href="#tham-dinh">Hồ sơ cần thẩm định</a></li>
+      <li><a href="#nguon">Nguồn &amp; thuật ngữ</a></li>
+    </ol>
+  </details>
+</nav>
+
+<main>
+
+<!-- 01 ------------------------------------------------------------------ -->
+<section class="chapter" id="tom-tat">
+  <div class="chapter-head"><span class="chapter-no">01</span><h2>Tóm tắt điều hành</h2><p class="kicker">Những điều nhà đầu tư cần biết trước khi đọc chi tiết</p></div>
+  <div class="prose">
+    <p>UMT là trường đại học <strong>tư thục, hoạt động không vì lợi nhuận</strong>, được thành lập theo Quyết định 467/QĐ-TTg ngày 27/3/2021 của Thủ tướng Chính phủ<span>[[gd-thanhlap, umt-attt]]</span>. Nhà đầu tư là Công ty Cổ phần Kiến Á (Kiến Á Group); dự án được phê duyệt chủ trương từ năm 2013<span>[[tn-2021, umt-about]]</span>. Trường khánh thành cơ sở và khai giảng khóa đầu tiên ngày 8/10/2022 tại Phường Cát Lái, phía Đông TP.HCM<span>[[gov-khaigiang]]</span>.</p>
+    <p>Đến tháng 11/2025, trường có <strong>gần 700 sinh viên</strong> thuộc 4 khóa, <strong>259 giảng viên và nhân viên cơ hữu</strong>, đào tạo 9 ngành đại học trên khu đất <strong>80.092 m²</strong><span>[[umt-attt]]</span>. Năm 2026 trường tuyển 10 ngành với 24 chuyên ngành<span>[[umt-ts, mt-2026]]</span>. Khóa 1 tốt nghiệp ngày 22/8/2026<span>[[umt-tn2026, tp-totnghiep]]</span>.</p>
+  </div>
+
+  <h3>Sáu phát hiện chính</h3>
+  <div class="findings">
+    <div class="finding"><div class="hd"><h4>Cấu trúc pháp lý</h4><span class="chip crit">Rủi ro cao</span></div>
+      <p>Trường không vì lợi nhuận: nhà đầu tư cam kết không rút vốn, không hưởng lợi tức; chênh lệch thu chi tích lũy là tài sản không chia của trường<span>[[law-2018, law-2025]]</span>. Nhà đầu tư mới không thể kỳ vọng cổ tức từ UMT.</p></div>
+    <div class="finding"><div class="hd"><h4>Quy mô và công suất</h4><span class="chip crit">Rủi ro cao</span></div>
+      <p>Khi ra mắt năm 2021, trường công bố mục tiêu hơn 10.000 sinh viên vào năm 2030<span>[[gov-ramat, vne-ramat]]</span>. Đề án năm 2025 hạ quy mô ổn định xuống 3.200 sinh viên sau 10 năm<span>[[umt-attt]]</span>. Thực tế hiện có khoảng 700, tức <strong>≈ 22% quy mô quy hoạch</strong>.</p></div>
+    <div class="finding"><div class="hd"><h4>Tuyển sinh</h4><span class="chip serious">Đáng lưu ý</span></div>
+      <p>Điểm trúng tuyển các năm 2022–2026 phổ biến ở mức 15/30 điểm thi tốt nghiệp THPT<span>[[voh-dc2022, gov-dc2025, gdtd-dc2026]]</span>. Tháng 9/2026 trường còn xét tuyển bổ sung hơn 400 chỉ tiêu<span>[[gd247-bs2026, umt-bs2026]]</span>.</p></div>
+    <div class="finding"><div class="hd"><h4>Giá và chiết khấu</h4><span class="chip warn">Theo dõi</span></div>
+      <p>Học phí niêm yết toàn khóa suy ra ≈ 363 triệu đồng và được cam kết không tăng. Mọi tân sinh viên 2026 nhận học bổng tối thiểu 90 triệu đồng, tương đương chiết khấu ≈ 25%<span>[[vnn-hb2026, cafebiz-hb2026]]</span>.</p></div>
+    <div class="finding"><div class="hd"><h4>Tuân thủ chuẩn mới</h4><span class="chip serious">Đáng lưu ý</span></div>
+      <p>Thông tư 83/2026 (hiệu lực 15/11/2026) yêu cầu biên độ hoạt động bình quân 3 năm không âm và tỷ lệ giảng viên tiến sĩ ≥ 20%<span>[[tt-83, sggp-tt83]]</span>. Khoa Công nghệ hiện ở mức 13,0%<span>[[umt-attt]]</span>; tài chính chưa công khai.</p></div>
+    <div class="finding"><div class="hd"><h4>Chủ sở hữu và quản trị</h4><span class="chip warn">Theo dõi</span></div>
+      <p>Quản trị tập trung vào gia đình người sáng lập<span>[[umt-hb104, umt-tn2026, ndt-kecan]]</span>. Một doanh nghiệp trong hệ sinh thái Kiến Á đã tất toán 491 tỷ đồng trái phiếu nhưng phát sinh 400 tỷ đồng vay dài hạn từ bên liên quan<span>[[vnf-spm, bpl-spm]]</span>.</p></div>
+  </div>
+
+  <h3>Bảng đánh giá tổng hợp</h3>
+  <div class="tbl-wrap"><table class="tbl mid">
+    <thead><tr><th scope="col">Khía cạnh</th><th scope="col">Hiện trạng (có nguồn)</th><th scope="col">Đánh giá sơ bộ</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Pháp lý thành lập, hoạt động</th><td>Có QĐ thành lập của Thủ tướng (2021) và được Bộ GD&amp;ĐT cho phép hoạt động đào tạo năm 2021<span>[[gd-thanhlap, umt-about]]</span></td><td><span class="chip good">Thuận lợi</span></td></tr>
+      <tr><th scope="row">Lợi ích kinh tế cho nhà đầu tư</th><td>Không rút vốn, không hưởng lợi tức, tài sản tích lũy không chia<span>[[law-2018, law-2025]]</span></td><td><span class="chip crit">Hạn chế</span></td></tr>
+      <tr><th scope="row">Cơ sở vật chất</th><td>Khu đất 8 ha, tòa nhà mới 16.884 m² sàn đưa vào dùng 9/2022<span>[[umt-attt, umt-khmt]]</span></td><td><span class="chip good">Thuận lợi</span></td></tr>
+      <tr><th scope="row">Quy mô và nhu cầu</th><td>≈ 700 sinh viên; điểm đầu vào ở mức sàn; xét bổ sung lớn<span>[[umt-attt, gd247-bs2026]]</span></td><td><span class="chip crit">Yếu</span></td></tr>
+      <tr><th scope="row">Đội ngũ học thuật</th><td>Khoa Công nghệ: 1 PGS, 5 TS, 40 ThS trên 46 người<span>[[umt-attt]]</span></td><td><span class="chip serious">Đang xây dựng</span></td></tr>
+      <tr><th scope="row">Minh bạch tài chính</th><td>Không tìm thấy báo cáo tài chính, báo cáo thường niên công khai</td><td><span class="chip na">Thiếu dữ liệu</span></td></tr>
+      <tr><th scope="row">Thương hiệu và truyền thông</th><td>Fanpage ≈ 47,9 nghìn người theo dõi; các kênh khác quy mô nhỏ<span>[[umt-social]]</span></td><td><span class="chip warn">Mới hình thành</span></td></tr>
+      <tr><th scope="row">Mức phù hợp với đối tác Hàn Quốc</th><td>Đã có MOU với EasyCS, UR Planner; hợp tác Shinhan Bank<span>[[umt-easycs, umt-khoa, umt-shinhan]]</span></td><td><span class="chip good">Có nền tảng</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="ex-src">Cột “Đánh giá sơ bộ” là nhận định của đơn vị tư vấn dựa trên dữ liệu đã dẫn.</p>
+
+  <div class="verdict"><div class="lbl">Khuyến nghị</div>
+    <p>UMT phù hợp với một <strong>khoản đầu tư chiến lược</strong> hơn là một khoản đầu tư tài chính. Không nên đặt mục tiêu cổ tức hay thoái vốn có lãi tại UMT. Nên ưu tiên hợp tác học thuật – doanh nghiệp với phía Hàn Quốc hoặc hợp đồng dịch vụ theo giá thị trường, và chỉ cam kết vốn sau khi thẩm định pháp lý, tài chính đầy đủ (mục 17–18).</p></div>
+</section>
+
+<!-- 02 ------------------------------------------------------------------ -->
+<section class="chapter" id="han-quoc" lang="ko">
+  <div class="chapter-head"><span class="chapter-no">02</span><h2>한국어 요약</h2><p class="kicker">Executive summary for the Korean investor</p></div>
+  <div class="kr">
+    <h3>호찌민시 관리기술대학교(UMT) 투자 검토 핵심 요약</h3>
+    <p class="sub">기준일: 2026년 10월 27일 · 모든 수치는 본 보고서(베트남어) 본문에 출처가 표기되어 있습니다.</p>
+    <ul>
+      <li><b>기관 개요:</b> UMT(Trường Đại học Quản lý và Công nghệ TP.HCM)는 2021년 3월 27일 베트남 총리 결정 제467/QĐ-TTg로 설립된 <b>비영리 사립대학</b>입니다. 2013년 설립 방침 승인 후 2022년 10월 8일 캠퍼스 준공과 함께 첫 학년도를 개강했습니다.</li>
+      <li><b>설립 투자자:</b> 1994년 설립된 부동산·교육 그룹 <b>끼엔아(Kiến Á) 주식회사</b>. 창업자 후인 바 런(Huỳnh Bá Lân) 박사(수학 박사, 1956년생)가 현재 총장 겸 대학이사회 부의장이며, 장녀 후인 투이 프엉(Huỳnh Thúy Phương)이 이사회 의장 겸 부총장, 막내아들이 이사회 위원으로 참여하는 <b>가족 중심 지배구조</b>입니다.</li>
+      <li><b>캠퍼스:</b> 호찌민시 동부 깟라이(Cát Lái) 동, 끼엔아가 개발한 152ha 규모 신도시 내 위치. 대지 <b>80,092㎡</b>, 9층 ‘창조관(Tòa nhà Sáng tạo)’ 연면적 <b>16,884㎡</b>(2022년 9월 사용 개시). 총 3개 캠퍼스.</li>
+      <li><b>규모:</b> 2025년 11월 기준 재학생 <b>약 700명</b>, 전임 교원·직원 <b>259명</b>. 2026년 3개 단과대학(기술, 경영, 미디어·응용예술)과 ONE UMT 센터에서 <b>10개 학사 전공</b> 운영. 첫 졸업식 2026년 8월 22일.</li>
+      <li><b>등록금·장학금:</b> 2026년 입학생은 전 과정 등록금 동결, ‘학기당 1,700만~1,800만 동부터’로 홍보. 장학금 등급별 공시액으로 역산한 <b>정가 기준 전 과정(3.5년) 등록금은 약 3억 6,300만 동</b>(약 1,965만 원, 약 14,160달러). 모든 신입생에게 최소 9,000만 동(정가의 약 25%) 장학금 지급.</li>
+    </ul>
+    <p><b>투자 관점의 핵심 쟁점</b></p>
+    <ul>
+      <li>① <b>비영리 법인 구조:</b> 투자자는 출자금 회수와 배당이 불가하며, 누적 잉여금은 학교의 불가분 공동재산입니다(고등교육법 2018·2025). 일반적인 지분 투자 수익 모델이 성립하지 않습니다.</li>
+      <li>② <b>낮은 시설 가동률:</b> 2021년 설립 발표 당시 목표는 2030년까지 1만 명 이상이었으나, 2025년 계획 규모는 3,200명으로 하향되었고 재학생은 약 700명(약 22%)입니다. 2026년 9월 추가모집 400명 이상, 합격선은 대부분 최저 수준(30점 만점에 15점).</li>
+      <li>③ <b>새 대학 기준(Thông tư 83/2026, 2026.11.15 시행):</b> 최근 3년 평균 운영수지 비음수, 박사 교원 비율 20% 이상(2030년부터 30%) 등. 기술대학 박사 비율은 약 13%(46명 중 6명)입니다.</li>
+      <li>④ <b>재무 투명성:</b> 감사 재무제표·연차보고서 등 공개 자료를 확인하지 못했습니다. 관계사 사이공푸민(Sài Gòn Phú Minh)은 2026년 상반기 회사채 4,910억 동을 상환했으나, 관계자로부터 4,000억 동의 장기 차입·금융리스가 발생했고 3년 연속 적자입니다.</li>
+    </ul>
+    <p><b>컨설턴트 의견:</b> UMT 직접 지분 투자로 재무적 수익을 기대하기는 어렵습니다. 한국 기업·대학과의 <b>전략적 제휴(공동 학위, 인턴십, 장학금)</b>와 <b>시장가 기반 서비스·인프라 계약</b>을 우선 검토하고, 법률·재무 실사(감사 재무제표, 토지 담보 여부, 관계자 거래)를 마친 뒤 투자 결정을 내릴 것을 권고합니다.</p>
+  </div>
+</section>
+
+<!-- 03 ------------------------------------------------------------------ -->
+<section class="chapter" id="phuong-phap">
+  <div class="chapter-head"><span class="chapter-no">03</span><h2>Phạm vi, phương pháp và độ tin cậy dữ liệu</h2></div>
+  <div class="prose">
+    <p>Báo cáo là một <strong>thẩm định sơ bộ trên dữ liệu công khai</strong> (desktop due diligence). Báo cáo không bao gồm phỏng vấn ban lãnh đạo, truy cập dữ liệu nội bộ hay kiểm toán. Thông tin được cập nhật đến ngày 27/10/2026.</p>
+  </div>
+  <div class="tbl-wrap"><table class="tbl mid">
+    <thead><tr><th scope="col">Tầng nguồn</th><th scope="col">Gồm</th><th scope="col">Cách dùng trong báo cáo</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><span class="tier tA">A</span> Chính thức</th><td>Website và tài liệu PDF của UMT (đề án mở ngành, thông báo tuyển sinh), cổng thông tin Chính phủ, văn bản pháp luật, Bộ GD&amp;ĐT</td><td>Nguồn chính cho mọi số liệu về UMT</td></tr>
+      <tr><th scope="row"><span class="tier tB">B</span> Báo chí</th><td>Tuổi Trẻ, Thanh Niên, VnExpress, Dân trí, SGGP, Tiền Phong, VietNamNet, Người Lao Động, Giáo dục &amp; Thời đại, giaoduc.net.vn, CafeF, CafeBiz, Nhà Đầu Tư, VietnamBiz, Kinh tế Sài Gòn; LuatVietnam</td><td>Bổ sung, đối chiếu; dữ liệu về nhà đầu tư và thị trường</td></tr>
+      <tr><th scope="row"><span class="tier tC">C</span> Tổng hợp</th><td>Trang tổng hợp tuyển sinh (HOCMAI, Tuyensinh247, Edu2Review, Trangedu…)</td><td>Chỉ dùng để đối chiếu; được ghi chú khi xuất hiện</td></tr>
+      <tr><th scope="row"><span class="badge">Phân tích</span></th><td>Phép tính, kịch bản, đánh giá của đơn vị tư vấn</td><td>Đặt trong khung “Phân tích”, nêu rõ công thức và giả định</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <span class="tag">Giới hạn cần biết</span>
+    <ul>
+      <li>Môi trường nghiên cứu không truy cập trực tiếp được tên miền umt.edu.vn do chính sách mạng. Nội dung website và các tệp PDF chính thức của UMT được khai thác qua chỉ mục của công cụ tìm kiếm. Giai đoạn thẩm định chính thức cần đối chiếu bản gốc.</li>
+      <li>Một số số liệu giữa các nguồn chưa thống nhất (chỉ tiêu 2025, mức học bổng, chức danh lãnh đạo). Báo cáo trình bày song song các con số và ghi chú.</li>
+      <li>Hình ảnh khuôn viên chưa được đưa vào vì lý do trên; báo cáo dùng biểu đồ và sơ đồ thay thế. Ảnh chính thức có thể bổ sung từ thư viện ảnh của trường.</li>
+      <li>Quy đổi tiền tệ: 1 USD = 25.634 đ (tỷ giá trung tâm ngày 21/10/2026)<span>[[fx-usd]]</span>; 1 KRW ≈ 18,47 đ (Vietcombank, mua chuyển khoản, 15/10/2026)<span>[[fx-krw]]</span>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 04 ------------------------------------------------------------------ -->
+<section class="chapter" id="phap-ly">
+  <div class="chapter-head"><span class="chapter-no">04</span><h2>Hồ sơ pháp lý và lịch sử hình thành</h2></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 4.1</span><span class="ex-title">Thông tin định danh</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl">
+      <tbody>
+        <tr><td class="k">Tên đầy đủ</td><td>Trường Đại học Quản lý và Công nghệ Thành phố Hồ Chí Minh<span>[[umt-about]]</span></td></tr>
+        <tr><td class="k">Tên tiếng Anh, viết tắt</td><td>University of Management and Technology, Ho Chi Minh City · UMT (cũng là mã trường tuyển sinh)<span>[[umt-en, hocmai]]</span></td></tr>
+        <tr><td class="k">Loại hình</td><td>Đại học tư thục, hoạt động không vì lợi nhuận; có tư cách pháp nhân, con dấu, tài khoản riêng<span>[[gd-thanhlap]]</span></td></tr>
+        <tr><td class="k">Quyết định thành lập</td><td>Số 467/QĐ-TTg ngày 27/3/2021 của Thủ tướng Chính phủ<span>[[gd-thanhlap, tt-thanhlap, umt-attt]]</span></td></tr>
+        <tr><td class="k">Nhà đầu tư</td><td>Công ty Cổ phần Kiến Á (Kiến Á Group)<span>[[tn-2021, sgt-kiena]]</span></td></tr>
+        <tr><td class="k">Trụ sở chính</td><td>Số 2 Đường số 60CL, Khu phố 9, Phường Cát Lái, TP.HCM (trước đây thuộc TP. Thủ Đức)<span>[[umt-ts, gov-khaigiang]]</span></td></tr>
+        <tr><td class="k">Số cơ sở</td><td>03 cơ sở<span>[[umt-attt]]</span>. Ghi nhận: Cơ sở 2 tại số 11 đường 35CL, Phường Cát Lái; theo thông tin năm 2022, Cơ sở 3 tại 311–319 Gia Phú, Phường 1, Quận 6 (cần xác minh)<span>[[umt-about, trangedu]]</span>. Văn phòng tư vấn tuyển sinh tại Tầng trệt Tòa nhà Sáng tạo và số 3 Công trường Quốc Tế, Phường Xuân Hòa<span>[[umt-ts]]</span></td></tr>
+        <tr><td class="k">Liên hệ</td><td>Hotline (028) 3636 9119 · tuyensinh@umt.edu.vn<span>[[umt-ts]]</span></td></tr>
+        <tr><td class="k">Tầm nhìn</td><td>Trở thành nơi tiên phong, sáng tạo trong đào tạo, nghiên cứu và quản trị<span>[[umt-about]]</span></td></tr>
+        <tr><td class="k">Sứ mệnh</td><td>Đào tạo công dân toàn cầu, hạnh phúc và thành công; thiết lập tinh thần giáo dục khai phóng, chú trọng thực học – thực nghiệp; xây dựng hệ sinh thái đem đến cơ hội phát triển cho người học, đối tác<span>[[umt-about]]</span></td></tr>
+        <tr><td class="k">Giá trị cốt lõi</td><td>Chuyên nghiệp – Hòa hợp – Khai phóng<span>[[umt-about]]</span></td></tr>
+        <tr><td class="k">Định vị truyền thông</td><td>“Ngôi trường của hạnh phúc và thành công”; “Đại học thực tiễn – Sinh viên toàn diện”<span>[[umt-about, tt-thuctien]]</span></td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+
+  <h3>Các mốc phát triển</h3>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 4.2</span><span class="ex-title">Dòng thời gian 2013–2026</span></figcaption>
+    <ol class="timeline">
+      <li><span class="d">2013</span><span class="e">Dự án được phê duyệt chủ trương thành lập trường<span>[[umt-about, tn-2021]]</span>.</span></li>
+      <li><span class="d">16/11/2020</span><span class="e">Khởi công xây dựng tại Khu đô thị Cát Lái<span>[[umt-about]]</span>.</span></li>
+      <li class="key"><span class="d">27/3/2021</span><span class="e">Thủ tướng ký Quyết định 467/QĐ-TTg thành lập trường, loại hình tư thục không vì lợi nhuận<span>[[gd-thanhlap]]</span>.</span></li>
+      <li><span class="d">4/2021</span><span class="e">Công nhận Hội đồng trường nhiệm kỳ 2021–2026 (5/4) và bổ nhiệm Hiệu trưởng TS. Huỳnh Bá Lân (10/4)<span>[[umt-en]]</span>. Bộ GD&amp;ĐT cho phép tổ chức hoạt động đào tạo trong năm 2021<span>[[umt-about]]</span>.</span></li>
+      <li><span class="d">24/11/2021</span><span class="e">Lễ ra mắt trường tại TP.HCM; công bố kế hoạch tuyển hơn 600 sinh viên năm 2022 và mục tiêu hơn 10.000 sinh viên vào năm 2030<span>[[gov-ramat, tn-2021, vne-ramat]]</span>.</span></li>
+      <li><span class="d">26/9/2022</span><span class="e">Tòa nhà Sáng tạo (9 tầng, 16.884 m² sàn) đưa vào sử dụng<span>[[umt-khmt]]</span>.</span></li>
+      <li class="key"><span class="d">8/10/2022</span><span class="e">Khánh thành cơ sở, khai giảng khóa 1 với 6 ngành: CNTT, Quản trị kinh doanh, Marketing, Bất động sản, Kinh doanh quốc tế, Quản lý thể dục thể thao<span>[[gov-khaigiang]]</span>.</span></li>
+      <li><span class="d">2023</span><span class="e">Tuyển 855 chỉ tiêu cho 7 ngành<span>[[gd247-ts2023]]</span>; thành lập Khoa Truyền thông và Nghệ thuật ứng dụng<span>[[umt-khoa]]</span>; tháng 10 đổi cách thu học phí sang mức cố định theo học kỳ<span>[[tt-hocphi2023]]</span>.</span></li>
+      <li><span class="d">1–2/2025</span><span class="e">Tạm đình chỉ Viện trưởng Viện Khoa học và Quản lý TDTT để xác minh tố cáo; chuyển Bộ môn QLTDTT về Khoa Kinh doanh; viện trưởng thôi việc tháng 2<span>[[tt-dinhchi, tt-thoiviec]]</span>.</span></li>
+      <li><span class="d">25/8/2025</span><span class="e">Tuyến xe buýt điện 154 nối UMT và Khu đô thị Cát Lái với ga Metro Thảo Điền<span>[[umt-bus]]</span>.</span></li>
+      <li><span class="d">21/10/2025</span><span class="e">Hội đồng Khoa học và Đào tạo thông qua chương trình ngành An toàn thông tin và Khoa học máy tính<span>[[umt-attt, umt-khmt]]</span>.</span></li>
+      <li><span class="d">12/2025</span><span class="e">Công bố quỹ học bổng tuyển sinh 2026 hơn 111 tỷ đồng, tối thiểu 90 triệu đồng/tân sinh viên<span>[[vnn-hb2026, gd247-hb2026]]</span>.</span></li>
+      <li class="key"><span class="d">22/8/2026</span><span class="e">Lễ tốt nghiệp khóa 1, chủ đề “Dấu ấn tiên phong”<span>[[umt-tn2026, tp-totnghiep]]</span>.</span></li>
+      <li><span class="d">9/2026</span><span class="e">Xét tuyển bổ sung hơn 400 chỉ tiêu (hạn 17/9)<span>[[gd247-bs2026]]</span>; dự kiến khai giảng ngành An toàn thông tin<span>[[umt-attt]]</span>.</span></li>
+      <li><span class="d">15/11/2026</span><span class="e">Chuẩn cơ sở giáo dục đại học mới (Thông tư 83/2026) có hiệu lực<span>[[gd-tt83]]</span>.</span></li>
+    </ol>
+  </figure>
+</section>
+
+<!-- 05 ------------------------------------------------------------------ -->
+<section class="chapter" id="chu-dau-tu">
+  <div class="chapter-head"><span class="chapter-no">05</span><h2>Chủ đầu tư và cấu trúc sở hữu</h2><p class="kicker">Kiến Á Group và gia đình người sáng lập</p></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 5.1</span><span class="ex-title">Hồ sơ Công ty Cổ phần Kiến Á</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl">
+      <tbody>
+        <tr><td class="k">Thành lập</td><td>1994, tiền thân là Công ty TNHH Thương mại Dịch vụ Kiến Á do kỹ sư hóa Trần Thúy Nga (vợ TS. Huỳnh Bá Lân) thành lập; chuyển sang phát triển bất động sản từ 1998 với dự án đầu tiên Phước Long B<span>[[vnbiz-kiena]]</span></td></tr>
+        <tr><td class="k">Vốn điều lệ (công bố gần nhất tìm được)</td><td>1.368 tỷ đồng theo đăng ký thay đổi ngày 27/12/2018 (năm 2018 từng tăng từ 1.260 lên 1.530 tỷ rồi giảm)<span>[[vnbiz-kiena, ndt-350]]</span>. Cơ cấu cổ đông không công bố<span>[[vnbiz-kiena]]</span></td></tr>
+        <tr><td class="k">Bất động sản</td><td>Khu đô thị Cát Lái 152 ha; Lavila (Nam Sài Gòn, Đông Sài Gòn); Le Méridien Cam Ranh Bay Resort &amp; Spa; Lavila Marina Cam Ranh Bay<span>[[vnbiz-kiena]]</span></td></tr>
+        <tr><td class="k">Giáo dục</td><td>UMT; Trường Phổ thông Duy Tân (Phú Yên)<span>[[vnbiz-kiena, ndt-350]]</span>. Trường Duy Tân là đối tác chiến lược toàn diện của UMT; học sinh Duy Tân nhận học bổng UMT 2026<span>[[umt-hb104]]</span></td></tr>
+        <tr><td class="k">Người sáng lập</td><td>TS. Huỳnh Bá Lân (sinh 1956), tiến sĩ Toán, từng giảng dạy tại ĐH Bách khoa và ĐH Sư phạm Kỹ thuật TP.HCM; thành viên HĐQT Kienlongbank 2008–2013<span>[[vnbiz-kiena]]</span>; thành viên HĐQT Fiditour (theo CafeBiz 2021)<span>[[cafebiz-son]]</span></td></tr>
+        <tr><td class="k">Kinh nghiệm đại học trước UMT</td><td>Được báo chí nêu là người sáng lập Trường ĐH Kinh tế – Tài chính TP.HCM (UEF, thành lập 2007)<span>[[vnbiz-kiena]]</span>. Năm 2014 các nhà đầu tư UEF chuyển giao trường cho CTCP Đầu tư Phát triển Giáo dục HUTECH<span>[[tt-uef]]</span>. Vai trò cụ thể của Kiến Á trong giao dịch này cần xác minh</td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 5.2</span><span class="ex-title">Sơ đồ quan hệ chủ sở hữu và các bên liên quan đã được công bố</span></figcaption>
+    <div class="diagram">
+      <div class="tier-row c1"><div class="node dark"><b>Gia đình người sáng lập</b><small>TS. Huỳnh Bá Lân · bà Trần Thúy Nga · ThS. Huỳnh Thúy Phương · bà Huỳnh Bích Phương · ThS. Huỳnh Bá Sĩ Hào</small></div></div>
+      <div class="connector" aria-hidden="true"></div>
+      <div class="tier-row c1"><div class="node"><b>CTCP Kiến Á (Kiến Á Group)</b><small>Vốn điều lệ 1.368 tỷ đồng (12/2018) · bất động sản và giáo dục</small></div></div>
+      <div class="connector" aria-hidden="true"></div>
+      <div class="tier-row c5">
+        <div class="node key"><b>UMT</b><small>Tư thục không vì lợi nhuận · tài sản tích lũy không chia</small></div>
+        <div class="node"><b>Khu đô thị Cát Lái</b><small>152 ha · nơi đặt cơ sở chính của UMT</small></div>
+        <div class="node"><b>CTCP Sài Gòn Phú Minh</b><small>Kiến Á nắm 60% khi thành lập</small></div>
+        <div class="node"><b>Trường PT Duy Tân</b><small>Phú Yên · đối tác chiến lược của UMT</small></div>
+        <div class="node"><b>Dự án khác</b><small>Lavila, Le Méridien Cam Ranh Bay…</small></div>
+      </div>
+    </div>
+    <p class="ex-src">Nguồn: VietnamBiz (2020), Nhà Đầu Tư (2024), CafeF/DNSE (3/2026), UMT<span>[[vnbiz-kiena, ndt-kecan, cafef-spm, umt-hb104]]</span>. Sơ đồ chỉ thể hiện quan hệ đã được công bố, không phải cơ cấu sở hữu đầy đủ.</p>
+  </figure>
+
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 5.3</span><span class="ex-title">Bên liên quan cần lưu ý trong thẩm định</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl wide">
+      <thead><tr><th scope="col">Bên liên quan</th><th scope="col">Quan hệ</th><th scope="col">Thông tin đã công bố</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">ThS. Huỳnh Thúy Phương (sinh 1984)</th><td>Con gái TS. Huỳnh Bá Lân</td><td>Phó Tổng Giám đốc Kiến Á<span>[[ndt-kecan]]</span>; tại UMT là Chủ tịch Hội đồng trường kiêm Phó Hiệu trưởng (2026)<span>[[umt-hb104]]</span>; trước đó là Phó Chủ tịch thường trực HĐT, Phó Hiệu trưởng điều hành<span>[[htv-phuong, tt-phohieutruong]]</span></td></tr>
+        <tr><th scope="row">ThS. Huỳnh Bá Sĩ Hào (Bill Huỳnh, sinh 1996)</th><td>Con trai út</td><td>Thành viên Hội đồng trường UMT<span>[[umt-about, umt-en]]</span>; nắm ≈ 32,9% vốn Công ty Thế Giới Mới (7/2024)<span>[[cafebiz-son, ndt-kecan]]</span></td></tr>
+        <tr><th scope="row">Bà Huỳnh Bích Phương</th><td>Con gái</td><td>Nắm ≈ 32,2% vốn Công ty Thế Giới Mới (7/2024), doanh nghiệp liên quan gián tiếp tới dự án Lavila De Rio<span>[[ndt-kecan]]</span></td></tr>
+        <tr><th scope="row">CTCP Sài Gòn Phú Minh</th><td>Kiến Á nắm 60% khi thành lập</td><td>Tất toán toàn bộ 491 tỷ đồng trái phiếu trong 6 tháng đầu 2026; tài sản bảo đảm gồm đất tại Cát Lái, Phước Kiển của các công ty trong nhóm và bất động sản cá nhân của ông Lân, bà Nga (định giá 583,5 tỷ đồng). Sau đó phát sinh 400 tỷ đồng vay và nợ thuê tài chính dài hạn từ các bên liên quan; lỗ 261 triệu đồng 6 tháng đầu 2026, lỗ 3 năm liên tiếp<span>[[cafef-spm, vnf-spm, bpl-spm]]</span></td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+  <div class="callout analysis"><span class="tag">Phân tích</span>
+    <ul>
+      <li>UMT nằm trong Khu đô thị Cát Lái do chính Kiến Á phát triển. Giáo dục và bất động sản của nhóm vì vậy gắn với nhau về địa điểm và hạ tầng; ví dụ tuyến xe buýt 154 phục vụ cả sinh viên lẫn cư dân khu đô thị<span>[[umt-bus]]</span>.</li>
+      <li>Báo chí nêu tài sản bảo đảm của Sài Gòn Phú Minh gồm đất tại Cát Lái thuộc các công ty trong nhóm. Không có nguồn nào cho biết đất của UMT liên quan. Đây vẫn là hạng mục bắt buộc phải xác minh: tình trạng pháp lý, thế chấp của 80.092 m² đất trường.</li>
+      <li>Quyền quyết định tập trung ở gia đình sáng lập. Bất kỳ nhà đầu tư thiểu số nào cũng cần cơ chế bảo vệ: ghế trong Hội đồng trường, quyền phủ quyết với giao dịch bên liên quan, quyền tiếp cận thông tin.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 06 ------------------------------------------------------------------ -->
+<section class="chapter" id="quan-tri">
+  <div class="chapter-head"><span class="chapter-no">06</span><h2>Quản trị và bộ máy tổ chức</h2></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 6.1</span><span class="ex-title">Hội đồng trường và Ban Giám hiệu theo nguồn công khai</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl mid">
+      <thead><tr><th scope="col">Chức danh</th><th scope="col">Nhân sự</th><th scope="col">Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Chủ tịch Hội đồng trường</th><td>ThS. Huỳnh Thúy Phương (kiêm Phó Hiệu trưởng)</td><td>Theo tin của UMT năm 2026<span>[[umt-hb104, umt-about]]</span></td></tr>
+        <tr><th scope="row">Phó Chủ tịch HĐT, Hiệu trưởng</th><td>TS. Huỳnh Bá Lân</td><td>Theo diễn văn Lễ tốt nghiệp 22/8/2026<span>[[umt-tn2026]]</span>; là Chủ tịch HĐT kiêm Hiệu trưởng từ 2021<span>[[umt-en, gov-ramat]]</span></td></tr>
+        <tr><th scope="row">Phó Chủ tịch HĐT</th><td>PGS.TS. Lê Văn Nam; TS. Nguyễn Cảnh Tuấn</td><td>Trang giới thiệu UMT; PGS.TS. Lê Văn Nam đồng thời là thành viên Hội đồng Khoa học và Đào tạo<span>[[umt-about, umt-en]]</span></td></tr>
+        <tr><th scope="row">Thành viên HĐT</th><td>TS. Trần Lưu Cường (Giám đốc Vận hành); ThS. Bùi Tường Thụy; ThS. Huỳnh Bá Sĩ Hào; bà Võ Hồ Thục Đoan</td><td>Trang giới thiệu UMT<span>[[umt-about, umt-en]]</span></td></tr>
+        <tr><th scope="row">Nhân sự từng giữ chức</th><td>PGS.TS. Cao Minh Trí (Phó Chủ tịch HĐT 2022–2023); PGS.TS. Hồ Thanh Phong (bổ nhiệm Phó Hiệu trưởng 1/2023)</td><td>Chưa xác nhận vai trò hiện tại<span>[[tn-2021, nld-htphong, umt-cmtri]]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="ex-src">Lưu ý: trang giới thiệu của UMT có thông tin chức danh không đồng nhất giữa các phiên bản; nhiệm kỳ HĐT 2021–2026 đã đến hạn. Cần đối chiếu quyết định công nhận HĐT và bổ nhiệm Hiệu trưởng nhiệm kỳ mới.</p>
+  </figure>
+
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 6.2</span><span class="ex-title">Bộ máy tổ chức tổng hợp từ nguồn công khai</span></figcaption>
+    <div class="diagram">
+      <div class="tier-row c1"><div class="node dark"><b>Hội đồng trường</b><small>Chủ tịch, 2 Phó Chủ tịch, các thành viên · nhà đầu tư phê duyệt sứ mạng, chiến lược theo Luật 2025</small></div></div>
+      <div class="connector" aria-hidden="true"></div>
+      <div class="tier-row c1"><div class="node"><b>Hiệu trưởng · Ban Giám hiệu</b><small>Giám đốc Vận hành · Hội đồng Khoa học và Đào tạo</small></div></div>
+      <div class="connector" aria-hidden="true"></div>
+      <div class="tier-row c4">
+        <div class="node org-col"><b>Đơn vị đào tạo</b><ul>
+          <li>Khoa Công nghệ — PGS.TS. Trần Đan Thư<span>[[umt-tdthu]]</span></li>
+          <li>Khoa Kinh doanh — TS. Trần Nam Quốc (2022)<span>[[umt-tancang]]</span></li>
+          <li>Khoa Truyền thông và Nghệ thuật ứng dụng — TS. Lê Thị Ngọc Tú<span>[[umt-ts]]</span></li>
+          <li>Trung tâm ONE UMT (năm nhất nền tảng)<span>[[umt-attt]]</span></li></ul></div>
+        <div class="node org-col"><b>Trung tâm</b><ul>
+          <li>Đào tạo từ xa</li><li>Đào tạo ngắn hạn</li><li>Thông tin Thư viện</li><li>Thể dục Thể thao<span>[[umt-attt]]</span></li>
+          <li>Đổi mới sáng tạo — Giám đốc Phạm Hải Định<span>[[umt-easycs]]</span></li></ul></div>
+        <div class="node org-col"><b>Phòng, bộ phận chức năng ghi nhận được</b><ul>
+          <li>Phòng Đào tạo<span>[[umt-td]]</span></li><li>Phòng Công tác sinh viên</li><li>Phòng Quản trị cơ sở vật chất · bộ phận Mua sắm<span>[[umt-attt]]</span></li>
+          <li>Phòng Nghiên cứu khoa học<span>[[cv-umt]]</span></li><li>Văn phòng Tư vấn tuyển sinh<span>[[umt-ts]]</span></li><li>ONE UMT Hub (dịch vụ sinh viên)<span>[[umt-faq]]</span></li><li>Thư ký Ban Giám hiệu<span>[[umt-td]]</span></li></ul></div>
+        <div class="node org-col"><b>Tổ chức đoàn thể</b><ul>
+          <li>Tổ chức Đảng</li><li>Công đoàn trường</li><li>Đoàn Thanh niên – Hội Sinh viên<span>[[umt-about]]</span></li></ul></div>
+      </div>
+    </div>
+    <p class="ex-src">Đề án mở ngành (11/2025) ghi trường có “04 Khoa chuyên môn và Trung tâm ONE-UMT”<span>[[umt-attt]]</span>; website hiện liệt kê 3 khoa và Trung tâm ONE UMT<span>[[umt-khoa]]</span>. Đây không phải sơ đồ tổ chức chính thức; cần yêu cầu bản quy chế tổ chức và hoạt động.</p>
+  </figure>
+</section>
+
+<!-- 07 ------------------------------------------------------------------ -->
+<section class="chapter" id="dao-tao">
+  <div class="chapter-head"><span class="chapter-no">07</span><h2>Danh mục đào tạo và hợp tác</h2></div>
+  <div class="prose"><p>Số ngành tăng từ 6 (2022) lên 7 (2023), 9 (2025) và 10 (2026)<span>[[gov-khaigiang, gd247-ts2023, gov-dc2025, mt-2026]]</span>. Ngành Bất động sản (7340116) tuyển sinh giai đoạn 2022–2025 và không có trong danh mục 2026<span>[[gov-khaigiang, gov-dc2025, ts247]]</span>.</p></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 7.1</span><span class="ex-title">10 ngành đại học chính quy tuyển sinh năm 2026</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl wide">
+      <thead><tr><th scope="col">Khoa</th><th scope="col">Ngành</th><th scope="col">Mã ngành</th><th scope="col">Chuyên ngành, ghi chú</th></tr></thead>
+      <tbody>
+        <tr class="group"><th colspan="4" scope="rowgroup">Khoa Công nghệ</th></tr>
+        <tr><td></td><th scope="row">Công nghệ thông tin</th><td class="code">7480201</td><td>Kỹ thuật phần mềm, Khoa học dữ liệu…<span>[[mt-2026, edu2r]]</span></td></tr>
+        <tr><td></td><th scope="row">Khoa học máy tính</th><td class="code">7480101</td><td>Trí tuệ nhân tạo, Phân tích dữ liệu lớn; 133 tín chỉ, 3,5 năm (11 học kỳ)<span>[[umt-khmt, mt-2026]]</span></td></tr>
+        <tr><td></td><th scope="row">An toàn thông tin</th><td class="code">7480202</td><td>Định hướng An ninh mạng; 133 tín chỉ, 3,5 năm; dự kiến triển khai 9/2026<span>[[umt-attt]]</span></td></tr>
+        <tr class="group"><th colspan="4" scope="rowgroup">Khoa Kinh doanh</th></tr>
+        <tr><td></td><th scope="row">Quản trị kinh doanh</th><td class="code">7340101</td><td>Quản trị điều hành, Phân tích dữ liệu kinh doanh, Phát triển dự án kinh doanh<span>[[umt-khoa]]</span></td></tr>
+        <tr><td></td><th scope="row">Marketing</th><td class="code">7340115</td><td>Digital Marketing, Quản trị chiến lược thương hiệu; 3,5 năm<span>[[umt-ctdt, umt-khoa]]</span></td></tr>
+        <tr><td></td><th scope="row">Kinh doanh quốc tế</th><td class="code">7340120</td><td>Thương mại quốc tế<span>[[edu2r]]</span></td></tr>
+        <tr><td></td><th scope="row">Logistics và Quản lý chuỗi cung ứng</th><td class="code">7510605</td><td>3,5 năm<span>[[umt-ctdt]]</span></td></tr>
+        <tr class="group"><th colspan="4" scope="rowgroup">Khoa Truyền thông và Nghệ thuật ứng dụng</th></tr>
+        <tr><td></td><th scope="row">Truyền thông đa phương tiện</th><td class="code">7320104</td><td>3,5 năm<span>[[umt-ctdt]]</span></td></tr>
+        <tr><td></td><th scope="row">Thiết kế đồ họa</th><td class="code">7210403</td><td>Cử nhân Thiết kế đồ họa, 3,5 năm<span>[[umt-ctdt]]</span></td></tr>
+        <tr><td></td><th scope="row">Quản lý thể dục thể thao</th><td class="code">7810301</td><td>Quản lý thể thao và Fitness; Quản lý thể thao và sự kiện; Quản lý và kinh doanh thể thao<span>[[umt-ctdt]]</span>. Bộ môn chuyển về Khoa Kinh doanh từ 1/2025<span>[[tt-dinhchi]]</span>; trang chủ xếp cùng nhóm Truyền thông – Nghệ thuật ứng dụng<span>[[umt-khoa]]</span></td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+  <div class="prose">
+    <p><strong>Mô hình đào tạo.</strong> Chương trình cử nhân kéo dài 3,5 năm (11 học kỳ)<span>[[umt-khmt]]</span>. Năm thứ nhất thuộc Trung tâm ONE UMT: tiếng Anh, CNTT, tinh thần khai phóng, giáo dục thể chất, trải nghiệm hoạt động sinh viên và môn đặc trưng ngành; sinh viên các ngành học chung<span>[[umt-attt]]</span>. Mục tiêu tiếng Anh tương đương IELTS 5.5–6.0<span>[[umt-attt]]</span>. Trường có chương trình học tập gắn với doanh nghiệp (Work-integrated Learning) và tổ chức hội nghị doanh nghiệp lấy ý kiến chuẩn đầu ra<span>[[umt-attt]]</span>.</p>
+  </div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 7.2</span><span class="ex-title">Mạng lưới hợp tác đã công bố</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl wide">
+      <thead><tr><th scope="col">Nhóm</th><th scope="col">Đối tác</th><th scope="col">Nội dung</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Hàn Quốc</th><td>EasyCS Co., Ltd.</td><td>MOU về AI, thị giác máy tính; Trung tâm Đổi mới sáng tạo làm đầu mối; EasyCS hỗ trợ mở rộng mạng lưới với trường, doanh nghiệp Hàn Quốc<span>[[umt-easycs]]</span></td></tr>
+        <tr><th scope="row">Hàn Quốc</th><td>UR Planner</td><td>MOU hỗ trợ thương hiệu K-Beauty mở rộng tại Việt Nam, ASEAN; cơ hội nghề nghiệp thương mại số<span>[[umt-khoa]]</span></td></tr>
+        <tr><th scope="row">Hàn Quốc</th><td>Ngân hàng Shinhan</td><td>Trả góp học phí lãi suất 0% (cùng ACB, 2022); hội thảo kiến thức tín dụng cho sinh viên<span>[[vne-htcs, umt-shinhan]]</span></td></tr>
+        <tr><th scope="row">Quốc tế – học thuật</th><td>Curtin University (Malaysia)</td><td>Lộ trình 3+2: cử nhân UMT và thạc sĩ Curtin trong 5 năm<span>[[umt-htqt]]</span></td></tr>
+        <tr><th scope="row">Quốc tế – học thuật</th><td>QTS Australia; Aletheia University; Southern Leyte State University</td><td>Ký kết hợp tác 30/8/2022 (QTS); hợp tác học thuật; chia sẻ tài nguyên thư viện (SLSU)<span>[[umt-htqt, umt-slsu]]</span></td></tr>
+        <tr><th scope="row">Quốc tế – trao đổi</th><td>Wharton (UPenn); ĐH Bang Jakarta; ĐH Bangkok</td><td>Làm việc về định hướng du học Mỹ (giai đoạn trao đổi); chương trình trải nghiệm học tập ngắn hạn<span>[[umt-wharton, umt-khoa]]</span></td></tr>
+        <tr><th scope="row">Doanh nghiệp, tổ chức</th><td>IBM Việt Nam, LogiGear, Minh Long I, Beowulf, DKRA, CareerBuilder, Tân Cảng (STC), Báo Thanh Niên, Tổng Lãnh sự quán Hà Lan…</td><td>Thực tập, tuyển dụng; Hackathon Digiport Logistics 2025; ngày 16/5/2025 ký với Báo Thanh Niên và gần 30 doanh nghiệp; mạng lưới hơn 100 doanh nghiệp<span>[[umt-htqt, umt-tancang, umt-hackathon, tn-hoptac2025, tt-thuctien]]</span></td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+</section>
+
+<!-- 08 ------------------------------------------------------------------ -->
+<section class="chapter" id="tuyen-sinh">
+  <div class="chapter-head"><span class="chapter-no">08</span><h2>Tuyển sinh và quy mô người học</h2></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 8.1</span><span class="ex-title">Chỉ tiêu tuyển sinh từng năm so với tổng số sinh viên toàn trường</span></figcaption>
+    <div class="chart-wrap">{{CHART_QUOTA}}</div>
+    <details class="tableview"><summary>Xem bảng số liệu</summary>
+      <div class="tbl-wrap"><table class="tbl compact"><thead><tr><th scope="col">Năm</th><th scope="col" class="num">Chỉ tiêu</th><th scope="col">Số ngành</th><th scope="col">Nguồn</th></tr></thead><tbody>
+        <tr><td>2022</td><td class="num">600</td><td>6</td><td>Cổng TTĐT TP.HCM</td></tr>
+        <tr><td>2023</td><td class="num">855</td><td>7</td><td>Giáo dục 247</td></tr>
+        <tr><td>2024</td><td class="num">—</td><td>—</td><td>Không tìm thấy số công bố trực tiếp</td></tr>
+        <tr><td>2025</td><td class="num">710 / 1.000</td><td>9</td><td>Cổng Xây dựng chính sách / Cổng TTĐT TP.HCM</td></tr>
+        <tr><td>2026</td><td class="num">—</td><td>10</td><td>Xét bổ sung hơn 400 chỉ tiêu</td></tr>
+      </tbody></table></div>
+    </details>
+    <p class="ex-src">Nguồn: <span>[[gov-khaigiang, gd247-ts2023, gov-dc2025, gov-ts2025, gd247-bs2026, umt-attt]]</span>. Đường tham chiếu là tổng sinh viên của cả 4 khóa, không phải số nhập học một năm.</p>
+  </figure>
+  <div class="callout analysis"><span class="tag">Phân tích</span>
+    <p>Tổng số sinh viên của cả 4 khóa (≈ 700) thấp hơn chỉ tiêu của một năm đơn lẻ (600–1.000). Điều này cho thấy tỷ lệ lấp đầy chỉ tiêu thấp kéo dài. Số nhập học thực tế từng khóa, tỷ lệ thôi học và tỷ lệ tốt nghiệp đúng hạn của khóa 1 chưa được công bố; đây là dữ liệu cần yêu cầu đầu tiên.</p>
+  </div>
+
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 8.2</span><span class="ex-title">Điểm trúng tuyển và phương thức xét tuyển</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl mid">
+      <thead><tr><th scope="col">Năm</th><th scope="col">Thi tốt nghiệp THPT (thang 30)</th><th scope="col">Phương thức khác</th><th scope="col">Nguồn</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">2022</th><td>15</td><td>Học bạ 6,0</td><td><span>[[voh-dc2022]]</span></td></tr>
+        <tr><th scope="row">2023</th><td>15</td><td>Học bạ 6,0; ĐGNL ĐHQG-HCM 600</td><td><span>[[hnv2024]]</span> <span class="badge">Tổng hợp</span></td></tr>
+        <tr><th scope="row">2024</th><td>15–16 (CNTT 15,5; Truyền thông đa phương tiện, Logistics 16)</td><td>Học bạ 6,0; ĐGNL 600</td><td><span>[[hnv2024]]</span> <span class="badge">Tổng hợp</span></td></tr>
+        <tr><th scope="row">2025</th><td>15 cho 8 ngành; Bất động sản 25</td><td>5 phương thức, 9 ngành</td><td><span>[[gov-dc2025, gov-ts2025]]</span></td></tr>
+        <tr><th scope="row">2026</th><td>15</td><td>Học bạ 18; V-SAT 225; xét trình độ tương đương 18; ĐGNL ĐHQG-HCM</td><td><span>[[gdtd-dc2026, gd247-bs2026]]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="ex-src">Năm 2026 trường xét tuyển theo 5 phương thức: kết quả thi tốt nghiệp THPT, học bạ, đánh giá năng lực ĐHQG-HCM, V-SAT và xét theo điều kiện trình độ tương đương<span>[[gd247-bs2026]]</span>. Kênh đăng ký: xettuyen.umt.edu.vn.</p>
+  </figure>
+  <div class="prose">
+    <p><strong>Hoạt động thu hút người học.</strong> Trường tổ chức UMT Campus Tour<span>[[dt-campustour]]</span>, cuộc thi lập trình UMT TechGen 2026 cho học sinh THPT<span>[[umt-techgen]]</span>, SMArt Gen’s Branding Challenge 2026<span>[[umt-smartgen]]</span> và các buổi tư vấn tại trường phổ thông, trung tâm GDNN – GDTX<span>[[umt-q12]]</span>. Trường Phổ thông Duy Tân (Phú Yên), cùng hệ sinh thái Kiến Á, là một nguồn tuyển sinh có học bổng riêng<span>[[umt-hb104]]</span>.</p>
+    <p><strong>Đầu ra.</strong> Khóa 1 tốt nghiệp ngày 22/8/2026<span>[[umt-tn2026]]</span>. Chưa tìm thấy số sinh viên tốt nghiệp hay tỷ lệ có việc làm được công bố; báo chí chỉ nêu trường hợp cá nhân có việc làm từ trước khi tốt nghiệp<span>[[tt-tannhan]]</span>.</p>
+  </div>
+</section>
+
+<!-- 09 ------------------------------------------------------------------ -->
+<section class="chapter" id="hoc-phi">
+  <div class="chapter-head"><span class="chapter-no">09</span><h2>Học phí và học bổng</h2></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 9.1</span><span class="ex-title">Diễn biến chính sách học phí và hỗ trợ tài chính</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl wide">
+      <thead><tr><th scope="col">Khóa</th><th scope="col">Học phí</th><th scope="col">Học bổng, hỗ trợ</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">2022</th><td>Dự kiến 8,2–8,4 triệu đồng/tháng tùy ngành; cam kết không tăng học phí toàn khóa (trừ học lại, cải thiện)<span>[[tlm-hocphi]]</span> <span class="badge">Tổng hợp</span></td><td>100 suất, tổng hơn 8 tỷ đồng, cao nhất 360 triệu đồng/toàn khóa (Global)<span>[[voh-hb2022]]</span>; trả góp qua Shinhan, ACB (≈ 6 triệu/tháng), hỗ trợ lãi suất 0%; chọn tặng laptop hoặc giảm 20% học phí; ưu đãi hơn 100 triệu cho QLTDTT, KDQT, BĐS<span>[[vne-htcs, umt-hptc]]</span></td></tr>
+        <tr><th scope="row">2023</th><td>Chuyển sang thu cố định theo học kỳ: 35 triệu đồng/kỳ, riêng CNTT 36 triệu; trường cam kết tổng học phí toàn khóa không vượt 365 triệu đồng cho 3,5 năm. Sinh viên phản ánh vì phần chênh lệch chỉ hoàn trả ở học kỳ cuối<span>[[tt-hocphi2023, gd-hocphi2023]]</span></td><td>Theo chính sách năm tuyển sinh</td></tr>
+        <tr><th scope="row">2025</th><td>“Học phí ổn định”<span>[[gov-ts2025]]</span></td><td>Quỹ học bổng hơn 80 tỷ đồng; mức 25%, 50%, 100% học phí toàn khóa<span>[[gov-ts2025]]</span></td></tr>
+        <tr><th scope="row">2026</th><td>“Từ 17 triệu đồng/học kỳ” (Tuổi Trẻ, 12/2025)<span>[[mt-2026]]</span>; trang tuyển sinh UMT ghi “từ 18 triệu đồng/học kỳ”<span>[[umt-ts]]</span>; cam kết không đổi toàn khóa</td><td>Quỹ hơn 111 tỷ đồng (báo chí) hoặc 114 tỷ đồng (trang UMT); mọi thí sinh nhập học nhận tối thiểu 90 triệu đồng (95 triệu theo cập nhật của UMT)<span>[[vnn-hb2026, gd247-hb2026, umt-ts]]</span></td></tr>
+        <tr><th scope="row">Sinh viên đang học</th><td>—</td><td>Học bổng Cao Minh Trí 2026: 26 suất × 10 triệu đồng, điều kiện học đúng tiến độ, không nợ môn, điểm từ 8,0<span>[[umt-hbcmt]]</span></td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 9.2</span><span class="ex-title">Các hạng học bổng tuyển sinh 2026</span></figcaption>
+    <div class="chart-wrap">{{CHART_SCHOLAR}}</div>
+    <details class="tableview"><summary>Xem bảng số liệu</summary>
+      <div class="tbl-wrap"><table class="tbl compact"><thead><tr><th scope="col">Hạng</th><th scope="col" class="num">% học phí toàn khóa</th><th scope="col" class="num">Giá trị từ (triệu đ)</th><th scope="col" class="num">Số suất</th><th scope="col">Điều kiện học bạ</th></tr></thead><tbody>
+        <tr><td>Global</td><td class="num">100%</td><td class="num">—</td><td class="num">15</td><td>≥ 25,5</td></tr>
+        <tr><td>Unique</td><td class="num">60%</td><td class="num">218</td><td class="num">30</td><td>≥ 24,5</td></tr>
+        <tr><td>Liberal</td><td class="num">48%</td><td class="num">174</td><td class="num">200</td><td>≥ 22,5</td></tr>
+        <tr><td>Future</td><td class="num">30%</td><td class="num">109</td><td class="num">455</td><td>≥ 21</td></tr>
+        <tr><td>Tối thiểu (mọi tân SV)</td><td class="num">≈ 24,8%</td><td class="num">90</td><td class="num">—</td><td>Hoàn tất nhập học</td></tr>
+      </tbody></table></div>
+    </details>
+    <p class="ex-src">Nguồn: Giáo dục 247, CafeBiz (12/2025)<span>[[gd247-hb2026, cafebiz-hb2026]]</span>. Trang tuyển sinh UMT có phiên bản ghi tỷ lệ khác (Global 60%, Unique 48%, Liberal 30%)<span>[[umt-ts]]</span>; cần xác nhận thể lệ cuối cùng.</p>
+  </figure>
+
+  <div class="callout analysis"><span class="tag">Phân tích · Học phí niêm yết suy ra</span>
+    <p>Giá trị tối thiểu của từng hạng học bổng chia cho tỷ lệ tương ứng cho cùng một kết quả: 218 ÷ 0,60 ≈ 363; 174 ÷ 0,48 ≈ 362,5; 109 ÷ 0,30 ≈ 363 triệu đồng. Học phí niêm yết toàn khóa vì vậy vào khoảng <strong>363 triệu đồng</strong> (≈ 103,8 triệu đồng/năm; ≈ 14.160 USD; ≈ 19,65 triệu KRW), khớp với mức trần 365 triệu đồng mà trường cam kết từ năm 2023<span>[[tt-hocphi2023]]</span>. Học bổng tối thiểu 90 triệu đồng tương đương ≈ 24,8%, đưa mức thực thu xuống ≈ 273 triệu đồng/toàn khóa (≈ 78 triệu đồng/năm). Mức “từ 17–18 triệu đồng/học kỳ” nhiều khả năng là sau học bổng; cần UMT xác nhận biểu phí chính thức.</p>
+  </div>
+
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 9.3</span><span class="ex-title">Học phí năm của UMT so với một số trường tư thục tại TP.HCM</span></figcaption>
+    <div class="chart-wrap">{{CHART_TUITION}}</div>
+    <details class="tableview"><summary>Xem bảng số liệu</summary>
+      <div class="tbl-wrap"><table class="tbl compact"><thead><tr><th scope="col">Trường</th><th scope="col">Học phí công bố</th><th scope="col" class="num">Triệu đ/năm</th><th scope="col" class="num">USD/năm</th></tr></thead><tbody>
+        <tr><td>UMT — niêm yết (suy ra)</td><td>≈ 363 triệu/toàn khóa 3,5 năm</td><td class="num">≈ 103,8</td><td class="num">≈ 4.050</td></tr>
+        <tr><td>UMT — sau học bổng tối thiểu</td><td>≈ 273 triệu/toàn khóa</td><td class="num">≈ 78,0</td><td class="num">≈ 3.040</td></tr>
+        <tr><td>UEF</td><td>20–22 triệu/học kỳ, 4 học kỳ/năm; cam kết ổn định toàn khóa</td><td class="num">80–88</td><td class="num">3.120–3.430</td></tr>
+        <tr><td>Hoa Sen</td><td>45–85 triệu/năm</td><td class="num">45–85</td><td class="num">1.760–3.320</td></tr>
+        <tr><td>Văn Lang (chương trình tiêu chuẩn)</td><td>22–32 triệu/học kỳ; khối sức khỏe 85–98 triệu/học kỳ</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><td>FPT</td><td>15,48–31,6 triệu/học kỳ</td><td class="num">—</td><td class="num">—</td></tr>
+      </tbody></table></div>
+    </details>
+    <p class="ex-src">Nguồn: Dân trí (28/8/2026), Pháp Luật TP.HCM<span>[[dt-hocphi, plo-uef]]</span>; UMT theo phân tích ở trên. Văn Lang và FPT công bố theo học kỳ với số học kỳ/năm khác nhau nên không quy đổi.</p>
+  </figure>
+</section>
+
+<!-- 10 ------------------------------------------------------------------ -->
+<section class="chapter" id="doi-ngu">
+  <div class="chapter-head"><span class="chapter-no">10</span><h2>Đội ngũ, cán bộ nhân viên và tiền lương</h2></div>
+  <div class="prose"><p>Tính đến tháng 11/2025, toàn trường có <strong>259 giảng viên, nhân viên cơ hữu</strong> “trong giảng dạy và nghiên cứu, có công bố khoa học”; Khoa Công nghệ có 46 cán bộ, giảng viên cơ hữu gồm 1 phó giáo sư, 5 tiến sĩ và 40 thạc sĩ<span>[[umt-attt]]</span>. Số giảng viên cơ hữu toàn trường theo trình độ chưa được công bố trong các nguồn truy cập được.</p></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 10.1</span><span class="ex-title">Cơ cấu trình độ Khoa Công nghệ và tỷ lệ tiến sĩ so với ngưỡng chuẩn</span></figcaption>
+    <div class="chart-wrap">{{CHART_FACULTY}}</div>
+    <p class="ex-src">Nguồn: Đề án mở ngành An toàn thông tin<span>[[umt-attt]]</span>; ngưỡng theo Thông tư 83/2026 cho cơ sở không đào tạo tiến sĩ<span>[[tt-83, sggp-tt83]]</span>. Tỷ lệ là của một khoa, chưa phải toàn trường.</p>
+  </figure>
+  <div class="callout analysis"><span class="tag">Phân tích</span>
+    <p>Tỷ lệ sinh viên trên nhân sự cơ hữu ≈ 700 ÷ 259 ≈ 2,7. Con số này rất thấp so với ngưỡng 40 người học/giảng viên của chuẩn<span>[[tt-83]]</span>, phản ánh bộ máy được dựng sẵn cho quy mô lớn hơn. Về chất lượng chuẩn, điểm yếu là tỷ lệ tiến sĩ: Khoa Công nghệ đạt 13,0% so với ngưỡng 20% và 30% từ năm 2030.</p>
+  </div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 10.2</span><span class="ex-title">Nhân sự học thuật, quản lý tiêu biểu được công bố</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl mid">
+      <thead><tr><th scope="col">Nhân sự</th><th scope="col">Vai trò tại UMT</th><th scope="col">Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">PGS.TS. Trần Đan Thư</th><td>Trưởng Khoa Công nghệ</td><td><span>[[umt-tdthu, umt-khmt]]</span></td></tr>
+        <tr><th scope="row">PGS.TS. Lê Văn Nam</th><td>Phó Chủ tịch HĐT, thành viên Hội đồng Khoa học và Đào tạo</td><td><span>[[umt-about]]</span></td></tr>
+        <tr><th scope="row">TS. Lê Thị Ngọc Tú</th><td>Trưởng Khoa Truyền thông và Nghệ thuật ứng dụng</td><td><span>[[umt-ts]]</span></td></tr>
+        <tr><th scope="row">TS. Trần Nam Quốc</th><td>Trưởng Khoa Kinh doanh (thông tin 2022)</td><td>Cần xác nhận hiện tại<span>[[umt-tancang]]</span></td></tr>
+        <tr><th scope="row">PGS.TS. Cao Minh Trí</th><td>Tiến sĩ Kinh doanh quốc tế (AIT); từng là Phó Chủ tịch HĐT</td><td><span>[[umt-cmtri, nld-htphong]]</span></td></tr>
+        <tr><th scope="row">PGS.TS. Hồ Thanh Phong</th><td>Bổ nhiệm Phó Hiệu trưởng 1/2023</td><td>Cần xác nhận hiện tại<span>[[nld-htphong]]</span></td></tr>
+        <tr><th scope="row">TS. Nguyễn Trà Giang</th><td>Nguyên Viện trưởng Viện Khoa học và Quản lý TDTT</td><td>Tạm đình chỉ 7–21/1/2025, thôi việc 2/2025<span>[[tt-dinhchi, tt-thoiviec]]</span></td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+
+  <h3>Chính sách tiền lương và phúc lợi</h3>
+  <div class="prose"><p>UMT <strong>không công bố thang lương hay mức lương</strong>. Trang tuyển dụng nêu chính sách lương thưởng dựa trên 4 tiêu chí: vị trí công việc, năng lực chuyên môn, hiệu quả công việc và mức đóng góp cho sự phát triển của trường<span>[[umt-td]]</span>. Các tin tuyển dụng năm 2026 trên CareerViet (Trưởng phòng Nghiên cứu khoa học, Nhân viên kỹ thuật bảo trì) ghi mức lương “cạnh tranh”<span>[[cv-umt]]</span>.</p></div>
+  <div class="tbl-wrap"><table class="tbl mid">
+    <thead><tr><th scope="col">Phúc lợi công bố</th><th scope="col">Chi tiết</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Bảo hiểm</th><td>BHXH, BHYT, BH thất nghiệp theo luật; hỗ trợ chăm sóc sức khỏe; phòng gym<span>[[umt-td]]</span></td></tr>
+      <tr><th scope="row">Đời sống</th><td>Suất ăn trưa; học bổng cho con giảng viên, nhân viên đang làm việc tại trường; du lịch nghỉ mát hằng năm; teambuilding; quà các dịp sinh nhật, kết hôn, sinh con<span>[[umt-td]]</span></td></tr>
+      <tr><th scope="row">Phát triển</th><td>Đào tạo kỹ năng hằng năm; hỗ trợ học thạc sĩ, tiến sĩ đến 100%; lộ trình thăng tiến<span>[[umt-td]]</span></td></tr>
+    </tbody>
+  </table></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 10.3</span><span class="ex-title">Mặt bằng lương tham chiếu (không phải số liệu của UMT)</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl mid">
+      <thead><tr><th scope="col">Đối tượng</th><th scope="col">Mức tham chiếu</th><th scope="col">Nguồn</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Lương tối thiểu vùng I (TP.HCM), từ 1/1/2026</th><td class="num">5.310.000 đ/tháng</td><td>NĐ 293/2025/NĐ-CP<span>[[lv-luongtoithieu]]</span></td></tr>
+        <tr><th scope="row">8 trường thành viên ĐHQG-HCM: lương theo vị trí việc làm</th><td class="num">10,5–29,1 triệu đ/tháng</td><td>Chưa gồm thu nhập tăng thêm<span>[[vne-luong]]</span></td></tr>
+        <tr><th scope="row">ĐH Kinh tế – Luật: thạc sĩ / tiến sĩ</th><td class="num">18–32 / 28–45 triệu đ/tháng</td><td><span>[[plo-luong, vne-luong]]</span></td></tr>
+        <tr><th scope="row">ĐH Kinh tế – Luật: PGS / GS</th><td class="num">53–65 / 65–75 triệu đ/tháng</td><td><span>[[plo-luong]]</span></td></tr>
+        <tr><th scope="row">ĐH Bách khoa: tiến sĩ / PGS, GS (≥ 3 năm)</th><td class="num">≈ 35–45 / ≈ 85 triệu đ/tháng</td><td><span>[[plo-luong, vne-luong]]</span></td></tr>
+        <tr><th scope="row">ĐH Khoa học Tự nhiên: khởi điểm theo vị trí việc làm</th><td class="num">20 triệu đ/tháng</td><td><span>[[plo-luong]]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="ex-src">Đây là các trường công lập tự chủ thuộc ĐHQG-HCM, thường là mặt bằng cạnh tranh tuyển dụng giảng viên có trình độ tiến sĩ tại TP.HCM. Mức lương thực tế của UMT cần yêu cầu trong thẩm định.</p>
+  </figure>
+</section>
+
+<!-- 11 ------------------------------------------------------------------ -->
+<section class="chapter" id="co-so">
+  <div class="chapter-head"><span class="chapter-no">11</span><h2>Cơ sở vật chất và công suất</h2></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 11.1</span><span class="ex-title">Cơ sở vật chất đã công bố</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl">
+      <tbody>
+        <tr><td class="k">Đất cơ sở chính</td><td><strong>80.092 m²</strong> (≈ 8 ha), phù hợp quy hoạch chi tiết đã được UBND TP.HCM phê duyệt<span>[[umt-attt]]</span>. Báo chí ghi khoảng 80.000 m²<span>[[gov-ramat, tn-2021]]</span>. Một bài báo cũ của Nhà Đầu Tư nêu dự án trường đại học 5,5 ha của Kiến Á tại Khu đô thị Cát Lái<span>[[ndt-350]]</span></td></tr>
+        <tr><td class="k">Tòa nhà Sáng tạo</td><td>9 tầng, tổng diện tích sàn xây dựng <strong>16.884 m²</strong>, đưa vào sử dụng 26/9/2022<span>[[umt-khmt]]</span>; bài giới thiệu khuôn viên ghi quy mô đào tạo hơn 3.000 sinh viên<span>[[edu2r-campus]]</span></td></tr>
+        <tr><td class="k">Mô tả cơ sở trong đề án ATTT</td><td>Hơn 32 phòng học (trong đó 9 phòng đa năng, 1.200 chỗ ngồi), 4 phòng thực hành máy tính, studio, hội trường 400 chỗ, thư viện; 2 sân bóng rổ 1.200 m². Tổng sàn xây dựng 7.463 m², trong đó 2.900 m² trực tiếp phục vụ đào tạo. Riêng ngành ATTT được bố trí 18 phòng học (2 giảng đường lớn), 3 phòng máy tính<span>[[umt-attt]]</span>. Số liệu sàn này khác với 16.884 m² của Tòa nhà Sáng tạo; cần làm rõ cơ sở được mô tả</td></tr>
+        <tr><td class="k">Hội trường</td><td>400 chỗ theo đề án<span>[[umt-attt]]</span>; báo chí ghi sức chứa gần 500 người, âm thanh ánh sáng, sân khấu chuyên nghiệp<span>[[kenh14]]</span></td></tr>
+        <tr><td class="k">Thư viện</td><td>Trung tâm Thông tin Thư viện, cổng thông tin hoạt động từ 12/2022; khu học cá nhân, tầng lửng, lounge, không gian nhóm “Thuyền tri thức” 2–4 người; cơ sở dữ liệu qua hợp tác và nguồn mở<span>[[umt-lib, umt-faq]]</span></td></tr>
+        <tr><td class="k">Thể thao, cảnh quan</td><td>Sân bóng rổ, khu thể thao đa năng, sân chơi, quảng trường<span>[[umt-attt]]</span>; đường dạo ven sông khoảng 750 m theo bài giới thiệu<span>[[edu2r-campus]]</span>; định vị “trường đại học xanh”<span>[[umt-xanh]]</span></td></tr>
+        <tr><td class="k">Chỗ ở</td><td>Mục “Ký túc xá – căn hộ cho thuê của UMT” có trên trang hỏi đáp; chưa công bố quy mô, giá<span>[[umt-faq]]</span></td></tr>
+        <tr><td class="k">Kết nối giao thông</td><td>Xe buýt điện tuyến 154 (từ 25/8/2025) nối UMT, Khu đô thị Cát Lái với ga Metro Thảo Điền; UMT Bus đưa đón từ Hồ Con Rùa – Ngã tư Hàng Xanh và Ngã tư Thủ Đức<span>[[umt-bus, umt-faq]]</span></td></tr>
+        <tr><td class="k">Mục tiêu quy mô</td><td>Ổn định 3.200 sinh viên sau 10 năm phát triển (đề án 2025)<span>[[umt-attt]]</span>; khi ra mắt năm 2021, trường công bố mục tiêu hơn 10.000 sinh viên vào năm 2030<span>[[gov-ramat, vne-ramat]]</span></td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 11.2</span><span class="ex-title">Mục tiêu quy mô, giới hạn theo chuẩn và số sinh viên hiện có</span></figcaption>
+    <div class="chart-wrap">{{CHART_CAPACITY}}</div>
+    <details class="tableview"><summary>Xem bảng số liệu</summary>
+      <div class="tbl-wrap"><table class="tbl compact"><thead><tr><th scope="col">Chỉ tiêu</th><th scope="col" class="num">Người học</th><th scope="col">Cách tính, nguồn</th></tr></thead><tbody>
+        <tr><td>Mục tiêu công bố 11/2021</td><td class="num">&gt; 10.000</td><td>Báo chí ngày ra mắt, mục tiêu năm 2030</td></tr>
+        <tr><td>Trần theo chuẩn sàn (Tòa nhà Sáng tạo)</td><td class="num">6.030</td><td>16.884 m² ÷ 2,8 m² (TT 01/2024; cần đối chiếu TT 83/2026)</td></tr>
+        <tr><td>Trần theo chuẩn đất từ 2030</td><td class="num">3.203</td><td>80.092 m² ÷ 25 m² (TT 83/2026)</td></tr>
+        <tr><td>Quy mô ổn định theo quy hoạch</td><td class="num">3.200</td><td>Đề án mở ngành ATTT (2025)</td></tr>
+        <tr><td>Trần nếu chỉ tính sàn trực tiếp đào tạo</td><td class="num">1.035</td><td>2.900 m² ÷ 2,8 m²; một cơ sở theo đề án ATTT</td></tr>
+        <tr><td>Sinh viên đang học (11/2025)</td><td class="num">≈ 700</td><td>Đề án mở ngành ATTT</td></tr>
+      </tbody></table></div>
+    </details>
+    <p class="ex-src">Nguồn số liệu gốc: <span>[[gov-ramat, vne-ramat, umt-attt, umt-khmt, tt-83, tt-01]]</span>. Ba thanh “trần” là phép tính của đơn vị tư vấn.</p>
+  </figure>
+  <div class="callout analysis"><span class="tag">Phân tích</span>
+    <ul>
+      <li>Kỳ vọng quy mô đã điều chỉnh mạnh: từ hơn 10.000 sinh viên (công bố 2021) xuống 3.200 (đề án 2025), trong khi thực tế ≈ 700, tức ≈ 22% quy mô quy hoạch.</li>
+      <li>Diện tích đất chia cho 25 m²/người học cho đúng ≈ 3.200, trùng với quy mô ổn định trong đề án. <strong>Cơ sở chính có trần khoảng 3.200 sinh viên</strong> theo chuẩn đất áp dụng từ năm 2030; muốn lớn hơn phải có thêm đất.</li>
+      <li>Nếu diện tích sàn tính chuẩn chỉ là 2.900 m² “trực tiếp phục vụ đào tạo” như đề án ATTT mô tả cho một cơ sở, trần theo chuẩn sàn chỉ ≈ 1.035 người học. Cần làm rõ con số này vì nó có thể trở thành giới hạn ràng buộc trước cả giới hạn về đất.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 12 ------------------------------------------------------------------ -->
+<section class="chapter" id="tai-chinh">
+  <div class="chapter-head"><span class="chapter-no">12</span><h2>Tài chính và chi phí hoạt động</h2></div>
+  <div class="callout">
+    <span class="tag">Tình trạng dữ liệu</span>
+    <p>Không tìm thấy báo cáo tài chính, báo cáo thường niên hay biểu mẫu công khai thu chi của UMT trong các nguồn truy cập được. Trang giới thiệu của trường có các mục công khai theo Thông tư 36/2017 (cam kết chất lượng, chất lượng thực tế, cơ sở vật chất, đội ngũ)<span>[[umt-about]]</span> nhưng nội dung không truy xuất được trong nghiên cứu này. Chi phí hoạt động, quỹ lương, khấu hao và kết quả thu chi vì vậy <strong>chưa thể xác định</strong> từ nguồn công khai.</p>
+  </div>
+  <div class="prose">
+    <p><strong>Những yếu tố đã biết tác động đến tài chính:</strong></p>
+    <ul>
+      <li>Doanh thu chính là học phí, cam kết cố định toàn khóa, kèm học bổng tối thiểu ≈ 25% học phí niêm yết cho mọi tân sinh viên 2026<span>[[vnn-hb2026]]</span>.</li>
+      <li>Quỹ học bổng tuyển sinh 2026 hơn 111 tỷ đồng (giá trị danh nghĩa tính trên toàn khóa)<span>[[gd247-hb2026]]</span>.</li>
+      <li>Chi phí cố định gắn với 259 nhân sự cơ hữu, tòa nhà 16.884 m², vận hành đưa đón sinh viên và hoạt động tuyển sinh, truyền thông<span>[[umt-attt, umt-khmt, umt-bus]]</span>.</li>
+      <li>Luật 2025: với trường không vì lợi nhuận, chênh lệch thu chi tích lũy là tài sản không chia, dùng để đầu tư phát triển<span>[[law-2025]]</span>.</li>
+    </ul>
+  </div>
+  <div class="callout analysis"><span class="tag">Phân tích kịch bản · không phải số liệu UMT công bố</span>
+    <p>Hai bảng dưới đây giúp hình dung quy mô tài chính. Doanh thu học phí năm = số sinh viên × học phí thực thu bình quân/năm. Ba mức học phí: 78 triệu (sau học bổng tối thiểu), 90 triệu, 104 triệu (niêm yết). Chi phí nhân sự năm = 259 người × chi phí bình quân/người/tháng × 12, với ba giả định 15, 20, 25 triệu đồng (đã gồm bảo hiểm), đặt trong khoảng tham chiếu ở Bảng 10.3.</p>
+  </div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 12.1</span><span class="ex-title" id="cap-rev">Doanh thu học phí năm theo kịch bản (tỷ đồng)</span></figcaption>
+    <div class="tbl-wrap">{{TABLE_REVENUE}}</div>
+  </figure>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 12.2</span><span class="ex-title" id="cap-staff">Chi phí nhân sự năm theo kịch bản (tỷ đồng)</span></figcaption>
+    <div class="tbl-wrap">{{TABLE_STAFFCOST}}</div>
+    <p class="ex-src">Bảng màu một sắc độ: càng đậm, giá trị càng lớn trong bảng đó. Chưa tính học bổng tài năng vượt mức tối thiểu, sinh viên thôi học, nợ học phí, khấu hao, vận hành, marketing.</p>
+  </figure>
+  <div class="callout analysis"><span class="tag">Phân tích</span>
+    <p>Ở quy mô ≈ 700 sinh viên, doanh thu học phí ước tính 55–73 tỷ đồng/năm, cùng cỡ với riêng chi phí nhân sự theo kịch bản (47–78 tỷ đồng/năm). Khi cộng khấu hao, vận hành và học bổng tài năng, trường nhiều khả năng đang cần nguồn hỗ trợ từ nhà đầu tư để cân đối. Kết luận này phải được kiểm chứng bằng báo cáo tài chính kiểm toán. Nó cũng liên quan trực tiếp đến tiêu chí “biên độ hoạt động bình quân 3 năm không âm” của Thông tư 83/2026<span>[[tt-83]]</span>.</p>
+  </div>
+</section>
+
+<!-- 13 ------------------------------------------------------------------ -->
+<section class="chapter" id="truyen-thong">
+  <div class="chapter-head"><span class="chapter-no">13</span><h2>Kênh truyền thông và thương hiệu</h2></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 13.1</span><span class="ex-title">Các kênh chính thức</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl wide">
+      <thead><tr><th scope="col">Kênh</th><th scope="col">Địa chỉ</th><th scope="col" class="num">Quy mô ghi nhận</th><th scope="col">Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Website</th><td>umt.edu.vn (Việt, Anh)</td><td class="num">—</td><td>Cổng phụ: tuyensinh, xettuyen, vieclam (việc làm), lib (thư viện), faq, chaoumter, techgen, hakathon, qltdtt; sdn (lưu trữ tài liệu)<span>[[umt-ts, umt-lib, umt-faq]]</span></td></tr>
+        <tr><th scope="row">Facebook</th><td>facebook.com/UMTUniversity</td><td class="num">≈ 47.909 người theo dõi</td><td>1.335 người “đang nói về”, 1.133 lượt check-in<span>[[umt-social]]</span></td></tr>
+        <tr><th scope="row">Instagram</th><td>@umt.edu.vn</td><td class="num">183 người theo dõi</td><td><span>[[umt-social]]</span></td></tr>
+        <tr><th scope="row">LinkedIn</th><td>umt-university</td><td class="num">≈ 99 người theo dõi</td><td>Ghi năm thành lập 2021<span>[[umt-social]]</span></td></tr>
+        <tr><th scope="row">YouTube</th><td>@umtuniversity</td><td class="num">chưa xác định</td><td>Video lễ khai giảng, tuyển sinh, “Khám phá trường học”<span>[[umt-social]]</span></td></tr>
+        <tr><th scope="row">TikTok</th><td>@umtuniversity</td><td class="num">chưa xác định</td><td>Bài mẫu 20–173 lượt thích; trang khám phá #umtuniversity ghi 576,4 nghìn (nhiều khả năng là lượt xem hashtag, lẫn nội dung của UMT Pakistan)<span>[[umt-social]]</span></td></tr>
+        <tr><th scope="row">Liên hệ</th><td>(028) 3636 9119 · tuyensinh@umt.edu.vn</td><td class="num">—</td><td><span>[[umt-ts]]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="ex-src">Số người theo dõi lấy từ ảnh chụp chỉ mục tìm kiếm, không có thời điểm chính xác; cần đo lại trực tiếp.</p>
+  </figure>
+  <div class="prose">
+    <p><strong>Hiện diện báo chí.</strong> UMT có trang tổng hợp tin riêng trên Tuổi Trẻ và xuất hiện thường xuyên trên Thanh Niên, VnExpress, Dân trí, Tiền Phong, VietNamNet, Giáo dục &amp; Thời đại và cổng thông tin Chính phủ. Phần lớn là tin tuyển sinh, học bổng, sự kiện. Các tin bất lợi được ghi nhận gồm phản ánh về cách thu học phí năm 2023 và vụ đình chỉ, thôi việc của một viện trưởng năm 2025<span>[[tt-hocphi2023, tt-dinhchi, tt-thoiviec]]</span>.</p>
+    <p><strong>Thông điệp định vị.</strong> “Hạnh phúc và thành công”, giáo dục khai phóng, “Đại học thực tiễn – Sinh viên toàn diện”<span>[[umt-about, tt-thuctien, tt-phohieutruong]]</span>, trường đại học xanh<span>[[umt-xanh]]</span>, khuôn viên phong cách “resort”<span>[[kenh14]]</span>.</p>
+  </div>
+  <div class="callout analysis"><span class="tag">Phân tích</span>
+    <p>Kết quả tìm kiếm ghi nhận một số đường dẫn trên tên miền phụ tuyensinh.umt.edu.vn chứa tham số với từ khóa cờ bạc (dạng spam SEO). Đây có thể là chiêu tạo liên kết rác từ bên ngoài chứ không nhất thiết là website bị xâm nhập, nhưng ảnh hưởng đến uy tín thương hiệu. Nên đưa rà soát an ninh web và SEO vào phạm vi thẩm định.</p>
+  </div>
+</section>
+
+<!-- 14 ------------------------------------------------------------------ -->
+<section class="chapter" id="thi-truong">
+  <div class="chapter-head"><span class="chapter-no">14</span><h2>Thị trường và bối cảnh cạnh tranh</h2></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 14.1</span><span class="ex-title">Quy mô giáo dục đại học Việt Nam</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl mid">
+      <thead><tr><th scope="col">Chỉ số</th><th scope="col" class="num">Giá trị</th><th scope="col">Thời điểm, nguồn</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Cơ sở giáo dục đại học</th><td class="num">226</td><td>HEMIS 30/6/2026<span>[[gd-buctranh]]</span></td></tr>
+        <tr><th scope="row">Trong đó tư thục</th><td class="num">68</td><td>HEMIS 30/6/2026<span>[[gd-buctranh]]</span></td></tr>
+        <tr><th scope="row">Sinh viên đại học</th><td class="num">2,53 triệu</td><td>HEMIS 30/6/2026; thêm 140 nghìn học viên thạc sĩ, 16,2 nghìn nghiên cứu sinh<span>[[gd-buctranh]]</span></td></tr>
+        <tr><th scope="row">Tỷ lệ sinh viên học ngoài công lập</th><td class="num">22,76%</td><td>Năm 2024<span>[[gd247-quymo2024]]</span></td></tr>
+        <tr><th scope="row">Mục tiêu năm 2030</th><td class="num">&gt; 3 triệu người học</td><td>Quy hoạch mạng lưới; cơ cấu mạng lưới 70% công lập, 30% tư thục<span>[[vne-2030]]</span></td></tr>
+        <tr><th scope="row">Trường tư thục không vì lợi nhuận</th><td class="num">2</td><td>Trong gần 70 trường tư thục, chỉ VinUni và UMT thành lập theo mô hình này (Thanh Niên, 6/2026)<span>[[tn-khongloinhuan]]</span></td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+  <div class="prose">
+    <p><strong>Cạnh tranh tại TP.HCM.</strong> UMT cạnh tranh trực tiếp với các trường tư thục quy mô lớn, nhiều năm hoạt động và các trường công lập tự chủ. Học phí năm 2026 của một số trường: UEF 80–88 triệu đồng/năm; Hoa Sen 45–85 triệu đồng/năm; Văn Lang 22–32 triệu đồng/học kỳ; FPT 15,48–31,6 triệu đồng/học kỳ<span>[[dt-hocphi, plo-uef]]</span>. Theo phép tính ở mục 9, học phí niêm yết của UMT cao hơn nhóm này; sau học bổng tối thiểu thì tương đương UEF (Hình 9.3).</p>
+    <p><strong>Rào cản gia nhập giảm.</strong> Từ 17/9/2026, điều kiện thành lập trường đại học tư thục là trụ sở chính tối thiểu 5 ha và tổng giá trị đầu tư thực tế tại trụ sở chính tối thiểu 300 tỷ đồng (không gồm giá trị quyền sử dụng đất), thay cho mức 1.000 tỷ đồng trước đây<span>[[lv-nd361, tn-nd361]]</span>. Điều này có thể làm tăng số trường mới.</p>
+    <p><strong>Chính sách.</strong> Báo chí và nhà quản lý quan tâm tới việc ngăn chặn thương mại hóa giáo dục đại học ngoài công lập<span>[[sggp-thuongmai]]</span>, đồng thời khuyến khích mô hình không vì lợi nhuận<span>[[tn-khongloinhuan]]</span>. Mô hình của UMT phù hợp xu hướng này về mặt chính sách.</p>
+  </div>
+</section>
+
+<!-- 15 ------------------------------------------------------------------ -->
+<section class="chapter" id="tuan-thu">
+  <div class="chapter-head"><span class="chapter-no">15</span><h2>Khung pháp lý cho nhà đầu tư và mức tuân thủ chuẩn</h2></div>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 15.1</span><span class="ex-title">Văn bản pháp lý then chốt</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl wide">
+      <thead><tr><th scope="col">Văn bản</th><th scope="col">Hiệu lực</th><th scope="col">Nội dung liên quan đến nhà đầu tư</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Luật 34/2018/QH14 sửa đổi Luật GDĐH</th><td>2019</td><td>Trường tư thục không vì lợi nhuận: nhà đầu tư cam kết không rút vốn, không hưởng lợi tức; lợi nhuận tích lũy hằng năm thuộc sở hữu chung hợp nhất không phân chia để tái đầu tư<span>[[law-2018]]</span>. Chỉ cho phép chuyển từ tư thục sang không vì lợi nhuận, không có chiều ngược lại<span>[[vov-chuyendoi]]</span></td></tr>
+        <tr><th scope="row">Luật Giáo dục đại học 125/2025/QH15</th><td>01/01/2026 (một số điều 01/7/2026)</td><td>Tự chủ gắn trách nhiệm giải trình; trường tư thục tự quyết mức thu chi, phân phối kết quả tài chính, lập quỹ; với trường không vì lợi nhuận, chênh lệch thu chi tích lũy là tài sản không chia; nhà đầu tư phê duyệt sứ mạng, chiến lược của trường tư thục<span>[[law-2025]]</span></td></tr>
+        <tr><th scope="row">Nghị định 91/2026/NĐ-CP</th><td>30/3/2026</td><td>Hướng dẫn Luật GDĐH; thủ tục chuyển đổi sang không vì lợi nhuận cần đồng thuận của nhà đầu tư đại diện ≥ 75% vốn góp, cam kết không rút vốn, không hưởng lợi tức<span>[[nd-91, lv-chuyendoi]]</span></td></tr>
+        <tr><th scope="row">Nghị định 86/2018/NĐ-CP (đã sửa đổi)</th><td>2018</td><td>Nhà đầu tư nước ngoài được góp vốn, mua cổ phần, phần vốn góp của cơ sở giáo dục có vốn đầu tư trong nước; thủ tục theo Luật Đầu tư; quy định liên kết đào tạo với nước ngoài<span>[[nd-86]]</span></td></tr>
+        <tr><th scope="row">Nghị định 361/2026/NĐ-CP</th><td>17/9/2026</td><td>Thành lập trường đại học: trụ sở chính ≥ 5 ha; đầu tư thực tế ≥ 300 tỷ đồng (không gồm đất) tại thời điểm thẩm định<span>[[lv-nd361, tn-nd361]]</span></td></tr>
+        <tr><th scope="row">Thông tư 83/2026/TT-BGDĐT</th><td>15/11/2026</td><td>Chuẩn cơ sở GDĐH 6 tiêu chuẩn (quản trị, giảng viên, cơ sở vật chất, tài chính, tuyển sinh – đào tạo, KHCN – đổi mới sáng tạo); thay Thông tư 01/2024; cơ sở phải công khai mức đáp ứng<span>[[tt-83, gd-tt83, sggp-tt83]]</span></td></tr>
+        <tr><th scope="row">Công văn 7314/BGDĐT-GDĐH</th><td>16/10/2026</td><td>Yêu cầu các trường rà soát phương án tuyển sinh 2027; chương trình không đạt chuẩn sẽ bị dừng tuyển<span>[[tn-7314]]</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="ex-src">Bảng tóm tắt phục vụ nhận diện vấn đề, không thay thế ý kiến pháp lý của luật sư Việt Nam.</p>
+  </figure>
+
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 15.2</span><span class="ex-title">Đối chiếu sơ bộ với Chuẩn cơ sở giáo dục đại học</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl wide">
+      <thead><tr><th scope="col">Tiêu chí</th><th scope="col">Ngưỡng</th><th scope="col">Dữ liệu UMT công khai</th><th scope="col">Đánh giá sơ bộ</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Người học quy đổi / giảng viên quy đổi</th><td>≤ 40</td><td>≈ 700 sinh viên; 259 giảng viên và nhân viên cơ hữu (chưa tách riêng giảng viên)</td><td><span class="chip good">Nhiều khả năng đạt</span></td></tr>
+        <tr><th scope="row">Tỷ lệ giảng viên trình độ tiến sĩ</th><td>≥ 20%; từ 2030 ≥ 30%</td><td>Khoa Công nghệ: 6/46 = 13,0%</td><td><span class="chip serious">Cần theo dõi</span></td></tr>
+        <tr><th scope="row">Giảng viên cơ hữu trong độ tuổi lao động</th><td>≥ 70%</td><td>Chưa công bố</td><td><span class="chip na">Thiếu dữ liệu</span></td></tr>
+        <tr><th scope="row">Diện tích đất bình quân/người học</th><td>≥ 25 m² từ 2030</td><td>80.092 ÷ 700 ≈ 114 m²; trần ≈ 3.200 người học</td><td><span class="chip good">Đạt hiện tại</span></td></tr>
+        <tr><th scope="row">Diện tích sàn/người học (TT 01/2024)</th><td>≥ 2,8 m²</td><td>16.884 ÷ 700 ≈ 24 m²; nếu chỉ tính 2.900 m² trực tiếp đào tạo: ≈ 4,1 m²</td><td><span class="chip good">Đạt ở quy mô hiện tại</span></td></tr>
+        <tr><th scope="row">Biên độ hoạt động bình quân 3 năm</th><td>(Thu − chi) ÷ tổng thu ≥ 0</td><td>Chưa công bố</td><td><span class="chip crit">Rủi ro, thiếu dữ liệu</span></td></tr>
+        <tr><th scope="row">Kiểm định chất lượng</th><td>Theo quy định kiểm định</td><td>Chưa tìm thấy kết quả kiểm định công khai; khóa 1 mới tốt nghiệp 8/2026</td><td><span class="chip na">Chưa có thông tin</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="ex-src">Ngưỡng: <span>[[tt-83, sggp-tt83, tt-01]]</span>; dữ liệu: <span>[[umt-attt, umt-khmt]]</span>. Danh sách cơ sở đạt kiểm định do Cục Quản lý chất lượng công bố<span>[[vqa-list]]</span>. Hệ quả khi không đạt chuẩn có thể gồm hạn chế tuyển sinh, mở ngành, thậm chí giải thể<span>[[vne-giaithe, tn-7314]]</span>.</p>
+  </figure>
+</section>
+
+<!-- 16 ------------------------------------------------------------------ -->
+<section class="chapter" id="rui-ro">
+  <div class="chapter-head"><span class="chapter-no">16</span><h2>SWOT và ma trận rủi ro</h2><p class="kicker">Phân tích của đơn vị tư vấn trên dữ liệu đã dẫn</p></div>
+  <div class="swot">
+    <div><h4><span class="k">S</span>Điểm mạnh</h4><ul>
+      <li>Cơ sở mới, đồng bộ trên 8 ha trong khu đô thị 152 ha của nhà đầu tư<span>[[umt-attt, vnbiz-kiena]]</span>.</li>
+      <li>Danh mục ngành công nghệ, kinh doanh, truyền thông theo nhu cầu thị trường; mở AI, an ninh mạng<span>[[umt-attt, umt-khmt]]</span>.</li>
+      <li>Mô hình không vì lợi nhuận hiếm có, phù hợp định hướng chính sách<span>[[tn-khongloinhuan]]</span>.</li>
+      <li>Đã có kết nối Hàn Quốc (EasyCS, UR Planner, Shinhan) và quốc tế (Curtin 3+2, IBM)<span>[[umt-easycs, umt-htqt]]</span>.</li>
+    </ul></div>
+    <div><h4><span class="k">W</span>Điểm yếu</h4><ul>
+      <li>Quy mô ≈ 700 sinh viên, ≈ 22% công suất quy hoạch<span>[[umt-attt]]</span>.</li>
+      <li>Đầu vào ở mức sàn; xét bổ sung lớn<span>[[gdtd-dc2026, gd247-bs2026]]</span>.</li>
+      <li>Tỷ lệ tiến sĩ thấp; chưa có kiểm định, xếp hạng.</li>
+      <li>Chưa công khai tài chính; quản trị tập trung gia đình; chiết khấu học phí lớn.</li>
+    </ul></div>
+    <div><h4><span class="k">O</span>Cơ hội</h4><ul>
+      <li>Mục tiêu hơn 3 triệu người học năm 2030<span>[[vne-2030]]</span>.</li>
+      <li>Luật 2025 mở rộng tự chủ, công nhận đào tạo số<span>[[law-2025]]</span>.</li>
+      <li>Nhu cầu chương trình liên kết, việc làm gắn doanh nghiệp Hàn Quốc; hợp tác đã khởi động<span>[[umt-easycs]]</span>.</li>
+      <li>Khóa 1 tốt nghiệp: bắt đầu có dữ liệu đầu ra để xây uy tín<span>[[umt-tn2026]]</span>.</li>
+    </ul></div>
+    <div><h4><span class="k">T</span>Thách thức</h4><ul>
+      <li>Chuẩn mới (TT 83/2026) siết đội ngũ, tài chính; dừng tuyển ngành không đạt<span>[[tt-83, tn-7314]]</span>.</li>
+      <li>Cạnh tranh với trường lâu năm; rào cản gia nhập giảm (NĐ 361/2026)<span>[[lv-nd361]]</span>.</li>
+      <li>Rủi ro uy tín từ sự cố học phí 2023, nhân sự 2025<span>[[tt-hocphi2023, tt-thoiviec]]</span>.</li>
+      <li>Rủi ro thanh khoản trong hệ sinh thái nhà đầu tư<span>[[vnf-spm]]</span>.</li>
+    </ul></div>
+  </div>
+
+  <h3>Ma trận rủi ro</h3>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Hình 16.1</span><span class="ex-title">Khả năng xảy ra × mức tác động (thang 1–5)</span></figcaption>
+    <div class="diagram">
+      <div class="matrix-wrap">
+        <div class="ylab">Khả năng xảy ra →</div>
+        <div>
+          <div class="matrix" role="table" aria-label="Ma trận rủi ro">
+            <div class="ax">5</div><div class="cell lv2"></div><div class="cell lv2"></div><div class="cell lv3"></div><div class="cell lv4"><span class="rid">R2</span></div><div class="cell lv4"><span class="rid">R1</span></div>
+            <div class="ax">4</div><div class="cell lv1"></div><div class="cell lv2"></div><div class="cell lv3"><span class="rid">R5</span><span class="rid">R6</span></div><div class="cell lv3"></div><div class="cell lv4"><span class="rid">R3</span></div>
+            <div class="ax">3</div><div class="cell lv1"></div><div class="cell lv2"><span class="rid">R8</span><span class="rid">R9</span></div><div class="cell lv2"><span class="rid">R7</span><span class="rid">R10</span></div><div class="cell lv3"><span class="rid">R4</span></div><div class="cell lv3"></div>
+            <div class="ax">2</div><div class="cell lv1"></div><div class="cell lv1"></div><div class="cell lv2"></div><div class="cell lv2"></div><div class="cell lv3"></div>
+            <div class="ax">1</div><div class="cell lv1"></div><div class="cell lv1"></div><div class="cell lv1"></div><div class="cell lv2"></div><div class="cell lv2"></div>
+            <div class="ax"></div><div class="ax">1</div><div class="ax">2</div><div class="ax">3</div><div class="ax">4</div><div class="ax">5</div>
+          </div>
+          <div class="matrix-x">Mức tác động →</div>
+        </div>
+      </div>
+      <div class="legend-row" aria-label="Chú giải mức rủi ro">
+        <span><i style="background:var(--good-wash)"></i>Thấp</span><span><i style="background:var(--warning-wash)"></i>Trung bình</span><span><i style="background:var(--serious-wash)"></i>Cao</span><span><i style="background:var(--critical-wash)"></i>Rất cao</span>
+      </div>
+    </div>
+  </figure>
+  <figure class="exhibit">
+    <figcaption><span class="ex-no">Bảng 16.2</span><span class="ex-title">Sổ đăng ký rủi ro</span></figcaption>
+    <div class="tbl-wrap"><table class="tbl wide">
+      <thead><tr><th scope="col">ID</th><th scope="col">Rủi ro</th><th scope="col">Căn cứ</th><th scope="col">Mức</th><th scope="col">Hướng giảm thiểu</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">R1</th><td>Quy mô tuyển sinh thấp kéo dài</td><td>≈ 700 SV/3.200; xét bổ sung hơn 400 chỉ tiêu<span>[[umt-attt, gd247-bs2026]]</span></td><td><span class="chip crit">Rất cao</span></td><td>Gắn giải ngân với KPI tuyển sinh; kênh tuyển sinh, học bổng từ đối tác Hàn Quốc</td></tr>
+        <tr><th scope="row">R2</th><td>Không có cổ tức, không thoái vốn có lãi</td><td>Mô hình không vì lợi nhuận<span>[[law-2018, law-2025]]</span></td><td><span class="chip crit">Rất cao</span></td><td>Chọn cấu trúc hợp tác, hợp đồng dịch vụ thay vì góp vốn vào trường</td></tr>
+        <tr><th scope="row">R3</th><td>Không đáp ứng chuẩn mới (tài chính, tiến sĩ)</td><td>TT 83/2026; tỷ lệ TS Khoa Công nghệ 13,0%<span>[[tt-83, umt-attt]]</span></td><td><span class="chip crit">Rất cao</span></td><td>Yêu cầu báo cáo tự đánh giá theo chuẩn; điều kiện tiên quyết trong hợp đồng</td></tr>
+        <tr><th scope="row">R4</th><td>Tập trung quản trị, giao dịch bên liên quan</td><td>Gia đình giữ các vị trí chủ chốt; vay từ bên liên quan trong nhóm<span>[[umt-hb104, vnf-spm]]</span></td><td><span class="chip serious">Cao</span></td><td>Ghế HĐT, quyền phủ quyết giao dịch liên quan, kiểm toán độc lập</td></tr>
+        <tr><th scope="row">R5</th><td>Thiếu minh bạch tài chính</td><td>Chưa có BCTC công khai</td><td><span class="chip serious">Cao</span></td><td>Phòng dữ liệu, BCTC kiểm toán 2021–2025</td></tr>
+        <tr><th scope="row">R6</th><td>Cạnh tranh tăng</td><td>68 trường tư thục; rào cản thành lập giảm<span>[[gd-buctranh, lv-nd361]]</span></td><td><span class="chip serious">Cao</span></td><td>Định vị khác biệt: không vì lợi nhuận, liên kết Hàn Quốc, công nghệ</td></tr>
+        <tr><th scope="row">R7</th><td>Uy tín, quan hệ người học và nhân sự</td><td>Phản ánh học phí 2023; vụ việc 2025<span>[[tt-hocphi2023, tt-dinhchi]]</span></td><td><span class="chip warn">Trung bình</span></td><td>Rà soát tranh chấp, khiếu nại; chính sách học phí minh bạch</td></tr>
+        <tr><th scope="row">R8</th><td>Biến động danh mục ngành</td><td>Dừng ngành Bất động sản; điều chuyển bộ môn QLTDTT<span>[[gov-dc2025, tt-dinhchi]]</span></td><td><span class="chip warn">Trung bình</span></td><td>Đánh giá nhu cầu từng ngành, kế hoạch mở ngành</td></tr>
+        <tr><th scope="row">R9</th><td>An ninh web, nhận diện số</td><td>URL spam trên tên miền phụ; kênh mạng xã hội nhỏ<span>[[umt-social]]</span></td><td><span class="chip warn">Trung bình</span></td><td>Kiểm tra an ninh web, chiến lược truyền thông số</td></tr>
+        <tr><th scope="row">R10</th><td>Thay đổi chính sách, quy định</td><td>Luật 2025, NĐ 91, NĐ 361, TT 83 cùng thay đổi trong 2026<span>[[law-2025, nd-91, lv-nd361, tt-83]]</span></td><td><span class="chip warn">Trung bình</span></td><td>Ý kiến pháp lý cập nhật; điều khoản thay đổi luật</td></tr>
+      </tbody>
+    </table></div>
+  </figure>
+</section>
+
+<!-- 17 ------------------------------------------------------------------ -->
+<section class="chapter" id="phuong-an">
+  <div class="chapter-head"><span class="chapter-no">17</span><h2>Phương án tham gia đầu tư</h2><p class="kicker">Khuyến nghị của đơn vị tư vấn; cần ý kiến pháp lý trước khi triển khai</p></div>
+  <div class="tbl-wrap"><table class="tbl wide">
+    <thead><tr><th scope="col">Phương án</th><th scope="col">Mô tả</th><th scope="col">Giá trị cho nhà đầu tư</th><th scope="col">Lưu ý chính</th><th scope="col">Ưu tiên</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">A. Đối tác chiến lược học thuật – doanh nghiệp</th><td>Liên kết đào tạo với trường, doanh nghiệp Hàn Quốc; chương trình chuyển tiếp; học bổng, thực tập, tuyển dụng; trung tâm tiếng Hàn và văn hóa Hàn</td><td>Nguồn nhân lực, thương hiệu tại Việt Nam; vốn thấp, triển khai nhanh</td><td>Tuân thủ quy định liên kết đào tạo (NĐ 86/2018)<span>[[nd-86]]</span>; UMT đã có nền tảng với EasyCS, UR Planner<span>[[umt-easycs]]</span></td><td><span class="chip good">Ưu tiên 1</span></td></tr>
+      <tr><th scope="row">B. Hợp đồng dịch vụ, hạ tầng theo giá thị trường</th><td>Ký túc xá, nền tảng số, đào tạo ngắn hạn và doanh nghiệp, dịch vụ khuôn viên</td><td>Doanh thu hợp đồng độc lập với kết quả của trường</td><td>Giá thị trường, minh bạch; không được trở thành hình thức chia lợi nhuận trá hình của trường không vì lợi nhuận<span>[[law-2025]]</span></td><td><span class="chip good">Ưu tiên 2</span></td></tr>
+      <tr><th scope="row">C. Tham gia vốn ở tầng hệ sinh thái nhà đầu tư</th><td>Đầu tư vào doanh nghiệp trong nhóm Kiến Á (không phải vào UMT)</td><td>Tiếp cận bất động sản, giáo dục của nhóm</td><td>Thẩm định toàn nhóm: nợ vay, tài sản bảo đảm, giao dịch nội bộ<span>[[vnf-spm, bpl-spm]]</span></td><td><span class="chip warn">Cân nhắc</span></td></tr>
+      <tr><th scope="row">D. Góp vốn, nhận chuyển nhượng phần vốn tại UMT</th><td>Trở thành nhà đầu tư của trường không vì lợi nhuận</td><td>Vai trò quản trị, sứ mệnh</td><td>Không rút vốn, không lợi tức; khả năng thoái vốn chưa rõ; cần ý kiến pháp lý<span>[[law-2018, nd-86]]</span></td><td><span class="chip crit">Không khuyến nghị cho mục tiêu tài chính</span></td></tr>
+      <tr><th scope="row">E. Thành lập cơ sở riêng có vốn nước ngoài</th><td>Trường, phân hiệu hoặc chương trình riêng</td><td>Toàn quyền kiểm soát</td><td>≥ 5 ha, đầu tư thực tế ≥ 300 tỷ đồng; thời gian dài<span>[[lv-nd361]]</span></td><td><span class="chip na">Dài hạn</span></td></tr>
+    </tbody>
+  </table></div>
+  <h3>Lộ trình đề xuất</h3>
+  <ol class="timeline">
+    <li><span class="d">Tháng 1</span><span class="e">Ký thỏa thuận bảo mật; gửi danh mục hồ sơ (mục 18); làm việc với Hội đồng trường và Ban Giám hiệu.</span></li>
+    <li><span class="d">Tháng 2–3</span><span class="e">Thẩm định pháp lý (đất, giấy phép, cam kết không vì lợi nhuận, bên liên quan), tài chính (BCTC kiểm toán), vận hành (tuyển sinh, đội ngũ, mức đáp ứng chuẩn).</span></li>
+    <li><span class="d">Tháng 4</span><span class="e">Thỏa thuận khung cho phương án A hoặc B, với KPI tuyển sinh, chất lượng và điều kiện tiên quyết về minh bạch.</span></li>
+    <li><span class="d">Tháng 5–12</span><span class="e">Triển khai thí điểm (một chương trình liên kết hoặc một hợp đồng dịch vụ); đánh giá trước khi mở rộng.</span></li>
+  </ol>
+</section>
+
+<!-- 18 ------------------------------------------------------------------ -->
+<section class="chapter" id="tham-dinh">
+  <div class="chapter-head"><span class="chapter-no">18</span><h2>Danh mục hồ sơ cần yêu cầu trong thẩm định</h2></div>
+  <div class="tbl-wrap"><table class="tbl wide">
+    <thead><tr><th scope="col">Nhóm</th><th scope="col">Hồ sơ</th><th scope="col">Mục đích</th><th scope="col">Ưu tiên</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Pháp lý</th><td>QĐ 467/QĐ-TTg; QĐ cho phép hoạt động đào tạo; quy chế tổ chức và hoạt động; quy chế tài chính nội bộ; QĐ công nhận HĐT, bổ nhiệm Hiệu trưởng nhiệm kỳ mới</td><td>Xác nhận tư cách và quyền quyết định</td><td><span class="chip crit">Cao</span></td></tr>
+      <tr><th scope="row">Nhà đầu tư</th><td>Văn bản cam kết không vì lợi nhuận; sổ đăng ký vốn góp; danh sách nhà đầu tư và tỷ lệ; nghị quyết nhà đầu tư</td><td>Hiểu quyền của nhà đầu tư hiện hữu, khả năng chuyển nhượng</td><td><span class="chip crit">Cao</span></td></tr>
+      <tr><th scope="row">Tài chính</th><td>BCTC kiểm toán 2021–2025 và 9 tháng 2026; ngân sách 2026–2027; chi phí học bổng thực tế; báo cáo công khai theo TT 09/2024</td><td>Đánh giá biên độ hoạt động, nhu cầu hỗ trợ vốn</td><td><span class="chip crit">Cao</span></td></tr>
+      <tr><th scope="row">Đất đai, xây dựng</th><td>Giấy chứng nhận quyền sử dụng 80.092 m²; quy hoạch chi tiết; giấy phép xây dựng, hoàn công Tòa nhà Sáng tạo; xác nhận tình trạng thế chấp, bảo đảm</td><td>Loại trừ rủi ro tài sản bảo đảm cho nghĩa vụ của bên liên quan</td><td><span class="chip crit">Cao</span></td></tr>
+      <tr><th scope="row">Người học</th><td>Số trúng tuyển, nhập học từng khóa 2022–2026; tỷ lệ thôi học; tỷ lệ tốt nghiệp đúng hạn khóa 1; khảo sát việc làm</td><td>Kiểm chứng nhu cầu, chất lượng</td><td><span class="chip crit">Cao</span></td></tr>
+      <tr><th scope="row">Nhân sự</th><td>Danh sách giảng viên cơ hữu theo trình độ, tuổi; hợp đồng mẫu; thang bảng lương; quỹ lương</td><td>Đối chiếu chuẩn; xác định chi phí</td><td><span class="chip serious">Trung bình – cao</span></td></tr>
+      <tr><th scope="row">Chất lượng</th><td>Báo cáo tự đánh giá theo TT 83/2026; kế hoạch kiểm định; kết quả rà soát chương trình</td><td>Rủi ro bị hạn chế tuyển sinh</td><td><span class="chip serious">Trung bình – cao</span></td></tr>
+      <tr><th scope="row">Bên liên quan</th><td>Hợp đồng với Kiến Á, Trường Duy Tân và các công ty trong nhóm (thuê, dịch vụ, vay)</td><td>Phát hiện chuyển giá, nghĩa vụ ngầm</td><td><span class="chip serious">Trung bình – cao</span></td></tr>
+      <tr><th scope="row">Hợp tác</th><td>Thỏa thuận với Curtin, QTS, IBM, EasyCS, UR Planner…: phạm vi, hiệu lực, số sinh viên tham gia</td><td>Đánh giá giá trị thực của mạng lưới</td><td><span class="chip warn">Trung bình</span></td></tr>
+      <tr><th scope="row">Tranh chấp, tuân thủ</th><td>Khiếu nại, tranh chấp lao động (gồm vụ việc 2025); kết luận thanh tra, kiểm tra</td><td>Rủi ro pháp lý, uy tín</td><td><span class="chip warn">Trung bình</span></td></tr>
+      <tr><th scope="row">Công nghệ</th><td>Rà soát an ninh web, hệ thống quản lý đào tạo, dữ liệu người học</td><td>Rủi ro an ninh, thương hiệu</td><td><span class="chip warn">Trung bình</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 19 ------------------------------------------------------------------ -->
+<section class="chapter" id="nguon">
+  <div class="chapter-head"><span class="chapter-no">19</span><h2>Nguồn tham khảo và thuật ngữ</h2><p class="kicker">{{REF_COUNT}} nguồn, truy cập trong tháng 10/2026</p></div>
+  <h3>Thuật ngữ Việt – Anh – Hàn</h3>
+  <div class="tbl-wrap"><table class="tbl mid">
+    <thead><tr><th scope="col">Tiếng Việt</th><th scope="col">English</th><th scope="col" lang="ko">한국어</th></tr></thead>
+    <tbody>
+      <tr><td>Trường đại học tư thục không vì lợi nhuận</td><td>Not-for-profit private university</td><td lang="ko">비영리 사립대학</td></tr>
+      <tr><td>Nhà đầu tư (của trường)</td><td>Investor / sponsor</td><td lang="ko">설립 투자자</td></tr>
+      <tr><td>Hội đồng trường</td><td>University Council</td><td lang="ko">대학이사회</td></tr>
+      <tr><td>Hiệu trưởng</td><td>Rector / President</td><td lang="ko">총장</td></tr>
+      <tr><td>Chỉ tiêu tuyển sinh</td><td>Enrollment quota</td><td lang="ko">입학정원</td></tr>
+      <tr><td>Điểm chuẩn / điểm trúng tuyển</td><td>Cut-off score</td><td lang="ko">합격선</td></tr>
+      <tr><td>Học bạ</td><td>High-school transcript</td><td lang="ko">고교 내신 성적</td></tr>
+      <tr><td>Chuẩn cơ sở giáo dục đại học</td><td>Higher-education institution standards</td><td lang="ko">고등교육기관 기준</td></tr>
+      <tr><td>Kiểm định chất lượng</td><td>Quality accreditation</td><td lang="ko">품질 인증 평가</td></tr>
+      <tr><td>Biên độ hoạt động</td><td>Operating margin</td><td lang="ko">운영수지율</td></tr>
+      <tr><td>Bộ Giáo dục và Đào tạo (Bộ GD&amp;ĐT)</td><td>Ministry of Education and Training (MOET)</td><td lang="ko">교육훈련부</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Danh mục nguồn</h3>
+  {{REFERENCES}}
+</section>
+
+<footer class="colophon">
+  <p>Báo cáo được lập từ thông tin công khai đến ngày 27/10/2026 nhằm hỗ trợ nhà đầu tư nhận diện cơ hội và rủi ro. Báo cáo không phải ý kiến pháp lý, không phải báo cáo kiểm toán và không phải lời chào bán chứng khoán. Báo cáo không do UMT phát hành hay xác nhận. Các nhận định trong khung “Phân tích” là của đơn vị tư vấn; mọi số liệu đều kèm nguồn để kiểm chứng.</p>
+</footer>
+</main>
+</div>
+</div>
+
+<div id="tip" role="tooltip" hidden></div>
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function place(x,y){
+    var w=tip.offsetWidth,h=tip.offsetHeight,vw=window.innerWidth,vh=window.innerHeight;
+    var left=Math.min(Math.max(8,x+14),vw-w-8),top=y+18;
+    if(top+h>vh-8){top=Math.max(8,y-h-14);}
+    tip.style.left=left+'px';tip.style.top=top+'px';
+  }
+  function show(el,x,y){
+    var t=el.getAttribute('data-tip');if(!t)return;
+    tip.textContent=t;tip.hidden=false;place(x,y);
+  }
+  function hide(){tip.hidden=true;}
+  document.addEventListener('pointerover',function(e){var el=e.target.closest&&e.target.closest('[data-tip]');if(el)show(el,e.clientX,e.clientY);});
+  document.addEventListener('pointermove',function(e){if(!tip.hidden){var el=e.target.closest&&e.target.closest('[data-tip]');if(el)place(e.clientX,e.clientY);else hide();}});
+  document.addEventListener('pointerout',function(e){var el=e.target.closest&&e.target.closest('[data-tip]');if(el&&!(e.relatedTarget&&el.contains(e.relatedTarget)))hide();});
+  document.addEventListener('focusin',function(e){var el=e.target.closest&&e.target.closest('[data-tip]');if(el){var r=el.getBoundingClientRect();show(el,r.left+Math.min(r.width,240)/2,r.top+r.height/2);}});
+  document.addEventListener('focusout',hide);
+  window.addEventListener('scroll',hide,{passive:true});
+
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  if('IntersectionObserver' in window&&links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){links.forEach(function(a){a.classList.remove('active');});var a=map[en.target.id];if(a)a.classList.add('active');}
+      });
+    },{rootMargin:'-20% 0px -70% 0px'});
+    document.querySelectorAll('section.chapter').forEach(function(s){obs.observe(s);});
+  }
+  var mq=window.matchMedia('(max-width:1080px)');
+  var det=document.querySelector('.toc details');
+  function syncToc(){if(det){if(mq.matches){det.removeAttribute('open');}else{det.setAttribute('open','');}}}
+  syncToc();
+  if(mq.addEventListener)mq.addEventListener('change',syncToc);
+})();
+</script>
