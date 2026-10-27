@@ -1,33 +1,60 @@
 # Hồ sơ thẩm định UMT
 
-Báo cáo thẩm định sơ bộ (desktop due diligence) về Trường Đại học Quản lý và Công nghệ TP.HCM (UMT), lập cho nhà đầu tư Hàn Quốc. Dữ liệu cập nhật đến 27/10/2026, dẫn 105 nguồn công khai, kèm tóm tắt tiếng Hàn.
+Báo cáo thẩm định sơ bộ (desktop due diligence) về Trường Đại học Quản lý và Công nghệ TP.HCM (UMT), lập cho nhà đầu tư Hàn Quốc. Dữ liệu cập nhật đến 27/10/2026.
 
-## Tệp
+## Phiên bản
+
+| Phiên bản | Tệp | Ghi chú |
+| --- | --- | --- |
+| **2.0 (hiện hành)** | `UMT_Bao-cao-tham-dinh_v2.docx` | Word, 63 trang A4. Chuẩn hoá theo Báo cáo công khai 16/2026/BC-UMT, tờ rơi tuyển sinh 2026 và bản ghi màn hình website; 39 ảnh và ảnh chụp màn hình của trường, 10 biểu đồ và sơ đồ, 44 bảng, 82 nguồn |
+| 2.0 | `UMT_Bao-cao-tham-dinh_v2_xem-truoc.pdf` | Bản PDF xuất từ chính tệp DOCX để xem nhanh |
+| 1.0 (đã thay thế) | `UMT_Ho-so-tham-dinh.html`, `UMT_Ho-so-tham-dinh.pdf` | Dựa trên nguồn công khai qua chỉ mục tìm kiếm, chưa có ảnh. Nhiều số liệu đã được đính chính ở bản 2.0 (Bảng 2.2 của bản 2.0) |
+
+## Bản 2.0
+
+Định dạng theo yêu cầu: Times New Roman 13 cho thân bài; tiêu đề 17 / 14,5 / 13,5 pt; bảng 10–11 pt; khổ A4; lề trái 3 cm, lề trên, phải, dưới 2 cm; đánh số trang “Trang x / y” ở chân trang; mục lục là trường TOC của Word (nhấp chuột phải → *Update Field* nếu cần cập nhật).
+
+Những thay đổi chính so với bản 1.0:
+
+- Chủ sở hữu: CTCP Tập đoàn Đầu tư và Phát triển Giáo dục UMT (bản 1.0 ghi Kiến Á).
+- Đất 71.854 m² cơ sở chính, 74.241,8 m² cả 3 cơ sở (bản 1.0: 80.092 m²); sàn 22.369,03 m², sàn đào tạo 13.684,54 m².
+- 727 người học (31/5/2026); 182 giảng viên toàn thời gian, 23,17% tiến sĩ.
+- Thu chi 2024–2025 chính thức: thu 85,06 tỷ đồng (63,5% là hỗ trợ của nhà đầu tư), chi 80,66 tỷ đồng, chênh lệch 4,40 tỷ đồng.
+- Mức đáp ứng 14 chỉ số chuẩn; ký túc xá, sân thể thao, thư viện; chưa có liên kết đào tạo, chưa kiểm định.
+- Ảnh cơ sở vật chất, đội ngũ, sinh viên lấy từ tờ rơi; ảnh chụp màn hình website lấy từ video; mỗi ảnh ghi nguồn. Phụ lục A đối chiếu các điểm khác nhau giữa các nguồn của UMT.
+
+### Dựng lại bản 2.0
+
+Mã nguồn trong `docx-src/`:
+
+| Thư mục, tệp | Nội dung |
+| --- | --- |
+| `tools/content1.js`, `content2.js`, `content3.js` | Nội dung báo cáo; trích dẫn ghi `[[khóa-nguồn]]`, tham chiếu hình, bảng ghi `{fig:khóa}`, `{tab:khóa}` |
+| `tools/refs.json` | Danh mục nguồn |
+| `tools/build_docx.js` | Dựng DOCX bằng thư viện `docx` (Node) |
+| `tools/postprocess.py` | Thêm trường mục lục, kiểm soát dòng mồ côi |
+| `tools/pipeline.sh`, `findpages.py` | Dựng, xuất PDF bằng LibreOffice, dò số trang cho mục lục |
+| `tools/charts.py`, `html/org.html` + `tools/shot.js` | Vẽ biểu đồ và sơ đồ tổ chức |
+| `ready/`, `fig/`, `charts/` | Ảnh cắt từ tờ rơi, ảnh màn hình website, biểu đồ |
+
+```bash
+cd docx-src
+bash tools/pipeline.sh "$PWD" UMT_v2          # lần 1: dò số trang
+cp tools/toc_found.json tools/toc_pages.json
+bash tools/pipeline.sh "$PWD" UMT_v2          # lần 2: mục lục có số trang → out/UMT_v2.docx
+```
+
+Ảnh màn hình website (`fig/web_*.jpg`) được ghép từ khung hình của video khách hàng cung cấp bằng `tools/montage.py`; video không lưu trong kho mã.
+
+## Bản 1.0
 
 | Tệp | Dùng để |
 | --- | --- |
-| `UMT_Ho-so-tham-dinh.pdf` | Bản A4 (37 trang) để gửi nhà đầu tư, in ấn |
-| `UMT_Ho-so-tham-dinh.html` | Bản đọc trên trình duyệt: biểu đồ có chú thích khi rê chuột, giao diện sáng/tối, đọc tốt trên điện thoại |
-| `src/report.template.html` | Nội dung báo cáo; trích dẫn ghi dạng `[[khóa-nguồn]]` |
-| `build.py` | Dựng trang: vẽ biểu đồ theo đúng tỷ lệ, đánh số trích dẫn, lập danh mục nguồn |
-| `pdf.js` | Xuất PDF A4 bằng Chromium (Playwright) |
-
-## Nội dung (19 mục)
-
-1. Tóm tắt điều hành · 2. 한국어 요약 · 3. Phạm vi và phương pháp · 4. Pháp lý và lịch sử · 5. Chủ đầu tư và sở hữu · 6. Quản trị và bộ máy · 7. Đào tạo và hợp tác · 8. Tuyển sinh và người học · 9. Học phí và học bổng · 10. Đội ngũ và tiền lương · 11. Cơ sở vật chất · 12. Tài chính và chi phí · 13. Truyền thông và thương hiệu · 14. Thị trường và cạnh tranh · 15. Pháp lý đầu tư và tuân thủ chuẩn · 16. SWOT và ma trận rủi ro · 17. Phương án tham gia · 18. Hồ sơ cần thẩm định · 19. Nguồn và thuật ngữ.
+| `UMT_Ho-so-tham-dinh.html`, `.pdf` | Bản đọc trên trình duyệt và bản A4 (37 trang) |
+| `src/report.template.html`, `build.py`, `pdf.js` | Nội dung, dựng trang, xuất PDF (`python3 build.py`, `node pdf.js`) |
 
 ## Nguồn và giới hạn
 
-- Nguồn chia ba tầng: A (website, tài liệu PDF của UMT, cổng thông tin Chính phủ, văn bản pháp luật), B (báo chí chính thống, dịch vụ thông tin pháp lý), C (trang tổng hợp, chỉ dùng đối chiếu). Phép tính và nhận định của đơn vị tư vấn nằm trong khung “Phân tích”.
-- Môi trường nghiên cứu không truy cập trực tiếp được umt.edu.vn; nội dung website và PDF của trường được khai thác qua chỉ mục công cụ tìm kiếm. Cần đối chiếu bản gốc khi thẩm định chính thức.
-- UMT chưa công khai báo cáo tài chính, thang lương; mục 12 và Bảng 10.3 dùng kịch bản và mặt bằng tham chiếu, ghi rõ không phải số liệu của trường.
-- Báo cáo chưa có ảnh khuôn viên; có thể bổ sung từ thư viện ảnh chính thức của trường.
-
-## Cập nhật
-
-Sửa `src/report.template.html` (nguồn mới thêm vào danh sách `REFS` trong `build.py`), rồi chạy:
-
-```bash
-python3 build.py      # tạo UMT_Ho-so-tham-dinh.html
-node pdf.js           # tạo UMT_Ho-so-tham-dinh.pdf
-```
+- Nguồn chia ba tầng: A (tài liệu của UMT, cổng thông tin Chính phủ, văn bản pháp luật), B (báo chí chính thống, dịch vụ thông tin pháp lý), C (trang tổng hợp, chỉ dùng đối chiếu). Phép tính và nhận định của đơn vị tư vấn nằm trong khung “Phân tích”.
+- Môi trường nghiên cứu không truy cập trực tiếp được umt.edu.vn; nội dung website lấy từ video ghi màn hình ngày 27/10/2026.
+- Báo cáo công khai không phải báo cáo tài chính kiểm toán; UMT chưa công bố thang lương. Ảnh do Trường công bố không thay thế khảo sát hiện trường (mục 17.2 của bản 2.0).

@@ -1,0 +1,758 @@
+{
+ "bc16": {
+  "tier": "A",
+  "pub": "Trường Đại học Quản lý và Công nghệ TP.HCM",
+  "title": "Báo cáo số 16/2026/BC-UMT “Nội dung công khai các hoạt động giáo dục” (thực hiện Thông tư 09/2024/TT-BGDĐT), 17 trang — tài liệu do khách hàng cung cấp",
+  "date": "20/5/2026",
+  "url": ""
+ },
+ "leaflet": {
+  "tier": "A",
+  "pub": "Trường Đại học Quản lý và Công nghệ TP.HCM",
+  "title": "Tờ rơi tuyển sinh năm 2026 (tệp “Leaflet_2025_2026_website”, 6 trang) — tài liệu do khách hàng cung cấp",
+  "date": "mùa tuyển sinh 2026",
+  "url": ""
+ },
+ "web": {
+  "tier": "A",
+  "pub": "Trường Đại học Quản lý và Công nghệ TP.HCM",
+  "title": "Website umt.edu.vn — video ghi màn hình trên điện thoại (5 phút 36 giây; trang chủ, Giới thiệu, Chương trình đào tạo, Trung tâm One UMT), 332 khung hình được trích xuất — tài liệu do khách hàng cung cấp",
+  "date": "27/10/2026",
+  "url": "https://www.umt.edu.vn"
+ },
+ "umt-about": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Tổng quan về Trường đại học UMT (tầm nhìn, sứ mệnh, giá trị cốt lõi, Hội đồng trường, các mốc phát triển)",
+  "date": "truy cập 10/2026",
+  "url": "https://www.umt.edu.vn/ve-umt"
+ },
+ "umt-attt": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Đề án mở ngành An toàn thông tin (mã 7480202), năm học 2025–2026 — PDF",
+  "date": "11/2025",
+  "url": "https://sdn.umt.edu.vn/2025_2026_UMT_De_an_mo_nganh_ATTT_512fa58813.pdf"
+ },
+ "umt-khmt": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Đề án mở ngành Khoa học máy tính, năm học 2025–2026 — PDF",
+  "date": "2025",
+  "url": "https://sdn.umt.edu.vn/2025_2026_UMT_De_an_mo_nganh_KHMT_d1c154db11.pdf"
+ },
+ "umt-en": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "About UMT — Leadership and Governance (bản tiếng Anh)",
+  "date": "truy cập 10/2026",
+  "url": "https://www.umt.edu.vn/en/about-umt"
+ },
+ "umt-ts": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Thông tin tuyển sinh năm 2026 (ngành, học phí, học bổng, liên hệ)",
+  "date": "2026",
+  "url": "https://www.umt.edu.vn/tuyen-sinh"
+ },
+ "umt-bs2026": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Trường Đại học UMT xét tuyển bổ sung đại học chính quy năm 2026",
+  "date": "8/2026",
+  "url": "https://www.umt.edu.vn/tin-tuc/truong-dai-hoc-umt-xet-tuyen-bo-sung-dai-hoc-chinh-quy-nam-2026"
+ },
+ "umt-tn2026": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Diễn văn của Hiệu trưởng UMT tại Lễ tốt nghiệp 2026 “Dấu ấn tiên phong”",
+  "date": "22/8/2026",
+  "url": "https://www.umt.edu.vn/tin-tuc/dien-van-cua-hieu-truong-umt-tai-le-tot-nghiep-2026-hay-can-dam-bat-dau-hanh-trinh-cua-rieng-minh"
+ },
+ "umt-hb104": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Chúc mừng 104 thí sinh tài năng đầu tiên trúng tuyển học bổng UMT 2026",
+  "date": "2026",
+  "url": "https://www.umt.edu.vn/tin-tuc/chuc-mung-104-thi-sinh-tai-nang-dau-tien-trung-tuyen-hoc-bong-umt-2026"
+ },
+ "umt-td": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Cơ hội nghề nghiệp & tuyển dụng giảng viên, nhân viên (VI) / Careers (EN)",
+  "date": "truy cập 10/2026",
+  "url": "https://www.umt.edu.vn/tuyen-dung"
+ },
+ "umt-ctdt": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Chương trình đào tạo và các trang ngành (Marketing, Logistics, Quản lý TDTT, Thiết kế đồ họa, Truyền thông đa phương tiện, Khoa học máy tính, An toàn thông tin)",
+  "date": "truy cập 10/2026",
+  "url": "https://www.umt.edu.vn/chuong-trinh-dao-tao"
+ },
+ "umt-khoa": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Trang các khoa: Khoa Công nghệ, Khoa Kinh doanh, Khoa Truyền thông và Nghệ thuật ứng dụng",
+  "date": "truy cập 10/2026",
+  "url": "https://www.umt.edu.vn/khoa/khoa-cong-nghe"
+ },
+ "umt-easycs": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Chính thức hợp tác cùng EasyCS (Hàn Quốc): sinh viên tham gia phát triển AI từ dự án thực tế",
+  "date": "2026",
+  "url": "https://www.umt.edu.vn/tin-tuc/chinh-thuc-hop-tac-cung-easy-cs-han-quoc-mo-rong-co-hoi-de-sinh-vien-tham-gia-phat-trien-ai-tu-du-an-thuc-te"
+ },
+ "umt-htqt": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "UMT đẩy mạnh hợp tác quốc tế, tạo ra nhiều giá trị cho sinh viên và nhà trường",
+  "date": "2023",
+  "url": "https://www.umt.edu.vn/vi-vn/umt-day-manh-hop-tac-quoc-te-tao-ra-nhieu-gia-tri-cho-sinh-vien-va-nha-truong.html"
+ },
+ "umt-slsu": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "UMT mở rộng hệ sinh thái tri thức toàn cầu thông qua hợp tác với Southern Leyte State University",
+  "date": "2025–2026",
+  "url": "https://www.umt.edu.vn/tin-tuc/umt-mo-rong-he-sinh-thai-tri-thuc-toan-cau-thong-qua-hop-tac-voi-southern-leyte-state-university-slsu"
+ },
+ "umt-bus": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Xe buýt 154 chính thức khởi hành tại UMT; hướng dẫn kết nối Metro với lộ trình UMT Bus",
+  "date": "25/8/2025",
+  "url": "https://www.umt.edu.vn/vi-vn/tin-vui-xe-buyt-154-da-chinh-thuc-khoi-hanh-tai-umt-vao-ngay-25-8-2025.html"
+ },
+ "umt-faq": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "UMTFAQ 2025 (thư viện, ONE UMT Hub, ký túc xá – căn hộ cho thuê, UMT Bus)",
+  "date": "2025",
+  "url": "https://faq.umt.edu.vn/"
+ },
+ "umt-hbcmt": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Thông báo nhận hồ sơ học bổng Cao Minh Trí năm 2026",
+  "date": "2026",
+  "url": "https://www.umt.edu.vn/tin-tuc/thong-bao-nhan-ho-so-hoc-bong-cao-minh-tri-nam-2026"
+ },
+ "umt-tdthu": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "PGS.TS. Trần Đan Thư, Trưởng Khoa Công nghệ",
+  "date": "2023",
+  "url": "https://www.umt.edu.vn/vi-vn/pgs-ts-tran-dan-thu-truong-khoa-cong-nghe-hoc-cong-nghe-thong-tin-luon-de-dang-co-viec-lam.html"
+ },
+ "umt-hptc": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Hỗ trợ tài chính — chương trình “Học phí 0 tiền mặt”",
+  "date": "2022",
+  "url": "https://www.umt.edu.vn/vi-vn/hoc-phi-0-tien-mat.html"
+ },
+ "umt-tancang": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Cổng việc làm UMT — Triển vọng hợp tác Tân Cảng – UMT",
+  "date": "2/2022",
+  "url": "https://vieclam.umt.edu.vn/tin-tuc/trien-vong-hop-tac-tan-cang-umt.35A54F44/vi"
+ },
+ "umt-lib": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Trung tâm Thông tin Thư viện UMT (cổng thông tin, CSDL nguồn mở)",
+  "date": "truy cập 10/2026",
+  "url": "https://lib.umt.edu.vn/"
+ },
+ "umt-social": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Kênh truyền thông chính thức: Facebook, Instagram, LinkedIn, YouTube, TikTok (số liệu theo ảnh chụp chỉ mục tìm kiếm)",
+  "date": "truy cập 10/2026",
+  "url": "https://www.facebook.com/UMTUniversity/"
+ },
+ "umt-shinhan": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "UMTers nâng cao hiểu biết về tín dụng cùng Shinhan Bank",
+  "date": "2024",
+  "url": "https://www.umt.edu.vn/vi-vn/umters-nang-cao-hieu-biet-ve-tin-dung-cung-shinhan-bank-ngan-hang-hang-dau-han-quoc.html"
+ },
+ "umt-cmtri": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "PGS.TS. Cao Minh Trí — hồ sơ giảng viên",
+  "date": "truy cập 10/2026",
+  "url": "https://www.umt.edu.vn/vi-vn/pgs-ts-cao-minh-tri.html"
+ },
+ "umt-xanh": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "UMT — Trường đại học xanh chuẩn chất lượng quốc tế",
+  "date": "truy cập 10/2026",
+  "url": "https://www.umt.edu.vn/vi-vn/umt-truong-dai-hoc-xanh-chuan-chat-luong-quoc-te.html"
+ },
+ "umt-wharton": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "UMT tiếp đại diện Trường Wharton, trao đổi về định hướng cho UMTers học tập tại Mỹ",
+  "date": "2024",
+  "url": "https://www.umt.edu.vn/vi-vn/umt-tiep-dai-dien-truong-wharton-trao-doi-ve-dinh-huong-cho-umters-hoc-tap-tai-my.html"
+ },
+ "umt-hackathon": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "Chính thức khởi động Hackathon Digiport Logistics 2025 — chuyển đổi số cho tương lai cảng biển",
+  "date": "2025",
+  "url": "https://www.umt.edu.vn/vi-vn/umt-news-chinh-thuc-khoi-dong-hackathon-digiport-logistics-2025--chuyen-doi-so-cho-tuong-lai-cang-bien.html"
+ },
+ "umt-techgen": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "UMT TechGen 2026 — sân chơi lập trình cho học sinh THPT toàn quốc",
+  "date": "2026",
+  "url": "https://techgen.umt.edu.vn/"
+ },
+ "umt-smartgen": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "SMArt Gen’s Branding Challenge 2026",
+  "date": "2026",
+  "url": "https://www.umt.edu.vn/su-kien/smart-gen-s-branding-challenge-2026"
+ },
+ "umt-q12": {
+  "tier": "A",
+  "pub": "UMT",
+  "title": "UMT đồng hành cùng sĩ tử Trung tâm GDNN – GDTX Quận 12",
+  "date": "2026",
+  "url": "https://www.umt.edu.vn/tin-tuc/umt-dong-hanh-cung-si-tu-trung-tam-gdnn-gdtx-quan-12-vung-tam-ly-sang-tuong-lai-trong-ky-nguyen-so"
+ },
+ "gov-ramat": {
+  "tier": "A",
+  "pub": "Báo Điện tử Chính phủ",
+  "title": "Ra mắt Trường Đại học Quản lý và Công nghệ TPHCM",
+  "date": "24/11/2021",
+  "url": "https://baochinhphu.vn/ra-mat-truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-102304415.htm"
+ },
+ "gov-khaigiang": {
+  "tier": "A",
+  "pub": "Cổng TTĐT TP.HCM",
+  "title": "Trường Đại học Quản lý và Công nghệ TPHCM khánh thành và khai giảng năm học mới",
+  "date": "8/10/2022",
+  "url": "https://tphcm.chinhphu.vn/truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-khai-giang-nam-hoc-dau-tien-101221008223151719.htm"
+ },
+ "gov-ts2025": {
+  "tier": "A",
+  "pub": "Cổng TTĐT TP.HCM",
+  "title": "UMT tuyển sinh năm 2025: Học phí ổn định, học bổng toàn khóa; điểm trúng tuyển 3 năm gần đây",
+  "date": "26/5/2025",
+  "url": "https://tphcm.chinhphu.vn/umt-tuyen-sinh-nam-2025-hoc-phi-on-dinh-hoc-bong-toan-khoa-101250526163623404.htm"
+ },
+ "gov-dc2025": {
+  "tier": "A",
+  "pub": "Cổng Xây dựng chính sách (Chính phủ)",
+  "title": "Điểm chuẩn Trường Đại học Quản lý và Công nghệ TPHCM (UMT) 2025",
+  "date": "23/8/2025",
+  "url": "https://xaydungchinhsach.chinhphu.vn/diem-chuan-truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-umt-2025-119250823115333707.htm"
+ },
+ "law-2018": {
+  "tier": "A",
+  "pub": "Quốc hội",
+  "title": "Luật sửa đổi, bổ sung một số điều của Luật Giáo dục đại học, số 34/2018/QH14",
+  "date": "19/11/2018",
+  "url": "https://thuvienphapluat.vn/van-ban/Giao-duc/Luat-Giao-duc-dai-hoc-sua-doi-388254.aspx"
+ },
+ "law-2025": {
+  "tier": "A",
+  "pub": "Quốc hội",
+  "title": "Luật Giáo dục đại học số 125/2025/QH15 (bản tiếng Việt và tiếng Anh)",
+  "date": "10/12/2025",
+  "url": "https://thuvienphapluat.vn/van-ban/Giao-duc/Luat-Giao-duc-dai-hoc-2025-so-125-2025-QH15-663779.aspx"
+ },
+ "nd-91": {
+  "tier": "A",
+  "pub": "Chính phủ",
+  "title": "Nghị định 91/2026/NĐ-CP quy định chi tiết và hướng dẫn thi hành Luật Giáo dục đại học",
+  "date": "30/3/2026",
+  "url": "https://thuvienphapluat.vn/van-ban/giao-duc/Nghi-dinh-91-2026-ND-CP-huong-dan-Luat-Giao-duc-dai-hoc-562760.aspx"
+ },
+ "nd-86": {
+  "tier": "A",
+  "pub": "Chính phủ",
+  "title": "Nghị định 86/2018/NĐ-CP quy định về hợp tác, đầu tư của nước ngoài trong lĩnh vực giáo dục (đã sửa đổi, bổ sung)",
+  "date": "6/6/2018",
+  "url": "https://thuvienphapluat.vn/van-ban/Dau-tu/Nghi-dinh-86-2018-ND-CP-quy-dinh-ve-hop-tac-dau-tu-cua-nuoc-ngoai-trong-linh-vuc-giao-duc-337783.aspx"
+ },
+ "tt-83": {
+  "tier": "A",
+  "pub": "Bộ GD&ĐT",
+  "title": "Thông tư 83/2026/TT-BGDĐT quy định Chuẩn cơ sở giáo dục đại học — toàn văn",
+  "date": "30/9/2026",
+  "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-thong-tu-83-2026-tt-bgddt-quy-dinh-chuan-co-so-giao-duc-dai-hoc-119260930153929846.htm"
+ },
+ "tt-01": {
+  "tier": "A",
+  "pub": "Bộ GD&ĐT",
+  "title": "Thông tư 01/2024/TT-BGDĐT ban hành Chuẩn cơ sở giáo dục đại học (được thay thế bởi TT 83/2026)",
+  "date": "5/2/2024",
+  "url": "https://thuvienphapluat.vn/van-ban/Giao-duc/Thong-tu-01-2024-TT-BGDDT-Chuan-co-so-giao-duc-dai-hoc-598459.aspx"
+ },
+ "vqa-list": {
+  "tier": "A",
+  "pub": "Cục Quản lý chất lượng, Bộ GD&ĐT",
+  "title": "Danh sách cơ sở giáo dục, chương trình đào tạo đã được đánh giá/công nhận đạt tiêu chuẩn chất lượng (cập nhật đến 31/5/2026)",
+  "date": "2026",
+  "url": "https://vqa.moet.gov.vn/vi/thong-bao-quan-ly-bao-dam/thong-bao/danh-sach-cac-co-so-giao-duc-chuong-trinh-dao-tao-giao-duc-dai-hoc-va-cao-dang-su-pham-da-hoan-thanh-bao-cao-tu-danh-gia-va-duoc-danh-gia-cong-nhan-dat-tieu-chuan-chat-luong-giao-duc-cap-nhat-den-ngay-31-5-2026-90.html"
+ },
+ "lv-nd361": {
+  "tier": "B",
+  "pub": "LuatVietnam",
+  "title": "Từ 17/9/2026, vốn đầu tư để thành lập trường đại học tư thục giảm còn tối thiểu 300 tỷ đồng (Nghị định 361/2026/NĐ-CP)",
+  "date": "9/2026",
+  "url": "https://luatvietnam.vn/tin-van-ban-moi/tu-17-9-2026-von-dau-tu-de-thanh-lap-truong-dai-hoc-tu-thuc-giam-con-toi-thieu-300-ty-dong-186-112621-article.html"
+ },
+ "lv-luongtoithieu": {
+  "tier": "B",
+  "pub": "LuatVietnam",
+  "title": "Mức lương tối thiểu vùng tại TP.HCM năm 2026 (Nghị định 293/2025/NĐ-CP)",
+  "date": "2026",
+  "url": "https://luatvietnam.vn/lao-dong-tien-luong/muc-luong-toi-thieu-vung-tai-tphcm-nam-2026-562-105246-article.html"
+ },
+ "lv-chuyendoi": {
+  "tier": "B",
+  "pub": "LuatVietnam",
+  "title": "Lần đầu quy định thủ tục chuyển đổi cơ sở giáo dục tư thục sang hoạt động không vì lợi nhuận",
+  "date": "2026",
+  "url": "https://luatvietnam.vn/tin-van-ban-moi/lan-dau-quy-dinh-thu-tuc-chuyen-doi-co-so-giao-duc-tu-thuc-sang-hoat-dong-khong-vi-loi-nhuan-186-107593-article.html"
+ },
+ "fx-usd": {
+  "tier": "B",
+  "pub": "Thị trường Tài chính Tiền tệ",
+  "title": "Ngày 21/10: tỷ giá trung tâm giảm 5 đồng (25.634 VND/USD)",
+  "date": "21/10/2026",
+  "url": "https://thitruongtaichinhtiente.vn/ngay-21-10-ty-gia-trung-tam-giam-5-dong-86455.html"
+ },
+ "fx-krw": {
+  "tier": "C",
+  "pub": "Stockbiz (dữ liệu Vietcombank)",
+  "title": "Tỷ giá ngoại tệ — KRW tại Vietcombank (mua chuyển khoản 18,47 VND/KRW)",
+  "date": "15/10/2026",
+  "url": "https://stockbiz.vn/ty-gia"
+ },
+ "gd-thanhlap": {
+  "tier": "B",
+  "pub": "Giáo dục Việt Nam (giaoduc.net.vn)",
+  "title": "Thêm một trường đại học tư thục không vì lợi nhuận được thành lập",
+  "date": "4/2021",
+  "url": "https://giaoduc.net.vn/giao-duc-24h/them-mot-truong-dai-hoc-tu-thuc-khong-vi-loi-nhuan-duoc-thanh-lap-post216808.gd"
+ },
+ "tt-thanhlap": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ",
+  "title": "Thêm một trường đại học tư được cấp phép thành lập",
+  "date": "4/4/2021",
+  "url": "https://tuoitre.vn/them-mot-truong-dai-hoc-duoc-cap-phep-thanh-lap-20210404190614376.htm"
+ },
+ "vne-ramat": {
+  "tier": "B",
+  "pub": "VnExpress",
+  "title": "Ra mắt Trường Đại học Quản lý và Công nghệ TP HCM",
+  "date": "11/2021",
+  "url": "https://vnexpress.net/ra-mat-truong-dai-hoc-quan-ly-va-cong-nghe-tp-hcm-4393279.html"
+ },
+ "kenh14": {
+  "tier": "B",
+  "pub": "Kenh14",
+  "title": "Trường Đại học UMT đốn tim giới trẻ với giao diện mang phong cách chuẩn “resort”",
+  "date": "9/11/2022",
+  "url": "https://kenh14.vn/truong-dai-hoc-umt-don-tim-gioi-tre-voi-giao-dien-mang-phong-cach-chuan-resort-2022110912033636.chn"
+ },
+ "dt-campustour": {
+  "tier": "B",
+  "pub": "Dân trí",
+  "title": "Học sinh được hướng nghiệp và tư vấn tuyển sinh tại UMT Campus Tour 2025",
+  "date": "16/5/2025",
+  "url": "https://dantri.com.vn/giao-duc/hoc-sinh-duoc-huong-nghiep-va-tu-van-tuyen-sinh-tai-umt-campus-tour-2025-20250516105752748.htm"
+ },
+ "tn-2021": {
+  "tier": "B",
+  "pub": "Thanh Niên",
+  "title": "Trường ĐH Quản lý và Công nghệ TP.HCM sẽ tuyển sinh từ năm 2022",
+  "date": "11/2021",
+  "url": "https://thanhnien.vn/truong-dh-quan-ly-va-cong-nghe-tp-hcm-chinh-thuc-hoat-dong-sau-hon-8-nam-1851404588.htm"
+ },
+ "sgt-kiena": {
+  "tier": "B",
+  "pub": "Kinh tế Sài Gòn",
+  "title": "Ông chủ của Kiến Á tiếp tục ra mắt trường đại học mới",
+  "date": "11/2021",
+  "url": "https://thesaigontimes.vn/ong-chu-cua-kien-a-tiep-tuc-ra-mat-truong-dai-hoc-moi/"
+ },
+ "tn-khongloinhuan": {
+  "tier": "B",
+  "pub": "Thanh Niên",
+  "title": "Để VN xây dựng trường ĐH tư thục đẳng cấp: Phát triển mô hình không vì lợi nhuận",
+  "date": "6/2026",
+  "url": "https://thanhnien.vn/de-vn-xay-dung-truong-dh-tu-thuc-dang-cap-phat-trien-mo-hinh-khong-vi-loi-nhuan-185260624230422376.htm"
+ },
+ "vnbiz-kiena": {
+  "tier": "B",
+  "pub": "VietnamBiz",
+  "title": "Đế chế Kiến Á của ông Huỳnh Bá Lân: Từ chủ nhiệm Toán Đại học Bách khoa đến ông chủ của một loạt dự án bất động sản phía Nam",
+  "date": "18/9/2020",
+  "url": "https://vietnambiz.vn/de-che-kien-a-cua-ong-huynh-ba-lan-tu-chu-nhiem-toan-dai-hoc-bach-khoa-den-ong-chu-cua-mot-loat-du-an-bat-dong-san-phia-nam-20200918165446593.htm"
+ },
+ "ndt-350": {
+  "tier": "B",
+  "pub": "Nhà Đầu Tư",
+  "title": "Khoản nợ mới 350 tỷ và cuộc chơi kín tiếng của Kiến Á Group",
+  "date": "sau 12/2018",
+  "url": "https://nhadautu.vn/khoan-no-moi-350-ty-va-cuoc-choi-kin-tieng-cua-kien-a-group-d43050.html"
+ },
+ "ndt-kecan": {
+  "tier": "B",
+  "pub": "Nhà Đầu Tư",
+  "title": "Thế hệ kế cận tại Kiến Á Group",
+  "date": "2024",
+  "url": "https://nhadautu.vn/the-he-ke-can-tai-kien-a-group-d87294.html"
+ },
+ "cafebiz-son": {
+  "tier": "B",
+  "pub": "CafeBiz",
+  "title": "Con trai vị Giáo sư toán học kiêm Chủ tịch Tập đoàn BĐS, thành viên HĐQT KienLongBank: Trong công việc lúc nào cũng xung đột với cha",
+  "date": "21/5/2021",
+  "url": "https://cafebiz.vn/con-trai-vi-giao-su-toan-hoc-kiem-chu-tich-tap-doan-bds-thanh-vien-hdqt-kienlongbank-trong-cong-viec-luc-nao-cung-xung-dot-voi-cha-20210521091455045.chn"
+ },
+ "cafef-spm": {
+  "tier": "B",
+  "pub": "CafeF (đăng lại trên DNSE)",
+  "title": "Doanh nghiệp liên quan nhóm Kiến Á tiếp tục kinh doanh thua lỗ",
+  "date": "3/2026",
+  "url": "https://www.dnse.com.vn/senses/tin-tuc/doanh-nghiep-lien-quan-nhom-kien-a-tiep-tuc-kinh-doanh-thua-lo-35203093"
+ },
+ "vnf-spm": {
+  "tier": "B",
+  "pub": "VietnamFinance",
+  "title": "Sài Gòn Phú Minh: Hết nợ trái phiếu 491 tỷ đồng, vẫn phát sinh 400 tỷ đồng vay dài hạn",
+  "date": "2026",
+  "url": "https://vietnamfinance.vn/sai-gon-phu-minh-het-no-trai-phieu-491-ty-dong-van-phat-sinh-400-ty-dong-vay-dai-han-d150378.html"
+ },
+ "bpl-spm": {
+  "tier": "B",
+  "pub": "Báo Pháp luật Việt Nam (Doanh nhân)",
+  "title": "Sạch bóng nợ trái phiếu, doanh nghiệp hệ sinh thái Kiến Á xoay trục dòng vốn hàng trăm tỷ đồng",
+  "date": "2026",
+  "url": "https://doanhnhan.baophapluat.vn/sach-bong-no-trai-phieu-doanh-nghiep-he-sinh-thai-kien-a-xoay-truc-dong-von-hang-tram-ty-dong.html"
+ },
+ "tt-uef": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ",
+  "title": "Vài chục tỉ đồng mua được trường đại học (chuyển giao Trường ĐH Kinh tế – Tài chính TP.HCM cho CTCP Đầu tư Phát triển Giáo dục HUTECH)",
+  "date": "2014",
+  "url": "https://tuoitre.vn/vai-chuc-ti-mua-duoc-truong-dh-653110.htm"
+ },
+ "tt-hocphi2023": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ",
+  "title": "Trường đổi cách thu học phí, sinh viên bức xúc ‘phải đóng nhiều hơn’",
+  "date": "2/10/2023",
+  "url": "https://tuoitre.vn/truong-doi-cach-thu-hoc-phi-sinh-vien-buc-xuc-phai-dong-nhieu-hon-20231002111648183.htm"
+ },
+ "gd-hocphi2023": {
+  "tier": "B",
+  "pub": "Giáo dục Việt Nam (giaoduc.net.vn)",
+  "title": "SV học tín chỉ, trường thu tiền theo kỳ: ĐH Quản lý và Công nghệ TP.HCM nói gì?",
+  "date": "10/2023",
+  "url": "https://giaoduc.net.vn/sv-hoc-tin-chi-truong-thu-tien-theo-ky-dh-quan-ly-va-cong-nghe-tphcm-noi-gi-post238408.gd"
+ },
+ "vne-htcs": {
+  "tier": "B",
+  "pub": "VnExpress",
+  "title": "UMT thêm chính sách hỗ trợ tài chính sinh viên",
+  "date": "2022",
+  "url": "https://vnexpress.net/umt-them-chinh-sach-ho-tro-tai-chinh-sinh-vien-4505522.html"
+ },
+ "voh-hb2022": {
+  "tier": "B",
+  "pub": "VOH",
+  "title": "Một trường đại học ưu tiên dành học bổng cho thí sinh giỏi kỹ năng mềm",
+  "date": "2022",
+  "url": "https://voh.com.vn/giao-duc/mot-truong-dai-hoc-uu-tien-danh-hoc-bong-cho-thi-sinh-gioi-ky-nang-mem-428908.html"
+ },
+ "voh-dc2022": {
+  "tier": "B",
+  "pub": "VOH",
+  "title": "Điểm chuẩn đại học 2022: Trường Đại học Quản lý và Công nghệ TPHCM lấy 15 điểm",
+  "date": "9/2022",
+  "url": "https://voh.com.vn/tuyen-sinh/diem-chuan-dai-hoc-2022-truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-lay-15-diem-448409.html"
+ },
+ "gd247-ts2023": {
+  "tier": "B",
+  "pub": "Giáo dục 247",
+  "title": "UMT công bố thông tin tuyển sinh năm 2023",
+  "date": "2023",
+  "url": "https://giaoduc247.vn/tp-hcm/umt-cong-bo-thong-tin-tuyen-sinh-nam-2023"
+ },
+ "vnn-hb2026": {
+  "tier": "B",
+  "pub": "VietNamNet",
+  "title": "Một đại học tuyên bố tất cả thí sinh trúng tuyển 2026 đều nhận học bổng 90 triệu",
+  "date": "12/2025",
+  "url": "https://vietnamnet.vn/mot-dai-hoc-tuyen-bo-tat-ca-thi-sinh-trung-tuyen-2026-deu-nhan-hoc-bong-90-trieu-2470976.html"
+ },
+ "cafebiz-hb2026": {
+  "tier": "B",
+  "pub": "CafeBiz",
+  "title": "Một đại học tuyên bố tất cả thí sinh trúng tuyển năm 2026 đều nhận ngay học bổng tối thiểu 90 triệu đồng",
+  "date": "12/2025",
+  "url": "https://cafebiz.vn/mot-dai-hoc-tuyen-bo-tat-ca-thi-sinh-trung-tuyen-nam-2026-deu-nhan-ngay-hoc-bong-toi-thieu-90-trieu-dong-17625121012122403.chn"
+ },
+ "gd247-hb2026": {
+  "tier": "B",
+  "pub": "Giáo dục 247",
+  "title": "UMT công bố học bổng tài năng 2026 hơn 111 tỷ đồng",
+  "date": "12/2025",
+  "url": "https://giaoduc247.vn/tp-hcm/umt-cong-bo-hoc-bong-tai-nang-2026-hon-111-ty-dong"
+ },
+ "mt-2026": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ (Mực Tím)",
+  "title": "Năm 2026, Trường đại học Quản lý và Công nghệ TP.HCM tuyển sinh những ngành nào?",
+  "date": "11/12/2025",
+  "url": "https://muctim.tuoitre.vn/nam-2026-truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-tuyen-sinh-nhung-nganh-nao-101251211154251082.htm"
+ },
+ "gdtd-dc2026": {
+  "tier": "B",
+  "pub": "Giáo dục & Thời đại",
+  "title": "Trường Đại học Quản lý và Công nghệ TPHCM công bố điểm chuẩn",
+  "date": "8/2026",
+  "url": "https://giaoducthoidai.vn/truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-cong-bo-diem-chuan-post787863.html"
+ },
+ "gd247-bs2026": {
+  "tier": "B",
+  "pub": "Giáo dục 247",
+  "title": "Trường Đại học Quản lý và Công nghệ TPHCM tuyển bổ sung vào 10 ngành đào tạo",
+  "date": "9/2026",
+  "url": "https://giaoduc247.vn/tp-hcm/truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-tuyen-bo-sung-vao-10-nganh-dao-tao"
+ },
+ "tt-thuctien": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ",
+  "title": "UMT: Đại học thực tiễn, sinh viên toàn diện",
+  "date": "14/5/2025",
+  "url": "https://tuoitre.vn/umt-dai-hoc-thuc-tien-sinh-vien-toan-dien-20250514195604466.htm"
+ },
+ "tn-hoptac2025": {
+  "tier": "B",
+  "pub": "Thanh Niên",
+  "title": "Trường ĐH Quản lý và Công nghệ TP.HCM và Báo Thanh Niên ký kết hợp tác phát triển nghề nghiệp cho sinh viên",
+  "date": "17/5/2025",
+  "url": "https://thanhnien.vn/truong-dh-quan-ly-va-cong-nghe-tphcm-va-bao-thanh-nien-ky-ket-hop-tac-phat-trien-nghe-nghiep-cho-sinh-vien-185250517135102512.htm"
+ },
+ "tt-dinhchi": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ",
+  "title": "UMT tạm đình chỉ công việc TS Nguyễn Trà Giang",
+  "date": "6/1/2025",
+  "url": "https://tuoitre.vn/umt-tam-dinh-chi-cong-viec-ts-nguyen-tra-giang-20250106203625909.htm"
+ },
+ "tt-thoiviec": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ",
+  "title": "TS Nguyễn Trà Giang thôi việc tại Trường đại học Quản lý và Công nghệ TP.HCM",
+  "date": "10/2/2025",
+  "url": "https://tuoitre.vn/ts-nguyen-tra-giang-thoi-viec-tai-truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-20250210181601271.htm"
+ },
+ "tp-totnghiep": {
+  "tier": "B",
+  "pub": "Tiền Phong",
+  "title": "Hiệu trưởng nhắn nhủ khóa đầu tiên tốt nghiệp: Đừng sợ thất bại, hãy sợ việc không dám bắt đầu",
+  "date": "8/2026",
+  "url": "https://tienphong.vn/hieu-truong-nhan-nhu-khoa-dau-tien-tot-nghiep-dung-so-that-bai-hay-so-viec-khong-dam-bat-dau-post1870138.tpo"
+ },
+ "tt-phohieutruong": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ",
+  "title": "Phó hiệu trưởng Trường Đại học UMT: ‘Tư duy khai phóng: Chìa khóa cho hạnh phúc và thành công’",
+  "date": "27/7/2025",
+  "url": "https://tuoitre.vn/pho-hieu-truong-truong-dai-hoc-umt-tu-duy-khai-phong-chia-khoa-cho-hanh-phuc-va-thanh-cong-2025072721145328.htm"
+ },
+ "nld-htphong": {
+  "tier": "B",
+  "pub": "Người Lao Động",
+  "title": "PGS-TS Hồ Thanh Phong giữ chức Phó Hiệu trưởng Trường ĐH Quản lý và Công nghệ TP HCM",
+  "date": "4/1/2023",
+  "url": "https://nld.com.vn/giao-duc-khoa-hoc/pgs-ts-ho-thanh-phong-giu-chuc-pho-hieu-truong-truong-dh-quan-ly-va-cong-nghe-tp-hcm-20230104124254272.htm"
+ },
+ "gd-buctranh": {
+  "tier": "B",
+  "pub": "Giáo dục Việt Nam (giaoduc.net.vn)",
+  "title": "Bức tranh giáo dục đại học Việt Nam: Từ số lượng trường đến quy mô đào tạo (số liệu HEMIS 30/6/2026)",
+  "date": "2026",
+  "url": "https://giaoduc.net.vn/buc-tranh-giao-duc-dai-hoc-viet-nam-tu-so-luong-truong-den-quy-mo-dao-tao-post263116.gd"
+ },
+ "gd247-quymo2024": {
+  "tier": "B",
+  "pub": "Giáo dục 247",
+  "title": "Quy mô giáo dục ĐH tăng mạnh trong năm học qua (số liệu năm 2024)",
+  "date": "2025",
+  "url": "https://giaoduc247.vn/giao-duc-24h/quy-mo-giao-duc-dh-tang-manh-trong-nam-hoc-qua"
+ },
+ "vne-2030": {
+  "tier": "B",
+  "pub": "VnExpress",
+  "title": "Tăng 50% số người học đại học vào năm 2030 (Quy hoạch mạng lưới cơ sở GDĐH)",
+  "date": "2025",
+  "url": "https://vnexpress.net/tang-50-so-nguoi-hoc-dai-hoc-vao-nam-2030-4855509.html"
+ },
+ "dt-hocphi": {
+  "tier": "B",
+  "pub": "Dân trí",
+  "title": "Học phí các trường đại học ngoài công lập ở TPHCM cao đến mức nào?",
+  "date": "28/8/2026",
+  "url": "https://dantri.com.vn/giao-duc/hoc-phi-cac-truong-dai-hoc-ngoai-cong-lap-o-tphcm-cao-den-muc-nao-20260828221549900.htm"
+ },
+ "plo-uef": {
+  "tier": "B",
+  "pub": "Pháp Luật TP.HCM",
+  "title": "Trường đại học ở TP.HCM cam kết không tăng học phí với thí sinh trúng tuyển năm 2026",
+  "date": "2026",
+  "url": "https://plo.vn/truong-dai-hoc-o-tphcm-cam-ket-khong-tang-hoc-phi-voi-thi-sinh-trung-tuyen-nam-2026-post888342.html"
+ },
+ "vne-luong": {
+  "tier": "B",
+  "pub": "VnExpress",
+  "title": "Lương, thu nhập giảng viên 8 trường Đại học Quốc gia TP HCM bao nhiêu?",
+  "date": "10/2026",
+  "url": "https://vnexpress.net/luong-thu-nhap-giang-vien-8-truong-dai-hoc-quoc-gia-tp-hcm-bao-nhieu-5134770.html"
+ },
+ "plo-luong": {
+  "tier": "B",
+  "pub": "Pháp Luật TP.HCM",
+  "title": "Thu nhập giảng viên 8 trường đại học tại ĐHQG TP.HCM cao bao nhiêu?",
+  "date": "2026",
+  "url": "https://plo.vn/thu-nhap-giang-vien-8-truong-dai-hoc-tai-dhqg-tphcm-cao-bao-nhieu-post908615.html"
+ },
+ "gd-tt83": {
+  "tier": "B",
+  "pub": "Giáo dục Việt Nam (giaoduc.net.vn)",
+  "title": "Chuẩn cơ sở giáo dục đại học mới, có hiệu lực từ 15/11/2026",
+  "date": "10/2026",
+  "url": "https://giaoduc.net.vn/chuan-co-so-giao-duc-dai-hoc-moi-co-hieu-luc-tu-15112026-post263074.gd"
+ },
+ "sggp-tt83": {
+  "tier": "B",
+  "pub": "Sài Gòn Giải Phóng",
+  "title": "Chuẩn mới của cơ sở giáo dục đại học: Tiêu chí nhiều và cao, khả năng đáp ứng... có hạn!",
+  "date": "10/2026",
+  "url": "https://www.sggp.org.vn/chuan-moi-cua-co-so-giao-duc-dai-hoc-tieu-chi-nhieu-va-cao-kha-nang-dap-ung-co-han-post876461.html"
+ },
+ "tn-7314": {
+  "tier": "B",
+  "pub": "Thanh Niên",
+  "title": "Bộ GD-ĐT yêu cầu các trường rà soát để dừng tuyển sinh ngành không đạt chuẩn (Công văn 7314/BGDĐT-GDĐH)",
+  "date": "17/10/2026",
+  "url": "https://thanhnien.vn/bo-gd-dt-yeu-cau-cac-truong-ra-soat-de-dung-tuyen-sinh-nganh-khong-dat-chuan-185261017100523046.htm"
+ },
+ "tn-nd361": {
+  "tier": "B",
+  "pub": "Thanh Niên",
+  "title": "Thành lập trường ĐH theo quy định mới cần vốn đầu tư bao nhiêu?",
+  "date": "24/9/2026",
+  "url": "https://thanhnien.vn/thanh-lap-truong-dh-theo-quy-dinh-moi-can-von-dau-tu-bao-nhieu-185260924140944372.htm"
+ },
+ "vov-chuyendoi": {
+  "tier": "B",
+  "pub": "VOV",
+  "title": "Luật Giáo dục đại học phải triệt tiêu cơ chế “xin–cho”",
+  "date": "2018",
+  "url": "https://vov.vn/xa-hoi/giao-duc/luat-giao-duc-dai-hoc-phai-triet-tieu-co-che-xin-cho-post938258.vov"
+ },
+ "vne-giaithe": {
+  "tier": "B",
+  "pub": "VnExpress",
+  "title": "Có thể giải thể trường đại học không đạt chuẩn",
+  "date": "2024",
+  "url": "https://vnexpress.net/co-the-giai-the-truong-dai-hoc-khong-dat-chuan-4725429.html"
+ },
+ "sggp-thuongmai": {
+  "tier": "B",
+  "pub": "Sài Gòn Giải Phóng",
+  "title": "Ngăn chặn thương mại hóa giáo dục đại học ngoài công lập – Bài 1: Lợi nhuận ngàn tỷ, gánh nặng người học",
+  "date": "2023",
+  "url": "https://www.sggp.org.vn/ngan-chan-thuong-mai-hoa-giao-duc-dai-hoc-ngoai-cong-lap-bai-1-loi-nhuan-ngan-ty-ganh-nang-nguoi-hoc-post715872.html"
+ },
+ "tt-tannhan": {
+  "tier": "B",
+  "pub": "Tuổi Trẻ",
+  "title": "Nhận bằng đại học, tân cử nhân trao ngay cho em gái để truyền lửa",
+  "date": "22/8/2026",
+  "url": "https://tuoitre.vn/nhan-bang-dai-hoc-tan-cu-nhan-trao-ngay-cho-em-gai-de-truyen-lua-100260822152940729.htm"
+ },
+ "htv-phuong": {
+  "tier": "B",
+  "pub": "HTV — Doanh nhân Sài Gòn",
+  "title": "ThS. Huỳnh Thúy Phương, Phó Chủ tịch Hội đồng Trường, Phó Hiệu trưởng Điều hành UMT: “Với tôi, trong giáo dục, phải làm tốt nhất có thể!”",
+  "date": "2025",
+  "url": "https://htv.vn/doanhnhansaigon/ths-huynh-thuy-phuong-pho-chu-tich-hoi-dong-truong-pho-hieu-truong-dieu-hanh-truong-dai-hoc-quan-ly-va-cong-nghe-tp-hcm-voi-toi-trong-giao-duc-phai-lam-tot-nhat-co-the-319850.html"
+ },
+ "cv-umt": {
+  "tier": "C",
+  "pub": "CareerViet",
+  "title": "Trang nhà tuyển dụng: Đại học Quản lý và Công nghệ Thành phố Hồ Chí Minh (tin tuyển dụng 2026, lương “cạnh tranh”)",
+  "date": "2026",
+  "url": "https://careerviet.vn/vi/nha-tuyen-dung/dai-hoc-quan-ly-va-cong-nghe-thanh-pho-ho-chi-minh.35A8DD2A.html"
+ },
+ "hocmai": {
+  "tier": "C",
+  "pub": "Hướng nghiệp HOCMAI",
+  "title": "Mã trường, thông tin tuyển sinh UMT",
+  "date": "2026",
+  "url": "https://huongnghiep.hocmai.vn/ma-truong/dai-hoc-quan-ly-va-cong-nghe-tphcm"
+ },
+ "ts247": {
+  "tier": "C",
+  "pub": "Tuyensinh247",
+  "title": "Thông tin tuyển sinh, đề án và điểm chuẩn UMT",
+  "date": "2026",
+  "url": "https://diemthi.tuyensinh247.com/thong-tin-dai-hoc-quan-ly-va-cong-nghe-tphcm-UMT.html"
+ },
+ "edu2r": {
+  "tier": "C",
+  "pub": "Edu2Review",
+  "title": "Đại học UMT 2026: học phí, 10 ngành & đánh giá sinh viên",
+  "date": "2026",
+  "url": "https://edu2review.com/reviews/truong-dai-hoc-quan-ly-va-cong-nghe-tphcm-umt-ngoi-truong-cua-hanh-phuc-va-thanh-cong-14624.html"
+ },
+ "edu2r-campus": {
+  "tier": "C",
+  "pub": "Edu2Review",
+  "title": "Học mọi nơi, chơi mọi lúc… tại Trường Đại học chuẩn quốc tế UMT (bài giới thiệu khuôn viên)",
+  "date": "2022",
+  "url": "https://edu2review.com/reviews/hoc-moi-noi-choi-moi-luc-song-ao-moi-ngoc-ngach-tai-truong-dai-hoc-chuan-quoc-te-umt-14675.html"
+ },
+ "trangedu": {
+  "tier": "C",
+  "pub": "Trangedu",
+  "title": "Trường Đại học Quản lý và Công nghệ TPHCM — địa chỉ các cơ sở (thông tin 2022)",
+  "date": "2022",
+  "url": "https://trangedu.com/truong/dai-hoc-quan-ly-va-cong-nghe-tp-hcm/"
+ },
+ "hnv2024": {
+  "tier": "C",
+  "pub": "Hướng nghiệp Việt",
+  "title": "Điểm chuẩn năm 2024 — UMT",
+  "date": "2024",
+  "url": "https://huongnghiepviet.com/tuyen-sinh/diem-chuan/diem-chuan-nam-2024-umt-truong-dai-hoc-quan-ly-va-cong-nghe-tphcm"
+ },
+ "tlm-hocphi": {
+  "tier": "C",
+  "pub": "Tailieumoi",
+  "title": "Học phí Đại học Quản lý và Công nghệ TP HCM năm 2023–2024 (mức dự kiến khóa 2022)",
+  "date": "2023",
+  "url": "https://tailieumoi.vn/bai-viet/62913/hoc-phi-dai-hoc-quan-ly-va-cong-nghe-tp-hcm-nam-2023-2024-moi-nhat"
+ }
+}
