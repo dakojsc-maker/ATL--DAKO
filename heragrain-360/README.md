@@ -5,8 +5,18 @@ Tham quan ảo 360° nhà máy HTX Heragrain, trang trí theo bộ nhận diện
 Mô hình dựng từ bản vẽ tay của HTX và thiết kế đề xuất ở `../heragrain-3d`, không phải ảnh chụp. Xưởng mới hiện ở trạng thái hoàn thiện (giai đoạn 4); mỗi điểm ghi giai đoạn bắt đầu hoạt động.
 
 - Bản xem trực tuyến: https://claude.ai/artifact/2paCqiM7xoEcYxQDyWzjh7
-- File gửi đi: `ban-gui/Nha-may-Heragrain-360.html`, mở bằng Chrome, Edge, Safari hoặc Firefox, không cần mạng.
+- File gửi đi: `ban-gui/Nha-may-Heragrain-360.html`, mở bằng Chrome, Edge, Safari hoặc Firefox trên máy tính, không cần mạng. Trên iPhone xem mục dưới.
 - Mở thẳng một điểm: thêm `#` và mã điểm, ví dụ `#khu-sach`, `#cua-xuong`.
+
+## Mở trên iPhone, iPad
+
+iPhone không chạy được trang tương tác từ file: bấm xem file `.html` trong Zalo, Mail hay ứng dụng Tệp chỉ hiện bản xem trước, không chạy mô hình 3D. Cần mở bằng đường link trên Safari:
+
+1. Bật GitHub Pages một lần: trên GitHub vào kho `dakojsc-maker/ATL--DAKO` › **Settings** › **Pages** › *Build and deployment*: Source chọn **Deploy from a branch**, Branch chọn `claude/ecstatic-lovelace-lznmn0` và thư mục `/ (root)`, bấm **Save**. Chờ vài phút.
+2. Link tham quan 360: `https://dakojsc-maker.github.io/ATL--DAKO/heragrain-360/ban-gui/Nha-may-Heragrain-360.html` (thêm `#khu-sach`, `#cua-xuong`... để mở thẳng một điểm). Sơ đồ 3D: `https://dakojsc-maker.github.io/ATL--DAKO/heragrain-3d/ban-gui/Nha-may-Heragrain-3D.html`.
+3. Gửi link qua Zalo; trên iPhone bấm giữ link › mở bằng Safari. Muốn xem toàn màn hình như ứng dụng: trong Safari bấm nút Chia sẻ › **Thêm vào MH chính**.
+
+Kho đang để công khai nên ai có link đều xem được. Mỗi lần chạy `xuat-html.py` rồi đẩy lên nhánh trên, link tự cập nhật sau vài phút.
 
 ## Tính năng
 

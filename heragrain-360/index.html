@@ -26,7 +26,11 @@
 html, body { height: 100%; margin: 0; overflow: hidden; background: #0E2219; color: var(--chu); font: 14px/1.5 var(--font); }
 button { font: inherit; color: inherit; cursor: pointer; }
 button:focus-visible, [role="button"]:focus-visible { outline: 2px solid var(--vang); outline-offset: 2px; }
-.app { position: fixed; inset: 0; }
+.app { position: fixed; top: 0; right: 0; bottom: 0; left: 0; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+/* iPhone, iPad: chạm hai lần hay chụm ngón trên khung điều khiển không phóng to cả trang; khung cuộn được thì vẫn vuốt được */
+#thongTinNoiDung, .chao { touch-action: pan-y; }
+#hangAnh { touch-action: pan-x; }
+#thongTinNoiDung { -webkit-user-select: text; user-select: text; }
 #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
 #gl.dangkeo { cursor: grabbing; }
 .man { position: absolute; inset: 0; background: var(--xanh-dam); opacity: 0; pointer-events: none; transition: opacity .4s; }
@@ -220,6 +224,7 @@ button:focus-visible, [role="button"]:focus-visible { outline: 2px solid var(--v
         <button class="btn phu" id="bBatDauTour" type="button" disabled>Tham quan tự động</button>
       </div>
       <p class="trangthai" id="trangThai" role="status">Đang tải…</p>
+      <noscript><p class="trangthai" style="color: var(--vang)">Trình xem này không chạy được trang tham quan. Thường gặp khi bấm xem file ngay trong Zalo, Mail hoặc ứng dụng Tệp trên iPhone. Hãy mở bằng đường link trên Safari, hoặc mở file bằng Chrome, Edge trên máy tính.</p></noscript>
       <p class="luuy">Mô hình dựng từ bản vẽ tay của HTX và thiết kế đề xuất, chưa phải ảnh chụp thực tế. Xưởng mới hiển thị ở trạng thái hoàn thiện (giai đoạn 4); mỗi điểm ghi giai đoạn bắt đầu hoạt động.</p>
     </div>
   </section>

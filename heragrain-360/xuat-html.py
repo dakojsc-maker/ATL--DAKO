@@ -26,7 +26,12 @@ def main():
         trang = trang.replace(the, f'<script>\n{ma}\n</script>')
     # index.html là mã nguồn trang Artifact (không có khung tài liệu); thêm khung để mở trực tiếp
     html = ('<!doctype html>\n<html lang="vi">\n<head>\n<meta charset="utf-8">\n'
-            '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n</head>\n<body>\n'
+            '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'
+            # iPhone: "Thêm vào MH chính" thì mở toàn màn hình như một ứng dụng
+            '<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="mobile-web-app-capable" content="yes">\n'
+            '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n'
+            '<meta name="apple-mobile-web-app-title" content="Heragrain 360">\n<meta name="theme-color" content="#12301F">\n'
+            '</head>\n<body>\n'
             + trang.replace('<meta charset="utf-8">\n', '', 1) + '\n</body>\n</html>\n')
     RA.parent.mkdir(exist_ok=True)
     RA.write_text(html, encoding='utf-8')

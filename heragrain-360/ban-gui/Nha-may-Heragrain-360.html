@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Heragrain 360">
+<meta name="theme-color" content="#12301F">
 </head>
 <body>
 <title>Nhà máy Heragrain 360</title>
@@ -32,7 +37,11 @@
 html, body { height: 100%; margin: 0; overflow: hidden; background: #0E2219; color: var(--chu); font: 14px/1.5 var(--font); }
 button { font: inherit; color: inherit; cursor: pointer; }
 button:focus-visible, [role="button"]:focus-visible { outline: 2px solid var(--vang); outline-offset: 2px; }
-.app { position: fixed; inset: 0; }
+.app { position: fixed; top: 0; right: 0; bottom: 0; left: 0; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+/* iPhone, iPad: chạm hai lần hay chụm ngón trên khung điều khiển không phóng to cả trang; khung cuộn được thì vẫn vuốt được */
+#thongTinNoiDung, .chao { touch-action: pan-y; }
+#hangAnh { touch-action: pan-x; }
+#thongTinNoiDung { -webkit-user-select: text; user-select: text; }
 #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
 #gl.dangkeo { cursor: grabbing; }
 .man { position: absolute; inset: 0; background: var(--xanh-dam); opacity: 0; pointer-events: none; transition: opacity .4s; }
@@ -226,6 +235,7 @@ button:focus-visible, [role="button"]:focus-visible { outline: 2px solid var(--v
         <button class="btn phu" id="bBatDauTour" type="button" disabled>Tham quan tự động</button>
       </div>
       <p class="trangthai" id="trangThai" role="status">Đang tải…</p>
+      <noscript><p class="trangthai" style="color: var(--vang)">Trình xem này không chạy được trang tham quan. Thường gặp khi bấm xem file ngay trong Zalo, Mail hoặc ứng dụng Tệp trên iPhone. Hãy mở bằng đường link trên Safari, hoặc mở file bằng Chrome, Edge trên máy tính.</p></noscript>
       <p class="luuy">Mô hình dựng từ bản vẽ tay của HTX và thiết kế đề xuất, chưa phải ảnh chụp thực tế. Xưởng mới hiển thị ở trạng thái hoàn thiện (giai đoạn 4); mỗi điểm ghi giai đoạn bắt đầu hoạt động.</p>
     </div>
   </section>
@@ -1727,6 +1737,10 @@ let renderer = null;
 try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true }); } catch (e) { renderer = null; }
 if (!renderer) { el('trangThai').textContent = 'Trình duyệt này không hiển thị được đồ họa 3D (WebGL). Hãy mở bằng Chrome, Edge, Safari hoặc Firefox bản mới.'; return; }
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+// điện thoại hết bộ nhớ đồ họa (thường gặp trên iPhone đời cũ khi mở nhiều thẻ): báo để tải lại thay vì đứng màn hình đen
+canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); baoNhanh('Máy tạm hết bộ nhớ đồ họa. Hãy đóng bớt thẻ rồi tải lại trang.', 15000); });
+// Safari trên iPhone, iPad: chụm hai ngón chỉ để thu phóng khung nhìn 360, không phóng to cả trang
+['gesturestart', 'gesturechange'].forEach((t) => document.addEventListener(t, (e) => e.preventDefault()));
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#DCE6E0'); scene.fog = new THREE.Fog('#DCE6E0', 150, 980);
@@ -2010,12 +2024,16 @@ el('bTour').addEventListener('click', chayTour);
 
 /* ---------- nút khác ---------- */
 el('bXoay').addEventListener('click', () => { tuXoay = !tuXoay; el('bXoay').setAttribute('aria-pressed', String(tuXoay)); idle = tuXoay ? 99 : 0; });
+// iPhone không cho trang web mở toàn màn hình nên ẩn nút; iPad, máy tính dùng được (Safari cần tiền tố webkit)
+const DOC = document, RT = DOC.documentElement;
+const moToanMan = RT.requestFullscreen || RT.webkitRequestFullscreen, thoatToanMan = DOC.exitFullscreen || DOC.webkitExitFullscreen;
+if (!moToanMan || DOC.fullscreenEnabled === false || DOC.webkitFullscreenEnabled === false) el('bToanMan').hidden = true;
 el('bToanMan').addEventListener('click', () => {
-  const d = document, r = d.documentElement;
-  const p = d.fullscreenElement ? d.exitFullscreen() : (r.requestFullscreen ? r.requestFullscreen() : Promise.reject());
+  let p;
+  try { p = (DOC.fullscreenElement || DOC.webkitFullscreenElement) ? thoatToanMan.call(DOC) : moToanMan.call(RT); } catch (e) { p = Promise.reject(e); }
   Promise.resolve(p).catch(() => baoNhanh('Trình xem này không cho mở toàn màn hình.'));
 });
-function baoNhanh(t) { const b = el('baoNhanh'); b.textContent = t; b.hidden = false; clearTimeout(baoNhanh.h); baoNhanh.h = setTimeout(() => { b.hidden = true; }, 3000); }
+function baoNhanh(t, ms) { const b = el('baoNhanh'); b.textContent = t; b.hidden = false; clearTimeout(baoNhanh.h); baoNhanh.h = setTimeout(() => { b.hidden = true; }, ms || 3000); }
 
 /* ---------- vòng lặp ---------- */
 const clock = new THREE.Clock();

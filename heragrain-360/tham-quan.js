@@ -19,6 +19,10 @@ let renderer = null;
 try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true }); } catch (e) { renderer = null; }
 if (!renderer) { el('trangThai').textContent = 'Trình duyệt này không hiển thị được đồ họa 3D (WebGL). Hãy mở bằng Chrome, Edge, Safari hoặc Firefox bản mới.'; return; }
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+// điện thoại hết bộ nhớ đồ họa (thường gặp trên iPhone đời cũ khi mở nhiều thẻ): báo để tải lại thay vì đứng màn hình đen
+canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); baoNhanh('Máy tạm hết bộ nhớ đồ họa. Hãy đóng bớt thẻ rồi tải lại trang.', 15000); });
+// Safari trên iPhone, iPad: chụm hai ngón chỉ để thu phóng khung nhìn 360, không phóng to cả trang
+['gesturestart', 'gesturechange'].forEach((t) => document.addEventListener(t, (e) => e.preventDefault()));
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#DCE6E0'); scene.fog = new THREE.Fog('#DCE6E0', 150, 980);
@@ -302,12 +306,16 @@ el('bTour').addEventListener('click', chayTour);
 
 /* ---------- nút khác ---------- */
 el('bXoay').addEventListener('click', () => { tuXoay = !tuXoay; el('bXoay').setAttribute('aria-pressed', String(tuXoay)); idle = tuXoay ? 99 : 0; });
+// iPhone không cho trang web mở toàn màn hình nên ẩn nút; iPad, máy tính dùng được (Safari cần tiền tố webkit)
+const DOC = document, RT = DOC.documentElement;
+const moToanMan = RT.requestFullscreen || RT.webkitRequestFullscreen, thoatToanMan = DOC.exitFullscreen || DOC.webkitExitFullscreen;
+if (!moToanMan || DOC.fullscreenEnabled === false || DOC.webkitFullscreenEnabled === false) el('bToanMan').hidden = true;
 el('bToanMan').addEventListener('click', () => {
-  const d = document, r = d.documentElement;
-  const p = d.fullscreenElement ? d.exitFullscreen() : (r.requestFullscreen ? r.requestFullscreen() : Promise.reject());
+  let p;
+  try { p = (DOC.fullscreenElement || DOC.webkitFullscreenElement) ? thoatToanMan.call(DOC) : moToanMan.call(RT); } catch (e) { p = Promise.reject(e); }
   Promise.resolve(p).catch(() => baoNhanh('Trình xem này không cho mở toàn màn hình.'));
 });
-function baoNhanh(t) { const b = el('baoNhanh'); b.textContent = t; b.hidden = false; clearTimeout(baoNhanh.h); baoNhanh.h = setTimeout(() => { b.hidden = true; }, 3000); }
+function baoNhanh(t, ms) { const b = el('baoNhanh'); b.textContent = t; b.hidden = false; clearTimeout(baoNhanh.h); baoNhanh.h = setTimeout(() => { b.hidden = true; }, ms || 3000); }
 
 /* ---------- vòng lặp ---------- */
 const clock = new THREE.Clock();
