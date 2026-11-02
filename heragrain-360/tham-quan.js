@@ -10,6 +10,8 @@ const MAU_GD = { 1: '#5E9E68', 2: '#23765C', 3: '#E4A92A', 4: '#86479B' };
 const TEN_KHU = { tong: 'Toàn cảnh', moi: 'Lô xưởng mới', cu: 'Khu nhà ở và xưởng cũ' };
 const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const D2R = Math.PI / 180;
+const hep = () => window.innerWidth <= 760;
+const boxTT = el('thongTin'), boxBD = el('banDo');
 
 /* ---------- khởi tạo ---------- */
 const canvas = el('gl');
@@ -48,8 +50,16 @@ function apCamera() {
 function fit() {
   const w = Math.max(canvas.clientWidth, 10), h = Math.max(canvas.clientHeight, 10);
   renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  doKhung();
+}
+// đo thanh trên và dải ảnh để bản đồ, thu phóng, thông tin, phụ đề nằm vừa khoảng trống giữa hai thanh
+function doKhung() {
+  const g = document.documentElement.style, dai = el('dai');
+  g.setProperty('--dau', document.querySelector('.dau').offsetHeight + 'px');
+  g.setProperty('--dai', (dai.classList.contains('thu') ? -12 : dai.offsetHeight) + 'px');
 }
 window.addEventListener('resize', fit);
+if (window.ResizeObserver) { const ro = new ResizeObserver(doKhung); ro.observe(document.querySelector('.dau')); ro.observe(el('dai')); }
 
 /* ---------- điều khiển nhìn ---------- */
 const keo = new Map(); let pinch = null, last = null;
@@ -73,7 +83,7 @@ document.addEventListener('keydown', (e) => {
   if (k === 'ArrowLeft' || k === 'a') { yaw -= b; cham(); } else if (k === 'ArrowRight' || k === 'd') { yaw += b; cham(); }
   else if (k === 'ArrowUp' || k === 'w') { pitch = Math.min(1.45, pitch + b); cham(); } else if (k === 'ArrowDown' || k === 's') { pitch = Math.max(-1.45, pitch - b); cham(); }
   else if (k === '+' || k === '=') { fov = Math.max(30, fov - 5); cham(); } else if (k === '-') { fov = Math.min(95, fov + 5); cham(); }
-  else if (k === 'Escape') { dongThongTin(); }
+  else if (k === 'Escape') { dongThongTin(); dungTour(); }
 });
 el('bZoomVao').addEventListener('click', () => { cham(); fov = Math.max(30, fov - 10); });
 el('bZoomRa').addEventListener('click', () => { cham(); fov = Math.min(95, fov + 10); });
@@ -82,8 +92,11 @@ el('bZoomRa').addEventListener('click', () => { cham(); fov = Math.min(95, fov +
 const v3 = (p, y) => new THREE.Vector3(p[0], p.length === 3 ? p[1] : y, p.length === 3 ? p[2] : p[1]);
 const lerpGoc = (a, b, t) => { let d = ((b - a + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) - Math.PI; return a + d * t; };
 const em = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+let dangChuyen = false;
 function denDiem(id, hs) {
-  const s = SC[id]; if (!s) return Promise.resolve();
+  const s = SC[id]; if (!s || dangChuyen) return Promise.resolve();
+  // đang đi dở mà chọn điểm khác: bỏ đoạn đang đi, chuyển thẳng tới điểm mới
+  if (tween) { const t = tween; tween = null; t.done(); return chuyenToi(id); }
   const to = v3(s.p), end = huongNhin(s);
   if (!hs || pos.distanceTo(to) > 70 || !cur) return chuyenToi(id);
   const pts = [pos.clone()];
@@ -96,9 +109,11 @@ function denDiem(id, hs) {
 }
 function chuyenToi(id) {
   const s = SC[id], man = el('man');
+  if (!s) return Promise.resolve();
+  dangChuyen = true; dongDiemNong();
   return new Promise((done) => {
     man.classList.add('den');
-    setTimeout(() => { pos.copy(v3(s.p)); const h = huongNhin(s); yaw = h.yaw; pitch = h.pitch; fov = s.fov || 75; vaoDiem(id); apCamera(); man.classList.remove('den'); done(); }, reduce ? 0 : 420);
+    setTimeout(() => { pos.copy(v3(s.p)); const h = huongNhin(s); yaw = h.yaw; pitch = h.pitch; fov = s.fov || 75; vYaw = vPitch = 0; vaoDiem(id); apCamera(); man.classList.remove('den'); dangChuyen = false; done(); }, reduce ? 0 : 420);
   });
 }
 function buocTween(now, dt) {
@@ -123,7 +138,7 @@ function vaoDiem(id) {
   document.querySelectorAll('.anh').forEach((b) => b.setAttribute('aria-current', String(b.dataset.id === id)));
   const nut = document.querySelector(`.anh[data-id="${id}"]`); if (nut && nut.scrollIntoView) nut.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' });
   veBanDo(s.khu);
-  if (!el('thongTin').hidden) moThongTin(null);
+  if (!boxTT.hidden) moThongTin(null);
   try { history.replaceState(null, '', '#' + id); } catch (e) { /* khung xem có thể chặn */ }
 }
 
@@ -183,11 +198,13 @@ function moThongTin(h) {
   else html += s.zones.map((id) => theKhu(ZH[id])).join('');
   el('thongTinTieuDe').textContent = s.ten; box.innerHTML = html; box.scrollTop = 0;
   const b = el('bVeDiem'); if (b) b.addEventListener('click', () => moThongTin(null));
-  el('thongTin').hidden = false; el('bThongTin').setAttribute('aria-pressed', 'true');
+  boxTT.hidden = false; el('bThongTin').setAttribute('aria-pressed', 'true');
+  // điện thoại: tấm thông tin chiếm nửa dưới màn hình nên tạm cất bản đồ
+  if (hep()) hienBanDo(false);
 }
-function dongThongTin() { el('thongTin').hidden = true; el('bThongTin').setAttribute('aria-pressed', 'false'); }
-el('bThongTin').addEventListener('click', () => (el('thongTin').hidden ? moThongTin(null) : dongThongTin()));
-el('bDongThongTin').addEventListener('click', dongThongTin);
+function dongThongTin() { boxTT.hidden = true; el('bThongTin').setAttribute('aria-pressed', 'false'); }
+el('bThongTin').addEventListener('click', () => (boxTT.hidden ? moThongTin(null) : dongThongTin()));
+el('bDongThongTin').addEventListener('click', (e) => { e.stopPropagation(); dongThongTin(); });
 
 /* ---------- bản đồ nhỏ ---------- */
 const NS = 'http://www.w3.org/2000/svg', svg = el('banDoSvg');
@@ -230,7 +247,8 @@ function capNhatRadar() {
   radar.setAttribute('d', `M${pos.x} ${pos.z} L${ax} ${az} A${r} ${r} 0 0 1 ${bx2} ${bz} Z`);
 }
 document.querySelectorAll('.bd-tab').forEach((b) => b.addEventListener('click', () => { khuBanDo = null; veBanDo(b.dataset.khu); }));
-el('bBanDo').addEventListener('click', () => { const p = el('banDo'); p.hidden = !p.hidden; el('bBanDo').setAttribute('aria-pressed', String(!p.hidden)); });
+function hienBanDo(co) { boxBD.hidden = !co; el('bBanDo').setAttribute('aria-pressed', String(co)); }
+el('bBanDo').addEventListener('click', () => { hienBanDo(boxBD.hidden); if (!boxBD.hidden && hep()) dongThongTin(); });
 
 /* ---------- dải ảnh các điểm ---------- */
 function taoDaiAnh() {
@@ -246,7 +264,7 @@ function taoDaiAnh() {
     hang.appendChild(nhom);
   });
 }
-el('bDanhSach').addEventListener('click', () => { const d = el('dai'); d.classList.toggle('thu'); el('bDanhSach').setAttribute('aria-pressed', String(!d.classList.contains('thu'))); });
+el('bDanhSach').addEventListener('click', () => { const d = el('dai'); d.classList.toggle('thu'); el('bDanhSach').setAttribute('aria-pressed', String(!d.classList.contains('thu'))); doKhung(); });
 async function chupAnhNho(baoTien) {
   const c = document.createElement('canvas'); c.width = 240; c.height = 135; const g = c.getContext('2d');
   const giu = { p: pos.clone(), yaw, pitch, fov };
@@ -272,8 +290,9 @@ async function chayTour() {
   if (V.TOUR[i] !== cur) await denDiem(V.TOUR[i]);
   while (!t.huy) {
     const s = SC[cur]; el('phuDeTen').textContent = s.ten; el('phuDeMoTa').textContent = s.mota; el('phuDe').hidden = false;
-    const h0 = yaw; let da = 0;
-    await new Promise((done) => { const buoc = () => { if (t.huy) return done(); da += 1; yaw = h0 + Math.sin(da / 120) * 0.5; if (da > 420) return done(); requestAnimationFrame(buoc); }; buoc(); });
+    // đứng 7 giây mỗi điểm (tính theo đồng hồ, không theo số khung hình nên màn hình 60 Hz hay 144 Hz đều như nhau)
+    const h0 = yaw, t0 = performance.now();
+    await new Promise((done) => { const buoc = () => { if (t.huy) return done(); const da = performance.now() - t0; yaw = h0 + Math.sin(da / 2000) * 0.5; if (da > 7000) return done(); requestAnimationFrame(buoc); }; requestAnimationFrame(buoc); });
     if (t.huy) break;
     i = (i + 1) % V.TOUR.length; const next = V.TOUR[i], hs = SC[cur].di.find((d) => d.toi === next);
     await denDiem(next, hs);
@@ -299,7 +318,7 @@ function frame() {
   else {
     if (!keo.size && (vYaw || vPitch)) { yaw += vYaw * dt; pitch = Math.max(-1.45, Math.min(1.45, pitch + vPitch * dt)); const k = Math.exp(-dt * 4); vYaw *= k; vPitch *= k; if (Math.abs(vYaw) + Math.abs(vPitch) < 0.002) vYaw = vPitch = 0; }
     idle += dt;
-    if (tuXoay && !tour && !reduce && idle > 7 && !keo.size) yaw += dt * 0.06;
+    if (tuXoay && !tour && !reduce && idle > 7 && !keo.size && boxTT.hidden) yaw += dt * 0.06;
   }
   apCamera();
   renderer.render(scene, camera);
@@ -309,7 +328,7 @@ function frame() {
 /* ---------- khởi động ---------- */
 async function batDau() {
   fit();
-  if (window.innerWidth <= 760) { el('banDo').hidden = true; el('bBanDo').setAttribute('aria-pressed', 'false'); }
+  if (hep() || window.innerHeight <= 560) hienBanDo(false);
   const logo = el('logoNho'), lc = document.createElement('canvas'); lc.width = 520; lc.height = 190;
   const veLogos = () => {
     const g = lc.getContext('2d'); g.clearRect(0, 0, lc.width, lc.height); W.veLogo(g, 260, 118, 100, true); logo.src = lc.toDataURL();

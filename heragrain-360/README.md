@@ -12,13 +12,13 @@ Mô hình dựng từ bản vẽ tay của HTX và thiết kế đề xuất ở
 
 | Tính năng | Cách dùng |
 |---|---|
-| Nhìn quanh 360° | Kéo chuột hoặc vuốt; phím mũi tên; tự xoay chậm khi đứng yên (nút xoay) |
+| Nhìn quanh 360° | Kéo chuột hoặc vuốt; phím mũi tên; tự xoay chậm khi đứng yên (nút xoay), dừng xoay khi đang đọc thông tin |
 | Phóng to, thu nhỏ | Cuộn chuột, chụm hai ngón, nút + và − |
 | Đi tới điểm khác | Bấm vòng tròn vàng có mũi tên; camera đi qua đúng cửa trên bản vẽ |
-| Thông tin | Bấm chữ i trên cảnh, hoặc nút thông tin để xem cả điểm: công năng, diện tích, quy trình, yêu cầu, căn cứ |
-| Bản đồ nhỏ | Mặt bằng khu đang đứng, chấm vàng là chỗ đứng, quạt vàng là hướng nhìn; bấm chấm để tới |
+| Thông tin | Bấm chữ i trên cảnh, hoặc nút thông tin để xem cả điểm: công năng, diện tích, quy trình, yêu cầu, căn cứ. Khung nằm bên phải, đóng bằng nút ✕, bấm lại nút thông tin hoặc phím Esc |
+| Bản đồ nhỏ | Góc dưới bên trái, không bị khung thông tin che. Mặt bằng khu đang đứng, chấm vàng là chỗ đứng, quạt vàng là hướng nhìn; bấm chấm để tới. Trên điện thoại bản đồ ẩn sẵn, mở thông tin thì bản đồ tạm cất |
 | Dải ảnh các điểm | Ảnh thu nhỏ chụp tự động lúc mở trang, chia nhóm Toàn cảnh, Xưởng mới, Xưởng cũ |
-| Tham quan tự động | Đi lần lượt 19 điểm theo `TOUR`, có phụ đề mô tả; chạm bất kỳ đâu để dừng |
+| Tham quan tự động | Đi lần lượt 19 điểm theo `TOUR`, đứng 7 giây mỗi điểm, có phụ đề mô tả; chạm bất kỳ đâu hoặc phím Esc để dừng |
 | Toàn màn hình | Nút góc trên phải (trình duyệt cho phép thì mới mở được) |
 
 ## Các file
