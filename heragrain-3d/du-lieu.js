@@ -103,7 +103,7 @@ const KHU_CU = [
     req: 'Bao bì để trên kệ, cách sàn, cách tường; tách khỏi hàng hóa khác.', basis: 'GB 14881 §5.1.8.3: lưu riêng bao bì.' },
   { id: 'dg', n: 8, name: 'Khu gia công đóng gói (phòng 3)', kind: 'hall', phase: 1, box: [0, 5.5, -29, -24.2], h: 4.2, wallH: 2, kt: 'uoc', open: ['S'], dept: [D.kho, D.qa],
     doors: [{ side: 'N', at: 3.8, w: 1.2 }, { side: 'W', at: -27, w: 1.2 }, { side: 'E', at: -27.6, w: 1.2 }],
-    do: [['ban', 3.2, -28.2, 3, 0.9], ['ban', 3.9, -25.3, 2.2, 0.9], ['may', 1.1, -28.4, 0.8, 1, 0.6], ['bon', 5, -24.8, 0.22, 0.85]],
+    do: [['ban', 2.3, -27.6, 2.6, 0.9], ['ban', 3.9, -25.3, 2.2, 0.9], ['may', 1.1, -28.4, 0.8, 1, 0.6], ['bon', 5, -24.8, 0.22, 0.85]],
     role: 'GĐ1: chia túi, hàn túi, dán nhãn, đóng hộp hàng nhận từ nhà vườn và cơ sở liên kết. Từ GĐ2: chỉ dán nhãn, đóng hộp, đóng thùng túi đã hàn kín chở từ xưởng mới về (bước 10).',
     req: 'GĐ1 chia túi trong phòng đóng cửa, rửa tay trước khi làm, mặc tạp dề, đội mũ. Từ GĐ2 không mở túi tại đây; mã lô trên nhãn khớp với túi.',
     basis: 'Slide 14, 20; lối vào xưởng cũ đi qua nhà ở nên phần để hở sản phẩm dồn về xưởng mới từ GĐ2.' },
@@ -114,7 +114,7 @@ const KHU_CU = [
     req: 'Dụng cụ có sổ theo dõi; dao, lưỡi cắt kiểm đếm đầu và cuối ca.', basis: 'Kiểm soát dị vật kim loại trong HACCP; đề xuất của tư vấn.' },
   { id: 'ktp', n: 10, name: 'Kho thành phẩm (phòng 2)', kind: 'hall', phase: 1, box: [5.5, 10.2, -29, -24.2], h: 4.2, wallH: 2, kt: 'uoc', open: ['W', 'S'], dept: [D.kho],
     doors: [{ side: 'N', at: 7.7, w: 1.4 }],
-    do: [['ke', 6, 9.9, -28.7, -28, 3], ['pallet', 6.6, -25.3], ['pallet', 9.5, -25.9]],
+    do: [['ke', 9.3, 10, -28.7, -25.2, 3], ['pallet', 6.3, -25], ['pallet', 6.3, -26.15]],
     role: 'Lưu thùng thành phẩm trên pallet, xuất theo FIFO/FEFO, theo dõi nhiệt độ và độ ẩm kho (bước 11). Cửa vào từ phòng 3 và từ phòng 1, đúng như bản vẽ.',
     req: 'Mã lô và hồ sơ truy xuất; tách khỏi bao bì và hàng chờ kết quả.', basis: 'GB 14881 §5.1.8.1–5.1.8.4; Codex §4.4.8.' },
   { id: 'kdd', n: 11, name: 'Kho để đồ (nửa tây phòng 5)', kind: 'hall', phase: 1, box: [0, 5.1, -34.2, -29], h: 4.2, wallH: 2, kt: 'uoc', open: ['S', 'E'], dept: [D.hc],
@@ -124,7 +124,7 @@ const KHU_CU = [
     req: 'Không để hóa chất chung với bao bì, thành phẩm.', basis: 'GB 14881 §5.1.8.4.' },
   { id: 'qc', n: 28, name: 'Phòng QC, lưu mẫu, giữ lô (nửa đông phòng 5)', kind: 'hall', phase: 3, box: [5.1, 10.2, -34.2, -29], h: 4.2, wallH: 2, kt: 'uoc', open: ['S'], dept: [D.qa],
     doors: [{ side: 'W', at: -31.6, w: 1 }],
-    do: [['ban', 7.6, -33.6, 3.6, 0.8], ['may', 9.7, -32.2, 0.6, 1.8, 1.2], ['long', 5.6, 8.7, -31.5, -29.5], ['thung', 6, -31, 3, 2]],
+    do: [['ban', 7.6, -33.6, 3.6, 0.8], ['may', 9.7, -32.2, 0.6, 1.8, 1.2], ['long', 5.5, 7.3, -31.4, -29.5], ['thung', 5.8, -30.9, 2, 2]],
     role: 'Ngăn nửa đông kho để đồ: bàn kiểm, tủ lưu mẫu, khu rào giữ lô chờ kết quả kiểm nghiệm và mã GACC. Cửa thông sang kho thành phẩm. Mẫu gửi phòng thí nghiệm bên ngoài, không xây lab.',
     req: 'Chỉ xuất lô khi có kết quả đạt; hàng không đạt tách riêng, ghi rõ.', basis: 'GB 14881 §4.1.4, §7.2.2, §9.2–9.3; slide 7.' }
 ].map((z) => doiKhu(z, DX_CU, DZ_CU));
@@ -139,7 +139,7 @@ const ZONES = [
   /* ---------- Giai đoạn 2: lô xưởng mới, ngang 17 m, chạy dài từ đường trước đến đường sau ---------- */
   { id: 'vp', n: 12, name: 'Phòng kế toán và họp', kind: 'hall', phase: 2, xay: true, box: [-4, 0, 0, 3], h: 4.5, wallH: 2, kt: 'phac', dept: [D.gd, D.hc, D.xk],
     doors: [{ side: 'E', at: 1.5, w: 1 }],
-    do: [['ban', -2.2, 1.6, 2.2, 1.1], ['may', -3.6, 0.6, 0.5, 1.8, 0.9]],
+    do: [['ban', -2.2, 1.6, 2.2, 1.1], ['may', -3.65, 0.4, 0.6, 1.8, 0.5]],
     role: 'Kế toán, hồ sơ HACCP và truy xuất, tiếp khách và họp. Cửa mở ra hành lang nên khách không đi qua khu chế biến.',
     req: 'Lưu hồ sơ pháp lý, GS1, tự công bố, hồ sơ HACCP.', basis: 'Phác thảo xưởng mới (ô văn phòng 4 × 3 m); GB 14881 §3.2.2.' },
   { id: 'nghi', n: 13, name: 'Phòng nghỉ công nhân', kind: 'hall', phase: 2, xay: true, box: [-4, 0, 3, 8], h: 4.5, wallH: 2, kt: 'phac', open: ['N'], dept: [D.hc],
