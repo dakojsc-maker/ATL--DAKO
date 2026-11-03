@@ -32,6 +32,13 @@ nghiên cứu trong `nghien-cuu/`.
 
 Chi tiết: **[NGHIEN-CUU-PHAN-KY-CANSLIM.md](NGHIEN-CUU-PHAN-KY-CANSLIM.md)**.
 
+**Mã mạnh hơn thị trường lúc điều chỉnh có tăng trước không? (11/2026, 5 năm gần nhất).**
+- Không: khi thị trường hồi phục, mã bị bán mạnh (beta cao) hồi mạnh hơn mã giữ giá tốt.
+- Mã giữ giá tốt chủ yếu là mã ít nhạy với thị trường. Chúng chỉ giúp lỗ ít hơn khi nhịp hồi thất bại.
+- Không có mã nào "luôn thắng" đáng tin.
+
+Chi tiết: **[NGHIEN-CUU-MANH-KHI-DIEU-CHINH.md](NGHIEN-CUU-MANH-KHI-DIEU-CHINH.md)**.
+
 ---
 
 ## 1. Cài đặt (làm một lần)

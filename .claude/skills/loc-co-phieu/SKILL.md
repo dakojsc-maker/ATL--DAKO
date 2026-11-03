@@ -77,5 +77,10 @@ danh sách lệnh được phép chạy không cần hỏi trong `.claude/settin
   - CANSLIM chỉ dùng khi thị trường "TĂNG – thuận lợi", bán kiểu O'Neil (+20% / −7% / 40 phiên).
   - Muốn lọc danh mục theo CANSLIM cho phiên mới nhất: tải giá mới (`nghien-cuu/tai_lich_su.py --lam-moi`, sau 15:00),
     rồi chạy `nghien-cuu/danh_muc_ngan_han.py`.
+- Hỏi về "mã mạnh hơn thị trường khi điều chỉnh" hoặc mã nào "luôn thắng": dựa vào
+  `loc-co-phieu/NGHIEN-CUU-MANH-KHI-DIEU-CHINH.md`.
+  - Ở nhịp hồi đầu tiên, mã giữ giá tốt tăng chậm hơn mặt bằng chung.
+  - Không có mã "luôn thắng" đáng tin.
+  - Danh sách mã mạnh của đợt hiện tại: chạy `nghien-cuu/manh_khi_dieu_chinh.py` sau khi tải giá mới.
 - Công cụ không tự đặt lệnh: người dùng tự đặt lệnh và cảnh báo giá trên ứng dụng chứng khoán của họ.
 - Ghi rõ đây là công cụ hỗ trợ, không phải lời khuyên đầu tư.
