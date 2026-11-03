@@ -1,0 +1,268 @@
+{
+ "speed": 0.95,
+ "scenes": {
+  "h": [
+   {
+    "id": "hb1",
+    "dur": 4.841,
+    "say": "Mỗi ngày, giữa thép, nước và độ cao, những con tàu được đóng nên, những chuyến hàng cập bến.",
+    "sub": "Mỗi ngày, giữa thép, nước và độ cao, những con tàu được đóng nên, những chuyến hàng cập bến.",
+    "speed": 0.95
+   },
+   {
+    "id": "hb2",
+    "dur": 2.67,
+    "say": "Nhưng phía sau đó là một môi trường làm việc đầy khắc nghiệt.",
+    "sub": "Nhưng phía sau đó là một môi trường làm việc đầy khắc nghiệt.",
+    "speed": 0.95
+   }
+  ],
+  "d": [
+   {
+    "id": "db1",
+    "dur": 4.614,
+    "say": "Ngoài trời, trên mặt nước, theo ca kíp liên tục, giữa gió bão, sóng và nắng nóng.",
+    "sub": "Ngoài trời, trên mặt nước, theo ca kíp liên tục, giữa gió bão, sóng và nắng nóng.",
+    "speed": 0.95
+   },
+   {
+    "id": "db2",
+    "dur": 3.448,
+    "say": "Trong hầm, két, bồn bể chật hẹp; trên mạn tàu và giàn giáo cao.",
+    "sub": "Trong hầm, két, bồn bể chật hẹp; trên mạn tàu và giàn giáo cao.",
+    "speed": 0.95
+   },
+   {
+    "id": "db3",
+    "dur": 3.632,
+    "say": "Cạnh cẩu, cổng trục, thiết bị áp lực, điện, hóa chất và tia lửa hàn cắt.",
+    "sub": "Cạnh cẩu, cổng trục, thiết bị áp lực, điện, hóa chất và tia lửa hàn cắt.",
+    "speed": 0.95
+   },
+   {
+    "id": "db4",
+    "dur": 2.932,
+    "say": "Cùng rất nhiều tổ đội, nhà thầu phụ, nhân sự biến động mạnh.",
+    "sub": "Cùng rất nhiều tổ đội, nhà thầu phụ, nhân sự biến động mạnh.",
+    "speed": 0.95
+   }
+  ],
+  "r0": [
+   {
+    "id": "r0b1",
+    "dur": 0.859,
+    "say": "Chỉ một phút lơ là.",
+    "sub": "Chỉ một phút lơ là.",
+    "speed": 1.0
+   }
+  ],
+  "r1": [
+   {
+    "id": "r1b1",
+    "dur": 3.1,
+    "say": "Ngã từ mạn tàu, giàn giáo, từ độ cao hai mét trở lên.",
+    "sub": "Ngã từ mạn tàu, giàn giáo, từ độ cao 2 mét trở lên.",
+    "speed": 1.1
+   }
+  ],
+  "r2": [
+   {
+    "id": "r2b1",
+    "dur": 2.739,
+    "say": "Rơi xuống nước khi buộc, cởi dây tàu nơi mép cầu cảng.",
+    "sub": "Rơi xuống nước khi buộc, cởi dây tàu nơi mép cầu cảng.",
+    "speed": 1.1
+   }
+  ],
+  "r3": [
+   {
+    "id": "r3b1",
+    "dur": 3.158,
+    "say": "Vật rơi, va chạm, kẹp giữa khi nâng hạ, lắp ráp tổng đoạn.",
+    "sub": "Vật rơi, va chạm, kẹp giữa khi nâng hạ, lắp ráp tổng đoạn.",
+    "speed": 1.1
+   }
+  ],
+  "r4": [
+   {
+    "id": "r4b1",
+    "dur": 2.553,
+    "say": "Xe đầu kéo, xe nâng va chạm người đi bộ trong bãi.",
+    "sub": "Xe đầu kéo, xe nâng va chạm người đi bộ trong bãi.",
+    "speed": 1.1
+   }
+  ],
+  "r5": [
+   {
+    "id": "r5b1",
+    "dur": 3.306,
+    "say": "Ngạt khí, thiếu ô xy trong hầm hàng, két dầu, két ba lát.",
+    "sub": "Ngạt khí, thiếu oxy trong hầm hàng, két dầu, két ballast.",
+    "speed": 1.1
+   }
+  ],
+  "r6": [
+   {
+    "id": "r6b1",
+    "dur": 3.704,
+    "say": "Cháy nổ do hàn cắt, hơi xăng dầu, bình khí áp lực, hóa chất rò rỉ.",
+    "sub": "Cháy nổ do hàn cắt, hơi xăng dầu, bình khí áp lực, hóa chất rò rỉ.",
+    "speed": 1.1
+   }
+  ],
+  "r7": [
+   {
+    "id": "r7b1",
+    "dur": 2.125,
+    "say": "Điện giật, hồ quang điện khi hàn trong khoang ẩm.",
+    "sub": "Điện giật, hồ quang điện khi hàn trong khoang ẩm.",
+    "speed": 1.1
+   }
+  ],
+  "r8": [
+   {
+    "id": "r8b1",
+    "dur": 4.876,
+    "say": "Khói hàn, bụi, tiếng ồn, vật nặng trên ba mươi ki lô gam, và mệt mỏi vì làm ca liên tục.",
+    "sub": "Khói hàn, bụi, tiếng ồn, vật nặng trên 30 kg, và mệt mỏi vì làm ca liên tục.",
+    "speed": 1.1
+   }
+  ],
+  "t": [
+   {
+    "id": "tb1",
+    "dur": 2.148,
+    "say": "Huấn luyện an toàn không phải để đối phó thủ tục.",
+    "sub": "Huấn luyện an toàn không phải để đối phó thủ tục.",
+    "speed": 0.88
+   },
+   {
+    "id": "tb2",
+    "dur": 3.007,
+    "say": "Đó là yêu cầu sống còn, để bảo vệ tính mạng người lao động.",
+    "sub": "Đó là yêu cầu sống còn, để bảo vệ tính mạng người lao động.",
+    "speed": 0.88
+   }
+  ],
+  "a": [
+   {
+    "id": "ab1",
+    "dur": 5.341,
+    "say": "Thứ nhất, nhận thức đúng: phần lớn công việc trong ngành đóng tàu thuộc danh mục có yêu cầu nghiêm ngặt về an toàn.",
+    "sub": "Thứ nhất, nhận thức đúng: phần lớn công việc trong ngành đóng tàu thuộc danh mục có yêu cầu nghiêm ngặt về an toàn.",
+    "speed": 0.9
+   },
+   {
+    "id": "ab2",
+    "dur": 5.936,
+    "say": "Thứ hai, đào tạo đúng nhóm, đủ nội dung: nhóm ba cho lao động trực tiếp, nhóm một và nhóm hai cho người quản lý,",
+    "sub": "Thứ hai, đào tạo đúng nhóm, đủ nội dung: nhóm 3 cho lao động trực tiếp, nhóm 1 và nhóm 2 cho người quản lý,",
+    "speed": 0.9
+   },
+   {
+    "id": "ab3",
+    "dur": 4.656,
+    "say": "bổ sung an toàn điện, an toàn hóa chất, sơ cấp cứu và ứng phó không gian hạn chế.",
+    "sub": "bổ sung an toàn điện, an toàn hóa chất, sơ cấp cứu và ứng phó không gian hạn chế.",
+    "speed": 0.9
+   },
+   {
+    "id": "ab4",
+    "dur": 3.471,
+    "say": "Thứ ba, tuân thủ lịch huấn luyện định kỳ: chứng nhận chỉ có hiệu lực hai năm.",
+    "sub": "Thứ ba, tuân thủ lịch huấn luyện định kỳ: chứng nhận chỉ có hiệu lực 2 năm.",
+    "speed": 0.9
+   },
+   {
+    "id": "ab5",
+    "dur": 6.583,
+    "say": "Nhà thầu phụ, lao động thuê lại, người ra vào nhà máy phải được phổ biến nội quy và cấp đủ phương tiện bảo vệ cá nhân trước khi giao việc.",
+    "sub": "Nhà thầu phụ, lao động thuê lại, người ra vào nhà máy phải được phổ biến nội quy và cấp đủ phương tiện bảo vệ cá nhân trước khi giao việc.",
+    "speed": 0.9
+   }
+  ],
+  "g": [
+   {
+    "id": "gb1",
+    "dur": 2.229,
+    "say": "Mỗi vị trí, một nhóm huấn luyện phù hợp.",
+    "sub": "Mỗi vị trí, một nhóm huấn luyện phù hợp.",
+    "speed": 0.9
+   },
+   {
+    "id": "gb2",
+    "dur": 3.184,
+    "say": "Lãnh đạo, giám đốc nhà máy: nhóm một. Cán bộ an toàn: nhóm hai.",
+    "sub": "Lãnh đạo, giám đốc nhà máy: nhóm 1. Cán bộ an toàn: nhóm 2.",
+    "speed": 0.9
+   },
+   {
+    "id": "gb3",
+    "dur": 6.896,
+    "say": "Thợ hàn, lái cẩu, thợ móc cáp, công nhân buộc dây tàu, thợ lặn, thợ sơn, thợ điện tàu, lái xe đầu kéo: nhóm ba.",
+    "sub": "Thợ hàn, lái cẩu, thợ móc cáp, công nhân buộc dây tàu, thợ lặn, thợ sơn, thợ điện tàu, lái xe đầu kéo: nhóm 3.",
+    "speed": 0.9
+   },
+   {
+    "id": "gb4",
+    "dur": 5.213,
+    "say": "Văn phòng, kế toán, bảo vệ: nhóm bốn. Nhân viên y tế: nhóm năm. An toàn vệ sinh viên: nhóm sáu.",
+    "sub": "Văn phòng, kế toán, bảo vệ: nhóm 4. Nhân viên y tế: nhóm 5. An toàn vệ sinh viên: nhóm 6.",
+    "speed": 0.9
+   },
+   {
+    "id": "gb5",
+    "dur": 4.005,
+    "say": "Trưởng ca, tổ trưởng: nhóm một và nhóm ba, khuyến nghị kiêm an toàn vệ sinh viên.",
+    "sub": "Trưởng ca, tổ trưởng: nhóm 1 và nhóm 3, khuyến nghị kiêm an toàn vệ sinh viên.",
+    "speed": 0.9
+   },
+   {
+    "id": "gb6",
+    "dur": 3.692,
+    "say": "Khách vãng lai và tài xế ngoài cũng phải được phổ biến nội quy, cấp bảo hộ.",
+    "sub": "Khách vãng lai và tài xế ngoài cũng phải được phổ biến nội quy, cấp bảo hộ.",
+    "speed": 0.9
+   }
+  ],
+  "s": [
+   {
+    "id": "sb1",
+    "dur": 5.058,
+    "say": "Viện Ét Tê Pê và Đa Cô, công ty kỹ thuật hàng hải, đồng hành cùng doanh nghiệp đóng tàu và cảng biển:",
+    "sub": "Viện STP và DAKO, công ty kỹ thuật hàng hải, đồng hành cùng doanh nghiệp đóng tàu và cảng biển:",
+    "speed": 0.9
+   },
+   {
+    "id": "sb2",
+    "dur": 4.802,
+    "say": "xây dựng chương trình theo quy định và đặc thù từng doanh nghiệp, huấn luyện đúng nhóm ngay tại nhà máy,",
+    "sub": "xây dựng chương trình theo quy định và đặc thù từng doanh nghiệp, huấn luyện đúng nhóm ngay tại nhà máy,",
+    "speed": 0.9
+   },
+   {
+    "id": "sb3",
+    "dur": 5.573,
+    "say": "tổ chức thi và kiểm tra, cấp chứng nhận theo quy định, quản lý hồ sơ và nhắc lịch huấn luyện định kỳ cho doanh nghiệp.",
+    "sub": "tổ chức thi và kiểm tra, cấp chứng nhận theo quy định, quản lý hồ sơ và nhắc lịch huấn luyện định kỳ cho doanh nghiệp.",
+    "speed": 0.9
+   }
+  ],
+  "e": [
+   {
+    "id": "eb1",
+    "dur": 3.947,
+    "say": "Cử nhân viên đi huấn luyện hôm nay, để mỗi người lao động đều trở về nhà an toàn.",
+    "sub": "Cử nhân viên đi huấn luyện hôm nay, để mỗi người lao động đều trở về nhà an toàn.",
+    "speed": 0.9
+   },
+   {
+    "id": "eb2",
+    "dur": 3.599,
+    "say": "Liên hệ Viện Ét Tê Pê và Đa Cô để được tư vấn lộ trình huấn luyện phù hợp.",
+    "sub": "Liên hệ Viện STP và DAKO để được tư vấn lộ trình huấn luyện phù hợp.",
+    "speed": 0.9
+   }
+  ]
+ }
+}
