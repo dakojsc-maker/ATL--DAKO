@@ -80,6 +80,7 @@ def main() -> int:
         vao = piv if loai == "cho" else gia                # giá vào dự kiến để tính cắt lỗ / mục tiêu
         kl = float(np.expm1(f["kl_tb50"].at[b, ma]))
         c = cb.loc[ma].to_dict() if ma in cb.index else {}
+        c = {k: (None if isinstance(v, float) and not np.isfinite(v) else v) for k, v in c.items()}
         C_ok = (c.get("tt_lnst") or -1e9) >= 25
         A_ok = (c.get("roe4q") or -1e9) >= 15 and (c.get("eps4q") or -1e9) > 0
         return {"ma": ma, "ten": str(ten.get(ma, "")), "san": str(san.get(ma, "")), "nganh": str(nganh.get(ma, "")),
@@ -109,6 +110,12 @@ def main() -> int:
 
     hom_nay, gan_day, cho_ds = xep(hom_nay), xep(gan_day), xep(cho_ds)
     luot, tt2 = ls.goi_y(du, vni, san, nganh, toi_da=5)
+    # Nếu phiên tới là "ngày xác nhận tăng": công cụ mua mã mạnh nhất (RS ≥ 80, trên MA50) theo điểm tổng hợp
+    X = ls.ma_tran(f, tu_dong=-1)
+    R = X[list(ls.TRONG_SO)].rank(pct=True) - 0.5
+    X["diem"] = (R.fillna(0) * pd.Series(ls.TRONG_SO)).sum(axis=1)
+    sx = X[(X["rs_tong"] >= 0.8) & (X["d_ma50"] > 0)].sort_values("diem", ascending=False)
+    san_sang = [dict(dong(ma, T, "xac_nhan"), diem=round(float(x["diem"]), 4)) for (_, ma), x in sx.head(10).iterrows()]
 
     def in_bang(tieu_de: str, ds_: list[dict], toi_da: int = 25) -> None:
         print(f"\n## {tieu_de}: {len(ds_)} mã")
@@ -123,11 +130,12 @@ def main() -> int:
     in_bang("Tín hiệu CANSLIM hôm nay (mua mở cửa phiên sau)", hom_nay)
     in_bang("Tín hiệu 4 phiên trước, giá còn trong vùng mua", gan_day)
     in_bang("Danh sách chờ vượt nền (RS ≥ 80, xu hướng tăng, cách đỉnh 52 tuần ≤ 8%)", cho_ds, 40)
+    in_bang(f"Mã mạnh nhất nếu có ngày xác nhận tăng ({len(sx)} mã RS ≥ 80 trên MA50, xếp theo điểm tổng hợp)", san_sang)
     print(f"\n## Lướt sóng của công cụ ({tt2.get('so_ung_vien')} ứng viên):")
     for g in luot:
         print(f"  {g['ma']:4} {g['gia']:8.2f} | {g['loai']} | điểm {g['diem']:+.3f} | {'; '.join(g['ly_do'])}")
     kq = {"ngay": f"{T:%Y-%m-%d}", "vni": float(vc.iat[-1]), "thi_truong": {**tt, "che_do_xd": che_do},
-          "hom_nay": hom_nay, "gan_day": gan_day, "cho": cho_ds, "luot_song": luot}
+          "hom_nay": hom_nay, "gan_day": gan_day, "cho": cho_ds, "san_sang_xac_nhan": san_sang, "luot_song": luot}
     p = os.path.join(chung.GOC, ".cache", "kq-nghien-cuu", f"danh-muc-{T:%Y-%m-%d}.json")
     with open(p, "w", encoding="utf-8") as fh:
         json.dump(kq, fh, ensure_ascii=False, indent=1, default=str)

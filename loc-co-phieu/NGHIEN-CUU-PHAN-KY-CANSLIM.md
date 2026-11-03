@@ -8,7 +8,7 @@ quyết định, không phải lời khuyên đầu tư.*
 
 | | Phân kỳ dương RSI/MACD | CANSLIM | Lướt sóng 5–7% (công cụ) |
 |---|---|---|---|
-| Lãi/lỗ bình quân mỗi lệnh | **âm** ở mọi biến thể (−0,3% đến −1,3%) | **+1,6%** (khi thị trường tăng, bán kiểu O'Neil) | +0,4% đến +0,9% |
+| Lãi/lỗ bình quân mỗi lệnh | **âm** ở mọi biến thể khi bán +7/−7 (−0,3% đến −1,3%) | **+1,6%** (khi thị trường tăng, bán kiểu O'Neil) | +0,4% đến +0,9% |
 | Tỷ lệ thắng | 44–52% | **38%** (ít lệnh thắng nhưng thắng lớn) | 55–60% |
 | Tài khoản mô phỏng 2017–10/2026 | **mất 15%/năm** (RSI) hoặc −1 đến −2%/năm | **+9,0%/năm** | **+10,7%/năm** |
 | Mức sụt giảm tài khoản lớn nhất | −81% (RSI) / −29% | −41% | **−19%** |
@@ -16,8 +16,12 @@ quyết định, không phải lời khuyên đầu tư.*
 
 *VN-Index (mua và giữ) cùng giai đoạn: +10,1%/năm, sụt giảm lớn nhất −45%.*
 
-1. **Phân kỳ dương RSI/MACD không nên dùng làm tín hiệu mua.** Mọi biến thể đều lỗ sau phí, kết quả không tốt hơn
-   mua ngẫu nhiên. Phân kỳ chỉ cho biết đà giảm đang chậm lại, chưa cho biết đà tăng đã bắt đầu.
+1. **Phân kỳ dương RSI/MACD không nên dùng làm tín hiệu mua.**
+   - Bán kiểu lướt sóng (+7/−7): mọi biến thể đều lỗ sau phí, không tốt hơn mua ngẫu nhiên.
+   - Bán kiểu O'Neil: tốt nhất chỉ lãi nhẹ, 5/13 năm có lãi.
+   - Tài khoản mô phỏng của mọi biến thể đều lỗ.
+
+   Phân kỳ chỉ cho biết đà giảm đang chậm lại, chưa cho biết đà tăng đã bắt đầu.
 2. **CANSLIM tốt hơn hẳn, nhưng chỉ khi có đủ hai điều kiện:**
    - thị trường đang "TĂNG – thuận lợi" (chữ M);
    - **bán kiểu O'Neil**: chốt lời +20%, cắt lỗ −7%, tối đa 40 phiên. Nếu chốt sớm ở +7% thì CANSLIM lại lỗ, vì lợi
@@ -192,7 +196,40 @@ Tài khoản bắt đầu với 1 đồng vốn, tối đa 5 mã, mỗi mã 20%.
 - Danh sách mã chỉ gồm mã còn niêm yết, chưa có mã đã huỷ niêm yết, nên mọi phương pháp có thể đẹp hơn thực tế một chút.
 - Tài khoản mô phỏng ghi nhận lãi/lỗ khi bán, nên mức sụt giảm thực tế khi đang giữ có thể sâu hơn một chút.
 
-## 8. Tái lập
+## 8. Áp dụng cho phiên 03/11/2026
+
+**Thị trường: ĐIỀU CHỈNH / GIẢM.**
+- VN-Index 1.699,62 điểm (−0,65%), nằm dưới MA20 (1.732) và MA50 (1.772).
+- MA50 đi ngang; có 9 ngày phân phối trong 25 phiên (ngưỡng thuận lợi là ≤ 4).
+- Hôm nay không có mã nào có tín hiệu CANSLIM, kể cả trong 4 phiên trước. Lướt sóng cũng không có ứng viên.
+
+**Đề xuất: chưa mua mới, giữ tiền mặt.** Theo dữ liệu, mua mã vượt đỉnh khi thị trường giảm thì lỗ bình quân −0,44% mỗi
+lệnh; riêng năm 2026 là −3,5% mỗi lệnh.
+
+**Danh sách theo dõi:** mã còn xu hướng tăng, sức mạnh giá top 20%, cách đỉnh 52 tuần ≤ 8%. Giá tính bằng nghìn đồng.
+
+| Mã | Giá 03/11 | Mua khi đóng cửa vượt | Khối lượng phiên đó tối thiểu | Cắt lỗ (−7%) | Mục tiêu (+20%) | LNST quý 3/2026 so với cùng kỳ | ROE 4 quý |
+|---|---|---|---|---|---|---|---|
+| **TLG** – Thiên Long | 53,9 | 57,5 | 340 nghìn cp | ≈ 53,5 | ≈ 69,0 | **+88%** | **18%** |
+| **HDB** – HDBank | 21,8 | 23,45 | 20,9 triệu cp | ≈ 21,8 | ≈ 28,1 | **+64%** | **25%** |
+| HHP – HHP Global | 18,0 | 19,35 | 1,8 triệu cp | ≈ 18,0 | ≈ 23,2 | +162% | 6% (chưa đạt A) |
+| MSB – MSB Bank | 16,2 | 16,4 | 13,3 triệu cp | ≈ 15,25 | ≈ 19,7 | +14% (chưa đạt C) | 14% |
+
+- **TLG và HDB đạt đủ các tiêu chí đo được** (C, A, L, xu hướng), nên ưu tiên hai mã này.
+- Cột cắt lỗ và mục tiêu tính theo giá mua bằng điểm vượt nền. Khi mua thật thì tính lại −7% và +20% từ giá khớp.
+- Chỉ mua khi có **đủ cả bốn điều kiện:**
+  1. công cụ báo thị trường "TĂNG – thuận lợi";
+  2. giá đóng cửa vượt mức ở cột "Mua khi";
+  3. khối lượng phiên vượt đạt mức tối thiểu (1,5 lần bình quân 50 phiên);
+  4. giá chưa cao hơn mức vượt quá 5%.
+- **Nếu có "ngày xác nhận tăng"**, công cụ (lúc 14:05 / 15:45) tự chọn 3 mã mạnh nhất, chốt +7% và cắt −7%. Nếu ngày đó
+  là hôm nay thì 3 mã được chọn là BAF, MSB, NTP. Danh sách sẽ thay đổi theo ngày.
+- **Tỷ trọng:** tối đa 5 mã, mỗi mã 20% vốn. Cắt lỗ −7% nghĩa là mỗi lệnh thua chỉ mất khoảng 1,4% tài sản.
+
+*Số liệu lợi nhuận lấy từ KBS (báo cáo quý, chưa kiểm toán). Danh sách chỉ là kết quả lọc theo quy tắc, không phải
+khuyến nghị mua bán.*
+
+## 9. Tái lập
 
 ```
 python3 loc-co-phieu/nghien-cuu/tai_tai_chinh.py        # số liệu tài chính quý (KBS, ~5 phút)

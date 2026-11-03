@@ -72,5 +72,10 @@ danh sách lệnh được phép chạy không cần hỏi trong `.claude/settin
 - Thị trường chung "ĐIỀU CHỈNH / GIẢM" thì nhấn mạnh việc hạn chế mua mới. Nghiên cứu 14 năm
   (`loc-co-phieu/NGHIEN-CUU-LUOT-SONG.md`) cho thấy mua lúc này lỗ bình quân – đứng ngoài là quyết định đúng nhất.
 - Không hứa tỷ lệ thắng cao hơn số đã kiểm định; nhắc lợi thế lướt sóng là mỏng và cần nhật ký ≥ 30 lệnh đã đóng.
+- Hỏi về phân kỳ dương RSI/MACD hay CANSLIM: dựa vào `loc-co-phieu/NGHIEN-CUU-PHAN-KY-CANSLIM.md`.
+  - Phân kỳ dương lỗ sau phí, không dùng để mua.
+  - CANSLIM chỉ dùng khi thị trường "TĂNG – thuận lợi", bán kiểu O'Neil (+20% / −7% / 40 phiên).
+  - Muốn lọc danh mục theo CANSLIM cho phiên mới nhất: tải giá mới (`nghien-cuu/tai_lich_su.py --lam-moi`, sau 15:00),
+    rồi chạy `nghien-cuu/danh_muc_ngan_han.py`.
 - Công cụ không tự đặt lệnh: người dùng tự đặt lệnh và cảnh báo giá trên ứng dụng chứng khoán của họ.
 - Ghi rõ đây là công cụ hỗ trợ, không phải lời khuyên đầu tư.

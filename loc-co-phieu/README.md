@@ -26,7 +26,7 @@ máy, bắt đáy…): **[NGHIEN-CUU-LUOT-SONG.md](NGHIEN-CUU-LUOT-SONG.md)**. M
 nghiên cứu trong `nghien-cuu/`.
 
 **So sánh phân kỳ dương RSI/MACD và CANSLIM (11/2026).**
-- Phân kỳ dương lỗ sau phí ở mọi biến thể.
+- Phân kỳ dương không có lợi thế: tài khoản mô phỏng của mọi biến thể đều lỗ.
 - CANSLIM chỉ có lãi khi thị trường tăng thuận lợi và bán kiểu O'Neil (+20% / −7%).
 - Trên tài khoản mô phỏng 2017–2026, lướt sóng 5–7% vẫn tốt nhất: +10,7%/năm, sụt giảm lớn nhất −19%.
 
