@@ -25,6 +25,13 @@ phiên. Kiểm định đi tiếp 2017–2026: 2.138 lệnh, thắng 55%, +0,38%
 máy, bắt đáy…): **[NGHIEN-CUU-LUOT-SONG.md](NGHIEN-CUU-LUOT-SONG.md)**. Mã nguồn: `locphieu/luotsong.py`; script
 nghiên cứu trong `nghien-cuu/`.
 
+**So sánh phân kỳ dương RSI/MACD và CANSLIM (11/2026).**
+- Phân kỳ dương lỗ sau phí ở mọi biến thể.
+- CANSLIM chỉ có lãi khi thị trường tăng thuận lợi và bán kiểu O'Neil (+20% / −7%).
+- Trên tài khoản mô phỏng 2017–2026, lướt sóng 5–7% vẫn tốt nhất: +10,7%/năm, sụt giảm lớn nhất −19%.
+
+Chi tiết: **[NGHIEN-CUU-PHAN-KY-CANSLIM.md](NGHIEN-CUU-PHAN-KY-CANSLIM.md)**.
+
 ---
 
 ## 1. Cài đặt (làm một lần)
