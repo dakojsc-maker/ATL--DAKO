@@ -36,8 +36,9 @@ def co_ban(ngay: pd.Timestamp) -> pd.DataFrame:
     for ma, v in tc.items():
         for q in (v.get("quy") or [])[:4]:
             if q.get("ngay_cb") and pd.Timestamp(q["ngay_cb"]) <= ngay:
+                g = q.get("tt_lnst")                       # 0 tròn = nguồn không có số liệu (giống canslim.py)
                 hang.append({"ma": ma, "quy": f"Q{q.get('quy')}/{q.get('nam')}", "ngay_cb": q["ngay_cb"],
-                             "tt_lnst": q.get("tt_lnst"), "tt_dt": q.get("tt_dt"),
+                             "tt_lnst": None if g is None or abs(g) < 0.005 else g, "tt_dt": q.get("tt_dt"),
                              "roe4q": q.get("roe4q"), "eps4q": q.get("eps4q")})
                 break
     return pd.DataFrame(hang).set_index("ma") if hang else pd.DataFrame()
@@ -85,7 +86,7 @@ def main() -> int:
                 "loai": loai, "ngay_tin_hieu": f"{b:%Y-%m-%d}", "gia": gia, "diem_mua": round(piv, 2),
                 "cach_diem_mua": round(gia / piv - 1, 4), "mua_toi_da": round(min(piv * 1.05, vao * 1.02), 2),
                 "cat_lo": round(vao * 0.93, 2), "muc_tieu": round(vao * 1.20, 2), "kl_gap": round(kl, 2),
-                "kl_can": int(kl_can.get(ma, 0)), "gtgd20": round(float(f["_gtgd20"].at[T, ma]), 1), **x,
+                "kl_can": int(np.nan_to_num(kl_can.get(ma, 0))), "gtgd20": round(float(f["_gtgd20"].at[T, ma]), 1), **x,
                 "quy": c.get("quy"), "tt_lnst": c.get("tt_lnst"), "tt_dt": c.get("tt_dt"),
                 "roe4q": c.get("roe4q"), "eps4q": c.get("eps4q"), "C": C_ok, "A": A_ok}
 
