@@ -59,6 +59,1038 @@ window.TOUR = {
  },
  "minimap": "images/minimap.jpg",
  "keyPlan": "images/so-do-tang.jpg",
+ "model": {
+  "size": [
+   9.8,
+   8.0
+  ],
+  "wallHeight": 2.7,
+  "eyeHeight": 1.55,
+  "floor": "images/3d-san.jpg",
+  "walls": [
+   [
+    0.0,
+    0.0,
+    0.869,
+    0.168
+   ],
+   [
+    2.071,
+    0.0,
+    1.941,
+    0.168
+   ],
+   [
+    5.233,
+    0.0,
+    0.998,
+    0.168
+   ],
+   [
+    7.452,
+    0.0,
+    2.348,
+    0.168
+   ],
+   [
+    0.0,
+    0.0,
+    0.185,
+    8.0
+   ],
+   [
+    0.0,
+    7.832,
+    0.277,
+    0.168
+   ],
+   [
+    1.387,
+    7.366,
+    0.222,
+    0.634
+   ],
+   [
+    2.293,
+    7.832,
+    0.758,
+    0.168
+   ],
+   [
+    4.179,
+    7.832,
+    0.573,
+    0.168
+   ],
+   [
+    5.399,
+    7.832,
+    4.401,
+    0.168
+   ],
+   [
+    9.615,
+    0.0,
+    0.185,
+    3.972
+   ],
+   [
+    9.615,
+    4.625,
+    0.185,
+    1.995
+   ],
+   [
+    9.615,
+    7.366,
+    0.185,
+    0.634
+   ],
+   [
+    2.958,
+    0.131,
+    0.185,
+    3.655
+   ],
+   [
+    3.975,
+    3.674,
+    2.071,
+    0.112
+   ],
+   [
+    5.714,
+    0.131,
+    0.129,
+    3.617
+   ],
+   [
+    5.714,
+    2.797,
+    0.351,
+    0.951
+   ],
+   [
+    2.977,
+    4.886,
+    0.148,
+    0.895
+   ],
+   [
+    3.975,
+    4.886,
+    0.888,
+    0.13
+   ],
+   [
+    5.677,
+    4.886,
+    0.369,
+    0.13
+   ],
+   [
+    4.179,
+    4.886,
+    0.129,
+    2.946
+   ],
+   [
+    5.677,
+    4.886,
+    0.148,
+    2.946
+   ],
+   [
+    6.897,
+    4.886,
+    2.718,
+    0.13
+   ],
+   [
+    6.952,
+    3.17,
+    0.167,
+    0.205
+   ],
+   [
+    6.952,
+    3.972,
+    0.167,
+    0.97
+   ],
+   [
+    6.952,
+    3.152,
+    2.663,
+    0.111
+   ]
+  ],
+  "windows": [
+   {
+    "rect": [
+     0.869,
+     0.0,
+     1.202,
+     0.168
+    ],
+    "sill": 0.9,
+    "top": 2.3
+   },
+   {
+    "rect": [
+     4.012,
+     0.0,
+     1.221,
+     0.168
+    ],
+    "sill": 0.9,
+    "top": 2.3
+   },
+   {
+    "rect": [
+     6.231,
+     0.0,
+     1.221,
+     0.168
+    ],
+    "sill": 0.9,
+    "top": 2.3
+   },
+   {
+    "rect": [
+     3.051,
+     7.832,
+     1.128,
+     0.168
+    ],
+    "sill": 1.0,
+    "top": 2.3
+   },
+   {
+    "rect": [
+     4.752,
+     7.832,
+     0.647,
+     0.168
+    ],
+    "sill": 1.5,
+    "top": 2.2
+   },
+   {
+    "rect": [
+     9.615,
+     3.972,
+     0.185,
+     0.653
+    ],
+    "sill": 1.5,
+    "top": 2.2
+   },
+   {
+    "rect": [
+     9.615,
+     6.62,
+     0.185,
+     0.746
+    ],
+    "sill": 0.9,
+    "top": 2.3
+   },
+   {
+    "rect": [
+     2.977,
+     5.781,
+     0.148,
+     2.051
+    ],
+    "sill": 0.9,
+    "top": 2.2
+   }
+  ],
+  "doors": [
+   {
+    "rect": [
+     0.277,
+     7.832,
+     1.11,
+     0.168
+    ],
+    "top": 2.2
+   }
+  ],
+  "furniture": [
+   {
+    "rect": [
+     0.185,
+     0.242,
+     0.333,
+     2.462
+    ],
+    "h": 0.55,
+    "color": "#9d8d72"
+   },
+   {
+    "rect": [
+     1.387,
+     0.858,
+     0.518,
+     1.025
+    ],
+    "h": 0.42,
+    "color": "#ba9c76"
+   },
+   {
+    "rect": [
+     2.182,
+     0.28,
+     0.592,
+     2.237
+    ],
+    "h": 0.45,
+    "color": "#c2b5a6"
+   },
+   {
+    "rect": [
+     2.774,
+     0.28,
+     0.184,
+     2.237
+    ],
+    "h": 0.85,
+    "color": "#b2a190"
+   },
+   {
+    "rect": [
+     2.459,
+     2.517,
+     0.481,
+     0.523
+    ],
+    "h": 0.5,
+    "color": "#dcb974"
+   },
+   {
+    "rect": [
+     0.222,
+     4.009,
+     1.183,
+     0.839
+    ],
+    "h": 0.75,
+    "color": "#c2a27e"
+   },
+   {
+    "rect": [
+     0.296,
+     3.692,
+     0.37,
+     0.28
+    ],
+    "h": 0.45,
+    "color": "#d9cec0"
+   },
+   {
+    "rect": [
+     0.795,
+     3.692,
+     0.37,
+     0.28
+    ],
+    "h": 0.45,
+    "color": "#ddd6c8"
+   },
+   {
+    "rect": [
+     0.296,
+     4.904,
+     0.37,
+     0.28
+    ],
+    "h": 0.45,
+    "color": "#dfd6cd"
+   },
+   {
+    "rect": [
+     0.795,
+     4.904,
+     0.37,
+     0.28
+    ],
+    "h": 0.45,
+    "color": "#e3d9d2"
+   },
+   {
+    "rect": [
+     2.367,
+     4.923,
+     0.591,
+     0.671
+    ],
+    "h": 1.8,
+    "color": "#989895"
+   },
+   {
+    "rect": [
+     2.404,
+     5.594,
+     0.554,
+     2.201
+    ],
+    "h": 0.9,
+    "color": "#baaea0"
+   },
+   {
+    "rect": [
+     3.125,
+     6.172,
+     0.592,
+     0.69
+    ],
+    "h": 0.85,
+    "color": "#f2f1ef"
+   },
+   {
+    "rect": [
+     4.345,
+     5.016,
+     0.407,
+     0.634
+    ],
+    "h": 0.85,
+    "color": "#cbc9c7"
+   },
+   {
+    "rect": [
+     4.345,
+     5.911,
+     0.518,
+     0.523
+    ],
+    "h": 0.42,
+    "color": "#c9c8c5"
+   },
+   {
+    "rect": [
+     3.698,
+     0.914,
+     1.498,
+     1.492
+    ],
+    "h": 0.5,
+    "color": "#e5e1db"
+   },
+   {
+    "rect": [
+     5.233,
+     2.331,
+     0.444,
+     0.485
+    ],
+    "h": 0.5,
+    "color": "#d6bf90"
+   },
+   {
+    "rect": [
+     5.177,
+     0.168,
+     0.518,
+     0.783
+    ],
+    "h": 0.75,
+    "color": "#aa8e65"
+   },
+   {
+    "rect": [
+     4.438,
+     3.133,
+     1.239,
+     0.541
+    ],
+    "h": 0.8,
+    "color": "#d0b487"
+   },
+   {
+    "rect": [
+     6.065,
+     0.186,
+     1.387,
+     0.579
+    ],
+    "h": 0.75,
+    "color": "#a7916f"
+   },
+   {
+    "rect": [
+     5.843,
+     1.026,
+     0.536,
+     1.734
+    ],
+    "h": 2.1,
+    "color": "#d0b387"
+   },
+   {
+    "rect": [
+     7.858,
+     0.186,
+     1.72,
+     2.014
+    ],
+    "h": 0.5,
+    "color": "#dfdbd4"
+   },
+   {
+    "rect": [
+     7.452,
+     0.186,
+     0.517,
+     0.467
+    ],
+    "h": 0.5,
+    "color": "#d6bb89"
+   },
+   {
+    "rect": [
+     7.969,
+     2.76,
+     1.609,
+     0.373
+    ],
+    "h": 0.8,
+    "color": "#b29167"
+   },
+   {
+    "rect": [
+     7.174,
+     3.972,
+     0.684,
+     0.876
+    ],
+    "h": 0.85,
+    "color": "#b5b4ae"
+   },
+   {
+    "rect": [
+     8.117,
+     3.972,
+     0.481,
+     0.876
+    ],
+    "h": 0.42,
+    "color": "#c8c6c3"
+   },
+   {
+    "rect": [
+     9.023,
+     3.282,
+     0.555,
+     0.504
+    ],
+    "h": 0.9,
+    "color": "#cfcdcc"
+   },
+   {
+    "rect": [
+     7.359,
+     5.8,
+     1.757,
+     1.995
+    ],
+    "h": 0.5,
+    "color": "#dcd5cc"
+   },
+   {
+    "rect": [
+     6.897,
+     7.291,
+     0.462,
+     0.504
+    ],
+    "h": 0.5,
+    "color": "#d6bf91"
+   },
+   {
+    "rect": [
+     8.746,
+     7.291,
+     0.647,
+     0.504
+    ],
+    "h": 0.5,
+    "color": "#b7936e"
+   },
+   {
+    "rect": [
+     5.843,
+     6.49,
+     0.536,
+     1.305
+    ],
+    "h": 0.8,
+    "color": "#cdaf83"
+   }
+  ],
+  "rooms": {
+   "phong-khach": {
+    "eye": [
+     2.552,
+     3.786
+    ],
+    "yaw": -37.5,
+    "label": [
+     1.35,
+     2.629
+    ],
+    "shape": [
+     [
+      0.148,
+      0.093,
+      2.958,
+      4.811
+     ],
+     [
+      0.148,
+      4.904,
+      1.387,
+      3.021
+     ],
+     [
+      3.106,
+      3.748,
+      2.996,
+      1.25
+     ],
+     [
+      6.102,
+      3.17,
+      0.832,
+      1.828
+     ]
+    ],
+    "doors": [
+     {
+      "to": "pn1",
+      "at": [
+       3.532,
+       3.786
+      ],
+      "path": [
+       [
+        2.644,
+        4.345
+       ],
+       [
+        3.532,
+        3.823
+       ]
+      ]
+     },
+     {
+      "to": "pn2",
+      "at": [
+       6.527,
+       3.263
+      ],
+      "path": [
+       [
+        2.644,
+        4.345
+       ],
+       [
+        6.435,
+        4.345
+       ],
+       [
+        6.527,
+        3.263
+       ]
+      ]
+     },
+     {
+      "to": "pn-master",
+      "at": [
+       6.49,
+       4.904
+      ],
+      "path": [
+       [
+        2.644,
+        4.345
+       ],
+       [
+        6.379,
+        4.531
+       ],
+       [
+        6.342,
+        4.942
+       ]
+      ]
+     },
+     {
+      "to": "wc-chung",
+      "at": [
+       5.418,
+       4.942
+      ],
+      "path": [
+       [
+        2.644,
+        4.345
+       ],
+       [
+        5.381,
+        4.625
+       ],
+       [
+        5.381,
+        4.942
+       ]
+      ]
+     },
+     {
+      "to": "bep",
+      "at": [
+       1.997,
+       6.21
+      ],
+      "path": [
+       [
+        1.794,
+        5.315
+       ]
+      ]
+     },
+     {
+      "to": "ban-cong",
+      "at": [
+       3.569,
+       4.942
+      ],
+      "path": [
+       [
+        2.644,
+        4.345
+       ],
+       [
+        3.569,
+        4.718
+       ],
+       [
+        3.569,
+        4.942
+       ]
+      ]
+     }
+    ]
+   },
+   "bep": {
+    "eye": [
+     1.905,
+     5.464
+    ],
+    "yaw": 157.8,
+    "label": [
+     2.422,
+     6.396
+    ],
+    "shape": [
+     [
+      1.535,
+      4.904,
+      1.516,
+      3.021
+     ]
+    ],
+    "doors": [
+     {
+      "to": "phong-khach",
+      "at": [
+       1.794,
+       5.315
+      ],
+      "path": [
+       [
+        1.794,
+        5.315
+       ]
+      ]
+     }
+    ]
+   },
+   "ban-cong": {
+    "eye": [
+     3.661,
+     5.184
+    ],
+    "yaw": 177.9,
+    "label": [
+     3.606,
+     6.583
+    ],
+    "shape": [
+     [
+      3.106,
+      4.904,
+      1.091,
+      2.891
+     ]
+    ],
+    "doors": [
+     {
+      "to": "phong-khach",
+      "at": [
+       3.569,
+       4.942
+      ],
+      "path": [
+       [
+        3.569,
+        4.942
+       ],
+       [
+        3.569,
+        4.718
+       ],
+       [
+        2.644,
+        4.345
+       ]
+      ]
+     }
+    ]
+   },
+   "wc-chung": {
+    "eye": [
+     5.418,
+     5.184
+    ],
+    "yaw": -156.5,
+    "label": [
+     4.974,
+     6.583
+    ],
+    "shape": [
+     [
+      4.197,
+      4.904,
+      1.554,
+      2.891
+     ]
+    ],
+    "doors": [
+     {
+      "to": "phong-khach",
+      "at": [
+       5.418,
+       4.867
+      ],
+      "path": [
+       [
+        5.381,
+        4.942
+       ],
+       [
+        5.381,
+        4.625
+       ],
+       [
+        2.644,
+        4.345
+       ]
+      ]
+     }
+    ]
+   },
+   "pn1": {
+    "eye": [
+     3.476,
+     3.319
+    ],
+    "yaw": 33.2,
+    "label": [
+     4.419,
+     1.734
+    ],
+    "shape": [
+     [
+      3.106,
+      0.093,
+      2.645,
+      3.655
+     ]
+    ],
+    "doors": [
+     {
+      "to": "phong-khach",
+      "at": [
+       3.532,
+       3.786
+      ],
+      "path": [
+       [
+        3.532,
+        3.823
+       ],
+       [
+        2.644,
+        4.345
+       ]
+      ]
+     }
+    ]
+   },
+   "pn-master": {
+    "eye": [
+     6.25,
+     5.315
+    ],
+    "yaw": 123.2,
+    "label": [
+     8.006,
+     6.583
+    ],
+    "shape": [
+     [
+      5.751,
+      4.942,
+      3.92,
+      2.983
+     ]
+    ],
+    "doors": [
+     {
+      "to": "phong-khach",
+      "at": [
+       6.342,
+       4.942
+      ],
+      "path": [
+       [
+        6.342,
+        4.942
+       ],
+       [
+        6.379,
+        4.531
+       ],
+       [
+        2.644,
+        4.345
+       ]
+      ]
+     },
+     {
+      "to": "wc-master",
+      "at": [
+       7.008,
+       3.674
+      ],
+      "path": [
+       [
+        6.435,
+        4.811
+       ],
+       [
+        7.008,
+        3.674
+       ]
+      ]
+     }
+    ]
+   },
+   "wc-master": {
+    "eye": [
+     7.359,
+     3.506
+    ],
+    "yaw": 117.6,
+    "label": [
+     8.302,
+     4.065
+    ],
+    "shape": [
+     [
+      6.934,
+      3.133,
+      2.7,
+      1.809
+     ]
+    ],
+    "doors": [
+     {
+      "to": "pn-master",
+      "at": [
+       7.008,
+       3.674
+      ],
+      "path": [
+       [
+        7.008,
+        3.674
+       ],
+       [
+        6.435,
+        4.811
+       ]
+      ]
+     }
+    ]
+   },
+   "pn2": {
+    "eye": [
+     6.564,
+     2.853
+    ],
+    "yaw": 46.8,
+    "label": [
+     8.191,
+     1.548
+    ],
+    "shape": [
+     [
+      5.825,
+      0.093,
+      3.846,
+      3.04
+     ]
+    ],
+    "doors": [
+     {
+      "to": "phong-khach",
+      "at": [
+       6.527,
+       3.263
+      ],
+      "path": [
+       [
+        6.527,
+        3.263
+       ],
+       [
+        6.435,
+        4.345
+       ],
+       [
+        2.644,
+        4.345
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "toPx": {
+   "origin": [
+    397,
+    87
+   ],
+   "k": [
+    0.01849056603773585,
+    0.018648018648018648
+   ]
+  }
+ },
  "scenes": [
   {
    "id": "ban-do",
@@ -240,98 +1272,59 @@ window.TOUR = {
   {
    "id": "can-ho",
    "level": 3,
-   "title": "Mặt bằng căn CT1-11.10",
+   "title": "Căn CT1-11.10 · mô hình 3D",
    "crumb": "CT1-11.10",
-   "lead": "Căn hộ loại E · 3 phòng ngủ · 2 phòng tắm. Bấm vào từng phòng để đi vào.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": -25.0,
-    "maxYaw": 25.0,
-    "minPitch": -15.631,
-    "maxPitch": 15.631,
-    "yaw": 0.0,
-    "pitch": 0.0,
-    "hfov": 47.338,
-    "maxHfov": 50.0,
-    "minHfov": 6.406
-   },
+   "lead": "Mô hình 3D căn loại E · 3 phòng ngủ · 2 phòng tắm. Kéo để xoay 360°, bấm vào phòng để vào bên trong.",
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
-    {
-     "kind": "info",
-     "label": "Cửa chính",
-     "yaw": -3.309,
-     "pitch": -10.548,
-     "text": "Lối vào căn hộ, mở ra khu bàn ăn và bếp."
-    },
     {
      "kind": "room",
      "to": "phong-khach",
      "label": "Phòng khách & phòng ăn",
-     "sub": "20,42 m²",
-     "yaw": -1.603,
-     "pitch": 3.84
+     "sub": "20,42 m²"
     },
     {
      "kind": "room",
      "to": "bep",
      "label": "Bếp",
-     "sub": "4,48 m²",
-     "yaw": 1.496,
-     "pitch": -6.91
+     "sub": "4,48 m²"
     },
     {
      "kind": "room",
      "to": "ban-cong",
      "label": "Ban công",
-     "sub": "3,63 m²",
-     "yaw": 4.904,
-     "pitch": -7.412
+     "sub": "3,63 m²"
     },
     {
      "kind": "room",
      "to": "wc-chung",
      "label": "Phòng tắm chung",
-     "sub": "4,22 m²",
-     "yaw": 8.8,
-     "pitch": -7.352
+     "sub": "4,22 m²"
     },
     {
      "kind": "room",
      "to": "pn1",
      "label": "Phòng ngủ 1",
-     "sub": "8,48 m²",
-     "yaw": 7.229,
-     "pitch": 6.335
+     "sub": "8,48 m²"
     },
     {
      "kind": "room",
      "to": "pn-master",
      "label": "Phòng ngủ master",
-     "sub": "11,27 m²",
-     "yaw": 17.106,
-     "pitch": -7.113
+     "sub": "11,27 m²"
     },
     {
      "kind": "room",
      "to": "wc-master",
      "label": "WC phòng master",
-     "sub": "3,82 m²",
-     "yaw": 17.884,
-     "pitch": -0.254
+     "sub": "3,82 m²"
     },
     {
      "kind": "room",
      "to": "pn2",
      "label": "Phòng ngủ 2",
-     "sub": "10,47 m²",
-     "yaw": 17.593,
-     "pitch": 6.592
+     "sub": "10,47 m²"
     }
    ],
    "thumb": "images/thumbs/can-ho.jpg"
@@ -342,70 +1335,54 @@ window.TOUR = {
    "title": "Phòng khách & phòng ăn",
    "crumb": "Phòng khách",
    "lead": "Sofa và kệ TV ở đầu căn, bàn ăn 4 chỗ gần cửa chính. Hành lang dẫn tới các phòng ngủ và phòng tắm.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": -13.124,
-    "maxYaw": 22.311,
-    "minPitch": -15.63,
-    "maxPitch": 15.63,
-    "yaw": -1.069,
-    "pitch": 2.669,
-    "hfov": 42.97,
-    "maxHfov": 50.0,
-    "minHfov": 12.277
-   },
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
     {
      "kind": "door",
      "to": "pn1",
-     "label": "Phòng ngủ 1",
-     "yaw": 4.692,
-     "pitch": 0.533
+     "label": "Phòng ngủ 1"
     },
     {
      "kind": "door",
      "to": "pn2",
-     "label": "Phòng ngủ 2",
-     "yaw": 13.124,
-     "pitch": 1.977
+     "label": "Phòng ngủ 2"
     },
     {
      "kind": "door",
      "to": "pn-master",
-     "label": "Phòng ngủ master",
-     "yaw": 13.023,
-     "pitch": -2.601
+     "label": "Phòng ngủ master"
     },
     {
      "kind": "door",
      "to": "wc-chung",
-     "label": "Phòng tắm chung",
-     "yaw": 10.048,
-     "pitch": -2.734
+     "label": "Phòng tắm chung"
     },
     {
      "kind": "door",
      "to": "bep",
-     "label": "Bếp",
-     "yaw": 0.267,
-     "pitch": -6.386
+     "label": "Bếp"
+    },
+    {
+     "kind": "door",
+     "to": "ban-cong",
+     "label": "Ban công"
     }
    ],
    "thumb": "images/thumbs/phong-khach.jpg",
    "room": true,
    "area": 20.42,
+   "eyePct": [
+    26.58,
+    47.489
+   ],
    "neighbors": [
     "pn1",
     "pn2",
     "pn-master",
     "wc-chung",
-    "bep"
+    "bep",
+    "ban-cong"
    ],
    "shape": [
     [
@@ -470,46 +1447,24 @@ window.TOUR = {
    "title": "Bếp",
    "crumb": "Bếp",
    "lead": "Bếp chữ I dọc tường, mở ra khu bàn ăn.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": -9.113,
-    "maxYaw": 11.697,
-    "minPitch": -15.627,
-    "maxPitch": 5.856,
-    "yaw": 1.336,
-    "pitch": -6.779,
-    "hfov": 26.0,
-    "maxHfov": 39.0,
-    "minHfov": 6.0
-   },
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
     {
      "kind": "door",
      "to": "phong-khach",
-     "label": "Phòng khách & phòng ăn",
-     "yaw": -0.321,
-     "pitch": -3.841
-    },
-    {
-     "kind": "door",
-     "to": "ban-cong",
-     "label": "Ban công",
-     "yaw": 3.363,
-     "pitch": -8.211
+     "label": "Phòng khách & phòng ăn"
     }
    ],
    "thumb": "images/thumbs/bep.jpg",
    "room": true,
    "area": 4.48,
+   "eyePct": [
+    20.074,
+    68.037
+   ],
    "neighbors": [
-    "phong-khach",
-    "ban-cong"
+    "phong-khach"
    ],
    "shape": [
     [
@@ -537,39 +1492,25 @@ window.TOUR = {
    "level": 4,
    "title": "Ban công",
    "crumb": "Ban công",
-   "lead": "Ban công cạnh bếp, dùng làm khu giặt phơi.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": -5.434,
-    "maxYaw": 14.735,
-    "minPitch": -15.631,
-    "maxPitch": 5.857,
-    "yaw": 4.798,
-    "pitch": -6.758,
-    "hfov": 26.0,
-    "maxHfov": 39.0,
-    "minHfov": 6.0
-   },
+   "lead": "Ban công cạnh bếp, dùng làm khu giặt phơi; có cửa kính nhìn sang bếp.",
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
     {
      "kind": "door",
-     "to": "bep",
-     "label": "Bếp",
-     "yaw": 3.096,
-     "pitch": -8.214
+     "to": "phong-khach",
+     "label": "Phòng khách & phòng ăn"
     }
    ],
    "thumb": "images/thumbs/ban-cong.jpg",
    "room": true,
    "area": 3.63,
+   "eyePct": [
+    37.732,
+    64.612
+   ],
    "neighbors": [
-    "bep"
+    "phong-khach"
    ],
    "shape": [
     [
@@ -598,36 +1539,22 @@ window.TOUR = {
    "title": "Phòng tắm chung",
    "crumb": "Phòng tắm",
    "lead": "Lavabo, bồn cầu và khu tắm đứng.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": -1.87,
-    "maxYaw": 18.847,
-    "minPitch": -15.629,
-    "maxPitch": 5.857,
-    "yaw": 8.774,
-    "pitch": -6.702,
-    "hfov": 26.0,
-    "maxHfov": 39.0,
-    "minHfov": 6.0
-   },
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
     {
      "kind": "door",
      "to": "phong-khach",
-     "label": "Phòng khách & phòng ăn",
-     "yaw": 10.048,
-     "pitch": -2.524
+     "label": "Phòng khách & phòng ăn"
     }
    ],
    "thumb": "images/thumbs/wc-chung.jpg",
    "room": true,
    "area": 4.22,
+   "eyePct": [
+    55.39,
+    64.612
+   ],
    "neighbors": [
     "phong-khach"
    ],
@@ -658,36 +1585,22 @@ window.TOUR = {
    "title": "Phòng ngủ 1",
    "crumb": "Phòng ngủ 1",
    "lead": "Giường đôi, tủ đầu giường và tủ sát tường.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": -5.01,
-    "maxYaw": 18.847,
-    "minPitch": -7.857,
-    "maxPitch": 15.628,
-    "yaw": 7.229,
-    "pitch": 5.706,
-    "hfov": 26.0,
-    "maxHfov": 39.0,
-    "minHfov": 6.0
-   },
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
     {
      "kind": "door",
      "to": "phong-khach",
-     "label": "Phòng khách & phòng ăn",
-     "yaw": 4.692,
-     "pitch": 0.533
+     "label": "Phòng khách & phòng ăn"
     }
    ],
    "thumb": "images/thumbs/pn1.jpg",
    "room": true,
    "area": 8.48,
+   "eyePct": [
+    35.874,
+    41.781
+   ],
    "neighbors": [
     "phong-khach"
    ],
@@ -718,43 +1631,27 @@ window.TOUR = {
    "title": "Phòng ngủ master",
    "crumb": "PN master",
    "lead": "Phòng ngủ lớn ở góc căn, giường đôi và tủ đầu giường. WC riêng nằm ngay phía trên, cửa mở ra sảnh nhỏ trước phòng.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": 2.776,
-    "maxYaw": 25.0,
-    "minPitch": -15.613,
-    "maxPitch": 8.999,
-    "yaw": 16.224,
-    "pitch": -6.133,
-    "hfov": 26.0,
-    "maxHfov": 39.0,
-    "minHfov": 6.599
-   },
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
     {
      "kind": "door",
      "to": "phong-khach",
-     "label": "Phòng khách & phòng ăn",
-     "yaw": 12.616,
-     "pitch": -2.71
+     "label": "Phòng khách & phòng ăn"
     },
     {
      "kind": "door",
      "to": "wc-master",
-     "label": "WC phòng master",
-     "yaw": 14.535,
-     "pitch": 0.0
+     "label": "WC phòng master"
     }
    ],
    "thumb": "images/thumbs/pn-master.jpg",
    "room": true,
    "area": 11.27,
+   "eyePct": [
+    63.755,
+    66.21
+   ],
    "neighbors": [
     "phong-khach",
     "wc-master"
@@ -786,36 +1683,22 @@ window.TOUR = {
    "title": "WC phòng master",
    "crumb": "WC master",
    "lead": "Lavabo, bồn cầu và vòi sen. Cửa mở ra sảnh nhỏ trước phòng ngủ master.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": 3.522,
-    "maxYaw": 25.0,
-    "minPitch": -11.369,
-    "maxPitch": 10.752,
-    "yaw": 16.666,
-    "pitch": -0.307,
-    "hfov": 26.0,
-    "maxHfov": 39.0,
-    "minHfov": 6.167
-   },
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
     {
      "kind": "door",
      "to": "pn-master",
-     "label": "Phòng ngủ master",
-     "yaw": 13.226,
-     "pitch": -1.976
+     "label": "Phòng ngủ master"
     }
    ],
    "thumb": "images/thumbs/wc-master.jpg",
    "room": true,
    "area": 3.82,
+   "eyePct": [
+    74.907,
+    44.064
+   ],
    "neighbors": [
     "pn-master"
    ],
@@ -846,36 +1729,22 @@ window.TOUR = {
    "title": "Phòng ngủ 2",
    "crumb": "Phòng ngủ 2",
    "lead": "Phòng góc phía trên, giường đôi, bàn làm việc và tủ quần áo sát tường.",
-   "mode": "plan",
-   "pannellum": {
-    "type": "equirectangular",
-    "panorama": "images/mat-bang.jpg",
-    "haov": 50.0,
-    "vaov": 31.262,
-    "vOffset": 0,
-    "avoidShowingBackground": true,
-    "minYaw": 2.776,
-    "maxYaw": 25.0,
-    "minPitch": -7.85,
-    "maxPitch": 15.613,
-    "yaw": 16.371,
-    "pitch": 6.382,
-    "hfov": 26.0,
-    "maxHfov": 39.0,
-    "minHfov": 6.599
-   },
+   "mode": "3d",
+   "pannellum": null,
    "hotspots": [
     {
      "kind": "door",
      "to": "phong-khach",
-     "label": "Phòng khách & phòng ăn",
-     "yaw": 13.124,
-     "pitch": 1.977
+     "label": "Phòng khách & phòng ăn"
     }
    ],
    "thumb": "images/thumbs/pn2.jpg",
    "room": true,
    "area": 10.47,
+   "eyePct": [
+    66.914,
+    36.073
+   ],
    "neighbors": [
     "phong-khach"
    ],

@@ -192,6 +192,68 @@ def pano_scene(meta):
     return cfg
 
 
+def avg_color(im, r):
+    """Màu trung bình của một vùng trên bản vẽ (bỏ nét viền tối) để tô mặt bên đồ nội thất."""
+    a = np.asarray(im.crop((r[0] + 2, r[1] + 2, r[2] - 2, r[3] - 2)).convert("RGB"), dtype=float).reshape(-1, 3)
+    keep = a[a.mean(axis=1) > 70]
+    col = (keep if len(keep) else a).mean(axis=0)
+    return "#%02x%02x%02x" % tuple(int(v) for v in col)
+
+
+def build_model(conf, flats):
+    """Mô hình 3D căn hộ (mét): sàn dán ảnh mặt bằng, tường, cửa sổ, đồ nội thất, vị trí đứng trong phòng."""
+    m = conf["model"]
+    x0, y0, x1, y1 = m["outer"]
+    sw, sd = m["sizeM"]
+    kx, kz = sw / (x1 - x0), sd / (y1 - y0)
+
+    def P(x, y):
+        return [round((x - x0) * kx, 3), round((y - y0) * kz, 3)]
+
+    def R(r):
+        a, b = P(r[0], r[1])
+        c, d = P(r[2], r[3])
+        return [a, b, round(c - a, 3), round(d - b, 3)]
+
+    src = Image.open(ROOT / conf["images"][m["image"]]["src"]).convert("RGB")
+    tex = src.crop((x0, y0, x1, y1))
+    tex = tex.resize((tex.width * 2, tex.height * 2), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=2, percent=50, threshold=2))
+    tex.save(IMAGES / "3d-san.jpg", quality=88, optimize=True)
+
+    rooms = {}
+    scenes = {s["id"]: s for s in conf["scenes"]}
+    for s in conf["scenes"]:
+        if not s.get("room"):
+            continue
+        ex, ey = s.get("eye") or s["pin"]
+        doors = []
+        for d in s.get("doors", []):
+            path = d.get("path")
+            if path is None:
+                back = [b for b in scenes[d["to"]].get("doors", []) if b["to"] == s["id"] and b.get("path")]
+                path = list(reversed(back[0]["path"])) if back else [[d["x"], d["y"]]]
+            doors.append({"to": d["to"], "at": P(d["x"], d["y"]), "path": [P(*q) for q in path]})
+        if "yaw" in s:
+            yaw = s["yaw"]
+        elif s.get("doors"):
+            d0 = s["doors"][0]
+            yaw = math.degrees(math.atan2(ex - d0["x"], -(ey - d0["y"])))
+        else:
+            yaw = 0
+        rooms[s["id"]] = {"eye": P(ex, ey), "yaw": round(yaw, 1), "label": P(*s["pin"]),
+                          "shape": [R(r) for r in s["shape"]], "doors": doors}
+    return {
+        "size": [sw, sd], "wallHeight": m["wallHeight"], "eyeHeight": m["eyeHeight"],
+        "floor": "images/3d-san.jpg",
+        "walls": [R(r) for r in m["walls"]],
+        "windows": [dict(rect=R(w["rect"]), sill=w["sill"], top=w["top"]) for w in m["windows"]],
+        "doors": [dict(rect=R(d["rect"]), top=d["top"]) for d in m.get("doors", [])],
+        "furniture": [dict(rect=R(f["rect"]), h=f["h"], color=avg_color(src, f["rect"])) for f in m["furniture"]],
+        "rooms": rooms,
+        "toPx": {"origin": [x0, y0], "k": [kx, kz]},
+    }
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--debug", help="thư mục ghi ảnh kiểm tra vị trí điểm nóng")
@@ -200,10 +262,16 @@ def main():
     conf = json.loads((ROOT / "tour.config.json").read_text(encoding="utf-8"))
     (IMAGES / "thumbs").mkdir(parents=True, exist_ok=True)
 
+    def engine(sc):
+        if (IMAGES / "rooms" / f"{sc['id']}.json").exists():
+            return "pano"
+        return sc.get("engine") or ("3d" if sc.get("room") else "flat")
+
     flats = {}
     for key, spec in conf["images"].items():
         flats[key] = Flat(key, spec)
-        flats[key].save()
+        if any(sc["image"] == key and engine(sc) == "flat" for sc in conf["scenes"]):
+            flats[key].save()
 
     # Bản đồ nhỏ (minimap) và sơ đồ vị trí căn trên tầng
     mm = conf["minimap"]
@@ -231,7 +299,19 @@ def main():
         pano_meta = json.loads(pano_meta_path.read_text(encoding="utf-8")) if pano_meta_path.exists() else None
 
         hotspots = []
-        if pano_meta:
+        eng = engine(scene)
+        if eng == "3d":
+            cfg = None
+            box = scene.get("box") or [conf["model"]["outer"][0], conf["model"]["outer"][1], conf["model"]["outer"][2], conf["model"]["outer"][3]]
+            img.thumb(box, IMAGES / "thumbs" / f"{sid}.jpg")
+            mode = "3d"
+            if sid == "can-ho":
+                for r in rooms:
+                    hotspots.append({"kind": "room", "to": r["id"], "label": r["title"],
+                                     "sub": f"{r['area']:.2f} m²".replace(".", ",")})
+            for d in scene.get("doors", []):
+                hotspots.append({"kind": "door", "to": d["to"], "label": titles[d["to"]]["title"]})
+        elif pano_meta:
             cfg = pano_scene(pano_meta)
             for d in scene.get("panoDoors", []):
                 hotspots.append({"kind": "door", "to": d["to"], "label": titles[d["to"]]["title"],
@@ -242,7 +322,7 @@ def main():
         else:
             cfg, view_box = flat_scene(scene, img)
             img.thumb(view_box, IMAGES / "thumbs" / f"{sid}.jpg")
-            mode = "plan" if scene["image"] == mm["image"] else "flat"
+            mode = "flat"
             for h in scene.get("hotspots", []):
                 item = {"kind": h["type"], "label": h["label"], "yaw": r2(img.yaw(h["x"])), "pitch": r2(img.pitch(h["y"], h["x"]))}
                 for k in ("to", "sub", "text"):
@@ -263,7 +343,7 @@ def main():
                "lead": scene.get("lead", ""), "mode": mode, "pannellum": cfg, "hotspots": hotspots,
                "thumb": f"images/thumbs/{sid}.jpg"}
         if scene.get("room"):
-            out.update(room=True, area=scene["area"],
+            out.update(room=True, area=scene["area"], eyePct=mm_pct(*(scene.get("eye") or scene["pin"])),
                        neighbors=[d["to"] for d in scene.get("doors", [])],
                        shape=[mm_pct(a, b) + mm_pct(c, d) for a, b, c, d in scene["shape"]],
                        shapePx=scene["shape"],
@@ -282,12 +362,14 @@ def main():
         "firstScene": conf["scenes"][0]["id"],
         "plan": {**plan.meta(), "minimapCrop": mm["crop"]},
         "minimap": "images/minimap.jpg", "keyPlan": "images/so-do-tang.jpg",
+        "model": build_model(conf, flats),
         "scenes": scenes_out,
     }
     js = "// Tạo tự động bởi tools/build.py từ tour.config.json – đừng sửa tay.\nwindow.TOUR = " + \
          json.dumps(data, ensure_ascii=False, indent=1) + ";\n"
     (ROOT / "data.js").write_text(js, encoding="utf-8")
-    print(f"data.js: {len(scenes_out)} cảnh, ảnh: {', '.join(f.file for f in flats.values())}")
+    print(f"data.js: {len(scenes_out)} cảnh ({sum(1 for s in scenes_out if s['mode'] == '3d')} cảnh 3D), "
+          f"mô hình: {len(data['model']['walls'])} đoạn tường, {len(data['model']['furniture'])} đồ nội thất")
 
     if args.debug:
         dbg = Path(args.debug)

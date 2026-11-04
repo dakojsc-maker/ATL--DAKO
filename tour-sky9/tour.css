@@ -38,9 +38,16 @@ button { font: inherit; color: inherit; }
 .pnlm-lbar { border-color: var(--accent) !important; }
 .pnlm-lbar-fill { background: var(--accent) !important; }
 
-.spot { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.35s; }
-.spot.on { opacity: 1; }
-.spot-dim { fill: rgba(11, 19, 27, 0.58); }
+/* sân khấu 3D (căn hộ, các phòng) đè lên khung 360° khi đang xem mô hình */
+#stage3d {
+  position: absolute; inset: 0; z-index: 2; background: var(--ink);
+  opacity: 0; visibility: hidden; transition: opacity 0.6s ease, visibility 0s linear 0.6s;
+}
+#app.in3d #stage3d { opacity: 1; visibility: visible; transition: opacity 0.6s ease; }
+.stage3d-canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.stage3d-canvas:active { cursor: grabbing; }
+.stage3d-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.stage3d-labels .hs { position: absolute; pointer-events: auto; }
 
 /* ---------- lớp phủ ---------- */
 .ui { position: absolute; z-index: 5; pointer-events: none; }
@@ -90,9 +97,9 @@ button { font: inherit; color: inherit; }
   font-variant-numeric: tabular-nums;
 }
 .chip.area { border-color: transparent; background: var(--accent); color: var(--accent-ink); font-weight: 700; }
-.chip.real::before, .chip.plan::before { content: ""; width: 7px; height: 7px; border-radius: 50%; }
+.chip.real::before { content: ""; width: 7px; height: 7px; border-radius: 50%; }
 .chip.real::before { background: var(--here); }
-.chip.plan::before { background: var(--muted); }
+.chip.model svg { width: 13px; height: 13px; color: var(--accent); }
 .card p { margin: 0; color: var(--muted); max-width: 60ch; }
 .card .note { font-size: 12px; }
 .card-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }

@@ -6,19 +6,30 @@ Tour tham quan đi từ rộng đến hẹp, 4 cấp:
 |---|---|---|
 | 1 · Vị trí | Bản đồ vị trí dự án, các điểm thông tin xung quanh (Khu Công nghệ cao, Vành đai 2, khu đô thị Vin Group, Đông Tăng Long…) | `source/ban-do-vi-tri.jpg` |
 | 2 · Dự án | Phối cảnh tổng thể, nhãn Block CT1 / CT2 / CT3, **dải màu cam đánh dấu tầng 11 của Block CT1** | `source/phoi-canh-tong-the.jpg`, đối chiếu `source/ghi-chu-cac-toa.jpg` |
-| 3 · Căn hộ | Mặt bằng căn loại E (74,25 m² tim tường / 69,08 m² thông thuỷ), bấm từng phòng để vào | `source/mat-bang-can-ho-E.jpg` |
-| 4 · Các phòng | Phòng khách & ăn, bếp, ban công, phòng tắm chung, phòng ngủ 1, phòng ngủ master, WC master, phòng ngủ 2; đi giữa các phòng qua các mũi tên ở cửa | mặt bằng (tạm thời) → ảnh 360° ghép từ video |
+| 3 · Căn hộ | **Mô hình 3D** căn loại E (74,25 m² tim tường / 69,08 m² thông thuỷ): kéo để xoay 360° quanh căn hộ, bấm tên phòng hoặc sàn phòng để vào | dựng từ `source/mat-bang-can-ho-E.jpg` |
+| 4 · Các phòng | Đứng trong mô hình 3D ở tầm mắt, kéo để nhìn quanh 360°: phòng khách & ăn, bếp, ban công, phòng tắm chung, phòng ngủ 1, phòng ngủ master, WC master, phòng ngủ 2; bấm mũi tên ở cửa để đi bộ sang phòng bên cạnh | mô hình 3D → ảnh 360° chụp thật khi ghép từ video |
 
 Phòng ngủ master là phòng góc dưới bên phải, WC master nằm ngay phía trên, cùng mở ra một sảnh nhỏ
 (theo `source/ghi-chu-phong-master.jpg`). Phòng ngủ 2 là phòng góc trên bên phải.
+
+## Mô hình 3D
+
+Dựng từ bản vẽ mặt bằng (`model` trong `tour.config.json`, toạ độ pixel trên ảnh gốc):
+
+- Khung ngoài 9800 × 8000 mm theo kích thước ghi trên bản vẽ; tường, ô cửa sổ, cửa chính nhập tay theo bản vẽ.
+- Sàn dán chính hình mặt bằng phối cảnh; đồ nội thất là khối đùn lên theo chiều cao thông dụng (giường 0,5 m,
+  tủ bếp 0,9 m, tủ quần áo 2,1 m…), mặt trên mang hình vẽ của món đồ, mặt bên tô màu trung bình của nó.
+- Trần cao 2,7 m, bậu cửa sổ 0,9 m (cửa sổ WC 1,5 m) là **giả định** vì bản vẽ không ghi chiều cao.
+- Vị trí đứng và hướng nhìn ban đầu của từng phòng: `eye`, `yaw` của phòng; lối đi qua cửa: `path` của cửa.
+- Hiển thị bằng three.js r147 (MIT, `vendor/three/`), mã ở `stage3d.js`.
 
 ## Tính năng
 
 - Kéo để nhìn quanh, cuộn/chụm để phóng to, nút phóng to/thu nhỏ, tự xoay, toàn màn hình, xoay theo cảm biến điện thoại (nếu thiết bị hỗ trợ).
 - Chuyển cảnh có hiệu ứng "bay" vào điểm nóng rồi mờ dần sang cảnh mới; lên cấp thì lùi ra từ đúng vị trí vừa đi vào.
 - Thanh đường dẫn (Vị trí › Sky9 › CT1-11.10 › Phòng) và dải ảnh thu nhỏ theo cấp.
-- Bản đồ nhỏ của căn hộ: phòng đang đứng tô xanh, khung nhìn hiện tại vẽ trên mặt bằng; bấm phòng trên bản đồ nhỏ để đi tới.
-- Khi xem phòng trên mặt bằng, phần ngoài phòng được làm tối để nổi bật phòng đang đứng.
+- Bản đồ nhỏ của căn hộ: phòng đang đứng tô xanh, chấm vị trí và hình quạt hướng nhìn; bấm phòng trên bản đồ nhỏ để đi tới.
+- Mô hình 3D: xoay 360° toàn căn, hạ camera vào phòng, đi bộ qua cửa sang phòng khác, nhìn quanh 360° trong phòng.
 - Thẻ thông tin từng cảnh, diện tích từng phòng, nút sang phòng bên cạnh; ngăn "Thông tin căn hộ" có bảng diện tích và sơ đồ vị trí căn loại E trên tầng.
 - "Tham quan tự động" đi lần lượt qua mọi cảnh.
 - Liên kết thẳng tới từng cảnh: `index.html#pn-master`, `#can-ho`, `#tong-the`…; nút sao chép liên kết.
@@ -47,7 +58,8 @@ trừ phông chữ Google Fonts (thiếu mạng thì dùng phông hệ thống).
 tour.config.json   nguồn dữ liệu: ảnh, cảnh, điểm nóng, phòng, cửa (toạ độ pixel trên ảnh gốc)
 tools/build.py     dựng images/ và data.js từ cấu hình (nắn ảnh phẳng sang toạ độ cầu)
 tools/video_tool.py  xử lý video quay thực tế (khung hình, ghép ảnh 360°, nén video)
-index.html, tour.css, tour.js   trình xem (Pannellum 2.5.6, giấy phép MIT, trong vendor/)
+index.html, tour.css, tour.js   khung tour, trình xem 360° (Pannellum 2.5.6, MIT, trong vendor/)
+stage3d.js         mô hình 3D căn hộ (three.js r147, MIT, trong vendor/)
 data.js            sinh tự động – đừng sửa tay
 ```
 
@@ -79,7 +91,7 @@ python3 tools/video_tool.py compress ~/20250629_093934.mp4
 python3 tools/build.py
 ```
 
-Phòng nào có `images/rooms/<id>.json` sẽ tự chuyển từ "Phối cảnh mặt bằng" sang "Ảnh 360° thực tế";
+Phòng nào có `images/rooms/<id>.json` sẽ tự chuyển từ "Mô hình 3D" sang "Ảnh 360° thực tế";
 mốc thời gian của đoạn ghép thành nút "Tua tới phòng" trong ngăn video. Để đặt mũi tên sang phòng bên cạnh
 ngay trên ảnh 360°, thêm vào phòng đó trong `tour.config.json`:
 

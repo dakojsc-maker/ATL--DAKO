@@ -1,5 +1,6 @@
 /* Tour 360° căn hộ CT1-11.10 · Sky9
- * Đi từ rộng đến hẹp: bản đồ vị trí → phối cảnh dự án → mặt bằng căn hộ → từng phòng.
+ * Đi từ rộng đến hẹp: bản đồ vị trí → phối cảnh dự án → mô hình 3D căn hộ → từng phòng.
+ * Bản đồ và phối cảnh xem bằng Pannellum; căn hộ và các phòng là mô hình 3D (stage3d.js).
  * Dữ liệu cảnh nằm trong data.js (tạo bởi tools/build.py).
  */
 (function () {
@@ -44,12 +45,13 @@
     enter: '<path d="M12 4v12M6 11l6 6 6-6"/><path d="M5 20h14"/>',
     arrow: '<path d="M5 12h13M13 6l6 6-6 6"/>',
     close: '<path d="M6 6l12 12M18 6L6 18"/>',
-    layers: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>'
+    cube: '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>'
   };
   function icon(name) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICON[name] + '</svg>';
   }
   function once(fn) { var done = false; return function () { if (!done) { done = true; fn(); } }; }
+  function is3d(id) { return byId[id].mode === '3d'; }
 
   /* ---------- quan hệ giữa các cảnh ---------- */
   var parentOf = {};
@@ -69,7 +71,7 @@
   function linkToward(sid, target) {
     var chain = ancestors(target).concat([target]);
     return byId[sid].hotspots.filter(function (hs) {
-      return hs.kind !== 'info' && chain.indexOf(hs.to) !== -1;
+      return hs.kind !== 'info' && chain.indexOf(hs.to) !== -1 && hs.yaw !== undefined;
     })[0];
   }
 
@@ -78,9 +80,11 @@
   var cardCompact = window.matchMedia('(max-width: 760px)').matches;
 
   /* ---------- trạng thái ---------- */
-  var current = null, busy = false, arriveAt = null, autoplay = false, autoTimer = null, rotating = false;
+  var current = null, busy = false, arriveAt = null, autoplay = false, autoTimer = null, rotating = false, pending = null;
   var hashScene = decodeURIComponent(location.hash.slice(1));
   var first = byId[hashScene] ? hashScene : T.firstScene;
+  // cảnh Pannellum nạp sẵn: chính cảnh đầu, hoặc phối cảnh dự án nếu mở thẳng vào 3D
+  var pannFirst = is3d(first) ? (ancestors(first).filter(function (id) { return !is3d(id); }).pop() || T.firstScene) : first;
 
   /* ---------- điểm nóng ---------- */
   function renderHotspot(div, args) {
@@ -125,13 +129,6 @@
   function closeTips() {
     Array.prototype.forEach.call(document.querySelectorAll('.hs-info.open'), function (d) { d.classList.remove('open'); });
   }
-
-  /* ---------- trình xem ----------
-   * Mặt bằng căn hộ và các phòng chưa có ảnh 360° thật dùng chung MỘT cảnh Pannellum
-   * (PLAN): đổi phòng chỉ đổi giới hạn khung nhìn + điểm nóng và bay camera, không tải lại ảnh. */
-  var PLAN = '__plan';
-  var BOUNDS = ['minYaw', 'maxYaw', 'minPitch', 'maxPitch', 'minHfov', 'maxHfov', 'yaw', 'pitch', 'hfov'];
-  function pannId(id) { return byId[id].mode === 'plan' ? PLAN : id; }
   function hsObjects(id) {
     return byId[id].hotspots.map(function (hs, i) {
       var args = { hs: hs, scene: id };
@@ -142,62 +139,8 @@
       };
     });
   }
-  var scenes = {};
-  T.scenes.forEach(function (s) {
-    if (s.mode === 'plan') {
-      if (!scenes[PLAN]) scenes[PLAN] = Object.assign({}, s.pannellum, { hotSpots: [] });
-    } else {
-      scenes[s.id] = Object.assign({}, s.pannellum, { hotSpots: hsObjects(s.id) });
-    }
-  });
-  // chuẩn bị cảnh PLAN cho phòng `id` trước khi loadScene
-  function preparePlan(id) {
-    var p = byId[id].pannellum, sc = scenes[PLAN];
-    BOUNDS.forEach(function (k) { sc[k] = p[k]; });
-    sc.hotSpots = hsObjects(id);
-  }
-  if (byId[first].mode === 'plan') preparePlan(first);
-  // dựng sẵn khung giao diện để tính vùng trống cho khung nhìn đầu tiên
-  renderCrumbs(byId[first]);
-  renderCard(byId[first]);
-  buildStrip();
-  (function () {
-    var v0 = viewFor(first), sc = scenes[pannId(first)];
-    sc.yaw = v0.yaw; sc.pitch = v0.pitch; sc.hfov = v0.hfov;
-  })();
 
-  var viewer = pannellum.viewer('pano', {
-    default: {
-      firstScene: pannId(first), sceneFadeDuration: 650, autoLoad: true, showControls: false,
-      friction: 0.15, keyboardZoom: true, mouseZoom: true,
-      strings: {
-        loadingLabel: 'Đang tải…', loadButtonLabel: 'Bấm để tải ảnh',
-        genericWebGLError: 'Trình duyệt không hỗ trợ WebGL nên không hiển thị được ảnh 360°.',
-        fileAccessError: 'Không mở được tệp %s.', noPanoramaError: 'Chưa có ảnh cho cảnh này.',
-        malformedURLError: 'Đường dẫn ảnh không hợp lệ.', unknownError: 'Lỗi không xác định.',
-        textureSizeError: 'Ảnh quá lớn so với card đồ hoạ của thiết bị (%s px, tối đa %s px).',
-        iOS8WebGLError: 'iOS 8 không hỗ trợ WebGL đầy đủ, hãy cập nhật trình duyệt.'
-      }
-    },
-    scenes: scenes
-  });
-
-  window.tourViewer = viewer; // để nhúng/gỡ lỗi từ bên ngoài
-
-  /* ---------- điều hướng ---------- */
-  function relaxToFullPlan() {
-    var p = T.plan;
-    viewer.setYawBounds([-p.haov / 2, p.haov / 2]);
-    viewer.setPitchBounds([-p.vaov / 2, p.vaov / 2]);
-    viewer.setHfovBounds([0.5, p.haov]);
-  }
-  function fly(pitch, yaw, hfov, done) {
-    var fin = once(done);
-    viewer.lookAt(pitch, yaw, hfov, FLY, fin);
-    setTimeout(fin, FLY + 250);
-  }
-  var pending = null, switching = false;
-  // tâm vùng màn hình không bị bảng điều khiển che (so với tâm khung xem)
+  /* ---------- khung nhìn ban đầu (tránh bị bảng điều khiển che) ---------- */
   function freeCenter() {
     var W = innerWidth, H = innerHeight, L = 0, R = W, Tp = 0, B = H;
     var tl = document.querySelector('.top-left').getBoundingClientRect();
@@ -207,7 +150,6 @@
     if (!st.classList.contains('collapsed')) B = Math.min(B, st.getBoundingClientRect().top);
     return { dx: (L + R) / 2 - W / 2, dy: (Tp + B) / 2 - H / 2 };
   }
-  // khung nhìn khởi đầu của cảnh, dời để chủ thể nằm giữa vùng trống
   function viewFor(id) {
     var s = byId[id], p = s.pannellum, W = innerWidth, H = innerHeight;
     var yaw = p.yaw, pitch = p.pitch, hf = p.hfov;
@@ -220,14 +162,81 @@
     var vf = 2 * Math.atan(Math.tan(hf * Math.PI / 360) * H / W) * 180 / Math.PI;
     return { yaw: yaw - c.dx / W * hf, pitch: pitch + c.dy / H * vf, hfov: hf };
   }
+
+  /* ---------- trình xem 360° (Pannellum) ---------- */
+  var scenes = {};
+  T.scenes.forEach(function (s) {
+    if (!is3d(s.id)) scenes[s.id] = Object.assign({}, s.pannellum, { hotSpots: hsObjects(s.id) });
+  });
+  // dựng sẵn khung giao diện để tính vùng trống cho khung nhìn đầu tiên
+  renderCrumbs(byId[first]);
+  renderCard(byId[first]);
+  buildStrip();
+  (function () {
+    var v0 = viewFor(pannFirst), sc = scenes[pannFirst];
+    sc.yaw = v0.yaw; sc.pitch = v0.pitch; sc.hfov = v0.hfov;
+  })();
+
+  var viewer = pannellum.viewer('pano', {
+    default: {
+      firstScene: pannFirst, sceneFadeDuration: 650, autoLoad: true, showControls: false,
+      friction: 0.15, keyboardZoom: true, mouseZoom: true,
+      strings: {
+        loadingLabel: 'Đang tải…', loadButtonLabel: 'Bấm để tải ảnh',
+        genericWebGLError: 'Trình duyệt không hỗ trợ WebGL nên không hiển thị được ảnh 360°.',
+        fileAccessError: 'Không mở được tệp %s.', noPanoramaError: 'Chưa có ảnh cho cảnh này.',
+        malformedURLError: 'Đường dẫn ảnh không hợp lệ.', unknownError: 'Lỗi không xác định.',
+        textureSizeError: 'Ảnh quá lớn so với card đồ hoạ của thiết bị (%s px, tối đa %s px).',
+        iOS8WebGLError: 'iOS 8 không hỗ trợ WebGL đầy đủ, hãy cập nhật trình duyệt.'
+      }
+    },
+    scenes: scenes
+  });
+  window.tourViewer = viewer; // để nhúng/gỡ lỗi từ bên ngoài
+
+  /* ---------- sân khấu 3D ---------- */
+  var stage = null;
+  try {
+    stage = window.Stage3D($('stage3d'), T.model, {
+      makeHotspot: function (kind, to) {
+        var s = byId[to];
+        var hs = kind === 'room' ? { kind: 'room', to: to, label: s.title, sub: m2(s.area) } : { kind: 'door', to: to, label: s.title };
+        var div = h('div', { class: 'hs hs-' + kind });
+        var args = { hs: hs, scene: current };
+        renderHotspot(div, args);
+        div.addEventListener('click', function (e) { onHotspot(e, args); });
+        return div;
+      },
+      onPick: function (id) { stopAutoplay(); go(id); },
+      onInteract: function () { userTouched(); }
+    });
+    window.tourStage = stage;
+  } catch (e) {
+    stage = null;
+  }
+  function showStage(on) {
+    $('app').classList.toggle('in3d', on);
+    if (stage) { stage.show(on); placeStage(); }
+  }
+  function placeStage() {
+    if (!stage) return;
+    var c = freeCenter();
+    stage.setOffset(c.dx, c.dy);
+  }
+  window.addEventListener('resize', placeStage);
+
+  /* ---------- điều hướng ---------- */
+  function fly(pitch, yaw, hfov, done) {
+    var fin = once(done);
+    viewer.lookAt(pitch, yaw, hfov, FLY, fin);
+    setTimeout(fin, FLY + 250);
+  }
   function load(to, view) {
     view = view || {};
-    if (spot) spot.classList.remove('on');
     arriveAt = view.arrive ? to : null;
     pending = to;
-    if (pannId(to) === PLAN) preparePlan(to);
     if (view.pitch === undefined) view = Object.assign(viewFor(to), view);
-    viewer.loadScene(pannId(to), view.pitch, view.yaw, view.hfov);
+    viewer.loadScene(to, view.pitch, view.yaw, view.hfov);
   }
   function commit(id) {
     current = id;
@@ -236,53 +245,55 @@
       try { location.hash = id; } catch (e) { /* bỏ qua */ }
     }
   }
-  // đổi phòng ngay trên cảnh PLAN đang mở
-  function switchPlan(to) {
-    var tp = byId[to].pannellum, tv = viewFor(to);
-    switching = true;
-    viewer.getConfig().hotSpots.slice().forEach(function (o) { viewer.removeHotSpot(o.id); });
-    relaxToFullPlan();
-    fly(tv.pitch, tv.yaw, tv.hfov, function () {
-      viewer.setHfovBounds([tp.minHfov, tp.maxHfov]);
-      viewer.setYawBounds([tp.minYaw, tp.maxYaw]);
-      viewer.setPitchBounds([tp.minPitch, tp.maxPitch]);
-      hsObjects(to).forEach(function (o) { viewer.addHotSpot(o); });
-      switching = false;
-      commit(to);
-      busy = false;
-      afterArrive();
-    });
+  function arrived() { busy = false; afterArrive(); }
+  function into3d(to) {
+    commit(to);
+    stage.go('can-ho', { instant: true });
+    showStage(true);
+    if (to === 'can-ho') setTimeout(arrived, 650);
+    else setTimeout(function () { stage.go(to).then(arrived); }, 350);
   }
   function go(to, opt) {
     opt = opt || {};
     if (!byId[to] || to === current) return;
     if (busy) return;
     var cur = byId[current], tgt = byId[to];
+    if (is3d(to) && !stage) { toast('Thiết bị này không hiển thị được mô hình 3D (cần WebGL).'); return; }
     busy = true;
     closeTips();
     stopRotate();
     closeDrawers();
-    var via = opt.via && opt.via.to === to ? opt.via : linkToward(current, to);
+    if (is3d(to)) {
+      if (is3d(current)) { commit(to); stage.go(to).then(arrived); return; }
+      var via3 = opt.via && opt.via.to === to ? opt.via : linkToward(current, to);
+      if (via3) fly(via3.pitch, via3.yaw, Math.max(viewer.getHfov() / 3.2, cur.pannellum.minHfov || 10), function () { into3d(to); });
+      else into3d(to);
+      return;
+    }
     var tp = tgt.pannellum;
-    if (pannId(current) === PLAN && pannId(to) === PLAN) {
-      switchPlan(to);
-    } else if (via) {
-      var zoom = Math.max(viewer.getHfov() / 3.2, cur.pannellum.minHfov || 10);
-      fly(via.pitch, via.yaw, zoom, function () { load(to); });
-    } else {
-      var back = linkToward(to, current);
+    var back = linkToward(to, current);
+    if (is3d(current)) {
+      showStage(false);
       if (back && ancestors(current).indexOf(to) !== -1) {
-        // lên cấp: mở cảnh cha ở vị trí điểm nóng rồi lùi ra toàn cảnh
         load(to, { pitch: back.pitch, yaw: back.yaw, hfov: Math.max(tp.hfov / 3.2, tp.minHfov || 10), arrive: true });
-      } else {
-        load(to);
-      }
+      } else load(to);
+      return;
+    }
+    var via = opt.via && opt.via.to === to ? opt.via : linkToward(current, to);
+    if (via) {
+      fly(via.pitch, via.yaw, Math.max(viewer.getHfov() / 3.2, cur.pannellum.minHfov || 10), function () { load(to); });
+    } else if (back && ancestors(current).indexOf(to) !== -1) {
+      // lên cấp: mở cảnh cha ở vị trí điểm nóng rồi lùi ra toàn cảnh
+      load(to, { pitch: back.pitch, yaw: back.yaw, hfov: Math.max(tp.hfov / 3.2, tp.minHfov || 10), arrive: true });
+    } else {
+      load(to);
     }
   }
   function goUp() { if (parentOf[current]) { stopAutoplay(); go(parentOf[current]); } }
 
   viewer.on('scenechange', function () { if (pending) { commit(pending); pending = null; } });
   viewer.on('load', function () {
+    if (is3d(current)) return;
     busy = false;
     if (arriveAt === current) {
       arriveAt = null;
@@ -304,7 +315,6 @@
   current = first;
 
   /* ---------- giao diện ---------- */
-
   function updateUI() {
     var s = byId[current];
     renderCrumbs(s);
@@ -312,19 +322,23 @@
     Array.prototype.forEach.call(document.querySelectorAll('.thumb'), function (b) {
       var on = b.dataset.scene === current;
       b.setAttribute('aria-current', on ? 'true' : 'false');
-      if (on && b.scrollIntoView) {
+      if (on) {
         var sc = $('strip-scroll'), r = b.getBoundingClientRect(), rs = sc.getBoundingClientRect();
         if (r.left < rs.left || r.right > rs.right) sc.scrollBy({ left: r.left - rs.left - rs.width / 2 + r.width / 2, behavior: 'smooth' });
       }
     });
-    var showMap = s.level >= 3;
-    $('minimap').hidden = !showMap;
+    // trên điện thoại, toàn cảnh 3D đã là mặt bằng nên ẩn bản đồ nhỏ cho đỡ che
+    $('minimap').hidden = s.level < 3 || (s.id === 'can-ho' && innerWidth <= 760);
     Array.prototype.forEach.call(document.querySelectorAll('.mm-room'), function (r) {
       r.classList.toggle('active', r.dataset.scene === current);
     });
     var pin = $('mm-pin');
-    if (s.room) { pin.setAttribute('cx', s.pin[0]); pin.setAttribute('cy', s.pin[1]); pin.style.display = ''; }
-    else pin.style.display = 'none';
+    if (pin) {
+      if (s.room) { pin.setAttribute('cx', s.eyePct[0]); pin.setAttribute('cy', s.eyePct[1]); pin.style.display = ''; }
+      else pin.style.display = 'none';
+    }
+    if (tools.gyro) tools.gyro.hidden = is3d(current);
+    if (is3d(current)) requestAnimationFrame(placeStage);
     document.title = s.title + ' · ' + T.unit.code + ' Sky9';
   }
 
@@ -355,20 +369,19 @@
     ]));
     card.appendChild(h('h1', { text: s.title }));
     var meta = h('div', { class: 'card-meta' });
-    if (s.room) {
-      meta.appendChild(h('span', { class: 'chip area', text: m2(s.area) }));
-      meta.appendChild(s.mode === 'pano'
-        ? h('span', { class: 'chip real', text: 'Ảnh 360° thực tế' })
-        : h('span', { class: 'chip plan', text: 'Phối cảnh mặt bằng' }));
-    } else if (s.id === 'can-ho') {
+    if (s.room) meta.appendChild(h('span', { class: 'chip area', text: m2(s.area) }));
+    if (s.id === 'can-ho') {
       meta.appendChild(h('span', { class: 'chip area', text: m2(T.unit.areaCenterLine) }));
       meta.appendChild(h('span', { class: 'chip', text: T.unit.bedrooms + ' PN · ' + T.unit.bathrooms + ' WC' }));
-      meta.appendChild(h('span', { class: 'chip', text: T.unit.type }));
     }
+    if (s.mode === 'pano') meta.appendChild(h('span', { class: 'chip real', text: 'Ảnh 360° thực tế' }));
+    if (s.mode === '3d') meta.appendChild(h('span', { class: 'chip model', html: icon('cube') + 'Mô hình 3D' }));
     if (meta.childNodes.length) card.appendChild(meta);
     if (s.lead) card.appendChild(h('p', { text: s.lead }));
-    if (s.room && s.mode !== 'pano') {
-      card.appendChild(h('p', { class: 'note', text: 'Ảnh 360° chụp thực tế của phòng sẽ thay vào đây khi ghép xong từ video quay căn hộ.' }));
+    if (s.mode === '3d') {
+      card.appendChild(h('p', { class: 'note', text: s.room
+        ? 'Kéo để nhìn quanh 360°, bấm mũi tên ở cửa để sang phòng khác. Mô hình dựng từ bản vẽ mặt bằng, trần cao giả định ' + String(T.model.wallHeight).replace('.', ',') + ' m.'
+        : 'Kéo để xoay 360°, cuộn hoặc chụm để phóng to. Bấm tên phòng hoặc sàn phòng để vào trong.' }));
     }
     var actions = h('div', { class: 'card-actions' });
     var next = s.hotspots.filter(function (x) { return x.kind === 'link'; })[0];
@@ -388,8 +401,9 @@
       });
     }
     if (parentOf[s.id]) {
-      actions.appendChild(h('button', { class: 'btn', html: icon('up') + '<span>' + byId[parentOf[s.id]].crumb + '</span>',
-        'aria-label': 'Lên cấp: ' + byId[parentOf[s.id]].title, onclick: goUp }));
+      var up = byId[parentOf[s.id]];
+      actions.appendChild(h('button', { class: 'btn', html: icon('up') + '<span>' + (up.id === 'can-ho' ? 'Toàn cảnh 3D' : up.crumb) + '</span>',
+        'aria-label': 'Lên cấp: ' + up.title, onclick: goUp }));
     }
     card.appendChild(actions);
   }
@@ -422,58 +436,22 @@
     tg.addEventListener('click', function () { setStrip($('strip').classList.contains('collapsed')); });
     setStrip(true);
   }
-
-  /* làm tối phần ngoài phòng đang đứng (khi xem phòng trên mặt bằng) */
-  var spot, spotHoles;
-  function buildSpot() {
-    var NS = 'http://www.w3.org/2000/svg';
-    spot = document.createElementNS(NS, 'svg');
-    spot.setAttribute('class', 'spot');
-    spot.setAttribute('aria-hidden', 'true');
-    spot.innerHTML = '<defs><mask id="spot-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%">' +
-      '<rect width="100%" height="100%" fill="#fff"/><g id="spot-holes" fill="#000"></g></mask></defs>' +
-      '<rect class="spot-dim" width="100%" height="100%" mask="url(#spot-mask)"/>';
-    var rc = document.querySelector('#pano .pnlm-render-container') || $('pano');
-    rc.appendChild(spot);
-    spotHoles = spot.querySelector('#spot-holes');
-  }
-  // chiếu điểm (x, y) của ảnh mặt bằng gốc lên màn hình theo hướng nhìn hiện tại
-  function camera() {
-    var c = viewer.getRenderer().getCanvas();
-    var W = c.clientWidth || c.width, H = c.clientHeight || c.height;
-    var th = Math.tan(viewer.getHfov() * Math.PI / 360), tv = th * H / W;
-    var Y = viewer.getYaw() * Math.PI / 180, Pp = viewer.getPitch() * Math.PI / 180;
-    return {
-      W: W, H: H, th: th, tv: tv,
-      f: [Math.sin(Y) * Math.cos(Pp), Math.sin(Pp), Math.cos(Y) * Math.cos(Pp)],
-      r: [Math.cos(Y), 0, -Math.sin(Y)],
-      u: [-Math.sin(Y) * Math.sin(Pp), Math.cos(Pp), -Math.cos(Y) * Math.sin(Pp)]
-    };
-  }
-  function planToScreen(cam, x, y) {
-    var P = T.plan;
-    var pu = ((x - P.crop[0]) * P.scale / P.W - 0.5) * 2 * P.tx;
-    var pv = (0.5 - (y - P.crop[1]) * P.scale / P.H) * 2 * P.ty;
-    var d = [pu, pv, 1];
-    var dot = function (a) { return d[0] * a[0] + d[1] * a[1] + d[2] * a[2]; };
-    var z = Math.max(dot(cam.f), 1e-3);
-    return [cam.W / 2 * (1 + dot(cam.r) / z / cam.th), cam.H / 2 * (1 - dot(cam.u) / z / cam.tv)];
-  }
-  function drawSpot(s) {
-    if (!spot) return;
-    if (!(s.room && s.mode === 'plan')) { spot.classList.remove('on'); return; }
-    var cam = camera();
-    spotHoles.innerHTML = s.shapePx.map(function (r) {
-      return '<polygon points="' + [[r[0], r[1]], [r[2], r[1]], [r[2], r[3]], [r[0], r[3]]].map(function (q) {
-        var p = planToScreen(cam, q[0], q[1]);
-        return p[0].toFixed(1) + ',' + p[1].toFixed(1);
-      }).join(' ') + '"/>';
-    }).join('');
-    spot.classList.add('on');
+  // ảnh thu nhỏ của các cảnh 3D chụp từ chính mô hình
+  function shootThumbs() {
+    if (!stage) return;
+    stage.textureReady(function () {
+      setTimeout(function () {
+        T.scenes.filter(function (s) { return s.mode === '3d'; }).forEach(function (s) {
+          var url = stage.thumb(s.id, 320, 200);
+          var img = document.querySelector('.thumb[data-scene="' + s.id + '"] img');
+          if (url && img) img.src = url;
+        });
+      }, 300);
+    });
   }
 
   /* bản đồ nhỏ */
-  var mmView, mmCone;
+  var mmCone;
   function buildMinimap() {
     $('mm-img').src = T.minimap;
     var svg = $('mm-svg'), NS = 'http://www.w3.org/2000/svg';
@@ -497,9 +475,6 @@
       g.addEventListener('keydown', function (e) { if (e.key === 'Enter') { stopAutoplay(); go(s.id); } });
       svg.appendChild(g);
     });
-    mmView = document.createElementNS(NS, 'polygon');
-    mmView.setAttribute('class', 'mm-view');
-    svg.appendChild(mmView);
     mmCone = document.createElementNS(NS, 'path');
     mmCone.setAttribute('class', 'mm-cone');
     svg.appendChild(mmCone);
@@ -511,50 +486,25 @@
     svg.appendChild(pin);
     requestAnimationFrame(trackView);
   }
-  // khung nhìn hiện tại vẽ lên bản đồ nhỏ
+  // hướng nhìn hiện tại vẽ lên bản đồ nhỏ
   var lastKey = '';
   function trackView() {
     requestAnimationFrame(trackView);
-    if (!current || !viewer.isLoaded()) return;
-    var s = byId[current], yaw = viewer.getYaw(), pitch = viewer.getPitch(), hf = viewer.getHfov();
-    var c0 = viewer.getRenderer().getCanvas();
-    var key = current + yaw.toFixed(2) + pitch.toFixed(2) + hf.toFixed(2) + c0.width + 'x' + c0.height + (switching ? 's' : '');
+    if (!current || $('minimap').hidden) return;
+    var s = byId[current], yaw = null, hf = 0, north = 0;
+    if (s.room && s.mode === '3d' && stage && stage.mode() === 'fp') { yaw = stage.yaw(); hf = 70; }
+    else if (s.room && s.mode === 'pano' && viewer.isLoaded()) { yaw = viewer.getYaw(); hf = viewer.getHfov(); north = s.pannellum.northOffset || 0; }
+    var key = current + (yaw === null ? 'x' : yaw.toFixed(1) + hf.toFixed(1));
     if (key === lastKey) return;
     lastKey = key;
-    if (switching) spot && spot.classList.remove('on'); else drawSpot(s);
-    if ($('minimap').hidden) return;
-    var P = T.plan, mc = P.minimapCrop;
-    if (s.mode === 'plan') {
-      // tia qua 4 góc màn hình cắt mặt phẳng ảnh z=1 -> toạ độ trên mặt bằng
-      var c = viewer.getRenderer().getCanvas(), aspect = c.width / c.height;
-      var th = Math.tan(hf * Math.PI / 360), tv = th / aspect;
-      var Y = yaw * Math.PI / 180, Pp = pitch * Math.PI / 180;
-      var f = [Math.sin(Y) * Math.cos(Pp), Math.sin(Pp), Math.cos(Y) * Math.cos(Pp)];
-      var r = [Math.cos(Y), 0, -Math.sin(Y)];
-      var u = [-Math.sin(Y) * Math.sin(Pp), Math.cos(Pp), -Math.cos(Y) * Math.sin(Pp)];
-      var pts = [[-1, 1], [1, 1], [1, -1], [-1, -1]].map(function (k) {
-        var d = [0, 1, 2].map(function (i) { return f[i] + k[0] * th * r[i] + k[1] * tv * u[i]; });
-        var z = Math.max(d[2], 1e-3), pu = d[0] / z, pv = d[1] / z;
-        var x0 = P.crop[0] + (pu / (2 * P.tx) + 0.5) * P.W / P.scale;
-        var y0 = P.crop[1] + (0.5 - pv / (2 * P.ty)) * P.H / P.scale;
-        return ((x0 - mc[0]) / (mc[2] - mc[0]) * 100).toFixed(2) + ',' + ((y0 - mc[1]) / (mc[3] - mc[1]) * 100).toFixed(2);
-      });
-      mmView.setAttribute('points', pts.join(' '));
-      mmView.style.display = '';
-      mmCone.style.display = 'none';
-    } else if (s.mode === 'pano' && s.room) {
-      var north = s.pannellum.northOffset || 0;
-      var dir = (yaw - north) * Math.PI / 180, half = hf * Math.PI / 360, r = 9;
-      var ar = (mc[2] - mc[0]) / (mc[3] - mc[1]);
-      var cx = s.pin[0], cy = s.pin[1];
-      var ax = cx + r * Math.sin(dir - half), ay = cy - r * ar * Math.cos(dir - half);
-      var bx = cx + r * Math.sin(dir + half), by = cy - r * ar * Math.cos(dir + half);
-      mmCone.setAttribute('d', 'M' + cx + ' ' + cy + 'L' + ax.toFixed(2) + ' ' + ay.toFixed(2) + 'L' + bx.toFixed(2) + ' ' + by.toFixed(2) + 'Z');
-      mmCone.style.display = '';
-      mmView.style.display = 'none';
-    } else {
-      mmView.style.display = mmCone.style.display = 'none';
-    }
+    if (yaw === null) { mmCone.style.display = 'none'; return; }
+    var mc = T.plan.minimapCrop, ar = (mc[2] - mc[0]) / (mc[3] - mc[1]);
+    var dir = (yaw - north) * Math.PI / 180, half = hf * Math.PI / 360, r = 9;
+    var cx = s.eyePct[0], cy = s.eyePct[1];
+    var ax = cx + r * Math.sin(dir - half), ay = cy - r * ar * Math.cos(dir - half);
+    var bx = cx + r * Math.sin(dir + half), by = cy - r * ar * Math.cos(dir + half);
+    mmCone.setAttribute('d', 'M' + cx + ' ' + cy + 'L' + ax.toFixed(2) + ' ' + ay.toFixed(2) + 'L' + bx.toFixed(2) + ' ' + by.toFixed(2) + 'Z');
+    mmCone.style.display = '';
   }
 
   /* thanh công cụ */
@@ -573,10 +523,14 @@
     if (pressed !== undefined) b.setAttribute('aria-pressed', pressed ? 'true' : 'false');
   }
   function sep() { $('toolbar').appendChild(h('div', { class: 'tool-sep', 'aria-hidden': 'true' })); }
+  function zoomBy(f) {
+    if (is3d(current)) { if (stage) stage.zoom(f); }
+    else viewer.setHfov(viewer.getHfov() * f, 300);
+  }
 
   function buildToolbar() {
-    addTool('in', 'plus', 'Phóng to', function () { viewer.setHfov(viewer.getHfov() / 1.4, 300); });
-    addTool('out', 'minus', 'Thu nhỏ', function () { viewer.setHfov(viewer.getHfov() * 1.4, 300); });
+    addTool('in', 'plus', 'Phóng to', function () { zoomBy(1 / 1.3); });
+    addTool('out', 'minus', 'Thu nhỏ', function () { zoomBy(1.3); });
     sep();
     addTool('rotate', 'rotate', 'Tự xoay', function () { rotating ? stopRotate() : startRotate(); }, false);
     addTool('play', 'play', 'Tham quan tự động', function () { autoplay ? stopAutoplay() : startAutoplay(); }, false);
@@ -595,13 +549,14 @@
 
   function startRotate() {
     rotating = true;
-    viewer.startAutoRotate(-3);
+    if (is3d(current)) { if (stage) stage.setAuto(1); } else viewer.startAutoRotate(-3);
     setTool('rotate', 'rotate', 'Dừng tự xoay', true);
   }
   function stopRotate() {
     if (!rotating) return;
     rotating = false;
     viewer.stopAutoRotate();
+    if (stage) stage.setAuto(0);
     setTool('rotate', 'rotate', 'Tự xoay', false);
   }
   function startAutoplay() {
@@ -641,7 +596,7 @@
   function onFsChange() {
     var on = !!(document.fullscreenElement || document.webkitFullscreenElement);
     setTool('full', on ? 'shrink' : 'expand', on ? 'Thoát toàn màn hình' : 'Toàn màn hình');
-    setTimeout(function () { viewer.resize(); }, 120);
+    setTimeout(function () { viewer.resize(); if (stage) stage.resize(); }, 120);
   }
   document.addEventListener('fullscreenchange', onFsChange);
   document.addEventListener('webkitfullscreenchange', onFsChange);
@@ -691,7 +646,7 @@
   function buildInfo() {
     var u = T.unit, d = $('drawer-info');
     d.appendChild(drawerHead('Căn hộ ' + u.code, 'drawer-info'));
-    d.appendChild(h('p', { text: u.type + ' · ' + u.bedrooms + ' phòng ngủ · ' + u.bathrooms + ' phòng tắm' }));
+    d.appendChild(h('p', { text: u.type + ' · ' + u.bedrooms + ' phòng ngủ · ' + u.bathrooms + ' phòng tắm · tầng 11 Block CT1' }));
     d.appendChild(h('div', { class: 'facts' }, [
       h('div', { class: 'fact' }, [h('b', { text: u.areaCenterLine.toFixed(2).replace('.', ',') }), h('span', { text: 'm² tim tường' })]),
       h('div', { class: 'fact' }, [h('b', { text: u.areaInternal.toFixed(2).replace('.', ',') }), h('span', { text: 'm² thông thuỷ' })])
@@ -708,7 +663,8 @@
     d.appendChild(h('table', { class: 'area-table' }, [tb]));
     d.appendChild(h('h3', { text: 'Vị trí các căn loại E trên tầng' }));
     d.appendChild(h('img', { class: 'keyplan', src: T.keyPlan, alt: 'Sơ đồ tầng, các căn loại E tô màu xanh' }));
-    d.appendChild(h('p', { class: 'credits', text: u.note + ' Bản đồ, phối cảnh và mặt bằng là hình minh hoạ từ tài liệu dự án. Trình xem 360°: Pannellum (giấy phép MIT).' }));
+    d.appendChild(h('p', { class: 'credits', text: u.note + ' Mô hình 3D dựng từ bản vẽ mặt bằng (kích thước 9,8 × 8 m theo bản vẽ, trần cao giả định ' +
+      String(T.model.wallHeight).replace('.', ',') + ' m); bản đồ và phối cảnh là hình minh hoạ từ tài liệu dự án. Trình xem: Pannellum, three.js (giấy phép MIT).' }));
   }
   function buildVideo() {
     var v = T.video, d = $('drawer-video');
@@ -751,8 +707,13 @@
   $('brand-code').textContent = T.unit.code;
   buildToolbar();
   buildMinimap();
-  buildSpot();
   buildInfo();
   buildVideo();
   commit(first);
+  if (is3d(first) && stage) {
+    stage.go('can-ho', { instant: true });
+    if (first !== 'can-ho') stage.go(first, { instant: true });
+    showStage(true);
+  }
+  shootThumbs();
 })();
