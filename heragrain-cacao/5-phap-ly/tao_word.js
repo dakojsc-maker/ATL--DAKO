@@ -2,7 +2,7 @@
 const fs = require('fs');
 const D = require('docx');
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, ShadingType, AlignmentType,
-  HeadingLevel, LevelFormat, BorderStyle, Footer, Header, PageNumber, PageBreak, VerticalAlign, TabStopType } = D;
+  HeadingLevel, LevelFormat, BorderStyle, Footer, Header, PageNumber, PageBreak, VerticalAlign, TabStopType, ImageRun } = D;
 
 const OUT = 'Heragrain-Cacao_Ho-so-phap-ly-van-ban-bieu-mau.docx';
 const FONT = 'Times New Roman';
@@ -85,16 +85,43 @@ const SIGN = (who) => [new Paragraph({ alignment: AlignmentType.RIGHT, spacing: 
   new Paragraph({ alignment: AlignmentType.RIGHT, spacing: { after: 0 }, children: runs(who, { bold: true }) }),
   new Paragraph({ alignment: AlignmentType.RIGHT, spacing: { after: 400 }, children: runs('(Ký, ghi rõ họ tên, đóng dấu)', { italics: true }) })];
 const DO = (t) => P(t, { italics: true, color: '6B7A72', size: 21 });
+/* ảnh: concept Heragrain Foods do HTX cung cấp (thư mục anh/) */
+const IMG = (file, w, h) => new ImageRun({ type: file.endsWith('.png') ? 'png' : 'jpg', data: fs.readFileSync('anh/' + file),
+  transformation: { width: w, height: h }, altText: { title: file, description: 'Ảnh concept Heragrain Foods', name: file } });
+const PIMG = (file, w, h, o = {}) => new Paragraph({ alignment: o.align || AlignmentType.CENTER, spacing: { before: o.before ?? 60, after: o.after ?? 60 },
+  keepNext: o.keepNext, children: [IMG(file, w, h)] });
+/* bảng 6 sản phẩm: cột đầu là ảnh */
+function TSP(rows) {
+  const widths = [1.05, 1.6, 1.3, 2.75, 0.6];
+  const sum = widths.reduce((a, b) => a + b, 0);
+  const cw = widths.map((w) => Math.floor(w / sum * W));
+  cw[cw.length - 1] += W - cw.reduce((a, b) => a + b, 0);
+  const head = ['Ảnh concept', 'Sản phẩm, nhóm, giai đoạn', 'Ngành quản lý (cách hiểu)', 'Hồ sơ, tiêu chuẩn chính', 'Mã HS'];
+  const cell = (ci, children, ri) => new TableCell({ width: { size: cw[ci], type: WidthType.DXA }, borders, verticalAlign: VerticalAlign.CENTER,
+    margins: { top: 50, bottom: 50, left: 80, right: 80 },
+    shading: ri === 0 ? { fill: XANH, type: ShadingType.CLEAR, color: 'auto' } : (ri % 2 === 0 ? { fill: XAM, type: ShadingType.CLEAR, color: 'auto' } : undefined),
+    children });
+  const txt = (t, ri, ci) => String(t).split('\n').map((line) => new Paragraph({ children: runs(line, { size: 18, bold: ri === 0, color: ri === 0 ? 'FFFFFF' : undefined }),
+    alignment: ri === 0 || ci === 4 ? AlignmentType.CENTER : AlignmentType.LEFT, spacing: { after: 20, line: 250 } }));
+  return new Table({ width: { size: W, type: WidthType.DXA }, columnWidths: cw, rows: [
+    new TableRow({ tableHeader: true, children: head.map((h, ci) => cell(ci, txt(h, 0, ci), 0)) }),
+    ...rows.map((r, i) => new TableRow({ cantSplit: true, children: [
+      cell(0, [new Paragraph({ alignment: AlignmentType.CENTER, children: [IMG(r[0], 80, 80)] })], i + 1),
+      ...r.slice(1).map((t, k) => cell(k + 1, txt(t, i + 1, k + 1), i + 1))] }))] });
+}
 
 /* ===================================================================== NỘI DUNG */
 const C = [];
 const add = (...xs) => xs.forEach((x) => (Array.isArray(x) ? C.push(...x) : C.push(x)));
 
 /* ---------- Trang bìa ---------- */
-add(new Paragraph({ spacing: { before: 1600, after: 120 }, alignment: AlignmentType.LEFT, children: [new TextRun({ text: 'HỢP TÁC XÃ HERAGRAIN · ĐẮK LẮK', font: FONT, size: 24, bold: true, color: VANG })] }),
+add(PIMG('logo-heragrain-foods.png', 190, 69, { align: AlignmentType.LEFT, before: 400, after: 240 }),
+  new Paragraph({ spacing: { before: 200, after: 120 }, alignment: AlignmentType.LEFT, children: [new TextRun({ text: 'HỢP TÁC XÃ HERAGRAIN · ĐẮK LẮK', font: FONT, size: 24, bold: true, color: VANG })] }),
   new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: 'HỒ SƠ PHÁP LÝ', font: FONT, size: 56, bold: true, color: XANH })] }),
   new Paragraph({ spacing: { after: 240 }, children: [new TextRun({ text: 'DÒNG SẢN PHẨM CA CAO', font: FONT, size: 44, bold: true, color: NAU })] }),
-  P('Văn bản pháp luật, thủ tục, nơi đăng ký, cơ quan cấp và biểu mẫu soạn sẵn để Heragrain đăng ký đầy đủ cho **ca cao thô** (hạt rang, nibs) và **chế biến sâu** (socola, bột ca cao, bơ ca cao, socola mix vị).', { size: 28, align: AlignmentType.LEFT, after: 400 }),
+  P('Văn bản pháp luật, thủ tục, nơi đăng ký, cơ quan cấp và biểu mẫu soạn sẵn để Heragrain đăng ký đầy đủ cho **ca cao sơ chế** (hạt lên men phơi khô, hạt rang, nibs) và **chế biến sâu** (socola, bột ca cao, bơ ca cao, socola mix vị).', { size: 28, align: AlignmentType.LEFT, after: 200 }),
+  PIMG('dai-6-san-pham.jpg', 602, 97, { after: 40 }),
+  DO('Sáu sản phẩm ca cao Heragrain Foods (ảnh concept do HTX cung cấp, chưa phải ảnh chụp sản phẩm).'),
   T([1, 2.6], [['Cập nhật', 'Đến ngày 04/11/2026 (theo các văn bản tra cứu được tại thời điểm soạn)'],
     ['Phạm vi', 'Sản xuất, chế biến, kinh doanh trong nước và xuất khẩu (EU, Trung Quốc) sản phẩm ca cao tại xưởng cũ của HTX, tỉnh Đắk Lắk'],
     ['Đi kèm', 'Bộ slide concept sản phẩm (1-concept-san-pham), bộ slide tổng quan bộ máy, quy trình, chứng nhận, nhân sự (2-tong-quan-bo-may), sơ đồ 3D (3-so-do-3d), tham quan 360° (4-tham-quan-360)'],
@@ -124,6 +151,17 @@ add(H1('1. Bối cảnh pháp lý cần biết trước (2025–2026)'),
     'Hạt ca cao, nibs, khối ca cao, bột ca cao, bơ ca cao: theo danh mục phân công kèm Nghị định 15/2018, nhóm “ca cao” thuộc ngành **Nông nghiệp và Môi trường** (chưa đối chiếu được toàn văn phụ lục; ở Đắk Lắk là Chi cục Quản lý chất lượng nông lâm sản và thủy sản, Sở NN&MT).',
     'Socola (kẹo sô-cô-la): thuộc nhóm **bánh, mứt, kẹo** do ngành **Công Thương** quản lý (Sở Công Thương Đắk Lắk).',
     'Cơ sở trực tiếp sản xuất sản phẩm của từ hai ngành trở lên: Điều 36 Nghị định 15/2018 là điều về nguyên tắc phân công, nhưng tư vấn **chưa đối chiếu được khoản quy định cụ thể** cho trường hợp này (khoản 9 Điều 36 chỉ nói về cơ sở kinh doanh, không sản xuất). Vì vậy cần hỏi bằng văn bản cả Sở NN&MT và Sở Công Thương để chốt cơ quan cấp Giấy chứng nhận cho xưởng ca cao trước khi làm socola (GĐ2).']),
+  GAP(),
+  H2('Sáu sản phẩm ca cao theo giai đoạn chế biến'),
+  P('Danh mục sản phẩm của HTX chia hai nhóm: **I. Sơ chế, nguyên liệu đầu vào** (hạt lên men phơi khô, hạt rang, nhân ca cao) và **II. Chế biến sâu** (socola, bột ca cao, bơ ca cao). Mỗi sản phẩm kéo theo một bộ hồ sơ khác nhau:'),
+  TSP([
+    ['sp1_hat_len_men.jpg', '**1. Hạt ca cao lên men, phơi khô**\nNhóm I · GĐ1\nBán cho nhà máy chế biến', 'Nông nghiệp và Môi trường', 'Nằm trong phạm vi GCN ATTP của xưởng (sơ chế). Là nguyên liệu nên thường **không thuộc diện tự công bố** (Điều 4 NĐ 15/2018 áp cho thực phẩm đã qua chế biến bao gói sẵn); hỏi Chi cục nếu bán lẻ có bao gói, nhãn. Chất lượng theo hợp đồng, đối chiếu TCVN 7519:2020; kiểm dịch thực vật khi xuất khẩu nếu nước nhập yêu cầu.', '1801'],
+    ['sp2_hat_rang.jpg', '**2. Hạt ca cao rang**\nNhóm I · GĐ1\nChuẩn bị tách vỏ, bán theo đơn', 'Nông nghiệp và Môi trường', 'GCN ATTP; **tự công bố** và kiểm nghiệm khi bán bao gói sẵn; nhãn theo NĐ 37/2026; hồ sơ CCP rang (BM-07).', '1801'],
+    ['sp3_nibs.jpg', '**3. Nhân ca cao (nibs)**\nNhóm I · GĐ1\nBán cho nhà máy socola, bánh kẹo', 'Nông nghiệp và Môi trường', 'GCN ATTP; tiêu chuẩn cơ sở nibs; **tự công bố**, kiểm nghiệm; nhãn; mã vạch GS1.', '1801'],
+    ['sp4_socola.jpg', '**4. Socola**\nNhóm II · GĐ2\nBán lẻ, quà tặng', 'Công Thương (bánh, mứt, kẹo)', 'Chốt đầu mối cấp GCN ATTP với Sở Công Thương, Sở NN&MT; **tự công bố**; nhãn ghi % chất khô ca cao; tham chiếu Codex CXS 87-1981.', '1806'],
+    ['sp5_bot.jpg', '**5. Bột ca cao**\nNhóm II · GĐ3\nPha chế, làm bánh', 'Nông nghiệp và Môi trường', '**Tự công bố**, kiểm nghiệm (có cadimi nếu xuất EU); tham chiếu Codex CXS 105-1981; HACCP hoặc ISO 22000 ở GĐ3.', '1805'],
+    ['sp6_bo.jpg', '**6. Bơ ca cao**\nNhóm II · GĐ3\nSocola, thực phẩm, mỹ phẩm', 'Nông nghiệp và Môi trường', '**Tự công bố**; tham chiếu Codex CXS 86-1981. Bán làm nguyên liệu mỹ phẩm: hồ sơ riêng theo quy định mỹ phẩm.', '1804']]),
+  DO('Ảnh: concept sản phẩm Heragrain Foods do HTX cung cấp (ảnh dựng, chưa phải ảnh chụp). Ngành quản lý là cách hiểu của tư vấn (xem khung trên); mã HS 4 số để tham khảo, xác nhận với hải quan khi khai báo.'),
   PB());
 
 /* ---------- 2. Bảng tổng hợp ---------- */
@@ -138,7 +176,7 @@ add(H1('2. Bảng tổng hợp thủ tục theo giai đoạn'),
     ['5', 'Tự công bố sản phẩm (từng sản phẩm)', 'NĐ 15/2018 Điều 4, 5', 'Đăng tải công khai + nộp 1 bản đến cơ quan do UBND tỉnh Đắk Lắk chỉ định; nhập Hệ thống thông tin ATTP', 'Được sản xuất, bán ngay sau khi tự công bố', '1–4'],
     ['6', 'Nhãn hàng hóa', 'NĐ 37/2026/NĐ-CP; Luật CLSPHH (sửa đổi 2025)', 'Tự thực hiện, không đăng ký', 'Trước khi bán', '1–4'],
     ['7', 'Mã số mã vạch GS1 (tiền tố 893)', 'NĐ 37/2026/NĐ-CP (mẫu đơn Phụ lục VII)', 'GS1 Việt Nam, nộp trực tuyến', 'Phí cấp, phí duy trì hằng năm', '1'],
-    ['8', 'Đăng ký nhãn hiệu “Heragrain” và logo (nhóm 29, 30, 31; thêm 35)', 'Luật SHTT (sửa đổi 131/2025/QH15); NĐ 65/2023/NĐ-CP', 'Cục Sở hữu trí tuệ (Bộ KH&CN), nộp trực tuyến', 'Thẩm định nội dung 5 tháng; văn bằng 10 năm, gia hạn được', '1'],
+    ['8', 'Đăng ký nhãn hiệu “Heragrain Foods” và logo (nhóm 29, 30, 31; thêm 35)', 'Luật SHTT (sửa đổi 131/2025/QH15); NĐ 65/2023/NĐ-CP', 'Cục Sở hữu trí tuệ (Bộ KH&CN), nộp trực tuyến', 'Thẩm định nội dung 5 tháng; văn bằng 10 năm, gia hạn được', '1'],
     ['9', 'Đăng ký môi trường', 'Luật BVMT 2020; NĐ 08/2022 (sửa đổi NĐ 05/2025); NĐ 131/2025', 'UBND cấp xã', 'Trước khi vận hành', '1'],
     ['10', 'Phòng cháy chữa cháy', 'Luật PCCC và CNCH 2024; NĐ 105/2025/NĐ-CP', 'Công an cấp xã / Phòng Cảnh sát PCCC và CNCH, Công an tỉnh', 'Hồ sơ quản lý; phương án nếu thuộc danh mục', '1'],
     ['11', 'Lao động, ATVSLĐ (nội quy khi có từ 10 lao động, huấn luyện, khám sức khỏe định kỳ, BHXH)', 'Bộ luật Lao động 2019; Luật ATVSLĐ 2015; NĐ 44/2016/NĐ-CP', 'Cơ quan chuyên môn về nội vụ cấp tỉnh (có thể ủy quyền cấp xã) đăng ký nội quy; tự tổ chức huấn luyện; BHXH', 'Theo quy định', '1–2'],
@@ -225,7 +263,7 @@ add(H1('4. Hướng dẫn từng thủ tục'),
     ['Điểm thẩm định với xưởng ca cao', 'Dòng một chiều, tách kho hạt thô với khu sạch; chụp hút, ống khói máy rang; lưới chắn côn trùng (mọt ca cao); kho thành phẩm cách tường, cách sàn; khu rửa tay; hồ sơ CCP rang; kiểm soát dị vật kim loại.']],
     ['Tham khảo: sơ đồ 3D (3-so-do-3d) và tham quan 360° (4-tham-quan-360) kèm theo dùng làm **sơ đồ mặt bằng, mô tả dòng chảy** khi lập bản thuyết minh.']),
   ...TT('4.3. Kiểm nghiệm và tự công bố sản phẩm', [
-    ['Sản phẩm cần tự công bố', 'GĐ1: hạt ca cao rang, nibs ca cao rang (bán trong nước). GĐ2: socola đen 70 %, 80 %, 100 %. GĐ3: bột ca cao, bơ ca cao. GĐ4: socola mix vị, trái cây sấy bọc socola, trà vỏ ca cao. Sản phẩm chỉ dùng cho sản xuất nội bộ hoặc gia công hàng xuất khẩu được miễn (Điều 4 NĐ 15/2018).'],
+    ['Sản phẩm cần tự công bố', 'Hạt ca cao lên men, phơi khô bán cho nhà máy chế biến là nguyên liệu sơ chế, thường không thuộc diện tự công bố (xem bảng 6 sản phẩm ở mục 1). GĐ1: hạt ca cao rang, nibs ca cao rang (bán trong nước). GĐ2: socola đen 70 %, 80 %, 100 %. GĐ3: bột ca cao, bơ ca cao. GĐ4: socola mix vị, trái cây sấy bọc socola, trà vỏ ca cao. Sản phẩm chỉ dùng cho sản xuất nội bộ hoặc gia công hàng xuất khẩu được miễn (Điều 4 NĐ 15/2018).'],
     ['Hồ sơ', '(1) Bản tự công bố sản phẩm (Mẫu số 01 Phụ lục I NĐ 15/2018 – xem BM-01); (2) Phiếu kết quả kiểm nghiệm trong vòng 12 tháng, do phòng kiểm nghiệm được chỉ định hoặc công nhận ISO/IEC 17025, gồm các chỉ tiêu an toàn theo quy chuẩn kỹ thuật hoặc quy định của Bộ Y tế. Tài liệu bằng tiếng Việt (tài liệu tiếng nước ngoài phải dịch, công chứng).'],
     ['Trình tự', 'Tự công bố trên phương tiện thông tin đại chúng, trang thông tin điện tử của HTX hoặc niêm yết tại trụ sở, và trên Hệ thống thông tin dữ liệu về ATTP; đồng thời nộp 01 bản qua bưu điện hoặc trực tiếp đến cơ quan do UBND tỉnh Đắk Lắk chỉ định. **Được sản xuất, kinh doanh ngay** sau khi tự công bố.'],
     ['Chỉ tiêu gợi ý', 'Cảm quan, độ ẩm, chất béo (bơ, bột); vi sinh (tổng vi sinh vật hiếu khí, Coliforms, E. coli, Salmonella, nấm men – nấm mốc); kim loại nặng (chì, cadimi); độc tố vi nấm (aflatoxin, ochratoxin A). Chốt danh mục chỉ tiêu với phòng kiểm nghiệm theo QCVN 8-1, 8-2, 8-3 và thị trường đích (EU: cadimi theo Quy định (EU) 2023/915).'],
@@ -233,18 +271,22 @@ add(H1('4. Hướng dẫn từng thủ tục'),
   ...TT('4.4. Nhãn hàng hóa', [
     ['Căn cứ', 'Nghị định 37/2026/NĐ-CP (thay NĐ 43/2017, 111/2021); nhãn in trước ngày NĐ có hiệu lực được dùng tiếp không quá 2 năm.'],
     ['Nội dung bắt buộc với thực phẩm', 'Thông thường gồm: tên sản phẩm; tên, địa chỉ tổ chức chịu trách nhiệm (HTX Heragrain); xuất xứ; định lượng; ngày sản xuất; hạn sử dụng; thành phần (thành phần định lượng với thành phần nêu trên tên, ví dụ “socola 70 % ca cao”); thông tin cảnh báo (nếu có); hướng dẫn sử dụng, bảo quản. Danh mục bắt buộc chính xác: đối chiếu phụ lục NĐ 37/2026. Khuyến nghị ghi chất gây dị ứng (mắc ca, sữa) và mã lô; với nhãn EU đây là yêu cầu bắt buộc.'],
-    ['Lưu ý ca cao', 'Không ghi “100 % tự nhiên”, “không chất bảo quản” nếu chưa có kết quả kiểm nghiệm chứng minh; tên “socola” chỉ dùng khi đạt hàm lượng chất khô ca cao theo tiêu chuẩn áp dụng; ghi “socola đen 70 %” nghĩa là 70 % chất khô ca cao. Xuất khẩu: nhãn EU theo Quy định (EU) 1169/2011, nhãn Trung Quốc theo GB 7718 và in mã đăng ký GACC (xem BM-09).']]),
+    ['Lưu ý ca cao', 'Không ghi “100 % tự nhiên”, “không chất bảo quản” nếu chưa có kết quả kiểm nghiệm chứng minh; tên “socola” chỉ dùng khi đạt hàm lượng chất khô ca cao theo tiêu chuẩn áp dụng; ghi “socola đen 70 %” nghĩa là 70 % chất khô ca cao. Xuất khẩu: nhãn EU theo Quy định (EU) 1169/2011, nhãn Trung Quốc theo GB 7718 và in mã đăng ký GACC (xem BM-09).'],
+    ['Bao bì concept', 'Mặt trước theo concept (logo, tên sản phẩm, cửa sổ thấy sản phẩm); các nội dung bắt buộc đặt ở mặt sau, mặt bên. Dấu “100% Tự nhiên” trên túi nibs, hộp socola, túi bột, hũ bơ chỉ in khi có căn cứ; với socola có đường, chữ “100%” dễ bị hiểu là 100 % ca cao, nên bỏ hoặc đổi cách ghi.']]),
   ...TT('4.5. Mã số mã vạch', [
     ['Nơi nộp', 'GS1 Việt Nam – nộp trực tuyến tại vnpc.gs1.gov.vn; hồ sơ theo NĐ 37/2026/NĐ-CP (mẫu Phụ lục VII).'],
     ['Hồ sơ', 'Đơn đăng ký sử dụng mã số mã vạch; bản sao Giấy chứng nhận đăng ký HTX; danh mục sản phẩm sử dụng mã GTIN (BM-09 có bảng gợi ý).'],
     ['Chi phí', 'Phí cấp mã doanh nghiệp và phí duy trì hằng năm theo số lượng mã đăng ký; kiểm tra biểu phí hiện hành trước khi nộp.'],
     ['Gợi ý', 'Đăng ký loại mã đủ cho khoảng 20–50 sản phẩm (nibs, 3–4 loại socola, bột, bơ, mix vị, hộp quà, các quy cách bao bì). Mỗi quy cách bao bì một mã GTIN. Kết nối mã GTIN với mã lô và QR truy xuất.']]),
-  ...TT('4.6. Đăng ký nhãn hiệu “Heragrain”', [
+  ...TT('4.6. Đăng ký nhãn hiệu “Heragrain Foods”', [
     ['Nơi nộp', 'Cục Sở hữu trí tuệ (Bộ Khoa học và Công nghệ), nộp trực tuyến qua Cổng dịch vụ công của Cục (ipvietnam.gov.vn).'],
-    ['Hồ sơ', 'Tờ khai đăng ký nhãn hiệu (mẫu tại Phụ lục I NĐ 65/2023/NĐ-CP); mẫu nhãn hiệu (chữ “Heragrain” và logo chữ H hai lá); danh mục hàng hóa theo bảng phân loại Nice; chứng từ nộp phí.'],
+    ['Hồ sơ', 'Tờ khai đăng ký nhãn hiệu (mẫu tại Phụ lục I NĐ 65/2023/NĐ-CP); mẫu nhãn hiệu: logo Heragrain Foods theo concept (chữ “Heragrain”, hai lá, chữ “FOODS”; hình dưới bảng). Chữ “FOODS” mô tả loại hàng nên thường không được bảo hộ riêng; cân nhắc nộp thêm đơn cho chữ “Heragrain”; danh mục hàng hóa theo bảng phân loại Nice; chứng từ nộp phí.'],
     ['Nhóm hàng hóa gợi ý', 'Nhóm 30: ca cao, sản phẩm ca cao, socola, đồ uống từ ca cao, trà (trà vỏ ca cao). Nhóm 29: bơ ca cao dùng cho thực phẩm, trái cây sấy, hạt chế biến. Nhóm 31: hạt ca cao thô, chưa chế biến. Nhóm 35: mua bán, bán lẻ thực phẩm. (Nhóm 3 nếu sau này làm mỹ phẩm từ bơ ca cao.)'],
     ['Thời hạn', 'Thẩm định hình thức khoảng 1 tháng; công bố đơn; thẩm định nội dung 5 tháng theo Luật sửa đổi 2025. Văn bằng hiệu lực 10 năm, gia hạn nhiều lần.'],
     ['Xuất khẩu', 'Trung Quốc xét nguyên tắc nộp đơn trước: nên nộp sớm tại Trung Quốc (trực tiếp hoặc qua Hệ thống Madrid) trước khi chào hàng; EU: nhãn hiệu Liên minh châu Âu (EUIPO) hoặc qua Madrid.']]),
+  PIMG('logo-heragrain-foods.png', 240, 87, { before: 0, keepNext: true }),
+  DO('Logo Heragrain Foods trong bảng concept do HTX cung cấp. Bản nộp đơn dùng file gốc độ phân giải cao, đúng kích thước mẫu nhãn hiệu ghi trong tờ khai; tra cứu trùng, tương tự trước khi in bao bì.'),
+  GAP(),
   ...TT('4.7. Đăng ký môi trường, PCCC, lao động', [
     ['Đăng ký môi trường', 'Nộp UBND cấp xã trước khi vận hành (mẫu đăng ký môi trường kèm NĐ 08/2022 đã sửa đổi). Nội dung chính: công suất (kg hạt/ngày), khí thải máy rang (chụp hút, cyclone, ống khói), bụi vỏ lụa, nước thải vệ sinh, chất thải rắn (vỏ lụa bán làm phân bón, than sinh học). Kiểm tra trường hợp được miễn tại Điều 32 NĐ 08/2022 (đã sửa đổi).'],
     ['PCCC', 'Hỏi Công an cấp xã xưởng có thuộc Phụ lục I NĐ 105/2025 hay không. Dù không thuộc danh mục vẫn cần: bình chữa cháy cạnh máy rang và tủ điện, nội quy, biển báo, lối thoát nạn, huấn luyện; khuyến nghị máy rang điện để không trữ bình gas trong khu dân cư.'],
@@ -480,7 +522,8 @@ add(H1('8. Điểm cần xác nhận với cơ quan có thẩm quyền'),
     ['Phân công ngành quản lý ca cao, socola', 'Suy luận từ nguồn chưa đầy đủ', 'Hỏi bằng văn bản Sở NN&MT, Sở Công Thương'],
     ['Ngưỡng kỹ thuật trong biểu mẫu (độ ẩm, cut test)', 'Thông lệ thương mại, đề xuất', 'Đối chiếu TCVN 7519:2020'],
     ['Thời hạn giải quyết, phí', 'Theo trang tư vấn, trang của cơ quan', 'Hỏi cơ quan tiếp nhận tại thời điểm nộp'],
-    ['Nội dung biểu mẫu BM-04 đến BM-09', 'Mẫu nội bộ do tư vấn soạn', 'Không phải mẫu do cơ quan nhà nước ban hành']], { size: 19 }),
+    ['Nội dung biểu mẫu BM-04 đến BM-09', 'Mẫu nội bộ do tư vấn soạn', 'Không phải mẫu do cơ quan nhà nước ban hành'],
+    ['Ảnh sản phẩm, logo (mục 1, 4.6, bìa)', 'Concept do HTX cung cấp (ảnh dựng)', 'Chưa phải ảnh chụp sản phẩm; lời ghi “100% Tự nhiên” cần căn cứ trước khi in']], { size: 19 }),
   PB());
 
 /* ---------- 9. Nguồn ---------- */

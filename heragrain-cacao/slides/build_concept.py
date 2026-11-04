@@ -4,6 +4,8 @@
     python build_concept.py            ->  ../1-concept-san-pham/Heragrain-Cacao_5-concept-san-pham.pptx
 
 Bao bì là hình minh họa theo concept, vẽ bằng mã (cacao_assets.py + product_assets.py của kho mẫu); ảnh từ Open Images (CC BY 2.0).
+Ảnh 6 sản phẩm, điểm chạm thương hiệu, logo Heragrain Foods: concept HTX cung cấp (anh/concept/), dùng ở slide nhóm sản phẩm,
+nhận diện thương hiệu và thanh điều hướng.
 Tên, quy cách, khách hàng là đề xuất của tư vấn, cần HTX duyệt trước khi in bao bì.
 """
 import json
@@ -15,20 +17,25 @@ sys.path.insert(0, HERE)
 import tpl  # noqa: E402
 
 T, CACAO_PHOTOS = tpl.setup()
+import cacao_assets as CA  # noqa: E402
 import layouts_showcase as L  # noqa: E402
+import pptkit as K  # noqa: E402
 import showcase_build as SB  # noqa: E402
+from pptx.enum.shapes import MSO_SHAPE  # noqa: E402
 
 THEME = 'nongsan'
 CODE, TITLE = 'M07', 'Heragrain Cacao – 5 concept sản phẩm ca cao Đắk Lắk'
 DEFAULT_NAME = 'Heragrain-Cacao_5-concept-san-pham.pptx'
 PHOTOS = json.load(open(os.path.join(T, 'assets', 'images', 'nongsan_photos.json'), encoding='utf-8'))
 PHOTOS.update(CACAO_PHOTOS)
+CC = CA.concept_photos(os.path.join(T, 'assets', 'images', 'build', 'cacao_concept'))
+PHOTOS.update(CC)
 BRAND = dict(name='Heragrain', sub='Cacao', icon='leaf', menu=['Về chúng tôi', 'Concept', 'Vùng ca cao', 'Liên hệ'],
              tagline='Ca cao & socola · Đắk Lắk · Việt Nam',
              colors=dict(title='4A2C1C', accent='1D4B3A', accent2='E4A92A', bg='F6F0E6',
                          chart=['5A3825', 'E4A92A', '1D4B3A', 'B5742E']))
-_H = dict(type='pouch_h', brand='Heragrain', brand_sub='CACAO', ink='1D4B3A', accent='E4A92A', notes='Single origin · Đắk Lắk')
-_B = dict(type='bar_h', brand='Heragrain', brand_sub='CACAO', ink='1D4B3A', accent='E4A92A')
+_H = dict(type='pouch_h', brand='Heragrain', brand_sub='FOODS', ink='1D4B3A', accent='E4A92A', notes='Single origin · Đắk Lắk')
+_B = dict(type='bar_h', brand='Heragrain', brand_sub='FOODS', ink='1D4B3A', accent='E4A92A')
 PRODUCTS = {
     # Concept 1 · Bazan Origin: hàng thô
     'nibs': dict(_H, name_en='Roasted Cocoa Nibs', name_vi='Nibs ca cao rang', weight='200g', band='5A3825', photo='tex_nibs'),
@@ -58,11 +65,109 @@ DECOR_ART = {'leaf': ('leaf', dict(seed=2, color='2F6B3F', light='8CBF7A')),
              'leaf_b': ('leaf', dict(seed=5, color='5E9E68', light='B7D79A', curl=-0.2)),
              'butter': ('slice_piece', dict(seed=9, color='E8D49A', edge='C9A85E', w=300, h=220))}
 GRASS = 'hills'
-CREDIT_INTRO = ('Ảnh: bộ dữ liệu Open Images (Google), giấy phép CC BY 2.0. Bao bì cửa sổ chữ H, hộp socola và nền nibs, bột, bơ, vỏ '
+CREDIT_INTRO = ('Ảnh 6 sản phẩm, hộp quà, kệ trưng bày, website, Facebook, hồ sơ năng lực, catalogue và logo Heragrain Foods: '
+                'concept thương hiệu do HTX Heragrain cung cấp (ảnh dựng, chưa phải ảnh chụp sản phẩm). '
+                'Ảnh vùng trồng, chế biến: bộ dữ liệu Open Images (Google), giấy phép CC BY 2.0. Bao bì cửa sổ chữ H, hộp socola và nền nibs, bột, bơ, vỏ '
                 'ca cao: hình minh họa theo concept, vẽ bằng mã — thay bằng ảnh sản phẩm thật. Icon: Lucide (ISC). '
                 'Font: Baloo 2, Mulish, Dancing Script (SIL OFL).')
 NOTE = ('Concept do tư vấn đề xuất cho HTX Heragrain. Tên sản phẩm, quy cách, khách hàng mục tiêu là đề xuất; số liệu vùng ca cao '
         'theo Trung tâm Khuyến nông Đắk Lắk (2025). Cần HTX duyệt trước khi thiết kế bao bì in.')
+
+NOTE_ANH = ('Ảnh: concept Heragrain Foods do HTX cung cấp (ảnh dựng, chưa phải ảnh chụp sản phẩm). '
+            'Dấu “100% Tự nhiên” chỉ in khi có kết quả kiểm nghiệm, đối chiếu quy định nhãn.')
+_nav0 = L.nav
+
+
+def _nav_logo(s, ctx, active=0, dark=False):
+    """Thanh điều hướng của mẫu, thay biểu tượng + chữ thương hiệu bằng logo Heragrain Foods trong bảng concept."""
+    out = []
+    for sh in _nav0(s, ctx, active, dark):
+        if sh.name in ('!!nav_logo', '!!nav_brand', '!!nav_sub'):
+            sh._element.getparent().remove(sh._element)
+        else:
+            out.append(sh)
+    lg = K.picture(s, CC['cc_logo_trang' if dark else 'cc_logo'], L.ML - 0.05, 0.15, 1.45, 0.53, fit='contain',
+                   nm='!!nav_logo')
+    return [lg] + out
+
+
+L.nav = _nav_logo
+
+
+def nhom_sp(prs, ctx, c):
+    """Ba sản phẩm một nhóm: ảnh lớn, số thứ tự, giai đoạn, tên Việt, tên Anh, mô tả công đoạn."""
+    TH = L.T
+    s = L._new(prs, ctx)
+    L.background(s, ctx)
+    nv = L.nav(s, ctx, c.get('nav', 1))
+    hd = L.heading(s, c['title'], c.get('script', ''), y=0.88, size=32)
+    gap, top, ch = 0.32, 2.12, 4.86
+    cw = (L.SW - 2 * L.ML - 2 * gap) / 3
+    col = c.get('color', TH['accent'])
+    out = []
+    for i, it in enumerate(c['items'][:3]):
+        x = L.ML + i * (cw + gap)
+        cd = L.card(s, x, top, cw, ch, radius=0.14)
+        ph = K.picture(s, L.pic(ctx, it['photo']), x + 0.1, top + 0.1, cw - 0.2, 3.1, radius=0.1,
+                       focus=tuple(it.get('focus', (0.5, 0.3))))
+        num = K.oval(s, x + 0.24, top + 0.24, 0.52, fill=col)
+        K.shape_text(num, str(it['num']), size=16, color='FFFFFF', font=L.F('title'), margin=(0, 0))
+        tg = it['tag']
+        tw = K.text_w(tg, L.F('bold'), 9.5) + 0.45
+        pill = K.rect(s, x + cw - 0.24 - tw, top + 0.3, tw, 0.36, fill='FFFFFF', radius=0.18, alpha=92)
+        K.shape_text(pill, tg, size=9.5, color=col, font=L.F('bold'), bold=L.BOLD(), margin=(0.05, 0))
+        nm = it['name']
+        sz = L.fit(nm.upper(), 'title', 17, cw - 0.5, 12)
+        t1 = K.text(s, x + 0.26, top + 3.27, cw - 0.5, 0.42, nm.upper(), size=sz, font=L.F('title'), color=TH['title'],
+                    anchor='m', wrap=False)
+        t2 = K.text(s, x + 0.26, top + 3.66, cw - 0.5, 0.34, it['en'], size=14, font=L.F('script'), color=col, anchor='m')
+        t3 = L.rich(s, x + 0.26, top + 4.02, cw - 0.5, 0.8, it['text'], size=11, line_sp=1.15)
+        out.append([cd, ph, num, pill, t1, t2, t3])
+    nt = K.text(s, L.ML, 7.05, 11.2, 0.32, c.get('note', NOTE_ANH), size=8.5, font=L.F('body'), color=TH['muted'],
+                anchor='m')
+    K.anims(s, nv, 'fade', 0.0, 0.0, 0.4)
+    K.anims(s, hd, 'zoom', 0.1, 0.15, 0.6)
+    K.anims(s, out, 'rise', 0.4, 0.22, 0.6)
+    K.anim(s, nt, 'fade', 1.4, 0.5)
+    L.page_no(s, ctx)
+    K.notes(s, c.get('notes', NOTE_ANH))
+    return s
+
+
+def diem_cham(prs, ctx, c):
+    """Lưới 3 × 2 ảnh điểm chạm thương hiệu (bảng concept), chú thích trên dải tối dưới ảnh."""
+    TH = L.T
+    s = L._new(prs, ctx)
+    L.background(s, ctx)
+    nv = L.nav(s, ctx, c.get('nav', 1))
+    hd = L.heading(s, c['title'], c.get('script', ''), y=0.88, size=32)
+    gap, top = 0.22, 2.12
+    tw = (L.SW - 2 * L.ML - 2 * gap) / 3
+    th = (7.0 - top - gap) / 2
+    out = []
+    for i, (key, t, sub) in enumerate(c['items'][:6]):
+        x = L.ML + (i % 3) * (tw + gap)
+        y = top + (i // 3) * (th + gap)
+        ph = K.picture(s, L.pic(ctx, key), x, y, tw, th, radius=0.12)
+        K.shadow(ph, blur=0.3, dist=0.08, alpha=20, color='3B2A20', angle=90)
+        K._ensure_ln_before_effects(ph)
+        gh = 0.92
+        band = K.rect(s, x, y + th - gh, tw, gh, shp=MSO_SHAPE.ROUND_2_SAME_RECTANGLE, rot=180)
+        band.adjustments[0] = 0.12 / gh
+        K.grad_fill(band, [(0, '10301F', 92), (70, '10301F', 55), (100, '10301F', 0)], angle=90)
+        a = K.text(s, x + 0.2, y + th - 0.68, tw - 0.4, 0.32, t, size=13, font=L.F('bold'), bold=L.BOLD(),
+                   color='FFFFFF', anchor='m', wrap=False)
+        b = K.text(s, x + 0.2, y + th - 0.38, tw - 0.4, 0.3, sub, size=10, font=L.F('body'), color='F2E3BF',
+                   anchor='m')
+        out.append([ph, band, a, b])
+    nt = K.text(s, L.ML, 7.05, 10.6, 0.32, c.get('note', ''), size=8.5, font=L.F('body'), color=TH['muted'], anchor='m')
+    K.anims(s, nv, 'fade', 0.0, 0.0, 0.4)
+    K.anims(s, hd, 'zoom', 0.1, 0.15, 0.6)
+    K.anims(s, out, 'zoom', 0.4, 0.15, 0.5)
+    K.anim(s, nt, 'fade', 1.4, 0.5)
+    L.page_no(s, ctx)
+    K.notes(s, c.get('note', ''))
+    return s
 
 
 def build_content():
@@ -74,6 +179,23 @@ def build_content():
                             'sản lượng 2025 ước **1.650 tấn** (Trung tâm Khuyến nông tỉnh). Các vùng đang có liên kết sản xuất ca cao '
                             'gồm Krông Ana, Ea Kar, Buôn Đôn… **Heragrain** mua hạt đã lên men, phơi khô từ nông '
                             'hộ, HTX; rang, tách vỏ thành **nibs**; rồi chế biến sâu thành **socola, bột và bơ ca cao**.')),
+        (nhom_sp, dict(nav=1, title='Nhóm I · Sơ chế', script='nguyên liệu đầu vào', color='1D4B3A', items=[
+            dict(photo='cc_sp1_hat_len_men', num=1, name='Hạt ca cao lên men, phơi khô', en='Fermented & dried cocoa beans',
+                 tag='GĐ1 · Concept 1', focus=(0.5, 0.15),
+                 text='Thu hoạch, bóc quả, tách hạt, **lên men, phơi khô**. Kiểm nhận, phân loại rồi bán cho **nhà máy chế biến**.'),
+            dict(photo='cc_sp2_hat_rang', num=2, name='Hạt ca cao rang', en='Roasted cocoa beans', tag='GĐ1 · Concept 1',
+                 focus=(0.5, 0.2),
+                 text='Rang chín **theo tiêu chuẩn** (ghi nhiệt độ, thời gian từng mẻ) để chuẩn bị tách vỏ; bán theo đơn đặt.'),
+            dict(photo='cc_sp3_nibs', num=3, name='Nhân ca cao (nibs)', en='Cocoa nibs', tag='GĐ1 · Concept 1',
+                 focus=(0.5, 0.25),
+                 text='Phần nhân sau khi **rang, tách vỏ**. Bán cho **nhà máy socola, bánh kẹo**; gửi mẫu chào xuất khẩu.')])),
+        (nhom_sp, dict(nav=1, title='Nhóm II · Chế biến sâu', script='socola, bột và bơ ca cao', color='5A3825', items=[
+            dict(photo='cc_sp4_socola', num=4, name='Socola', en='Chocolate', tag='GĐ2 · Concept 2, 4', focus=(0.5, 0.3),
+                 text='Nibs **nghiền mịn**, phối trộn đường và các thành phần phù hợp; tôi, đổ khuôn thành thanh socola.'),
+            dict(photo='cc_sp5_bot', num=5, name='Bột ca cao', en='Cocoa powder', tag='GĐ3 · Concept 3', focus=(0.5, 0.3),
+                 text='Khối ca cao sau nghiền được **ép tách bơ**; phần chất rắn còn lại nghiền mịn thành bột ca cao.'),
+            dict(photo='cc_sp6_bo', num=6, name='Bơ ca cao', en='Cocoa butter', tag='GĐ3 · Concept 3', focus=(0.5, 0.35),
+                 text='Chất béo tách ra khi **ép khối ca cao**; dùng làm socola, thực phẩm; mỹ phẩm cần hồ sơ riêng.')])),
         (L.story_product, dict(nav=0, title='Chuỗi giá trị', script='từ quả đến thanh socola', product='nibs', second='bot', side='right',
                                text='Nông hộ, HTX hái quả, tách hạt, **lên men, phơi khô**. Heragrain nhận hạt khô, **rang theo '
                                     'tiêu chuẩn, tách vỏ** thành nibs: bán thô cho nhà máy socola, công ty bánh kẹo, gửi mẫu '
@@ -103,7 +225,7 @@ def build_content():
                                       products=['robusta', 'saurieng', 'chanhday'], palette=['1D4B3A', '2F6B3F', '7A3E8F', 'E4A92A'],
                                       values=['Robusta, tiêu, mắc ca', 'Trái cây sấy bọc socola', 'Quà du lịch Tây Nguyên'],
                                       color='1D4B3A')],
-                          note='Concept 5 (Quà Đại Ngàn: hộp quà và trà vỏ ca cao) ở trang 15–16. Bao bì là hình minh họa.')),
+                          note='Concept 5 (Quà Đại Ngàn: hộp quà và trà vỏ ca cao) ở trang 17–18. Bao bì là hình minh họa.')),
         (L.carousel, dict(nav=1, height=4.6, items=[
             dict(product='nibs', name='Bazan Origin', script='Concept 1 · Hàng thô', photo='pods_basket', focus=[0.5, 0.6],
                  text='Hạt ca cao lên men, **rang theo tiêu chuẩn**, tách vỏ thành nibs. Bán bao 25 kg cho nhà máy, túi 200 g bán lẻ.'),
@@ -167,6 +289,15 @@ def build_content():
             ('thermometer', 'Rang theo tiêu chuẩn', 'Ghi nhiệt độ, thời gian từng mẻ rang (CCP).'),
             ('eye', 'Thấy tận mắt', 'Cửa sổ H cho thấy nibs, socola thật bên trong.'),
             ('leaf', 'Hướng tới EUDR', 'Thu tọa độ vườn từ đầu để đáp ứng quy định chống phá rừng của EU.')])),
+        (diem_cham, dict(nav=1, title='Nhận diện thương hiệu', script='Heragrain Foods trên mọi điểm chạm', items=[
+            ('cc_ho_so_nang_luc', 'Hồ sơ năng lực, văn phòng phẩm', 'GĐ1 · chào khách B2B, nhà nhập khẩu'),
+            ('cc_catalogue_b2b', 'Catalogue sản phẩm B2B', 'GĐ1 · gửi kèm mẫu hạt, nibs'),
+            ('cc_website', 'Website Heragrain Foods', 'Từ GĐ1 · giới thiệu, nhận đơn, xuất khẩu'),
+            ('cc_facebook', 'Truyền thông Facebook', 'Từ GĐ1 · kể chuyện vùng trồng, ra mắt'),
+            ('cc_ke_trung_bay', 'Kệ trưng bày bán lẻ', 'GĐ2 · cửa hàng đặc sản, siêu thị'),
+            ('cc_hop_qua', 'Bộ sản phẩm cao cấp', 'GĐ4 · Concept 5 Quà Đại Ngàn')],
+                          note='Ảnh: bảng concept nhận diện Heragrain Foods do HTX cung cấp (ảnh dựng). Kiểm tra tên miền, '
+                               'email và đăng ký nhãn hiệu, logo trước khi in ấn phẩm.')),
         (L.usage, dict(nav=2, title='Lộ trình ra mắt', script='5 concept theo 4 giai đoạn', product='nibs', steps=[
             ('package', 'GĐ1 · 2027', 'Concept 1 Bazan Origin: hạt rang, nibs B2B và bán lẻ.'),
             ('cookie', 'GĐ2 · cuối 2027', 'Concept 2 Đại Ngàn 70: socola đen.'),
@@ -183,7 +314,7 @@ def build_content():
                              ['Diện tích, sản lượng ca cao Đắk Lắk', 'Có nguồn: TT Khuyến nông Đắk Lắk (2025); hai số diện tích chưa thống nhất'],
                              ['Tên, quy cách, khách hàng 5 concept', 'Đề xuất của tư vấn; chưa khảo sát thị trường'],
                              ['Thời điểm ra mắt theo giai đoạn', 'Đề xuất; phụ thuộc vốn, giấy phép, chạy thử'],
-                             ['Bao bì, ảnh', 'Hình minh họa; ảnh Open Images, không phải ảnh Đắk Lắk'],
+                             ['Ảnh sản phẩm, bao bì', 'Concept HTX cung cấp, hình vẽ (ảnh dựng); “100% Tự nhiên” cần kiểm nghiệm'],
                              ['Giá bán, sản lượng, biên lợi nhuận', 'Chưa có; cần khảo sát giá, chi phí, đơn hàng thử']],
                        note='Không dùng bộ slide này làm căn cứ tài chính cho quyết định đầu tư khi chưa có **dự toán chi phí và khảo sát giá**.')),
         (L.conclusion, dict(nav=0, title='Heragrain Cacao', script='Thấy tận mắt, ăn yên tâm',
@@ -191,8 +322,8 @@ def build_content():
                                  '**mix vị** đặc sản Tây Nguyên: mỗi bước thêm giá trị cho hạt ca cao Đắk Lắk.',
                             products=['tra', 'bot', 'bar70', 'nibs', 'robusta'])),
         (L.contact, dict(word='Cảm ơn', script='Heragrain Cacao', product='bar70',
-                         lines=[('phone', 'Hotline: [cập nhật]'), ('globe', 'Website: [cập nhật]'),
-                                ('mail', 'Email: [cập nhật]'), ('map-pin', 'Đắk Lắk, Việt Nam')])),
+                         lines=[('phone', 'Hotline: 0827.695.368 · 0968.702.701'), ('globe', 'www.heragrain.com'),
+                                ('mail', 'contact@heragrain.com'), ('map-pin', 'HTX Heragrain · Đắk Lắk, Việt Nam')])),
     ]
 
 

@@ -15,8 +15,10 @@ sys.path.insert(0, HERE)
 import tpl  # noqa: E402
 
 T, CACAO_PHOTOS = tpl.setup()
-import layouts_corporate as L  # noqa: E402
+import cacao_assets as CA  # noqa: E402
 import corporate_build as CB  # noqa: E402
+import layouts_corporate as L  # noqa: E402
+import pptkit as K  # noqa: E402
 
 CHUP = os.path.join(HERE, 'anh', 'chup')
 THEME = 'doanhnghiep'
@@ -25,16 +27,60 @@ DEFAULT_NAME = 'Heragrain-Cacao_Tong-quan-bo-may-quy-trinh-chung-nhan.pptx'
 PHOTOS = json.load(open(os.path.join(T, 'assets', 'images', 'nongsan_photos.json'), encoding='utf-8'))
 PHOTOS.update(CACAO_PHOTOS)
 PHOTOS.update({os.path.splitext(f)[0]: os.path.join(CHUP, f) for f in os.listdir(CHUP) if f.endswith('.jpg')})
+CC = CA.concept_photos(os.path.join(T, 'assets', 'images', 'build', 'cacao_concept'))
+PHOTOS.update(CC)
 BRAND = dict(name='Heragrain', short='Heragrain', initial='H', tagline='Thấy tận mắt, ăn yên tâm',
              colors=dict(dark='0E2419', primary='23765C', light='E4A92A', pale='E7EFE9', ink='12301F', text='46574E',
                          muted='87978F', bg='F6F3EC', card='FFFFFF', accent='E4A92A', line='D8E1DA', ring='F2D58A',
                          chart=['23765C', 'E4A92A', '5A3825', '5E9E68']))
 LIGHT_PHOTO = 'pods_basket'
-CREDIT_INTRO = ('Ảnh: bộ dữ liệu Open Images (Google), giấy phép CC BY 2.0. Hình sơ đồ 3D và tham quan 360°: chụp từ mô hình '
+CREDIT_INTRO = ('Ảnh 6 sản phẩm, điểm chạm thương hiệu, ảnh vùng ca cao trang chuỗi giá trị và logo Heragrain Foods: concept '
+                'thương hiệu do HTX Heragrain cung cấp (ảnh dựng, chưa phải ảnh chụp). Ảnh còn lại: bộ dữ liệu Open Images (Google), giấy phép CC BY 2.0. Hình sơ đồ 3D và tham quan 360°: chụp từ mô hình '
                 'xưởng ca cao Heragrain (thư mục 3-so-do-3d, 4-tham-quan-360), dựng từ bản vẽ tay, chưa phải ảnh thật. '
                 'Biểu tượng vòng tròn vẽ bằng mã. Icon: Lucide (ISC). Font: Lexend Exa, Be Vietnam Pro (SIL OFL).')
 NOTE = ('Số người, mốc thời gian, cỡ máy là đề xuất của tư vấn; quy định cập nhật đến 04/11/2026, cần xác nhận lại với cơ '
         'quan cấp phép khi nộp hồ sơ.')
+
+_cover0 = L.cover
+
+
+def _logo_img(s, ctx, x=None, y=0.32, dark=False, size=0.42):
+    """Logo Heragrain Foods (bảng concept) thay biểu tượng + chữ của mẫu: bản màu trên nền sáng, bản trắng trên nền tối."""
+    h = 0.5
+    w = h * 2.745
+    x = x if x is not None else L.SW - L.ML - w
+    return [K.picture(s, CC['cc_logo_trang' if dark else 'cc_logo'], x, y - 0.08, w, h, fit='contain', nm='!!logo_mark')]
+
+
+def _cover_logo(prs, ctx, c):
+    s = _cover0(prs, ctx, c)
+    lg = _logo_img(s, ctx, x=L.ML, y=0.55, dark=True)
+    K.anims(s, lg, 'fade', 0.3, 0.0, 0.5)
+    return s
+
+
+L.logo = _logo_img
+L.cover = _cover_logo
+SAN_PHAM = [
+    dict(photo='cc_sp1_hat_len_men', badge='Sơ chế · GĐ1', title='1. Hạt lên men, phơi khô', focus=(0.5, 0.3),
+         text='**Công đoạn:** HTX, nông hộ lên men, phơi; Heragrain kiểm nhận, làm sạch, phân loại (bước 1–3).\n'
+              '**Bán cho:** nhà máy chế biến.\n**Hồ sơ:** GCN ATTP; nguyên liệu, thường không tự công bố.'),
+    dict(photo='cc_sp2_hat_rang', badge='Sơ chế · GĐ1', title='2. Hạt ca cao rang', focus=(0.5, 0.3),
+         text='**Công đoạn:** rang theo tiêu chuẩn (bước 4, CCP 1).\n**Dùng cho:** tách vỏ thành nibs; bán theo đơn.\n'
+              '**Hồ sơ:** tự công bố khi bán bao gói sẵn.'),
+    dict(photo='cc_sp3_nibs', badge='Sơ chế · GĐ1', title='3. Nhân ca cao (nibs)', focus=(0.5, 0.35),
+         text='**Công đoạn:** nghiền vỡ, tách vỏ, phân cỡ (bước 5–6).\n**Bán cho:** nhà máy socola, bánh kẹo; mẫu chào '
+              'xuất khẩu.\n**Hồ sơ:** tự công bố, kiểm nghiệm.'),
+    dict(photo='cc_sp4_socola', badge='Chế biến · GĐ2', title='4. Socola', focus=(0.5, 0.4),
+         text='**Công đoạn:** nghiền mịn với đường, tôi, đổ khuôn (bước 7, 9–10).\n**Bán cho:** bán lẻ, quà tặng, quán '
+              'cà phê.\n**Hồ sơ:** tự công bố; chốt đầu mối ATTP với Sở Công Thương.'),
+    dict(photo='cc_sp5_bot', badge='Chế biến · GĐ3', title='5. Bột ca cao', focus=(0.5, 0.4),
+         text='**Công đoạn:** ép tách bơ, nghiền rây phần chất rắn (bước 8).\n**Bán cho:** pha chế, tiệm bánh, gia đình.\n'
+              '**Hồ sơ:** tự công bố; HACCP hoặc ISO 22000.'),
+    dict(photo='cc_sp6_bo', badge='Chế biến · GĐ3', title='6. Bơ ca cao', focus=(0.5, 0.4),
+         text='**Công đoạn:** ép khối ca cao (bước 8).\n**Dùng cho:** socola, thực phẩm; mỹ phẩm cần hồ sơ riêng.\n'
+              '**Hồ sơ:** tự công bố.'),
+]
 
 
 def build_content():
@@ -51,29 +97,32 @@ def build_content():
         (L.overview, dict(title='Heragrain Cacao', tag='Tổng quan', num=1,
                           sub='Mua hạt lên men từ HTX, rang, tách vỏ, chế biến sâu tại xưởng cũ',
                           text='**HTX Heragrain** (đăng ký ngày 22/9/2025) chọn **ca cao** làm sản phẩm đầu tiên, gồm hai mảng:\n'
-                               '**Hàng thô**: hạt rang và nibs bán cho nhà máy socola, công ty bánh kẹo, gửi mẫu chào đơn vị '
-                               'xuất khẩu.\n'
-                               '**Chế biến sâu**: socola đen, bột và bơ ca cao, sau cùng là socola mix vị đặc sản Tây Nguyên. '
+                               '**Sơ chế**: hạt lên men phơi khô (phân loại), hạt rang và nibs bán cho nhà máy chế biến, nhà '
+                               'máy socola, công ty bánh kẹo, gửi mẫu chào đơn vị xuất khẩu.\n'
+                               '**Chế biến sâu**: socola, bột và bơ ca cao, sau cùng là socola mix vị đặc sản Tây Nguyên. '
                                'Xưởng cũ khoảng 200 m² được bố trí lại thành dây chuyền một chiều.',
                           photo='pods_basket', focus=[0.5, 0.5],
                           stats=[['map', '2.000', ' ha', 'ca cao ở Đắk Lắk (có số đánh giá 1.140 ha)'],
                                  ['package', '1.650', ' tấn', 'hạt khô Đắk Lắk năm 2025, ước tính'],
                                  ['factory', '200', ' m²', 'xưởng cũ dành cho dây chuyền ca cao'],
                                  ['users', '9→30', '', 'người, dựng dần qua 4 giai đoạn']])),
+        (L.cards, dict(title='Sáu sản phẩm ca cao', tag='Tổng quan', num=1,
+                       sub='Nhóm I sơ chế (GĐ1) · nhóm II chế biến sâu (GĐ2–GĐ3) · ảnh concept Heragrain Foods do HTX cung cấp',
+                       cols=6, photo_ratio=0.355, title_size=12.5, text_size=10.5, items=SAN_PHAM)),
         (L.hub, dict(title='Bốn trụ cột', tag='Tổng quan', num=1, sub='Dựng song song, mỗi giai đoạn thêm một lớp',
                      items=[['network', 'Bộ máy', 'HTX: Đại hội thành viên, HĐQT, Ban kiểm soát; **Giám đốc điều hành** và 8 bộ phận.'],
                             ['workflow', 'Quy trình', '11 bước một chiều; **2 CCP đề xuất**: rang và dò kim loại, chốt khi xây HACCP.'],
                             ['badge-check', 'Chứng nhận', 'Từ **GCN ATTP, tự công bố** đến **HACCP/ISO 22000**, FSSC 22000, EUDR.'],
                             ['users', 'Nhân sự', '**9–10** người (hàng thô) lên **24–30** người (mix vị, xuất khẩu).']])),
         (L.milestones, dict(title='Bốn giai đoạn', tag='Tổng quan', num=1, sub='Mỗi giai đoạn mở thêm một dòng sản phẩm',
-                            events=[['Q1–Q2/2027', 'GĐ1 · Hàng thô', 'Thu mua hạt lên men; rang, tách vỏ; bán hạt rang, nibs.'],
+                            events=[['Q1–Q2/2027', 'GĐ1 · Hàng thô', 'Thu mua, phân loại hạt lên men; rang, tách vỏ; bán hạt, hạt rang, nibs.'],
                                     ['Q3–Q4/2027', 'GĐ2 · Socola', 'Nghiền mịn với đường; tôi, đổ khuôn; socola đen 70–100 %.'],
                                     ['Q1–Q2/2028', 'GĐ3 · Bột, bơ', 'Ép bơ ca cao, nghiền bột; chứng nhận HACCP/ISO 22000.'],
                                     ['Từ Q3/2028', 'GĐ4 · Mix vị, XK', 'Socola đặc sản Tây Nguyên; FSSC 22000, EUDR, GACC.']])),
         (L.section, dict(num=2, title='Chuỗi giá trị\n& quy trình', photo='beans_dry', focus=[0.5, 0.5],
                          desc='Ai làm gì, từ quả ca cao đến thanh socola')),
         (L.services, dict(title='Chuỗi giá trị ca cao', tag='Quy trình', num=2, dark=True,
-                          sub='Heragrain tập trung từ hạt khô trở đi', photo='pods_basket', focus=[0.5, 0.5],
+                          sub='Heragrain tập trung từ hạt khô trở đi', photo='cc_hero', focus=[0.45, 0.5],
                           items=[['sprout', 'Nông hộ, HTX trồng ca cao', 'Hái quả chín, tách hạt; ghi nhật ký vườn, tọa độ vườn.'],
                                  ['flame', 'HTX lên men, phơi', 'Ủ thùng gỗ, đảo theo ngày; phơi giàn đến độ ẩm ghi trong hợp đồng.'],
                                  ['factory', 'Heragrain · hàng thô', 'Kiểm nhận, làm sạch, rang, tách vỏ thành nibs.'],
@@ -158,6 +207,14 @@ def build_content():
                                  ['flame', 'Kỹ thuật rang, chocolatier', 'Đường cong rang, công thức socola, tôi (GĐ1–2).'],
                                  ['map-pin', 'Phụ trách vùng nguyên liệu', 'Hợp đồng HTX, tọa độ vườn, hồ sơ EUDR (GĐ1).'],
                                  ['globe', 'Quản lý xuất khẩu', 'Khách B2B, chứng từ, C/O, GACC (GĐ2–4).']])),
+        (L.cards, dict(title='Thương hiệu, kênh bán', tag='Bộ máy', num=3, cols=3,
+                       sub='Bộ phận Kinh doanh triển khai theo giai đoạn · concept Heragrain Foods do HTX cung cấp',
+                       items=[dict(photo='cc_ho_so_nang_luc', caption='Hồ sơ năng lực, văn phòng phẩm · GĐ1'),
+                              dict(photo='cc_catalogue_b2b', caption='Catalogue B2B gửi kèm mẫu · GĐ1'),
+                              dict(photo='cc_website', caption='Website Heragrain Foods · từ GĐ1'),
+                              dict(photo='cc_facebook', caption='Truyền thông Facebook · từ GĐ1'),
+                              dict(photo='cc_ke_trung_bay', caption='Kệ trưng bày bán lẻ · GĐ2'),
+                              dict(photo='cc_hop_qua', caption='Hộp quà cao cấp · GĐ4')])),
         (L.section, dict(num=4, title='Giấy chứng nhận\n& pháp lý', photo='beans_dark', focus=[0.5, 0.5],
                          desc='Đủ giấy để bán trong nước trước, chứng nhận quốc tế theo thị trường')),
         (L.table_slide, dict(title='Pháp lý nền tảng (GĐ1)', tag='Chứng nhận', num=4, sub='Bắt buộc trước khi bán lô hàng đầu',
@@ -166,7 +223,7 @@ def build_content():
                                    ['GCN cơ sở đủ điều kiện ATTP', 'Chi cục QLCL NLS&TS (Sở NN&MT Đắk Lắk); socola: Sở Công Thương — chốt đầu mối', 'NĐ 15/2018 (NĐ 46/2026 đang tạm ngưng)'],
                                    ['Tự công bố sản phẩm', 'Cơ quan do UBND tỉnh chỉ định; kèm phiếu kiểm nghiệm ≤ 12 tháng', 'NĐ 15/2018 Điều 4, 5'],
                                    ['Mã số mã vạch GS1', 'GS1 Việt Nam, nộp trực tuyến', 'NĐ 37/2026/NĐ-CP'],
-                                   ['Nhãn hiệu Heragrain (nhóm 29, 30, 31)', 'Cục Sở hữu trí tuệ', 'Luật SHTT, sửa đổi 131/2025/QH15'],
+                                   ['Nhãn hiệu Heragrain Foods, logo (nhóm 29, 30, 31)', 'Cục Sở hữu trí tuệ', 'Luật SHTT, sửa đổi 131/2025/QH15'],
                                    ['Đăng ký môi trường; PCCC', 'UBND cấp xã; Công an (PCCC)', 'NĐ 08/2022 (sửa đổi 05/2025); NĐ 105/2025']],
                              col_w=[3.1, 4.6, 3.3],
                              note='Nhãn theo NĐ 37/2026/NĐ-CP (thay NĐ 43/2017, 111/2021). Chi tiết thủ tục, mẫu đơn: file Word kèm theo.')),
@@ -200,7 +257,7 @@ def build_content():
                              rows=[['Việc', 'Phụ trách', 'Hạn'],
                                    ['Ký hợp đồng thu mua với 2–3 HTX ca cao; lập danh sách vườn kèm tọa độ', 'Thu mua', '01/2027'],
                                    ['Bổ sung ngành nghề HTX; nộp hồ sơ GCN cơ sở đủ điều kiện ATTP', 'Hành chính', '01/2027'],
-                                   ['Đăng ký mã số mã vạch; nộp đơn nhãn hiệu Heragrain', 'Hành chính', '01/2027'],
+                                   ['Đăng ký mã số mã vạch; nộp đơn nhãn hiệu, logo Heragrain Foods', 'Hành chính', '01/2027'],
                                    ['Chọn, đặt máy rang, máy tách vỏ; cải tạo phòng 1, 2, sân sau', 'Sản xuất', '02/2027'],
                                    ['Rang lô thử, kiểm nghiệm, tự công bố nibs', 'QA', '03/2027'],
                                    ['Gửi mẫu cho 5 khách B2B (nhà máy socola, bánh kẹo, xuất khẩu)', 'Kinh doanh', '03/2027']],
@@ -214,12 +271,13 @@ def build_content():
                                    ['Giới hạn cadimi EU', 'Nguồn thứ cấp', 'Đối chiếu Phụ lục I Quy định (EU) 2023/915 bản hợp nhất'],
                                    ['Nhân sự, công suất, cỡ máy', 'Ước tính của tư vấn', 'Chưa có định mức tham chiếu công khai cho xưởng quy mô này'],
                                    ['Mốc thời gian 4 giai đoạn', 'Đề xuất của tư vấn', 'Phụ thuộc vốn, tiến độ cải tạo, giấy phép'],
+                                   ['Ảnh sản phẩm, logo, ấn phẩm', 'Concept HTX cung cấp (ảnh dựng)', 'Chưa phải ảnh chụp; dấu “100% Tự nhiên” cần kiểm nghiệm, đối chiếu quy định nhãn'],
                                    ['Vốn đầu tư, giá bán, hiệu quả tài chính', 'Chưa có', 'Lập dự toán đầu tư, chi phí vận hành, khảo sát giá trước khi quyết định']],
                              col_w=[3.0, 2.8, 5.2],
                              note='Bộ slide mô tả tổ chức và tuân thủ; chưa phải phương án tài chính.')),
         (L.thanks, dict(title='Xin cảm ơn', sub='Heragrain Cacao · Thấy tận mắt, ăn yên tâm', photo='pods_basket',
-                        lines=[['map-pin', 'HTX Heragrain, Đắk Lắk [cập nhật địa chỉ]'], ['phone', '[cập nhật số điện thoại]'],
-                               ['mail', '[cập nhật email]'], ['globe', '[cập nhật website]']])),
+                        lines=[['map-pin', 'HTX Heragrain · Đắk Lắk, Việt Nam'], ['phone', '0827.695.368 · 0968.702.701'],
+                               ['mail', 'contact@heragrain.com'], ['globe', 'www.heragrain.com']])),
     ]
 
 

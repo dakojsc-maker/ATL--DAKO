@@ -141,3 +141,53 @@ def texture(kind, out, w=900, h=700, seed=5):
     im = im.filter(ImageFilter.GaussianBlur(0.6 if kind != 'bo' else 1.2))
     im.save(out, quality=92)
     return out
+
+
+def fit_ratio(src, out, ratio=1.6, top_share=0.35):
+    """Ảnh concept quá ngang so với khung: nới chiều cao bằng dải phản chiếu làm mờ (trên, dưới) để khung không cắt mất
+    sản phẩm; ảnh hẹp hơn khung thì giữ nguyên (khung tự cắt giữa)."""
+    if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(src):
+        return out
+    im = Image.open(src).convert('RGB')
+    w, h = im.size
+    if w / h <= ratio * 1.02:
+        im.save(out, quality=92)
+        return out
+    nh = int(round(w / ratio))
+    pad = nh - h
+    t = int(pad * top_share)
+    b = pad - t
+    can = Image.new('RGB', (w, nh))
+    can.paste(im, (0, t))
+    if t:
+        band = im.crop((0, 0, w, min(h, t))).transpose(Image.FLIP_TOP_BOTTOM).resize((w, t))
+        can.paste(band.filter(ImageFilter.GaussianBlur(26)), (0, 0))
+    if b:
+        band = im.crop((0, max(0, h - b), w, h)).transpose(Image.FLIP_TOP_BOTTOM).resize((w, b))
+        can.paste(band.filter(ImageFilter.GaussianBlur(26)), (0, t + h))
+    # nối mềm ở mép ảnh gốc
+    arr = np.asarray(can).astype(np.float32)
+    blur = np.asarray(can.filter(ImageFilter.GaussianBlur(6))).astype(np.float32)
+    m = np.zeros(nh, np.float32)
+    for y0 in (t, t + h):
+        yy = np.arange(nh)
+        m = np.maximum(m, np.clip(1 - np.abs(yy - y0) / 10, 0, 1))
+    arr = arr * (1 - m[:, None, None]) + blur * m[:, None, None]
+    Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8)).save(out, quality=92)
+    return out
+
+
+CONCEPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'anh', 'concept')
+SAN_PHAM = ['sp1_hat_len_men', 'sp2_hat_rang', 'sp3_nibs', 'sp4_socola', 'sp5_bot', 'sp6_bo']
+DIEM_CHAM = ['hop_qua', 'ke_trung_bay', 'facebook', 'website', 'ho_so_nang_luc', 'catalogue_b2b']
+
+
+def concept_photos(build_dir):
+    """Khóa ảnh concept Heragrain Foods (HTX cung cấp) -> đường dẫn; ảnh điểm chạm thương hiệu được nới về khung 1,6:1."""
+    os.makedirs(build_dir, exist_ok=True)
+    out = {f'cc_{k}': os.path.join(CONCEPT, k + '.jpg') for k in SAN_PHAM + ['hero']}
+    for k in DIEM_CHAM:
+        out[f'cc_{k}'] = fit_ratio(os.path.join(CONCEPT, k + '.jpg'), os.path.join(build_dir, f'{k}_16.jpg'), 1.6)
+    out['cc_logo'] = os.path.join(CONCEPT, 'logo.png')
+    out['cc_logo_trang'] = os.path.join(CONCEPT, 'logo_trang.png')
+    return out

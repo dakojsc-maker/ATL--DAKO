@@ -6,13 +6,26 @@ Kho Mẫu Slide DAKO (nhánh `claude/festive-ride-bpliki`, mẫu M07 vốn dựn
 
 | # | Sản phẩm | File |
 |---|---|---|
-| 1 | **5 concept sản phẩm ca cao Đắk Lắk** (22 slide, mẫu M07 Nông sản: băng chuyền sản phẩm trượt bằng Morph, bao bì cửa sổ chữ H) | `1-concept-san-pham/Heragrain-Cacao_5-concept-san-pham.pptx` |
-| 2 | **Bức tranh tổng quan**: bộ máy, quy trình ca cao thô và chế biến sâu, giấy chứng nhận, nhân sự theo 4 giai đoạn (27 slide, mẫu M08 Hồ sơ doanh nghiệp, màu Heragrain) | `2-tong-quan-bo-may/Heragrain-Cacao_Tong-quan-bo-may-quy-trinh-chung-nhan.pptx` |
+| 1 | **5 concept sản phẩm ca cao Đắk Lắk** (26 slide; 2 slide nhóm sản phẩm I, II và slide nhận diện thương hiệu dùng ảnh concept HTX cung cấp; mẫu M07 Nông sản: băng chuyền sản phẩm trượt bằng Morph, bao bì cửa sổ chữ H) | `1-concept-san-pham/Heragrain-Cacao_5-concept-san-pham.pptx` |
+| 2 | **Bức tranh tổng quan**: 6 sản phẩm, bộ máy, quy trình ca cao thô và chế biến sâu, giấy chứng nhận, nhân sự theo 4 giai đoạn, thương hiệu và kênh bán (30 slide, mẫu M08 Hồ sơ doanh nghiệp, màu Heragrain) | `2-tong-quan-bo-may/Heragrain-Cacao_Tong-quan-bo-may-quy-trinh-chung-nhan.pptx` |
 | 3 | **Sơ đồ 3D xưởng cũ bố trí cho ca cao** (24 khu, 11 bước, 4 giai đoạn) | `3-so-do-3d/ban-gui/Xuong-ca-cao-Heragrain-3D.html` |
 | 4 | **Tham quan 360°** xưởng ca cao (12 điểm) | `4-tham-quan-360/ban-gui/Xuong-ca-cao-Heragrain-360.html` |
-| 5 | **Hồ sơ pháp lý**: văn bản hiện hành, thủ tục, nơi nộp, cơ quan cấp, 9 biểu mẫu soạn sẵn (28 trang) | `5-phap-ly/Heragrain-Cacao_Ho-so-phap-ly-van-ban-bieu-mau.docx` |
+| 5 | **Hồ sơ pháp lý**: văn bản hiện hành, thủ tục, nơi nộp, cơ quan cấp, 9 biểu mẫu soạn sẵn, bảng 6 sản phẩm kèm ảnh và hồ sơ áp dụng (30 trang) | `5-phap-ly/Heragrain-Cacao_Ho-so-phap-ly-van-ban-bieu-mau.docx` |
 
 Bản xem trực tuyến (riêng tư, chia sẻ từ nút Share): sơ đồ 3D https://claude.ai/artifact/R9o6aPkah58nCUcx4ZhDYE · tham quan 360° https://claude.ai/artifact/5HJFi9bPLoLXXzxPkqTFx6
+
+## 6 sản phẩm theo giai đoạn chế biến
+
+| Nhóm | Sản phẩm | Giai đoạn | Concept |
+|---|---|---|---|
+| I. Sơ chế, nguyên liệu đầu vào | 1. Hạt ca cao lên men, phơi khô · 2. Hạt ca cao rang · 3. Nhân ca cao (nibs) | GĐ1 | Bazan Origin |
+| II. Chế biến sâu | 4. Socola | GĐ2 | Đại Ngàn 70, Tây Nguyên Fusion |
+| II. Chế biến sâu | 5. Bột ca cao · 6. Bơ ca cao | GĐ3 | Cacao Thuần |
+
+Ảnh 6 sản phẩm, hộp quà, kệ trưng bày, website, Facebook, hồ sơ năng lực, catalogue B2B và logo Heragrain Foods lấy từ hai
+ảnh concept HTX cung cấp (`slides/anh/concept/`: `6-san-pham-heragrain-foods.png`, `bang-concept-heragrain-foods.png`); đây là
+ảnh dựng, chưa phải ảnh chụp sản phẩm. Logo Heragrain Foods thay biểu tượng chữ trên mọi slide của hai bộ. Dấu “100% Tự nhiên”
+trên bao bì concept chỉ in khi có kết quả kiểm nghiệm và đối chiếu quy định nhãn (file Word mục 4.4).
 
 ## 5 concept
 
