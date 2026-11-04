@@ -39,6 +39,9 @@ Chi tiết: **[NGHIEN-CUU-PHAN-KY-CANSLIM.md](NGHIEN-CUU-PHAN-KY-CANSLIM.md)**.
 
 Chi tiết: **[NGHIEN-CUU-MANH-KHI-DIEU-CHINH.md](NGHIEN-CUU-MANH-KHI-DIEU-CHINH.md)**.
 
+**Đề xuất 1 mã VNFINLEAD cho 1 tháng khi thị trường điều chỉnh (04/11/2026): HDB.** Kiểm định mã tài chính HOSE
+trong các đợt điều chỉnh, kèm bảng điểm 24 mã và kế hoạch mua/bán: **[DE-XUAT-VNFINLEAD-04-11-2026.md](DE-XUAT-VNFINLEAD-04-11-2026.md)**.
+
 ---
 
 ## 1. Cài đặt (làm một lần)
