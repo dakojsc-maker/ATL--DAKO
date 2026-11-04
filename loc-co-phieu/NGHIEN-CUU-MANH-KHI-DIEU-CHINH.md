@@ -142,7 +142,32 @@ Phần lớn mã chỉ đạt điều kiện 1–2 lần trong 5 năm. Những m
 3. **Ưu điểm phòng thủ:** nếu buộc phải giữ cổ phiếu qua đợt điều chỉnh, nhóm mã mạnh thường giảm ít hơn.
 4. **Không chọn mã theo thành tích "luôn thắng" quá khứ.** Chọn theo quy tắc, luôn cắt lỗ −7%.
 
-## 7. Tái lập
+## 7. Mua thêm ("trung bình giá") khi thị trường điều chỉnh
+
+Kiểm định 2014–10/2026 trên mọi mã đủ thanh khoản: giả sử mua thêm vào một ngày thị trường đang điều chỉnh, mua giá mở
+cửa phiên sau, đã trừ phí. Cột cuối là tỷ lệ số lần giá còn giảm thêm ≥ 10% (so với giá đóng cửa hôm mua) trước khi hết
+3 tháng.
+
+| Trạng thái của mã | Sau 1 tháng | Sau 3 tháng | Có lời sau 3 tháng | Giảm thêm ≥ 10% trong 3 tháng |
+|---|---|---|---|---|
+| Xu hướng giảm (dưới MA200 đang đi xuống) | +0,9% | +3,7% | 53% | 52% |
+| Lưng chừng | +0,1% | +0,7% | 48% | 55% |
+| Xu hướng tăng (trên MA200 đang đi lên) | +0,5% | +0,6% | 47% | 55% |
+| Đã giảm > 50% so với đỉnh 52 tuần | +0,8% | +4,4% | 53% | **64%** |
+| Cách đỉnh 52 tuần < 15% | +0,6% | +1,7% | 49% | 47% |
+
+- **Gần như tung đồng xu:** khoảng một nửa số lần có lời sau 3 tháng.
+- **Thường còn giảm thêm:** hơn một nửa số lần giá còn giảm thêm ít nhất 10% trước khi hồi. Vì vậy nếu mua thêm thì chia
+  2–3 lần.
+- **Số liệu mã giảm sâu có thể đẹp hơn thực tế:** dữ liệu thiếu các mã đã huỷ niêm yết, mà đó thường là mã giảm sâu
+  rồi không hồi.
+- **Từ 10/2025 kết quả xấu hẳn:** sau 5 đợt điều chỉnh gần nhất, phần lớn mã vừa và nhỏ vẫn còn lỗ sau 3 tháng.
+
+Rà soát một danh mục cụ thể: `python3 loc-co-phieu/nghien-cuu/trung_binh_gia.py MÃ1 MÃ2 …` (thêm thành tích từng mã qua
+các đợt điều chỉnh từ 2021, lợi nhuận quý, thanh khoản).
+
+## 8. Tái lập
+
 
 ```
 python3 loc-co-phieu/nghien-cuu/tai_lich_su.py --lam-moi   # giá mới nhất (~4 phút)

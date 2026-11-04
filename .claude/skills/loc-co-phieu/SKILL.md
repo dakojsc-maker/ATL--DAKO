@@ -82,5 +82,11 @@ danh sách lệnh được phép chạy không cần hỏi trong `.claude/settin
   - Ở nhịp hồi đầu tiên, mã giữ giá tốt tăng chậm hơn mặt bằng chung.
   - Không có mã "luôn thắng" đáng tin.
   - Danh sách mã mạnh của đợt hiện tại: chạy `nghien-cuu/manh_khi_dieu_chinh.py` sau khi tải giá mới.
+- Hỏi "nên trung bình giá mã nào": chạy `nghien-cuu/trung_binh_gia.py <các mã>` và `loc_co_phieu.py --ma <các mã>
+  --khong-nhat-ky --khong-ghi`.
+  - Chỉ chọn mã lợi nhuận đang tăng, thanh khoản ≥ 10 tỷ/phiên, hồi phục đều sau các đợt điều chỉnh.
+  - Chia 2–3 lần mua; mỗi mã ≤ 20% danh mục.
+  - Không mua thêm mã thanh khoản thấp, mã thua lỗ, mã giá dưới 1.000 đồng.
+  - Không ghi danh mục riêng của người dùng vào tệp được đưa lên git.
 - Công cụ không tự đặt lệnh: người dùng tự đặt lệnh và cảnh báo giá trên ứng dụng chứng khoán của họ.
 - Ghi rõ đây là công cụ hỗ trợ, không phải lời khuyên đầu tư.
