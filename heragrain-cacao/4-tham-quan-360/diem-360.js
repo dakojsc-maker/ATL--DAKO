@@ -79,8 +79,8 @@ const SCENES = [
     mota: 'Thùng gỗ ủ nhiều ngăn và giàn phơi cách đất của HTX trồng ca cao. Heragrain mua hạt đã khô, đưa quy trình lên men, phơi mẫu và kiểm từng lô bằng độ ẩm, cut test.',
     di: [{ toi: 'nha-o', p: [-6, 1.2, -4.8], nhan: 'Về xưởng ca cao' },
       { toi: 'tren-cao', p: [-12, 8, -6], nhan: 'Bay lên toàn cảnh', thang: true }],
-    tt: [{ p: [-19.8, 1.6, -16.6], ten: 'Thùng ủ hạt', noidung: 'Hạt tươi ủ trong thùng gỗ, đảo sang ngăn dưới theo ngày để lên men đều. Hạt lên men đủ cho màu nâu, mùi thơm; hạt không lên men cho màu tím, vị chát (thấy rõ khi cut test).' },
-      { p: [-13.5, 1.3, -13.5], ten: 'Giàn phơi cách đất', noidung: 'Phơi đến độ ẩm khoảng 7 % hoặc thấp hơn; có mái che mưa; không phơi trên đường, sân đất. Hạt khô cho vào bao đay sạch, buộc kín, ghi tên vườn và ngày phơi.' },
+    tt: [{ p: [-19.8, 1.6, -16.6], ten: 'Thùng ủ hạt', noidung: 'Hạt tươi ủ trong thùng gỗ, đảo sang ngăn dưới theo ngày để lên men đều. Khi cắt hạt (cut test): hạt lên men đủ có màu nâu; hạt lên men chưa đủ có màu tím; hạt không lên men có mặt cắt xám (hạt đá).' },
+      { p: [-13.5, 1.3, -13.5], ten: 'Giàn phơi cách đất', noidung: 'Phơi đến độ ẩm theo hợp đồng (đề xuất ≤ 7,5 %); có mái che mưa; không phơi trên đường, sân đất. Hạt khô cho vào bao đay sạch, buộc kín, ghi tên vườn và ngày phơi.' },
       { p: [-16, 2.6, -11], zone: 'lenmen' }] },
 
   { id: 'nha-o', ten: 'Trước nhà ở', nhom: 'ngoai', khu: 'cu', gd: 1, p: [-1.5, 1.65, -4.4], nhin: [-1.5, 2.2, -12], zones: ['nha', 'xe'],
@@ -111,7 +111,7 @@ const SCENES = [
     di: [{ toi: 'phong-rang', p: [7.2, 1.2, -24.2], nhan: 'Phòng rang (phòng 2)', qua: [[7.2, -23.0]] },
       { toi: 'loi-di', p: [0, 1.2, -21.9], nhan: 'Ra lối đi', sau: [[-1.6, -21.6]] }],
     tt: [{ p: [3, 1.6, -23.4], zone: 'kho' },
-      { p: [4.2, 1.2, -20.25], ten: 'Bàn kiểm nhận', noidung: 'Lấy mẫu mỗi lô: độ ẩm (nhận khi ≤ 7,5 %), cut test 300 hạt đếm hạt mốc, hạt đá (chưa lên men), hạt sâu, hạt nảy mầm; đếm số hạt trên 100 g. Ghi phiếu, gắn mã lô.' },
+      { p: [4.2, 1.2, -20.25], ten: 'Bàn kiểm nhận', noidung: 'Lấy mẫu mỗi lô (TCVN 7521:2020): độ ẩm (mức nhận theo hợp đồng, đề xuất ≤ 7,5 %), cut test thường 300 hạt đếm hạt mốc, hạt đá, hạt sâu, hạt nảy mầm; đếm số hạt trên 100 g. Ghi phiếu, gắn mã lô.' },
       { p: [6.3, 1.6, -20.5], ten: 'Sàng làm sạch', noidung: 'Sàng rung, quạt hút bụi loại đá, sỏi, cành, vỏ quả, hạt dính chùm trước khi rang.' }] },
 
   { id: 'phong-rang', ten: 'Phòng rang, nghiền vỡ, tách vỏ (phòng 2)', nhom: 'xuong', khu: 'cu', gd: 1, p: [7.0, 1.6, -25.4], nhin: [9.2, 1.2, -28.2], fov: 80, zones: ['rang', 'travo'],
@@ -135,7 +135,7 @@ const SCENES = [
     tt: [{ p: [-3.1, 1.3, -33.6], zone: 'dem' }] },
 
   { id: 'khu-sach', ten: 'Khu sạch socola (nửa tây phòng 5)', nhom: 'xuong', khu: 'cu', gd: 2, p: [1.7, 1.6, -31.5], nhin: [3.2, 1.0, -33.7], fov: 82, zones: ['socola', 'dkl', 'panning'],
-    mota: 'Điều hòa 18–20 °C. Máy tôi socola, bàn đổ khuôn và rung khuôn, tủ mát làm cứng; bàn gói phía nam; máy dò kim loại (GĐ3) và nồi bao bọc socola (GĐ4).',
+    mota: 'Điều hòa khoảng 18–20 °C (đề xuất). Máy tôi socola, bàn đổ khuôn và rung khuôn, tủ mát làm cứng; bàn gói phía nam; máy dò kim loại (GĐ3) và nồi bao bọc socola (GĐ4).',
     di: [{ toi: 'kho-tp', p: [5.1, 1.2, -31.6], nhan: 'Kho thành phẩm mát', sau: [[6.4, -31.5]] },
       { toi: 'tram-rua-tay', p: [0, 1.2, -31.6], nhan: 'Trạm rửa tay', sau: [[-1.4, -31.0]] },
       { toi: 'phong-nibs', p: [1.0, 1.2, -29], nhan: 'Phòng nibs, nghiền', qua: [[1.0, -30.4]], sau: [[1.0, -28.2], [3.7, -27.2]] }],
@@ -143,7 +143,7 @@ const SCENES = [
       { p: [4.5, 1.4, -30.6], zone: 'dkl' }, { p: [2.3, 1.6, -30.55], zone: 'panning' }, { p: [0.7, 2.2, -33.7], ten: 'Tủ mát làm cứng', noidung: 'Khuôn socola vào tủ 10–15 °C cho cứng rồi tách khuôn, gói ngay trong phòng.' }] },
 
   { id: 'kho-tp', ten: 'Kho thành phẩm mát (nửa đông phòng 5)', nhom: 'xuong', khu: 'cu', gd: 1, p: [6.5, 1.6, -31.4], nhin: [9.4, 1.3, -31.4], fov: 80, zones: ['tp', 'qc'],
-    mota: 'Kho giữ 15–18 °C: thùng socola, túi nibs, bột ca cao trên kệ và pallet, xuất theo FIFO/FEFO. Góc tây bắc ngăn làm phòng QC, tủ lưu mẫu từ GĐ3.',
+    mota: 'Kho giữ khoảng 15–18 °C (đề xuất): thùng socola, túi nibs, bột ca cao trên kệ và pallet, xuất theo FIFO/FEFO. Góc tây bắc ngăn làm phòng QC, tủ lưu mẫu từ GĐ3.',
     di: [{ toi: 'khu-sach', p: [5.1, 1.2, -31.6], nhan: 'Về khu sạch', sau: [[3.6, -31.6]] }],
     tt: [{ p: [9.6, 1.8, -31.4], zone: 'tp' }, { p: [6.2, 1.5, -33.6], zone: 'qc' }] },
 

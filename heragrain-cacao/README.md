@@ -42,6 +42,9 @@ Bản xem trực tuyến (riêng tư, chia sẻ từ nút Share): sơ đồ 3D h
 
 ## Lưu ý
 
+Báo cáo rà soát nguồn (25 lỗi đã sửa, nội dung giữ nguyên, nhận xét đầu tư, việc cần làm): `BAO-CAO-RA-SOAT.md`.
+Mỗi bộ slide và file Word có thêm phần "Mức độ căn cứ" tách quy định đã kiểm chứng khỏi đề xuất, ước tính.
+
 Số liệu nhân sự, mốc thời gian, cỡ máy, tên sản phẩm là đề xuất của tư vấn. Kích thước xưởng ước theo ảnh vẽ tay.
 Quy định cập nhật đến 04/11/2026: Nghị định 15/2018 đang áp dụng (Nghị định 46/2026 tạm ngưng), Luật An toàn thực phẩm
 sửa đổi đang trình Quốc hội; xác nhận lại với cơ quan cấp phép khi nộp hồ sơ (mục 8 của file Word).

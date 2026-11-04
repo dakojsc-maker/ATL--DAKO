@@ -313,13 +313,13 @@ function hinh(key) {
     });
     case 'cutTest': return tx(key, 600, 820, (g, w, h) => {
       nen(g, w, h, '#FFFFFF'); veTieuDePoster(g, w, 'CUT TEST 300 HẠT', '#5A3825');
-      [['#7A4A2A', 'Lên men tốt', 'nâu, rãnh rõ'], ['#6E4A86', 'Lên men một phần', 'tím nâu'], ['#5E6266', 'Hạt đá', 'xám, chưa lên men'], ['#7E8B5A', 'Hạt mốc', 'loại bỏ'], ['#B89B6A', 'Hạt sâu, nảy mầm', 'loại bỏ']].forEach(([mau, t, sub], i) => {
+      [['#7A4A2A', 'Lên men tốt', 'nâu, rãnh rõ'], ['#6E4A86', 'Lên men chưa đủ', 'tím, tím nâu'], ['#5E6266', 'Hạt đá', 'xám, không lên men'], ['#7E8B5A', 'Hạt mốc', 'loại bỏ'], ['#B89B6A', 'Hạt sâu, nảy mầm', 'loại bỏ']].forEach(([mau, t, sub], i) => {
         const y = 190 + i * 110; g.fillStyle = mau; g.beginPath(); g.ellipse(110, y, 62, 40, 0, 0, 6.29); g.fill();
         g.strokeStyle = 'rgba(255,255,255,0.5)'; g.lineWidth = 3; for (let k = -2; k <= 2; k++) { g.beginPath(); g.moveTo(80, y + k * 12); g.lineTo(140, y + k * 9); g.stroke(); }
         g.fillStyle = MAU.xanh; g.textAlign = 'left'; g.textBaseline = 'middle'; g.font = `700 32px ${FONT}`; g.fillText(t, 200, y - 14);
         g.fillStyle = '#566860'; g.font = `500 24px ${FONT}`; g.fillText(sub, 200, y + 22);
       });
-      g.fillStyle = MAU.vang; g.fillRect(0, h - 90, w, 90); g.fillStyle = '#1D2B22'; g.textAlign = 'center'; g.font = `700 28px ${FONT}`; g.fillText('Độ ẩm nhận lô ≤ 7,5 % (TCVN 7519)', w / 2, h - 45);
+      g.fillStyle = MAU.vang; g.fillRect(0, h - 90, w, 90); g.fillStyle = '#1D2B22'; g.textAlign = 'center'; g.font = `700 28px ${FONT}`; g.fillText('Độ ẩm nhận lô: theo hợp đồng (đề xuất ≤ 7,5 %)', w / 2, h - 45);
     });
     case 'hopqua': return tx(key, 512, 384, (g, w, h) => {
       nen(g, w, h, MAU.xanh); g.strokeStyle = MAU.vang; g.lineWidth = 4; g.strokeRect(14, 14, w - 28, h - 28);

@@ -306,7 +306,7 @@ const D = { gd: 'Ban điều hành', tm: 'Thu mua, vùng nguyên liệu', sx: 'S
 const ZONES = [
   /* ---------- Giai đoạn 1: vùng nguyên liệu, nhà ở, xưởng cũ chuyển sang ca cao ---------- */
   { id: 'vung', n: 1, name: 'Vùng ca cao: nông hộ, HTX liên kết', kind: 'cacao', phase: 1, sanCo: true, box: [-42, -24, -36, -14], h: 5, noArea: true, dept: [D.tm],
-    role: 'Nông hộ và HTX trồng ca cao (Krông Ana, Ea Kar, Buôn Đôn… là các vùng đang có ca cao ở Đắk Lắk) hái quả chín, tách hạt. Heragrain ký hợp đồng thu mua, cấp sổ nhật ký vườn và ghi tọa độ từng vườn để truy xuất, chuẩn bị hồ sơ EUDR.',
+    role: 'Nông hộ và HTX trồng ca cao (Krông Ana, Ea Kar, Buôn Đôn… là các vùng đang có liên kết sản xuất ca cao ở Đắk Lắk, theo báo Nông nghiệp và Môi trường) hái quả chín, tách hạt. Heragrain ký hợp đồng thu mua, cấp sổ nhật ký vườn và ghi tọa độ từng vườn để truy xuất, chuẩn bị hồ sơ EUDR.',
     req: 'Hợp đồng thu mua; danh sách vườn kèm tọa độ; nhật ký phân bón, thuốc BVTV (chỉ hoạt chất được phép ở thị trường đích); không mở rộng vườn bằng phá rừng.',
     basis: 'Luật ATTP 2010 Điều 19; Quy định (EU) 2023/1115 (EUDR), sửa đổi bởi (EU) 2025/2650.' },
   { id: 'lenmen', n: 2, name: 'Điểm lên men, phơi của HTX (đối tác)', kind: 'lenmen', phase: 1, sanCo: true, box: [-22, -10, -19, -10], h: 2.6, noArea: true, dept: [D.tm, D.qa],
@@ -325,7 +325,7 @@ const ZONES = [
     req: 'Nhập và xuất khác giờ; quét dọn giữa hai lượt; không để bao trực tiếp trên nền, không để qua đêm ngoài kho.', basis: 'Codex CXC 1-1969; Thông tư 38/2018/TT-BNNPTNT (điều kiện cơ sở).' },
   { id: 'cuaxuong', n: 5, name: 'Cửa vào xưởng (rèm nhựa, lưới chắn côn trùng)', kind: 'door', phase: 1, box: [-3.5, 0, -19.85, -19.35], h: 3, noArea: true, pin: [-1.75, 5.4, -19.6], dept: [D.kho],
     role: 'Cửa duy nhất vào xưởng cũ, rộng khoảng 3,5 m, ở đầu nam lối đi. Người, hạt nguyên liệu và thành phẩm đều qua cửa này nên chia giờ và giữ hàng luôn đóng kín.',
-    req: 'Rèm nhựa và lưới chắn côn trùng ngay từ GĐ1 (mọt ca cao, bướm ẩm thực); đóng cửa khi không chuyển hàng.', basis: 'Codex CXC 1-1969 (kiểm soát động vật gây hại).' },
+    req: 'Rèm nhựa và lưới chắn côn trùng ngay từ GĐ1 (mọt, ngài hại kho); đóng cửa khi không chuyển hàng.', basis: 'Codex CXC 1-1969 (kiểm soát động vật gây hại).' },
   { id: 'loidi', n: 6, name: 'Lối đi chung (có mái)', kind: 'hall', phase: 1, box: [-3.5, 0, -34.2, -19.6], h: 3.2, wallH: 2.2, kt: 'uoc', open: ['E', 'S'], pin: [-1.75, 4.2, -26.5], dept: [D.kho],
     do: [['vach', -1.75, -1.75, -30.2, -20.2]],
     role: 'Lối đi dọc phía tây xưởng, lợp mái. Hạt vào phòng 1 qua cửa gần đầu nam; thành phẩm từ phòng 5 đi ra theo vạch phân làn. Không để hàng trên lối đi.',
@@ -337,9 +337,9 @@ const ZONES = [
     doors: [{ side: 'N', at: 7.2, w: 1.5 }, { side: 'W', at: -21.9, w: 1.2 }],
     do: [['bao', 0.9, -23.4, 5], ['bao', 2.2, -23.4, 5], ['bao', 3.5, -23.4, 4], ['bao', 4.8, -23.4, 3], ['bao', 1.6, -20.4, 4],
       ['ban', 4.2, -20.25, 1.4, 0.7], ['may', 6.3, -20.5, 1.4, 1.3, 0.9], ['ban', 8.7, -20.3, 2.0, 0.8], ['thung', 5.9, -23.6, 2, 1], ['can', 9.3, -23.4]],
-    role: 'Bao hạt khô xếp trên pallet theo mã lô. Bàn kiểm nhận: đo độ ẩm, cut test 300 hạt (hạt mốc, hạt đá, hạt sâu), đếm số hạt/100 g. Sàng rung loại đá, cành, vỏ, hạt dính chùm; bàn nhặt tay; cân hạt sạch trước khi sang phòng rang.',
-    req: 'Nhận lô khi độ ẩm ≤ 7,5 % và cut test đạt hạng đã thỏa thuận; lô không đạt để riêng, ghi rõ; pallet cách tường 0,5 m; bẫy côn trùng, theo dõi mọt.',
-    basis: 'TCVN 7519:2020 (ISO 2451:2017); Codex CXC 1-1969.' },
+    role: 'Bao hạt khô xếp trên pallet theo mã lô. Bàn kiểm nhận: đo độ ẩm, cut test (thông lệ cắt 300 hạt: hạt mốc, hạt đá, hạt sâu), đếm số hạt/100 g. Sàng rung loại đá, cành, vỏ, hạt dính chùm; bàn nhặt tay; cân hạt sạch trước khi sang phòng rang.',
+    req: 'Nhận lô khi độ ẩm, cut test đạt mức ghi trong hợp đồng (đề xuất độ ẩm ≤ 7,5 %, cần đối chiếu bảng yêu cầu của TCVN 7519:2020); lô không đạt để riêng, ghi rõ; pallet cách tường; bẫy côn trùng, theo dõi mọt.',
+    basis: 'TCVN 7519:2020 (ISO 2451:2017), TCVN 7521:2020 (lấy mẫu); Codex CXC 1-1969. Ngưỡng độ ẩm, khoảng cách pallet là đề xuất.' },
   { id: 'rang', n: 9, name: 'Phòng rang, nghiền vỡ, tách vỏ (phòng 2)', kind: 'hall', phase: 1, box: [5.5, 10.2, -29, -24.2], h: 4.2, wallH: 2, kt: 'uoc', open: ['W', 'S'], pin: [7.9, 5.2, -26.4], dept: [D.sx, D.qa],
     do: [['rang', 9.0, -28.3], ['tachvo', 9.4, -25.1]],
     role: 'Máy rang trống (khuyến nghị dùng điện, 15–30 kg/mẻ), sàng làm nguội, chụp hút và ống khói qua mái. Hạt rang nguội vào máy nghiền vỡ, quạt tách vỏ lụa, cyclone thu vỏ. Nibs sang phòng 3 qua cửa phía tây.',
@@ -358,7 +358,7 @@ const ZONES = [
   { id: 'tp', n: 12, name: 'Kho thành phẩm mát, bao bì sạch (nửa đông phòng 5)', kind: 'hall', phase: 1, box: [5.1, 10.2, -34.2, -29], h: 4.2, wallH: 2, kt: 'uoc', open: ['S'], pin: [8.4, 5.2, -31.2], dept: [D.kho],
     doors: [{ side: 'W', at: -31.6, w: 1.0 }],
     do: [['ke', 9.5, 10.0, -33.8, -29.4, 3], ['pallet', 7.6, -30.0], ['pallet', 8.9, -30.0], ['ke', 7.6, 9.1, -34.0, -33.5, 3], ['dieuhoa', 8.4, -34.05, 'N']],
-    role: 'Điều hòa giữ 15–18 °C cho socola, độ ẩm thấp; nibs, bột trong túi kín, bao bì sạch trên kệ riêng. Xuất theo FIFO/FEFO, ghi nhiệt độ, độ ẩm hằng ngày.',
+    role: 'Điều hòa giữ khoảng 15–18 °C cho socola (đề xuất), độ ẩm thấp; nibs, bột trong túi kín, bao bì sạch trên kệ riêng. Xuất theo FIFO/FEFO, ghi nhiệt độ, độ ẩm hằng ngày.',
     req: 'Tách khu hàng chờ kết quả kiểm nghiệm; bao bì tiếp xúc trực tiếp với sản phẩm để kệ có che phủ.', basis: 'Codex CXC 1-1969; Codex CXS 87-1981 (socola).' },
   { id: 'xe', n: 13, name: 'Xe giao hàng trong nước (B2B)', kind: 'cont', phase: 1, box: [7, 14, 1.6, 3.8], h: 3, noArea: true, pin: [10.5, 4.6, 2.7], dept: [D.kho, D.kd],
     role: 'Giao bao nibs, hạt rang cho nhà máy socola, công ty bánh kẹo; từ GĐ2 giao socola cho điểm bán. Bãi xe trước nhà là giả định.',
@@ -367,13 +367,13 @@ const ZONES = [
   /* ---------- Giai đoạn 2: socola ---------- */
   { id: 'melanger', n: 14, name: 'Máy nghiền đá (melanger) 3 × 20 kg', kind: 'thietbi', phase: 2, box: [2.0, 4.8, -28.9, -28.1], h: 1.2, noArea: true, pin: [3.4, 3.4, -28.5], dept: [D.sx, D.rd],
     do: [['melanger', 2.45, -28.5], ['melanger', 3.4, -28.5], ['melanger', 4.35, -28.5]],
-    role: 'Nghiền nibs thành khối ca cao lỏng, thêm đường (và bơ ca cao khi cần), nghiền tiếp 24–72 giờ để mịn và đánh hương (conche). Một máy chạy khối ca cao nguyên chất cho GĐ3.',
+    role: 'Nghiền nibs thành khối ca cao lỏng, thêm đường (và bơ ca cao khi cần), nghiền tiếp nhiều giờ để mịn và đánh hương (conche); thời gian chốt theo thử nghiệm công thức. Một máy chạy khối ca cao nguyên chất cho GĐ3.',
     req: 'Ghi thời gian, nhiệt độ mẻ; đo độ mịn; nắp máy đậy kín; không dùng chung máy cho mẻ có sữa, hạt (mắc ca) khi chưa vệ sinh xác nhận.', basis: 'Codex CXS 87-1981; Codex CXC 80-2020 (quản lý chất gây dị ứng).' },
   { id: 'socola', n: 15, name: 'Khu sạch socola: tôi, đổ khuôn, làm lạnh, gói (nửa tây phòng 5)', kind: 'hall', phase: 2, box: [0, 5.1, -34.2, -29], h: 4.2, wallH: 2, kt: 'uoc', open: ['S', 'E'], pin: [2.6, 5.2, -31.6], dept: [D.sx, D.qa, D.rd],
     doors: [{ side: 'W', at: -31.6, w: 1.2 }],
     do: [['tumat', 0.7, -33.7, 1.2, 0.7], ['ban', 2.6, -33.75, 2.0, 0.8], ['temper', 4.45, -33.7], ['ban', 3.3, -29.6, 2.4, 0.7], ['bon', 0.35, -32.9, 0.22, 0.85], ['dieuhoa', 2.6, -34.05, 'N']],
     role: 'Nhận khối socola từ phòng 3 qua cửa phía nam: máy tôi socola, bàn đổ khuôn và rung khuôn, tủ mát làm cứng, tách khuôn, gói giấy bạc, cho vào hộp, dán nhãn có mã lô. Từ GĐ3 đóng gói cả bột ca cao tại đây.',
-    req: 'Trần kín, điều hòa 18–20 °C, độ ẩm dưới 60 %; người vào qua trạm rửa tay ở đầu bắc lối đi; khuôn polycarbonate rửa, sấy khô trước ca.', basis: 'Codex CXC 1-1969; Codex CXS 87-1981.' },
+    req: 'Trần kín, điều hòa khoảng 18–20 °C, độ ẩm thấp (thông lệ ngành, đề xuất; chốt theo thử nghiệm công thức); người vào qua trạm rửa tay ở đầu bắc lối đi; khuôn polycarbonate rửa, sấy khô trước ca.', basis: 'Codex CXC 1-1969; Codex CXS 87-1981.' },
   { id: 'dem', n: 16, name: 'Trạm rửa tay vào khu sạch (đầu bắc lối đi)', kind: 'hall', phase: 2, box: [-3.5, 0, -34.2, -30.6], h: 2.6, wallH: 2.2, kt: 'de', open: ['N', 'W', 'E'], noFloor: true, noRoof: true, pin: [-1.75, 3.8, -32.6], dept: [D.qa],
     doors: [{ side: 'S', at: -1.75, w: 1.2 }],
     do: [['bon', -3.1, -33.6, 0.25, 0.85], ['may', -3.15, -31.6, 0.6, 1.8, 0.5]],
@@ -391,7 +391,7 @@ const ZONES = [
     req: 'Hút bụi tại chỗ; lưới rây kiểm tra nguyên vẹn đầu và cuối ca; độ ẩm bột theo hồ sơ công bố.', basis: 'Codex CXS 105-1981 (bột ca cao).' },
   { id: 'dkl', n: 19, name: 'Máy dò kim loại', kind: 'detector', phase: 3, box: [4.0, 5.0, -30.9, -30.3], h: 1.7, noArea: true, pin: [4.5, 3.2, -30.6], dept: [D.sx, D.qa],
     role: 'Sản phẩm đã gói đi qua máy dò kim loại trước khi cho vào thùng (bước 10).',
-    req: 'CCP dò kim loại: thử mẫu chuẩn Fe, non-Fe, inox đầu ca và mỗi 2 giờ; loại riêng sản phẩm bị báo.', basis: 'Codex HACCP; yêu cầu thường gặp của người mua.' },
+    req: 'CCP đề xuất: thử mẫu chuẩn Fe, non-Fe, inox đầu ca và định kỳ trong ca (tần suất chốt trong kế hoạch HACCP); loại riêng sản phẩm bị báo.', basis: 'Codex HACCP; yêu cầu thường gặp của người mua.' },
   { id: 'qc', n: 20, name: 'Phòng QC, tủ lưu mẫu (góc kho thành phẩm)', kind: 'hall', phase: 3, box: [5.1, 7.3, -34.2, -32.4], h: 2.6, wallH: 2, kt: 'de', open: ['N', 'W'], noFloor: true, noRoof: true, pin: [6.2, 3.6, -33.3], dept: [D.qa],
     doors: [{ side: 'S', at: 6.2, w: 0.9 }],
     do: [['ban', 6.2, -33.85, 1.8, 0.6], ['may', 6.9, -33.0, 0.6, 1.8, 0.5]],
@@ -488,7 +488,7 @@ const DIEU_CHINH = [
 
 const UOC_KICH_THUOC = [
   'Kích thước xưởng cũ ước theo tỷ lệ ảnh xưởng mới có số đo (khoảng 2 m mỗi ô vở): 5 phòng 10,2 × 14,6 m, khoảng 149 m²; lối đi phía tây rộng 3,5 m; sân sau 9 × 4,6 m; phòng 6 khoảng 6,7 × 4,6 m; nhà ở 16 × 7,5 m.',
-  'Diện tích sản xuất ca cao khoảng 200 m² (5 phòng và lối đi) đủ cho dây chuyền nhỏ: máy rang 15–30 kg/mẻ, 3 máy nghiền đá 20 kg, máy ép thủy lực cỡ phòng thí nghiệm, khoảng 100–200 kg hạt/ngày một ca.',
+  'Diện tích sản xuất ca cao khoảng 200 m² (5 phòng và lối đi). Ước tính của tư vấn, chưa có định mức tham chiếu: máy rang 15–30 kg/mẻ, 3 máy nghiền đá 20 kg, máy ép thủy lực cỡ nhỏ, khoảng 100–200 kg hạt/ngày một ca; chốt theo catalogue và chạy thử.',
   'Vị trí thiết bị là đề xuất; chốt lại theo catalogue máy thật (kích thước, công suất điện, khoảng cách an toàn).'
 ];
 
@@ -587,8 +587,8 @@ const SCENES = [
     mota: 'Thùng gỗ ủ nhiều ngăn và giàn phơi cách đất của HTX trồng ca cao. Heragrain mua hạt đã khô, đưa quy trình lên men, phơi mẫu và kiểm từng lô bằng độ ẩm, cut test.',
     di: [{ toi: 'nha-o', p: [-6, 1.2, -4.8], nhan: 'Về xưởng ca cao' },
       { toi: 'tren-cao', p: [-12, 8, -6], nhan: 'Bay lên toàn cảnh', thang: true }],
-    tt: [{ p: [-19.8, 1.6, -16.6], ten: 'Thùng ủ hạt', noidung: 'Hạt tươi ủ trong thùng gỗ, đảo sang ngăn dưới theo ngày để lên men đều. Hạt lên men đủ cho màu nâu, mùi thơm; hạt không lên men cho màu tím, vị chát (thấy rõ khi cut test).' },
-      { p: [-13.5, 1.3, -13.5], ten: 'Giàn phơi cách đất', noidung: 'Phơi đến độ ẩm khoảng 7 % hoặc thấp hơn; có mái che mưa; không phơi trên đường, sân đất. Hạt khô cho vào bao đay sạch, buộc kín, ghi tên vườn và ngày phơi.' },
+    tt: [{ p: [-19.8, 1.6, -16.6], ten: 'Thùng ủ hạt', noidung: 'Hạt tươi ủ trong thùng gỗ, đảo sang ngăn dưới theo ngày để lên men đều. Khi cắt hạt (cut test): hạt lên men đủ có màu nâu; hạt lên men chưa đủ có màu tím; hạt không lên men có mặt cắt xám (hạt đá).' },
+      { p: [-13.5, 1.3, -13.5], ten: 'Giàn phơi cách đất', noidung: 'Phơi đến độ ẩm theo hợp đồng (đề xuất ≤ 7,5 %); có mái che mưa; không phơi trên đường, sân đất. Hạt khô cho vào bao đay sạch, buộc kín, ghi tên vườn và ngày phơi.' },
       { p: [-16, 2.6, -11], zone: 'lenmen' }] },
 
   { id: 'nha-o', ten: 'Trước nhà ở', nhom: 'ngoai', khu: 'cu', gd: 1, p: [-1.5, 1.65, -4.4], nhin: [-1.5, 2.2, -12], zones: ['nha', 'xe'],
@@ -619,7 +619,7 @@ const SCENES = [
     di: [{ toi: 'phong-rang', p: [7.2, 1.2, -24.2], nhan: 'Phòng rang (phòng 2)', qua: [[7.2, -23.0]] },
       { toi: 'loi-di', p: [0, 1.2, -21.9], nhan: 'Ra lối đi', sau: [[-1.6, -21.6]] }],
     tt: [{ p: [3, 1.6, -23.4], zone: 'kho' },
-      { p: [4.2, 1.2, -20.25], ten: 'Bàn kiểm nhận', noidung: 'Lấy mẫu mỗi lô: độ ẩm (nhận khi ≤ 7,5 %), cut test 300 hạt đếm hạt mốc, hạt đá (chưa lên men), hạt sâu, hạt nảy mầm; đếm số hạt trên 100 g. Ghi phiếu, gắn mã lô.' },
+      { p: [4.2, 1.2, -20.25], ten: 'Bàn kiểm nhận', noidung: 'Lấy mẫu mỗi lô (TCVN 7521:2020): độ ẩm (mức nhận theo hợp đồng, đề xuất ≤ 7,5 %), cut test thường 300 hạt đếm hạt mốc, hạt đá, hạt sâu, hạt nảy mầm; đếm số hạt trên 100 g. Ghi phiếu, gắn mã lô.' },
       { p: [6.3, 1.6, -20.5], ten: 'Sàng làm sạch', noidung: 'Sàng rung, quạt hút bụi loại đá, sỏi, cành, vỏ quả, hạt dính chùm trước khi rang.' }] },
 
   { id: 'phong-rang', ten: 'Phòng rang, nghiền vỡ, tách vỏ (phòng 2)', nhom: 'xuong', khu: 'cu', gd: 1, p: [7.0, 1.6, -25.4], nhin: [9.2, 1.2, -28.2], fov: 80, zones: ['rang', 'travo'],
@@ -643,7 +643,7 @@ const SCENES = [
     tt: [{ p: [-3.1, 1.3, -33.6], zone: 'dem' }] },
 
   { id: 'khu-sach', ten: 'Khu sạch socola (nửa tây phòng 5)', nhom: 'xuong', khu: 'cu', gd: 2, p: [1.7, 1.6, -31.5], nhin: [3.2, 1.0, -33.7], fov: 82, zones: ['socola', 'dkl', 'panning'],
-    mota: 'Điều hòa 18–20 °C. Máy tôi socola, bàn đổ khuôn và rung khuôn, tủ mát làm cứng; bàn gói phía nam; máy dò kim loại (GĐ3) và nồi bao bọc socola (GĐ4).',
+    mota: 'Điều hòa khoảng 18–20 °C (đề xuất). Máy tôi socola, bàn đổ khuôn và rung khuôn, tủ mát làm cứng; bàn gói phía nam; máy dò kim loại (GĐ3) và nồi bao bọc socola (GĐ4).',
     di: [{ toi: 'kho-tp', p: [5.1, 1.2, -31.6], nhan: 'Kho thành phẩm mát', sau: [[6.4, -31.5]] },
       { toi: 'tram-rua-tay', p: [0, 1.2, -31.6], nhan: 'Trạm rửa tay', sau: [[-1.4, -31.0]] },
       { toi: 'phong-nibs', p: [1.0, 1.2, -29], nhan: 'Phòng nibs, nghiền', qua: [[1.0, -30.4]], sau: [[1.0, -28.2], [3.7, -27.2]] }],
@@ -651,7 +651,7 @@ const SCENES = [
       { p: [4.5, 1.4, -30.6], zone: 'dkl' }, { p: [2.3, 1.6, -30.55], zone: 'panning' }, { p: [0.7, 2.2, -33.7], ten: 'Tủ mát làm cứng', noidung: 'Khuôn socola vào tủ 10–15 °C cho cứng rồi tách khuôn, gói ngay trong phòng.' }] },
 
   { id: 'kho-tp', ten: 'Kho thành phẩm mát (nửa đông phòng 5)', nhom: 'xuong', khu: 'cu', gd: 1, p: [6.5, 1.6, -31.4], nhin: [9.4, 1.3, -31.4], fov: 80, zones: ['tp', 'qc'],
-    mota: 'Kho giữ 15–18 °C: thùng socola, túi nibs, bột ca cao trên kệ và pallet, xuất theo FIFO/FEFO. Góc tây bắc ngăn làm phòng QC, tủ lưu mẫu từ GĐ3.',
+    mota: 'Kho giữ khoảng 15–18 °C (đề xuất): thùng socola, túi nibs, bột ca cao trên kệ và pallet, xuất theo FIFO/FEFO. Góc tây bắc ngăn làm phòng QC, tủ lưu mẫu từ GĐ3.',
     di: [{ toi: 'khu-sach', p: [5.1, 1.2, -31.6], nhan: 'Về khu sạch', sau: [[3.6, -31.6]] }],
     tt: [{ p: [9.6, 1.8, -31.4], zone: 'tp' }, { p: [6.2, 1.5, -33.6], zone: 'qc' }] },
 
@@ -987,13 +987,13 @@ function hinh(key) {
     });
     case 'cutTest': return tx(key, 600, 820, (g, w, h) => {
       nen(g, w, h, '#FFFFFF'); veTieuDePoster(g, w, 'CUT TEST 300 HẠT', '#5A3825');
-      [['#7A4A2A', 'Lên men tốt', 'nâu, rãnh rõ'], ['#6E4A86', 'Lên men một phần', 'tím nâu'], ['#5E6266', 'Hạt đá', 'xám, chưa lên men'], ['#7E8B5A', 'Hạt mốc', 'loại bỏ'], ['#B89B6A', 'Hạt sâu, nảy mầm', 'loại bỏ']].forEach(([mau, t, sub], i) => {
+      [['#7A4A2A', 'Lên men tốt', 'nâu, rãnh rõ'], ['#6E4A86', 'Lên men chưa đủ', 'tím, tím nâu'], ['#5E6266', 'Hạt đá', 'xám, không lên men'], ['#7E8B5A', 'Hạt mốc', 'loại bỏ'], ['#B89B6A', 'Hạt sâu, nảy mầm', 'loại bỏ']].forEach(([mau, t, sub], i) => {
         const y = 190 + i * 110; g.fillStyle = mau; g.beginPath(); g.ellipse(110, y, 62, 40, 0, 0, 6.29); g.fill();
         g.strokeStyle = 'rgba(255,255,255,0.5)'; g.lineWidth = 3; for (let k = -2; k <= 2; k++) { g.beginPath(); g.moveTo(80, y + k * 12); g.lineTo(140, y + k * 9); g.stroke(); }
         g.fillStyle = MAU.xanh; g.textAlign = 'left'; g.textBaseline = 'middle'; g.font = `700 32px ${FONT}`; g.fillText(t, 200, y - 14);
         g.fillStyle = '#566860'; g.font = `500 24px ${FONT}`; g.fillText(sub, 200, y + 22);
       });
-      g.fillStyle = MAU.vang; g.fillRect(0, h - 90, w, 90); g.fillStyle = '#1D2B22'; g.textAlign = 'center'; g.font = `700 28px ${FONT}`; g.fillText('Độ ẩm nhận lô ≤ 7,5 % (TCVN 7519)', w / 2, h - 45);
+      g.fillStyle = MAU.vang; g.fillRect(0, h - 90, w, 90); g.fillStyle = '#1D2B22'; g.textAlign = 'center'; g.font = `700 28px ${FONT}`; g.fillText('Độ ẩm nhận lô: theo hợp đồng (đề xuất ≤ 7,5 %)', w / 2, h - 45);
     });
     case 'hopqua': return tx(key, 512, 384, (g, w, h) => {
       nen(g, w, h, MAU.xanh); g.strokeStyle = MAU.vang; g.lineWidth = 4; g.strokeRect(14, 14, w - 28, h - 28);

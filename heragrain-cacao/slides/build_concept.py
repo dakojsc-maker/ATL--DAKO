@@ -71,8 +71,8 @@ def build_content():
                        tagline='Thấy tận mắt, ăn yên tâm · Ca cao lên men từ đất đỏ bazan Đắk Lắk', height=4.6, notes=NOTE)),
         (L.intro, dict(title='Ca cao Đắk Lắk', script='từ đất đỏ bazan', photo='pods_basket', focus=[0.5, 0.45],
                        text='Đắk Lắk có khoảng **2.000 ha ca cao** (có số đánh giá 1.140 ha), năng suất hơn **15 tạ hạt khô/ha**, '
-                            'sản lượng 2025 ước **1.650 tấn** (Trung tâm Khuyến nông tỉnh). Ca cao thường trồng xen trong vườn '
-                            'cà phê, cây ăn quả ở Krông Ana, Ea Kar, Buôn Đôn… **Heragrain** mua hạt đã lên men, phơi khô từ nông '
+                            'sản lượng 2025 ước **1.650 tấn** (Trung tâm Khuyến nông tỉnh). Các vùng đang có liên kết sản xuất ca cao '
+                            'gồm Krông Ana, Ea Kar, Buôn Đôn… **Heragrain** mua hạt đã lên men, phơi khô từ nông '
                             'hộ, HTX; rang, tách vỏ thành **nibs**; rồi chế biến sâu thành **socola, bột và bơ ca cao**.')),
         (L.story_product, dict(nav=0, title='Chuỗi giá trị', script='từ quả đến thanh socola', product='nibs', second='bot', side='right',
                                text='Nông hộ, HTX hái quả, tách hạt, **lên men, phơi khô**. Heragrain nhận hạt khô, **rang theo '
@@ -93,7 +93,7 @@ def build_content():
                                       color='5A3825'),
                                  dict(label='Concept 2', slogan='Đại Ngàn 70: socola đen single origin Đắk Lắk',
                                       products=['bar70', 'bar100'], palette=['3B2416', '2A1A10', 'E4A92A', 'F6F0E6'],
-                                      values=['Thanh 80 g: 70–100 %', 'Bean-to-bar tại xưởng', 'Hương trái cây lên men'],
+                                      values=['Thanh 80 g: 70–100 %', 'Bean-to-bar tại xưởng', 'Ghi ngày rang, mẻ nghiền'],
                                       color='3B2416'),
                                  dict(label='Concept 3', slogan='Cacao Thuần: bột và bơ ca cao nguyên chất',
                                       products=['bot', 'bo'], palette=['7A4A2A', 'A87A2A', 'F6F0E6'],
@@ -132,7 +132,7 @@ def build_content():
                              ['Khách hàng', 'Người thích socola đen, quà tặng, quán cà phê, khách du lịch'],
                              ['Pháp lý', 'Tự công bố · nhãn theo NĐ 37/2026 · kiểm nghiệm kim loại nặng'],
                              ['Giai đoạn', 'GĐ2 · Q3–Q4/2027']],
-                       note='Ghi **ngày rang, mẻ nghiền** trên hộp: kể được câu chuyện bean-to-bar mà thương hiệu lớn không có.')),
+                       note='Ghi **ngày rang, mẻ nghiền** trên hộp để truy xuất và kể câu chuyện bean-to-bar; hương vị cần thử nếm, đánh giá cảm quan trước khi quảng bá.')),
         (L.specs, dict(nav=1, title='Concept 3 · Cacao Thuần', script='bột và bơ ca cao', product='bot', col_w=[1.5, 3.7],
                        rows=[['Hạng mục', 'Nội dung đề xuất'],
                              ['Sản phẩm', 'Bột ca cao nguyên chất (tự nhiên), bơ ca cao thực phẩm'],
@@ -166,7 +166,7 @@ def build_content():
             ('map-pin', 'Một vùng trồng', 'Ghi xã, HTX, tọa độ vườn trên mỗi lô hạt.'),
             ('thermometer', 'Rang theo tiêu chuẩn', 'Ghi nhiệt độ, thời gian từng mẻ rang (CCP).'),
             ('eye', 'Thấy tận mắt', 'Cửa sổ H cho thấy nibs, socola thật bên trong.'),
-            ('leaf', 'Không phá rừng', 'Hồ sơ vườn sẵn sàng cho quy định EUDR của EU.')])),
+            ('leaf', 'Hướng tới EUDR', 'Thu tọa độ vườn từ đầu để đáp ứng quy định chống phá rừng của EU.')])),
         (L.usage, dict(nav=2, title='Lộ trình ra mắt', script='5 concept theo 4 giai đoạn', product='nibs', steps=[
             ('package', 'GĐ1 · 2027', 'Concept 1 Bazan Origin: hạt rang, nibs B2B và bán lẻ.'),
             ('cookie', 'GĐ2 · cuối 2027', 'Concept 2 Đại Ngàn 70: socola đen.'),
@@ -178,6 +178,14 @@ def build_content():
                               items=[dict(photo='pods_bowl', name='Quả ca cao', focus=[0.5, 0.5]),
                                      dict(photo='beans_dry', name='Hạt lên men, phơi khô', focus=[0.5, 0.5]),
                                      dict(photo='grinder', name='Máy nghiền đá', focus=[0.5, 0.4])])),
+        (L.specs, dict(nav=0, title='Căn cứ và giả định', script='đọc trước khi dùng số liệu', product='hat', col_w=[2.0, 3.2],
+                       rows=[['Nội dung', 'Mức căn cứ'],
+                             ['Diện tích, sản lượng ca cao Đắk Lắk', 'Có nguồn: TT Khuyến nông Đắk Lắk (2025); hai số diện tích chưa thống nhất'],
+                             ['Tên, quy cách, khách hàng 5 concept', 'Đề xuất của tư vấn; chưa khảo sát thị trường'],
+                             ['Thời điểm ra mắt theo giai đoạn', 'Đề xuất; phụ thuộc vốn, giấy phép, chạy thử'],
+                             ['Bao bì, ảnh', 'Hình minh họa; ảnh Open Images, không phải ảnh Đắk Lắk'],
+                             ['Giá bán, sản lượng, biên lợi nhuận', 'Chưa có; cần khảo sát giá, chi phí, đơn hàng thử']],
+                       note='Không dùng bộ slide này làm căn cứ tài chính cho quyết định đầu tư khi chưa có **dự toán chi phí và khảo sát giá**.')),
         (L.conclusion, dict(nav=0, title='Heragrain Cacao', script='Thấy tận mắt, ăn yên tâm',
                             text='Năm concept đi từ **hàng thô** (hạt rang, nibs) đến **chế biến sâu** (socola, bột, bơ) và '
                                  '**mix vị** đặc sản Tây Nguyên: mỗi bước thêm giá trị cho hạt ca cao Đắk Lắk.',
