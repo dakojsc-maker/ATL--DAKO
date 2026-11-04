@@ -166,10 +166,39 @@ cửa phiên sau, đã trừ phí. Cột cuối là tỷ lệ số lần giá c�
 Rà soát một danh mục cụ thể: `python3 loc-co-phieu/nghien-cuu/trung_binh_gia.py MÃ1 MÃ2 …` (thêm thành tích từng mã qua
 các đợt điều chỉnh từ 2021, lợi nhuận quý, thanh khoản).
 
-## 8. Tái lập
+## 8. Lướt T+ (giữ vài phiên) khi thị trường điều chỉnh
+
+Kiểm định 2014–10/2026: mua giá mở cửa phiên sau, bán theo luật T+2. Cấu hình bán ghi dạng chốt lời / cắt lỗ / số phiên
+tối đa; "6/4/10" nghĩa là chốt +6%, cắt −4%, tối đa 10 phiên.
+
+**Ngày thường trong đợt điều chỉnh:** lướt T+ lỗ bình quân ở hầu hết các kiểu điểm mua.
+
+| Kiểu điểm mua | Thắng (6/4/10) | Lãi/lỗ bình quân | Số năm có lãi |
+|---|---|---|---|
+| Mọi mã | 47% | −0,68% | 4/13 |
+| Tăng ≥ 3% kèm khối lượng ≥ 1,5 lần (mua đuổi) | 42% | **−1,46%** | 1/13 |
+| Quá mua (RSI ≥ 70) | 46% | −1,06% | 2/13 |
+| Bắt đáy quá bán | 47% | −0,96% | 5/13 |
+| Chỉnh ngắn trong xu hướng tăng (trên MA50 đi lên, RSI2 ≤ 20) | 53% | +0,06% | 7/13 |
+
+**Ngay sau "ngày xác nhận tăng"** (33 lần), mua mở cửa phiên sau:
+
+| Nhóm mã | 6/4/10 | 7/7/20 | Giữ 5 phiên |
+|---|---|---|---|
+| Mọi mã | thắng 47%, −0,12% | thắng 55%, +0,36% | +0,6% |
+| Tăng < 1% trong ngày xác nhận | thắng 45%, −0,45% | thắng 50%, −0,25% | −0,4% |
+| Tăng trần / sát trần trong ngày xác nhận | thắng 51%, +0,29% | thắng 60%, +0,96% | +2,9% |
+| **Tăng trần, thanh khoản ≥ 50 tỷ/phiên** | **thắng 59%, +0,95%** | **thắng 65%, +1,67%** | **+4,7%** |
+
+Mã tăng trần với thanh khoản lớn ngay trong ngày xác nhận là nhóm duy nhất có lợi thế rõ khi lướt ngắn. Nhưng một nửa số
+ngày xác nhận về sau thất bại, nên chỉ mua với tỷ trọng nhỏ và luôn cắt lỗ.
+
+## 9. Tái lập
+
 
 
 ```
 python3 loc-co-phieu/nghien-cuu/tai_lich_su.py --lam-moi   # giá mới nhất (~4 phút)
 python3 loc-co-phieu/nghien-cuu/manh_khi_dieu_chinh.py     # toàn bộ mục 3–5
+python3 loc-co-phieu/nghien-cuu/luot_t.py                  # mục 8
 ```
