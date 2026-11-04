@@ -12,6 +12,8 @@ Kho Mẫu Slide DAKO (nhánh `claude/festive-ride-bpliki`, mẫu M07 vốn dựn
 | 4 | **Tham quan 360°** xưởng ca cao (12 điểm) | `4-tham-quan-360/ban-gui/Xuong-ca-cao-Heragrain-360.html` |
 | 5 | **Hồ sơ pháp lý**: văn bản hiện hành, thủ tục, nơi nộp, cơ quan cấp, 9 biểu mẫu soạn sẵn (28 trang) | `5-phap-ly/Heragrain-Cacao_Ho-so-phap-ly-van-ban-bieu-mau.docx` |
 
+Bản xem trực tuyến (riêng tư, chia sẻ từ nút Share): sơ đồ 3D https://claude.ai/artifact/R9o6aPkah58nCUcx4ZhDYE · tham quan 360° https://claude.ai/artifact/5HJFi9bPLoLXXzxPkqTFx6
+
 ## 5 concept
 
 1. **Bazan Origin** — hạt rang, nibs truy xuất đến vườn (hàng thô B2B, túi bán lẻ, hộp mẫu 3 vùng). GĐ1.

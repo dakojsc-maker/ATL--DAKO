@@ -1,5 +1,6 @@
 # Tham quan 360° xưởng ca cao Heragrain
 
+- Bản xem trực tuyến: https://claude.ai/artifact/5HJFi9bPLoLXXzxPkqTFx6 (đăng lại `index.html` kèm các file .js cùng đường dẫn để giữ link)
 12 điểm đứng: toàn cảnh, điểm lên men và phơi của HTX đối tác, trước nhà ở, sân sau nhận hạt, lối đi, kho hạt (phòng 1),
 phòng rang và tách vỏ (phòng 2), phòng nibs, nghiền, ép (phòng 3), trạm rửa tay, khu sạch socola, kho thành phẩm mát,
 nhìn gần xưởng từ trên cao. Có tham quan tự động, bản đồ nhỏ, điểm thông tin chữ i.

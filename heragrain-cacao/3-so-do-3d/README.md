@@ -1,5 +1,6 @@
 # Sơ đồ 3D xưởng ca cao Heragrain (xưởng cũ)
 
+- Bản xem trực tuyến: https://claude.ai/artifact/R9o6aPkah58nCUcx4ZhDYE (đăng lại `index.html` kèm các file .js cùng đường dẫn để giữ link)
 Xưởng cũ của HTX Heragrain (5 phòng, lối đi phía tây, vào qua nhà ở và sân sau) bố trí lại cho dòng ca cao: hàng thô
 (hạt rang, nibs) và chế biến sâu (socola, bột, bơ ca cao, mix vị). Chọn giai đoạn để thấy khu, thiết bị nào hoạt động từ lúc nào.
 
