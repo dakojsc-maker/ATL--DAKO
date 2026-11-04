@@ -34,6 +34,10 @@ python3 -m http.server 8137
 # mở http://127.0.0.1:8137/
 ```
 
+Muốn gửi một file duy nhất để mở bằng cách bấm đúp (không cần máy chủ): mở
+`Tour-360-CT1-11.10-Sky9.html`. File này tạo bằng `python3 tools/export_html.py`, nhớ chạy lại sau mỗi lần
+`tools/build.py`.
+
 Có thể đưa nguyên thư mục lên bất kỳ hosting tĩnh nào (GitHub Pages, Netlify…). Không cần mạng ngoài,
 trừ phông chữ Google Fonts (thiếu mạng thì dùng phông hệ thống).
 
