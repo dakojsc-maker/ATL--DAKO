@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tour 360° CT1-11.10 Sky9</title>
+<meta name="description" content="Tour 360° căn hộ CT1-11.10 dự án Sky9: từ bản đồ vị trí, phối cảnh dự án, mặt bằng căn hộ đến từng phòng.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="vendor/pannellum/pannellum.css">
+<link rel="stylesheet" href="tour.css">
+</head>
+<body>
+<div id="app">
+  <div id="pano" aria-label="Khung xem 360°"></div>
+
+  <div class="ui top-left">
+    <div class="brand glass">
+      <span class="brand-mark">SKY9</span>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <span class="brand-code" id="brand-code">CT1-11.10</span>
+      <nav class="crumbs" id="crumbs" aria-label="Cấp độ tham quan"></nav>
+    </div>
+    <section class="card glass" id="card" aria-live="polite"></section>
+  </div>
+
+  <div class="ui toolbar glass" id="toolbar" role="toolbar" aria-label="Điều khiển" aria-orientation="vertical"></div>
+
+  <aside class="ui minimap glass" id="minimap" hidden>
+    <div class="minimap-head"><b>Mặt bằng</b><span id="mm-dims">9800 × 8000 mm</span></div>
+    <div class="minimap-map">
+      <img id="mm-img" alt="Mặt bằng căn hộ thu nhỏ">
+      <svg id="mm-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="Chọn phòng trên mặt bằng"></svg>
+    </div>
+  </aside>
+
+  <div class="ui hint glass" id="hint">Kéo để nhìn quanh · Cuộn hoặc chụm hai ngón để phóng to · Bấm nút cam để đi sâu hơn</div>
+
+  <footer class="ui strip glass" id="strip">
+    <button class="strip-toggle glass" id="strip-toggle" aria-expanded="true" aria-controls="strip-scroll"></button>
+    <div class="strip-scroll" id="strip-scroll"></div>
+  </footer>
+
+  <aside class="drawer" id="drawer-info" aria-label="Thông tin căn hộ"></aside>
+  <aside class="drawer" id="drawer-video" aria-label="Video thực tế"></aside>
+  <div class="ui toast glass" id="toast" role="status"></div>
+</div>
+
+<script src="vendor/pannellum/pannellum.js"></script>
+<script src="data.js"></script>
+<script src="tour.js"></script>
+</body>
+</html>

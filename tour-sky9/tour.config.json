@@ -1,0 +1,647 @@
+{
+  "_ghi_chu": "Nguồn dữ liệu của tour. Toạ độ x,y của điểm nóng và phòng tính theo pixel trên ẢNH GỐC trong source/. Sửa xong chạy: python3 tools/build.py",
+  "title": "Tour 360° căn hộ CT1-11.10 · Sky9",
+  "unit": {
+    "code": "CT1-11.10",
+    "type": "Căn hộ loại E",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "areaCenterLine": 74.25,
+    "areaInternal": 69.08,
+    "internalWall": 2.29,
+    "note": "Số liệu theo bản vẽ mặt bằng căn hộ loại E."
+  },
+  "video": {
+    "src": "",
+    "driveUrl": "https://drive.google.com/file/d/1O0UhZJMXGjpk1afDFcUhSVlEX1Xp3MJt/view",
+    "name": "20250629_093934.mp4"
+  },
+  "images": {
+    "ban-do": {
+      "src": "source/ban-do-vi-tri.jpg",
+      "haov": 72
+    },
+    "tong-the": {
+      "src": "source/phoi-canh-tong-the.jpg",
+      "haov": 72,
+      "scale": 1.5,
+      "overlays": [
+        {
+          "poly": [
+            [
+              657.1,
+              346.6
+            ],
+            [
+              731.7,
+              354.1
+            ],
+            [
+              731.7,
+              364.4
+            ],
+            [
+              657.1,
+              357.0
+            ]
+          ]
+        },
+        {
+          "poly": [
+            [
+              884.8,
+              358.4
+            ],
+            [
+              985.0,
+              372.0
+            ],
+            [
+              985.0,
+              383.5
+            ],
+            [
+              884.8,
+              369.9
+            ]
+          ]
+        }
+      ],
+      "_ghi_chu_overlays": "Dải tô màu tầng 11 của Block CT1, đếm trên phối cảnh: khối đế là tầng 1, phía trên 13 hàng cửa sổ; tầng 11 là hàng thứ 4 tính từ mái (đối chiếu source/ghi-chu-cac-toa.jpg)."
+    },
+    "mat-bang": {
+      "src": "source/mat-bang-can-ho-E.jpg",
+      "crop": [
+        0,
+        0,
+        1000,
+        600
+      ],
+      "scale": 2,
+      "haov": 50,
+      "sharpen": true,
+      "fill": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "minimap": {
+    "image": "mat-bang",
+    "crop": [
+      392,
+      82,
+      930,
+      520
+    ],
+    "scale": 2
+  },
+  "keyPlan": {
+    "src": "source/mat-bang-can-ho-E.jpg",
+    "crop": [
+      20,
+      200,
+      318,
+      434
+    ],
+    "scale": 2
+  },
+  "levels": [
+    {
+      "id": 1,
+      "name": "Vị trí"
+    },
+    {
+      "id": 2,
+      "name": "Dự án"
+    },
+    {
+      "id": 3,
+      "name": "Căn hộ"
+    },
+    {
+      "id": 4,
+      "name": "Các phòng"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "ban-do",
+      "level": 1,
+      "title": "Vị trí dự án Sky9",
+      "crumb": "Vị trí",
+      "image": "ban-do",
+      "start": {
+        "x": 900,
+        "y": 470,
+        "w": 1100
+      },
+      "minW": 260,
+      "lead": "Khu vực Phú Hữu, gần nút giao Vành đai 2 với cao tốc TP.HCM – Long Thành – Dầu Giây.",
+      "hotspots": [
+        {
+          "type": "link",
+          "to": "tong-the",
+          "x": 1008,
+          "y": 410,
+          "label": "Dự án Sky9",
+          "sub": "Vào xem tổng thể"
+        },
+        {
+          "type": "info",
+          "x": 760,
+          "y": 330,
+          "label": "Khu Công nghệ cao",
+          "text": "Khu Công nghệ cao TP.HCM, phía tây bắc dự án."
+        },
+        {
+          "type": "info",
+          "x": 925,
+          "y": 268,
+          "label": "Nhà máy Samsung",
+          "text": "Nhà máy Samsung trong Khu Công nghệ cao."
+        },
+        {
+          "type": "info",
+          "x": 1100,
+          "y": 528,
+          "label": "Khu đô thị Vin Group",
+          "text": "Khu đô thị nằm phía đông nam dự án."
+        },
+        {
+          "type": "info",
+          "x": 1240,
+          "y": 462,
+          "label": "Khu đô thị Đông Tăng Long",
+          "text": "Khu đô thị phía đông dự án."
+        },
+        {
+          "type": "info",
+          "x": 1340,
+          "y": 347,
+          "label": "Vườn Thiên Thanh",
+          "text": "Khu du lịch sinh thái Vườn Thiên Thanh."
+        },
+        {
+          "type": "info",
+          "x": 1462,
+          "y": 548,
+          "label": "The Boat Club",
+          "text": "Khu vui chơi The Boat Club."
+        },
+        {
+          "type": "info",
+          "x": 868,
+          "y": 664,
+          "label": "Nút giao Vành đai 2",
+          "text": "Vành đai 2 giao cao tốc TP.HCM – Long Thành – Dầu Giây."
+        },
+        {
+          "type": "info",
+          "x": 955,
+          "y": 748,
+          "label": "UBND phường Phú Hữu",
+          "text": "Trụ sở UBND phường Phú Hữu (theo bản đồ vị trí)."
+        },
+        {
+          "type": "info",
+          "x": 132,
+          "y": 525,
+          "label": "Thảo Điền",
+          "text": "Hướng về trung tâm thành phố theo cao tốc và Xa lộ Hà Nội."
+        }
+      ]
+    },
+    {
+      "id": "tong-the",
+      "level": 2,
+      "title": "Phối cảnh tổng thể Sky9",
+      "crumb": "Sky9",
+      "image": "tong-the",
+      "start": {
+        "x": 515,
+        "y": 310,
+        "w": 960
+      },
+      "minW": 220,
+      "lead": "Ba block CT1, CT2, CT3 bao quanh hồ bơi nội khu. Căn CT1-11.10 ở tầng 11 Block CT1, khối chữ U bên phải (dải màu cam).",
+      "hotspots": [
+        {
+          "type": "link",
+          "to": "can-ho",
+          "x": 850,
+          "y": 238,
+          "label": "Block CT1",
+          "sub": "Vào căn CT1-11.10 · tầng 11"
+        },
+        {
+          "type": "info",
+          "x": 979.8,
+          "y": 377.0,
+          "label": "Tầng 11 · Block CT1",
+          "text": "Dải màu cam đánh dấu tầng 11. Trên phối cảnh, khối đế là tầng 1, tầng 11 là hàng cửa sổ thứ 4 tính từ mái."
+        },
+        {
+          "type": "info",
+          "x": 648.4,
+          "y": 353.5,
+          "label": "Tầng 11 · Block CT1",
+          "text": "Đầu hồi cánh trái của Block CT1, dải màu cam là tầng 11."
+        },
+        {
+          "type": "info",
+          "x": 470,
+          "y": 215,
+          "label": "Block CT2",
+          "text": "Khối tháp ở giữa dự án."
+        },
+        {
+          "type": "info",
+          "x": 205,
+          "y": 170,
+          "label": "Block CT3",
+          "text": "Khối tháp cao nhất, phía bên trái, có khối đế thương mại."
+        },
+        {
+          "type": "info",
+          "x": 575,
+          "y": 412,
+          "label": "Hồ bơi nội khu",
+          "text": "Hồ bơi và sân vườn nằm giữa các block."
+        },
+        {
+          "type": "info",
+          "x": 765,
+          "y": 420,
+          "label": "Sân vườn trong lòng Block CT1",
+          "text": "Mảng xanh bên trong khối chữ U của Block CT1."
+        }
+      ]
+    },
+    {
+      "id": "can-ho",
+      "level": 3,
+      "title": "Mặt bằng căn CT1-11.10",
+      "crumb": "CT1-11.10",
+      "image": "mat-bang",
+      "start": {
+        "x": 500,
+        "y": 300,
+        "w": 940
+      },
+      "minW": 120,
+      "lead": "Căn hộ loại E · 3 phòng ngủ · 2 phòng tắm. Bấm vào từng phòng để đi vào.",
+      "hotspots": [
+        {
+          "type": "info",
+          "x": 438,
+          "y": 500,
+          "label": "Cửa chính",
+          "text": "Lối vào căn hộ, mở ra khu bàn ăn và bếp."
+        }
+      ]
+    },
+    {
+      "id": "phong-khach",
+      "level": 4,
+      "room": true,
+      "title": "Phòng khách & phòng ăn",
+      "crumb": "Phòng khách",
+      "area": 20.42,
+      "image": "mat-bang",
+      "box": [
+        400,
+        88,
+        790,
+        515
+      ],
+      "focus": [
+        480,
+        250
+      ],
+      "pin": [
+        470,
+        228
+      ],
+      "shape": [
+        [
+          405,
+          92,
+          565,
+          350
+        ],
+        [
+          405,
+          350,
+          480,
+          512
+        ],
+        [
+          565,
+          288,
+          727,
+          355
+        ],
+        [
+          727,
+          257,
+          772,
+          355
+        ]
+      ],
+      "lead": "Sofa và kệ TV ở đầu căn, bàn ăn 4 chỗ gần cửa chính. Hành lang dẫn tới các phòng ngủ và phòng tắm.",
+      "doors": [
+        {
+          "to": "pn1",
+          "x": 588,
+          "y": 290
+        },
+        {
+          "to": "pn2",
+          "x": 750,
+          "y": 262
+        },
+        {
+          "to": "pn-master",
+          "x": 748,
+          "y": 350
+        },
+        {
+          "to": "wc-chung",
+          "x": 690,
+          "y": 352
+        },
+        {
+          "to": "bep",
+          "x": 505,
+          "y": 420
+        }
+      ]
+    },
+    {
+      "id": "bep",
+      "level": 4,
+      "room": true,
+      "title": "Bếp",
+      "crumb": "Bếp",
+      "area": 4.48,
+      "image": "mat-bang",
+      "box": [
+        478,
+        340,
+        572,
+        515
+      ],
+      "pin": [
+        528,
+        430
+      ],
+      "shape": [
+        [
+          480,
+          350,
+          562,
+          512
+        ]
+      ],
+      "lead": "Bếp chữ I dọc tường, mở ra khu bàn ăn.",
+      "doors": [
+        {
+          "to": "phong-khach",
+          "x": 494,
+          "y": 372
+        },
+        {
+          "to": "ban-cong",
+          "x": 563,
+          "y": 455
+        }
+      ]
+    },
+    {
+      "id": "ban-cong",
+      "level": 4,
+      "room": true,
+      "title": "Ban công",
+      "crumb": "Ban công",
+      "area": 3.63,
+      "image": "mat-bang",
+      "box": [
+        548,
+        340,
+        632,
+        515
+      ],
+      "pin": [
+        592,
+        440
+      ],
+      "shape": [
+        [
+          565,
+          350,
+          624,
+          505
+        ]
+      ],
+      "lead": "Ban công cạnh bếp, dùng làm khu giặt phơi.",
+      "doors": [
+        {
+          "to": "bep",
+          "x": 558,
+          "y": 455
+        }
+      ]
+    },
+    {
+      "id": "wc-chung",
+      "level": 4,
+      "room": true,
+      "title": "Phòng tắm chung",
+      "crumb": "Phòng tắm",
+      "area": 4.22,
+      "image": "mat-bang",
+      "box": [
+        615,
+        340,
+        716,
+        515
+      ],
+      "pin": [
+        666,
+        440
+      ],
+      "shape": [
+        [
+          624,
+          350,
+          708,
+          505
+        ]
+      ],
+      "lead": "Lavabo, bồn cầu và khu tắm đứng.",
+      "doors": [
+        {
+          "to": "phong-khach",
+          "x": 690,
+          "y": 348
+        }
+      ]
+    },
+    {
+      "id": "pn1",
+      "level": 4,
+      "room": true,
+      "title": "Phòng ngủ 1",
+      "crumb": "Phòng ngủ 1",
+      "area": 8.48,
+      "image": "mat-bang",
+      "box": [
+        556,
+        86,
+        716,
+        298
+      ],
+      "pin": [
+        636,
+        180
+      ],
+      "shape": [
+        [
+          565,
+          92,
+          708,
+          288
+        ]
+      ],
+      "lead": "Giường đôi, tủ đầu giường và tủ sát tường.",
+      "doors": [
+        {
+          "to": "phong-khach",
+          "x": 588,
+          "y": 290
+        }
+      ]
+    },
+    {
+      "id": "pn-master",
+      "level": 4,
+      "room": true,
+      "title": "Phòng ngủ master",
+      "crumb": "PN master",
+      "area": 11.27,
+      "image": "mat-bang",
+      "box": [
+        702,
+        280,
+        926,
+        518
+      ],
+      "pin": [
+        830,
+        440
+      ],
+      "shape": [
+        [
+          708,
+          352,
+          920,
+          512
+        ]
+      ],
+      "lead": "Phòng ngủ lớn ở góc căn, giường đôi và tủ đầu giường. WC riêng nằm ngay phía trên, cửa mở ra sảnh nhỏ trước phòng.",
+      "doors": [
+        {
+          "to": "phong-khach",
+          "x": 740,
+          "y": 352
+        },
+        {
+          "to": "wc-master",
+          "x": 778,
+          "y": 300
+        }
+      ],
+      "focus": [
+        812,
+        420
+      ]
+    },
+    {
+      "id": "wc-master",
+      "level": 4,
+      "room": true,
+      "title": "WC phòng master",
+      "crumb": "WC master",
+      "area": 3.82,
+      "image": "mat-bang",
+      "box": [
+        716,
+        246,
+        926,
+        366
+      ],
+      "pin": [
+        846,
+        305
+      ],
+      "shape": [
+        [
+          772,
+          255,
+          918,
+          352
+        ]
+      ],
+      "lead": "Lavabo, bồn cầu và vòi sen. Cửa mở ra sảnh nhỏ trước phòng ngủ master.",
+      "doors": [
+        {
+          "to": "pn-master",
+          "x": 752,
+          "y": 338
+        }
+      ]
+    },
+    {
+      "id": "pn2",
+      "level": 4,
+      "room": true,
+      "title": "Phòng ngủ 2",
+      "crumb": "Phòng ngủ 2",
+      "area": 10.47,
+      "image": "mat-bang",
+      "box": [
+        702,
+        86,
+        926,
+        298
+      ],
+      "pin": [
+        840,
+        170
+      ],
+      "shape": [
+        [
+          712,
+          92,
+          920,
+          255
+        ]
+      ],
+      "lead": "Phòng góc phía trên, giường đôi, bàn làm việc và tủ quần áo sát tường.",
+      "doors": [
+        {
+          "to": "phong-khach",
+          "x": 750,
+          "y": 262
+        }
+      ],
+      "focus": [
+        815,
+        175
+      ]
+    }
+  ],
+  "_ghi_chu_phong": "Phòng master = phòng ngủ góc dưới bên phải + WC phía trên (theo source/ghi-chu-phong-master.jpg). Phòng ngủ 2 = phòng góc trên bên phải."
+}
