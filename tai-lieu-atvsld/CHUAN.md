@@ -16,7 +16,7 @@ bản chuẩn (cùng 10 trang, cùng ngắt trang); không đổi khung nếu ng
 | Phần | Nội dung |
 |---|---|
 | Trang 1 (bìa) | "VIỆN STP – DAKO"; dòng tên hai đơn vị; băng xanh gồm "CÁC NHÓM HUẤN LUYỆN / AN TOÀN, VỆ SINH LAO ĐỘNG", "NGÀNH …" (chữ vàng), "Ai thuộc nhóm nào · Học gì · Bao lâu · Cần chuẩn bị gì"; đoạn giới thiệu 4–5 dòng; khung "NĂM ĐIỀU DOANH NGHIỆP … CẦN BIẾT" (đúng 5 điều) |
-| Mục 1 (bắt đầu trang 2) | **SÁU NHÓM HUẤN LUYỆN ATVSLĐ: AI HỌC, HỌC GÌ, BAO LÂU**: bảng 3 cột (ô màu "NHÓM n", "Ai học / Học gì", thời gian tối thiểu và định kỳ); dòng ghi chú về thời gian; "Cần lưu ý" (4 gạch đầu dòng); "Doanh nghiệp … cần bao nhiêu người làm công tác ATVSLĐ (Nhóm 2)?" (bảng các mức quy mô theo Điều 36 – 4 mức với xây dựng, 3 mức với thực phẩm – thủy sản; ngành có hai nhóm mức như điện – điện tử dùng bảng 2 dòng × 4 mức – và một đoạn ghi chú, kể cả yêu cầu y tế nếu ngành có) |
+| Mục 1 (bắt đầu trang 2) | **SÁU NHÓM HUẤN LUYỆN ATVSLĐ: AI HỌC, HỌC GÌ, BAO LÂU**: bảng 3 cột (ô màu "NHÓM n", "Ai học / Học gì", thời gian tối thiểu và định kỳ); dòng ghi chú về thời gian; "Cần lưu ý" (4 gạch đầu dòng); "Doanh nghiệp … cần bao nhiêu người làm công tác ATVSLĐ (Nhóm 2)?" (bảng các mức quy mô theo Điều 36 – 4 mức với xây dựng, 3 mức với thực phẩm – thủy sản; ngành có hai nhóm mức như điện – điện tử, cơ khí dùng bảng 2 dòng × 4 mức; may mặc – da giày dùng 2 dòng ATVSLĐ và y tế (Điều 37) – và một đoạn ghi chú, kể cả yêu cầu y tế nếu ngành có) |
 | Mục 2 | **VỊ TRÍ NHÂN SỰ THUỘC NHÓM NÀO?**: khung 4 câu hỏi tự xếp nhóm; bảng tra "Vị trí nhân sự / Nhóm / Lưu ý" chia khối A, B, C…; dòng ghi chú "Bảng dùng để ước tính ban đầu…" |
 | Mục 3 | **NHÓM 3 TRONG …: HỌC GÌ THEO TỪNG NGHỀ**: đoạn "Vì sao phần lớn nhân sự … thuộc Nhóm 3?", câu dẫn, bảng "Nhóm công việc / Nội dung chuyên ngành trọng tâm" |
 | Mục 4 | **HUẤN LUYỆN VÀ DỊCH VỤ BỔ SUNG THEO NHU CẦU**: câu dẫn, lưới 2 cột 8 ô (tên dịch vụ, khi nào cần) |
@@ -61,7 +61,8 @@ Không có trong chuẩn:
   (`tinhTrangPhapLy(ngày, diễn biến)`), chỉ ghi ở mục 7.
 - Mức bố trí người làm công tác ATVSLĐ (mục 1) khác nhau theo nhóm ngành ở Điều 36 Nghị định 39/2016/NĐ-CP: lấy đúng
   bảng trong cẩm nang của ngành đó. Một dòng mức: ghi `canBo.bang`; nhiều nhóm ngành trong cùng tài liệu (ví dụ 03): ghi
-  `canBo.cot` (các mức quy mô) và `canBo.dong` (mỗi dòng một nhóm ngành).
+  `canBo.cot` (các mức quy mô) và `canBo.dong` (mỗi dòng một nhóm ngành, hoặc một loại người cần bố trí như ATVSLĐ, y tế;
+  khi đó đặt `canBo.tieuDeCotNhan`).
 - Mục 4 không ghi số hiệu văn bản cho từng dịch vụ bổ sung.
 - Viết gọn: mỗi ô bảng 1–3 dòng; mỗi câu trả lời hỏi đáp 2–3 câu.
 
