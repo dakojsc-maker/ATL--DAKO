@@ -249,7 +249,9 @@ function muc1(nd) {
     ...m.luuY.map((t, i, a) => bullet(t, { after: i === a.length - 1 ? 140 : 50 })),
   ];
   if (m.canBo) {
-    const W1b = [2338, 2338, 2339, 2339];
+    // chia đều bề rộng theo số mức quy mô; phần dư dồn về các cột cuối (4 mức: 2338, 2338, 2339, 2339 như bản 01)
+    const k = m.canBo.bang.length;
+    const W1b = Array.from({ length: k }, (_, i) => Math.floor(W / k) + (i >= k - (W % k) ? 1 : 0));
     out.push(
       h2(m.canBo.tieuDe),
       p(m.canBo.dan, { keepNext: true, after: 100 }),

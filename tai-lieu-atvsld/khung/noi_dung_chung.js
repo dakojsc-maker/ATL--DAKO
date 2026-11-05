@@ -4,7 +4,7 @@
 
 const NGAY_PHAP_LY = '15/10/2026';
 
-module.exports = {
+const ex = module.exports = {
   NGAY_PHAP_LY,
 
   // Thời gian tối thiểu lần đầu và định kỳ của 6 nhóm (dòng đầu in đậm, màu nhóm)
@@ -42,9 +42,14 @@ module.exports = {
     ['Thông tư 06/2020/TT-BLĐTBXH; Thông tư 36/2019/TT-BLĐTBXH', 'Danh mục công việc có yêu cầu nghiêm ngặt về ATVSLĐ (căn cứ xác định Nhóm 3); danh mục máy, thiết bị, vật tư, chất có yêu cầu nghiêm ngặt về an toàn lao động.'],
   ],
 
-  TINH_TRANG_PHAP_LY: `**Tình trạng pháp lý (cập nhật đến ngày ${NGAY_PHAP_LY}):** dự án Luật sửa đổi, bổ sung một số điều của Luật An toàn, vệ sinh `
-    + 'lao động đã được Chính phủ thông qua ngày 17/9/2026 và trình Quốc hội, chưa có hiệu lực. Quy định hiện hành vẫn được áp dụng; '
+  // Khung "Tình trạng pháp lý" ở mục 7: ngày kiểm tra và diễn biến lấy đúng theo cẩm nang của ngành
+  tinhTrangPhapLy: (ngay = NGAY_PHAP_LY, dienBien = 'đã được Chính phủ thông qua ngày 17/9/2026 và trình Quốc hội, chưa có hiệu lực') =>
+    `**Tình trạng pháp lý (cập nhật đến ngày ${ngay}):** dự án Luật sửa đổi, bổ sung một số điều của Luật An toàn, vệ sinh `
+    + `lao động ${dienBien}. Quy định hiện hành vẫn được áp dụng; `
     + 'khi văn bản mới có hiệu lực, Viện STP – DAKO sẽ cập nhật cho khách hàng.',
 
   CHAN_TRANG: 'Hotline: 0827.695.368 – 0968.702.701  ·  www.vienstp.com  ·  Tra cứu chứng nhận: daotao.vienstp.com',
 };
+
+// Giữ tên cũ cho file ngành 01
+ex.TINH_TRANG_PHAP_LY = ex.tinhTrangPhapLy();

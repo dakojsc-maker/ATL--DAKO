@@ -11,6 +11,7 @@ an toàn, vệ sinh lao động (ATVSLĐ) trong lĩnh vực của mình. Mỗi t
 | Số | Ngành | File |
 |---|---|---|
 | 01 | Xây dựng | `01_XayDung_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
+| 02 | Thực phẩm – Thủy sản | `02_ThucPhamThuySan_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
 
 ## Cấu trúc thư mục
 
@@ -24,7 +25,7 @@ an toàn, vệ sinh lao động (ATVSLĐ) trong lĩnh vực của mình. Mỗi t
 ## Dựng file
 
 ```bash
-node tai-lieu-atvsld/build.js 01 --pdf
+node tai-lieu-atvsld/build.js 02 --pdf
 ```
 
 Cần gói npm `docx`; `--pdf` cần LibreOffice. Thêm `--out <thư mục>` để dựng thử mà không ghi đè bản chính.
@@ -32,7 +33,7 @@ Bản 01 hiện có trong thư mục là bản người dùng chỉnh trên Word
 
 ## Lưu ý pháp lý
 
-- Thông tin pháp lý lấy theo cẩm nang gốc (kiểm tra đến 15/10/2026). Khi Luật sửa đổi, bổ sung Luật ATVSLĐ hoặc văn bản
+- Thông tin pháp lý lấy theo cẩm nang gốc của từng ngành (01: kiểm tra đến 15/10/2026; 02: đến 16/10/2026). Khi Luật sửa đổi, bổ sung Luật ATVSLĐ hoặc văn bản
   hướng dẫn mới có hiệu lực, cập nhật `khung/noi_dung_chung.js` và dựng lại các tài liệu.
 - Mục 4 không ghi số hiệu văn bản cho dịch vụ bổ sung (an toàn điện, sơ cấp cứu, hóa chất). Nếu muốn ghi, rà lại hiệu
   lực trước, vì Luật Điện lực và Luật Hóa chất đều đã có luật mới.

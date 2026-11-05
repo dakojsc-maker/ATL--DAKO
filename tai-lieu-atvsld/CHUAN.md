@@ -16,7 +16,7 @@ bản chuẩn (cùng 10 trang, cùng ngắt trang); không đổi khung nếu ng
 | Phần | Nội dung |
 |---|---|
 | Trang 1 (bìa) | "VIỆN STP – DAKO"; dòng tên hai đơn vị; băng xanh gồm "CÁC NHÓM HUẤN LUYỆN / AN TOÀN, VỆ SINH LAO ĐỘNG", "NGÀNH …" (chữ vàng), "Ai thuộc nhóm nào · Học gì · Bao lâu · Cần chuẩn bị gì"; đoạn giới thiệu 4–5 dòng; khung "NĂM ĐIỀU DOANH NGHIỆP … CẦN BIẾT" (đúng 5 điều) |
-| Mục 1 (bắt đầu trang 2) | **SÁU NHÓM HUẤN LUYỆN ATVSLĐ: AI HỌC, HỌC GÌ, BAO LÂU**: bảng 3 cột (ô màu "NHÓM n", "Ai học / Học gì", thời gian tối thiểu và định kỳ); dòng ghi chú về thời gian; "Cần lưu ý" (4 gạch đầu dòng); "Doanh nghiệp … cần bao nhiêu người làm công tác ATVSLĐ (Nhóm 2)?" (bảng 4 mức quy mô và một dòng ghi chú) |
+| Mục 1 (bắt đầu trang 2) | **SÁU NHÓM HUẤN LUYỆN ATVSLĐ: AI HỌC, HỌC GÌ, BAO LÂU**: bảng 3 cột (ô màu "NHÓM n", "Ai học / Học gì", thời gian tối thiểu và định kỳ); dòng ghi chú về thời gian; "Cần lưu ý" (4 gạch đầu dòng); "Doanh nghiệp … cần bao nhiêu người làm công tác ATVSLĐ (Nhóm 2)?" (bảng các mức quy mô theo Điều 36 – 4 mức với xây dựng, 3 mức với thực phẩm – thủy sản – và một đoạn ghi chú, kể cả yêu cầu y tế nếu ngành có) |
 | Mục 2 | **VỊ TRÍ NHÂN SỰ THUỘC NHÓM NÀO?**: khung 4 câu hỏi tự xếp nhóm; bảng tra "Vị trí nhân sự / Nhóm / Lưu ý" chia khối A, B, C…; dòng ghi chú "Bảng dùng để ước tính ban đầu…" |
 | Mục 3 | **NHÓM 3 TRONG …: HỌC GÌ THEO TỪNG NGHỀ**: đoạn "Vì sao phần lớn nhân sự … thuộc Nhóm 3?", câu dẫn, bảng "Nhóm công việc / Nội dung chuyên ngành trọng tâm" |
 | Mục 4 | **HUẤN LUYỆN VÀ DỊCH VỤ BỔ SUNG THEO NHU CẦU**: câu dẫn, lưới 2 cột 8 ô (tên dịch vụ, khi nào cần) |
@@ -57,7 +57,8 @@ Không có trong chuẩn:
 - Bỏ phần chỉ dành cho nhân viên kinh doanh: cơ hội bán kèm, xử lý từ chối, lộ trình bán hàng, lịch chăm sóc, kịch bản
   demo, mức ưu tiên tính năng, những điều không hứa, phiếu ghi nhận cuộc gặp, bảng thu thập số liệu.
 - Thời gian 6 nhóm, câu trích dẫn, hai ô đầu "nhận được", 4 văn bản pháp lý chung và khung tình trạng pháp lý lấy từ
-  `khung/noi_dung_chung.js`. Ngày cập nhật pháp lý theo ngày kiểm tra ghi trong cẩm nang, chỉ ghi ở mục 7.
+  `khung/noi_dung_chung.js`. Ngày cập nhật pháp lý và diễn biến dự án luật lấy đúng theo cẩm nang của ngành
+  (`tinhTrangPhapLy(ngày, diễn biến)`), chỉ ghi ở mục 7.
 - Mức bố trí người làm công tác ATVSLĐ (mục 1) khác nhau theo nhóm ngành ở Điều 36 Nghị định 39/2016/NĐ-CP: lấy đúng
   bảng trong cẩm nang của ngành đó.
 - Mục 4 không ghi số hiệu văn bản cho từng dịch vụ bổ sung.
