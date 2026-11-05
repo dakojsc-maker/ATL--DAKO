@@ -62,7 +62,7 @@ Không có trong chuẩn:
 - Mức bố trí người làm công tác ATVSLĐ (mục 1) khác nhau theo nhóm ngành ở Điều 36 Nghị định 39/2016/NĐ-CP: lấy đúng
   bảng trong cẩm nang của ngành đó. Một dòng mức: ghi `canBo.bang`; nhiều nhóm ngành trong cùng tài liệu (ví dụ 03): ghi
   `canBo.cot` (các mức quy mô) và `canBo.dong` (mỗi dòng một nhóm ngành, hoặc một loại người cần bố trí như ATVSLĐ, y tế;
-  khi đó đặt `canBo.tieuDeCotNhan`).
+  khi đó đặt `canBo.tieuDeCotNhan`). Bảng nhiều mức (ví dụ 5 mức ở 07) có thể thu hẹp cột nhãn bằng `canBo.rongCotNhan`.
 - Mục 4 không ghi số hiệu văn bản cho từng dịch vụ bổ sung.
 - Viết gọn: mỗi ô bảng 1–3 dòng; mỗi câu trả lời hỏi đáp 2–3 câu.
 

@@ -252,7 +252,7 @@ function muc1(nd) {
     // Ngành có hai mức theo Điều 36 (ví dụ điện – điện tử): mỗi dòng một nhóm ngành, mỗi cột một mức quy mô.
     // canBo.cot: tên các mức quy mô; canBo.dong: [tên nhóm ngành, yêu cầu ứng với từng cột...]
     const k = m.canBo.cot.length;
-    const nhan = 2554;
+    const nhan = m.canBo.rongCotNhan || 2554; // thu hẹp cột nhãn khi bảng có nhiều mức (ví dụ 5 mức ở tài liệu 07)
     const rest = W - nhan;
     const W1b = [nhan, ...Array.from({ length: k }, (_, i) => Math.floor(rest / k) + (i >= k - (rest % k) ? 1 : 0))];
     out.push(
