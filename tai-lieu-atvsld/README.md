@@ -21,6 +21,7 @@ an toàn, vệ sinh lao động (ATVSLĐ) trong lĩnh vực của mình. Mỗi t
 | 09 | Nhựa – Cao su – Hóa chất | `09_NhuaCaoSuHoaChat_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
 | 10 | Nông nghiệp – Nuôi trồng | `10_NongNghiepNuoiTrong_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
 | 11 | Gỗ – Nội thất | `11_GoNoiThat_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
+| 12 | Cảng biển – Đóng tàu | `12_CangBienDongTau_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
 
 ## Cấu trúc thư mục
 
@@ -42,12 +43,13 @@ Bản 01 hiện có trong thư mục là bản người dùng chỉnh trên Word
 
 ## Lưu ý pháp lý
 
-- Thông tin pháp lý lấy theo cẩm nang gốc của từng ngành (01: kiểm tra đến 15/10/2026; 02, 03, 05, 06 và 07: đến 16/10/2026; 04, 08, 09, 10 và 11: đến 17/10/2026). Khi Luật sửa đổi, bổ sung Luật ATVSLĐ hoặc văn bản
+- Thông tin pháp lý lấy theo cẩm nang gốc của từng ngành (01: kiểm tra đến 15/10/2026; 02, 03, 05, 06 và 07: đến 16/10/2026; 04, 08, 09, 10, 11 và 12: đến 17/10/2026). Khi Luật sửa đổi, bổ sung Luật ATVSLĐ hoặc văn bản
   hướng dẫn mới có hiệu lực, cập nhật `khung/noi_dung_chung.js` và dựng lại các tài liệu.
 - Tài liệu 03 ghi Thông tư 05/2021/TT-BCT (an toàn điện) đã được Thông tư 02/2025/TT-BCT thay thế từ 01/02/2025, theo
   cẩm nang ngành. Bộ Công Thương đang dự thảo văn bản thay thế Nghị định 62/2025/NĐ-CP và Thông tư 02/2025/TT-BCT: khi
   có văn bản mới, sửa `nganh/03_dien_dien_tu.js` và dựng lại.
-- Tài liệu 04 ghi Nghị quyết 66.18/2026/NQ-CP (cơ chế tạm thời từ 01/7/2026 đến hết 28/02/2027). Sau ngày 28/02/2027,
-  bỏ dòng này ở mục 7 của `nganh/04_co_khi_che_tao.js` hoặc cập nhật theo văn bản mới, rồi dựng lại.
+- Tài liệu 04 và 12 ghi Nghị quyết 66.18/2026/NQ-CP (cơ chế tạm thời từ 01/7/2026 đến hết 28/02/2027). Sau ngày
+  28/02/2027, bỏ dòng này ở mục 7 của `nganh/04_co_khi_che_tao.js`, `nganh/12_cang_bien_dong_tau.js` hoặc cập nhật theo
+  văn bản mới, rồi dựng lại.
 - Mục 4 không ghi số hiệu văn bản cho dịch vụ bổ sung (an toàn điện, sơ cấp cứu, hóa chất). Nếu muốn ghi, rà lại hiệu
   lực trước, vì Luật Điện lực và Luật Hóa chất đều đã có luật mới.
