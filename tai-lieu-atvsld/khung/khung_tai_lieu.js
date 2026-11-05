@@ -248,7 +248,26 @@ function muc1(nd) {
     h2('Cần lưu ý'),
     ...m.luuY.map((t, i, a) => bullet(t, { after: i === a.length - 1 ? 140 : 50 })),
   ];
-  if (m.canBo) {
+  if (m.canBo && m.canBo.dong) {
+    // Ngành có hai mức theo Điều 36 (ví dụ điện – điện tử): mỗi dòng một nhóm ngành, mỗi cột một mức quy mô.
+    // canBo.cot: tên các mức quy mô; canBo.dong: [tên nhóm ngành, yêu cầu ứng với từng cột...]
+    const k = m.canBo.cot.length;
+    const nhan = 2554;
+    const rest = W - nhan;
+    const W1b = [nhan, ...Array.from({ length: k }, (_, i) => Math.floor(rest / k) + (i >= k - (rest % k) ? 1 : 0))];
+    out.push(
+      h2(m.canBo.tieuDe),
+      p(m.canBo.dan, { keepNext: true, after: 100 }),
+      table(W1b, [
+        headRow(W1b, [m.canBo.tieuDeCotNhan || 'Nhóm ngành', ...m.canBo.cot]),
+        ...m.canBo.dong.map(([nganh, ...yeuCau]) => row([
+          cell(tp(nganh, { bold: true, color: C.green, after: 0 }), { w: W1b[0], fill: C.greenPale, v: VerticalAlign.CENTER }),
+          ...yeuCau.map((t, i) => cell(tp(t, { align: CENTER, after: 0 }), { w: W1b[i + 1], v: VerticalAlign.CENTER })),
+        ])),
+      ]),
+      p(m.canBo.ghiChu, { italics: true, color: C.muted, before: 60, after: 60, line: 240 }),
+    );
+  } else if (m.canBo) {
     // chia đều bề rộng theo số mức quy mô; phần dư dồn về các cột cuối (4 mức: 2338, 2338, 2339, 2339 như bản 01)
     const k = m.canBo.bang.length;
     const W1b = Array.from({ length: k }, (_, i) => Math.floor(W / k) + (i >= k - (W % k) ? 1 : 0));
