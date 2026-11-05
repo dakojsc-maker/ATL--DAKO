@@ -6,11 +6,11 @@ Kho Mẫu Slide DAKO (nhánh `claude/festive-ride-bpliki`, mẫu M07 vốn dựn
 
 | # | Sản phẩm | File |
 |---|---|---|
-| 1 | **5 concept sản phẩm ca cao Đắk Lắk** (26 slide; 2 slide nhóm sản phẩm I, II và slide nhận diện thương hiệu dùng ảnh concept HTX cung cấp; mẫu M07 Nông sản: băng chuyền sản phẩm trượt bằng Morph, bao bì cửa sổ chữ H) | `1-concept-san-pham/Heragrain-Cacao_5-concept-san-pham.pptx` |
+| 1 | **5 concept sản phẩm ca cao Đắk Lắk** (26 slide; dựng trên đúng 6 sản phẩm của bộ tổng quan, cùng tên, giai đoạn, ảnh; băng chuyền 6 sản phẩm trượt bằng Morph; mẫu M07 Nông sản) | `1-concept-san-pham/Heragrain-Cacao_5-concept-san-pham.pptx` |
 | 2 | **Bức tranh tổng quan**: 6 sản phẩm, bộ máy, quy trình ca cao thô và chế biến sâu, giấy chứng nhận, nhân sự theo 4 giai đoạn, thương hiệu và kênh bán (30 slide, mẫu M08 Hồ sơ doanh nghiệp, màu Heragrain) | `2-tong-quan-bo-may/Heragrain-Cacao_Tong-quan-bo-may-quy-trinh-chung-nhan.pptx` |
 | 3 | **Sơ đồ 3D xưởng cũ bố trí cho ca cao** (24 khu, 11 bước, 4 giai đoạn) | `3-so-do-3d/ban-gui/Xuong-ca-cao-Heragrain-3D.html` |
 | 4 | **Tham quan 360°** xưởng ca cao (12 điểm) | `4-tham-quan-360/ban-gui/Xuong-ca-cao-Heragrain-360.html` |
-| 5 | **Hồ sơ pháp lý**: văn bản hiện hành, thủ tục, nơi nộp, cơ quan cấp, 9 biểu mẫu soạn sẵn, bảng 6 sản phẩm kèm ảnh và hồ sơ áp dụng (30 trang) | `5-phap-ly/Heragrain-Cacao_Ho-so-phap-ly-van-ban-bieu-mau.docx` |
+| 5 | **Hồ sơ pháp lý**: văn bản hiện hành, thủ tục, nơi nộp, cơ quan cấp, 9 biểu mẫu soạn sẵn, bảng 6 sản phẩm kèm ảnh và hồ sơ áp dụng (31 trang) | `5-phap-ly/Heragrain-Cacao_Ho-so-phap-ly-van-ban-bieu-mau.docx` |
 
 Bản xem trực tuyến (riêng tư, chia sẻ từ nút Share): sơ đồ 3D https://claude.ai/artifact/R9o6aPkah58nCUcx4ZhDYE · tham quan 360° https://claude.ai/artifact/5HJFi9bPLoLXXzxPkqTFx6
 
@@ -29,11 +29,16 @@ trên bao bì concept chỉ in khi có kết quả kiểm nghiệm và đối ch
 
 ## 5 concept
 
-1. **Bazan Origin** — hạt rang, nibs truy xuất đến vườn (hàng thô B2B, túi bán lẻ, hộp mẫu 3 vùng). GĐ1.
-2. **Đại Ngàn 70** — socola đen single origin 70 %, 80 %, 100 %. GĐ2.
-3. **Cacao Thuần** — bột ca cao nguyên chất, bơ ca cao thực phẩm. GĐ3.
-4. **Tây Nguyên Fusion** — socola cà phê Robusta, tiêu, mắc ca; trái cây sấy Heragrain bọc socola. GĐ4.
-5. **Quà Đại Ngàn** — hộp quà và trà vỏ ca cao (tận dụng vỏ lụa). GĐ4.
+Năm concept dựng trên đúng 6 sản phẩm, không thêm sản phẩm ngoài danh mục:
+
+1. **Bazan Origin** — sản phẩm 1, 2, 3: hạt lên men phơi khô, hạt rang, nibs (bao đay B2B, túi nibs, hộp mẫu 3 vùng). GĐ1.
+2. **Đại Ngàn 70** — sản phẩm 4: socola đen single origin 70 %, 80 %, 100 %. GĐ2.
+3. **Cacao Thuần** — sản phẩm 5, 6: bột ca cao, bơ ca cao. GĐ3.
+4. **Tây Nguyên Fusion** — socola mix vị (cà phê Robusta, tiêu, mắc ca, trái cây sấy) phát triển từ sản phẩm 4, dùng hộp dòng Socola. GĐ4.
+5. **Quà Đại Ngàn** — hộp quà ghép sản phẩm 3, 4, 5, 6 (hộp quà trong bảng nhận diện). GĐ4.
+
+Ảnh sản phẩm trong bộ concept: bản tách nền của chính 6 ảnh dùng ở bộ tổng quan (`slides/anh/concept/tach-nen/`).
+Vỏ lụa là phụ phẩm, bán làm phân bón, than sinh học; không làm trà.
 
 ## Bốn giai đoạn
 

@@ -17,7 +17,7 @@ Xưởng cũ của HTX Heragrain (5 phòng, lối đi phía tây, vào qua nhà 
 | Sân sau (lợp mái) | Nhận hạt, cân, lấy mẫu; chiều tập kết thùng chờ xe | GĐ1 |
 | Phòng 6 | Nhà vệ sinh + phòng thay bảo hộ | GĐ1 |
 | Phòng 1 | Kho hạt, kiểm nhận (độ ẩm, cut test), làm sạch | GĐ1 |
-| Phòng 2 | Rang (CCP), nghiền vỡ, tách vỏ; tủ sấy vỏ làm trà (GĐ4) | GĐ1 |
+| Phòng 2 | Rang (CCP), nghiền vỡ, tách vỏ; tủ sấy, đóng bao vỏ lụa (GĐ4) | GĐ1 |
 | Phòng 3 | Phân cỡ, đóng gói nibs; máy nghiền đá (GĐ2); máy ép, nghiền bột (GĐ3) | GĐ1–3 |
 | Nửa tây phòng 5 | Khu sạch socola 18–20 °C; dò kim loại (GĐ3); nồi bao (GĐ4) | GĐ2 |
 | Đầu bắc lối đi | Trạm rửa tay vào khu sạch | GĐ2 |

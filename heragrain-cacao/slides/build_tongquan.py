@@ -29,7 +29,7 @@ PHOTOS.update(CACAO_PHOTOS)
 PHOTOS.update({os.path.splitext(f)[0]: os.path.join(CHUP, f) for f in os.listdir(CHUP) if f.endswith('.jpg')})
 CC = CA.concept_photos(os.path.join(T, 'assets', 'images', 'build', 'cacao_concept'))
 PHOTOS.update(CC)
-BRAND = dict(name='Heragrain', short='Heragrain', initial='H', tagline='Thấy tận mắt, ăn yên tâm',
+BRAND = dict(name='Heragrain', short='Heragrain', initial='H', tagline='Tinh hoa cacao Việt Nam, vươn ra thế giới',
              colors=dict(dark='0E2419', primary='23765C', light='E4A92A', pale='E7EFE9', ink='12301F', text='46574E',
                          muted='87978F', bg='F6F3EC', card='FFFFFF', accent='E4A92A', line='D8E1DA', ring='F2D58A',
                          chart=['23765C', 'E4A92A', '5A3825', '5E9E68']))
@@ -64,22 +64,22 @@ L.cover = _cover_logo
 SAN_PHAM = [
     dict(photo='cc_sp1_hat_len_men', badge='Sơ chế · GĐ1', title='1. Hạt lên men, phơi khô', focus=(0.5, 0.3),
          text='**Công đoạn:** HTX, nông hộ lên men, phơi; Heragrain kiểm nhận, làm sạch, phân loại (bước 1–3).\n'
-              '**Bán cho:** nhà máy chế biến.\n**Hồ sơ:** GCN ATTP; nguyên liệu, thường không tự công bố.'),
+              '**Bán cho:** nhà máy chế biến.\n**Hồ sơ:** GCN ATTP; nguyên liệu, thường không tự công bố.\n**Concept:** 1 Bazan Origin.'),
     dict(photo='cc_sp2_hat_rang', badge='Sơ chế · GĐ1', title='2. Hạt ca cao rang', focus=(0.5, 0.3),
          text='**Công đoạn:** rang theo tiêu chuẩn (bước 4, CCP 1).\n**Dùng cho:** tách vỏ thành nibs; bán theo đơn.\n'
-              '**Hồ sơ:** tự công bố khi bán bao gói sẵn.'),
+              '**Hồ sơ:** tự công bố khi bán bao gói sẵn.\n**Concept:** 1 Bazan Origin.'),
     dict(photo='cc_sp3_nibs', badge='Sơ chế · GĐ1', title='3. Nhân ca cao (nibs)', focus=(0.5, 0.35),
          text='**Công đoạn:** nghiền vỡ, tách vỏ, phân cỡ (bước 5–6).\n**Bán cho:** nhà máy socola, bánh kẹo; mẫu chào '
-              'xuất khẩu.\n**Hồ sơ:** tự công bố, kiểm nghiệm.'),
+              'xuất khẩu.\n**Hồ sơ:** tự công bố, kiểm nghiệm.\n**Concept:** 1 Bazan Origin.'),
     dict(photo='cc_sp4_socola', badge='Chế biến · GĐ2', title='4. Socola', focus=(0.5, 0.4),
          text='**Công đoạn:** nghiền mịn với đường, tôi, đổ khuôn (bước 7, 9–10).\n**Bán cho:** bán lẻ, quà tặng, quán '
-              'cà phê.\n**Hồ sơ:** tự công bố; chốt đầu mối ATTP với Sở Công Thương.'),
+              'cà phê.\n**Hồ sơ:** tự công bố; chốt đầu mối ATTP với Sở Công Thương.\n**Concept:** 2 Đại Ngàn 70; 4 mix vị.'),
     dict(photo='cc_sp5_bot', badge='Chế biến · GĐ3', title='5. Bột ca cao', focus=(0.5, 0.4),
          text='**Công đoạn:** ép tách bơ, nghiền rây phần chất rắn (bước 8).\n**Bán cho:** pha chế, tiệm bánh, gia đình.\n'
-              '**Hồ sơ:** tự công bố; HACCP hoặc ISO 22000.'),
+              '**Hồ sơ:** tự công bố; HACCP hoặc ISO 22000.\n**Concept:** 3 Cacao Thuần.'),
     dict(photo='cc_sp6_bo', badge='Chế biến · GĐ3', title='6. Bơ ca cao', focus=(0.5, 0.4),
          text='**Công đoạn:** ép khối ca cao (bước 8).\n**Dùng cho:** socola, thực phẩm; mỹ phẩm cần hồ sơ riêng.\n'
-              '**Hồ sơ:** tự công bố.'),
+              '**Hồ sơ:** tự công bố.\n**Concept:** 3 Cacao Thuần.'),
 ]
 
 
@@ -107,8 +107,8 @@ def build_content():
                                  ['factory', '200', ' m²', 'xưởng cũ dành cho dây chuyền ca cao'],
                                  ['users', '9→30', '', 'người, dựng dần qua 4 giai đoạn']])),
         (L.cards, dict(title='Sáu sản phẩm ca cao', tag='Tổng quan', num=1,
-                       sub='Nhóm I sơ chế (GĐ1) · nhóm II chế biến sâu (GĐ2–GĐ3) · ảnh concept Heragrain Foods do HTX cung cấp',
-                       cols=6, photo_ratio=0.355, title_size=12.5, text_size=10.5, items=SAN_PHAM)),
+                       sub='Nhóm I sơ chế (GĐ1) · nhóm II chế biến sâu (GĐ2–GĐ3) · 5 concept dựng trên 6 sản phẩm này',
+                       cols=6, photo_ratio=0.355, title_size=12.5, text_size=10, items=SAN_PHAM)),
         (L.hub, dict(title='Bốn trụ cột', tag='Tổng quan', num=1, sub='Dựng song song, mỗi giai đoạn thêm một lớp',
                      items=[['network', 'Bộ máy', 'HTX: Đại hội thành viên, HĐQT, Ban kiểm soát; **Giám đốc điều hành** và 8 bộ phận.'],
                             ['workflow', 'Quy trình', '11 bước một chiều; **2 CCP đề xuất**: rang và dò kim loại, chốt khi xây HACCP.'],
@@ -118,7 +118,7 @@ def build_content():
                             events=[['Q1–Q2/2027', 'GĐ1 · Hàng thô', 'Thu mua, phân loại hạt lên men; rang, tách vỏ; bán hạt, hạt rang, nibs.'],
                                     ['Q3–Q4/2027', 'GĐ2 · Socola', 'Nghiền mịn với đường; tôi, đổ khuôn; socola đen 70–100 %.'],
                                     ['Q1–Q2/2028', 'GĐ3 · Bột, bơ', 'Ép bơ ca cao, nghiền bột; chứng nhận HACCP/ISO 22000.'],
-                                    ['Từ Q3/2028', 'GĐ4 · Mix vị, XK', 'Socola đặc sản Tây Nguyên; FSSC 22000, EUDR, GACC.']])),
+                                    ['Từ Q3/2028', 'GĐ4 · Mix vị, XK', 'Socola mix vị, hộp quà; FSSC 22000, EUDR, GACC.']])),
         (L.section, dict(num=2, title='Chuỗi giá trị\n& quy trình', photo='beans_dry', focus=[0.5, 0.5],
                          desc='Ai làm gì, từ quả ca cao đến thanh socola')),
         (L.services, dict(title='Chuỗi giá trị ca cao', tag='Quy trình', num=2, dark=True,
@@ -171,7 +171,7 @@ def build_content():
                                    ['GĐ3 · Bột, bơ', 'Góc QC, tủ lưu mẫu trong kho thành phẩm',
                                     'Máy ép thủy lực, máy nghiền bột, rây, máy dò kim loại'],
                                    ['GĐ4 · Mix vị', 'Góc trưng bày ở nhà ở (nếu gia đình đồng ý)',
-                                    'Nồi bao, tủ sấy vỏ làm trà, kho mát mở rộng']],
+                                    'Nồi bao cho dòng mix vị, bàn đóng hộp quà, kho mát mở rộng']],
                              col_w=[2.0, 4.6, 4.4],
                              note='Cỡ máy chốt theo công suất mục tiêu (100–200 kg hạt/ngày) và nguồn điện thực tế.')),
         (L.section, dict(num=3, title='Bộ máy\n& nhân sự', photo='chocolatier', focus=[0.5, 0.4],
@@ -275,7 +275,7 @@ def build_content():
                                    ['Vốn đầu tư, giá bán, hiệu quả tài chính', 'Chưa có', 'Lập dự toán đầu tư, chi phí vận hành, khảo sát giá trước khi quyết định']],
                              col_w=[3.0, 2.8, 5.2],
                              note='Bộ slide mô tả tổ chức và tuân thủ; chưa phải phương án tài chính.')),
-        (L.thanks, dict(title='Xin cảm ơn', sub='Heragrain Cacao · Thấy tận mắt, ăn yên tâm', photo='pods_basket',
+        (L.thanks, dict(title='Xin cảm ơn', sub='Heragrain Foods · Tinh hoa cacao Việt Nam, vươn ra thế giới', photo='pods_basket',
                         lines=[['map-pin', 'HTX Heragrain · Đắk Lắk, Việt Nam'], ['phone', '0827.695.368 · 0968.702.701'],
                                ['mail', 'contact@heragrain.com'], ['globe', 'www.heragrain.com']])),
     ]

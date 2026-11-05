@@ -277,9 +277,9 @@ const PH = [
     build: 'Máy ép thủy lực, máy nghiền bột và rây trong phòng 3; máy dò kim loại trong khu sạch; ngăn góc tây bắc kho thành phẩm làm phòng QC, tủ lưu mẫu.',
     goal: 'Đủ 4 dòng nibs, socola, bột, bơ; hệ thống chất lượng được chứng nhận.' },
   { n: 4, name: 'Giai đoạn 4 · Mix vị, xuất khẩu', tab: 'Mix vị · Xuất khẩu', when: 'từ Q3/2028', people: '24–30 người',
-    model: 'Socola mix vị đặc sản Tây Nguyên (cà phê Robusta, tiêu, mắc ca, trái cây sấy Heragrain); trà vỏ ca cao; hộp quà. Xuất khẩu qua nhà nhập khẩu Trung Quốc, EU.',
+    model: 'Socola mix vị đặc sản Tây Nguyên (cà phê Robusta, tiêu, mắc ca, trái cây sấy Heragrain), phát triển từ sản phẩm 4; hộp quà ghép sản phẩm 3–6. Xuất khẩu qua nhà nhập khẩu Trung Quốc, EU.',
     cert: 'FSSC 22000 hoặc BRCGS theo người mua; hồ sơ EUDR; đăng ký GACC nếu bán Trung Quốc; C/O EUR.1 hoặc mẫu E; tùy chọn hữu cơ, Rainforest Alliance, Fairtrade.',
-    build: 'Nồi bao (panning) bọc socola trong khu sạch; tủ sấy vỏ ca cao làm trà ở phòng rang; góc trưng bày, nếm thử ở phòng trước nhà ở (nếu gia đình đồng ý).',
+    build: 'Nồi bao (panning) bọc socola trong khu sạch; tủ sấy, đóng bao vỏ lụa ở phòng rang; góc trưng bày, nếm thử ở phòng trước nhà ở (nếu gia đình đồng ý).',
     goal: 'Lô xuất khẩu đầu tiên; 6–8 sản phẩm chủ lực.' }
 ];
 
@@ -401,11 +401,11 @@ const ZONES = [
   /* ---------- Giai đoạn 4: mix vị, xuất khẩu ---------- */
   { id: 'panning', n: 21, name: 'Nồi bao (panning): bọc socola', kind: 'thietbi', phase: 4, box: [1.8, 2.8, -31.0, -30.1], h: 1.5, noArea: true, pin: [2.3, 3.2, -30.55], dept: [D.sx, D.rd],
     do: [['panning', 2.3, -30.55]],
-    role: 'Bọc socola cho nibs, hạt mắc ca, cà phê rang, trái cây sấy Heragrain (sầu riêng, chanh dây gừng, mãng cầu).',
+    role: 'Bọc socola cho dòng mix vị (Concept 4, phát triển từ sản phẩm 4): nibs, hạt mắc ca, cà phê rang, trái cây sấy Heragrain.',
     req: 'Quản lý chất gây dị ứng (mắc ca là hạt cây): lịch sản xuất riêng, vệ sinh xác nhận, ghi trên nhãn.', basis: 'Codex CXC 80-2020; NĐ 37/2026/NĐ-CP (nhãn hàng hóa).' },
-  { id: 'travo', n: 22, name: 'Tủ sấy vỏ ca cao làm trà', kind: 'thietbi', phase: 4, box: [5.75, 7.15, -28.9, -28.2], h: 1.8, noArea: true, pin: [6.45, 3.6, -28.55], dept: [D.sx, D.rd],
+  { id: 'travo', n: 22, name: 'Tủ sấy, đóng bao vỏ lụa', kind: 'thietbi', phase: 4, box: [5.75, 7.15, -28.9, -28.2], h: 1.8, noArea: true, pin: [6.45, 3.6, -28.55], dept: [D.sx, D.rd],
     do: [['may', 6.45, -28.55, 1.3, 1.8, 0.6]],
-    role: 'Vỏ lụa từ máy tách vỏ được sàng, sấy, đóng túi lọc làm trà vỏ ca cao. Trước GĐ4 vỏ bán làm phân bón, than sinh học.',
+    role: 'Vỏ lụa từ máy tách vỏ được sàng, sấy khô, đóng bao bán làm phân bón, than sinh học (phụ phẩm, không phải sản phẩm thực phẩm). Trước GĐ4 vỏ được bán ngay sau khi sàng.',
     req: 'Kiểm nghiệm kim loại nặng, độc tố vi nấm, vi sinh trước khi bán; hỏi lại quy định thực phẩm của thị trường đích với vỏ ca cao.', basis: 'Đề xuất của tư vấn; QCVN 8-2:2011/BYT.' },
   { id: 'trungbay', n: 23, name: 'Góc trưng bày, nếm thử (phòng trước nhà ở)', kind: 'thietbi', phase: 4, box: [6.4, 10.6, -10.4, -7.8], h: 2, noArea: true, pin: [8.5, 3.6, -9.1], dept: [D.kd],
     do: [['ke', 6.6, 10.4, -8.2, -7.85, 3], ['ban', 8.5, -9.6, 1.6, 0.8]],
@@ -483,7 +483,7 @@ const DIEU_CHINH = [
   { t: 'Máy rang điện, chụp hút, ống khói.', d: 'Khuyến nghị máy rang điện để không trữ bình gas trong khu dân cư; chụp hút và cyclone thu vỏ, ống khói cao hơn mái; xin ý kiến hàng xóm về mùi rang.', cc: 'Luật PCCC và CNCH 2024; Luật BVMT 2020' },
   { t: 'Khu sạch socola có điều hòa, trạm rửa tay riêng.', d: 'Nửa tây phòng 5 làm trần kín, điều hòa 18–20 °C; vách ngăn đầu bắc lối đi làm phòng đệm rửa tay, đổi tạp dề.', cc: 'Codex CXC 1-1969' },
   { t: 'Không lên men, phơi tại xưởng.', d: 'Lên men, phơi do HTX, nông hộ làm ở vùng trồng; Heragrain đưa quy trình mẫu, kiểm từng lô bằng độ ẩm và cut test. Xưởng không có chỗ phơi và không nên có mùi giấm lên men trong khu dân cư.', cc: 'TCVN 7519:2020' },
-  { t: 'Vỏ lụa không bỏ đi.', d: 'GĐ1–3 bán vỏ làm phân bón, than sinh học; GĐ4 sấy, sàng làm trà vỏ ca cao sau khi kiểm nghiệm đạt.', cc: 'Kinh tế tuần hoàn' }
+  { t: 'Vỏ lụa không bỏ đi.', d: 'GĐ1–3 bán vỏ làm phân bón, than sinh học; GĐ4 thêm tủ sấy để vỏ khô, đóng bao bán ổn định quanh năm.', cc: 'Kinh tế tuần hoàn' }
 ];
 
 const UOC_KICH_THUOC = [
