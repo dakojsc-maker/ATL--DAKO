@@ -4,8 +4,9 @@
     python build_concept.py            ->  ../1-concept-san-pham/Heragrain-Cacao_5-concept-san-pham.pptx
 
 Đồng bộ với bộ "Tổng quan bộ máy, quy trình": cùng 6 sản phẩm, cùng tên, cùng giai đoạn, cùng ảnh. Ảnh sản phẩm là ảnh concept
-Heragrain Foods do HTX cung cấp (anh/concept/6-san-pham-heragrain-foods.png): ảnh vuông dùng cho thẻ, bản tách nền
-(anh/concept/tach-nen/, tách bằng rembg isnet-general-use rồi làm sạch viền) dùng cho các bố cục sản phẩm nổi của mẫu.
+Heragrain Foods do HTX cung cấp: ảnh vuông (anh/concept/6-san-pham-heragrain-foods.png) dùng cho thẻ; ảnh đã tách nền
+(anh/concept/6-san-pham-tach-nen-goc.png, tách thành 6 file ở anh/concept/tach-nen/ bằng tach_6_san_pham.py) dùng cho các bố
+cục sản phẩm nổi của mẫu.
 5 concept dựng trên 6 sản phẩm: C1 = SP 1–3 · C2 = SP 4 · C3 = SP 5–6 · C4 = mix vị từ SP 4 · C5 = hộp quà ghép SP 3–6.
 Tên concept, quy cách, khách hàng là đề xuất của tư vấn, cần HTX duyệt trước khi in bao bì.
 """

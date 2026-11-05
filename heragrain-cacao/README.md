@@ -37,7 +37,7 @@ Năm concept dựng trên đúng 6 sản phẩm, không thêm sản phẩm ngoà
 4. **Tây Nguyên Fusion** — socola mix vị (cà phê Robusta, tiêu, mắc ca, trái cây sấy) phát triển từ sản phẩm 4, dùng hộp dòng Socola. GĐ4.
 5. **Quà Đại Ngàn** — hộp quà ghép sản phẩm 3, 4, 5, 6 (hộp quà trong bảng nhận diện). GĐ4.
 
-Ảnh sản phẩm trong bộ concept: bản tách nền của chính 6 ảnh dùng ở bộ tổng quan (`slides/anh/concept/tach-nen/`).
+Ảnh sản phẩm trong bộ concept: ảnh 6 sản phẩm đã tách nền do HTX cung cấp (`slides/anh/concept/6-san-pham-tach-nen-goc.png`), tách thành 6 file ở `slides/anh/concept/tach-nen/` bằng `slides/tach_6_san_pham.py`; cùng bao bì với ảnh 6 sản phẩm ở bộ tổng quan.
 Vỏ lụa là phụ phẩm, bán làm phân bón, than sinh học; không làm trà.
 
 ## Bốn giai đoạn
