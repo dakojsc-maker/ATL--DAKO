@@ -19,6 +19,7 @@ an toàn, vệ sinh lao động (ATVSLĐ) trong lĩnh vực của mình. Mỗi t
 | 07 | Vật liệu xây dựng | `07_VatLieuXayDung_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
 | 08 | Khách sạn – Du lịch | `08_KhachSanDuLich_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
 | 09 | Nhựa – Cao su – Hóa chất | `09_NhuaCaoSuHoaChat_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
+| 10 | Nông nghiệp – Nuôi trồng | `10_NongNghiepNuoiTrong_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx` / `.pdf` (10 trang) |
 
 ## Cấu trúc thư mục
 
@@ -40,7 +41,7 @@ Bản 01 hiện có trong thư mục là bản người dùng chỉnh trên Word
 
 ## Lưu ý pháp lý
 
-- Thông tin pháp lý lấy theo cẩm nang gốc của từng ngành (01: kiểm tra đến 15/10/2026; 02, 03, 05, 06 và 07: đến 16/10/2026; 04, 08 và 09: đến 17/10/2026). Khi Luật sửa đổi, bổ sung Luật ATVSLĐ hoặc văn bản
+- Thông tin pháp lý lấy theo cẩm nang gốc của từng ngành (01: kiểm tra đến 15/10/2026; 02, 03, 05, 06 và 07: đến 16/10/2026; 04, 08, 09 và 10: đến 17/10/2026). Khi Luật sửa đổi, bổ sung Luật ATVSLĐ hoặc văn bản
   hướng dẫn mới có hiệu lực, cập nhật `khung/noi_dung_chung.js` và dựng lại các tài liệu.
 - Tài liệu 03 ghi Thông tư 05/2021/TT-BCT (an toàn điện) đã được Thông tư 02/2025/TT-BCT thay thế từ 01/02/2025, theo
   cẩm nang ngành. Bộ Công Thương đang dự thảo văn bản thay thế Nghị định 62/2025/NĐ-CP và Thông tư 02/2025/TT-BCT: khi
