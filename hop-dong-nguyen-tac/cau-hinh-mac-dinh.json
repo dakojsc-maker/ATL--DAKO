@@ -1,0 +1,71 @@
+{
+  "_ghi_chu": "Thông tin cố định của DAKO (Bên B) và nội dung mặc định của phụ lục. Đối tác nào cần khác thì ghi đè trong file doi-tac/<ten>.json. Trong các câu chữ có thể dùng {SO_HD}, {NGAY_HD}, {A_TEN}, {B_TEN}, {B_TAI_KHOAN}, {TEN_KHOA}, {TEN_KHOA_THUONG}, {SO_PL}...",
+
+  "ben_b": {
+    "ten": "CÔNG TY CỔ PHẦN KỸ THUẬT HÀNG HẢI DAKO",
+    "viet_tat": "DAKO",
+    "dia_chi": "Số 28, đường D9, Khu phố 8, Phường An Khánh, TP.HCM",
+    "dien_thoai": "0827.695.368 – 0968.702.701",
+    "ma_so_thue": "0313642407",
+    "tai_khoan": "19130009928016 Ngân hàng Techcombank",
+    "xung_ho": "Bà",
+    "dai_dien": "Phạm Thị Thu Thanh",
+    "chuc_vu": "Giám đốc"
+  },
+
+  "ky_hieu_hop_dong": "HĐĐT",
+
+  "khoa_hoc_mac_dinh": [
+    "Huấn luyện an toàn vệ sinh lao động",
+    "Huấn luyện an toàn hóa chất",
+    "Huấn luyện an toàn điện",
+    "Huấn luyện sơ cứu, cấp cứu tại nơi làm việc"
+  ],
+
+  "phu_luc": {
+    "can_cu_dau": "Căn cứ Hợp đồng nguyên tắc số {SO_HD} ký ngày {NGAY_HD} giữa {A_TEN} và {B_TEN};",
+    "can_cu_cuoi": "Căn cứ vào khả năng và nhu cầu của hai bên.",
+
+    "mo_ta_dieu_1": "Bên B cung cấp dịch vụ {TEN_KHOA_THUONG} cho khách hàng do Bên A khai thác với chi phí từng lớp như sau:",
+
+    "cot_bang": {
+      "stt": "STT",
+      "ten": "Lớp huấn luyện",
+      "thoi_luong": "Thời lượng",
+      "don_vi_tinh": "Đơn vị tính",
+      "so_luong": "Số lượng",
+      "don_gia": "Đơn giá (VNĐ)",
+      "thanh_tien": "Thành tiền (VNĐ)",
+      "ghi_chu": "Ghi chú"
+    },
+
+    "ghi_chu": [],
+
+    "cac_dieu": [
+      {
+        "tieu_de": "THỜI GIAN, ĐỊA ĐIỂM VÀ TỔ CHỨC THỰC HIỆN",
+        "noi_dung": [
+          "Thời gian, địa điểm tổ chức từng lớp huấn luyện do hai bên thống nhất theo nhu cầu của khách hàng do Bên A khai thác.",
+          "Bên B chịu trách nhiệm bố trí giảng viên, tài liệu, tổ chức huấn luyện, kiểm tra và hoàn thiện hồ sơ huấn luyện theo đúng quy định của pháp luật.",
+          "Bên A có trách nhiệm cung cấp đầy đủ, chính xác danh sách và thông tin học viên để Bên B triển khai lớp học."
+        ]
+      },
+      {
+        "tieu_de": "THANH TOÁN",
+        "noi_dung": [
+          "Chi phí thực tế của từng lớp được tính theo đơn giá tại Điều 1 của Phụ lục này và số lượng thực tế được hai bên xác nhận sau khi kết thúc lớp huấn luyện.",
+          "Hình thức thanh toán: chuyển khoản vào tài khoản của Bên B số {B_TAI_KHOAN}.",
+          "Thời hạn thanh toán: theo thỏa thuận của hai bên đối với từng đơn hàng, sau khi Bên B hoàn thành lớp huấn luyện và bàn giao đầy đủ hồ sơ."
+        ]
+      },
+      {
+        "tieu_de": "ĐIỀU KHOẢN CHUNG",
+        "noi_dung": [
+          "Phụ lục này là một phần không thể tách rời của Hợp đồng nguyên tắc số {SO_HD} ký ngày {NGAY_HD}. Các nội dung không quy định tại Phụ lục này được thực hiện theo Hợp đồng nguyên tắc.",
+          "Khi có thay đổi về đơn giá hoặc nội dung lớp huấn luyện, hai bên sẽ thống nhất bằng văn bản và ký Phụ lục bổ sung.",
+          "Phụ lục này có hiệu lực kể từ ngày ký và được lập thành 02 (hai) bản, mỗi bên giữ 01 (một) bản có giá trị pháp lý như nhau."
+        ]
+      }
+    ]
+  }
+}

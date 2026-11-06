@@ -1,0 +1,35 @@
+{
+  "_ghi_chu": "Hợp đồng mẫu gốc với HKM. File gốc chưa có phụ lục nên bảng phí đang để trống đơn giá – bổ sung 'don_gia' khi có.",
+
+  "so_thu_tu": 1,
+  "ngay_ky": "01/10/2026",
+
+  "ben_a": {
+    "ten": "CÔNG TY CỔ PHẦN GIẢI PHÁP TOÀN DIỆN HKM",
+    "viet_tat": "HKM",
+    "dia_chi": "183 Phường Vĩnh Viễn, Phường Vườn Lài , TP Hồ Chí Minh, Việt Nam.",
+    "ma_so_thue": "0316805882",
+    "dai_dien": "LÊ ĐỨC KHẢI",
+    "chuc_vu": "GIÁM ĐỐC"
+  },
+
+  "khoa_hoc": [
+    {
+      "ten": "Huấn luyện an toàn vệ sinh lao động",
+      "can_cu": [
+        "Căn cứ Nghị định số 44/2016/NĐ-CP ngày 15/5/2016 của Chính phủ quy định chi tiết một số điều của Luật An toàn, vệ sinh lao động về hoạt động kiểm định kỹ thuật an toàn lao động, huấn luyện an toàn, vệ sinh lao động và quan trắc môi trường lao động;"
+      ],
+      "lop": [
+        {"ten": "Nhóm 1", "mo_ta": "Người quản lý phụ trách công tác an toàn, vệ sinh lao động", "thoi_luong": "16 giờ", "don_vi_tinh": "Học viên", "don_gia": ""},
+        {"ten": "Nhóm 2", "mo_ta": "Người làm công tác an toàn, vệ sinh lao động", "thoi_luong": "48 giờ", "don_vi_tinh": "Học viên", "don_gia": ""},
+        {"ten": "Nhóm 3", "mo_ta": "Người lao động làm công việc có yêu cầu nghiêm ngặt về an toàn, vệ sinh lao động", "thoi_luong": "24 giờ", "don_vi_tinh": "Học viên", "don_gia": ""},
+        {"ten": "Nhóm 4", "mo_ta": "Người lao động không thuộc các nhóm 1, 2, 3, 5, 6", "thoi_luong": "16 giờ", "don_vi_tinh": "Học viên", "don_gia": ""},
+        {"ten": "Nhóm 5", "mo_ta": "Người làm công tác y tế", "thoi_luong": "56 giờ", "don_vi_tinh": "Học viên", "don_gia": ""},
+        {"ten": "Nhóm 6", "mo_ta": "An toàn, vệ sinh viên", "thoi_luong": "4 giờ", "don_vi_tinh": "Học viên", "don_gia": ""}
+      ]
+    },
+    {"ten": "Huấn luyện an toàn hóa chất"},
+    {"ten": "Huấn luyện an toàn điện"},
+    {"ten": "Huấn luyện sơ cứu, cấp cứu tại nơi làm việc"}
+  ]
+}
