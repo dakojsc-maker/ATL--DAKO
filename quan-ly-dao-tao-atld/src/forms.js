@@ -10,7 +10,7 @@ const custList = (id) => `<datalist id="${id}">${S.customers.slice().sort((a, b)
 const f = (id, label, input, { cls = '', hint = '', req = false } = {}) => `<div class="f ${cls}"><label for="${id}">${label}${req ? ' <span class="req">*</span>' : ''}</label>${input}${hint ? `<span class="hint" data-hint="${id}">${hint}</span>` : ''}</div>`;
 const inp = (id, value, attrs = '') => `<input class="input" id="${id}" value="${esc(value ?? '')}" ${attrs}>`;
 const moneyInp = (id, value) => `<input class="input num" id="${id}" data-money inputmode="numeric" value="${value || value === 0 ? money(value) : ''}">`;
-const editorStamp = (r) => (r?.updatedAt ? `<span class="muted small">Cập nhật ${esc(fmtStamp(r.updatedAt))}${r.updatedBy ? `<span data-uid="${esc(r.updatedBy)}"></span>` : ''}</span>` : '');
+const editorStamp = (r) => (r?.updatedAt ? `<span class="muted small">Cập nhật ${esc(fmtStamp(r.updatedAt))}${r.updatedBy ? `<span data-uid="${esc(r.updatedBy)}"></span>` : ''}${r.via === 'claude' ? ' · nhập qua Claude' : ''}</span>` : '');
 
 async function ensureCustomer(name, extra = {}, overwrite = false) {
   name = String(name || '').trim(); if (!name) return null;

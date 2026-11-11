@@ -56,3 +56,7 @@ build.py        ghép thành DAKO_Quan-ly-huan-luyen-ATVSLD.html
 ```
 
 Sau khi sửa mã trong `src/`, chạy `python3 build.py` để tạo lại file HTML.
+
+## Nhờ Claude cập nhật dữ liệu
+
+Anh gửi file (danh sách giảng viên, ảnh, báo giá, hợp đồng, chứng từ thanh toán) kèm câu "cập nhật vào công cụ". Claude sẽ nhập thẳng vào trang dùng chung, tải file lên, ghi nhật ký và báo lại những chỗ cần anh xem. Lịch dạy chỉ được xếp khi anh nêu cụ thể ngày, giờ, giảng viên, khách hàng. Bản ghi do Claude nhập có dòng "nhập qua Claude"; khi anh sửa lại trên trang thì dòng này mất. Quy trình chi tiết ở `.claude/skills/cap-nhat-huan-luyen-atld/SKILL.md`.

@@ -99,7 +99,7 @@ const OverviewView = {
     const entries = S.log.flatMap((d) => d.entries || []).sort((a, b) => b.t.localeCompare(a.t)).slice(0, 8);
     if (entries.length) {
       const kindName = { trainers: 'Giảng viên', classes: 'Lớp', quotes: 'Báo giá/HĐ', customers: 'Khách hàng', settings: 'Cài đặt' };
-      html += `<section class="panel"><div class="panel-h"><h2>Cập nhật gần đây</h2></div><div class="panel-b flush"><ul class="list">${entries.map((e) => `<li><span class="alert-i info">${esc(e.a[0])}</span><div class="grow"><div class="s" style="color:var(--fg)">${esc(e.a)} ${esc((kindName[e.k] || '').toLowerCase())}: <b>${esc(e.l)}</b></div><div class="s muted">${esc(fmtStamp(e.t))}${e.by ? `<span data-uid="${esc(e.by)}"></span>` : ''}</div></div></li>`).join('')}</ul></div></section>`;
+      html += `<section class="panel"><div class="panel-h"><h2>Cập nhật gần đây</h2></div><div class="panel-b flush"><ul class="list">${entries.map((e) => `<li><span class="alert-i info">${esc(e.a[0])}</span><div class="grow"><div class="s" style="color:var(--fg)">${esc(e.a)} ${esc((kindName[e.k] || '').toLowerCase())}: <b>${esc(e.l)}</b></div><div class="s muted">${esc(fmtStamp(e.t))}${e.by ? `<span data-uid="${esc(e.by)}"></span>` : ''}${e.via === 'claude' ? ' · nhập qua Claude' : ''}</div></div></li>`).join('')}</ul></div></section>`;
     }
     html += '</div></div>';
     body.innerHTML = html;

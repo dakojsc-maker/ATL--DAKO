@@ -151,12 +151,12 @@ class CloudBackend {
     } catch (e) { throw new Error(uploadErrorText(e)); }
   }
   async getBlob(meta) {
-    const res = await fetch('/_blob/' + meta.id);
+    const res = await fetch(meta.url || '/_blob/' + meta.id);
     if (!res.ok) throw new Error(res.status === 404 ? 'File không còn trên hệ thống.' : 'Không tải được file (mã ' + res.status + ').');
     if (meta.enc === 'b64') return base64ToBlob((await res.text()).trim(), meta.type);
     return await res.blob();
   }
-  directUrl(meta) { return meta.enc === 'raw' ? '/_blob/' + meta.id : null; }
+  directUrl(meta) { return meta.enc === 'raw' ? meta.url || '/_blob/' + meta.id : null; }
   async objectUrl(meta) {
     const d = this.directUrl(meta); if (d) return d;
     if (this.urls.has(meta.id)) return this.urls.get(meta.id);
@@ -220,7 +220,7 @@ const Store = {
     const now = new Date().toISOString();
     const isNew = !rec.createdAt;
     rec.id = rec.id || uid(col.slice(0, 2));
-    rec.createdAt = rec.createdAt || now; rec.updatedAt = now; rec.updatedBy = S.me?.id || null;
+    rec.createdAt = rec.createdAt || now; rec.updatedAt = now; rec.updatedBy = S.me?.id || null; delete rec.via;
     try {
       await this.backend.set(col, rec.id, rec);
     } catch (e) {

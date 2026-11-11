@@ -996,12 +996,12 @@ class CloudBackend {
     } catch (e) { throw new Error(uploadErrorText(e)); }
   }
   async getBlob(meta) {
-    const res = await fetch('/_blob/' + meta.id);
+    const res = await fetch(meta.url || '/_blob/' + meta.id);
     if (!res.ok) throw new Error(res.status === 404 ? 'File không còn trên hệ thống.' : 'Không tải được file (mã ' + res.status + ').');
     if (meta.enc === 'b64') return base64ToBlob((await res.text()).trim(), meta.type);
     return await res.blob();
   }
-  directUrl(meta) { return meta.enc === 'raw' ? '/_blob/' + meta.id : null; }
+  directUrl(meta) { return meta.enc === 'raw' ? meta.url || '/_blob/' + meta.id : null; }
   async objectUrl(meta) {
     const d = this.directUrl(meta); if (d) return d;
     if (this.urls.has(meta.id)) return this.urls.get(meta.id);
@@ -1065,7 +1065,7 @@ const Store = {
     const now = new Date().toISOString();
     const isNew = !rec.createdAt;
     rec.id = rec.id || uid(col.slice(0, 2));
-    rec.createdAt = rec.createdAt || now; rec.updatedAt = now; rec.updatedBy = S.me?.id || null;
+    rec.createdAt = rec.createdAt || now; rec.updatedAt = now; rec.updatedBy = S.me?.id || null; delete rec.via;
     try {
       await this.backend.set(col, rec.id, rec);
     } catch (e) {
@@ -1596,7 +1596,7 @@ const OverviewView = {
     const entries = S.log.flatMap((d) => d.entries || []).sort((a, b) => b.t.localeCompare(a.t)).slice(0, 8);
     if (entries.length) {
       const kindName = { trainers: 'Giảng viên', classes: 'Lớp', quotes: 'Báo giá/HĐ', customers: 'Khách hàng', settings: 'Cài đặt' };
-      html += `<section class="panel"><div class="panel-h"><h2>Cập nhật gần đây</h2></div><div class="panel-b flush"><ul class="list">${entries.map((e) => `<li><span class="alert-i info">${esc(e.a[0])}</span><div class="grow"><div class="s" style="color:var(--fg)">${esc(e.a)} ${esc((kindName[e.k] || '').toLowerCase())}: <b>${esc(e.l)}</b></div><div class="s muted">${esc(fmtStamp(e.t))}${e.by ? `<span data-uid="${esc(e.by)}"></span>` : ''}</div></div></li>`).join('')}</ul></div></section>`;
+      html += `<section class="panel"><div class="panel-h"><h2>Cập nhật gần đây</h2></div><div class="panel-b flush"><ul class="list">${entries.map((e) => `<li><span class="alert-i info">${esc(e.a[0])}</span><div class="grow"><div class="s" style="color:var(--fg)">${esc(e.a)} ${esc((kindName[e.k] || '').toLowerCase())}: <b>${esc(e.l)}</b></div><div class="s muted">${esc(fmtStamp(e.t))}${e.by ? `<span data-uid="${esc(e.by)}"></span>` : ''}${e.via === 'claude' ? ' · nhập qua Claude' : ''}</div></div></li>`).join('')}</ul></div></section>`;
     }
     html += '</div></div>';
     body.innerHTML = html;
@@ -2018,7 +2018,7 @@ const custList = (id) => `<datalist id="${id}">${S.customers.slice().sort((a, b)
 const f = (id, label, input, { cls = '', hint = '', req = false } = {}) => `<div class="f ${cls}"><label for="${id}">${label}${req ? ' <span class="req">*</span>' : ''}</label>${input}${hint ? `<span class="hint" data-hint="${id}">${hint}</span>` : ''}</div>`;
 const inp = (id, value, attrs = '') => `<input class="input" id="${id}" value="${esc(value ?? '')}" ${attrs}>`;
 const moneyInp = (id, value) => `<input class="input num" id="${id}" data-money inputmode="numeric" value="${value || value === 0 ? money(value) : ''}">`;
-const editorStamp = (r) => (r?.updatedAt ? `<span class="muted small">Cập nhật ${esc(fmtStamp(r.updatedAt))}${r.updatedBy ? `<span data-uid="${esc(r.updatedBy)}"></span>` : ''}</span>` : '');
+const editorStamp = (r) => (r?.updatedAt ? `<span class="muted small">Cập nhật ${esc(fmtStamp(r.updatedAt))}${r.updatedBy ? `<span data-uid="${esc(r.updatedBy)}"></span>` : ''}${r.via === 'claude' ? ' · nhập qua Claude' : ''}</span>` : '');
 
 async function ensureCustomer(name, extra = {}, overwrite = false) {
   name = String(name || '').trim(); if (!name) return null;
