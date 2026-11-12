@@ -1,0 +1,60 @@
+PHẦN 4. BẢNG TRA NHANH: VỊ TRÍ NHÂN SỰ → NHÓM HUẤN LUYỆN
+  | Bốn câu hỏi để xếp nhóm cho một người / Câu 1. Người này có đứng đầu một đơn vị (công ty, nhà máy, phòng ban, chi nhánh, phân xưởng) hoặc phụ trách bộ phận sản xuất, kỹ thuật, kinh doanh? → Nhóm 1. / Câu 2. Người này làm công tác ATVSLĐ (chuyên trách hoặc kiêm nhiệm) hay trực tiếp giám sát ATVSLĐ? → Nhóm 2. / Câu 3. Người này trực tiếp làm công việc thuộc Danh mục nghiêm ngặt (vận hành, sửa chữa, bảo dưỡng, vệ sinh máy tiện, phay, bào, mài, cưa, dập, đột, chấn, ép, băng tải; hàn cắt kim loại; đúc, luyện, mạ, làm sạch bề mặt kim loại; vận hành thiết bị nâng, nồi hơi, bình áp lực; điện; làm việc trên cao từ 2 m; không gian hạn chế; hóa chất nguy hiểm; lái xe ô tô; bốc xếp thủ công vật nặng thường xuyên)? → Nhóm 3. / Câu 4. Làm công tác y tế → Nhóm 5. Được cử làm an toàn, vệ sinh viên → Nhóm 6 (bổ sung thêm). Còn lại → Nhóm 4. / Một người có thể rơi vào nhiều câu: huấn luyện đủ các nhóm tương ứng. Trường hợp ranh giới: ghi chú vào bảng thu thập số liệu (Phần 9) để chuyên viên Viện STP rà soát theo công việc thực tế.
+  | Vị trí nhân sự || Nhóm huấn luyện || Ghi chú phân loại
+  | Khối A. Lãnh đạo và quản lý cấp công ty
+  | Chủ tịch HĐQT, chủ doanh nghiệp, Tổng giám đốc, Giám đốc, Giám đốc nhà máy || Nhóm 1 || Người đứng đầu đơn vị.
+  | Phó Tổng giám đốc, Phó Giám đốc (sản xuất, kỹ thuật, kinh doanh, chất lượng, an toàn) || Nhóm 1 || Bắt buộc nếu được giao phụ trách ATVSLĐ hoặc phụ trách bộ phận sản xuất, kỹ thuật, kinh doanh; khuyến nghị huấn luyện cho tất cả cấp phó.
+  | Trưởng phòng các phòng ban: sản xuất – kế hoạch, kỹ thuật – công nghệ, thiết kế, cơ điện – bảo trì, chất lượng (QA/QC), vật tư – mua hàng, kho – logistics, kinh doanh – dự án, hành chính – nhân sự, tài chính – kế toán (kế toán trưởng) || Nhóm 1 || Người đứng đầu phòng, ban. Phó phòng: Nhóm 1 nếu được giao phụ trách ATVSLĐ hoặc phụ trách bộ phận; còn lại Nhóm 4.
+  | Giám đốc chi nhánh, giám đốc nhà máy thành viên, giám đốc xí nghiệp || Nhóm 1 || Người đứng đầu đơn vị trực thuộc.
+  | Khối B. Quản lý sản xuất tại xưởng
+  | Quản đốc phân xưởng, phó quản đốc || Nhóm 1 || Quản đốc hoặc tương đương thuộc Nhóm 1 theo quy định. Khuyến nghị thêm Nhóm 3 khi trực tiếp điều hành và kiểm tra công việc nghiêm ngặt tại máy.
+  | Trưởng ca, trưởng chuyền, tổ trưởng sản xuất, thợ chính phụ trách tổ || Nhóm 3 || Trực tiếp làm hoặc điều hành tại máy công việc thuộc Danh mục. Khuyến nghị cử làm an toàn, vệ sinh viên (thêm Nhóm 6). Trường hợp được giao phụ trách cả một bộ phận hoặc một ca độc lập: ghi chú để chuyên viên xác định có thêm Nhóm 1 hay không.
+  | Khối C. Kỹ thuật, công nghệ, chất lượng
+  | Kỹ sư thiết bị, kỹ sư bảo trì, kỹ sư cơ điện, kỹ thuật viên bảo trì || Nhóm 3 || Kiểm tra, giám sát, bảo dưỡng, sửa chữa máy, thiết bị thuộc Danh mục khi thực hiện trực tiếp.
+  | Kỹ sư công nghệ, kỹ sư quy trình, kỹ sư sản xuất, kỹ sư chế tạo || Nhóm 4 || Trường hợp ranh giới: xem xét Nhóm 3 nếu thường xuyên trực tiếp vận hành, chạy thử, hiệu chỉnh máy tại xưởng.
+  | Kỹ sư lắp đặt, chạy thử tại hiện trường khách hàng, kỹ sư dự án chế tạo || Nhóm 3 || Khi trực tiếp lắp đặt, chạy thử máy, thiết bị hoặc làm việc trên cao từ 2 m. Nếu chủ yếu làm việc văn phòng: xem xét Nhóm 4.
+  | Nhân viên QA/QC, KCS (kiểm tra đầu vào, trên chuyền, đầu ra), kỹ thuật viên phòng đo, phòng thí nghiệm vật liệu || Nhóm 4 || Xem xét Nhóm 3 nếu thường xuyên đứng máy hoặc vận hành thiết bị thuộc Danh mục, hoặc tiếp xúc hóa chất nguy hiểm.
+  | Nhân viên kiểm tra không phá hủy (NDT) || Theo công việc || Chụp bằng bức xạ: thuộc nhóm công việc bức xạ trong Danh mục (Nhóm 3), kèm quy định an toàn bức xạ riêng ngoài phạm vi hồ sơ năng lực. Các phương pháp khác: Nhóm 4 hoặc Nhóm 3 tùy việc; chuyên viên rà soát.
+  | Kỹ sư thiết kế (CAD), thiết kế khuôn, R&D, lập trình CNC/CAM, định mức – công nghệ, kế hoạch sản xuất, quản lý tài liệu || Nhóm 4 || Khi xuống xưởng vẫn phải được phổ biến nội quy và cấp PPE. Lập trình viên trực tiếp cài đặt, chạy thử trên máy: xem xét Nhóm 3.
+  | Khối D. An toàn, y tế và mạng lưới an toàn
+  | Trưởng bộ phận HSE, trưởng phòng ATVSLĐ || Nhóm 1 và Nhóm 2 || Vừa người đứng đầu bộ phận, vừa làm công tác ATVSLĐ.
+  | Cán bộ ATVSLĐ chuyên trách và bán chuyên trách, giám sát an toàn tại xưởng || Nhóm 2 || Bao gồm người kiêm nhiệm (kỹ sư, nhân viên hành chính được giao việc ATVSLĐ).
+  | Nhân viên y tế, y tá, điều dưỡng, bác sĩ phụ trách phòng y tế nhà máy || Nhóm 5 || Người làm công tác y tế tại cơ sở.
+  | An toàn, vệ sinh viên tại tổ, chuyền, ca || Nhóm 6 || Bổ sung thêm; vẫn giữ nhóm của công việc chính (thường Nhóm 3).
+  | Thành viên đội sơ cấp cứu của xưởng || Theo công việc || Nhóm theo công việc chính; có thể bổ sung huấn luyện sơ cấp cứu (Thông tư 19/2016/TT-BYT). Đội phòng cháy chữa cháy cơ sở: huấn luyện nghiệp vụ PCCC theo quy định riêng, ngoài phạm vi hồ sơ năng lực.
+  | Khối E. Văn phòng và hỗ trợ
+  | Kế toán, thủ quỹ, hành chính, nhân sự, văn thư, thư ký, mua hàng, thu mua, xuất nhập khẩu, kinh doanh, marketing, chăm sóc khách hàng, IT || Nhóm 4 || Người lao động khác, làm việc văn phòng.
+  | Bảo vệ, tạp vụ, vệ sinh văn phòng || Nhóm 4 || Bảo vệ thuê ngoài do đơn vị cung ứng chịu trách nhiệm huấn luyện (xem cụm 19).
+  | Nhân viên bếp ăn nhà máy || Nhóm 4 || Nếu cơ sở nấu ăn tập thể từ 300 suất/ngày trở lên và trực tiếp nấu, chế biến: xem xét Nhóm 3. Chuyên viên xác nhận.
+  | Khối F. Kho, vật tư, logistics
+  | Thủ kho nguyên vật liệu (thép tấm, thép hình, phôi), kho thành phẩm, kho dụng cụ – khuôn – phụ tùng || Nhóm 4 || Nhóm 3 nếu thường xuyên bốc xếp thủ công vật nặng từ 30 kg, vận hành xe nâng, cầu trục hoặc bảo quản hóa chất nguy hiểm.
+  | Thủ kho hóa chất, sơn, dung môi, khí công nghiệp || Nhóm 3 || Làm việc với hóa chất nguy hiểm; bổ sung huấn luyện an toàn hóa chất.
+  | Nhân viên xuất nhập hàng, điều phối vận chuyển, cung ứng vật tư || Nhóm 4 || Xem xét Nhóm 3 nếu trực tiếp bốc xếp vật nặng thường xuyên.
+  | Khối G. Lái xe và vận chuyển
+  | Tài xế văn phòng, lái xe tải, xe đầu kéo, xe bán tải chở hàng, lái xe chở công nhân || Nhóm 3 || Lái xe ô tô thuộc Danh mục.
+  | Thợ sửa chữa, bảo dưỡng xe ô tô của đội xe công ty || Nhóm 3 || Sửa chữa, bảo dưỡng ô tô thuộc Danh mục.
+  | Khối H. Sản xuất trực tiếp (thợ đứng máy và thợ chuyên nghề)
+  | Thợ tiện, thợ phay, thợ bào, thợ khoan, thợ doa, thợ mài (mài phẳng, mài tròn), thợ cưa kim loại || Nhóm 3 || Vận hành máy công cụ thuộc nhóm công việc máy mài, cưa, tiện, phay, bào.
+  | Thợ vận hành máy CNC (tiện, phay, trung tâm gia công), máy gia công tia lửa điện, cắt dây || Nhóm 3 || Máy CNC vẫn là máy tiện, phay; gồm cả thợ cài đặt (setup) máy.
+  | Thợ vận hành máy dập, đột, cắt tôn, chấn, uốn, cuốn, cán, ép thủy lực || Nhóm 3 || Nhóm công việc dập, đột, chấn, ép, cắt. Thợ thay khuôn cũng thuộc nhóm này.
+  | Thợ vận hành máy cắt laser, plasma, tia nước (CNC) || Nhóm 3 || Cắt kim loại thuộc Danh mục. Máy tia nước: chuyên viên đối chiếu từng máy.
+  | Thợ hàn (hồ quang tay, MIG/MAG, TIG, hàn điểm, hàn hồ quang chìm), thợ hàn cắt gas, thợ gò – hàn, thợ hàn ống, thợ hàn bồn bể || Nhóm 3 || Công việc hàn, cắt kim loại. Thêm nhóm công việc trên cao hoặc không gian hạn chế nếu có.
+  | Thợ vận hành robot hàn, cánh tay robot || Nhóm 3 || Khi trực tiếp vận hành, lập trình trên máy tại xưởng hoặc làm công việc hàn cắt. Người chỉ nạp phôi, bấm khởi động: ghi chú ranh giới.
+  | Thợ làm khuôn đúc, thợ nấu và rót kim loại, thợ vận hành lò nung, lò nhiệt luyện, thợ rèn || Nhóm 3 || Công việc đúc, luyện, nung, nhiệt độ cao. Lò cảm ứng, hàn cao tần: xem xét thêm nhóm công việc điện từ trường tần số cao.
+  | Thợ mạ, tẩy rửa, anod, làm sạch bề mặt kim loại, phun cát, phun bi, thợ sơn tĩnh điện, sơn phun, pha sơn || Nhóm 3 || Công việc mạ, tẩy rửa, làm sạch bề mặt kim loại và hóa chất nguy hiểm; bổ sung huấn luyện an toàn hóa chất.
+  | Vận hành xử lý nước thải, khí thải của xưởng mạ, sơn || Nhóm 3 || Xử lý nước thải và không gian hạn chế thuộc Danh mục.
+  | Vận hành cầu trục, cổng trục, pa lăng điện, tời; thợ móc cáp, buộc tải, ra tín hiệu cẩu || Nhóm 3 || Thiết bị nâng thuộc danh mục kiểm định.
+  | Lái xe nâng hàng, xe nâng người, vận hành sàn nâng; người sạc ắc quy xe nâng điện || Nhóm 3 || Thiết bị nâng thuộc danh mục kiểm định. Người sạc ắc quy: xem xét nhóm công việc điện (trạm nạp ắc quy), chuyên viên xác nhận.
+  | Vận hành nồi hơi, lò gia nhiệt dầu, máy nén khí và bình khí nén, hệ thống lạnh, trạm khí || Nhóm 3 || Thiết bị áp lực thuộc danh mục kiểm định.
+  | Thợ điện nhà xưởng, thợ bảo trì điện, thợ lắp tủ điện – bảng điều khiển, thợ điện tự động hóa (PLC), thợ vận hành trạm biến áp || Nhóm 3 || Công việc điện; bổ sung huấn luyện an toàn điện.
+  | Thợ bảo trì cơ khí, thợ sửa chữa máy, thợ cơ điện, thợ lắp đặt máy || Nhóm 3 || Sửa chữa, bảo dưỡng máy thuộc Danh mục; thêm nhóm công việc trên cao nếu làm việc từ 2 m.
+  | Thợ lắp dựng kết cấu thép, thợ lắp đặt tại công trình khách hàng || Nhóm 3 || Làm việc trên cao từ 2 m; thêm các nhóm công việc khác nếu có (hàn cắt, điện).
+  | Thợ vệ sinh công nghiệp, thợ làm việc trong bồn, bể, két, khoang kín || Nhóm 3 || Không gian hạn chế thuộc Danh mục.
+  | Thợ nguội, thợ lắp ráp có dùng máy mài, khoan, cưa; thợ đánh bóng, đánh nhám, làm sạch ba via || Nhóm 3 || Sử dụng máy mài, đánh bóng, đánh nhám thuộc Danh mục. Lắp ráp thủ công nhẹ không dùng máy thuộc Danh mục: xem xét Nhóm 4, chuyên viên rà soát.
+  | Công nhân vận hành băng tải, thiết bị khí nén (súng khí nén), máy ép đơn giản || Nhóm 3 || Băng tải và súng khí nén thuộc nhóm công việc máy (vận hành, bảo dưỡng, vệ sinh).
+  | Công nhân lắp ráp trên chuyền (cơ – điện nhẹ), kiểm tra, đóng gói || Nhóm 4 || Xem xét Nhóm 3 nếu bốc xếp thủ công thường xuyên vật nặng từ 30 kg hoặc dùng máy thuộc Danh mục.
+  | Khối I. Lao động phổ thông, thời vụ, thuê lại, nhà thầu phụ
+  | Phụ việc xưởng, phụ hàn, phụ máy, công nhân bốc xếp, vệ sinh xưởng || Nhóm 3 hoặc Nhóm 4 || Theo công việc thực tế. Phụ trực tiếp vận hành, vệ sinh máy thuộc Danh mục hoặc bốc xếp vật nặng thường xuyên: Nhóm 3.
+  | Lao động thời vụ, học việc, tập nghề, thử việc, thực tập sinh, sinh viên thực tập || Nhóm 3 hoặc Nhóm 4 || Theo công việc được giao. Huấn luyện trước khi giao việc thuộc Danh mục.
+  | Lao động thuê lại, nhà thầu phụ, tổ đội bảo trì, vệ sinh, vận chuyển thuê ngoài || Theo công việc || Trách nhiệm huấn luyện theo hợp đồng và quy định về thuê lại lao động (Điều 30–32 Nghị định 39/2016/NĐ-CP). Chuyên viên xác nhận.
+  | Khách vào xưởng (khách hàng, đoàn đánh giá, nhà cung cấp, sinh viên tham quan) || Không thuộc 6 nhóm || Phổ biến nội quy, cấp PPE trước khi vào khu sản xuất.
