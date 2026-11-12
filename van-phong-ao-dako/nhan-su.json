@@ -1,0 +1,827 @@
+{
+  "phien_ban": "2026-11-12",
+  "cong_ty": "Công ty Cổ phần Kỹ thuật Hàng hải DAKO",
+  "phong": [
+    {
+      "id": "dp",
+      "ten": "Điều phối",
+      "ngan": "Điều phối",
+      "slug": "dako-dieu-phoi",
+      "o": [
+        1,
+        1
+      ],
+      "mo_ta": "Nhận lệnh của trưởng phòng, giao đúng người, theo dõi tiến độ và nhắc việc tiếp theo."
+    },
+    {
+      "id": "kd",
+      "ten": "Kinh doanh – Tư vấn",
+      "ngan": "Kinh doanh",
+      "slug": "dako-kinh-doanh",
+      "o": [
+        0,
+        1
+      ],
+      "buoc": 1,
+      "mo_ta": "Tư vấn nhóm huấn luyện theo vị trí nhân sự, báo cáo tư vấn cho khách, tài liệu ATVSLĐ theo ngành."
+    },
+    {
+      "id": "hd",
+      "ten": "Báo giá – Hợp đồng",
+      "ngan": "Báo giá",
+      "slug": "dako-hop-dong",
+      "o": [
+        0,
+        2
+      ],
+      "buoc": 2,
+      "mo_ta": "Báo giá huấn luyện, hợp đồng nguyên tắc với đối tác, ghi nhận hợp đồng và thu tiền."
+    },
+    {
+      "id": "xl",
+      "ten": "Xếp lớp – Giảng viên",
+      "ngan": "Xếp lớp",
+      "slug": "dako-xep-lop",
+      "o": [
+        1,
+        2
+      ],
+      "buoc": 3,
+      "mo_ta": "Lên lịch lớp, phân công giảng viên không trùng lịch, quản lý hồ sơ giảng viên."
+    },
+    {
+      "id": "gv",
+      "ten": "Giáo vụ – Điểm danh",
+      "ngan": "Giáo vụ",
+      "slug": "dako-giao-vu",
+      "o": [
+        2,
+        2
+      ],
+      "buoc": 4,
+      "mo_ta": "Danh sách điểm danh theo mẫu DAKO, cổng điểm danh online, tổng hợp chuyên cần."
+    },
+    {
+      "id": "cc",
+      "ten": "Chứng chỉ – In ấn",
+      "ngan": "Chứng chỉ",
+      "slug": "dako-chung-chi",
+      "o": [
+        2,
+        1
+      ],
+      "buoc": 5,
+      "mo_ta": "Thẻ ATLĐ nhóm 3, GCN nhóm 1-2-5-6, sổ cấp, ảnh đối chiếu, bản scan và file in gộp."
+    },
+    {
+      "id": "lt",
+      "ten": "Hồ sơ – Bàn giao",
+      "ngan": "Hồ sơ",
+      "slug": "dako-ho-so",
+      "o": [
+        2,
+        0
+      ],
+      "buoc": 6,
+      "mo_ta": "Giữ form chuẩn và số cấp trên Drive, đóng gói hồ sơ bàn giao khách trong 05 ngày."
+    },
+    {
+      "id": "tt",
+      "ten": "Truyền thông – Học liệu",
+      "ngan": "Truyền thông",
+      "slug": "dako-truyen-thong",
+      "o": [
+        0,
+        0
+      ],
+      "mo_ta": "Video giới thiệu và video huấn luyện, slide thuyết trình, hồ sơ năng lực."
+    },
+    {
+      "id": "tp",
+      "ten": "Trưởng phòng",
+      "ngan": "Trưởng phòng",
+      "slug": "dako-truong-phong",
+      "o": [
+        1,
+        0
+      ],
+      "mo_ta": "Bàn làm việc của anh: giao việc, duyệt kết quả, xem tiến độ cả văn phòng."
+    }
+  ],
+  "nhan_su": [
+    {
+      "id": "dp_thu",
+      "ten": "Thư",
+      "chuc_danh": "Thư ký điều phối",
+      "nhan": "Hỏi tiến độ công việc",
+      "phong": "dp",
+      "viec": "Nhận lệnh, giao đúng người, theo dõi tiến độ",
+      "lam": [
+        "Đọc lệnh của anh và chọn nhân sự phụ trách",
+        "Theo dõi việc đang làm, nhắc việc chờ anh duyệt",
+        "Tổng hợp tình hình việc trong ngày, trong tuần"
+      ],
+      "can": [],
+      "ra": [
+        "Phân công",
+        "Báo cáo tiến độ"
+      ],
+      "ky_nang": [],
+      "tu_khoa": [
+        "tiến độ",
+        "còn việc",
+        "tổng hợp",
+        "hôm nay",
+        "báo cáo tuần"
+      ],
+      "lenh_mau": "Hôm nay còn những việc gì đang dở?",
+      "tiep": []
+    },
+    {
+      "id": "kd_tracuu",
+      "ten": "Hà",
+      "chuc_danh": "Chuyên viên tra cứu nhóm huấn luyện",
+      "nhan": "Tra nhóm huấn luyện",
+      "phong": "kd",
+      "viec": "Xếp vị trí nhân sự vào 6 nhóm huấn luyện theo ngành",
+      "lam": [
+        "Tra vị trí theo 17 ngành (cẩm nang tư vấn Viện STP – DAKO)",
+        "Xếp nhóm theo NĐ 44/2016 (sửa đổi bởi NĐ 140/2018); Nhóm 3 theo TT 06/2020",
+        "Xuất bảng vị trí – nhóm – nội dung huấn luyện ra Word"
+      ],
+      "can": [
+        "Ngành của khách",
+        "Danh sách vị trí, chức danh",
+        "Tên khách hàng (nếu có)"
+      ],
+      "ra": [
+        "Bảng vị trí – nhóm huấn luyện (.docx)"
+      ],
+      "ky_nang": [
+        "tra-cuu-atvsld/ (công cụ tra cứu, dữ liệu 17 ngành)"
+      ],
+      "tu_khoa": [
+        "nhóm huấn luyện",
+        "tra cứu",
+        "vị trí",
+        "chức danh",
+        "thuộc nhóm",
+        "xếp nhóm"
+      ],
+      "lenh_mau": "Tra nhóm huấn luyện cho các vị trí thợ hàn, lái xe nâng, thủ kho – ngành Cơ khí – Chế tạo",
+      "tiep": [
+        "hd_baogia",
+        "kd_baocao"
+      ]
+    },
+    {
+      "id": "kd_baocao",
+      "ten": "Khoa",
+      "chuc_danh": "Chuyên viên báo cáo tư vấn",
+      "nhan": "Báo cáo tư vấn khách hàng",
+      "phong": "kd",
+      "viec": "Báo cáo vị trí nhân sự, nhóm huấn luyện và phần mềm cho từng khách",
+      "lam": [
+        "Xác định ngành chính, ngành phụ của khách theo 17 ngành",
+        "Nghiên cứu khách từ nguồn chính thống, ghi nguồn",
+        "Lập vị trí nhân sự – nhóm huấn luyện, chọn tính năng phần mềm phù hợp",
+        "Dựng báo cáo Word theo mẫu Hải Minh"
+      ],
+      "can": [
+        "Tên khách hàng",
+        "Hồ sơ năng lực, website hoặc sơ đồ tổ chức của khách"
+      ],
+      "ra": [
+        "BaoCao_<khách>_HuanLuyen_ATVSLD_PhanMem_VienSTP_DAKO.docx"
+      ],
+      "ky_nang": [
+        "bao-cao-atld/QUY_TRINH_LAP_BAO_CAO_KHACH_HANG.md"
+      ],
+      "tu_khoa": [
+        "báo cáo tư vấn",
+        "báo cáo khách",
+        "báo cáo cho",
+        "báo cáo huấn luyện"
+      ],
+      "lenh_mau": "Lập báo cáo tư vấn huấn luyện ATVSLĐ và phần mềm cho Công ty …",
+      "tiep": [
+        "hd_baogia",
+        "tt_slide"
+      ]
+    },
+    {
+      "id": "kd_tailieu",
+      "ten": "Ngân",
+      "chuc_danh": "Chuyên viên tài liệu ngành",
+      "nhan": "Tài liệu ATVSLĐ theo ngành",
+      "phong": "kd",
+      "viec": "Tài liệu ATVSLĐ gửi doanh nghiệp theo 17 ngành",
+      "lam": [
+        "Gửi bản có sẵn của 17 ngành (Word + PDF)",
+        "Rút gọn cẩm nang của ngành mới theo chuẩn bản 01 Xây dựng",
+        "Cập nhật tài liệu khi anh sửa trên Word"
+      ],
+      "can": [
+        "Ngành",
+        "Cẩm nang ngành (nếu là ngành mới)"
+      ],
+      "ra": [
+        "NN_<Ngành>_DoanhNghiep_ATVSLD_VienSTP_DAKO.docx / .pdf"
+      ],
+      "ky_nang": [
+        "tai-lieu-atvsld"
+      ],
+      "tu_khoa": [
+        "tài liệu ngành",
+        "cẩm nang",
+        "tài liệu gửi",
+        "tài liệu cho doanh nghiệp",
+        "tài liệu atvsld"
+      ],
+      "lenh_mau": "Gửi tài liệu ATVSLĐ ngành Cảng biển – Đóng tàu để em chuyển khách",
+      "tiep": [
+        "hd_baogia"
+      ]
+    },
+    {
+      "id": "hd_baogia",
+      "ten": "Linh",
+      "chuc_danh": "Chuyên viên báo giá",
+      "nhan": "Lập báo giá",
+      "phong": "hd",
+      "viec": "Báo giá huấn luyện ATLĐ và đưa vào công cụ quản lý",
+      "lam": [
+        "Soạn báo giá số NN/2026/BG-DAKO theo mẫu DAKO (10 mục)",
+        "Bảng giá: dưới 30 HV/lớp 5.000.000 đ; 30–60 HV/lớp 8.000.000 đ; chưa VAT 8%",
+        "Nhập khách hàng, báo giá và file vào công cụ Quản lý Huấn luyện ATVSLĐ"
+      ],
+      "can": [
+        "Tên công ty khách",
+        "Nhóm huấn luyện",
+        "Số học viên, số lớp",
+        "File báo giá (nếu đã có)"
+      ],
+      "ra": [
+        "Báo giá (.docx / .pdf)",
+        "Bản ghi báo giá trên công cụ quản lý"
+      ],
+      "ky_nang": [
+        "cap-nhat-huan-luyen-atld"
+      ],
+      "tu_khoa": [
+        "báo giá",
+        "bg-dako",
+        "chào giá",
+        "đơn giá"
+      ],
+      "lenh_mau": "Lập báo giá cho Công ty … nhóm 3, 25 học viên, 1 lớp",
+      "tiep": [
+        "hd_congno",
+        "xl_lich"
+      ]
+    },
+    {
+      "id": "hd_hopdong",
+      "ten": "Phúc",
+      "chuc_danh": "Chuyên viên hợp đồng",
+      "nhan": "Hợp đồng nguyên tắc",
+      "phong": "hd",
+      "viec": "Hợp đồng nguyên tắc DAKO – đối tác kèm phụ lục bảng phí",
+      "lam": [
+        "Lấy thông tin đối tác từ giấy phép kinh doanh",
+        "Đánh số hợp đồng tiếp theo trong năm",
+        "Xuất Word giữ nguyên mẫu gốc, phụ lục chi phí từng lớp",
+        "Thêm phụ lục khi đối tác mở khóa mới"
+      ],
+      "can": [
+        "Tên, tên viết tắt, địa chỉ, MST đối tác",
+        "Người đại diện, chức vụ, ngày ký",
+        "Khóa học, đơn giá từng lớp"
+      ],
+      "ra": [
+        "Hợp đồng nguyên tắc (.docx) + PDF xem trên điện thoại"
+      ],
+      "ky_nang": [
+        "hop-dong-nguyen-tac"
+      ],
+      "tu_khoa": [
+        "hợp đồng nguyên tắc",
+        "đối tác",
+        "phụ lục",
+        "bảng phí",
+        "hợp đồng"
+      ],
+      "lenh_mau": "Làm hợp đồng nguyên tắc với Công ty … (giấy phép kinh doanh đính kèm)",
+      "tiep": [
+        "hd_congno"
+      ]
+    },
+    {
+      "id": "hd_congno",
+      "ten": "Vy",
+      "chuc_danh": "Kế toán công nợ",
+      "nhan": "Ghi nhận thanh toán",
+      "phong": "hd",
+      "viec": "Ghi nhận hợp đồng đã ký và các lần thu tiền",
+      "lam": [
+        "Ghép hợp đồng với báo giá cùng khách",
+        "Ghi thanh toán (số thực thu, đã gồm VAT)",
+        "Báo hợp đồng quá hạn, còn phải thu"
+      ],
+      "can": [
+        "Hợp đồng đã ký (PDF)",
+        "Chứng từ thanh toán"
+      ],
+      "ra": [
+        "Tab Hợp đồng trên công cụ quản lý được cập nhật"
+      ],
+      "ky_nang": [
+        "cap-nhat-huan-luyen-atld"
+      ],
+      "tu_khoa": [
+        "thanh toán",
+        "thu tiền",
+        "công nợ",
+        "chuyển khoản",
+        "đã ký",
+        "còn phải thu"
+      ],
+      "lenh_mau": "Ghi nhận Công ty … đã chuyển khoản … đ",
+      "tiep": [
+        "xl_lich"
+      ]
+    },
+    {
+      "id": "xl_lich",
+      "ten": "Quân",
+      "chuc_danh": "Điều phối lịch giảng",
+      "nhan": "Xếp lịch lớp",
+      "phong": "xl",
+      "viec": "Xếp lịch lớp, kiểm tra trùng lịch giảng viên",
+      "lam": [
+        "Lên lịch lớp trên công cụ quản lý khi anh nêu cụ thể",
+        "Kiểm tra trùng lịch giảng viên: trùng thì không lưu, báo anh",
+        "Tính giá lớp và thù lao giảng viên theo bảng giá"
+      ],
+      "can": [
+        "Khách hàng",
+        "Ngày học (từ – đến), giờ",
+        "Giảng viên",
+        "Số học viên, địa điểm"
+      ],
+      "ra": [
+        "Lớp trên Lịch giảng dạy của công cụ quản lý"
+      ],
+      "ky_nang": [
+        "cap-nhat-huan-luyen-atld (mục 6)"
+      ],
+      "tu_khoa": [
+        "xếp lịch",
+        "lên lịch",
+        "lịch dạy",
+        "lịch lớp",
+        "trùng lịch",
+        "lịch giảng"
+      ],
+      "lenh_mau": "Xếp lịch lớp nhóm 3 cho Công ty … từ … đến …, giảng viên …",
+      "tiep": [
+        "gv_dsdd",
+        "gv_online"
+      ]
+    },
+    {
+      "id": "xl_gv",
+      "ten": "Trang",
+      "chuc_danh": "Quản lý hồ sơ giảng viên",
+      "nhan": "Hồ sơ giảng viên",
+      "phong": "xl",
+      "viec": "Nhập và cập nhật hồ sơ giảng viên",
+      "lam": [
+        "Nhập giảng viên từ Excel/CV: vùng, chuyên ngành, nhóm được dạy, thù lao/ngày",
+        "Ảnh 3×4 ghép theo tên file, không đoán theo khuôn mặt",
+        "Theo dõi chứng chỉ giảng viên sắp hết hạn"
+      ],
+      "can": [
+        "Danh sách giảng viên (Excel/Word)",
+        "Ảnh 3×4, CV, chứng chỉ"
+      ],
+      "ra": [
+        "Hồ sơ giảng viên trên công cụ quản lý"
+      ],
+      "ky_nang": [
+        "cap-nhat-huan-luyen-atld"
+      ],
+      "tu_khoa": [
+        "giảng viên",
+        "hồ sơ giảng viên",
+        "thù lao",
+        "cv"
+      ],
+      "lenh_mau": "Nhập danh sách giảng viên trong file này vào công cụ",
+      "tiep": [
+        "xl_lich"
+      ]
+    },
+    {
+      "id": "gv_dsdd",
+      "ten": "Mai",
+      "chuc_danh": "Giáo vụ điểm danh",
+      "nhan": "Danh sách điểm danh",
+      "phong": "gv",
+      "viec": "Danh sách điểm danh Excel theo mẫu DAKO",
+      "lam": [
+        "Mỗi công ty 1 file, mỗi lớp 1 sheet, in vừa 1 trang A4 ngang",
+        "Cột Sáng/Chiều theo ngày học; tự tính số buổi, tỷ lệ, đủ điều kiện ≥ 80%",
+        "Lấy dữ liệu từ sổ cấp hoặc phiếu đăng ký (đối chiếu CCCD)"
+      ],
+      "can": [
+        "Sổ cấp hoặc phiếu đăng ký học viên",
+        "Nhóm, ngày học từ – đến",
+        "Tên đầy đủ của công ty"
+      ],
+      "ra": [
+        "DANH_SACH_DIEM_DANH_<MA>.xlsx"
+      ],
+      "ky_nang": [
+        "diem-danh-lop-atvsld-dako (việc A)"
+      ],
+      "tu_khoa": [
+        "danh sách điểm danh",
+        "điểm danh excel",
+        "file điểm danh",
+        "danh sách lớp"
+      ],
+      "lenh_mau": "Làm danh sách điểm danh cho các lớp trong sổ cấp này, học từ … đến …",
+      "tiep": [
+        "gv_online",
+        "cc_the",
+        "cc_gcn"
+      ]
+    },
+    {
+      "id": "gv_online",
+      "ten": "Tuấn",
+      "chuc_danh": "Giáo vụ lớp online",
+      "nhan": "Cổng điểm danh online",
+      "phong": "gv",
+      "viec": "Cổng điểm danh online Google Sheet + Meet",
+      "lam": [
+        "Tạo Sheet điểm danh: mã lớp, link từng công ty, link cá nhân, tin nhắn Zalo",
+        "Học viên chạm tên → ghi giờ vào lớp → tự chuyển vào Google Meet",
+        "Gửi Code.gs, Index.html và 5 bước cài đặt"
+      ],
+      "can": [
+        "Danh sách lớp (sổ cấp hoặc phiếu đăng ký)",
+        "Link Google Meet",
+        "Giờ bắt đầu buổi chiều"
+      ],
+      "ra": [
+        "Google Sheet DAKO_Diem_danh_Online trên Drive",
+        "Tin nhắn Zalo cho từng công ty"
+      ],
+      "ky_nang": [
+        "diem-danh-lop-atvsld-dako (việc B)"
+      ],
+      "tu_khoa": [
+        "điểm danh online",
+        "google meet",
+        "meet",
+        "google sheet",
+        "cổng điểm danh",
+        "zalo"
+      ],
+      "lenh_mau": "Tạo cổng điểm danh online cho các lớp ngày …, link Meet …",
+      "tiep": [
+        "gv_chuyencan"
+      ]
+    },
+    {
+      "id": "gv_chuyencan",
+      "ten": "Hạnh",
+      "chuc_danh": "Giáo vụ chuyên cần",
+      "nhan": "Cập nhật điểm danh",
+      "phong": "gv",
+      "viec": "Cập nhật điểm danh vào Excel, báo ai chưa đủ 80%",
+      "lam": [
+        "Đọc bảng điểm danh online (✓ giờ vào lớp)",
+        "Ghi giờ vào đúng buổi trong danh sách điểm danh",
+        "Báo học viên chưa đủ 80% số buổi"
+      ],
+      "can": [
+        "Bản Sheet điểm danh đang chạy (.xlsx)",
+        "File danh sách điểm danh"
+      ],
+      "ra": [
+        "Danh sách điểm danh đã cập nhật",
+        "Danh sách chưa đủ điều kiện"
+      ],
+      "ky_nang": [
+        "diem-danh-lop-atvsld-dako (mục 4)"
+      ],
+      "tu_khoa": [
+        "cập nhật điểm danh",
+        "chuyên cần",
+        "80%",
+        "đủ điều kiện",
+        "vắng"
+      ],
+      "lenh_mau": "Cập nhật điểm danh từ file Sheet này vào danh sách",
+      "tiep": [
+        "cc_the",
+        "cc_gcn",
+        "cc_socap"
+      ]
+    },
+    {
+      "id": "cc_the",
+      "ten": "Bảo",
+      "chuc_danh": "Chuyên viên in thẻ ATLĐ",
+      "nhan": "In thẻ ATLĐ nhóm 3",
+      "phong": "cc",
+      "viec": "Thẻ an toàn lao động nhóm 3 từ form chuẩn",
+      "lam": [
+        "Thẻ 60×90 mm, 8 thẻ/A4 ngang; mặt sau đảo cột 4-3-2-1",
+        "Số thẻ DAKO-N3-xx/năm chạy riêng theo từng doanh nghiệp",
+        "Ngày cấp = ngày kết thúc + 1; hiệu lực 2 năm",
+        "Kèm ảnh đối chiếu và bản scan thẻ từng học viên"
+      ],
+      "can": [
+        "Excel danh sách học viên",
+        "Ảnh 3×4 (file zip)",
+        "Ngày bắt đầu khóa",
+        "Nội dung công việc nhóm 3"
+      ],
+      "ra": [
+        "The_ATLD_<khách>_<ngày>.pptx",
+        "Ảnh đối chiếu, bản scan thẻ (zip)"
+      ],
+      "ky_nang": [
+        "in-the-atld-dako"
+      ],
+      "tu_khoa": [
+        "thẻ",
+        "in thẻ",
+        "thẻ an toàn",
+        "thẻ atlđ",
+        "nhóm 3"
+      ],
+      "lenh_mau": "In thẻ ATLĐ nhóm 3 cho Công ty …, học từ …",
+      "tiep": [
+        "cc_socap",
+        "cc_doichieu",
+        "lt_bangiao"
+      ]
+    },
+    {
+      "id": "cc_gcn",
+      "ten": "Lan",
+      "chuc_danh": "Chuyên viên giấy chứng nhận",
+      "nhan": "In GCN nhóm 1-2-5-6",
+      "phong": "cc",
+      "viec": "Giấy chứng nhận huấn luyện nhóm 1, 2, 5, 6",
+      "lam": [
+        "GCN 190×130 mm (Mẫu 08 NĐ 44/2016), 2 GCN/A4 dọc",
+        "Số GCN DAKO-N<nhóm>-xx/năm chạy tiếp theo nhóm",
+        "Nội dung huấn luyện theo Điều 18; ký Giám đốc Phạm Thị Thu Thanh",
+        "Kèm ảnh đối chiếu mặt ngoài – mặt trong"
+      ],
+      "can": [
+        "Excel danh sách học viên",
+        "Ảnh 3×4 (file zip)",
+        "Nhóm, ngày bắt đầu khóa"
+      ],
+      "ra": [
+        "GCN_<khách>_<ngày>.pptx",
+        "Ảnh đối chiếu (zip)"
+      ],
+      "ky_nang": [
+        "in-the-atld-dako"
+      ],
+      "tu_khoa": [
+        "gcn",
+        "giấy chứng nhận",
+        "chứng nhận",
+        "nhóm 1",
+        "nhóm 2",
+        "nhóm 5",
+        "nhóm 6"
+      ],
+      "lenh_mau": "In GCN nhóm 2 cho Công ty …, học từ …",
+      "tiep": [
+        "cc_socap",
+        "cc_doichieu",
+        "lt_bangiao"
+      ]
+    },
+    {
+      "id": "cc_socap",
+      "ten": "Đức",
+      "chuc_danh": "Chuyên viên sổ cấp",
+      "nhan": "Làm sổ cấp",
+      "phong": "cc",
+      "viec": "Sổ cấp thẻ/GCN và sổ theo dõi nhóm 4",
+      "lam": [
+        "Sổ cấp theo mẫu Biovegi: mỗi công ty 1 file, mỗi nhóm 1 sheet",
+        "Đọc thẳng chữ trên file in đã giao",
+        "Nhóm 4: sổ theo dõi huấn luyện (không cấp giấy)"
+      ],
+      "can": [
+        "File in thẻ/GCN đã chốt của đợt"
+      ],
+      "ra": [
+        "So_cap_<công ty>.xlsx"
+      ],
+      "ky_nang": [
+        "in-the-atld-dako (bước 7)"
+      ],
+      "tu_khoa": [
+        "sổ cấp",
+        "sổ theo dõi",
+        "nhóm 4"
+      ],
+      "lenh_mau": "Làm sổ cấp cho đợt thẻ vừa in",
+      "tiep": [
+        "lt_bangiao",
+        "lt_form"
+      ]
+    },
+    {
+      "id": "cc_doichieu",
+      "ten": "Ngọc",
+      "chuc_danh": "Kiểm soát chất lượng in",
+      "nhan": "Gộp file in, bản scan",
+      "phong": "cc",
+      "viec": "Ảnh đối chiếu, bản scan thẻ, file in gộp cả đợt",
+      "lam": [
+        "Ảnh đối chiếu từng học viên, dấu chìm “chưa có giá trị sử dụng”",
+        "Bản scan thẻ PDF A4 từng người, gộp theo công ty",
+        "Gộp file in cả đợt kín tờ, chỉ giao khi KHỚP 100%",
+        "Sơ đồ tờ in để phân loại khi cắt"
+      ],
+      "can": [
+        "File in từng công ty trong đợt"
+      ],
+      "ra": [
+        "IN_GOP_The_ATLD_…_<S>to.pptx",
+        "Scan_The_ATLD_<công ty>.zip"
+      ],
+      "ky_nang": [
+        "in-the-atld-dako (bước 6, 6b, 8b)"
+      ],
+      "tu_khoa": [
+        "đối chiếu",
+        "scan",
+        "in gộp",
+        "gộp file",
+        "tờ in"
+      ],
+      "lenh_mau": "Gộp file in thẻ cả đợt hôm nay",
+      "tiep": [
+        "lt_bangiao"
+      ]
+    },
+    {
+      "id": "lt_form",
+      "ten": "Sơn",
+      "chuc_danh": "Thủ kho form & số cấp",
+      "nhan": "Tra số cấp, form chuẩn",
+      "phong": "lt",
+      "viec": "Form chuẩn trên Drive và sổ số cuối",
+      "lam": [
+        "Giữ thư mục Drive “DAKO - FORM CHUẨN GCN & THẺ ATLĐ”",
+        "Cập nhật form khi anh gửi bản mới: tạo bản mới, kiểm tra, bỏ bản cũ",
+        "Ghi số cuối từng nhóm, từng doanh nghiệp (DAKO_so_cuoi.json)"
+      ],
+      "can": [
+        "Form mới (nếu thay)"
+      ],
+      "ra": [
+        "Danh mục form hiện hành, số cuối đã cấp"
+      ],
+      "ky_nang": [
+        "in-the-atld-dako (mục 1)",
+        "Google Drive"
+      ],
+      "tu_khoa": [
+        "form chuẩn",
+        "mẫu form",
+        "số cuối",
+        "drive",
+        "cập nhật form"
+      ],
+      "lenh_mau": "Số thẻ nhóm 3 cuối cùng của Công ty … là bao nhiêu?",
+      "tiep": [
+        "cc_the",
+        "cc_gcn"
+      ]
+    },
+    {
+      "id": "lt_bangiao",
+      "ten": "Yến",
+      "chuc_danh": "Thư ký bàn giao hồ sơ",
+      "nhan": "Đóng gói hồ sơ bàn giao",
+      "phong": "lt",
+      "viec": "Đóng gói hồ sơ bàn giao khách trong 05 ngày",
+      "lam": [
+        "Gom danh sách điểm danh, sổ cấp, bản scan thẻ theo từng công ty",
+        "Lập danh mục bàn giao, nhắc hạn 05 ngày sau khóa học",
+        "Soạn tin nhắn/email bàn giao gửi khách"
+      ],
+      "can": [
+        "Tên khách, đợt học",
+        "Các file đã làm của đợt"
+      ],
+      "ra": [
+        "Gói hồ sơ bàn giao (.zip) + danh mục"
+      ],
+      "ky_nang": [
+        "Tổng hợp đầu ra của Giáo vụ và Chứng chỉ"
+      ],
+      "tu_khoa": [
+        "bàn giao",
+        "hồ sơ khách",
+        "đóng gói",
+        "gửi khách"
+      ],
+      "lenh_mau": "Đóng gói hồ sơ bàn giao cho Công ty … đợt …",
+      "tiep": [
+        "hd_congno"
+      ]
+    },
+    {
+      "id": "tt_video",
+      "ten": "Khang",
+      "chuc_danh": "Biên tập video",
+      "nhan": "Làm video",
+      "phong": "tt",
+      "viec": "Video giới thiệu dịch vụ, video huấn luyện ngắn",
+      "lam": [
+        "Video thuyết minh 1080p dưới 30 MB, kèm phụ đề .srt",
+        "Kịch bản theo ngành (đóng tàu, xây dựng…)",
+        "Dựng từ HTML + GSAP, giọng đọc tiếng Việt"
+      ],
+      "can": [
+        "Chủ đề, ngành, thời lượng",
+        "Hình ảnh, logo (nếu có)"
+      ],
+      "ra": [
+        ".mp4 + .srt"
+      ],
+      "ky_nang": [
+        "video-atld/, video-dongtau/ (mẫu dựng video)"
+      ],
+      "tu_khoa": [
+        "video",
+        "clip",
+        "phim"
+      ],
+      "lenh_mau": "Làm video 60 giây giới thiệu dịch vụ huấn luyện ATVSLĐ ngành Xây dựng",
+      "tiep": [
+        "tt_slide"
+      ]
+    },
+    {
+      "id": "tt_slide",
+      "ten": "Thảo",
+      "chuc_danh": "Thiết kế slide & hồ sơ",
+      "nhan": "Làm slide, hồ sơ năng lực",
+      "phong": "tt",
+      "viec": "Slide thuyết trình, hồ sơ năng lực, hướng dẫn phần mềm",
+      "lam": [
+        "Slide tư vấn, hợp tác doanh nghiệp",
+        "Hồ sơ năng lực Viện STP – DAKO",
+        "Hướng dẫn sử dụng phần mềm quản lý ATVSLĐ"
+      ],
+      "can": [
+        "Mục đích, người xem",
+        "Nội dung chính, số slide"
+      ],
+      "ra": [
+        ".pptx / .pdf"
+      ],
+      "ky_nang": [
+        "pptx"
+      ],
+      "tu_khoa": [
+        "slide",
+        "thuyết trình",
+        "hồ sơ năng lực",
+        "powerpoint"
+      ],
+      "lenh_mau": "Làm bộ slide 10 trang giới thiệu dịch vụ huấn luyện cho Công ty …",
+      "tiep": [
+        "tt_video"
+      ]
+    }
+  ],
+  "lien_ket": {
+    "quan_ly": "https://claude.ai/artifact/RVdpwhRVeWuTTne3mwAXXo",
+    "tra_cuu": "https://claude.ai/artifact/Ev6ysu6K1HUJmPaUdLyJv9",
+    "drive_form": "https://drive.google.com/drive/folders/1Yrlu-ZIqsXLuP2EZ3gSPf1iOcep0gWM3"
+  },
+  "thuc_thi": {
+    "repo": "https://github.com/dakojsc-maker/ATL--DAKO",
+    "nhanh": "ccr-a2333919-2g56yl",
+    "moi_truong": "env_01AWpQ8e8ivwn889CvJGRVRg"
+  }
+}
