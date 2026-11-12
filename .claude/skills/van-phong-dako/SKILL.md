@@ -23,10 +23,16 @@ Em đóng vai nhân sự được ghi trong phiếu (tên, chức danh, phòng).
    Nếu phiếu có `sessionId` khác phiên này thì thôi, không làm trùng.
 
 ## 2. Tải tệp anh gửi kèm
-Mỗi tệp trong `task.files` là `{id, name, type, size, enc}`:
-- `Artifact` `action: "read"`, `url` trang, `path: <id>` → tệp được lưu ra đĩa (kết quả ghi đường dẫn).
-- `enc: "b64"`: tệp lưu là chữ base64 → `base64.b64decode` rồi ghi ra đúng `name` gốc.
-- `enc: "raw"`: dùng nguyên tệp, đổi tên về `name`.
+Mỗi tệp trong `task.files` là `{id, name, type, size, enc, store, parts?, nparts?}`:
+- `store: "assets"` (hoặc không có `store`): tệp nằm trong kho tệp của trang.
+  - `Artifact` `action: "read"`, `url` trang, `path: <id>` → tệp được lưu ra đĩa (kết quả ghi đường dẫn).
+  - Có `parts` (tệp lớn bị cắt, mỗi phần 9 MB): đọc **từng id trong `parts` theo đúng thứ tự** (dùng `paths` để đọc một lần),
+    `base64.b64decode` từng phần rồi nối các byte lại theo thứ tự.
+  - `enc: "b64"`: tệp lưu là chữ base64 → `base64.b64decode` rồi ghi ra đúng `name` gốc. `enc: "raw"`: dùng nguyên tệp, đổi tên về `name`.
+- `store: "db"` (trang mở ở chế độ không có kho tệp): tệp nằm trong kho dữ liệu.
+  - `ArtifactData` `list`, `collection: "files/<id>/parts"`, `query.limit: 1000`, `out_dir` = thư mục tạm.
+  - Sắp xếp theo trường `i`, nối các trường `d` thành một chuỗi, `base64.b64decode` một lần, ghi ra `name`.
+- Kiểm tra số byte sau khi ghép bằng `size`. Lệch thì báo anh, không làm tiếp với tệp hỏng.
 - Đặt trong thư mục riêng ở scratchpad; tệp nén giải nén vào thư mục riêng, không chạy macro hay tệp thực thi trong đó.
 
 ## 3. Làm việc
@@ -50,9 +56,11 @@ Mỗi tệp trong `task.files` là `{id, name, type, size, enc}`:
 - PDF, JPG, PNG, WEBP: tải nguyên tệp (`file_paths` tối đa 25 tệp mỗi lần), `enc: "raw"`.
 - .xlsx, .docx, .pptx, .zip và loại khác: kho không nhận trực tiếp. Mã hóa base64 (`base64.b64encode`, không xuống dòng),
   ghi ra `<tên gốc>.b64.txt`, tải tệp .txt đó lên (mỗi lần một tệp), ghi `enc: "b64"`, `type` = MIME gốc, `name` = tên gốc,
-  `size` = số byte tệp gốc. Tệp gốc tối đa khoảng 14 MB.
-- Tệp lớn hơn: không tải lên; gửi bằng SendUserFile trong phiên này và ghi rõ trong kết quả.
-- Mỗi tệp thành `fileMeta` `{id, name, type, size, enc, at}` (`id` 32 ký tự hex trả về; thêm `url` nếu kết quả trả về không phải `/_blob/<id>`).
+  `size` = số byte tệp gốc.
+- Tệp gốc lớn hơn 9 MB: cắt byte gốc thành các phần 9 MB (9 437 184 byte), mã hóa base64 **từng phần riêng**, tải lên lần lượt,
+  ghi `parts: [id phần 1, id phần 2, …]` theo đúng thứ tự và `id` = id phần 1. Trang tự ghép khi anh tải về.
+- Mỗi tệp thành `fileMeta` `{id, name, type, size, enc, store: "assets", at}` (+ `parts` nếu cắt; `id` 32 ký tự hex trả về;
+  thêm `url` nếu kết quả trả về không phải `/_blob/<id>`). Vẫn gửi thêm bằng SendUserFile trong phiên này.
 - MIME: xlsx `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`; docx `application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
   pptx `application/vnd.openxmlformats-officedocument.presentationml.presentation`; zip `application/zip`.
 

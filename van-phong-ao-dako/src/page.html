@@ -58,14 +58,15 @@
         <button class="who-btn" id="whoBtn" aria-label="Chọn người nhận"></button>
         <button class="btn ghost sm" id="btnNew">Cuộc mới</button>
       </div>
+      <div class="capb" id="capBanner" hidden role="status"></div>
       <div class="msgs" id="msgs" aria-live="polite"></div>
       <div class="composer">
         <div class="fwd" id="fwdBar" hidden><span id="fwdText"></span><button class="lnk" id="fwdCancel">Thôi</button></div>
         <div class="att-list" id="attList" hidden></div>
+        <div class="comp-err" id="compErr" hidden role="alert"></div>
         <textarea id="input" rows="1" placeholder="Nhắn việc cần giao…" title="Enter để gửi, Shift+Enter để xuống dòng"></textarea>
         <div class="comp-row">
-          <label class="icon-btn" for="file" title="Đính kèm tệp (Excel, ảnh zip, PDF, Word…)"><svg viewBox="0 0 24 24"><path d="M21 11.5l-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l8.6-8.6a3.7 3.7 0 0 1 5.2 5.2l-8.6 8.6a1.8 1.8 0 0 1-2.6-2.6l7.9-7.9"/></svg></label>
-          <input type="file" id="file" multiple hidden>
+          <span class="icon-btn pick" title="Đính kèm tệp (Excel, ảnh zip, PDF, Word…)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5l-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l8.6-8.6a3.7 3.7 0 0 1 5.2 5.2l-8.6 8.6a1.8 1.8 0 0 1-2.6-2.6l7.9-7.9"/></svg><input type="file" id="file" multiple aria-label="Đính kèm tệp"></span>
           <span class="cap-hint" id="capHint"></span>
           <button class="btn navy" id="send">Gửi<svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
         </div>

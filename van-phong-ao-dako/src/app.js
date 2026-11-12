@@ -93,11 +93,13 @@
 
   /* ---------- Năng lực của trang ---------- */
   const use = n => (window.claude && window.claude.use ? window.claude.use(n).catch(() => null) : Promise.resolve(null));
-  use('db').then(db => { if (db) connectDb(db); else { S.dbState = 'off'; render(); } });
-  use('assets').then(a => { S.cap.assets = a; render(); });
-  use('sample').then(s => { S.cap.sample = s; render(); });
-  use('downloads').then(d => { S.cap.downloads = d; });
-  use('mcp').then(async m => {
+  const CAPS = { db: use('db'), assets: use('assets'), sample: use('sample'), downloads: use('downloads'), mcp: use('mcp') };
+  CAPS.db.then(db => { if (db) connectDb(db); else { S.dbState = 'off'; render(); } });
+  CAPS.assets.then(a => { S.cap.assets = a; render(); });
+  CAPS.sample.then(s => { S.cap.sample = s; render(); });
+  CAPS.downloads.then(d => { S.cap.downloads = d; });
+  Promise.all(Object.values(CAPS)).then(() => { S.capReady = true; render(); });
+  CAPS.mcp.then(async m => {
     S.cap.mcp = m; if (!m) return render();
     try { const r = await m.listTools(CCR); const sv = (r.servers || []).find(x => x.server === CCR); S.mcpTools = sv ? new Set(sv.tools.map(t => t.name)) : new Set(); }
     catch (e) { S.mcpTools = new Set(); }
@@ -133,6 +135,12 @@
       have: files.map(f => f.name), missing: [], ready: true, brief: text, checklist: s.can };
   }
 
+  function assignedPlan(text, files, id) {
+    const s = STAFF[id];
+    return { staff: id, task: true, same_task: !!pendingFor(id), title: text.replace(/\s+/g, ' ').slice(0, 70),
+      reply: `Dạ anh, em ${s.ten} – ${s.chuc_danh} nhận việc này (${s.viec}). Làm xong em giao: ${s.ra.join('; ')}.${s.can.length ? ' Anh kiểm tra giúp em đã gửi đủ: ' + s.can.join(', ') + '.' : ''}`,
+      have: files.map(f => f.name), missing: [], ready: true, brief: text, checklist: s.can };
+  }
   async function plan(text, files, forced) {
     const smp = S.cap.sample;
     if (!smp) return fallbackPlan(text, files, forced);
@@ -177,50 +185,119 @@ Chỉ trả về JSON: {"staff":"id","task":true,"same_task":false,"title":"≤ 
   }
 
   /* ---------- Tệp: tải lên / tải về ---------- */
-  const RAW_OK = /^(image\/(png|jpe?g|webp|gif)|application\/pdf|text\/(csv|plain|markdown)|application\/json)$/;
-  const B64_MAX = 14.5 * 1024 * 1024, RAW_MAX = 20 * 1024 * 1024;
-  const extType = n => ({ xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', xls: 'application/vnd.ms-excel',
+  // Kho tệp (assets) chỉ nhận ảnh, PDF, video và chữ. Word/Excel/zip… được mã hóa base64 thành chữ,
+  // cắt thành nhiều phần 9 MB để không vượt giới hạn 20 MiB mỗi tệp. Không có kho tệp thì lưu vào kho dữ liệu (db).
+  const ASSET_TYPES = new Set(['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'application/pdf', 'video/mp4', 'video/webm',
+    'text/csv', 'text/plain', 'text/markdown', 'application/json']);
+  const RAW_MAX = 19 * 1024 * 1024, PART = 9 * 1024 * 1024, FILE_MAX = 100 * 1024 * 1024;
+  const DB_PART = 300 * 1024, DB_MAX = 12 * 1024 * 1024;
+  const EXT = { xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', xls: 'application/vnd.ms-excel', xlsm: 'application/vnd.ms-excel.sheet.macroEnabled.12',
     docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', doc: 'application/msword',
-    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', zip: 'application/zip', rar: 'application/vnd.rar',
-    pdf: 'application/pdf', jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', csv: 'text/csv', txt: 'text/plain', json: 'application/json', md: 'text/markdown', heic: 'image/heic' }[(n.split('.').pop() || '').toLowerCase()] || 'application/octet-stream');
-  function b64(buf) { let s = ''; const u = new Uint8Array(buf); for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
-  async function uploadOne(f) {
-    const type = f.type || extType(f.name);
-    if (!S.cap.assets) throw { code: 'no_assets' };
-    if (RAW_OK.test(type) && f.size <= RAW_MAX) {
-      const r = await S.cap.assets.upload(f, { type });
-      return { id: r.id, name: f.name, type, size: f.size, enc: 'raw', at: now() };
+    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', ppt: 'application/vnd.ms-powerpoint',
+    zip: 'application/zip', rar: 'application/vnd.rar', '7z': 'application/x-7z-compressed', pdf: 'application/pdf',
+    jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif', heic: 'image/heic', heif: 'image/heif',
+    csv: 'text/csv', txt: 'text/plain', json: 'application/json', md: 'text/markdown', mp4: 'video/mp4' };
+  function fileType(f) {
+    let t = String(f.type || '').split(';')[0].trim().toLowerCase();
+    if (t === 'image/jpg' || t === 'image/pjpeg') t = 'image/jpeg';
+    const byExt = EXT[(String(f.name).split('.').pop() || '').toLowerCase()];
+    if (!t || t === 'application/octet-stream' || (t === 'application/vnd.ms-excel' && byExt === 'text/csv')) t = byExt || 'application/octet-stream';
+    return t;
+  }
+  function b64(u8) { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+  function unb64(txt) { const bin = atob(String(txt).replace(/\s+/g, '')); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+  const withTimeout = (pr, ms) => new Promise((ok, no) => { const t = setTimeout(() => no({ code: 'timeout' }), ms); pr.then(v => { clearTimeout(t); ok(v); }, e => { clearTimeout(t); no(e); }); });
+  const mb = n => (n / 1048576).toFixed(n < 10485760 ? 1 : 0).replace('.', ',') + ' MB';
+  function errText(e, f) {
+    const c = e && e.code;
+    return ({
+      empty: 'tệp rỗng', too_big: `tệp ${mb(f.size)}, quá giới hạn 100 MB – anh gửi thẳng trong Claude Code`,
+      too_big_db: `tệp ${mb(f.size)}: chế độ xem này chỉ lưu được tệp đến 12 MB`,
+      no_store: 'chế độ xem này không cho trang lưu tệp (xem thông báo ở đầu khung chat)',
+      timeout: 'mạng chậm, quá thời gian chờ – anh thử lại', too_large: 'quá 20 MB cho một phần',
+      unsupported_type: 'kho tệp không nhận loại tệp này', quota_or_state: 'kho tệp đã đầy hoặc trang đang được cập nhật',
+      rate_limited: 'tải quá nhanh, đợi vài giây rồi gửi lại', upstream_auth: 'phiên đăng nhập hết hạn – tải lại trang',
+      not_granted: 'chế độ xem này không cho tải tệp', capability_disabled: 'chế độ xem này không cho tải tệp',
+      store_unavailable: 'kho tệp tạm lỗi – anh gửi lại', invalid_request: 'tệp không hợp lệ'
+    })[c] || (e && (e.message || c)) || 'lỗi không rõ';
+  }
+  async function toAssets(p, type) {
+    const f = p.file;
+    if (ASSET_TYPES.has(type) && f.size <= RAW_MAX) {
+      p.note = 'đang tải…'; renderAtt();
+      const r = await withTimeout(S.cap.assets.upload(f, { type }), 300000);
+      return { id: r.id, name: f.name, type, size: f.size, enc: 'raw', store: 'assets', at: now() };
     }
-    if (f.size > B64_MAX) throw { code: 'too_big' };
-    const text = b64(await f.arrayBuffer());
-    const r = await S.cap.assets.upload(new Blob([text], { type: 'text/plain' }), { type: 'text/plain' });
-    return { id: r.id, name: f.name, type, size: f.size, enc: 'b64', at: now() };
+    const parts = [], n = Math.max(1, Math.ceil(f.size / PART));
+    for (let i = 0; i < n; i++) {
+      p.note = n > 1 ? `đang tải phần ${i + 1}/${n}` : 'đang tải…'; renderAtt();
+      const u8 = new Uint8Array(await f.slice(i * PART, Math.min(f.size, (i + 1) * PART)).arrayBuffer());
+      const r = await withTimeout(S.cap.assets.upload(new Blob([b64(u8)], { type: 'text/plain' }), { type: 'text/plain' }), 300000);
+      parts.push(r.id);
+    }
+    return { id: parts[0], parts, name: f.name, type, size: f.size, enc: 'b64', store: 'assets', at: now() };
+  }
+  async function toDb(p, type) {
+    const f = p.file; if (f.size > DB_MAX) throw { code: 'too_big_db' };
+    const fid = 'f' + rand(12), txt = b64(new Uint8Array(await f.arrayBuffer())), n = Math.ceil(txt.length / DB_PART);
+    for (let i = 0; i < n; i++) {
+      p.note = `đang lưu ${i + 1}/${n}`; renderAtt();
+      await withTimeout(S.cap.db.doc(`files/${fid}/parts/p${String(i).padStart(3, '0')}`).set({ i, d: txt.slice(i * DB_PART, (i + 1) * DB_PART) }), 90000);
+    }
+    const meta = { id: fid, name: f.name, type, size: f.size, enc: 'b64', store: 'db', nparts: n, at: now() };
+    await S.cap.db.doc('files/' + fid).set(meta);
+    return meta;
+  }
+  async function uploadOne(p) {
+    const f = p.file, type = fileType(f);
+    if (!f.size) throw { code: 'empty' };
+    if (f.size > FILE_MAX) throw { code: 'too_big' };
+    if (S.cap.assets) {
+      try { return await toAssets(p, type); }
+      catch (e) { if (!S.cap.db || !['not_granted', 'capability_disabled', 'capability_removed', 'unsupported_type', 'upstream_auth', 'quota_or_state'].includes(e && e.code) || f.size > DB_MAX) throw e; }
+    }
+    if (S.cap.db) return await toDb(p, type);
+    throw { code: 'no_store' };
   }
   async function uploadPending() {
-    const out = [];
+    const ok = [], bad = [];
     for (const p of S.pending) {
-      try { p.state = 'up'; renderAtt(); out.push(await uploadOne(p.file)); p.state = 'ok'; }
-      catch (e) {
-        p.state = 'bad';
-        toast(e.code === 'too_big' ? `“${p.file.name}” lớn hơn 14 MB: anh gửi thẳng trong Claude Code nhé.`
-          : e.code === 'no_assets' ? 'Chế độ xem này chưa tải tệp lên được. Anh mở trang trên claude.ai bằng tài khoản chủ trang.'
-          : `Chưa tải được “${p.file.name}”: ${e.message || e.code}`, 6000);
-      }
+      if (p.state === 'ok' && p.meta) { ok.push(p.meta); continue; }
+      try { p.state = 'up'; p.note = ''; renderAtt(); p.meta = await uploadOne(p); p.state = 'ok'; p.note = ''; ok.push(p.meta); }
+      catch (e) { console.warn('upload', p.file.name, e); p.state = 'bad'; p.note = errText(e, p.file); bad.push(p); }
+      renderAtt();
     }
-    S.pending = []; renderAtt(); return out;
+    return { ok, bad };
   }
-  async function download(f) {
+  function addFiles(list) {
+    for (const f of list || []) S.pending.push({ file: f, state: 'wait' });
+    setCompErr(''); renderAtt();
+    if (S.pending.length && !S.cap.assets && !S.cap.db && S.capReady) setCompErr('Chế độ xem này không lưu được tệp. Xem hướng dẫn ở đầu khung chat.');
+  }
+  function setCompErr(t) { const el = $('#compErr'); el.textContent = t; el.hidden = !t; }
+  async function fileBlob(f) {
+    if (f.store === 'db') {
+      if (!S.cap.db) throw { code: 'no_store' };
+      const snap = await S.cap.db.collection(`files/${f.id}/parts`).get();
+      const txt = snap.docs.map(d => d.data()).sort((a, b) => a.i - b.i).map(x => x.d).join('');
+      return new Blob([unb64(txt)], { type: f.type });
+    }
+    const ids = f.parts && f.parts.length ? f.parts : [f.id];
+    if (f.enc !== 'b64') { const r = await fetch(f.url || '/_blob/' + ids[0]); if (!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); }
+    const chunks = [];
+    for (const id of ids) { const r = await fetch('/_blob/' + id); if (!r.ok) throw new Error('HTTP ' + r.status); chunks.push(unb64(await r.text())); }
+    return new Blob(chunks, { type: f.type });
+  }
+  async function download(f, btn) {
+    if (btn) btn.classList.add('busy');
     try {
-      const res = await fetch(f.url || '/_blob/' + f.id); if (!res.ok) throw new Error('HTTP ' + res.status);
-      let blob;
-      if (f.enc === 'b64') { const txt = (await res.text()).replace(/\s+/g, ''); const bin = atob(txt); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); blob = new Blob([u], { type: f.type }); }
-      else blob = await res.blob();
-      if (S.cap.downloads) { await S.cap.downloads.save({ filename: f.name, data: blob }); }
-      else toast('Chế độ xem này không cho tải tệp. Mở phiên Claude Code của việc này để lấy tệp.');
+      const blob = await fileBlob(f);
+      if (!S.cap.downloads) return toast('Chế độ xem này không cho tải tệp về máy. Mở phiên Claude Code của việc này để lấy tệp.', 6000);
+      await S.cap.downloads.save({ filename: f.name, data: blob });
     } catch (e) {
       if (e && e.code === 'declined') return;
-      toast(e && e.code === 'rejected_extension' ? `Không tải được loại tệp “${f.name}” trong trang; mở phiên Claude Code để lấy.` : 'Chưa tải được tệp: ' + (e.message || e.code));
-    }
+      toast(e && e.code === 'rejected_extension' ? `Trang không tải được loại tệp “${f.name}”; mở phiên Claude Code để lấy.` : 'Chưa tải được tệp: ' + errText(e, f), 6000);
+    } finally { if (btn) btn.classList.remove('busy'); }
   }
 
   /* ---------- Phiếu giao việc gửi Claude Code ---------- */
@@ -234,10 +311,14 @@ Tóm tắt yêu cầu: ${t.brief}
 ${t.have && t.have.length ? 'Đã có: ' + t.have.join('; ') + '\n' : ''}${t.missing && t.missing.length ? 'Còn thiếu (hỏi anh nếu thật cần): ' + t.missing.join('; ') + '\n' : ''}Quy trình / kỹ năng dùng: ${s.ky_nang.join('; ') || 'theo mô tả công việc'}
 Việc của vị trí này: ${s.lam.join('; ')}
 Đầu ra cần giao: ${s.ra.join('; ')}
-Tệp anh gửi kèm (kho tệp của văn phòng ảo): ${t.files && t.files.length ? '\n' + t.files.map(f => `- ${f.name} (id: ${f.id}, enc: ${f.enc}, ${Math.round(f.size / 1024)} KB)`).join('\n') : 'không có'}
+Tệp anh gửi kèm (văn phòng ảo; cách lấy xem kỹ năng van-phong-dako mục 2): ${t.files && t.files.length ? '\n' + t.files.map(fileLine).join('\n') : 'không có'}
 Văn phòng ảo: ${CFG.artifactUrl || '(xem config/main)'} — bản ghi tasks/${t.id}, cuộc chat ${t.thread}.
 Gợi ý việc tiếp theo cho: ${(s.tiep || []).map(id => `${id} (${STAFF[id].ten} – ${STAFF[id].viec})`).join('; ') || 'tùy kết quả'}
 Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/skills/van-phong-dako/SKILL.md): nhận tệp, báo tiến độ, trả kết quả và gợi ý việc tiếp theo về văn phòng ảo.`;
+  }
+  function fileLine(f) {
+    const where = f.store === 'db' ? `kho dữ liệu: files/${f.id}/parts (${f.nparts} phần)` : f.parts && f.parts.length > 1 ? `kho tệp, ${f.parts.length} phần theo thứ tự: ${f.parts.join(', ')}` : `kho tệp, id: ${f.id}`;
+    return `- ${f.name} (${where}; enc: ${f.enc}; ${Math.max(1, Math.round(f.size / 1024))} KB; ${f.type})`;
   }
   const sessionLink = id => 'https://claude.ai/code/' + id;
   function findSession(r) { const m = JSON.stringify(r && (r.payload || r) || '').match(/session_[A-Za-z0-9]+/); return m ? m[0] : null; }
@@ -289,18 +370,28 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
   function showTicket(txt) { $('#ticketText').value = txt; $('#ticketModal').hidden = false; $('#ticketText').select(); }
 
   async function forwardToSession(t, text, files) {
-    const msg = `[Trưởng phòng nhắn từ văn phòng ảo – việc ${t.id}]\n${text}${files.length ? '\nTệp mới (kho tệp văn phòng ảo):\n' + files.map(f => `- ${f.name} (id: ${f.id}, enc: ${f.enc})`).join('\n') : ''}`;
+    const msg = `[Trưởng phòng nhắn từ văn phòng ảo – việc ${t.id}]\n${text}${files.length ? '\nTệp mới (văn phòng ảo):\n' + files.map(fileLine).join('\n') : ''}`;
     await S.cap.mcp.callTool(CCR, 'send_message', { session_id: t.sessionId, message: msg });
     saveTask(t.id, { status: 'dang_lam', question: null, files: (t.files || []).concat(files) });
     addMsg({ who: 'dp_thu', taskId: t.id, kind: 'note', text: `Em đã chuyển lời anh tới phiên làm việc của ${STAFF[t.staff].ten}.` });
   }
 
   /* ---------- Gửi tin ---------- */
-  async function send(textIn, forcedTo) {
+  async function send(textIn, forcedTo, opts = {}) {
     const text = (textIn != null ? textIn : $('#input').value).trim();
     if ((!text && !S.pending.length) || S.busy) return;
-    S.busy = true; $('#input').value = ''; autosize(); render();
-    const files = S.pending.length ? await uploadPending() : [];
+    S.busy = true; setCompErr(''); render();
+    let files = [];
+    if (S.pending.length) {
+      const r = await uploadPending();
+      if (r.bad.length) {
+        S.busy = false; if (textIn != null && !$('#input').value) $('#input').value = text; autosize();
+        setCompErr(`Chưa gửi: ${r.bad.map(p => `“${p.file.name}” – ${p.note}`).join('; ')}. Anh bỏ tệp lỗi (×) hoặc bấm Gửi để thử lại.`);
+        return render();
+      }
+      files = r.ok; S.pending = []; renderAtt();
+    }
+    $('#input').value = ''; autosize();
     const to = forcedTo || S.to;
     addMsg({ who: 'anh', to, text: text || '(gửi tệp)', files });
     try {
@@ -313,7 +404,8 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
         catch (e) { toast('Chưa chuyển được lời tới phiên (' + (e.code || 'lỗi') + '), em xử lý như việc mới.'); }
       }
       S.forward = null;
-      const p = await plan(text || 'Anh gửi tệp đính kèm', files, to);
+      let p = await plan(text || 'Anh gửi tệp đính kèm', files, to);
+      if (opts.assign && to !== 'dp_thu' && (!p.task || p.staff === 'dp_thu')) p = assignedPlan(text, files, to);
       const s = STAFF[p.staff];
       if (!p.task) { addMsg({ who: p.staff, text: p.reply }); return; }
       if (to === 'dp_thu' || to !== p.staff) addMsg({ who: 'dp_thu', kind: 'route', text: `Việc này em giao cho **${s.ten}** – ${s.chuc_danh} (phòng ${DEPT[s.phong].ten}).` });
@@ -411,12 +503,26 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
     const hint = [];
     hint.push(S.cap.sample ? 'Điều phối: AI' : 'Điều phối: theo từ khóa');
     hint.push(canRun('create_session') ? 'Thực thi: Claude Code' : 'Thực thi: hàng chờ');
+    hint.push(S.cap.assets ? 'Tệp: tối đa 100 MB' : S.cap.db ? 'Tệp: tối đa 12 MB' : S.capReady ? 'Tệp: chưa tải được' : 'Tệp: đang kiểm tra…');
     if (S.dbState === 'off') hint.push('Chưa lưu được dữ liệu');
     $('#capHint').textContent = hint.join(' · ');
+    const ban = capBanner(); $('#capBanner').innerHTML = ban; $('#capBanner').hidden = !ban;
     $('#send').disabled = S.busy;
   }
+  function framed() { try { return window.top !== window.self; } catch (e) { return true; } }
+  function capBanner() {
+    if (!S.capReady) return '';
+    if (!S.cap.db && !S.cap.assets) {
+      const outside = !(window.claude && window.claude.use) || !framed();
+      return `<details><summary><b>Chế độ xem này chưa lưu việc và chưa nhận tệp</b> <span class="lnk">Cách khắc phục</span></summary>
+        <p>${outside ? 'Trang đang mở ngoài khung xem của Claude (ví dụ mở link bằng trình duyệt khác), nên không lưu việc, không tải tệp và không gọi được Claude Code.' : 'Chế độ xem này chưa cấp cho trang quyền lưu dữ liệu và tải tệp.'}</p>
+        <p>Để dùng đầy đủ: mở <b>claude.ai</b> bằng Chrome hoặc Edge trên máy tính, đăng nhập tài khoản chủ trang, vào <b>Artifacts</b> → “Văn phòng ảo DAKO”. Trong lúc này anh vẫn giao việc được: bấm <b>Sao chép phiếu</b> rồi dán vào Claude Code, tệp gửi thẳng ở đó.</p></details>`;
+    }
+    if (!S.cap.assets) return `<details><summary><b>Tệp lưu vào kho dự phòng, tối đa 12 MB</b> <span class="lnk">Chi tiết</span></summary><p>Chế độ xem này không có kho tệp nên trang lưu tệp vào kho dữ liệu. Tệp lớn hơn 12 MB: mở trang trên claude.ai bằng máy tính.</p></details>`;
+    return '';
+  }
   function renderAtt() {
-    $('#attList').innerHTML = S.pending.map((p, i) => `<span class="att a-${p.state || 'wait'}">${ICON.file}${esc(p.file.name)}<button data-act="rmatt" data-i="${i}" aria-label="Bỏ tệp">×</button></span>`).join('');
+    $('#attList').innerHTML = S.pending.map((p, i) => `<span class="att a-${p.state || 'wait'}" title="${esc(p.note || '')}">${p.state === 'up' ? '<span class="spin"></span>' : ICON.file}<span class="an">${esc(p.file.name)}</span><small>${esc(p.note || mb(p.file.size))}</small>${p.state === 'up' ? '' : `<button data-act="rmatt" data-i="${i}" aria-label="Bỏ tệp ${esc(p.file.name)}">×</button>`}</span>`).join('');
     $('#attList').hidden = !S.pending.length;
   }
   function deptStats(id) {
@@ -569,8 +675,8 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
       case 'revise': { const t = S.tasks.get(id); if (!t) return; if (t.sessionId && canRun('send_message')) S.forward = id; return setTo(t.staff, 'Sửa lại: '); }
       case 'next': return setTo(b.dataset.staff || 'dp_thu', b.dataset.cmd || '');
       case 'quick': case 'assignTo': { const s = STAFF[b.dataset.staff]; $('#assignModal').hidden = true; return setTo(s.id, s.lenh_mau || ''); }
-      case 'dl': try { return download(JSON.parse(b.dataset.f)); } catch (err) { return; }
-      case 'rmatt': S.pending.splice(Number(b.dataset.i), 1); return renderAtt();
+      case 'dl': try { return download(JSON.parse(b.dataset.f), b); } catch (err) { return; }
+      case 'rmatt': if (S.busy) return; S.pending.splice(Number(b.dataset.i), 1); if (!S.pending.some(p => p.state === 'bad')) setCompErr(''); return renderAtt();
       case 'closeroom': return closeRoom();
       case 'openTask': return openThreadOf(id);
       case 'pickwho': $('#whoModal').hidden = true; return setTo(b.dataset.staff);
@@ -585,10 +691,11 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
   input.addEventListener('input', autosize);
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(); } });
   $('#send').addEventListener('click', () => send());
-  $('#file').addEventListener('change', e => { for (const f of e.target.files) S.pending.push({ file: f }); e.target.value = ''; renderAtt(); });
-  $('#chat').addEventListener('dragover', e => { e.preventDefault(); });
-  $('#chat').addEventListener('drop', e => { e.preventDefault(); for (const f of e.dataTransfer.files) S.pending.push({ file: f }); renderAtt(); });
-  $('#input').addEventListener('paste', e => { const fs = [...(e.clipboardData && e.clipboardData.files || [])]; if (fs.length) { fs.forEach(f => S.pending.push({ file: f })); renderAtt(); } });
+  $('#file').addEventListener('change', e => { addFiles([...e.target.files]); e.target.value = ''; });
+  $('#chat').addEventListener('dragover', e => { e.preventDefault(); $('#chat').classList.add('drop'); });
+  $('#chat').addEventListener('dragleave', e => { if (e.target === $('#chat')) $('#chat').classList.remove('drop'); });
+  $('#chat').addEventListener('drop', e => { e.preventDefault(); $('#chat').classList.remove('drop'); addFiles([...(e.dataTransfer && e.dataTransfer.files || [])]); });
+  $('#input').addEventListener('paste', e => { const fs = [...(e.clipboardData && e.clipboardData.files || [])]; if (fs.length) addFiles(fs); });
   $('#fwdCancel').addEventListener('click', () => { S.forward = null; render(); });
   $('#btnNew').addEventListener('click', () => { S.thread = 'th' + rand(10); store.set('vp-thread', S.thread); S.to = 'dp_thu'; S.forward = null; render(true); input.focus(); });
   $('#whoBtn').addEventListener('click', () => {
@@ -604,8 +711,8 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
   $('#asWho').addEventListener('change', e => { const s = STAFF[e.target.value]; if (s && s.lenh_mau && !$('#asText').value.trim()) $('#asText').placeholder = 'Ví dụ: ' + s.lenh_mau; });
   $('#assignForm').addEventListener('submit', e => {
     e.preventDefault(); const txt = $('#asText').value.trim(); if (!txt) return $('#asText').focus();
-    for (const f of $('#asFiles').files) S.pending.push({ file: f });
-    $('#assignModal').hidden = true; S.to = $('#asWho').value; setTab('chat'); send(txt, S.to);
+    addFiles([...$('#asFiles').files]);
+    $('#assignModal').hidden = true; S.to = $('#asWho').value; setTab('chat'); send(txt, S.to, { assign: true });
   });
   document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => (b.closest('.modal').hidden = true)));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { document.querySelectorAll('.modal').forEach(m => (m.hidden = true)); $('#drawer').hidden = true; } });
