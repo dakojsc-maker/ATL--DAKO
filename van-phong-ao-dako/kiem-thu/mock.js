@@ -51,15 +51,22 @@ window.__mockCfg = window.__mockCfg || {};
       return { staff: 'dp_thu', task: false, reply: 'Dạ anh, hiện chưa có việc nào dở.' }; },
     async limits() { return {}; } };
   window.__calls = [];
+  let permState = cfg.perm || 'granted'; window.__permAsked = 0; window.__panel = 0; window.__failedOnce = false;
+  const CONSENT = { code: 'upstream_error', retryable: true, retryAfterMs: 50, message: "connector access isn't confirmed for this artifact right now" };
+  const permissions = { async state(n) { return n === 'mcp:Claude Code Remote' ? permState : 'unavailable'; },
+    async request(names) { window.__permAsked++; if (cfg.permAnswer) permState = cfg.permAnswer; return { [names[0]]: permState }; },
+    async manage() { window.__panel++; } };
   const mcp = { async listTools() { return { servers: [{ server: 'Claude Code Remote', authStatus: 'connected', tools: ['create_session', 'get_session', 'send_message'].map(name => ({ name, description: '' })) }] }; },
     async callTool(server, tool, input) { window.__calls.push({ server, tool, input });
+      if (tool === 'create_session' && cfg.enforce && permState !== 'granted') throw CONSENT;
+      if (tool === 'create_session' && cfg.failOnce && !window.__failedOnce) { window.__failedOnce = true; throw CONSENT; }
       if (tool === 'create_session') return { content: [{ type: 'text', text: '{"ccr":{"id":"session_TEST123"}}' }], payload: { ccr: { id: 'session_TEST123' } } };
       if (tool === 'get_session') return { content: [], payload: { ccr: { id: input.session_id, status_bucket: 'SESSION_STATUS_BUCKET_WORKING' } } };
       return { content: [], payload: { ok: true } }; } };
   window.__saved = [];
   const downloads = { async save({ filename, data }) { const buf = data instanceof Blob ? await data.arrayBuffer() : data; const h = await crypto.subtle.digest('SHA-256', buf);
       window.__saved.push({ filename, size: buf.byteLength, sha: [...new Uint8Array(h)].map(b => b.toString(16).padStart(2, '0')).join('') }); return { saved: true }; } };
-  const NS = { db, assets: cfg.noAssets ? null : assets, sample, mcp, downloads };
+  const NS = { db, assets: cfg.noAssets ? null : assets, sample, mcp, downloads, permissions: cfg.noPerms ? null : permissions };
   window.__db = { store, db, blobs };
   window.claude = { use: n => new Promise(r => setTimeout(() => r(n in NS ? NS[n] : null), 20)) };
 })();

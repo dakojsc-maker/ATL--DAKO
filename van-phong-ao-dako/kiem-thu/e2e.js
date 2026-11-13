@@ -130,5 +130,43 @@ const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); if (!c) process
     await page.screenshot({ path: path.join(SP, 'test/e2e-phone.png') });
     ok(!errs.length, 'E: không có lỗi JavaScript ' + errs.join(' | '));
     await ctx.close(); }
+
+  // F. Xin quyền dùng Claude Code Remote
+  async function makeTask(page) {
+    await page.fill('#input', 'In thẻ ATLĐ nhóm 3 cho Công ty KAT, học 12/11/2026'); await page.press('#input', 'Enter');
+    await page.waitForSelector('.tcard [data-act="run"]', { timeout: 20000 });
+    return page.evaluate(() => [...window.__db.store].find(([k]) => k.startsWith('tasks/'))[0].split('/')[1]);
+  }
+  const creates = page => page.evaluate(() => window.__calls.filter(c => c.tool === 'create_session').length);
+  const status = (page, id) => page.evaluate(id => window.__db.store.get('tasks/' + id).status, id);
+  { const { page, ctx, errs } = await open({ perm: 'prompt', permAnswer: 'granted', enforce: true });
+    ok(await page.locator('#capBanner [data-act="grant"]').isVisible(), 'F1: hiện nút Cho phép ngay khi chưa cấp quyền');
+    const id = await makeTask(page); await page.click('.tcard [data-act="run"]'); await page.waitForTimeout(600);
+    ok((await page.evaluate(() => window.__permAsked)) === 1 && (await creates(page)) === 1 && (await status(page, id)) === 'dang_lam', 'F1: hỏi quyền một lần, anh cho phép, mở phiên ngay');
+    ok(!(await page.locator('#capBanner').isVisible()), 'F1: hết thông báo xin quyền sau khi cho phép');
+    ok(!errs.length, 'F1: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
+  { const { page, ctx, errs } = await open({ perm: 'prompt', permAnswer: 'prompt', enforce: true });
+    const id = await makeTask(page); await page.click('.tcard [data-act="run"]'); await page.waitForTimeout(600);
+    ok((await creates(page)) === 0 && (await status(page, id)) === 'moi', 'F2: hộp hỏi bị đóng → chưa gửi lệnh, việc vẫn chờ giao');
+    ok(await page.locator('.msg [data-act="grant"]').isVisible() && /chưa có phiên nào được tạo/.test(await page.locator('#msgs').innerText()), 'F2: báo đúng lý do, có nút Cho phép và giao lại');
+    ok(!errs.length, 'F2: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
+  { const { page, ctx, errs } = await open({ perm: 'denied', enforce: true });
+    ok(/đang tắt/.test(await page.locator('#capBanner').innerText()), 'F3: báo quyền đang tắt');
+    const id = await makeTask(page); await page.click('.tcard [data-act="run"]'); await page.waitForTimeout(500);
+    ok((await creates(page)) === 0 && (await page.locator('.msg [data-act="permpanel"]').count()) >= 1, 'F3: quyền bị tắt → có nút Mở bảng quyền, không gửi lệnh');
+    await page.locator('.msg [data-act="permpanel"]').first().click(); await page.waitForTimeout(200);
+    ok((await page.evaluate(() => window.__panel)) === 1, 'F3: mở được bảng quyền');
+    await page.locator('.msg [data-act="queue"]').first().click(); await page.waitForTimeout(300);
+    ok((await status(page, id)) === 'hang_cho', 'F3: đưa vào hàng chờ được');
+    ok(!errs.length, 'F3: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
+  { const { page, ctx, errs } = await open({ noPerms: true, failOnce: true });
+    const id = await makeTask(page); await page.click('.tcard [data-act="run"]'); await page.waitForTimeout(900);
+    ok((await creates(page)) === 2 && (await status(page, id)) === 'dang_lam', 'F4: lần đầu bị chặn quyền → tự thử lại, mở phiên thành công');
+    ok(!errs.length, 'F4: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
+  { const { page, ctx, errs } = await open({ noPerms: true, perm: 'prompt', enforce: true });
+    const id = await makeTask(page); await page.click('.tcard [data-act="run"]'); await page.waitForTimeout(900);
+    ok((await creates(page)) === 2 && (await status(page, id)) === 'moi' && await page.locator('.msg [data-act="grant"]').isVisible(), 'F5: vẫn chưa có quyền sau khi thử lại → báo xin quyền, không báo nhầm là đã tạo phiên');
+    await page.screenshot({ path: path.join(SP, 'test/e2e-perm.png') });
+    ok(!errs.length, 'F5: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
   await browser.close();
 })().catch(e => { console.error(e); process.exit(1); });

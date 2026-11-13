@@ -8,6 +8,7 @@
 - C: mở ngoài khung xem của Claude – hiện hướng dẫn, không mất lời nhắn, vẫn giao việc bằng phiếu.
 - D: kho tệp lỗi tạm thời – báo lỗi, gửi lại thành công.
 - E: điện thoại – Phiếu giao việc kèm tệp cho đúng người.
+- F: xin quyền Claude Code Remote – cho phép, hộp hỏi bị đóng, quyền bị tắt, tự thử lại khi lệnh chưa tới.
 
 ```bash
 npm pack three@0.128.0 && mkdir -p three_x && tar -xzf three-0.128.0.tgz -C three_x package/build/three.min.js

@@ -1071,13 +1071,36 @@ const Office = (() => {
   CAPS.assets.then(a => { S.cap.assets = a; render(); });
   CAPS.sample.then(s => { S.cap.sample = s; render(); });
   CAPS.downloads.then(d => { S.cap.downloads = d; });
+  const PERM = 'mcp:' + CCR;
+  use('permissions').then(p => { S.cap.perms = p; refreshPerm(); });
+  async function refreshPerm() {
+    if (!S.cap.perms) return;
+    try { S.ccrPerm = await S.cap.perms.state(PERM); } catch (e) { S.ccrPerm = 'unavailable'; }
+    render();
+  }
+  // Xin quyền dùng kết nối Claude Code Remote ngay trong cú bấm của anh (một hộp hỏi duy nhất).
+  async function ensurePerm() {
+    const P = S.cap.perms; if (!P) return 'unknown';
+    let st; try { st = await P.state(PERM); } catch (e) { st = 'unavailable'; }
+    if (st === 'prompt') { try { const r = await P.request([PERM]); st = (r && r[PERM]) || await P.state(PERM); } catch (e) { st = 'prompt'; } }
+    S.ccrPerm = st; render(); return st;
+  }
+  async function openPermPanel() {
+    if (!S.cap.perms) return toast('Anh mở menu của trang (góc trên, cạnh nút Chia sẻ) → Quyền, bật “Claude Code Remote”.', 7000);
+    try { await S.cap.perms.manage(); } catch (e) { toast('Không mở được bảng quyền. Anh mở menu của trang (góc trên, cạnh nút Chia sẻ) → Quyền, bật “Claude Code Remote”.', 7000); }
+    refreshPerm();
+  }
   Promise.all(Object.values(CAPS)).then(() => { S.capReady = true; render(); });
   CAPS.mcp.then(async m => {
     S.cap.mcp = m; if (!m) return render();
-    try { const r = await m.listTools(CCR); const sv = (r.servers || []).find(x => x.server === CCR); S.mcpTools = sv ? new Set(sv.tools.map(t => t.name)) : new Set(); }
-    catch (e) { S.mcpTools = new Set(); }
+    await loadTools(m);
     render(); pollSessions();
   });
+  async function loadTools(m) {
+    try { const r = await (m || S.cap.mcp).listTools(CCR); const sv = (r.servers || []).find(x => x.server === CCR);
+      S.mcpTools = sv ? new Set(sv.tools.map(t => t.name)) : new Set(); S.mcpAuth = sv ? sv.authStatus : 'none'; }
+    catch (e) { S.mcpTools = new Set(); S.mcpAuth = 'error'; }
+  }
   const canRun = t => S.cap.mcp && S.mcpTools && S.mcpTools.has(t) && !S.mcpBlocked;
 
   /* ---------- Phân việc: Claude (sample) hoặc từ khóa ---------- */
@@ -1296,38 +1319,72 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
   const sessionLink = id => 'https://claude.ai/code/' + id;
   function findSession(r) { const m = JSON.stringify(r && (r.payload || r) || '').match(/session_[A-Za-z0-9]+/); return m ? m[0] : null; }
 
-  async function execute(id) {
-    const t = S.tasks.get(id); if (!t || !['moi', 'loi', 'hang_cho'].includes(t.status)) return;
-    const s = STAFF[t.staff];
-    Office.dispatch(s.phong, s.id);
-    if (!canRun('create_session')) return queue(id);
-    saveTask(id, { status: 'dang_lam', mode: 'phien', progress: 'Đang mở phiên làm việc…' });
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const consentErr = e => !!e && (e.code === 'approval_required' || e.code === 'consent_required' || /confirm|consent|approv/i.test(String(e.message || '')));
+  function createSession(t, s) {
+    return S.cap.mcp.callTool(CCR, 'create_session', {
+      prompt: ticket(t), title: `DAKO · ${s.ten} · ${t.title}`.slice(0, 120),
+      source_url: CFG.repo, source_revision: CFG.nhanh, environment_id: CFG.moi_truong, tags: ['van-phong-dako', 'phong-' + s.phong]
+    });
+  }
+  function permMsg(t, kind) {
+    const text = kind === 'denied'
+      ? 'Quyền dùng kết nối **Claude Code Remote** của trang đang **bị tắt**, nên em chưa mở được phiên làm việc. Anh bấm **Mở bảng quyền**, bật “Claude Code Remote”, rồi bấm **Giao thực thi** lại. Cần gấp thì chọn **Đưa vào hàng chờ**.'
+      : 'Văn phòng cần anh **cho phép** dùng kết nối **Claude Code Remote** để mở phiên làm việc. Lần trước hộp hỏi chưa được xác nhận nên lệnh chưa gửi đi, **chưa có phiên nào được tạo**. Anh bấm **Cho phép và giao lại**, khi claude.ai hỏi thì chọn **Cho phép**.';
+    const actions = kind === 'denied' ? [{ act: 'permpanel', label: 'Mở bảng quyền' }, { act: 'queue', id: t.id, label: 'Đưa vào hàng chờ' }]
+      : [{ act: 'grant', id: t.id, label: 'Cho phép và giao lại', primary: true }, { act: 'queue', id: t.id, label: 'Đưa vào hàng chờ' }];
+    addMsg({ who: 'dp_thu', thread: t.thread, taskId: t.id, kind: 'note', text, actions });
+  }
+  async function execute(id, opts = {}) {
+    const t0 = S.tasks.get(id); if (!t0 || !['moi', 'loi', 'hang_cho'].includes(t0.status) || S.running === id) return;
+    const s = STAFF[t0.staff], t = Object.assign({}, t0, { id });
+    if (!S.cap.mcp || (S.mcpTools && !S.mcpTools.has('create_session')) || S.mcpBlocked) return queue(id);
+    S.running = id;
     try {
-      const r = await S.cap.mcp.callTool(CCR, 'create_session', {
-        prompt: ticket(Object.assign({}, t, { id })), title: `DAKO · ${s.ten} · ${t.title}`.slice(0, 120),
-        source_url: CFG.repo, source_revision: CFG.nhanh, environment_id: CFG.moi_truong, tags: ['van-phong-dako', 'phong-' + s.phong]
-      });
-      const sid = findSession(r);
-      saveTask(id, { sessionId: sid, progress: 'Đã nhận việc, đang làm' });
-      addMsg({ who: s.id, thread: t.thread, taskId: id, kind: 'note', session: sid,
-        text: `Dạ, em bắt đầu làm “${t.title}”. Xong em gửi kết quả về đây và vào mục **Bàn duyệt**.` });
-    } catch (e) {
-      const c = e && e.code;
-      if (['not_in_manifest', 'server_not_connected', 'blocked_by_policy', 'not_granted', 'capability_disabled', 'capability_removed', 'selection_required', 'needs_reauth'].includes(c)) {
-        if (c !== 'needs_reauth' && c !== 'selection_required') S.mcpBlocked = true;
-        saveTask(id, { status: 'moi' });
-        return queue(id, c === 'needs_reauth' ? 'Kết nối Claude Code Remote cần đăng nhập lại (Cài đặt → Kết nối trên claude.ai).'
-          : c === 'selection_required' ? 'Anh có nhiều kết nối Claude Code Remote, cần chọn một kết nối cho trang này.'
-          : 'Trang chưa được phép mở phiên Claude Code.');
-      }
-      if (c === 'approval_required') {
+      const perm = await ensurePerm();
+      if (perm === 'denied') { saveTask(id, { status: 'moi', progress: null }); return permMsg(t, 'denied'); }
+      if (perm === 'prompt') { saveTask(id, { status: 'moi', progress: null }); return permMsg(t, 'prompt'); }
+      // Sau khi anh cho phép, danh sách công cụ mới là danh sách thật của tài khoản.
+      if (perm === 'granted' && !S.toolsChecked) { S.toolsChecked = true; await loadTools(); }
+      if (S.mcpTools && !S.mcpTools.has('create_session')) {
         saveTask(id, { status: 'moi', progress: null });
-        return addMsg({ who: 'dp_thu', thread: t.thread, taskId: id, kind: 'note', text: 'Văn phòng cần anh **cho phép** dùng kết nối Claude Code Remote. Anh bấm “Giao thực thi” lần nữa và chọn Cho phép.' });
+        return queue(id, S.mcpAuth === 'needs_reauth' ? 'Kết nối Claude Code Remote cần đăng nhập lại (claude.ai → Cài đặt → Kết nối).' : 'Kết nối Claude Code Remote của tài khoản chưa cho trang mở phiên mới.');
+      }
+      Office.dispatch(s.phong, s.id);
+      saveTask(id, { status: 'dang_lam', mode: 'phien', progress: 'Đang mở phiên làm việc…', error: null });
+      let r, last;
+      for (let attempt = 0; attempt < 2 && !r; attempt++) {
+        try { r = await createSession(t, s); }
+        catch (e) {
+          last = e;
+          // Lệnh chưa tới được Claude Code (chưa xác nhận quyền / hộp hỏi bị đóng): thử lại một lần là an toàn.
+          if (attempt === 0 && (e && e.retryable) && (consentErr(e) || e.code === 'upstream_error')) { saveTask(id, { progress: 'Đang xin quyền, thử lại…' }); await sleep(Math.min(e.retryAfterMs || 2500, 15000)); continue; }
+          break;
+        }
+      }
+      if (r) {
+        const sid = findSession(r);
+        saveTask(id, { sessionId: sid, progress: 'Đã nhận việc, đang làm', error: null });
+        return addMsg({ who: s.id, thread: t.thread, taskId: id, kind: 'note', session: sid,
+          text: `Dạ, em bắt đầu làm “${t.title}”. Xong em gửi kết quả về đây và vào mục **Bàn duyệt**.` });
+      }
+      const e = last, c = e && e.code;
+      console.warn('create_session', e);
+      if (consentErr(e)) { saveTask(id, { status: 'moi', progress: null, error: null }); refreshPerm(); return permMsg(t, S.ccrPerm === 'denied' ? 'denied' : 'prompt'); }
+      if (['not_in_manifest', 'server_not_connected', 'blocked_by_policy', 'not_granted', 'capability_disabled', 'capability_removed', 'selection_required', 'needs_reauth'].includes(c)) {
+        if (!['needs_reauth', 'selection_required', 'not_in_manifest'].includes(c)) S.mcpBlocked = true;
+        saveTask(id, { status: 'moi', progress: null });
+        return queue(id, c === 'needs_reauth' ? 'Kết nối Claude Code Remote cần đăng nhập lại (claude.ai → Cài đặt → Kết nối).'
+          : c === 'selection_required' ? 'Anh có nhiều kết nối Claude Code Remote; claude.ai sẽ hỏi anh chọn một kết nối cho trang này.'
+          : c === 'not_in_manifest' ? 'Kết nối Claude Code Remote đang bị tắt cho trang này (menu của trang → Quyền).'
+          : c === 'server_not_connected' ? 'Tài khoản chưa có kết nối Claude Code Remote (claude.ai → Cài đặt → Kết nối).'
+          : 'Chế độ xem này không cho trang mở phiên Claude Code.');
       }
       saveTask(id, { status: 'loi', progress: null, error: (e && (e.message || c)) || 'không rõ' });
-      addMsg({ who: 'dp_thu', thread: t.thread, taskId: id, kind: 'note',
-        text: `Chưa mở được phiên làm việc (${esc(c || 'lỗi')}). Có thể phiên đã được tạo: anh xem danh sách phiên trong Claude Code trước khi bấm lại, hoặc chọn **Đưa vào hàng chờ**.` });
-    }
+      const why = c === 'tool_error' ? `Claude Code từ chối yêu cầu: ${esc(String(e.message || '').slice(0, 200))}` : c === 'server_unavailable' ? 'Dịch vụ Claude Code đang bận hoặc mạng chập chờn' : `Lỗi ${esc(c || 'không rõ')}`;
+      addMsg({ who: 'dp_thu', thread: t.thread, taskId: id, kind: 'note', actions: [{ act: 'run', id, label: 'Thử lại', primary: true }, { act: 'queue', id, label: 'Đưa vào hàng chờ' }],
+        text: `Chưa mở được phiên làm việc. ${why}. Lệnh có thể đã tới Claude Code: trước khi thử lại anh xem danh sách phiên trong Claude Code có phiên “DAKO · ${s.ten}” vừa tạo không.` });
+    } finally { if (S.running === id) S.running = null; }
   }
   function queue(id, why) {
     const t = S.tasks.get(id); if (!t) return;
@@ -1445,6 +1502,12 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
       <div class="next">${done ? `<span class="done-note">${ICON.check}Anh đã duyệt việc này</span>` : `<button class="btn navy sm" data-act="approve" data-id="${m.taskId}">${ICON.check}Duyệt – kết thúc</button><button class="btn ghost sm" data-act="revise" data-id="${m.taskId}">Yêu cầu sửa</button>`}</div>
       ${next.length ? `<div class="nx-label">Việc tiếp theo anh muốn giao?</div><div class="chips">${next.map(n => `<button class="chip" data-act="next" data-staff="${esc(n.staff || '')}" data-cmd="${esc(n.command || n.label)}">${esc(n.label)}${n.staff && STAFF[n.staff] ? ` <small>· ${esc(STAFF[n.staff].ten)}</small>` : ''}</button>`).join('')}</div>` : ''}`;
   }
+  function noteActions(m) {
+    if (!m.actions || !m.actions.length) return '';
+    const t = m.taskId && S.tasks.get(m.taskId);
+    if (t && !['moi', 'loi'].includes(t.status) && m.actions.some(a => a.id)) return '';
+    return `<div class="tc-acts" style="margin-top:8px">${m.actions.map(a => `<button class="btn ${a.primary ? 'gold' : 'ghost'} sm" data-act="${esc(a.act)}"${a.id ? ` data-id="${esc(a.id)}"` : ''}>${esc(a.label)}</button>`).join('')}</div>`;
+  }
   function intro() {
     const picks = ['cc_the', 'cc_gcn', 'gv_dsdd', 'gv_online', 'hd_baogia', 'kd_tracuu'];
     return `<div class="msg them intro">${avatar('dp_thu')}<div class="bub">
@@ -1460,7 +1523,7 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
     for (const m of list) {
       if (m.who === 'anh') { html += `<div class="msg me"><div class="bub">${md(m.text)}${fileChips(m.files)}<div class="meta">${fmtTime(m.t)}${m.to && m.to !== 'dp_thu' && STAFF[m.to] ? ' · gửi ' + esc(STAFF[m.to].ten) : ''}</div></div></div>`; continue; }
       const s = STAFF[m.who] || STAFF.dp_thu;
-      const body = md(m.text) + (m.kind === 'task' ? taskCard(S.tasks.get(m.taskId)) : '') + (m.kind === 'result' ? resultBlock(m) : '') + (m.kind === 'question' ? `<div class="nx-label">Anh trả lời ngay trong khung chat, em chuyển vào phiên làm việc.</div>` : '');
+      const body = md(m.text) + (m.kind === 'task' ? taskCard(S.tasks.get(m.taskId)) : '') + (m.kind === 'result' ? resultBlock(m) : '') + (m.kind === 'question' ? `<div class="nx-label">Anh trả lời ngay trong khung chat, em chuyển vào phiên làm việc.</div>` : '') + noteActions(m);
       html += `<div class="msg them k-${esc(m.kind || 'text')}">${avatar(s.id)}<div class="bub"><div class="who">${esc(s.ten)} · ${esc(s.chuc_danh)}</div>${body}<div class="meta">${fmtTime(m.t)}${m.session ? ` · <a href="${sessionLink(m.session)}" target="_blank" rel="noopener">phiên Claude Code ↗</a>` : ''}</div></div></div>`;
     }
     if (S.busy) html += `<div class="msg them typing">${avatar(S.to)}<div class="bub"><span class="dots"><i></i><i></i><i></i></span></div></div>`;
@@ -1475,7 +1538,7 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
     $('#fwdBar').hidden = !fw; if (fw) $('#fwdText').textContent = `Đang nhắn vào phiên làm việc của ${STAFF[fw.staff].ten}: “${fw.title}”`;
     const hint = [];
     hint.push(S.cap.sample ? 'Điều phối: AI' : 'Điều phối: theo từ khóa');
-    hint.push(canRun('create_session') ? 'Thực thi: Claude Code' : 'Thực thi: hàng chờ');
+    hint.push(!canRun('create_session') ? 'Thực thi: hàng chờ' : S.ccrPerm === 'granted' ? 'Thực thi: Claude Code' : S.ccrPerm === 'denied' ? 'Thực thi: Claude Code (quyền đang tắt)' : 'Thực thi: Claude Code (chưa cho phép)');
     hint.push(S.cap.assets ? 'Tệp: tối đa 100 MB' : S.cap.db ? 'Tệp: tối đa 12 MB' : S.capReady ? 'Tệp: chưa tải được' : 'Tệp: đang kiểm tra…');
     if (S.dbState === 'off') hint.push('Chưa lưu được dữ liệu');
     $('#capHint').textContent = hint.join(' · ');
@@ -1485,6 +1548,11 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
   function framed() { try { return window.top !== window.self; } catch (e) { return true; } }
   function capBanner() {
     if (!S.capReady) return '';
+    if ((S.cap.db || S.cap.assets) && canRun('create_session') && (S.ccrPerm === 'prompt' || S.ccrPerm === 'denied')) {
+      return S.ccrPerm === 'denied'
+        ? `<b>Quyền mở phiên Claude Code đang tắt</b><p>Nhân sự chưa làm việc được. Bật lại “Claude Code Remote” trong bảng quyền của trang.</p><div class="tc-acts" style="margin-top:6px"><button class="btn gold sm" data-act="permpanel">Mở bảng quyền</button></div>`
+        : `<b>Cho phép văn phòng mở phiên Claude Code</b><p>Một lần duy nhất: claude.ai hỏi anh có cho trang dùng kết nối Claude Code Remote không. Chọn <b>Cho phép</b> để nhân sự làm việc thật.</p><div class="tc-acts" style="margin-top:6px"><button class="btn gold sm" data-act="grant">Cho phép ngay</button></div>`;
+    }
     if (!S.cap.db && !S.cap.assets) {
       const outside = !(window.claude && window.claude.use) || !framed();
       return `<details><summary><b>Chế độ xem này chưa lưu việc và chưa nhận tệp</b> <span class="lnk">Cách khắc phục</span></summary>
@@ -1638,6 +1706,11 @@ Làm theo kỹ năng "van-phong-dako" (repo dakojsc-maker/ATL--DAKO, .claude/ski
     if (b.dataset.tab && !a) { setTab(b.dataset.tab); if (b.dataset.tab === 'board') { $('#drawer').hidden = false; renderDrawer(); } return; }
     switch (a) {
       case 'run': return execute(id);
+      case 'grant': return (async () => { const st = await ensurePerm(); if (st === 'granted' && id) return execute(id);
+        if (st === 'denied') return openPermPanel(); if (st === 'granted') return toast('Đã cho phép. Nhân sự mở phiên Claude Code được rồi.');
+        if (st === 'unknown' && id) return execute(id);
+        toast('Hộp hỏi quyền chưa được xác nhận. Anh bấm lại và chọn Cho phép, hoặc mở menu của trang → Quyền.', 7000); })();
+      case 'permpanel': return openPermPanel();
       case 'queue': return queue(id);
       case 'copy': return copyTicket(id);
       case 'cancel': saveTask(id, { status: 'huy' }); return addMsg({ who: 'dp_thu', taskId: id, kind: 'note', text: 'Đã hủy việc này.' });
