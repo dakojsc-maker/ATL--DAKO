@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ghép src/ thành một file HTML duy nhất để đăng lên claude.ai (Artifact).
+"""Ghép src/ + doi-ngu.json thành một file HTML để đăng lên claude.ai (Artifact).
 
 Chạy:  python3 van-phong-ao-dako/build.py
 Ra:    van-phong-ao-dako/van-phong-ao-dako.html
@@ -14,13 +14,13 @@ SRC = HERE / "src"
 
 def main():
     page = (SRC / "page.html").read_text(encoding="utf-8")
-    roster = json.loads((HERE / "nhan-su.json").read_text(encoding="utf-8"))
+    data = json.loads((HERE / "doi-ngu.json").read_text(encoding="utf-8"))
     logo = "data:image/webp;base64," + base64.b64encode((SRC / "logo.webp").read_bytes()).decode()
     parts = {
         "/*__STYLES__*/": (SRC / "styles.css").read_text(encoding="utf-8"),
-        "/*__ROSTER__*/": json.dumps(roster, ensure_ascii=False, separators=(",", ":")),
-        "/*__SCENE__*/": (SRC / "scene.js").read_text(encoding="utf-8"),
-        "/*__APP__*/": (SRC / "app.js").read_text(encoding="utf-8"),
+        "/*__DATA__*/": json.dumps(data, ensure_ascii=False, separators=(",", ":")),
+        "/*__OFFICE__*/": (SRC / "office.js").read_text(encoding="utf-8"),
+        "/*__MAIN__*/": (SRC / "main.js").read_text(encoding="utf-8"),
         "__LOGO__": logo,
     }
     for key, value in parts.items():

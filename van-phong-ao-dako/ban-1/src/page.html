@@ -1,0 +1,144 @@
+<title>Văn phòng ảo DAKO</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/*__STYLES__*/
+</style>
+
+<div class="app" id="app">
+  <header class="top">
+    <div class="brand">
+      <img src="__LOGO__" alt="Logo DAKO Marine Technology">
+      <div>
+        <div class="eyebrow">Công ty Cổ phần Kỹ thuật Hàng hải DAKO</div>
+        <div class="brand-title">Văn phòng ảo · <em>Huấn luyện ATVSLĐ</em></div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="seg" role="group" aria-label="Kiểu văn phòng">
+        <button data-scene="sang" aria-pressed="true">Sáng</button>
+        <button data-scene="dem" aria-pressed="false">Đêm biển</button>
+        <button data-scene="banve" aria-pressed="false">Bản vẽ</button>
+      </div>
+      <button class="btn ghost" id="btnReview">Bàn duyệt <span class="badge" id="reviewCount" hidden>0</span></button>
+      <button class="btn gold" id="btnAssign">+ Giao việc</button>
+    </div>
+  </header>
+
+  <nav class="mtabs" aria-label="Chuyển màn hình">
+    <button data-tab="office" aria-pressed="true">Văn phòng</button>
+    <button data-tab="chat" aria-pressed="false">Chat</button>
+    <button data-tab="board" aria-pressed="false">Bàn duyệt</button>
+  </nav>
+
+  <main class="main">
+    <section class="stage" id="stage" aria-label="Sơ đồ văn phòng 3D">
+      <canvas id="cv" aria-label="Văn phòng 3D: kéo để di chuyển, cuộn để phóng to, bấm vào phòng hoặc nhân sự"></canvas>
+      <div class="fallback" id="fallback" hidden></div>
+      <div class="tags" id="tags"></div>
+      <div class="tip" id="tip" hidden></div>
+      <aside class="floating quick" id="quick">
+        <h3>VIỆC THƯỜNG LÀM</h3>
+        <ul id="quickList"></ul>
+      </aside>
+      <aside class="floating room" id="roomPanel" hidden></aside>
+      <div class="legend" aria-hidden="true"><span><i class="dot d-idle"></i>Rảnh</span><span><i class="dot d-work"></i>Đang làm</span><span><i class="dot d-ask"></i>Chờ anh</span></div>
+      <div class="zoom">
+        <button id="zIn" aria-label="Phóng to">+</button>
+        <button id="zOut" aria-label="Thu nhỏ">−</button>
+        <button id="zFit" aria-label="Xem toàn cảnh"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
+    </section>
+
+    <section class="chat" id="chat" aria-label="Chat giao việc">
+      <div class="chat-head">
+        <h2>CHAT</h2>
+        <button class="who-btn" id="whoBtn" aria-label="Chọn người nhận"></button>
+        <button class="btn ghost sm" id="btnNew">Cuộc mới</button>
+      </div>
+      <div class="capb" id="capBanner" hidden role="status"></div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <div class="composer">
+        <div class="fwd" id="fwdBar" hidden><span id="fwdText"></span><button class="lnk" id="fwdCancel">Thôi</button></div>
+        <div class="att-list" id="attList" hidden></div>
+        <div class="comp-err" id="compErr" hidden role="alert"></div>
+        <textarea id="input" rows="1" placeholder="Nhắn việc cần giao…" title="Enter để gửi, Shift+Enter để xuống dòng"></textarea>
+        <div class="comp-row">
+          <span class="icon-btn pick" title="Đính kèm tệp (Excel, ảnh zip, PDF, Word…)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5l-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l8.6-8.6a3.7 3.7 0 0 1 5.2 5.2l-8.6 8.6a1.8 1.8 0 0 1-2.6-2.6l7.9-7.9"/></svg><input type="file" id="file" multiple aria-label="Đính kèm tệp"></span>
+          <span class="cap-hint" id="capHint"></span>
+          <button class="btn navy" id="send">Gửi<svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="dash" id="dash">
+    <div class="kpis">
+      <div class="kpi k-work"><b id="kWork">0</b><span>Đang làm</span></div>
+      <div class="kpi k-review"><b id="kReview">0</b><span>Chờ anh</span></div>
+      <div class="kpi k-done"><b id="kDone">0</b><span>Xong tháng này</span></div>
+      <div class="kpi"><b id="kAll">0</b><span>Tổng việc</span></div>
+    </div>
+    <div class="flow-wrap">
+      <div class="flow-title">Dòng chảy hồ sơ khách hàng</div>
+      <div class="flow" id="flow"></div>
+    </div>
+    <div class="act">
+      <div class="act-title">7 ngày qua</div>
+      <div id="act"></div>
+      <div class="act-legend"><span><i></i>Giao</span><span><i class="g"></i>Xong</span></div>
+    </div>
+  </footer>
+</div>
+
+<aside class="drawer" id="drawer" hidden aria-label="Bàn duyệt">
+  <header><h2>BÀN DUYỆT</h2><button class="icon-btn" id="drawerClose" aria-label="Đóng">×</button></header>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<div class="modal" id="assignModal" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="asTitle">
+    <header><h2 id="asTitle">PHIẾU GIAO VIỆC</h2><button class="icon-btn" data-close aria-label="Đóng">×</button></header>
+    <form id="assignForm">
+      <label for="asWho">Giao cho<select id="asWho"></select></label>
+      <label for="asText">Nội dung việc<textarea id="asText" placeholder="Ví dụ: In thẻ ATLĐ nhóm 3 cho Công ty TNHH Kỹ thuật Cơ điện Newstar, học từ 12/11/2026"></textarea></label>
+      <label for="asFiles">Tệp kèm (danh sách Excel, ảnh 3×4 dạng zip, sổ cấp, PDF…)<input type="file" id="asFiles" multiple></label>
+      <p class="note">Nhân sự sẽ đọc yêu cầu, báo lại cần gì thêm, rồi anh bấm “Giao thực thi” để bắt đầu làm.</p>
+      <div class="row"><button type="button" class="btn ghost" data-close>Thôi</button><button type="submit" class="btn gold">Giao việc</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="whoModal" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="whoTitle">
+    <header><h2 id="whoTitle">NHẮN CHO AI?</h2><button class="icon-btn" data-close aria-label="Đóng">×</button></header>
+    <div class="who-list" id="whoList"></div>
+  </div>
+</div>
+
+<div class="modal" id="ticketModal" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="tkTitle">
+    <header><h2 id="tkTitle">PHIẾU GIAO VIỆC</h2><button class="icon-btn" data-close aria-label="Đóng">×</button></header>
+    <div class="body">
+      <p class="note">Dán phiếu này vào Claude Code (repo ATL--DAKO) để nhân sự làm việc.</p>
+      <textarea id="ticketText" readonly></textarea>
+      <div class="row"><button type="button" class="btn gold" id="ticketCopy">Sao chép</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+window.ROSTER = /*__ROSTER__*/;
+window.LOGO = "__LOGO__";
+</script>
+<script>
+/*__SCENE__*/
+</script>
+<script>
+/*__APP__*/
+</script>

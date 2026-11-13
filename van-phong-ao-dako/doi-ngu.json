@@ -1,0 +1,75 @@
+{
+  "phien_ban": "2026-11-13",
+  "cong_ty": "Công ty Cổ phần Kỹ thuật Hàng hải DAKO",
+  "truong_phong": [
+    {"id": "nga", "ten": "Mrs. Nga", "chuc_danh": "Trưởng phòng", "mo_ta": "Giao việc, duyệt kết quả của 5 nhân viên"},
+    {"id": "lich", "ten": "Mr. Lịch", "chuc_danh": "Trưởng phòng", "mo_ta": "Giao việc, duyệt kết quả của 5 nhân viên"}
+  ],
+  "nhan_vien": [
+    {
+      "id": "nv1", "so": 1, "ten": "Bảo", "viec": "Tạo file in Giấy chứng nhận và Thẻ an toàn lao động PPTX",
+      "bien": "In GCN & Thẻ ATLĐ", "slug": "dako-in-gcn-the",
+      "link": "https://claude.ai/share/9cd7242d-0da5-41d5-b482-01cd5a61e254",
+      "dau_ra": [
+        "File in Thẻ an toàn lao động nhóm 3 (PPTX, 8 thẻ/A4 ngang, mặt sau đảo cột)",
+        "File in Giấy chứng nhận nhóm 1, 2, 5, 6 (PPTX, 2 GCN/A4 dọc)",
+        "File in gộp cả đợt, khớp 100% với file từng công ty, kèm sơ đồ tờ in",
+        "Ảnh đối chiếu từng học viên (JPG, nén zip theo công ty)",
+        "Bản scan thẻ từng học viên (PDF A4)",
+        "Sổ cấp thẻ / GCN theo công ty (Excel); sổ theo dõi nhóm 4",
+        "Cập nhật số thẻ, số GCN cuối đã cấp trên Drive"
+      ],
+      "can": "Excel danh sách học viên, ảnh 3×4 (zip), ngày bắt đầu khóa"
+    },
+    {
+      "id": "nv2", "so": 2, "ten": "Tuấn", "viec": "Danh sách điểm danh và tạo Appscript điểm danh",
+      "bien": "Điểm danh & Appscript", "slug": "dako-diem-danh-online",
+      "link": "https://claude.ai/share/95b1c7fc-18e8-4632-8fbe-96612a689c7d",
+      "dau_ra": [
+        "Danh sách điểm danh Excel theo mẫu DAKO (mỗi công ty 1 file, mỗi lớp 1 sheet)",
+        "Google Sheet điểm danh online trên Drive: mã lớp, link từng công ty, link từng học viên",
+        "Code.gs và Index.html (Apps Script) kèm 5 bước cài đặt",
+        "Tin nhắn Zalo kèm link điểm danh cho từng công ty",
+        "Bảng điểm danh tự ghi giờ vào lớp, rồi chuyển học viên vào Google Meet",
+        "Cập nhật điểm danh vào Excel, danh sách học viên chưa đủ 80%"
+      ],
+      "can": "Sổ cấp hoặc danh sách lớp, link Google Meet, giờ bắt đầu buổi chiều"
+    },
+    {
+      "id": "nv3", "so": 3, "ten": "Ngọc", "viec": "Mẫu hồ sơ huấn luyện an toàn lao động",
+      "bien": "Hồ sơ huấn luyện", "slug": "dako-ho-so-huan-luyen",
+      "link": "https://claude.ai/share/1976778d-9bb7-49e8-8e35-b96b2ac9831f",
+      "dau_ra": [
+        "Bộ mẫu hồ sơ một lớp huấn luyện an toàn lao động (Word / Excel)",
+        "Hồ sơ điền sẵn theo thông tin khách hàng và lớp học",
+        "Danh mục hồ sơ cần lưu cho từng nhóm huấn luyện",
+        "File gọn để in, ký và lưu trữ"
+      ],
+      "can": "Tên khách hàng, nhóm huấn luyện, ngày học, danh sách học viên"
+    },
+    {
+      "id": "nv4", "so": 4, "ten": "Mai", "viec": "Danh sách điểm danh khóa học",
+      "bien": "Điểm danh khóa học", "slug": "dako-diem-danh-khoa-hoc",
+      "link": "https://claude.ai/share/290240b9-0089-43d5-9beb-1d1ea9c487e2",
+      "dau_ra": [
+        "Danh sách điểm danh khóa học (Excel, in vừa 1 trang A4 ngang)",
+        "Cột buổi Sáng / Chiều theo từng ngày học",
+        "Tự tính số buổi có mặt, tỷ lệ, đủ điều kiện (≥ 80%) và dòng tổng",
+        "Thông tin học viên: họ tên, ngày sinh, chức vụ, nhóm"
+      ],
+      "can": "Danh sách học viên hoặc sổ cấp, nhóm, ngày học từ – đến"
+    },
+    {
+      "id": "nv5", "so": 5, "ten": "Hà", "viec": "Danh sách đăng ký huấn luyện",
+      "bien": "Đăng ký huấn luyện", "slug": "dako-dang-ky-huan-luyen",
+      "link": "https://claude.ai/share/2a309b07-6129-442b-82b3-2f5db83ced10",
+      "dau_ra": [
+        "Danh sách đăng ký huấn luyện theo mẫu DAKO (Excel)",
+        "Thông tin từng học viên: họ tên, giới tính, ngày sinh, CCCD, chức vụ, nhóm huấn luyện, ảnh 3×4",
+        "Đối chiếu ngày sinh với số CCCD, báo các chỗ lệch hoặc thiếu",
+        "Danh sách đầu vào sẵn cho điểm danh và in thẻ / GCN"
+      ],
+      "can": "Phiếu đăng ký (Word / Excel), ảnh CCCD, ảnh 3×4"
+    }
+  ]
+}

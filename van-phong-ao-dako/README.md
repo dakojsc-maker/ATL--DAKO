@@ -1,46 +1,28 @@
 # Văn phòng ảo DAKO – Huấn luyện ATVSLĐ
 
-Văn phòng 3D trên claude.ai: **https://claude.ai/artifact/H3Z7YcPypTbAomiqcipXxe**
+Trang 3D trên claude.ai: **https://claude.ai/artifact/H3Z7YcPypTbAomiqcipXxe**
 
-Trưởng phòng ra lệnh trong khung chat, Điều phối giao đúng nhân sự, nhân sự làm việc thật trong Claude Code
-bằng đúng quy trình và form chuẩn của DAKO, rồi trả kết quả, tệp và gợi ý việc tiếp theo về **Bàn duyệt**.
+Hai trưởng phòng **Mrs. Nga** và **Mr. Lịch** giao việc cho 5 nhân viên. Mỗi nhân viên phụ trách một phiên chat trên claude.ai:
 
-## Sơ đồ phòng ban (theo dòng chảy hồ sơ khách hàng)
-
-| Bước | Phòng | Nhân sự | Quy trình dùng |
+| Số | Nhân viên | Công việc | Phiên chat |
 |---|---|---|---|
-| – | Điều phối | Thư – thư ký điều phối | Phân việc, theo dõi tiến độ |
-| 1 | Kinh doanh – Tư vấn | Hà – tra cứu nhóm huấn luyện · Khoa – báo cáo tư vấn · Ngân – tài liệu ngành | `tra-cuu-atvsld/`, `bao-cao-atld/`, kỹ năng `tai-lieu-atvsld` |
-| 2 | Báo giá – Hợp đồng | Linh – báo giá · Phúc – hợp đồng nguyên tắc · Vy – công nợ | kỹ năng `cap-nhat-huan-luyen-atld`, `hop-dong-nguyen-tac` |
-| 3 | Xếp lớp – Giảng viên | Quân – xếp lịch lớp · Trang – hồ sơ giảng viên | kỹ năng `cap-nhat-huan-luyen-atld` |
-| 4 | Giáo vụ – Điểm danh | Mai – danh sách điểm danh · Tuấn – cổng điểm danh online · Hạnh – chuyên cần | kỹ năng `diem-danh-lop-atvsld-dako` |
-| 5 | Chứng chỉ – In ấn | Bảo – thẻ ATLĐ nhóm 3 · Lan – GCN nhóm 1-2-5-6 · Đức – sổ cấp · Ngọc – đối chiếu, scan, in gộp | kỹ năng `in-the-atld-dako` |
-| 6 | Hồ sơ – Bàn giao | Sơn – form chuẩn & số cấp · Yến – bàn giao hồ sơ | Drive "DAKO - FORM CHUẨN GCN & THẺ ATLĐ" |
-| – | Truyền thông – Học liệu | Khang – video · Thảo – slide, hồ sơ năng lực | `video-*/`, pptx |
-| – | Trưởng phòng | Anh | Bàn duyệt, liên kết công cụ quản lý, tra cứu, Drive |
+| 1 | Bảo | Tạo file in Giấy chứng nhận và Thẻ an toàn lao động PPTX | https://claude.ai/share/9cd7242d-0da5-41d5-b482-01cd5a61e254 |
+| 2 | Tuấn | Danh sách điểm danh và tạo Appscript điểm danh | https://claude.ai/share/95b1c7fc-18e8-4632-8fbe-96612a689c7d |
+| 3 | Ngọc | Mẫu hồ sơ huấn luyện an toàn lao động | https://claude.ai/share/1976778d-9bb7-49e8-8e35-b96b2ac9831f |
+| 4 | Mai | Danh sách điểm danh khóa học | https://claude.ai/share/290240b9-0089-43d5-9beb-1d1ea9c487e2 |
+| 5 | Hà | Danh sách đăng ký huấn luyện | https://claude.ai/share/2a309b07-6129-442b-82b3-2f5db83ced10 |
 
-Chi tiết từng người (làm gì, cần anh gửi gì, giao ra gì, người kế tiếp): `nhan-su.json`.
+## Cách dùng
+- **Rê chuột** vào nhân viên (trong văn phòng 3D hoặc ở danh sách bên phải): hiện danh sách kết quả đầu ra và những gì cần gửi kèm.
+- **Bấm** vào nhân viên: mở phiên chat của nhân viên đó ở tab mới để giao việc ngay. Thẻ nhân viên hiện kèm nút vàng mở lại phiên chat nếu trình duyệt chặn tab mới.
+- Trên điện thoại: chạm vào nhân viên để xem đầu ra, rồi bấm nút vàng để mở phiên chat.
+- Góc trên: chọn **Mrs. Nga** hoặc **Mr. Lịch** là người giao việc; kiểu văn phòng Sáng / Đêm biển / Bản vẽ.
 
-## Cách một việc chạy
+## Sửa nội dung
+Tên, công việc, link phiên chat và danh sách kết quả đầu ra nằm trong `doi-ngu.json`. Sửa xong chạy
+`python3 van-phong-ao-dako/build.py` rồi đăng lại cùng đường dẫn tệp `van-phong-ao-dako/van-phong-ao-dako.html` (giữ nguyên link).
 
-1. Anh nhắn lệnh (kèm tệp nếu có) → Điều phối chọn người → nhân sự trả lời: đã có gì, còn thiếu gì.
-2. Anh bấm **Giao thực thi** → trang mở một phiên Claude Code (repo này, nhánh `ccr-a2333919-2g56yl`) với **phiếu giao việc**.
-   - claude.ai chưa xác nhận quyền dùng kết nối Claude Code Remote: bấm **Gửi Claude làm ngay** – phiếu được gửi qua bình luận của trang
-     tới phiên Claude đang theo dõi văn phòng, phiên đó nhận và làm.
-   - Hoặc việc vào **hàng chờ**; anh nhắn "Xử lý hàng chờ văn phòng DAKO" trong Claude Code, hoặc bấm **Sao chép phiếu** rồi dán vào Claude Code.
-   - Mỗi lần giao thực thi, gửi Claude hay kiểm tra kết nối, trang ghi vết từng bước vào `diag/<id>` để kiểm tra lỗi từ xa.
-3. Phiên Claude Code làm theo kỹ năng `.claude/skills/van-phong-dako/SKILL.md`: tải tệp anh gửi, làm bằng kỹ năng của vị trí đó,
-   tải kết quả lên văn phòng, ghi `tasks/<id>` và tin nhắn kết quả.
-4. Kết quả hiện trong chat và **Bàn duyệt**: tải tệp, **Duyệt – kết thúc**, **Yêu cầu sửa**, hoặc bấm một **việc tiếp theo** để giao tiếp.
+Mã nguồn: `src/page.html` khung trang · `src/styles.css` giao diện màu DAKO · `src/office.js` văn phòng 3D (three.js r128) ·
+`src/main.js` danh sách nhân sự, thẻ kết quả đầu ra, mở phiên chat. Kiểm thử trình duyệt: `kiem-thu/v2.js`.
 
-Dữ liệu của trang (kho `db` của artifact): `tasks/<id>` phiếu việc, `msgs/<id>` tin nhắn, `config/main` cấu hình thực thi.
-Tệp Word/Excel/PowerPoint/zip được lưu dạng base64 (`enc: "b64"`) vì kho tệp chỉ nhận ảnh, PDF và chữ; trang tự giải mã khi tải về.
-
-## Dựng lại
-
-```bash
-python3 van-phong-ao-dako/build.py      # ghép src/ → van-phong-ao-dako.html
-```
-Rồi đăng lại cùng đường dẫn tệp bằng công cụ Artifact (giữ nguyên link). Mã nguồn:
-`src/page.html` khung trang · `src/styles.css` giao diện theo màu logo DAKO · `src/scene.js` văn phòng 3D (three.js r128) ·
-`src/app.js` chat, phân việc, giao thực thi, Bàn duyệt · `src/logo.webp` logo.
+Bản đầu tiên (8 phòng, 20 nhân sự, giao việc qua Claude Code) lưu ở `ban-1/`.
