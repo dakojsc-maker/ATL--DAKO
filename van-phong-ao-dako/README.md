@@ -25,7 +25,10 @@ Chi tiết từng người (làm gì, cần anh gửi gì, giao ra gì, người
 
 1. Anh nhắn lệnh (kèm tệp nếu có) → Điều phối chọn người → nhân sự trả lời: đã có gì, còn thiếu gì.
 2. Anh bấm **Giao thực thi** → trang mở một phiên Claude Code (repo này, nhánh `ccr-a2333919-2g56yl`) với **phiếu giao việc**.
-   - Trang chưa được phép mở phiên: việc vào **hàng chờ**; anh nhắn "Xử lý hàng chờ văn phòng DAKO" trong Claude Code, hoặc bấm **Sao chép phiếu** rồi dán vào Claude Code.
+   - claude.ai chưa xác nhận quyền dùng kết nối Claude Code Remote: bấm **Gửi Claude làm ngay** – phiếu được gửi qua bình luận của trang
+     tới phiên Claude đang theo dõi văn phòng, phiên đó nhận và làm.
+   - Hoặc việc vào **hàng chờ**; anh nhắn "Xử lý hàng chờ văn phòng DAKO" trong Claude Code, hoặc bấm **Sao chép phiếu** rồi dán vào Claude Code.
+   - Mỗi lần giao thực thi, gửi Claude hay kiểm tra kết nối, trang ghi vết từng bước vào `diag/<id>` để kiểm tra lỗi từ xa.
 3. Phiên Claude Code làm theo kỹ năng `.claude/skills/van-phong-dako/SKILL.md`: tải tệp anh gửi, làm bằng kỹ năng của vị trí đó,
    tải kết quả lên văn phòng, ghi `tasks/<id>` và tin nhắn kết quả.
 4. Kết quả hiện trong chat và **Bàn duyệt**: tải tệp, **Duyệt – kết thúc**, **Yêu cầu sửa**, hoặc bấm một **việc tiếp theo** để giao tiếp.

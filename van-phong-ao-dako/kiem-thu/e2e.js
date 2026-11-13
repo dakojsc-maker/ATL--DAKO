@@ -140,14 +140,14 @@ const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); if (!c) process
   const creates = page => page.evaluate(() => window.__calls.filter(c => c.tool === 'create_session').length);
   const status = (page, id) => page.evaluate(id => window.__db.store.get('tasks/' + id).status, id);
   { const { page, ctx, errs } = await open({ perm: 'prompt', permAnswer: 'granted', enforce: true });
-    ok(await page.locator('#capBanner [data-act="grant"]').isVisible(), 'F1: hiện nút Cho phép ngay khi chưa cấp quyền');
+    ok(await page.locator('#capBanner [data-act="testconn"]').isVisible(), 'F1: hiện nút Cho phép và kiểm tra khi chưa cấp quyền');
     const id = await makeTask(page); await page.click('.tcard [data-act="run"]'); await page.waitForTimeout(600);
     ok((await page.evaluate(() => window.__permAsked)) === 1 && (await creates(page)) === 1 && (await status(page, id)) === 'dang_lam', 'F1: hỏi quyền một lần, anh cho phép, mở phiên ngay');
     ok(!(await page.locator('#capBanner').isVisible()), 'F1: hết thông báo xin quyền sau khi cho phép');
     ok(!errs.length, 'F1: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
   { const { page, ctx, errs } = await open({ perm: 'prompt', permAnswer: 'prompt', enforce: true });
     const id = await makeTask(page); await page.click('.tcard [data-act="run"]'); await page.waitForTimeout(600);
-    ok((await creates(page)) === 0 && (await status(page, id)) === 'moi', 'F2: hộp hỏi bị đóng → chưa gửi lệnh, việc vẫn chờ giao');
+    ok((await creates(page)) <= 2 && (await status(page, id)) === 'moi', 'F2: hộp hỏi bị đóng → thử gọi tối đa 2 lần, việc vẫn chờ giao');
     ok(await page.locator('.msg [data-act="grant"]').isVisible() && /chưa có phiên nào được tạo/.test(await page.locator('#msgs').innerText()), 'F2: báo đúng lý do, có nút Cho phép và giao lại');
     ok(!errs.length, 'F2: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
   { const { page, ctx, errs } = await open({ perm: 'denied', enforce: true });
@@ -168,5 +168,32 @@ const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); if (!c) process
     ok((await creates(page)) === 2 && (await status(page, id)) === 'moi' && await page.locator('.msg [data-act="grant"]').isVisible(), 'F5: vẫn chưa có quyền sau khi thử lại → báo xin quyền, không báo nhầm là đã tạo phiên');
     await page.screenshot({ path: path.join(SP, 'test/e2e-perm.png') });
     ok(!errs.length, 'F5: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
+
+  // G. Hộp hỏi quyền chậm/không xác nhận → phản hồi ngay, ghi vết, gửi Claude qua bình luận
+  { const { page, ctx, errs } = await open({ perm: 'prompt', permAnswer: 'prompt', permDelay: 2500, enforce: true });
+    const id = await makeTask(page);
+    await page.click('.tcard [data-act="run"]'); await page.waitForTimeout(400);
+    const mid = await page.evaluate(id => window.__db.store.get('tasks/' + id), id);
+    ok(mid.status === 'dang_lam' && /xin quyền/.test(mid.progress || ''), 'G1: bấm là thấy ngay "Đang xin quyền…" (không đứng im)');
+    ok(!(await page.locator('.tcard [data-act="run"]').isVisible()), 'G1: trong lúc xử lý nút Giao thực thi ẩn, không bấm trùng được');
+    await page.waitForTimeout(3400);
+    ok((await creates(page)) === 2 && (await status(page, id)) === 'moi', 'G1: hộp hỏi không xác nhận → vẫn thử gọi (2 lần), việc trở lại chờ giao');
+    const diag = await page.evaluate(() => [...window.__db.store].filter(([k]) => k.startsWith('diag/')).map(([, v]) => v));
+    ok(diag.length >= 1 && diag.some(d => d.steps.some(x => x.step === 'quyen-sau-khi-hoi') && d.steps.some(x => x.step === 'loi-create_session')), 'G1: ghi vết từng bước vào kho dữ liệu');
+    ok(await page.locator('.msg [data-act="sendclaude"]').first().isVisible(), 'G1: có nút Gửi Claude làm ngay');
+    await page.locator('.msg [data-act="sendclaude"]').first().click(); await page.waitForTimeout(400);
+    const sent = await page.evaluate(() => window.__sent);
+    const t3 = await page.evaluate(id => window.__db.store.get('tasks/' + id), id);
+    ok(sent.length === 1 && sent[0].text.includes('PHIẾU GIAO VIỆC ' + id) && t3.status === 'hang_cho' && t3.mode === 'binh_luan', 'G1: phiếu gửi cho Claude qua bình luận, việc vào hàng chờ');
+    await page.screenshot({ path: path.join(SP, 'test/e2e-claude.png') });
+    ok(!errs.length, 'G1: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
+  { const { page, ctx, errs } = await open({ perm: 'prompt', permAnswer: 'granted', enforce: true });
+    await page.click('#capBanner [data-act="testconn"]'); await page.waitForTimeout(500);
+    ok(/Kết nối tốt/.test(await page.locator('#capBanner').innerText()) && (await page.evaluate(() => window.__calls.some(c => c.tool === 'get_session'))), 'G2: nút kiểm tra kết nối xin quyền và báo kết nối tốt');
+    ok(!errs.length, 'G2: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
+  { const { page, ctx, errs } = await open({ perm: 'prompt', permAnswer: 'prompt', enforce: true });
+    await page.click('#capBanner [data-act="testconn"]'); await page.waitForTimeout(500);
+    ok(/chưa dùng được/.test(await page.locator('#capBanner').innerText()) && /chưa xác nhận quyền/.test(await page.locator('#capBanner').innerText()), 'G3: kiểm tra kết nối báo đúng lý do khi chưa được xác nhận');
+    ok(!errs.length, 'G3: không có lỗi JavaScript ' + errs.join(' | ')); await ctx.close(); }
   await browser.close();
 })().catch(e => { console.error(e); process.exit(1); });

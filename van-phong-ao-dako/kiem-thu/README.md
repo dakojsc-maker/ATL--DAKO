@@ -9,6 +9,7 @@
 - D: kho tệp lỗi tạm thời – báo lỗi, gửi lại thành công.
 - E: điện thoại – Phiếu giao việc kèm tệp cho đúng người.
 - F: xin quyền Claude Code Remote – cho phép, hộp hỏi bị đóng, quyền bị tắt, tự thử lại khi lệnh chưa tới.
+- G: hộp hỏi chậm/không xác nhận – phản hồi ngay, không giao trùng, ghi vết vào `diag/`, gửi phiếu cho Claude qua bình luận; nút kiểm tra kết nối.
 
 ```bash
 npm pack three@0.128.0 && mkdir -p three_x && tar -xzf three-0.128.0.tgz -C three_x package/build/three.min.js

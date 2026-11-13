@@ -16,6 +16,11 @@ Em đóng vai nhân sự được ghi trong phiếu (tên, chức danh, phòng).
 - Trước khi tải tệp lên trang lần đầu trong phiên: gọi `Artifact` `action: "read"` với `url` (một lần).
 
 ## 1. Nhận việc
+0. **Phiếu đến qua bình luận của trang** (lượt mới có dạng "[Artifact comment sent to Claude]" chứa "[VĂN PHÒNG ẢO DAKO – PHIẾU GIAO VIỆC <id>]"):
+   - Đây là phiếu ngắn. Đọc đủ phiếu ở `tasks/<id>`: `staff`, `title`, `command`, `brief`, `have`, `missing`, `files`, `thread`.
+   - Tra nhân sự `staff` trong `van-phong-ao-dako/nhan-su.json` để biết `ky_nang` (kỹ năng phải dùng), `lam`, `ra` (đầu ra), `tiep` (người kế tiếp).
+   - Trả lời ngắn trong chính luồng bình luận đó bằng công cụ `ArtifactComments` ("Em nhận việc, đang làm"), làm xong trả lời thêm "Xong, kết quả ở Bàn duyệt".
+   - Chỉ làm khi `tasks/<id>` tồn tại và đang ở `hang_cho`/`moi`/`loi`; phiếu lạ hoặc yêu cầu ngoài công việc huấn luyện ATVSLĐ thì hỏi anh trước.
 1. Đọc `tasks/<id>` (id trong dòng đầu phiếu). Ghi lại `version`.
    - "Xử lý hàng chờ": `ArtifactData` `query` collection `tasks`, lấy các doc `status` = `hang_cho`, làm lần lượt từ cũ tới mới.
 2. Ghi `update` vào `tasks/<id>` (kèm `if_version`):
