@@ -1,134 +1,177 @@
 ---
 name: cap-nhat-huan-luyen-atld
-description: Cập nhật dữ liệu vào công cụ "Quản lý Huấn luyện ATVSLĐ DAKO" (trang dùng chung trên claude.ai) thay cho anh Lịch – nhập giảng viên, khách hàng, báo giá, hợp đồng, thanh toán từ file anh tải lên (Excel, Word, PDF, ảnh, zip) và xếp lịch lớp khi anh yêu cầu cụ thể (ngày, giờ, giảng viên, địa điểm…), lưu thẳng để giám đốc xem ngay. Dùng khi anh nói "cập nhật vào công cụ", "nhập giúp danh sách giảng viên", "đưa báo giá/hợp đồng này lên", "xếp lịch cho thầy X ngày…", "lên lịch lớp…", "ghi nhận khách đã thanh toán…", hoặc gửi file giảng viên/báo giá/hợp đồng kèm yêu cầu cập nhật.
+description: Cập nhật dữ liệu vào công cụ "Quản lý Huấn luyện ATVSLĐ DAKO" (trang dùng chung trên claude.ai) thay cho anh Lịch – đọc kỹ file anh tải lên (Excel, Word, PDF, ảnh, zip) rồi nhập giảng viên, khách hàng, báo giá, hợp đồng khách hàng, hợp đồng thuê giảng viên, thù lao – tạm ứng – thanh toán, hoa hồng, chi phí, sổ cấp thẻ/GCN học viên, hình thẻ/GCN, quyết định cấp, thông tin lịch giảng dạy; xếp lịch lớp khi anh yêu cầu cụ thể; lưu thẳng để giám đốc xem ngay. Dùng khi anh nói "cập nhật vào công cụ", "đưa vào công cụ", "nhập giúp…", "đưa báo giá/hợp đồng này lên", "nhập sổ cấp thẻ", "gắn hình thẻ/quyết định cho học viên", "xếp lịch cho thầy X ngày…", "ghi nhận đã trả/đã thu…", hoặc gửi các file trên kèm yêu cầu cập nhật.
 ---
 
-# Cập nhật công cụ Quản lý Huấn luyện ATVSLĐ DAKO
+# Cập nhật công cụ Quản lý Huấn luyện ATVSLĐ DAKO (bản 2.0)
 
 Người dùng là anh Lịch (DAKO). Trả lời tiếng Việt, gọi "anh", xưng "em".
 
 ## Phạm vi – làm đúng phần anh giao
-- **Anh tải file lên + yêu cầu cập nhật** (thông tin giảng viên, báo giá, hợp đồng, khách hàng, thanh toán): em **tự làm ngay**, đầy đủ, lưu thẳng vào công cụ.
-- **Xếp lịch dạy**: anh thường tự làm trên công cụ. Em chỉ xếp khi anh **yêu cầu cụ thể** (ngày, giờ, giảng viên, khách hàng, địa điểm…). Thiếu thông tin bắt buộc thì hỏi một lần. Không tự đoán giảng viên hay ngày dạy.
-- **Không tự sửa, xóa** bản ghi, file, cài đặt mà anh không nhắc tới. Phát hiện chỗ sai trong dữ liệu cũ thì **báo anh**, để anh tự sửa.
-- Không đăng lại trang (mã giao diện) khi chỉ cập nhật dữ liệu. Dữ liệu ghi vào kho dùng chung thì mọi người đang mở trang thấy ngay.
+- **Anh tải file lên + yêu cầu đưa vào công cụ**: em **tự làm ngay**, đầy đủ, lưu thẳng vào công cụ. File có thể là:
+  - báo giá, hợp đồng khách hàng, hợp đồng thuê giảng viên;
+  - thông tin giảng viên, khách hàng;
+  - chứng từ thu/chi (thu tiền khách, tạm ứng/trả thù lao, chi hoa hồng);
+  - sổ cấp thẻ/GCN, hình thẻ/GCN, quyết định cấp;
+  - thông tin lịch giảng dạy.
+- **Đọc kỹ từng file, tự trích xuất mọi thông tin và con số** liên quan vào đúng tab. Thông tin nào file không có thì **để trống**: ô trống trên công cụ đã có gợi ý ẩn để anh tự nhập. Cuối báo cáo liệt kê các ô còn trống.
+- **Xếp lịch dạy**: anh thường tự làm trên công cụ. Em chỉ xếp khi anh **yêu cầu cụ thể** hoặc gửi file thông tin lịch kèm yêu cầu đưa vào. Thiếu thông tin bắt buộc thì hỏi một lần. Không tự đoán giảng viên hay ngày dạy.
+- **Không tự sửa, xóa** bản ghi, file, cài đặt mà anh không nhắc tới. Thấy dữ liệu cũ sai thì **báo anh**, để anh tự sửa.
+- **File có thông tin mà công cụ chưa có chỗ lưu** (ví dụ điều khoản phạt, lịch thanh toán nhiều đợt, đánh giá giảng viên…): ghi tạm vào ô Ghi chú của bản ghi liên quan, rồi **đề xuất tính năng nâng cấp** ở cuối câu trả lời.
+- Không đăng lại trang (mã giao diện) khi chỉ cập nhật dữ liệu. Chỉ sửa mã khi anh yêu cầu nâng cấp.
 
 ## 1. Công cụ
-- Trang: **https://claude.ai/artifact/RVdpwhRVeWuTTne3mwAXXo** (tên "Quản lý Huấn luyện ATVSLĐ DAKO"). Không mở được link này thì tìm bằng `Artifact` `action: "list"`, rồi hỏi anh nếu vẫn không thấy.
-- Đọc/ghi dữ liệu: công cụ `ArtifactData` (nạp bằng ToolSearch `select:ArtifactData`) với `url` ở trên.
-- Tải file lên: công cụ `Artifact` với `action: "publish"`, `url`, `asset: true` và `file_path` (hoặc `file_paths` – tối đa 25 ảnh/PDF mỗi lần; file .txt mỗi lần một file).
-- Mã nguồn trang: `quan-ly-dao-tao-atld/src/` trong repo `dakojsc-maker/ATL--DAKO`. Khi cần tra lại quy tắc tính toán, xem `src/core.js`.
+- Trang: **https://claude.ai/artifact/RVdpwhRVeWuTTne3mwAXXo** (tên "Quản lý Huấn luyện ATVSLĐ DAKO"). Không mở được thì tìm bằng `Artifact` `action: "list"`, rồi hỏi anh nếu vẫn không thấy.
+- Đọc/ghi dữ liệu: `ArtifactData` (nạp bằng ToolSearch `select:ArtifactData`) với `url` ở trên.
+- Tải file lên: `Artifact` `action: "publish"`, `url`, `asset: true`, `file_path`, hoặc `file_paths` (tối đa 25 ảnh/PDF mỗi lần; file .txt mỗi lần một file).
+  - File phải nằm trong thư mục làm việc. Chép tạm vào thư mục ẩn trong repo, tải xong thì xóa thư mục đó và kiểm tra `git status` sạch.
+- Mã nguồn: `quan-ly-dao-tao-atld/src/`.
+  - Công thức tiền: `finance.js`. Cấu trúc tab: `views.js`, `students.js`.
+  - Sau khi sửa mã: `python3 build.py <thư mục>` rồi đăng lại `artifact.html`, giữ nguyên link.
 
 ## 2. Bước làm mỗi lần
-1. **Đọc dữ liệu hiện có** (`ArtifactData` `list`, `query.limit: 1000`; nhiều thì dùng `out_dir` rồi đọc file JSON): `settings` (doc `main`: bảng giá, VAT, vùng, giờ theo nhóm), `trainers`, `customers`, `quotes`, `classes`, và `log` (doc tháng hiện tại). Ghi lại `version` của từng doc để ghi có `if_version`.
+1. **Đọc dữ liệu hiện có** bằng `ArtifactData` `list` với `query.limit: 1000`, `out_dir` vào scratchpad.
+   - Các collection: `settings` (doc `main`), `trainers`, `customers`, `quotes`, `classes`, `rosters`, và `log` (doc tháng hiện tại).
+   - Ghi lại `version` của từng doc để ghi có `if_version`.
+   - Bỏ qua file ẩn `.<id>.json,by-others` trong `out_dir`.
 2. **Đọc file anh gửi**:
-   - Excel: openpyxl/pandas. Word: python-docx. PDF: pdftotext hoặc pdfplumber, PDF scan thì xem ảnh từng trang.
-   - Ảnh/zip: giải nén vào thư mục riêng. Xử lý tên tiếng Việt (NFC, cp437→utf-8), bỏ `__MACOSX`.
-   - Không chạy macro, không chạy file thực thi trong gói anh gửi.
+   - Excel: openpyxl. Word: python-docx. PDF: `pdftotext -layout`.
+   - PDF scan, bảng phức tạp, hoặc con số bất thường: xem ảnh trang bằng `pdftoppm`.
+   - Zip/rar: giải nén vào thư mục riêng. Chạy Python đọc file với `-I`. Không chạy macro hay file thực thi.
+   - **Tự kiểm tra số học**: cộng các dòng chi tiết và so với dòng tổng. Lệch thì ghi theo số tổng trên file và báo anh.
 3. **Đối chiếu** với dữ liệu sẵn có (mục 4) để biết bản ghi nào thêm mới, bản ghi nào cập nhật.
-4. **Tải file đính kèm lên** (mục 5) và lấy `id` của từng file.
-5. **Ghi dữ liệu** bằng `ArtifactData` `batch` (≤ 50 bản ghi/lần, ≤ 1 MiB). Bản ghi đã có thì phải kèm `if_version`.
-6. **Ghi nhật ký** vào `log/<yyyy-mm>` (mục 7) để giám đốc thấy ở "Cập nhật gần đây".
-7. **Đọc lại** các doc vừa ghi để kiểm tra số lượng, số tiền và file đính kèm.
+4. **Tải file đính kèm** lên (mục 5).
+5. **Ghi dữ liệu** bằng `ArtifactData` `batch`: tối đa 50 doc và 1 MiB mỗi lần. Nội dung lớn thì viết ra file JSON rồi dùng `file_path`. Doc đã có phải kèm `if_version`.
+6. **Ghi nhật ký** `log/<yyyy-mm>` (mục 7).
+7. **Đọc lại** (nên đọc với `as_level: "view"`, quyền của giám đốc) để kiểm tra số lượng, số tiền và file.
 8. **Trả lời** theo mục 8.
 
 ## 3. Cấu trúc dữ liệu (đúng tên trường – trang đọc theo các tên này)
-Mọi bản ghi có thêm: `createdAt`, `updatedAt` (ISO 8601 UTC), `updatedBy: null`, `via: "claude"`.
+**Quy ước chung:**
+- Mọi bản ghi có thêm: `createdAt`, `updatedAt` (ISO 8601 UTC), `updatedBy: null`, `via: "claude"`.
 - Ngày dạng `YYYY-MM-DD`, giờ dạng `HH:MM`.
-- Tiền là số nguyên VNĐ, giá **chưa VAT** (VAT tính riêng theo `vatRate`).
-- Id mới: tiền tố + chuỗi ngẫu nhiên chữ thường/số, ví dụ `tr` + 14 ký tự (`tr` giảng viên, `cu` khách hàng, `qu` báo giá, `cl` lớp).
+- Tiền là số nguyên VNĐ. **Không có VAT** (đào tạo ATVSLĐ không chịu thuế GTGT): không ghi `vatRate`, không cộng VAT.
+- Id mới: tiền tố + 14 ký tự thường/số: `tr` giảng viên, `cu` khách hàng, `qu` báo giá/HĐ, `cl` lớp, `ro` đợt cấp, `hv` học viên, `tt` khoản trả GV, `hh` hoa hồng, `cp` chi phí, `p` thu tiền.
 
 **File đính kèm** (`fileMeta`): `{id, name, type, size, enc, at}`.
-- `id`: id 32 ký tự hex mà Artifact trả về.
-- `name`: tên file gốc. `type`: MIME gốc. `size`: số byte của file gốc.
-- `enc`: `"raw"` hoặc `"b64"` (mục 5). `at`: thời điểm tải lên (ISO).
-- Nếu `url` trả về không phải dạng `/_blob/<id>` thì thêm trường `url` đúng như kết quả trả về.
+- `id`: 32 ký tự hex do Artifact trả về. `enc`: `"raw"` hoặc `"b64"` (mục 5).
+- Thêm `url` nếu kết quả trả về không phải `/_blob/<id>`.
+- File của học viên thêm `kind`: `"the"` (hình thẻ/GCN), `"anh"` (ảnh 3×4), `"qd"`, `"khac"`.
 
 **`trainers/<id>`** – giảng viên
-- `name`, `phone`, `email`, `birthYear` (chuỗi), `address`.
-- `region` (id vùng trong `settings.regions`: `nam` | `trung` | `bac`), `otherRegions` [id vùng].
-- `specialties` [chuỗi]. Ưu tiên đúng tên trong `settings.specialties`, tên mới thì giữ nguyên chữ của anh.
-- `groups` [số 1–6], `degree`, `experience`, `certNo`, `certExpiry`.
+- `name`, `phone`, `email`, `birthYear`, `address`.
+- `region` (`nam` | `trung` | `bac`), `otherRegions` [vùng].
+- `specialties` [chuỗi], `groups` [1–6], `degree`, `experience`, `certNo`, `certExpiry`.
 - `employment`: `"Cơ hữu"` | `"Cộng tác viên"` | `"Thỉnh giảng"`.
-- `dailyRate` (thù lao/ngày), `status`: `"active"` | `"paused"`, `notes`.
-- `photo`: fileMeta hoặc `null`. `files`: [fileMeta] (CV, bằng cấp, chứng chỉ).
+- `dailyRate` (thù lao/ngày), `bank` (tài khoản nhận thù lao), `taxCode` (MST cá nhân).
+- `status`: `"active"` | `"paused"`, `notes`, `photo` (fileMeta | null), `files` [fileMeta].
 
-**`customers/<id>`** – khách hàng
-- `name`, `taxCode`, `address`, `region`, `industry`, `contact`, `phone`, `email`, `notes`.
+**`customers/<id>`**: `name`, `taxCode`, `address`, `region`, `industry`, `contact`, `phone`, `email`, `notes`.
 
-**`quotes/<id>`** – báo giá kèm hợp đồng (cùng một bản ghi)
+**`quotes/<id>`** – báo giá + hợp đồng khách hàng + chi phí cấp hợp đồng
 - Khách hàng: `customerId`, `customerName`, `contact`, `contactPhone`.
-- Báo giá: `no`, `date`, `validUntil`, `owner`, `groups` [1–6], `students`, `classCount`.
-- Giá: `unitPrice`, `priceMode` (`"auto"` nếu đúng bảng giá, ngược lại `"manual"`), `amount` (chưa VAT), `amountMode`, `vatRate`.
-- `status`: `"draft"` | `"sent"` | `"negotiating"` | `"accepted"` | `"signed"` | `"rejected"`.
-- `notes`, `quoteFiles` [fileMeta].
-- Hợp đồng: `contractNo`, `contractDate`, `contractAmount` (chưa VAT; `null` nếu bằng giá trị báo giá), `paymentDue`, `contractFiles` [fileMeta].
-- `payments` [{`id`, `date`, `amount` (đã gồm VAT – số tiền thực thu), `note`}].
-- Có hợp đồng thì `status: "signed"`. Bản ghi `signed` hiện ở tab Hợp đồng.
+- Báo giá: `no`, `date`, `validUntil`, `owner`, `groups`, `students`, `classCount`.
+- Giá: `unitPrice`, `priceMode` (`"auto"` nếu đúng bảng giá, ngược lại `"manual"`), `amount`, `amountMode`.
+  - Có tổng mà không có đơn giá: đặt cả `priceMode` và `amountMode` là `"manual"` để trang không tự xóa tổng.
+- `status`: `"draft"` | `"sent"` | `"negotiating"` | `"accepted"` | `"signed"` | `"rejected"`. `notes`, `quoteFiles`.
+- Hợp đồng: `contractNo`, `contractDate`, `contractAmount` (`null` = bằng giá trị báo giá), `paymentDue`, `contractFiles`.
+  - Có hợp đồng thì `status: "signed"`. Doanh thu tính theo hợp đồng đã ký, ghi nhận theo ngày ký.
+- `payments` [{`id`, `date`, `amount`, `note`}]: khách đã trả.
+- `commissions` [{`id`, `type`, `name`, `amount`, `taxRate`, `paidDate`, `note`}]
+  - `type`: `"agent"` (đại lý), `"manager"` (cán bộ quản lý phía khách hàng), `"other"`.
+  - `amount` = **tổng hoa hồng gồm thuế**. `taxRate` mặc định lấy `settings.commissionTax` (20).
+  - Thuế mặc định (`commissionTaxMode: "net"`): thuế = amount × r / (100 + r). Ví dụ 30 tr → thuế 5 tr, thực trả 25 tr.
+  - Nếu file chỉ ghi số **thực trả**: amount = thực trả × (1 + r/100).
+- `otherCosts` [{`id`, `name`, `amount`, `note`}]: chi phí cấp hợp đồng.
+- `gvEstimate`: chi phí giảng viên ước tính, chỉ dùng khi hợp đồng chưa có lớp có thù lao.
+- `costFiles` [fileMeta]: phiếu chi, ủy nhiệm chi hoa hồng.
 
 **`classes/<id>`** – lớp học / lịch dạy
-- Khách hàng: `customerId`, `customerName`, `contact`, `contactPhone`.
-- Nội dung: `title`, `kind` (`"Huấn luyện lần đầu"` | `"Huấn luyện định kỳ"` | `"Huấn luyện bổ sung"` | `"Huấn luyện lại"`), `groups` [1–6].
+- Khách hàng, nội dung: `customerId`, `customerName`, `contact`, `contactPhone`, `title`, `kind`, `groups`.
 - Thời gian, địa điểm: `startDate`, `endDate`, `startTime`, `endTime`, `region`, `location`.
-- `trainerIds` [id giảng viên], `students`.
-- Giá, chi phí: `price` (chưa VAT), `priceMode`, `vatRate`, `costTrainer`, `costTrainerMode`, `costTravel`, `costOther`.
-- `status`: `"planned"` (dự kiến) | `"confirmed"` (đã chốt) | `"done"` | `"cancelled"`.
-- Hồ sơ: `quoteId` (id báo giá/hợp đồng hoặc `null`), `passed`, `certIssued`, `invoiced`, `notes`, `files` [fileMeta].
+- `trainerIds`, `students`, `price` (doanh thu lớp), `priceMode`, `status`, `quoteId`.
+- `fees` [{`trainerId`, `amount`, `auto`, `contractNo`, `contractDate`, `files`, `note`, `payments`}]: thù lao từng giảng viên – hợp đồng thuê GV.
+  - `payments` [{`id`, `date`, `kind`: `"Tạm ứng"` | `"Thanh toán"`, `amount`, `note`}].
+  - Mỗi giảng viên trong `trainerIds` phải có một mục `fees`.
+  - Ghi thêm `costTrainer` = tổng `fees.amount` (để tương thích dữ liệu cũ).
+- `otherCosts` [{`id`, `name`, `amount`, `note`}]: đi lại, ăn ở, in thẻ…
+- Hồ sơ: `passed`, `certIssued`, `invoiced`, `notes`, `files`.
+- Lớp cũ chỉ có `costTrainer`/`costTravel`/`costOther`: trang tự quy đổi. Khi ghi lại lớp đó, chuyển sang `fees`/`otherCosts` và bỏ `vatRate`, `costTravel`, `costOther`, `costTrainerMode`.
 
-**`log/<yyyy-mm>`**: `{month: "yyyy-mm", entries: [{t, by: null, a, k, l, via: "claude"}]}`
-- `a`: `"Thêm"` | `"Cập nhật"` | `"Thu tiền"`…
-- `k`: `trainers` | `classes` | `quotes` | `customers`.
-- `l`: nhãn ngắn ≤ 160 ký tự. Giữ tối đa 300 mục mới nhất.
+**`rosters/<id>`** – đợt cấp thẻ/GCN (sổ cấp)
+- Thông tin đợt: `batchId`, `part`, `title`, `customerId`, `customerName`, `classId`, `quoteId`, `groups`, `certType` (`"Giấy chứng nhận"` | `"Thẻ an toàn"` | `"Chứng chỉ"` | `"Sổ theo dõi"`).
+- Khóa học và quyết định: `courseFrom`, `courseTo`, `hours`, `issueDate`, `decisionNo`, `decisionDate`, `decisionFiles`, `files` (sổ cấp gốc…), `notes`.
+- `students` [{`k`, `stt`, `name`, `gender`, `dob`, `nationality`, `cccd`, `position`, `group`, `certType`, `certNo`, `content`, `from`, `to`, `hours`, `result`, `issueDate`, `expiry`, `notes`, `files`}]
+  - Trường của học viên ghi đè trường chung của đợt. Trường để trống thì lấy theo đợt.
+  - Hiệu lực trống: trang tự tính theo `settings.cycleMonths`.
+- Mỗi doc tối đa **150 học viên** và dưới 240 KB. Đợt lớn hơn thì tách thành nhiều doc cùng `batchId` (`part` 1, 2, 3…). Thông tin đợt và file chỉ ghi ở phần 1.
+
+**`log/<yyyy-mm>`**: `{month, entries: [{t, by: null, a, k, l, via: "claude"}]}`
+- `k` ∈ `trainers` | `classes` | `quotes` | `customers` | `rosters`. Giữ tối đa 300 mục.
 
 ## 4. Quy tắc đối chiếu và suy luận
-- **Giảng viên trùng**: cùng SĐT (chỉ so chữ số) hoặc cùng họ tên (bỏ dấu, không phân biệt hoa thường) → cập nhật bản ghi cũ. Chỉ điền trường đang trống hoặc trường anh gửi giá trị mới; không xóa thông tin cũ. Nêu rõ trường nào đã đổi.
-- **Khách hàng trùng**: cùng MST, hoặc cùng tên sau khi bỏ dấu và bỏ "Công ty / TNHH / CP / Cổ phần" → dùng lại `customerId`. Không có thì tạo mới.
-- **Vùng đào tạo theo tỉnh** (ghi rõ trong trả lời là em suy ra):
-  - `bac` (Hà Nội): từ Hà Tĩnh trở ra Bắc.
-  - `trung` (Nha Trang): từ Quảng Bình đến Bình Thuận/Ninh Thuận, và Tây Nguyên (Kon Tum, Gia Lai, Đắk Lắk, Đắk Nông, Lâm Đồng).
-  - `nam` (TP.HCM): Đông Nam Bộ (TP.HCM, Bình Dương, Đồng Nai, Bà Rịa – Vũng Tàu, Bình Phước, Tây Ninh) và Đồng bằng sông Cửu Long.
-  - Áp dụng cho cả tên tỉnh trước và sau sáp nhập 2025. Không rõ tỉnh thì để vùng mà anh nói, hoặc hỏi anh.
-- **Ảnh giảng viên**:
-  - Ghép theo tên file chứa họ tên (bỏ dấu, bỏ "Ảnh/Hình"), hoặc theo STT/mã trong Excel. Ảnh dán trong Excel: lấy theo dòng mà tâm ảnh rơi vào.
-  - **Không bao giờ đoán theo khuôn mặt.** Ảnh không ghép được thì báo anh.
-  - HEIC không đọc được thì xin anh bản JPG.
+- **Giảng viên trùng**: cùng SĐT (chỉ so chữ số) hoặc cùng họ tên (bỏ dấu) → cập nhật bản ghi cũ, chỉ điền trường trống hoặc trường anh gửi mới.
+- **Khách hàng trùng**: cùng MST, hoặc cùng tên sau khi bỏ dấu và bỏ "Công ty / TNHH / CP / Cổ phần" → dùng lại `customerId`.
+- **Vùng theo tỉnh** (ghi rõ là em suy ra):
+  - `bac`: từ Hà Tĩnh trở ra Bắc.
+  - `trung`: Quảng Bình → Bình Thuận/Ninh Thuận và Tây Nguyên.
+  - `nam`: Đông Nam Bộ và Đồng bằng sông Cửu Long.
+  - Áp dụng cho cả tên tỉnh trước và sau sáp nhập 2025. Không rõ thì để trống.
 - **Báo giá**:
-  - Lấy số báo giá trong file. Không có thì đánh `BG-<năm>-<số tiếp theo>` (số lớn nhất trong năm + 1, 3 chữ số).
-  - Trạng thái mặc định `"sent"` nếu là bản đã gửi khách, `"draft"` nếu anh nói đang soạn.
-  - `unitPrice` theo bảng giá trong `settings.priceTiers`, tính trên số học viên/lớp = ⌈students / classCount⌉.
-  - Hiện tại: dưới 30 HV là 5.000.000; 30–60 HV là 8.000.000; trên 60 HV chưa có giá, phải lấy theo file. Giá trong file khác bảng giá thì giữ giá trong file với `priceMode: "manual"` và báo anh.
-- **Hợp đồng**:
-  - Ghép với báo giá cùng khách hàng; nhiều báo giá thì chọn cái khớp giá trị, nếu vẫn chưa chắc thì hỏi.
+  - Lấy số báo giá trong file. Trạng thái `"sent"` nếu đã ký gửi khách.
+  - Giá theo học viên hoặc trọn gói (không theo lớp): để trống `classCount` và `unitPrice`, dùng chế độ `"manual"`, ghi chi tiết từng dòng vào `notes`.
+  - Giá khác bảng giá chung: giữ đúng giá trong file và báo anh.
+- **Hợp đồng khách hàng**:
+  - Ghép với báo giá cùng khách hàng. Nhiều báo giá thì chọn cái khớp giá trị; vẫn chưa chắc thì hỏi.
   - Điền `contractNo`, `contractDate`, `contractAmount`, `paymentDue`, `contractFiles`, rồi đặt `status: "signed"`.
-  - Không có báo giá nào thì tạo bản ghi mới, chỉ có phần hợp đồng, với `status: "signed"`.
-- **Thanh toán**: thêm vào `payments` của đúng hợp đồng. Số tiền là số thực thu (đã gồm VAT).
+  - Không có báo giá nào thì tạo bản ghi mới.
+  - Điều khoản hoa hồng/chiết khấu ghi trong hợp đồng → thêm vào `commissions`.
+- **Hợp đồng thuê giảng viên**: ghép lớp theo giảng viên + khách hàng + ngày dạy, rồi điền mục `fees` của giảng viên đó: `amount`, `contractNo`, `contractDate`, `files`, `auto: false`.
+  - Một hợp đồng cho nhiều lớp: chia theo số ghi trong hợp đồng; hợp đồng không ghi thì hỏi anh.
+  - Không tìm thấy lớp: báo anh, không tự tạo lớp trừ khi anh yêu cầu.
+- **Chứng từ trả thù lao / tạm ứng**: thêm vào `fees[].payments` của đúng lớp và giảng viên. `kind` là `"Tạm ứng"` nếu trả trước ngày dạy hoặc chứng từ ghi tạm ứng.
+- **Chứng từ khách thanh toán** → `quotes.payments`. **Chứng từ chi hoa hồng** → `paidDate` của khoản hoa hồng và `costFiles`.
+- **Sổ cấp thẻ/GCN (Excel)**:
+  - Tiêu đề cột đồng nghĩa vẫn nhận, ví dụ "Họ tên" / "Họ và tên", "Số" / "Số thẻ", "Đơn vị" / "Công ty".
+  - Ngày sinh để nguyên dạng chuỗi như trong sổ. Ngày cấp và hạn đổi sang `YYYY-MM-DD`.
+  - Gắn `customerId` theo đơn vị. Gắn `classId` theo khách hàng + khoảng ngày học. Gắn `quoteId` theo hợp đồng của khách.
+  - Tải file sổ gốc vào `files` của đợt (dạng b64).
+  - Kiểm tra trùng `certNo` với học viên đã có; trùng thì báo anh, không ghi đè.
+- **Hình thẻ/GCN, quyết định cấp**: đối chiếu học viên theo thứ tự: số thẻ/GCN → họ tên + ngày sinh → CCCD.
+  - **Không bao giờ đoán theo khuôn mặt.**
+  - File PDF/PPTX nhiều thẻ: tách từng thẻ thành ảnh (pdftoppm hoặc LibreOffice), đọc chữ trên thẻ để biết của ai, rồi gắn `kind: "the"`.
+  - Quyết định cấp: gắn vào `decisionFiles` của đợt khớp số quyết định, hoặc khớp công ty + ngày cấp.
+  - Không khớp được: báo anh danh sách.
 
 ## 5. Tải file lên
 - **PDF, JPG, PNG, WEBP, GIF**: tải nguyên bản, `enc: "raw"`.
-  - Ảnh giảng viên: cắt 3:4 (lệch lên trên), cạnh dài tối đa 900 px, lưu JPEG chất lượng 86, `type: "image/jpeg"`.
-- **Word, Excel, file khác** (.docx, .xlsx, .xls, .doc, .csv…): kho file không nhận trực tiếp.
-  - Mã hóa base64 (`base64.b64encode`, không xuống dòng) rồi ghi ra file `.txt`. Tải file `.txt` đó lên, mỗi lần một file.
-  - Ghi `enc: "b64"`, `type` = MIME gốc (docx: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`; xlsx: `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`), `name` = tên file gốc, `size` = số byte của file gốc.
-  - Trang tự giải mã khi xem và tải về.
-- Giới hạn: file thường tối đa 20 MB; file Word/Excel tối đa khoảng 14 MB, vì base64 làm file to thêm khoảng 37%.
-- Đặt file tạm trong thư mục scratchpad, không đưa vào repo.
+  - Ảnh 3×4: cắt 3:4 (lệch lên trên), tối đa 900 px, JPEG chất lượng 86.
+  - Hình thẻ: giữ tỷ lệ gốc, tối đa 1400 px.
+- **Word, Excel, file khác**: mã hóa base64 (không xuống dòng), ghi ra file `.txt`, tải mỗi lần một file.
+  - Ghi `enc: "b64"`; `type`, `name`, `size` là của file gốc.
+- Giới hạn: 20 MB mỗi file thường, khoảng 14 MB mỗi file Word/Excel.
 
 ## 6. Xếp lịch lớp khi anh yêu cầu
-- Cần có: khách hàng, ngày (từ–đến), giảng viên, số học viên. Không có giờ thì lấy mặc định `settings.dayStart`–`dayEnd` (08:00–17:00). Vùng lấy theo vùng của giảng viên hoặc khách hàng.
-- **Kiểm tra trùng lịch** trước khi ghi: lớp khác chưa hủy có chung giảng viên, khoảng ngày giao nhau và khung giờ giao nhau. Trùng thì **không ghi**; báo anh lớp bị trùng và chờ anh quyết.
-- `price` theo bảng giá từ số học viên (`priceMode: "auto"`), trừ khi anh cho giá khác (`"manual"`).
-- `costTrainer` = tổng `dailyRate` của các giảng viên × số ngày (`costTrainerMode: "auto"`). `vatRate` lấy từ `settings`.
-- `quoteId`: báo giá/hợp đồng của khách đó. Có nhiều thì chọn cái đã ký hoặc mới nhất, và ghi rõ đã gắn cái nào.
-- `status: "confirmed"`, trừ khi anh nói "dự kiến". `kind` theo lời anh; anh không nói thì để `"Huấn luyện định kỳ"` và báo anh.
-- Lớp nhiều ngày (ví dụ nhóm 2 là 48 giờ ≈ 6 ngày) thì dùng `startDate`–`endDate`. Không tự kéo dài nếu anh đã cho ngày.
+- Cần có: khách hàng, ngày, giảng viên, số học viên. Không có giờ thì lấy theo `settings.dayStart`–`dayEnd`.
+- **Kiểm tra trùng lịch giảng viên** trước khi ghi. Trùng thì không ghi, báo anh và chờ anh quyết.
+- `price` theo bảng giá (`priceMode: "auto"`), trừ khi anh cho giá khác.
+- Thù lao: `fees` = `dailyRate` × số ngày với `auto: true`, hoặc theo số anh/hợp đồng ghi với `auto: false`.
+- `otherCosts` theo chi phí anh nêu. `quoteId` là hợp đồng/báo giá của khách; ghi rõ đã gắn cái nào.
+- `status: "confirmed"`, trừ khi anh nói "dự kiến". Không rõ `kind` thì để `"Huấn luyện định kỳ"` và báo anh.
 
 ## 7. Nhật ký
-Thêm một mục cho mỗi bản ghi thêm hoặc sửa: `{t: <ISO>, by: null, a: "Thêm"|"Cập nhật"|"Thu tiền", k: <collection>, l: "<tên/nhãn>", via: "claude"}` vào `log/<tháng hiện tại>`. Đọc doc đó trước, nối thêm vào `entries`, rồi ghi lại có `if_version` (doc chưa có thì tạo mới).
+Mỗi bản ghi thêm hoặc sửa → thêm một mục vào `log/<tháng hiện tại>`:
+- Khung: `{t, by: null, a, k, l, via: "claude"}`.
+- `a`: `"Thêm"` | `"Cập nhật"` | `"Thu tiền"` | `"Trả thù lao"`.
+- Đọc doc trước, nối thêm vào `entries`, ghi lại có `if_version`.
 
 ## 8. Trả lời anh
-Theo thứ tự:
-1. **Đã cập nhật gì**: số giảng viên, khách hàng, báo giá, hợp đồng, lớp thêm mới hoặc cập nhật, số file đã tải lên.
-2. **Tóm tắt** từng bản ghi chính, một dòng mỗi bản.
-3. **Cần anh xem** (bỏ mục nào trống): thiếu thông tin, chỗ em suy ra (vùng, nhóm, giá), giá khác bảng giá, trùng tên/SĐT, ảnh không ghép được, trùng lịch không lưu, file lỗi.
+1. **Đã cập nhật gì**, theo từng tab: giảng viên, lịch, học viên, báo giá, hợp đồng, doanh thu – lợi nhuận, khách hàng. Kèm số file đã tải lên.
+2. **Tóm tắt** từng bản ghi chính, một dòng mỗi bản, dùng bảng nếu nhiều.
+3. **Cần anh xem** (bỏ mục nào trống):
+   - ô còn trống chờ anh nhập; chỗ em suy ra;
+   - số liệu lệch trong file; giá khác bảng giá;
+   - trùng tên, SĐT, số thẻ; ảnh/thẻ không ghép được; trùng lịch không lưu.
+4. **Đề xuất nâng cấp** nếu file có thông tin mà công cụ chưa có chỗ lưu.
 
-Cuối cùng là link trang để anh và giám đốc mở xem.
+Cuối cùng là link trang.

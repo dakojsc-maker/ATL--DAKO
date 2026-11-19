@@ -15,40 +15,52 @@ Công cụ trên trình duyệt để quản lý hoạt động huấn luyện a
 - Người quản lý công cụ: chủ sở hữu hoặc được mời quyền **Chỉnh sửa (Editor)** → thêm/sửa mọi thứ, tải file lên.
 - Giám đốc và các bộ phận: mời quyền **Xem (Viewer)** → xem toàn bộ lịch, chi phí, báo cáo, mở mọi file báo giá – hợp đồng; không sửa được.
 
-## Chức năng
+## Chức năng (bản 2.0)
 
-1. **Tổng quan** (dành cho giám đốc): số lớp, học viên, doanh thu, lợi nhuận gộp, hợp đồng ký mới, còn phải thu, báo giá đang chờ; lịch 14 ngày tới; biểu đồ doanh thu 12 tháng; thống kê theo vùng; khối lượng dạy của từng giảng viên; mục **Cần chú ý** tự phát hiện:
-   - giảng viên bị trùng lịch, lớp chưa có giảng viên, lớp đã qua ngày mà chưa cập nhật;
-   - lớp đã dạy nhưng chưa có hợp đồng, hợp đồng quá hạn thanh toán, hợp đồng chưa tải file;
-   - báo giá quá 7 ngày chưa có kết quả, khách đồng ý nhưng chưa ký;
-   - chứng chỉ giảng viên sắp/đã hết hạn;
-   - khách hàng sắp đến hạn huấn luyện định kỳ (cơ hội gửi báo giá).
-2. **Lịch giảng dạy**
-   - Lịch tháng: bấm vào một ngày để lên lịch lớp (giảng viên, giờ, địa điểm, số học viên, chi phí…).
-   - Chọn vùng (Miền Nam – TP.HCM, Miền Trung – Tây Nguyên – Nha Trang, Miền Bắc – Hà Nội) để lọc lớp và hiện danh sách giảng viên của vùng, kèm trạng thái **Rảnh / Bận** của ngày đang chọn.
-   - Khi lên lịch, danh sách giảng viên báo ai đã có lịch trùng; không lưu được nếu trùng, trừ khi tick “Vẫn lưu dù trùng lịch”.
-   - Xem **Theo giảng viên** (bảng giảng viên × ngày trong tháng) để sắp xếp không chồng lịch.
-   - Xem **Danh sách**: doanh thu, chi phí, lãi gộp từng lớp, tổng tháng; nút xem nhanh báo giá (BG) và hợp đồng (HĐ).
-3. **Giảng viên**: ảnh 3×4 (tải lên), SĐT, email, vùng chính và vùng hỗ trợ, chuyên ngành, nhóm được dạy, trình độ, chứng chỉ và hạn, thù lao/ngày, hồ sơ đính kèm (CV, bằng cấp); lịch sắp tới và lịch sử dạy.
-4. **Tính chi phí**: giá tự lấy theo bảng giá (dưới 30 HV/lớp: 5.000.000 đ; 30–60 HV/lớp: 8.000.000 đ, chưa VAT). Giá sửa tay được, có đánh dấu “Giá điều chỉnh”. Thù lao giảng viên tự tính theo thù lao/ngày × số ngày. Có thêm đi lại – lưu trú, chi phí khác → lãi gộp và biên lợi nhuận.
-5. **Báo giá**: tên công ty khách hàng (tự gợi ý khách đã có), số báo giá tự đánh `BG-năm-số`, nhóm, số học viên, số lớp, giá trị, trạng thái; tải file báo giá và file hợp đồng.
-6. **Hợp đồng**: các công ty đã ký; giá trị, số lớp đã dạy, ghi nhận các lần thu tiền, còn phải thu, hạn thanh toán, tình trạng.
-7. **Khách hàng**: lịch sử huấn luyện từng công ty, hạn huấn luyện định kỳ theo từng nhóm.
-8. **Cài đặt**: bảng giá, VAT, vùng đào tạo, số giờ và chu kỳ định kỳ theo nhóm, danh mục chuyên ngành; xuất Excel tổng hợp; sao lưu / khôi phục.
+Đào tạo ATVSLĐ không chịu thuế GTGT nên công cụ **không tính VAT**.
 
-**Xem file**: PDF, ảnh, Word (.docx), Excel (.xlsx, .xls, .csv) mở được ngay trong trang. File .doc cũ và file nén phải tải về máy để mở. Báo giá và hợp đồng nên lưu dạng PDF để ai cũng xem được ngay.
+1. **Tổng quan** (dành cho giám đốc):
+   - Chỉ tiêu theo tháng, quý hoặc năm: lớp học, học viên, doanh thu (hợp đồng đã ký), lợi nhuận, khách còn nợ, thù lao giảng viên còn phải trả, báo giá đang chờ, thẻ/GCN sắp hết hạn.
+   - Lịch 14 ngày tới, biểu đồ doanh thu – lợi nhuận 12 tháng, thống kê theo vùng, khối lượng dạy và công nợ của từng giảng viên.
+   - Mục **Cần chú ý** tự phát hiện: trùng lịch, lớp quá ngày, hợp đồng quá hạn thanh toán, còn nợ thù lao giảng viên, tạm ứng cần thu hồi, hợp đồng chưa có chi phí giảng viên, hoa hồng chưa chi, chứng chỉ giảng viên hết hạn, thẻ/GCN học viên sắp hết hạn (cơ hội huấn luyện định kỳ).
+2. **Lịch giảng dạy**:
+   - Lịch tháng: bấm vào ngày để lên lịch. Lọc theo vùng; danh sách giảng viên của vùng có trạng thái Rảnh/Bận; chặn trùng lịch.
+   - Chế độ xem giảng viên × ngày.
+   - Chế độ **Danh sách & lợi nhuận**: doanh thu lớp, thù lao giảng viên, hoa hồng phân bổ, chi phí khác, lợi nhuận và tỷ suất từng lớp.
+3. **Giảng viên**:
+   - Hồ sơ: ảnh 3×4, SĐT, vùng, chuyên ngành, nhóm được dạy, chứng chỉ, thù lao/ngày, tài khoản nhận thù lao, MST cá nhân.
+   - Chế độ **Thù lao & công nợ**: thù lao (hợp đồng thuê giảng viên) từng lớp, số hợp đồng và file hợp đồng, các lần tạm ứng/thanh toán, đã trả, còn phải trả.
+4. **Học viên**:
+   - Sổ cấp thẻ/GCN theo đợt. Tìm theo công ty, tên, số thẻ/GCN hoặc CCCD; lọc theo nhóm, loại giấy, tình trạng hạn, năm cấp.
+   - Bấm vào học viên để xem hình thẻ/GCN, quyết định cấp, khóa học, lớp và hợp đồng liên quan.
+5. **Báo giá**: công ty khách hàng, giá theo bảng giá (dưới 30 HV/lớp: 5.000.000 đ; 30–60 HV/lớp: 8.000.000 đ, sửa được), file báo giá và file hợp đồng.
+6. **Hợp đồng**: các công ty đã ký; giá trị, lớp đã dạy, khách đã thu, còn phải thu, hạn thanh toán, lợi nhuận.
+7. **Doanh thu – Lợi nhuận**:
+   - Doanh thu lấy từ hợp đồng đã ký, theo ngày ký.
+   - Lợi nhuận = doanh thu – thù lao giảng viên – hoa hồng đại lý – hoa hồng cán bộ quản lý khách hàng (thuế DAKO khấu trừ mặc định 20%, sửa được; ví dụ 30 tr → thuế 5 tr, thực trả 25 tr) – chi phí khác (nút “Thêm chi phí khác”).
+8. **Khách hàng**: lịch sử huấn luyện, thẻ/GCN đã cấp, doanh thu, công nợ, hạn huấn luyện định kỳ.
+9. **Cài đặt**: bảng giá, thuế và cách tính thuế hoa hồng, thông tin công ty trên báo cáo, vùng đào tạo, giờ học và hiệu lực theo nhóm, chuyên ngành, sao lưu / khôi phục.
 
-**Xem thử**: nút “Xem thử với dữ liệu mẫu” cho xem tất cả chức năng với số liệu minh họa. Dữ liệu mẫu chỉ hiện trên máy người bấm, không lưu.
+**Xuất Excel**:
+- Mỗi tab có nút Xuất Excel; chọn thống kê theo tuần, tháng, quý hoặc năm và khoảng thời gian.
+- File sẵn in khổ A4: logo và thông tin DAKO, tiêu đề, font Times New Roman, số dạng `1.000.000 đ` (dấu chấm phần nghìn trên mọi máy).
+- Gồm phần tổng hợp theo kỳ, phần chi tiết có dòng cộng từng kỳ, dòng tổng cộng và khối ký Người lập biểu / Giám đốc.
+- Xuất từ tab Tổng quan ra một file tổng hợp, mỗi tab một sheet.
+
+**Xem file**: PDF, ảnh, Word (.docx), Excel mở được ngay trong trang. Ô nào chưa có dữ liệu đều có gợi ý cần nhập gì.
 
 ## Mã nguồn
 
 ```
 src/page.html   khung trang
 src/styles.css  giao diện (màu theo logo DAKO)
-src/core.js     quy định nghiệp vụ: bảng giá, nhóm huấn luyện, trùng lịch, công nợ, cảnh báo
+src/core.js     quy định nghiệp vụ: bảng giá, nhóm huấn luyện, trùng lịch, cảnh báo
+src/finance.js  doanh thu, thù lao giảng viên, hoa hồng & thuế, lợi nhuận, kỳ báo cáo, học viên
 src/store.js    lưu trữ: bản dùng chung (claude.ai), bản ngoại tuyến (IndexedDB), dữ liệu mẫu
 src/ui.js       hộp thoại, tải file, trình xem PDF/Word/Excel, biểu đồ
 src/views.js    các tab
+src/students.js tab Học viên (sổ cấp thẻ/GCN)
+src/export.js   xuất Excel chuyên nghiệp (ExcelJS)
 src/forms.js    biểu mẫu và màn hình chi tiết
 src/demo.js     dữ liệu mẫu
 src/main.js     khởi động, điều hướng, xuất Excel, sao lưu

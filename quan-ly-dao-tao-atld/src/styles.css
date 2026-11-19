@@ -23,6 +23,7 @@
   --r-nam: #1d5fd6; --r-trung: #0e9c8b; --r-bac: #8b4fd8; --r-x1: #b5651d; --r-x2: #c43c74; --r-x3: #4f6b8a;
   --shadow: 0 1px 2px rgba(14, 40, 92, .06), 0 4px 16px rgba(14, 40, 92, .06);
   --shadow-lg: 0 18px 48px rgba(8, 24, 64, .28);
+  --chart-a: #a9c1ee; --chart-b: #0b2e7a;
   --font: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --radius: 10px;
 }
@@ -35,6 +36,7 @@
     --ok: #4cc98a; --ok-soft: #12301f; --warn: #f0b04a; --warn-soft: #33270f; --bad: #ff6b7d; --bad-soft: #3a1820;
     --info: #7aa4ff; --info-soft: #172848;
     --r-nam: #5b8ef0; --r-trung: #1fa897; --r-bac: #9b72e6; --r-x1: #d08a45; --r-x2: #e0679a; --r-x3: #7f97b5;
+    --chart-a: #2f4c86; --chart-b: #a8c6ff;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
     color-scheme: dark;
   }
@@ -47,6 +49,7 @@
   --ok: #4cc98a; --ok-soft: #12301f; --warn: #f0b04a; --warn-soft: #33270f; --bad: #ff6b7d; --bad-soft: #3a1820;
   --info: #7aa4ff; --info-soft: #172848;
   --r-nam: #5b8ef0; --r-trung: #1fa897; --r-bac: #9b72e6; --r-x1: #d08a45; --r-x2: #e0679a; --r-x3: #7f97b5;
+  --chart-a: #2f4c86; --chart-b: #a8c6ff;
   --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
   color-scheme: dark;
 }
@@ -443,3 +446,54 @@ body:not(.ro) .ro-only { display: none !important; }
 .hide { display: none !important; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .foot { color: var(--fg-3); font-size: 12px; padding-block: 18px 6px; text-align: center; }
+
+/* ---------- bản 2.0: tài chính, học viên, xuất báo cáo ---------- */
+.kpi.neg .v { color: var(--bad); }
+.kpi.pos .v { color: var(--ok); }
+.ava.sm { width: 24px; height: 24px; font-size: 10px; display: inline-grid; vertical-align: middle; }
+.linkbtn { border: 0; background: transparent; padding: 0; font: inherit; font-weight: 700; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; font-variant-numeric: tabular-nums; }
+.chart .bar-a { fill: var(--chart-a); }
+.chart .bar-a.cur { stroke: var(--accent); stroke-width: 2; }
+.chart .bar-b { fill: var(--chart-b); }
+.chart .grid.zero { stroke: var(--line-strong); }
+.chart-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--fg-2); margin-bottom: 6px; }
+.chart-legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.chart-legend .sw.a { background: var(--chart-a); }
+.chart-legend .sw.b { background: var(--chart-b); }
+.sub-title { font-size: 12.5px; font-weight: 700; color: var(--fg-2); margin: 14px 0 6px; text-transform: uppercase; letter-spacing: .04em; }
+.costrows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.costrow { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.4fr) auto; gap: 6px; align-items: center; }
+.costadd { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.costadd .chip { padding: 4px 10px; font-size: 12.5px; }
+.comcard { border: 1px solid var(--line); border-radius: 10px; padding: 10px; margin-bottom: 8px; background: var(--surface-2); display: flex; flex-direction: column; gap: 8px; }
+.comhead { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr) auto; gap: 6px; align-items: center; }
+.comgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.comgrid .f .lbl { font-size: 11.5px; }
+.input.ro { background: var(--surface); color: var(--fg); font-weight: 700; display: flex; align-items: center; justify-content: flex-end; border-style: dashed; }
+.feerows { display: flex; flex-direction: column; gap: 6px; }
+.feerow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); }
+.feerow .input { width: 170px; max-width: 100%; }
+.payadd { display: grid; grid-template-columns: 140px 120px minmax(0, 1fr) minmax(0, 1.5fr) auto; gap: 6px; margin-top: 8px; align-items: center; }
+.tbl tr.grp td { background: var(--surface-2); border-top: 1px solid var(--line-strong); }
+.pager { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+.gallery { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.gallery .shot { border: 1px solid var(--line); border-radius: 8px; padding: 0; background: var(--surface-2); cursor: zoom-in; overflow: hidden; width: 220px; max-width: 100%; aspect-ratio: 3 / 2; }
+.gallery .shot img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; }
+.tag .ti, svg.ti { width: 13px; height: 13px; vertical-align: -2px; }
+.money-box .m .k + .k { margin-top: 2px; font-weight: 500; }
+@media (max-width: 640px) {
+  .costrow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
+  .costrow [data-k=note] { grid-column: 1 / -1; grid-row: 2; }
+  .comhead { grid-template-columns: minmax(0, 1fr) auto; }
+  .comhead [data-k=name] { grid-column: 1 / -1; grid-row: 2; }
+  .payadd { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .feerow .input { width: 100%; }
+}
+.chart { max-height: 270px; }
+.kpis.k8 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) { .kpis.k8 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.money-box.cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 900px) { .money-box.cols-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .money-box.cols-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+table.tbl.wide { min-width: 1180px; }
+.tbl td.nw, .tbl th.nw { white-space: nowrap; }

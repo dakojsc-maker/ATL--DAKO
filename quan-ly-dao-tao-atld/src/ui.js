@@ -30,6 +30,8 @@ const ICONS = {
   money: '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
   pin: '<path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  idcard: '<rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2.5"/><path d="M13 10h5M13 14h4"/>',
+  trend: '<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/>',
 };
 const ic = (n, cls = '') => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"${cls ? ` class="${cls}"` : ''}>${ICONS[n] || ''}</svg>`;
 
@@ -240,6 +242,7 @@ async function lib(name) {
   for (const src of LIBS[name]) await loadScript(src);
   if (name === 'pdf') { const p = window.pdfjsLib; if (p && !p.GlobalWorkerOptions.workerSrc) p.GlobalWorkerOptions.workerSrc = LIBS.pdf[1]; return p; }
   if (name === 'mammoth') return window.mammoth;
+  if (name === 'exceljs') return window.ExcelJS;
   return window.XLSX;
 }
 
@@ -350,6 +353,32 @@ function barChart(data, { height = 190, fmt = moneyShort } = {}) {
     svg += `<text x="${x + bw / 2}" y="${H - 6}" text-anchor="middle"${d.cur ? ' style="font-weight:700;fill:var(--fg)"' : ''}>${esc(d.label)}</text>`;
   });
   return `<div class="chart-box">${svg}</svg></div>`;
+}
+/** Biểu đồ "cột lồng": cột nhạt = series a (doanh thu), cột đậm hẹp bên trong = series b (lợi nhuận, có thể âm). */
+function bulletChart(data, names, { height = 220, fmt = moneyShort } = {}) {
+  const W = 640, H = height, padL = 56, padR = 8, padT = 12, padB = 24;
+  const maxV = Math.max(1, ...data.map((d) => Math.max(d.a, d.b, 0)));
+  const minV = Math.min(0, ...data.map((d) => Math.min(d.a, d.b)));
+  if (!data.some((d) => d.a || d.b)) return `<div class="empty"><b>Chưa có hợp đồng đã ký trong năm</b>Doanh thu và lợi nhuận hiện ra khi báo giá được chuyển thành hợp đồng.</div>`;
+  const step = Math.max(1000000, niceStep((maxV - minV) / 4 || 1));
+  const top = Math.ceil(maxV / step) * step; const bot = Math.floor(minV / step) * step;
+  const iw = W - padL - padR, ih = H - padT - padB;
+  const y = (v) => padT + ih - ((v - bot) / (top - bot || 1)) * ih;
+  const bw = iw / data.length;
+  const bar = (x, w, v) => {
+    if (!v) return '';
+    const y0 = y(0), y1 = y(v); const h = Math.abs(y1 - y0); const r = Math.min(4, h / 2, w / 2);
+    if (v > 0) return `M${x},${y0} V${y1 + r} q0,-${r} ${r},-${r} H${x + w - r} q${r},0 ${r},${r} V${y0} Z`;
+    return `M${x},${y0} V${y1 - r} q0,${r} ${r},${r} H${x + w - r} q${r},0 ${r},-${r} V${y0} Z`;
+  };
+  let svg = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(names.join(' và '))} theo tháng">`;
+  for (let v = bot; v <= top + 1e-6; v += step) svg += `<line class="grid${Math.abs(v) < 1e-6 ? ' zero' : ''}" x1="${padL}" x2="${W - padR}" y1="${y(v)}" y2="${y(v)}"/><text x="${padL - 6}" y="${y(v) + 4}" text-anchor="end">${esc(fmt(v))}</text>`;
+  data.forEach((d, i) => {
+    const x = padL + i * bw; const w = Math.max(6, bw - 10); const wi = Math.max(3, w * 0.42);
+    svg += `<g data-tip="${esc(d.tip)}"><rect class="hit" x="${x}" y="${padT}" width="${bw}" height="${ih}"/><path class="bar-a${d.cur ? ' cur' : ''}" d="${bar(x + 5, w, d.a)}"/><path class="bar-b" d="${bar(x + 5 + (w - wi) / 2, wi, d.b)}"/><title>${esc(d.tip)}</title></g>`;
+    svg += `<text x="${x + bw / 2}" y="${H - 6}" text-anchor="middle"${d.cur ? ' style="font-weight:700;fill:var(--fg)"' : ''}>${esc(d.label)}</text>`;
+  });
+  return `<div class="chart-legend"><span><i class="sw a"></i>${esc(names[0])}</span><span><i class="sw b"></i>${esc(names[1])}</span></div><div class="chart-box">${svg}</svg></div>`;
 }
 function niceStep(raw) {
   if (raw <= 0) return 1;

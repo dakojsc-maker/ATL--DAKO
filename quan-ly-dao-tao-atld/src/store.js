@@ -5,7 +5,7 @@
    • MemoryBackend: dữ liệu mẫu để xem thử (không lưu)
    ============================================================ */
 
-const COLLECTIONS = ['trainers', 'classes', 'quotes', 'customers', 'settings', 'log'];
+const COLLECTIONS = ['trainers', 'classes', 'quotes', 'customers', 'rosters', 'settings', 'log'];
 const RAW_UPLOAD = new Set(['application/pdf', 'image/png', 'image/jpeg', 'image/gif', 'image/webp']);
 const MAX_RAW = 20 * 1024 * 1024;
 const MAX_WRAPPED = Math.floor(MAX_RAW * 0.74);
@@ -181,7 +181,7 @@ const Store = {
   attach(backend) {
     this.unsubs.forEach((u) => { try { u(); } catch (e) { /* ignore */ } });
     this.unsubs = []; this.backend = backend; this.logCache = {};
-    S.trainers = []; S.classes = []; S.quotes = []; S.customers = []; S.log = []; S.settings = clone(DEFAULT_SETTINGS);
+    S.trainers = []; S.classes = []; S.quotes = []; S.customers = []; S.rosters = []; S.log = []; S.settings = clone(DEFAULT_SETTINGS);
     S.loaded = {}; rebuildIndex();
     S.sync = { state: 'loading', msg: 'Đang tải dữ liệu…' };
     clearTimeout(this.loadTimer);
@@ -268,13 +268,17 @@ const Store = {
 };
 
 function rebuildIndex() {
-  for (const col of ['trainers', 'classes', 'quotes', 'customers']) {
+  for (const col of ['trainers', 'classes', 'quotes', 'customers', 'rosters']) {
     const m = new Map(); for (const r of S[col]) m.set(r.id, r); S.byId[col] = m;
   }
   FILES.clear();
   const add = (f) => { if (f && f.id) FILES.set(f.id, f); };
   for (const t of S.trainers) { add(t.photo); (t.files || []).forEach(add); }
-  for (const c of S.classes) (c.files || []).forEach(add);
-  for (const q of S.quotes) { (q.quoteFiles || []).forEach(add); (q.contractFiles || []).forEach(add); }
+  for (const c of S.classes) { (c.files || []).forEach(add); (c.fees || []).forEach((f) => (f.files || []).forEach(add)); }
+  for (const q of S.quotes) { (q.quoteFiles || []).forEach(add); (q.contractFiles || []).forEach(add); (q.costFiles || []).forEach(add); }
+  for (const r of S.rosters) {
+    (r.decisionFiles || []).forEach(add); (r.files || []).forEach(add);
+    for (const st of r.students || []) (st.files || []).forEach(add);
+  }
 }
 const FILES = new Map();

@@ -3,14 +3,24 @@
    CORE – hằng số nghiệp vụ, tiện ích ngày/tiền, tính toán
    ============================================================ */
 
-const APP_VERSION = '1.0';
+const APP_VERSION = '2.0';
 
 const DEFAULT_SETTINGS = {
   priceTiers: [
     { min: 1, max: 29, price: 5000000 },
     { min: 30, max: 60, price: 8000000 },
   ],
-  vatRate: 8,
+  // Đào tạo ATVSLĐ không chịu thuế GTGT → công cụ không tính VAT.
+  commissionTax: 20,          // % thuế DAKO khấu trừ trên hoa hồng (sửa được)
+  commissionTaxMode: 'net',   // 'net': thuế = % × số thực trả (30 tr → thuế 5 tr, thực trả 25 tr); 'gross': thuế = % × tổng hoa hồng
+  company: {
+    name: 'CÔNG TY CỔ PHẦN KỸ THUẬT HÀNG HẢI DAKO',
+    address: 'Số 28, đường D9, Khu phố 8, Phường An Khánh, TP.HCM',
+    phone: '0827.695.368 – 0968.702.701',
+    email: 'viencongnghestp@gmail.com',
+    director: 'Phạm Thị Thu Thanh',
+    city: 'TP. Hồ Chí Minh',
+  },
   regions: [
     { id: 'nam', name: 'Miền Nam', center: 'TP.HCM' },
     { id: 'trung', name: 'Miền Trung – Tây Nguyên', center: 'Nha Trang' },
@@ -128,9 +138,9 @@ const parseMoney = (s) => { const n = Number(String(s ?? '').replace(/[^\d]/g, '
 
 /* ---------- application state ---------- */
 const S = {
-  trainers: [], classes: [], quotes: [], customers: [], log: [],
+  trainers: [], classes: [], quotes: [], customers: [], rosters: [], log: [],
   settings: clone(DEFAULT_SETTINGS),
-  byId: { trainers: new Map(), classes: new Map(), quotes: new Map(), customers: new Map() },
+  byId: { trainers: new Map(), classes: new Map(), quotes: new Map(), customers: new Map(), rosters: new Map() },
   loaded: {},
   role: { canEdit: false, mode: 'loading', label: '' },
   sync: { state: 'loading', msg: '' },
@@ -146,6 +156,7 @@ const trainer = (id) => S.byId.trainers.get(id);
 const customer = (id) => S.byId.customers.get(id);
 const quote = (id) => S.byId.quotes.get(id);
 const klass = (id) => S.byId.classes.get(id);
+const roster = (id) => S.byId.rosters.get(id);
 
 /* ---------- pricing & money per class ---------- */
 function tierFor(n, tiers = settings().priceTiers) {
@@ -155,21 +166,13 @@ function tierFor(n, tiers = settings().priceTiers) {
 }
 function tierText(n) {
   const t = tierFor(n);
-  if (t) return `Bảng giá ${t.min}–${t.max} HV/lớp: ${moneyD(t.price)} (chưa VAT)`;
+  if (t) return `Bảng giá ${t.min}–${t.max} HV/lớp: ${moneyD(t.price)}/lớp`;
   const tiers = settings().priceTiers || [];
   const maxT = tiers.reduce((m, x) => Math.max(m, Number(x.max) || 0), 0);
   if (n > maxT && maxT) return `Trên ${maxT} HV/lớp: chưa có trong bảng giá – nhập giá thỏa thuận hoặc tách lớp`;
   return 'Nhập số học viên để tính giá theo bảng giá';
 }
 const classDays = (c) => (c.startDate && c.endDate ? Math.max(1, daysBetween(c.startDate, c.endDate) + 1) : 1);
-const vatOf = (rec) => (rec.vatRate === 0 || rec.vatRate ? Number(rec.vatRate) : Number(settings().vatRate) || 0);
-function classMoney(c) {
-  const live = c.status !== 'cancelled';
-  const rev = live ? Number(c.price) || 0 : 0;
-  const vat = (rev * vatOf(c)) / 100;
-  const cost = live ? (Number(c.costTrainer) || 0) + (Number(c.costTravel) || 0) + (Number(c.costOther) || 0) : 0;
-  return { rev, vat, total: rev + vat, cost, profit: rev - cost, margin: rev ? (rev - cost) / rev : 0 };
-}
 function trainerCostAuto(trainerIds, days) {
   return sum(trainerIds || [], (id) => (Number(trainer(id)?.dailyRate) || 0) * days);
 }
@@ -211,30 +214,8 @@ function suggestedDays(groups, kind) {
 }
 
 /* ---------- quotes & contracts ---------- */
-function quoteMoney(q) {
-  const amount = Number(q.amount) || 0;
-  const vat = (amount * vatOf(q)) / 100;
-  return { amount, vat, total: amount + vat };
-}
 const isContract = (q) => q.status === 'signed';
 const quoteClasses = (q) => S.classes.filter((c) => c.quoteId === q.id);
-function contractMoney(q) {
-  const amount = q.contractAmount === 0 || q.contractAmount ? Number(q.contractAmount) : Number(q.amount) || 0;
-  const vat = (amount * vatOf(q)) / 100;
-  const total = amount + vat;
-  const paid = sum(q.payments || [], (p) => p.amount);
-  return { amount, vat, total, paid, remain: Math.max(0, total - paid) };
-}
-function contractState(q) {
-  const m = contractMoney(q);
-  const cls = quoteClasses(q).filter((c) => c.status !== 'cancelled');
-  const allDone = cls.length > 0 && cls.every((c) => c.status === 'done');
-  if (m.total > 0 && m.remain <= 0 && (allDone || !cls.length)) return { label: 'Hoàn tất', tone: 'ok' };
-  if (m.remain > 0 && q.paymentDue && q.paymentDue < todayISO()) return { label: 'Quá hạn thanh toán', tone: 'bad' };
-  if (allDone && m.remain > 0) return { label: 'Đã dạy xong – chờ thu', tone: 'warn' };
-  if (m.total > 0 && m.remain <= 0) return { label: 'Đã thu đủ', tone: 'ok' };
-  return { label: 'Đang thực hiện', tone: 'info' };
-}
 function nextQuoteNo(dateIso) {
   const y = (dateIso || todayISO()).slice(0, 4);
   let max = 0;
@@ -250,10 +231,16 @@ function findCustomerByName(name) {
 function customerStats(cid) {
   const cls = S.classes.filter((c) => c.customerId === cid && c.status !== 'cancelled');
   const done = cls.filter((c) => c.status === 'done');
+  const contracts = S.quotes.filter((q) => q.customerId === cid && isContract(q));
   return {
     classes: cls.length,
     students: sum(done, (c) => c.students),
-    revenue: sum(cls, (c) => classMoney(c).rev),
+    classValue: sum(cls, (c) => Number(c.price) || 0),
+    revenue: sum(contracts, contractValue),
+    paid: sum(contracts, (q) => contractMoney(q).paid),
+    remain: sum(contracts, (q) => contractMoney(q).remain),
+    contracts: contracts.length,
+    certified: S.rosters.filter((r) => r.customerId === cid).reduce((n, r) => n + rosterCount(r), 0),
     last: done.reduce((m, c) => ((c.endDate || c.startDate) > m ? c.endDate || c.startDate : m), ''),
   };
 }
@@ -347,6 +334,7 @@ function computeAlerts() {
       }
     }
   }
+  out.push(...financeAlerts());
   const order = { bad: 0, warn: 1, info: 2 };
   return out.sort((a, b) => order[a.sev] - order[b.sev]);
 }

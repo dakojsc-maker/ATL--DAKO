@@ -29,14 +29,14 @@ function buildDemo() {
   const pdf = (id, name, title, lines) => { b.files.set(id, makeSamplePdf(title, lines)); return { id, name, type: 'application/pdf', size: 1200, enc: 'raw', at: new Date().toISOString() }; };
 
   const trainers = [
-    ['gv1', 'Nguyễn Văn Hòa', '0900 000 101', 'nam', ['An toàn điện', 'Làm việc trên cao', 'Quản lý công tác ATVSLĐ'], [1, 2, 3, 4], 'Kỹ sư điện', 15, 1500000, 'Cơ hữu', D(420), []],
-    ['gv2', 'Trần Thị Mai Anh', '0900 000 102', 'nam', ['Sơ cấp cứu', 'Y tế lao động', 'Vệ sinh lao động – môi trường'], [4, 5, 6], 'Bác sĩ y học lao động', 11, 1400000, 'Cộng tác viên', D(35), ['trung']],
-    ['gv3', 'Lê Quốc Bảo', '0900 000 103', 'nam', ['Thiết bị nâng – xe nâng', 'Hàn, cắt kim loại'], [3, 4], 'Kỹ sư cơ khí', 9, 1200000, 'Cộng tác viên', D(300), []],
-    ['gv4', 'Phạm Minh Tuấn', '0900 000 104', 'nam', ['Đóng tàu – sửa chữa tàu', 'Không gian hạn chế', 'Nghiệp vụ ATVSLĐ'], [2, 3, 4], 'Kỹ sư vỏ tàu', 18, 1600000, 'Cơ hữu', D(600), []],
-    ['gv5', 'Võ Thành Nhân', '0900 000 105', 'trung', ['Cảng biển – xếp dỡ hàng hóa', 'Thiết bị nâng – xe nâng'], [3, 4, 6], 'Kỹ sư khai thác cảng', 12, 1300000, 'Cộng tác viên', D(500), []],
-    ['gv6', 'Huỳnh Thị Thu Hà', '0900 000 106', 'trung', ['Quản lý công tác ATVSLĐ', 'Nghiệp vụ ATVSLĐ', 'PCCC & cứu nạn cứu hộ'], [1, 2, 4], 'Thạc sĩ Bảo hộ lao động', 14, 1500000, 'Thỉnh giảng', D(-10), []],
-    ['gv7', 'Đỗ Đức Thắng', '0900 000 107', 'bac', ['Xây dựng', 'Làm việc trên cao', 'An toàn điện'], [1, 2, 3, 4], 'Kỹ sư xây dựng', 16, 1500000, 'Cộng tác viên', D(700), []],
-    ['gv8', 'Bùi Thị Lan', '0900 000 108', 'bac', ['Hóa chất', 'Vệ sinh lao động – môi trường'], [3, 4, 5], 'Kỹ sư hóa', 8, 1200000, 'Cộng tác viên', D(250), []],
+    ['gv1', 'Nguyễn Văn Hòa', '0900 000 101', 'nam', ['An toàn điện', 'Làm việc trên cao', 'Quản lý công tác ATVSLĐ'], [1, 2, 3, 4], 'Kỹ sư điện', 15, 1000000, 'Cơ hữu', D(420), []],
+    ['gv2', 'Trần Thị Mai Anh', '0900 000 102', 'nam', ['Sơ cấp cứu', 'Y tế lao động', 'Vệ sinh lao động – môi trường'], [4, 5, 6], 'Bác sĩ y học lao động', 11, 900000, 'Cộng tác viên', D(35), ['trung']],
+    ['gv3', 'Lê Quốc Bảo', '0900 000 103', 'nam', ['Thiết bị nâng – xe nâng', 'Hàn, cắt kim loại'], [3, 4], 'Kỹ sư cơ khí', 9, 800000, 'Cộng tác viên', D(300), []],
+    ['gv4', 'Phạm Minh Tuấn', '0900 000 104', 'nam', ['Đóng tàu – sửa chữa tàu', 'Không gian hạn chế', 'Nghiệp vụ ATVSLĐ'], [2, 3, 4], 'Kỹ sư vỏ tàu', 18, 1000000, 'Cơ hữu', D(600), []],
+    ['gv5', 'Võ Thành Nhân', '0900 000 105', 'trung', ['Cảng biển – xếp dỡ hàng hóa', 'Thiết bị nâng – xe nâng'], [3, 4, 6], 'Kỹ sư khai thác cảng', 12, 800000, 'Cộng tác viên', D(500), []],
+    ['gv6', 'Huỳnh Thị Thu Hà', '0900 000 106', 'trung', ['Quản lý công tác ATVSLĐ', 'Nghiệp vụ ATVSLĐ', 'PCCC & cứu nạn cứu hộ'], [1, 2, 4], 'Thạc sĩ Bảo hộ lao động', 14, 1000000, 'Thỉnh giảng', D(-10), []],
+    ['gv7', 'Đỗ Đức Thắng', '0900 000 107', 'bac', ['Xây dựng', 'Làm việc trên cao', 'An toàn điện'], [1, 2, 3, 4], 'Kỹ sư xây dựng', 16, 900000, 'Cộng tác viên', D(700), []],
+    ['gv8', 'Bùi Thị Lan', '0900 000 108', 'bac', ['Hóa chất', 'Vệ sinh lao động – môi trường'], [3, 4, 5], 'Kỹ sư hóa', 8, 800000, 'Cộng tác viên', D(250), []],
   ];
   trainers.forEach(([id, name, phone, region, specialties, groups, degree, experience, dailyRate, employment, certExpiry, otherRegions]) =>
     put('trainers', { id, name, phone, region, specialties, groups, degree, experience, dailyRate, employment, certExpiry, otherRegions, certNo: 'GV-' + id.toUpperCase() + '/MẪU', status: 'active', email: '', files: [] }));
@@ -53,21 +53,24 @@ function buildDemo() {
 
   const cname = (id) => customers.find((c) => c[0] === id)[1];
   const q = (id, no, cid, date, status, groups, students, classCount, unit, extra = {}) => {
-    put('quotes', { id, no, customerId: cid, customerName: cname(cid), date, validUntil: addDays(date, 30), status, groups, students, classCount, unitPrice: unit, amount: unit * classCount, priceMode: 'auto', amountMode: 'auto', vatRate: 8, owner: 'Phòng Đào tạo', contact: customers.find((c) => c[0] === cid)[4], contactPhone: customers.find((c) => c[0] === cid)[5], quoteFiles: [pdf('fq' + id, `Bao-gia-${no}.pdf`, `BAO GIA ${no}`, ['Huan luyen an toan, ve sinh lao dong', `So hoc vien du kien: ${students}`, `So lop: ${classCount}`, `Don gia/lop: ${money(unit)} VND (chua VAT)`, 'Hieu luc: 30 ngay'])], contractFiles: [], payments: [], ...extra });
+    put('quotes', { id, no, customerId: cid, customerName: cname(cid), date, validUntil: addDays(date, 30), status, groups, students, classCount, unitPrice: unit, amount: unit * classCount, priceMode: 'auto', amountMode: 'auto', owner: 'Phòng Đào tạo', contact: customers.find((c) => c[0] === cid)[4], contactPhone: customers.find((c) => c[0] === cid)[5], quoteFiles: [pdf('fq' + id, `Bao-gia-${no}.pdf`, `BAO GIA ${no}`, ['Huan luyen an toan, ve sinh lao dong', `So hoc vien du kien: ${students}`, `So lop: ${classCount}`, `Don gia/lop: ${money(unit)} VND (chua VAT)`, 'Hieu luc: 30 ngay'])], contractFiles: [], payments: [], ...extra });
   };
   const y = t.slice(0, 4);
-  q('bg1', `BG-${y}-001`, 'kh1', D(-60), 'signed', [3, 4], 110, 2, 8000000, { contractNo: `HĐ-${y}-01/DAKO-SB`, contractDate: D(-52), paymentDue: D(-5), contractFiles: [pdf('fc1', `Hop-dong-${y}-01.pdf`, `HOP DONG ${y}-01`, ['Ben A: Cong ty TNHH Dong tau Sao Bien (mau)', 'Ben B: Cong ty CP Ky thuat Hang hai DAKO', 'Noi dung: Huan luyen ATVSLD nhom 3, nhom 4', 'Gia tri: 16.000.000 VND (chua VAT)'])], payments: [{ id: 'p1', date: D(-40), amount: 8640000, note: 'Tạm ứng 50%' }] });
-  q('bg2', `BG-${y}-002`, 'kh2', D(-35), 'signed', [1, 2, 4], 45, 1, 8000000, { contractNo: `HĐ-${y}-02/DAKO-VX`, contractDate: D(-28), paymentDue: D(30), contractFiles: [pdf('fc2', `Hop-dong-${y}-02.pdf`, `HOP DONG ${y}-02`, ['Ben A: Cong ty CP Cang Vinh Xanh (mau)', 'Noi dung: Huan luyen ATVSLD nhom 1, 2, 4'])] });
-  q('bg3', `BG-${y}-003`, 'kh3', D(-20), 'signed', [3], 24, 1, 5000000, { contractNo: `HĐ-${y}-03/DAKO-PA`, contractDate: D(-15), paymentDue: D(20), contractFiles: [pdf('fc3', `Hop-dong-${y}-03.pdf`, `HOP DONG ${y}-03`, ['Ben A: Cong ty TNHH Co khi Phu An (mau)'])], payments: [{ id: 'p2', date: D(-10), amount: 5400000, note: 'Thanh toán đủ' }] });
-  q('bg4', `BG-${y}-004`, 'kh4', D(-18), 'signed', [1, 2, 3, 4], 150, 3, 8000000, { contractNo: `HĐ-${y}-04/DAKO-HL`, contractDate: D(-9), paymentDue: D(45) });
+  q('bg1', `BG-${y}-001`, 'kh1', D(-60), 'signed', [3, 4], 110, 2, 8000000, { contractNo: `HĐ-${y}-01/DAKO-SB`, contractDate: D(-52), paymentDue: D(-5), contractFiles: [pdf('fc1', `Hop-dong-${y}-01.pdf`, `HOP DONG ${y}-01`, ['Ben A: Cong ty TNHH Dong tau Sao Bien (mau)', 'Ben B: Cong ty CP Ky thuat Hang hai DAKO', 'Noi dung: Huan luyen ATVSLD nhom 3, nhom 4', 'Gia tri: 16.000.000 VND'])], payments: [{ id: 'p1', date: D(-40), amount: 8000000, note: 'Tạm ứng 50%' }],
+    commissions: [{ id: 'h1', type: 'agent', name: 'Đại lý Minh Phát (mẫu)', amount: 2400000, taxRate: 20, paidDate: D(-30), note: 'Chuyển khoản' }, { id: 'h2', type: 'manager', name: 'Anh Khoa – Phòng HSE (mẫu)', amount: 1200000, taxRate: 20 }],
+    otherCosts: [{ id: 'o1', name: 'Tiếp khách – quà tặng', amount: 500000 }] });
+  q('bg2', `BG-${y}-002`, 'kh2', D(-35), 'signed', [1, 2, 4], 45, 1, 8000000, { contractNo: `HĐ-${y}-02/DAKO-VX`, contractDate: D(-28), paymentDue: D(30), commissions: [{ id: 'h3', type: 'agent', name: 'Đại lý miền Trung (mẫu)', amount: 1500000, taxRate: 20 }], contractFiles: [pdf('fc2', `Hop-dong-${y}-02.pdf`, `HOP DONG ${y}-02`, ['Ben A: Cong ty CP Cang Vinh Xanh (mau)', 'Noi dung: Huan luyen ATVSLD nhom 1, 2, 4'])] });
+  q('bg3', `BG-${y}-003`, 'kh3', D(-20), 'signed', [3], 24, 1, 5000000, { contractNo: `HĐ-${y}-03/DAKO-PA`, contractDate: D(-15), paymentDue: D(20), contractFiles: [pdf('fc3', `Hop-dong-${y}-03.pdf`, `HOP DONG ${y}-03`, ['Ben A: Cong ty TNHH Co khi Phu An (mau)'])], payments: [{ id: 'p2', date: D(-10), amount: 5000000, note: 'Thanh toán đủ' }], commissions: [{ id: 'h4', type: 'manager', name: 'Anh Dũng – Quản đốc (mẫu)', amount: 600000, taxRate: 20 }] });
+  q('bg4', `BG-${y}-004`, 'kh4', D(-18), 'signed', [1, 2, 3, 4], 150, 3, 8000000, { contractNo: `HĐ-${y}-04/DAKO-HL`, contractDate: D(-9), paymentDue: D(45), commissions: [{ id: 'h5', type: 'agent', name: 'Đại lý Hồng Lam (mẫu)', amount: 3600000, taxRate: 20 }, { id: 'h6', type: 'manager', name: 'Anh Sơn – Ban an toàn (mẫu)', amount: 1200000, taxRate: 20 }] });
   q('bg5', `BG-${y}-005`, 'kh5', D(-12), 'negotiating', [3, 4, 5], 80, 2, 8000000);
   q('bg6', `BG-${y}-006`, 'kh6', D(-4), 'sent', [4, 6], 52, 1, 8000000);
   q('bg7', `BG-${y}-007`, 'kh2', D(-2), 'accepted', [3], 28, 1, 5000000);
 
   const cls = (id, cid, qid, start, days, region, groups, students, trainers2, status, extra = {}) => {
     const tier = tierFor(students); const price = tier ? tier.price : 0;
-    const daysN = days; const cost = sum(trainers2, (tid) => (b.data.trainers.get(tid)?.dailyRate || 0) * daysN);
-    put('classes', { id, customerId: cid, customerName: cname(cid), quoteId: qid, startDate: start, endDate: addDays(start, days - 1), startTime: '08:00', endTime: '17:00', region, groups, students, trainerIds: trainers2, status, kind: extra.kind || KINDS[1], price, priceMode: 'auto', vatRate: 8, costTrainer: cost, costTrainerMode: 'auto', costTravel: region === 'nam' ? 0 : 1800000, costOther: 450000, location: extra.location || 'Hội trường công ty khách hàng', files: [], passed: status === 'done' ? students : '', certIssued: status === 'done', ...extra });
+    const fees = trainers2.map((tid) => { const amount = (b.data.trainers.get(tid)?.dailyRate || 0) * days; const pays = status === 'done' ? (id === 'l2' ? [{ id: 'tt' + id + tid, date: addDays(start, -3), kind: 'Tạm ứng', amount: Math.round(amount / 2), note: 'Tạm ứng 50%' }] : [{ id: 'tt' + id + tid, date: addDays(start, days + 2), kind: 'Thanh toán', amount, note: 'Thanh toán sau lớp' }]) : status === 'confirmed' && start <= addDays(t, 3) ? [{ id: 'tu' + id + tid, date: addDays(start, -2), kind: 'Tạm ứng', amount: 1000000, note: 'Tạm ứng đi lại' }] : []; return { trainerId: tid, amount, auto: true, contractNo: status === 'done' ? `${id.toUpperCase()}/HĐGV-MẪU` : '', payments: pays }; });
+    const otherCosts = [...(region === 'nam' ? [] : [{ id: 'oc1' + id, name: 'Đi lại – lưu trú', amount: 1800000 }]), { id: 'oc2' + id, name: 'Tài liệu – in thẻ/GCN', amount: 450000 }];
+    put('classes', { id, customerId: cid, customerName: cname(cid), quoteId: qid, startDate: start, endDate: addDays(start, days - 1), startTime: '08:00', endTime: '17:00', region, groups, students, trainerIds: trainers2, status, kind: extra.kind || KINDS[1], price, priceMode: 'auto', fees, otherCosts, location: extra.location || 'Hội trường công ty khách hàng', files: [], passed: status === 'done' ? students : '', certIssued: status === 'done', ...extra });
   };
   cls('l1', 'kh1', 'bg1', D(-45), 3, 'nam', [3, 4], 55, ['gv4'], 'done', { location: 'Xưởng vỏ tàu số 2' });
   cls('l2', 'kh1', 'bg1', D(-38), 3, 'nam', [3, 4], 55, ['gv3'], 'done', { location: 'Xưởng vỏ tàu số 2', invoiced: true });
@@ -84,6 +87,19 @@ function buildDemo() {
   cls('l13', 'kh6', null, D(-700), 1, 'trung', [4], 35, ['gv5'], 'done', { location: 'Nhà máy Hải Đăng' });
   cls('l14', 'kh1', 'bg1', D(20), 2, 'nam', [3], 30, ['gv1', 'gv2'], 'planned', { location: 'Xưởng vỏ tàu số 2', kind: KINDS[0] });
   cls('l15', 'kh3', null, D(-3), 1, 'nam', [6], 12, ['gv2'], 'cancelled', { location: 'Nhà xưởng Phú An' });
+  // sổ cấp thẻ/GCN mẫu
+  const card = (fid, name, no, company, kind) => { const cv = document.createElement('canvas'); cv.width = 540; cv.height = 340; const g = cv.getContext('2d');
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, 540, 340); g.fillStyle = '#1446b8'; g.fillRect(0, 0, 540, 64); g.fillStyle = '#fff'; g.font = 'bold 22px sans-serif'; g.fillText(kind.toUpperCase(), 20, 40);
+    g.fillStyle = '#eef3fc'; g.fillRect(20, 84, 120, 160); g.fillStyle = '#0b2e7a'; g.font = 'bold 20px sans-serif'; g.fillText(name, 160, 112); g.font = '16px sans-serif'; g.fillText('Số: ' + no, 160, 146); g.fillText(company.slice(0, 40), 160, 176); g.fillText('DỮ LIỆU MẪU', 160, 230);
+    b.files.set(fid, base64ToBlob(cv.toDataURL('image/png').split(',')[1], 'image/png')); return { id: fid, name: `The_${no.replace(/\W+/g, '-')}.png`, type: 'image/png', size: 12000, enc: 'raw', at: new Date().toISOString(), kind: 'the' }; };
+  const names = ['NGUYỄN VĂN AN', 'TRẦN MINH BẢO', 'LÊ QUANG CƯỜNG', 'PHẠM VĂN DŨNG', 'HOÀNG ĐỨC EM', 'VŨ THỊ GIANG', 'ĐẶNG VĂN HẢI', 'BÙI QUỐC KHÁNH', 'ĐỖ MINH LONG', 'HỒ VĂN MẠNH', 'NGÔ THANH NAM', 'DƯƠNG VĂN PHÚC'];
+  const roster = (id, cid, classId, qid, title, group, certType, from, to, issue, n, prefix, extra = {}) => {
+    const students = names.slice(0, n).map((nm, i) => { const no = `${prefix}-${pad(i + 1)}/${issue.slice(0, 4)}`; return { k: `${id}-${i}`, stt: i + 1, name: nm, gender: i === 5 ? 'Nữ' : 'Nam', dob: `${pad(3 + i)}/0${1 + (i % 9)}/19${80 + i}`, nationality: 'Việt Nam', cccd: `0790${80 + i}00${1000 + i * 7}`, position: group === 3 ? ['Thợ hàn', 'Thợ lắp ráp', 'Vận hành cẩu'][i % 3] : 'Công nhân', certNo: no, result: 'Đạt', files: i < 3 ? [card(`fcard-${id}-${i}`, nm, no, cname(cid), certType)] : [] }; });
+    put('rosters', { id, batchId: id, part: 1, title, customerId: cid, customerName: cname(cid), classId, quoteId: qid, groups: [group], certType, courseFrom: from, courseTo: to, hours: group === 3 ? 24 : 16, issueDate: issue, decisionNo: `${id.slice(2)}/QĐ-DAKO (mẫu)`, decisionDate: issue, decisionFiles: [pdf('fqd-' + id, `Quyet-dinh-${id}.pdf`, 'QUYET DINH CAP THE / GCN', [title, `So hoc vien: ${n}`])], files: [], students, ...extra });
+  };
+  roster('ro1', 'kh1', 'l1', 'bg1', 'Thẻ an toàn nhóm 3 – Đóng tàu Sao Biển (mẫu)', 3, 'Thẻ an toàn', D(-45), D(-43), D(-42), 12, 'DAKO-N3');
+  roster('ro2', 'kh6', 'l13', null, 'Sổ theo dõi nhóm 4 – Thủy sản Hải Đăng (mẫu)', 4, 'Sổ theo dõi', D(-700), D(-700), D(-700), 8, 'DAKO-N4');
+  roster('ro3', 'kh1', 'l12', null, 'Thẻ an toàn nhóm 3 – Đóng tàu Sao Biển 2025 (mẫu)', 3, 'Thẻ an toàn', D(-700), D(-698), D(-697), 6, 'DAKO-N3-25');
   put('settings', { id: 'main', ...clone(DEFAULT_SETTINGS) });
   return b;
 }

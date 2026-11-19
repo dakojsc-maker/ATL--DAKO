@@ -97,8 +97,26 @@ document.addEventListener('click', async (e) => {
     case 'cal-next': S.ui.month = ymAdd(S.ui.month, 1); S.ui.selDate = S.ui.month + '-01'; upd(); break;
     case 'cal-today': S.ui.month = todayISO().slice(0, 7); S.ui.selDate = todayISO(); upd(); break;
     case 'ov-period': S.ui.ovPeriod = v; upd(); break;
-    case 'ov-prev': S.ui.ovMonth = ymAdd(S.ui.ovMonth, S.ui.ovPeriod === 'year' ? -12 : -1); upd(); break;
-    case 'ov-next': S.ui.ovMonth = ymAdd(S.ui.ovMonth, S.ui.ovPeriod === 'year' ? 12 : 1); upd(); break;
+    case 'ov-prev': S.ui.ovMonth = ymAdd(S.ui.ovMonth, -stepOf(S.ui.ovPeriod)); upd(); break;
+    case 'ov-next': S.ui.ovMonth = ymAdd(S.ui.ovMonth, stepOf(S.ui.ovPeriod)); upd(); break;
+    case 'pf-period': S.ui.pfPeriod = v; upd(); break;
+    case 'pf-prev': S.ui.pfMonth = ymAdd(S.ui.pfMonth, -stepOf(S.ui.pfPeriod)); upd(); break;
+    case 'pf-next': S.ui.pfMonth = ymAdd(S.ui.pfMonth, stepOf(S.ui.pfPeriod)); upd(); break;
+    case 'tr-view': S.ui.trView = v; upd(); break;
+    case 'led-state': S.ui.ledState = v; upd(); break;
+    case 'st-view': S.ui.stView = v; upd(); break;
+    case 'st-page': S.ui.stPage = Math.max(0, (S.ui.stPage || 0) + Number(v)); upd(); window.scrollTo({ top: 0 }); break;
+    case 'fee-open': e.stopPropagation(); feeModal(id, el.dataset.trainer); break;
+    case 'fee-pay': e.stopPropagation(); feeModal(id, el.dataset.trainer, { pay: true }); break;
+    case 'pnl-view': e.stopPropagation(); if (quote(id)) pnlEditor(id); break;
+    case 'student-view': studentDetail(id, el.dataset.key); break;
+    case 'roster-view': rosterDetail(id); break;
+    case 'roster-new': rosterForm(null); break;
+    case 'goto-students': {
+      Modals.slice().forEach((mm) => mm.close());
+      if (/^(cid|name):/.test(id || '')) { S.ui.stCompany = id; S.ui.stSearch = ''; } else { S.ui.stSearch = id || ''; S.ui.stCompany = ''; }
+      S.ui.stPage = 0; S.ui.stView = 'students'; go('hoc-vien'); break;
+    }
     case 'toggle-alerts': S.ui.allAlerts = !S.ui.allAlerts; upd(); break;
     case 'day': {
       const d = el.dataset.date; S.ui.selDate = d;
@@ -145,7 +163,8 @@ document.addEventListener('click', async (e) => {
     case 'demo-off':
       S.role = PREV_ROLE || S.role; Store.attach(REAL || new MemoryBackend('none')); applyRole(); mountTab(); break;
     case 'hide-local': lsSet('dako-hide-local', '1'); renderChrome(); break;
-    case 'export-xlsx': exportXlsx(); break;
+    case 'export': openExport(v || S.ui.tab); break;
+    case 'export-xlsx': openExport(S.ui.tab); break;
     case 'backup': backup(); break;
     case 'settings-save': {
       const next = SettingsView.collect();
@@ -174,44 +193,19 @@ document.addEventListener('input', (e) => {
   const k = e.target.dataset?.input;
   if (!k) { if (S.ui.tab === 'cai-dat' && e.target.closest('#main')) SettingsView.dirty = true; return; }
   const v = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-  const map = { 'cal-search': 'calSearch', 'tr-search': 'trSearch', 'tr-spec': 'trSpec', 'tr-status': 'trStatus', 'q-search': 'qSearch', 'q-year': 'qYear', 'c-search': 'cSearch', 'c-year': 'cYear', 'cu-search': 'cuSearch', 'cu-due': 'cuDue' };
+  const map = { 'cal-search': 'calSearch', 'tr-search': 'trSearch', 'tr-spec': 'trSpec', 'tr-status': 'trStatus', 'q-search': 'qSearch', 'q-year': 'qYear', 'c-search': 'cSearch', 'c-year': 'cYear', 'cu-search': 'cuSearch', 'cu-due': 'cuDue',
+    'led-search': 'ledSearch', 'led-period': 'ledPeriod', 'st-search': 'stSearch', 'st-company': 'stCompany', 'st-group': 'stGroup', 'st-type': 'stType', 'st-status': 'stStatus', 'st-year': 'stYear' };
+  if (k.startsWith('st-')) S.ui.stPage = 0;
   if (map[k]) { S.ui[map[k]] = v; deferredUpdate(); }
 });
 document.addEventListener('change', (e) => {
   if (e.target.dataset?.input === 'restore' && e.target.files?.[0]) { const file = e.target.files[0]; e.target.value = ''; restore(file); }
 });
 
-/* ---------- Excel export ---------- */
-async function exportXlsx() {
-  let XLSX;
-  try { toast('Đang tạo file Excel…'); XLSX = await lib('xlsx'); } catch (e) { toast(e.message, 'bad'); return; }
-  const wb = XLSX.utils.book_new();
-  const add = (name, rows, widths) => { const ws = XLSX.utils.aoa_to_sheet(rows); ws['!cols'] = widths.map((w) => ({ wch: w })); XLSX.utils.book_append_sheet(wb, ws, name); };
-  const cls = S.classes.slice().sort(sortClasses);
-  add('Lịch giảng dạy', [['Từ ngày', 'Đến ngày', 'Giờ học', 'Khách hàng', 'Tên lớp', 'Hình thức', 'Nhóm', 'Số HV', 'Vùng', 'Địa điểm', 'Giảng viên', 'SĐT giảng viên', 'Đơn giá (chưa VAT)', 'VAT %', 'Thành tiền gồm VAT', 'Thù lao GV', 'Đi lại – lưu trú', 'Chi phí khác', 'Lãi gộp', 'Trạng thái', 'Số báo giá', 'Số hợp đồng', 'Đã cấp GCN/thẻ', 'Đã xuất hóa đơn', 'Ghi chú'],
-    ...cls.map((c) => { const m = classMoney(c); const q = c.quoteId && quote(c.quoteId); return [fmtD(c.startDate), fmtD(c.endDate), `${c.startTime || ''}–${c.endTime || ''}`, classLabel(c), c.title || '', c.kind || '', groupsText(c.groups), Number(c.students) || 0, regionName(c.region), c.location || '', trainerNames(c.trainerIds), (c.trainerIds || []).map((x) => trainer(x)?.phone || '').join(', '), Number(c.price) || 0, vatOf(c), m.total, Number(c.costTrainer) || 0, Number(c.costTravel) || 0, Number(c.costOther) || 0, m.profit, CLASS_STATUS[c.status]?.label || '', q?.no || '', q?.contractNo || '', c.certIssued ? 'Có' : '', c.invoiced ? 'Có' : '', c.notes || '']; })],
-    [11, 11, 12, 34, 26, 18, 14, 7, 22, 30, 28, 20, 14, 6, 16, 13, 13, 13, 13, 13, 14, 18, 9, 9, 30]);
-  const ym = todayISO().slice(0, 7);
-  add('Giảng viên', [['Họ tên', 'Điện thoại', 'Email', 'Vùng chính', 'Vùng hỗ trợ', 'Chuyên ngành', 'Nhóm được dạy', 'Trình độ', 'Kinh nghiệm (năm)', 'Số chứng chỉ', 'Hạn chứng chỉ', 'Hình thức', 'Thù lao/ngày', 'Trạng thái', `Ngày dạy ${fmtYM(ym)}`, 'Ghi chú'],
-    ...S.trainers.slice().sort((a, b) => a.name.localeCompare(b.name, 'vi')).map((x) => [x.name, x.phone || '', x.email || '', regionName(x.region), (x.otherRegions || []).map(regionName).join(', '), (x.specialties || []).join(', '), groupsText(x.groups), x.degree || '', Number(x.experience) || '', x.certNo || '', fmtD(x.certExpiry), x.employment || '', Number(x.dailyRate) || 0, x.status === 'paused' ? 'Tạm ngưng' : 'Đang hoạt động', trainerMonthLoad(x.id, ym).days, x.notes || ''])],
-    [26, 14, 24, 22, 22, 44, 16, 22, 10, 16, 12, 14, 13, 14, 12, 30]);
-  add('Báo giá', [['Số báo giá', 'Ngày', 'Khách hàng', 'Người liên hệ', 'SĐT', 'Nhóm', 'Số HV', 'Số lớp', 'Đơn giá/lớp', 'Giá trị (chưa VAT)', 'VAT %', 'Gồm VAT', 'Trạng thái', 'Người phụ trách', 'File báo giá', 'File hợp đồng', 'Ghi chú'],
-    ...S.quotes.slice().sort((a, b) => (a.date || '').localeCompare(b.date || '')).map((q) => { const m = quoteMoney(q); return [q.no || '', fmtD(q.date), q.customerName || '', q.contact || '', q.contactPhone || '', groupsText(q.groups), Number(q.students) || 0, Number(q.classCount) || 0, Number(q.unitPrice) || 0, m.amount, vatOf(q), m.total, QUOTE_STATUS[q.status]?.label || '', q.owner || '', (q.quoteFiles || []).map((x) => x.name).join(', '), (q.contractFiles || []).map((x) => x.name).join(', '), q.notes || '']; })],
-    [14, 11, 34, 20, 14, 14, 7, 7, 13, 15, 6, 15, 18, 16, 28, 28, 30]);
-  add('Hợp đồng', [['Số hợp đồng', 'Ngày ký', 'Khách hàng', 'Số báo giá', 'Giá trị (chưa VAT)', 'Gồm VAT', 'Đã thu', 'Còn phải thu', 'Hạn thanh toán', 'Lớp hoàn thành / tổng', 'Tình trạng', 'File hợp đồng'],
-    ...S.quotes.filter(isContract).sort((a, b) => (a.contractDate || '').localeCompare(b.contractDate || '')).map((q) => { const m = contractMoney(q); const cs = quoteClasses(q).filter((c) => c.status !== 'cancelled'); return [q.contractNo || '', fmtD(q.contractDate), q.customerName || '', q.no || '', m.amount, m.total, m.paid, m.remain, fmtD(q.paymentDue), `${cs.filter((c) => c.status === 'done').length}/${cs.length}`, contractState(q).label, (q.contractFiles || []).map((x) => x.name).join(', ')]; })],
-    [20, 11, 34, 14, 15, 15, 14, 14, 12, 12, 20, 30]);
-  add('Khách hàng', [['Tên công ty', 'MST', 'Vùng', 'Ngành nghề', 'Địa chỉ', 'Người liên hệ', 'SĐT', 'Email', 'Số lớp', 'HV đã đào tạo', 'Doanh thu (chưa VAT)', 'Lần gần nhất', 'Định kỳ tiếp theo', 'Nhóm đến hạn'],
-    ...S.customers.slice().sort((a, b) => a.name.localeCompare(b.name, 'vi')).map((c) => { const s2 = customerStats(c.id); const d = customerDues(c.id)[0]; return [c.name, c.taxCode || '', regionName(c.region), c.industry || '', c.address || '', c.contact || '', c.phone || '', c.email || '', s2.classes, s2.students, s2.revenue, fmtD(s2.last), d ? fmtD(d.due) : '', d ? 'Nhóm ' + d.group : '']; })],
-    [34, 14, 20, 18, 34, 22, 14, 24, 8, 10, 16, 12, 14, 10]);
-  const out = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-  try { await Store.backend.download(`DAKO_Huan-luyen-ATVSLD_${todayISO()}.xlsx`, new Blob([out], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })); } catch (e) { toast(e.message, 'bad'); }
-}
-
 /* ---------- backup & restore ---------- */
 async function backup() {
   const withFiles = $('#backup-files') ? $('#backup-files').checked : true;
-  const out = { app: 'dako-atld', version: APP_VERSION, exportedAt: new Date().toISOString(), data: { trainers: S.trainers, classes: S.classes, quotes: S.quotes, customers: S.customers, settings: S.settings }, files: {} };
+  const out = { app: 'dako-atld', version: APP_VERSION, exportedAt: new Date().toISOString(), data: { trainers: S.trainers, classes: S.classes, quotes: S.quotes, customers: S.customers, rosters: S.rosters, settings: S.settings }, files: {} };
   if (withFiles && FILES.size) {
     toast(`Đang gom ${FILES.size} file đính kèm…`);
     for (const [id, meta] of FILES) { try { out.files[id] = { meta, b64: await blobToBase64(await Store.backend.getBlob(meta)) }; } catch (e) { /* bỏ qua file lỗi */ } }
@@ -225,7 +219,7 @@ async function restore(file) {
   try { obj = JSON.parse(await file.text()); } catch (e) { toast('File không đúng định dạng sao lưu của công cụ.', 'bad'); return; }
   if (obj?.app !== 'dako-atld' || !obj.data) { toast('File không đúng định dạng sao lưu của công cụ.', 'bad'); return; }
   const d = obj.data;
-  const n = ['trainers', 'classes', 'quotes', 'customers'].reduce((s, k) => s + (d[k] || []).length, 0);
+  const n = ['trainers', 'classes', 'quotes', 'customers', 'rosters'].reduce((s, k) => s + (d[k] || []).length, 0);
   const nf = Object.keys(obj.files || {}).length;
   if (!(await confirmBox(`Khôi phục <b>${n}</b> bản ghi và <b>${nf}</b> file từ bản sao lưu ngày ${esc(fmtStamp(obj.exportedAt))}?<br><br>Bản ghi trùng mã sẽ được ghi đè bằng bản sao lưu; các bản ghi khác giữ nguyên.`, { ok: 'Khôi phục' }))) return;
   toast('Đang khôi phục…');
@@ -237,8 +231,10 @@ async function restore(file) {
   try {
     for (const x of d.customers || []) await Store.backend.set('customers', x.id, x);
     for (const x of d.trainers || []) await Store.backend.set('trainers', x.id, { ...x, photo: rf(x.photo), files: rl(x.files) });
-    for (const x of d.quotes || []) await Store.backend.set('quotes', x.id, { ...x, quoteFiles: rl(x.quoteFiles), contractFiles: rl(x.contractFiles) });
-    for (const x of d.classes || []) await Store.backend.set('classes', x.id, { ...x, files: rl(x.files) });
+    for (const x of d.quotes || []) await Store.backend.set('quotes', x.id, { ...x, quoteFiles: rl(x.quoteFiles), contractFiles: rl(x.contractFiles), costFiles: rl(x.costFiles) });
+    for (const x of d.classes || []) await Store.backend.set('classes', x.id, { ...x, files: rl(x.files), ...(x.fees ? { fees: x.fees.map((fe) => ({ ...fe, files: rl(fe.files) })) } : {}) });
+    const kf = (l) => (l || []).map((x) => ({ ...rf(x), kind: x.kind }));
+    for (const x of d.rosters || []) await Store.backend.set('rosters', x.id, { ...x, decisionFiles: rl(x.decisionFiles), files: rl(x.files), students: (x.students || []).map((st) => ({ ...st, files: kf(st.files) })) });
     if (d.settings) await Store.backend.set('settings', 'main', d.settings);
     Store.log('Khôi phục', 'settings', `Bản sao lưu ${fmtStamp(obj.exportedAt)}`);
     toast(`Đã khôi phục ${n} bản ghi, ${Object.keys(map).length} file.`, 'ok');
