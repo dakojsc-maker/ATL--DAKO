@@ -10,6 +10,8 @@ const emptyBox = (title, text = '', btn = '') => `<div class="empty"><b>${esc(ti
 const exportBtn = (tab) => `<button type="button" class="btn" data-act="export" data-v="${tab}">${ic('table')} Xuất Excel</button>`;
 const kpi = (k, v, d, hl = false, tone = '') => `<div class="kpi${hl ? ' hl' : ''}${tone ? ' ' + tone : ''}"><span class="k">${k}</span><span class="v">${v}</span><span class="d">${d}</span></div>`;
 const moneyCell = (n, cls = '') => `<td class="r ${cls}"${n < 0 ? ' style="color:var(--bad)"' : ''}>${money(n)}</td>`;
+/** Ô thù lao: số trước thuế, kèm dòng thuế TNCN khấu trừ (nếu có). */
+const feeAmountCell = (r) => `<td class="r">${money(r.amount)}${r.pit ? `<div class="muted small" title="Thuế TNCN DAKO khấu trừ, nộp thay – không trả cho giảng viên">trừ TNCN ${money(r.pit)}</div>` : ''}</td>`;
 
 /** Kỳ đang xem dùng chung cho Tổng quan và Doanh thu – Lợi nhuận. */
 function viewPeriod(kind, ym) {
@@ -279,7 +281,7 @@ const TrainersView = {
     S.ui.trRegion = S.ui.trRegion || 'all'; S.ui.trStatus = S.ui.trStatus || 'active'; S.ui.trView = S.ui.trView || 'list';
     S.ui.ledPeriod = S.ui.ledPeriod || 'all'; S.ui.ledState = S.ui.ledState || 'owe';
     el.innerHTML = `<div class="page-head"><div><h1>Giảng viên</h1><div class="sub">Thông tin liên hệ, vùng đào tạo, chuyên ngành, lịch dạy và thù lao – công nợ của từng giảng viên</div></div>
-      <div class="actions"><div class="seg" data-trview></div>${exportBtn('giang-vien')}<button type="button" class="btn cta edit-only" data-act="trainer-new">${ic('plus')} Thêm giảng viên</button></div></div>
+      <div class="actions"><div class="seg" data-trview></div>${exportBtn('giang-vien')}<button type="button" class="btn edit-only" data-act="tc-new">${ic('sign')} Tạo hợp đồng</button><button type="button" class="btn cta edit-only" data-act="trainer-new">${ic('plus')} Thêm giảng viên</button></div></div>
       <div class="toolbar" data-regions></div>
       <div class="toolbar" data-tools></div>
       <div data-body></div>`;
@@ -287,11 +289,12 @@ const TrainersView = {
   },
   update() {
     const el = this.el;
-    el.querySelector('[data-trview]').innerHTML = `<button type="button" data-act="tr-view" data-v="list" aria-pressed="${S.ui.trView === 'list'}">${ic('users')}Danh sách</button><button type="button" data-act="tr-view" data-v="ledger" aria-pressed="${S.ui.trView === 'ledger'}">${ic('money')}Thù lao &amp; công nợ</button>`;
+    el.querySelector('[data-trview]').innerHTML = `<button type="button" data-act="tr-view" data-v="list" aria-pressed="${S.ui.trView === 'list'}">${ic('users')}Danh sách</button><button type="button" data-act="tr-view" data-v="contracts" aria-pressed="${S.ui.trView === 'contracts'}">${ic('sign')}Hợp đồng</button><button type="button" data-act="tr-view" data-v="ledger" aria-pressed="${S.ui.trView === 'ledger'}">${ic('money')}Thù lao &amp; công nợ</button>`;
     const counts = { all: S.trainers.filter((x) => x.status !== 'paused').length };
     regionList().forEach((r) => (counts[r.id] = S.trainers.filter((x) => x.region === r.id && x.status !== 'paused').length));
     el.querySelector('[data-regions]').innerHTML = regionChips(S.ui.trRegion, counts, 'tr-region');
     if (S.ui.trView === 'ledger') return this.ledger();
+    if (S.ui.trView === 'contracts') return this.contracts();
     const tools = el.querySelector('[data-tools]');
     if (tools.dataset.mode !== 'list') {
       tools.dataset.mode = 'list';
@@ -325,7 +328,7 @@ const TrainersView = {
           <div>${rtag(x.region)}${(x.otherRegions || []).length ? ` <span class="muted small">+ ${esc(x.otherRegions.map(regionName).join(', '))}</span>` : ''}</div>
           <div class="tags">${specsT.slice(0, 3).map((s) => `<span class="tag">${esc(s)}</span>`).join('')}${specsT.length > 3 ? `<span class="tag">+${specsT.length - 3}</span>` : ''}</div>
           <div class="small muted">${(x.groups || []).length ? 'Dạy ' + esc(groupsText(x.groups)) : 'Chưa chọn nhóm được dạy'}${x.employment ? ' · ' + esc(x.employment) : ''}</div>
-          ${x.status === 'paused' ? pill('Tạm ngưng', 'muted') : cert && cert.tone !== 'ok' ? pill('Chứng chỉ: ' + cert.text, cert.tone) : ''}
+          <div style="display:flex;gap:6px;flex-wrap:wrap">${x.status === 'paused' ? pill('Tạm ngưng', 'muted') : cert && cert.tone !== 'ok' ? pill('Chứng chỉ: ' + cert.text, cert.tone) : ''}${x.status === 'paused' && !trainerTcs(x.id).length ? '' : trainerTcBadge(x)}</div>
         </div></div>
         <div class="tcard-bot">${today.length ? pill('Hôm nay: đang dạy', 'accent') : pill('Hôm nay: rảnh', 'ok')}<span>Tháng ${Number(ym.slice(5))}: <b>${load.days}</b> ngày dạy</span>
           ${L.amount ? `<span class="next">Thù lao ${esc(moneyShort(L.amount))} · đã trả ${esc(moneyShort(L.paid))} · ${L.remain > 0 ? `<b style="color:var(--accent)">còn nợ ${esc(moneyD(L.remain))}</b>` : '<b style="color:var(--ok)">đã thanh toán đủ</b>'}</span>` : ''}
@@ -333,6 +336,22 @@ const TrainersView = {
       </article>`;
     }).join('')}</div>`;
     hydrate(body);
+  },
+  contracts() {
+    const el = this.el; const tools = el.querySelector('[data-tools]');
+    S.ui.tcYear = S.ui.tcYear || 'all'; S.ui.tcKind = S.ui.tcKind || 'all'; S.ui.tcState = S.ui.tcState || 'all';
+    const years = uniq([todayISO().slice(0, 4), ...S.tcontracts.map((x) => String(tcYear(x)))]).sort().reverse();
+    if (tools.dataset.mode !== 'contracts') {
+      tools.dataset.mode = 'contracts';
+      tools.innerHTML = `<div class="search">${ic('search')}<input class="input" type="search" id="tc-search" placeholder="Tìm số hợp đồng, giảng viên, khách hàng…" value="${esc(S.ui.tcSearch || '')}" data-input="tc-search"></div>
+        <select class="input" id="tc-year" style="width:auto" data-input="tc-year" aria-label="Năm ký"></select>
+        <select class="input" id="tc-state" style="width:auto" data-input="tc-state" aria-label="Tình trạng"><option value="all">Mọi tình trạng</option><option value="draft">Chờ ký</option><option value="active">Còn hiệu lực</option><option value="expiring">Sắp hết hạn</option><option value="signed">Đã ký – chưa thanh toán đủ</option><option value="paid">Phụ lục đã thanh toán đủ</option><option value="expired">Hết hiệu lực</option><option value="cancelled">Đã hủy</option></select>
+        <div class="chips" data-tckind></div>`;
+    }
+    el.querySelector('#tc-year').innerHTML = [['all', 'Mọi năm'], ...years.map((y) => [y, 'Năm ' + y])].map(([v, l]) => `<option value="${v}"${S.ui.tcYear === v ? ' selected' : ''}>${esc(l)}</option>`).join('');
+    el.querySelector('#tc-state').value = S.ui.tcState;
+    el.querySelector('[data-tckind]').innerHTML = [['all', 'Tất cả'], ['nt', 'HĐ nguyên tắc'], ['pl', 'Phụ lục']].map(([v, l]) => `<button type="button" class="chip" data-act="tc-kind" data-v="${v}" aria-pressed="${S.ui.tcKind === v}">${l}<span class="count">${v === 'all' ? S.tcontracts.length : S.tcontracts.filter((x) => x.kind === v).length}</span></button>`).join('');
+    const body = el.querySelector('[data-body]'); body.innerHTML = tcRegisterHTML(); hydrate(body);
   },
   ledgerRange() {
     const v = S.ui.ledPeriod;
@@ -372,7 +391,7 @@ const TrainersView = {
       for (const r of g.rows) {
         html += `<tr data-act="fee-open" data-id="${esc(r.c.id)}" data-trainer="${esc(g.x.id)}"><td class="nowrap num">${esc(fmtDateRange(r.c.startDate, r.c.endDate))}</td><td>${esc(classLabel(r.c))}<div class="muted small">${esc(groupsText(r.c.groups))}${r.c.students ? ' · ' + r.c.students + ' HV' : ''}${r.c.status === 'cancelled' ? ' · đã hủy' : ''}</div></td><td class="r">${r.days}</td>
           <td class="small">${esc(r.f.contractNo || '')}${(r.f.files || []).length ? ' ' + fileButtons(r.f.files, 'HĐ') : r.f.contractNo ? '' : '<span class="muted">—</span>'}</td>
-          ${moneyCell(r.amount)}${moneyCell(r.paid)}<td class="r strong" style="color:${r.remain > 0 ? 'var(--accent)' : r.remain < 0 ? 'var(--bad)' : 'var(--ok)'}">${money(r.remain)}</td><td>${pill(r.label, r.tone)}</td>
+          ${feeAmountCell(r)}${moneyCell(r.paid)}<td class="r strong" style="color:${r.remain > 0 ? 'var(--accent)' : r.remain < 0 ? 'var(--bad)' : 'var(--ok)'}">${money(r.remain)}</td><td>${pill(r.label, r.tone)}</td>
           <td class="r"><button type="button" class="btn xs edit-only" data-act="fee-pay" data-id="${esc(r.c.id)}" data-trainer="${esc(g.x.id)}">${ic('money')} Trả tiền</button></td></tr>`;
       }
       html += '</tbody>';
@@ -567,14 +586,29 @@ const SettingsView = {
         <div class="f span2"><label for="set-cmode">Cách tính thuế</label><select class="input" id="set-cmode" ${dis}><option value="net"${st.commissionTaxMode !== 'gross' ? ' selected' : ''}>Thuế = % × số thực trả (30 tr → thuế 5 tr, thực trả 25 tr)</option><option value="gross"${st.commissionTaxMode === 'gross' ? ' selected' : ''}>Thuế = % × tổng hoa hồng (30 tr → thuế 6 tr, thực trả 24 tr)</option></select>
           <span class="hint">Đang áp dụng: hoa hồng 30.000.000 đ → thuế ${esc(moneyD(ex))}, thực trả ${esc(moneyD(30000000 - ex))}. Lợi nhuận trừ cả số thực trả và tiền thuế.</span></div>
       </div></div></section>
-      <section class="panel"><div class="panel-h"><h2>Thông tin công ty trên báo cáo Excel</h2></div><div class="panel-b"><div class="fgrid">
+      <section class="panel"><div class="panel-h"><h2>Thông tin công ty</h2><span class="muted small">in trên báo cáo Excel và hợp đồng giảng viên (Bên A)</span></div><div class="panel-b"><div class="fgrid">
         <div class="f span2"><label for="set-coname">Tên công ty</label><input class="input" id="set-coname" value="${esc(co.name)}" ${dis}></div>
         <div class="f span2"><label for="set-coaddr">Địa chỉ</label><input class="input" id="set-coaddr" value="${esc(co.address)}" ${dis}></div>
         <div class="f"><label for="set-cophone">Hotline</label><input class="input" id="set-cophone" value="${esc(co.phone)}" ${dis}></div>
         <div class="f"><label for="set-coemail">Email</label><input class="input" id="set-coemail" value="${esc(co.email)}" ${dis}></div>
         <div class="f"><label for="set-codir">Giám đốc (ký báo cáo)</label><input class="input" id="set-codir" value="${esc(co.director)}" ${dis}></div>
         <div class="f"><label for="set-cocity">Nơi lập báo cáo</label><input class="input" id="set-cocity" value="${esc(co.city)}" ${dis}></div>
+        <div class="f span2"><label for="set-conamevi">Tên công ty viết thường (trong câu văn hợp đồng)</label><input class="input" id="set-conamevi" value="${esc(co.nameVi)}" placeholder="VD: Công ty Cổ phần Kỹ thuật Hàng hải DAKO" ${dis}></div>
+        <div class="f"><label for="set-cotax">Mã số thuế</label><input class="input" id="set-cotax" value="${esc(co.taxCode)}" placeholder="MST công ty – in trong hợp đồng" ${dis}>${co.taxCode ? '' : '<span class="hint warn-t">Chưa có – hợp đồng sẽ in dòng chấm</span>'}</div>
+        <div class="f"><label for="set-codtitle">Chức vụ người đại diện ký</label><input class="input" id="set-codtitle" value="${esc(co.directorTitle)}" placeholder="VD: Giám đốc" ${dis}></div>
+        <div class="f"><label for="set-cobank">Số tài khoản công ty</label><input class="input" id="set-cobank" value="${esc(co.bankAccount)}" inputmode="numeric" ${dis}></div>
+        <div class="f"><label for="set-cobankname">Tại ngân hàng</label><input class="input" id="set-cobankname" value="${esc(co.bankName)}" ${dis}></div>
+        <div class="f span2"><label for="set-cosign">Nơi ký hợp đồng mặc định</label><input class="input" id="set-cosign" value="${esc(co.signPlace)}" placeholder="Để trống: dùng địa chỉ công ty" ${dis}><span class="hint">Điền vào câu “Hôm nay, ngày … tại …” của hợp đồng; sửa được khi lập từng hợp đồng.</span></div>
       </div></div></section>
+      <section class="panel"><div class="panel-h"><h2>Số hợp đồng giảng viên &amp; số quyết định</h2></div><div class="panel-b"><div class="fgrid">
+        <div class="f span2"><label for="set-hdfmt">Mẫu số hợp đồng nguyên tắc</label><input class="input" id="set-hdfmt" value="${esc(st.contractNoFormat || DEFAULT_SETTINGS.contractNoFormat)}" ${dis}><span class="hint">Số đầu tiên năm ${todayISO().slice(0, 4)}: ${esc(fmtDocNo(st.contractNoFormat || DEFAULT_SETTINGS.contractNoFormat, { stt: 1, year: todayISO().slice(0, 4) }))}</span></div>
+        <div class="f"><label for="set-plfmt">Mẫu số phụ lục</label><input class="input" id="set-plfmt" value="${esc(st.appendixNoFormat || DEFAULT_SETTINGS.appendixNoFormat)}" ${dis}><span class="hint">VD: ${esc(fmtDocNo(st.appendixNoFormat || DEFAULT_SETTINGS.appendixNoFormat, { stt: 1, year: todayISO().slice(0, 4) }))}</span></div>
+        <div class="f"><label for="set-paydays">Thanh toán thù lao trong (ngày làm việc)</label><input class="input" type="number" min="1" id="set-paydays" value="${esc(st.contractPayDays ?? '')}" placeholder="Để trống: in “.......”" ${dis}><span class="hint">Điều 3.3 hợp đồng, 2.2 phụ lục</span></div>
+        <div class="f"><label for="set-pitrate">Thuế TNCN khấu trừ (%)</label><input class="input" type="number" min="0" max="35" step="0.5" id="set-pitrate" value="${esc(st.pitRate ?? 10)}" ${dis}></div>
+        <div class="f"><label for="set-pitmin">Khấu trừ khi mỗi lần chi trả từ (đ)</label><input class="input" data-money id="set-pitmin" value="${money(st.pitMin ?? 2000000)}" ${dis}></div>
+        <div class="f span2"><label for="set-decfmt">Mẫu số quyết định hoàn thành khóa học</label><input class="input" id="set-decfmt" value="${esc(st.decisionNoFormat || DEFAULT_SETTINGS.decisionNoFormat)}" ${dis}><span class="hint">VD: ${esc(fmtDocNo(st.decisionNoFormat || DEFAULT_SETTINGS.decisionNoFormat, { stt: 5, group: 3, year: todayISO().slice(0, 4) }))}</span></div>
+        <div class="f span2"><label for="set-decseq">Cách đánh số quyết định</label><select class="input" id="set-decseq" ${dis}><option value="year"${st.decisionSeq !== 'group' ? ' selected' : ''}>Liên tục cả 6 nhóm trong năm (01/QĐ-N3, 02/QĐ-N1, 03/QĐ-N3…)</option><option value="group"${st.decisionSeq === 'group' ? ' selected' : ''}>Mỗi nhóm một dãy số riêng (01/QĐ-N1, 01/QĐ-N3…)</option></select></div>
+      </div><p class="small muted" style="margin:10px 0 0">Dùng <b>{stt}</b> cho số thứ tự (tự thêm số 0: 01, 02…), <b>{năm}</b> cho năm ký, <b>{nhóm}</b> cho nhóm 1–6. Số thứ tự đánh lại từ 01 mỗi năm; công cụ báo trùng số và số bỏ trống.</p></div></section>
       <section class="panel"><div class="panel-h"><h2>Vùng đào tạo</h2></div><div class="panel-b">
         <div class="tbl-wrap"><table class="tbl" id="region-table"><thead><tr><th></th><th>Tên vùng</th><th>Trung tâm</th></tr></thead><tbody>
         ${regionList().map((r, i) => `<tr style="cursor:default" data-rid="${esc(r.id)}"><td><span class="rtag"><span class="sw" style="background:${regionColor(r.id)}"></span></span></td><td><input class="input" data-region="name" data-i="${i}" value="${esc(r.name)}" ${dis} aria-label="Tên vùng"></td><td><input class="input" data-region="center" data-i="${i}" value="${esc(r.center)}" ${dis} aria-label="Trung tâm"></td></tr>`).join('')}
@@ -622,7 +656,16 @@ const SettingsView = {
     st.warnDays = Number($('#set-warn', el).value) || 60;
     st.commissionTax = $('#set-ctax', el).value === '' ? 20 : Number($('#set-ctax', el).value);
     st.commissionTaxMode = $('#set-cmode', el).value === 'gross' ? 'gross' : 'net';
-    st.company = { name: $('#set-coname', el).value.trim(), address: $('#set-coaddr', el).value.trim(), phone: $('#set-cophone', el).value.trim(), email: $('#set-coemail', el).value.trim(), director: $('#set-codir', el).value.trim(), city: $('#set-cocity', el).value.trim() };
+    const g = (id) => $('#' + id, el).value.trim();
+    st.company = { name: g('set-coname'), address: g('set-coaddr'), phone: g('set-cophone'), email: g('set-coemail'), director: g('set-codir'), city: g('set-cocity'),
+      nameVi: g('set-conamevi'), taxCode: g('set-cotax'), directorTitle: g('set-codtitle'), bankAccount: g('set-cobank'), bankName: g('set-cobankname'), signPlace: g('set-cosign') };
+    st.contractNoFormat = g('set-hdfmt') || DEFAULT_SETTINGS.contractNoFormat;
+    st.appendixNoFormat = g('set-plfmt') || DEFAULT_SETTINGS.appendixNoFormat;
+    st.contractPayDays = g('set-paydays');
+    st.pitRate = g('set-pitrate') === '' ? 10 : Number(g('set-pitrate'));
+    st.pitMin = parseMoney(g('set-pitmin')) || 0;
+    st.decisionNoFormat = g('set-decfmt') || DEFAULT_SETTINGS.decisionNoFormat;
+    st.decisionSeq = g('set-decseq') === 'group' ? 'group' : 'year';
     st.regions = $$('#region-table tbody tr', el).map((tr) => ({ id: tr.dataset.rid, name: tr.querySelector('[data-region=name]').value.trim() || 'Vùng chưa đặt tên', center: tr.querySelector('[data-region=center]').value.trim() }));
     st.groupHours = {}; st.cycleMonths = {};
     $$('[data-ghours]', el).forEach((i) => (st.groupHours[i.dataset.ghours] = Number(i.value) || DEFAULT_SETTINGS.groupHours[i.dataset.ghours]));
@@ -632,6 +675,12 @@ const SettingsView = {
     st.specialties = uniq($('#set-spec', el).value.split('\n').map((s) => s.trim()).filter(Boolean));
     return st;
   },
+  validate(st) {
+    if (!st.priceTiers.length) return 'Bảng giá cần ít nhất một mức giá hợp lệ.';
+    for (const [k, l] of [['contractNoFormat', 'số hợp đồng nguyên tắc'], ['appendixNoFormat', 'số phụ lục'], ['decisionNoFormat', 'số quyết định']]) if (!/\{stt\}/i.test(st[k])) return `Mẫu ${l} cần có {stt} (số thứ tự).`;
+    if (!/\{nh[óo]m\}/i.test(st.decisionNoFormat)) return 'Mẫu số quyết định cần có {nhóm} (VD: {stt}/QĐ-N{nhóm}-DAKO).';
+    return '';
+  },
 };
 
 const TABS = [
@@ -639,6 +688,7 @@ const TABS = [
   { id: 'lich', label: 'Lịch giảng dạy', icon: 'cal', view: CalendarView },
   { id: 'giang-vien', label: 'Giảng viên', icon: 'users', view: TrainersView },
   { id: 'hoc-vien', label: 'Học viên', icon: 'idcard', view: StudentsView },
+  { id: 'quyet-dinh', label: 'Quyết định', icon: 'stamp', view: DecisionsView },
   { id: 'bao-gia', label: 'Báo giá', icon: 'file', view: QuotesView },
   { id: 'hop-dong', label: 'Hợp đồng', icon: 'sign', view: ContractsView },
   { id: 'doanh-thu', label: 'Doanh thu – Lợi nhuận', icon: 'trend', view: ProfitView },

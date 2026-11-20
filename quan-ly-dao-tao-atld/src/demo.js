@@ -95,11 +95,53 @@ function buildDemo() {
   const names = ['NGUYỄN VĂN AN', 'TRẦN MINH BẢO', 'LÊ QUANG CƯỜNG', 'PHẠM VĂN DŨNG', 'HOÀNG ĐỨC EM', 'VŨ THỊ GIANG', 'ĐẶNG VĂN HẢI', 'BÙI QUỐC KHÁNH', 'ĐỖ MINH LONG', 'HỒ VĂN MẠNH', 'NGÔ THANH NAM', 'DƯƠNG VĂN PHÚC'];
   const roster = (id, cid, classId, qid, title, group, certType, from, to, issue, n, prefix, extra = {}) => {
     const students = names.slice(0, n).map((nm, i) => { const no = `${prefix}-${pad(i + 1)}/${issue.slice(0, 4)}`; return { k: `${id}-${i}`, stt: i + 1, name: nm, gender: i === 5 ? 'Nữ' : 'Nam', dob: `${pad(3 + i)}/0${1 + (i % 9)}/19${80 + i}`, nationality: 'Việt Nam', cccd: `0790${80 + i}00${1000 + i * 7}`, position: group === 3 ? ['Thợ hàn', 'Thợ lắp ráp', 'Vận hành cẩu'][i % 3] : 'Công nhân', certNo: no, result: 'Đạt', files: i < 3 ? [card(`fcard-${id}-${i}`, nm, no, cname(cid), certType)] : [] }; });
-    put('rosters', { id, batchId: id, part: 1, title, customerId: cid, customerName: cname(cid), classId, quoteId: qid, groups: [group], certType, courseFrom: from, courseTo: to, hours: group === 3 ? 24 : 16, issueDate: issue, decisionNo: `${id.slice(2)}/QĐ-DAKO (mẫu)`, decisionDate: issue, decisionFiles: [pdf('fqd-' + id, `Quyet-dinh-${id}.pdf`, 'QUYET DINH CAP THE / GCN', [title, `So hoc vien: ${n}`])], files: [], students, ...extra });
+    put('rosters', { id, batchId: id, part: 1, title, customerId: cid, customerName: cname(cid), classId, quoteId: qid, groups: [group], certType, courseFrom: from, courseTo: to, hours: group === 3 ? 24 : 16, issueDate: issue, decisionNo: extra.decisionNo || '', decisionDate: issue, decisionFiles: [pdf('fqd-' + id, `Quyet-dinh-${id}.pdf`, 'QUYET DINH CAP THE / GCN', [title, `So hoc vien: ${n}`])], files: [], students, ...extra });
   };
-  roster('ro1', 'kh1', 'l1', 'bg1', 'Thẻ an toàn nhóm 3 – Đóng tàu Sao Biển (mẫu)', 3, 'Thẻ an toàn', D(-45), D(-43), D(-42), 12, 'DAKO-N3');
-  roster('ro2', 'kh6', 'l13', null, 'Sổ theo dõi nhóm 4 – Thủy sản Hải Đăng (mẫu)', 4, 'Sổ theo dõi', D(-700), D(-700), D(-700), 8, 'DAKO-N4');
-  roster('ro3', 'kh1', 'l12', null, 'Thẻ an toàn nhóm 3 – Đóng tàu Sao Biển 2025 (mẫu)', 3, 'Thẻ an toàn', D(-700), D(-698), D(-697), 6, 'DAKO-N3-25');
+  roster('ro1', 'kh1', 'l1', 'bg1', 'Thẻ an toàn nhóm 3 – Đóng tàu Sao Biển (mẫu)', 3, 'Thẻ an toàn', D(-45), D(-43), D(-42), 12, 'DAKO-N3', { decisionNo: '01/QĐ-N3-DAKO' });
+  roster('ro2', 'kh6', 'l13', null, 'Sổ theo dõi nhóm 4 – Thủy sản Hải Đăng (mẫu)', 4, 'Sổ theo dõi', D(-700), D(-700), D(-700), 8, 'DAKO-N4', { decisionNo: '12/QĐ-N4-DAKO' });
+  roster('ro3', 'kh1', 'l12', null, 'Thẻ an toàn nhóm 3 – Đóng tàu Sao Biển 2025 (mẫu)', 3, 'Thẻ an toàn', D(-700), D(-698), D(-697), 6, 'DAKO-N3-25', { decisionNo: '15/QĐ-N3-DAKO' });
+
+  // hồ sơ giảng viên đủ thông tin hợp đồng (mẫu)
+  const more = {
+    gv4: { dob: '1979-04-12', gender: 'Nam', idNo: '079079000104', idDate: '2021-06-15', idPlace: 'Cục CS QLHC về TTXH', permAddress: '12 Đường số 5, P. Linh Trung, TP.HCM (mẫu)', email: 'tuan.mau@example.com', taxCode: '8000000104', bankAccount: '0100000000104', bankName: 'Vietcombank – CN TP.HCM', certNo: 'GV-104/2024/ATVSLĐ' },
+    gv3: { dob: '1988-09-03', gender: 'Nam', idNo: '079088000103', idDate: '2022-02-20', idPlace: 'Cục CS QLHC về TTXH', email: 'bao.mau@example.com', taxCode: '8000000103', bankAccount: '0100000000103', bankName: 'ACB – CN Thủ Đức' },
+    gv7: { dob: '1983-11-22', gender: 'Nam', bankAccount: '0100000000107', bankName: 'BIDV – CN Hà Nội' },
+    gv6: { dob: '1985-02-08', gender: 'Nữ', idNo: '056085000106', idDate: '2021-09-01', idPlace: 'Cục CS QLHC về TTXH', taxCode: '8000000106', bankAccount: '0100000000106', bankName: 'Vietinbank – CN Khánh Hòa' },
+  };
+  for (const [id, x] of Object.entries(more)) Object.assign(b.data.trainers.get(id), x);
+  // hợp đồng thỉnh giảng mẫu: 4 HĐ nguyên tắc (đã ký / chờ ký / sắp hết hạn), 2 phụ lục gắn lớp
+  const co = DEFAULT_SETTINGS.company;
+  const A = { name: co.name, nameVi: co.nameVi, address: co.address, taxCode: '', phone: co.phone, email: co.email, rep: co.director, repTitle: co.directorTitle, bankAccount: co.bankAccount, bankName: co.bankName };
+  const B = (tid) => { const x = b.data.trainers.get(tid); return { name: x.name, dob: x.dob || '', gender: x.gender || '', idNo: x.idNo || '', idDate: x.idDate || '', idPlace: x.idPlace || '', address: x.permAddress || x.address || '', phone: x.phone, email: x.email || '', taxCode: x.taxCode || '', degree: x.degree || '', certNo: x.certNo || '', groups: x.groups.slice(), bankAccount: x.bankAccount || '', bankName: x.bankName || '' }; };
+  const ntNo = (stt, d) => `${pad(stt)}/${d.slice(0, 4)}/HĐNT-ATVSLĐ`;
+  const cnt = {}; const nextStt = (k, d) => (cnt[k + d.slice(0, 4)] = (cnt[k + d.slice(0, 4)] || 0) + 1);
+  const nt = (id, tid, sign, to, status) => { const stt = nextStt('nt', sign); put('tcontracts', { id, kind: 'nt', trainerId: tid, trainerName: b.data.trainers.get(tid).name, no: ntNo(stt, sign), stt, year: Number(sign.slice(0, 4)), signDate: sign, signPlace: co.address, from: sign, to, term: 'custom', payDays: '07', withForm: true, partyA: A, partyB: B(tid), status, notes: '' }); };
+  nt('hd3', 'gv6', D(-350), D(14), 'signed');
+  nt('hd1', 'gv4', D(-100), addDays(addMonths(D(-100), 12), -1), 'signed');
+  nt('hd2', 'gv3', D(-80), addDays(addMonths(D(-80), 12), -1), 'signed');
+  nt('hd4', 'gv7', D(-3), addDays(addMonths(D(-3), 12), -1), 'draft');
+  const classRow = (cid, tid) => { const c = b.data.classes.get(cid); const days = classDays(c); const rate = b.data.trainers.get(tid).dailyRate; return { id: 'r' + cid, classId: cid, customer: c.customerName, location: c.location || '', topic: classTopic(c), time: classTimeText(c), qty: days, unit: 'ngày', price: rate, amount: rate * days }; };
+  const pl = (id, parent, tid, seq, sign, cids, travel) => {
+    const stt = nextStt('pl', sign); const rows = cids.map((cid) => classRow(cid, tid)); const rec = { id, kind: 'pl', trainerId: tid, trainerName: b.data.trainers.get(tid).name, parentId: parent, parentNo: b.data.tcontracts.get(parent).no, parentDate: b.data.tcontracts.get(parent).signDate, seq, no: `${pad(stt)}/PLHĐ-ATVSLĐ`, stt, year: Number(sign.slice(0, 4)), signDate: sign, signPlace: co.address, payDays: '07', rows, travel, pitAuto: true, partyA: A, partyB: B(tid), status: 'signed', notes: '' };
+    const mm = plMoney(rec); Object.assign(rec, { total: mm.total, pit: mm.pit, net: mm.net }); put('tcontracts', rec);
+    // ghi vào thù lao lớp như khi lưu phụ lục thật
+    let tl = mm.travel; let pl2 = mm.pit;
+    rows.forEach((r, i) => {
+      const last = i === rows.length - 1; const tr = last ? tl : Math.round((mm.travel * r.amount) / mm.total); const pt = last ? pl2 : Math.round((mm.pit * r.amount) / mm.total); tl -= tr; pl2 -= pt;
+      const c = b.data.classes.get(r.classId); const fe = c.fees.find((x) => x.trainerId === tid);
+      Object.assign(fe, { amount: r.amount + tr, travel: tr, pit: pt, auto: false, contractNo: rec.no, contractDate: sign, tcontractId: id });
+      fe.payments.forEach((pp) => { if (pp.kind === 'Thanh toán') pp.amount = fe.amount - pt - sum(fe.payments.filter((q2) => q2 !== pp), (q2) => q2.amount); });
+      c.costTrainer = sum(c.fees, (x) => x.amount);
+    });
+  };
+  pl('pl1', 'hd1', 'gv4', 1, D(-47), ['l1'], 0);
+  pl('pl2', 'hd2', 'gv3', 1, D(-40), ['l2', 'l3'], 500000);
+  // sổ theo dõi số quyết định mẫu: 01, 02, 04 (bỏ trống 03), 05 dự thảo
+  const dec = (id, stt, g, date, cid, classId, batchId, students, status, files = []) => put('decisions', { id, no: `${pad(stt)}/QĐ-N${g}-DAKO`, stt, group: g, year: Number(date.slice(0, 4)), date, title: `Công nhận hoàn thành khóa huấn luyện ATVSLĐ nhóm ${g}`, customerId: cid, customerName: cname(cid), classId, batchId, quoteId: b.data.classes.get(classId)?.quoteId || null, courseFrom: b.data.classes.get(classId).startDate, courseTo: b.data.classes.get(classId).endDate, students, certType: decPaper(g), signer: co.director, status, files, notes: '' });
+  dec('dq1', 1, 3, D(-42), 'kh1', 'l1', 'ro1', 12, 'signed', [pdf('fq1', 'QD-01-N3.pdf', 'QUYET DINH 01/QD-N3-DAKO', ['Cong nhan hoan thanh khoa huan luyen ATVSLD nhom 3', 'Du lieu mau'])]);
+  dec('dq2', 2, 3, D(-36), 'kh1', 'l2', null, 55, 'signed', [pdf('fq2', 'QD-02-N3.pdf', 'QUYET DINH 02/QD-N3-DAKO', ['Du lieu mau'])]);
+  dec('dq3', 4, 3, D(-7), 'kh3', 'l3', null, 24, 'signed');
+  dec('dq4', 5, 4, D(-1), 'kh3', 'l11', null, 20, 'draft');
   put('settings', { id: 'main', ...clone(DEFAULT_SETTINGS) });
   return b;
 }

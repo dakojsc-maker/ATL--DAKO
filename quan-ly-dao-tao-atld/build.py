@@ -14,7 +14,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SRC = ROOT / "src"
-JS_ORDER = ["core.js", "finance.js", "store.js", "ui.js", "students.js", "views.js", "forms.js", "export.js", "demo.js", "main.js"]
+JS_ORDER = ["core.js", "finance.js", "store.js", "ui.js", "hdgv_tpl.js", "contracts.js", "decisions.js", "students.js", "views.js", "forms.js", "export.js", "demo.js", "main.js"]
 
 VERSION = re.search(r"APP_VERSION = '([^']+)'", (SRC / "core.js").read_text(encoding="utf-8")).group(1)
 

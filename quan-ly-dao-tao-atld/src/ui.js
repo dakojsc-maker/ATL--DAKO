@@ -31,6 +31,7 @@ const ICONS = {
   pin: '<path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   idcard: '<rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2.5"/><path d="M13 10h5M13 14h4"/>',
+  stamp: '<path d="M5 21h14"/><path d="M6 17h12v-3a2 2 0 0 0-2-2h-2.5l.5-3.5a2.5 2.5 0 1 0-4 0l.5 3.5H8a2 2 0 0 0-2 2z"/>',
   trend: '<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/>',
 };
 const ic = (n, cls = '') => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"${cls ? ` class="${cls}"` : ''}>${ICONS[n] || ''}</svg>`;
@@ -243,6 +244,8 @@ async function lib(name) {
   if (name === 'pdf') { const p = window.pdfjsLib; if (p && !p.GlobalWorkerOptions.workerSrc) p.GlobalWorkerOptions.workerSrc = LIBS.pdf[1]; return p; }
   if (name === 'mammoth') return window.mammoth;
   if (name === 'exceljs') return window.ExcelJS;
+  if (name === 'jszip') return window.JSZip;
+  if (name === 'docx') { if (!window.docx?.renderAsync) throw new Error('Không tải được trình xem Word.'); return window.docx; }
   return window.XLSX;
 }
 
@@ -309,9 +312,10 @@ function openViewer(files, start = 0, title = '') {
         }
         if (pdf.numPages > max) view.insertAdjacentHTML('beforeend', `<div class="msg">Đã hiển thị ${max}/${pdf.numPages} trang – bấm “Tải về” để xem đầy đủ.</div>`);
       } else if (kind === 'docx') {
-        const [mammoth, blob] = await Promise.all([lib('mammoth'), Store.backend.getBlob(f)]); if (my !== token) return;
-        const r = await mammoth.convertToHtml({ arrayBuffer: await blob.arrayBuffer() });
-        view.innerHTML = `<div class="doc">${sanitizeHTML(r.value) || '<p>(Tài liệu trống)</p>'}</div>`;
+        const blob = await Store.backend.getBlob(f); if (my !== token) return;
+        const box = document.createElement('div'); box.className = 'docprev';
+        view.innerHTML = ''; view.append(box);
+        await renderDocx(blob, box);
       } else if (kind === 'sheet') {
         const [XLSX, blob] = await Promise.all([lib('xlsx'), Store.backend.getBlob(f)]); if (my !== token) return;
         const wb = XLSX.read(new Uint8Array(await blob.arrayBuffer()), { type: 'array' });

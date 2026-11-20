@@ -90,16 +90,20 @@ function classFees(c) {
   return ids.map((tid, i) => ({ trainerId: tid, amount: Math.round(rsum ? (total * rates[i]) / rsum : total / ids.length), payments: [] }));
 }
 const feePaid = (f) => sum(f.payments || [], (p) => p.amount);
+/** Thù lao một GV ở một lớp. amount = thù lao trước thuế (chi phí của DAKO); pit = thuế TNCN DAKO khấu trừ, nộp thay
+ *  → số phải trả giảng viên = amount − pit; còn lại = amount − pit − đã trả. */
 function feeState(f, cancelled = false) {
   const amount = cancelled || f.removed ? 0 : Number(f.amount) || 0;
+  const pit = amount ? Math.min(amount, Number(f.pit) || 0) : 0;
   const paid = feePaid(f);
-  const remain = amount - paid;
-  if ((cancelled || f.removed) && paid > 0) return { amount, paid, remain, label: 'Cần thu hồi tạm ứng', tone: 'bad' };
-  if (amount <= 0) return { amount, paid, remain: 0, label: 'Chưa nhập thù lao', tone: 'muted' };
-  if (remain < 0) return { amount, paid, remain, label: 'Trả dư', tone: 'warn' };
-  if (remain === 0) return { amount, paid, remain, label: 'Đã thanh toán đủ', tone: 'ok' };
-  if (paid > 0) return { amount, paid, remain, label: 'Đã tạm ứng – còn nợ', tone: 'warn' };
-  return { amount, paid, remain, label: 'Chưa thanh toán', tone: 'info' };
+  const remain = amount - pit - paid;
+  const base = { amount, pit, paid, remain };
+  if ((cancelled || f.removed) && paid > 0) return { ...base, label: 'Cần thu hồi tạm ứng', tone: 'bad' };
+  if (amount <= 0) return { ...base, remain: 0, label: 'Chưa nhập thù lao', tone: 'muted' };
+  if (remain < 0) return { ...base, label: 'Trả dư', tone: 'warn' };
+  if (remain === 0) return { ...base, label: 'Đã thanh toán đủ', tone: 'ok' };
+  if (paid > 0) return { ...base, label: 'Đã tạm ứng – còn nợ', tone: 'warn' };
+  return { ...base, label: 'Chưa thanh toán', tone: 'info' };
 }
 const classGv = (c) => (c.status === 'cancelled' ? 0 : sum(classFees(c), (f) => (f.removed ? feePaid(f) : f.amount)));
 const feeAuto = (tid, c) => (Number(trainer(tid)?.dailyRate) || 0) * classDays(c);
@@ -119,7 +123,7 @@ function trainerLedger(tid, from, to) {
     }
   }
   rows.sort((a, b) => sortClasses(a.c, b.c));
-  return { rows, amount: sum(rows, (r) => r.amount), paid: sum(rows, (r) => r.paid), remain: sum(rows, (r) => Math.max(0, r.remain)), days: sum(rows, (r) => (r.amount ? r.days : 0)) };
+  return { rows, amount: sum(rows, (r) => r.amount), pit: sum(rows, (r) => r.pit), paid: sum(rows, (r) => r.paid), remain: sum(rows, (r) => Math.max(0, r.remain)), days: sum(rows, (r) => (r.amount ? r.days : 0)) };
 }
 
 /* ---------- lợi nhuận ---------- */
@@ -174,7 +178,7 @@ const classMoney = (c) => classPnl(c);
 const pct = (x) => `${Math.round((Number(x) || 0) * 100)}%`;
 
 /* ---------- kỳ báo cáo ---------- */
-const GRAN = { week: 'tuần', month: 'tháng', quarter: 'quý', year: 'năm' };
+const GRAN = { day: 'ngày', week: 'tuần', month: 'tháng', quarter: 'quý', year: 'năm' };
 function isoWeek(iso) {
   const d = parseISO(iso);
   const t = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 3 - ((d.getDay() + 6) % 7));
@@ -186,6 +190,7 @@ function periodOf(iso, gran) {
   if (gran === 'year') return { key: `${y}`, label: `Năm ${y}`, start: `${y}-01-01`, end: `${y}-12-31` };
   if (gran === 'quarter') { const q = Math.floor(m / 3); return { key: `${y}-Q${q + 1}`, label: `Quý ${['I', 'II', 'III', 'IV'][q]}/${y}`, start: isoOf(new Date(y, q * 3, 1)), end: isoOf(new Date(y, q * 3 + 3, 0)) }; }
   if (gran === 'month') { const ym = iso.slice(0, 7); return { key: ym, label: fmtYM(ym), start: ym + '-01', end: monthEnd(ym) }; }
+  if (gran === 'day') return { key: iso, label: `${DOW_LONG[d.getDay()]} ${fmtD(iso)}`, start: iso, end: iso };
   const start = addDays(iso, -((d.getDay() + 6) % 7)); const end = addDays(start, 6); const w = isoWeek(start);
   return { key: start, label: `Tuần ${w.week}/${w.year} (${fmtDM(start)}–${fmtDM(end)})`, start, end };
 }
@@ -198,7 +203,7 @@ function periodsBetween(from, to, gran, onlyKeys) {
     if (!seen.has(p.key)) { seen.add(p.key); out.push(p); }
     cur = addDays(p.end, 1);
   }
-  return gran === 'week' && onlyKeys ? out.filter((p) => onlyKeys.has(p.key)) : out;
+  return (gran === 'week' || gran === 'day') && onlyKeys ? out.filter((p) => onlyKeys.has(p.key)) : out;
 }
 
 /* ---------- học viên (sổ cấp thẻ/GCN) ---------- */

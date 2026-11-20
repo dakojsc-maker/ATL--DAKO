@@ -103,6 +103,18 @@ document.addEventListener('click', async (e) => {
     case 'pf-prev': S.ui.pfMonth = ymAdd(S.ui.pfMonth, -stepOf(S.ui.pfPeriod)); upd(); break;
     case 'pf-next': S.ui.pfMonth = ymAdd(S.ui.pfMonth, stepOf(S.ui.pfPeriod)); upd(); break;
     case 'tr-view': S.ui.trView = v; upd(); break;
+    case 'tc-kind': S.ui.tcKind = v; upd(); break;
+    case 'tc-new': {
+      e.stopPropagation(); const tid = el.dataset.trainer || (trainer(id) ? id : '');
+      if (!S.role.canEdit) { if (tid) trainerDetail(tid); break; } // giám đốc: mở hồ sơ giảng viên để xem
+      tcWizard({ trainerId: tid }); break;
+    }
+    case 'tc-view': e.stopPropagation(); if (tcontract(id)) tcDetail(id); break;
+    case 'dec-group': S.ui.decGroup = v; upd(); break;
+    case 'dec-new': e.stopPropagation(); decForm(null, v ? { group: Number(v) } : {}); break;
+    case 'dec-view': e.stopPropagation(); if (decision(id)) decDetail(id); break;
+    case 'dec-from-roster': e.stopPropagation(); decForm(null, { batchId: id }); break;
+    case 'goto-decisions': Modals.slice().forEach((mm) => mm.close()); go('quyet-dinh'); break;
     case 'led-state': S.ui.ledState = v; upd(); break;
     case 'st-view': S.ui.stView = v; upd(); break;
     case 'st-page': S.ui.stPage = Math.max(0, (S.ui.stPage || 0) + Number(v)); upd(); window.scrollTo({ top: 0 }); break;
@@ -168,7 +180,7 @@ document.addEventListener('click', async (e) => {
     case 'backup': backup(); break;
     case 'settings-save': {
       const next = SettingsView.collect();
-      if (!next.priceTiers.length) { toast('Bảng giá cần ít nhất một mức giá hợp lệ.', 'bad'); break; }
+      const bad = SettingsView.validate(next); if (bad) { toast(bad, 'bad'); break; }
       try { await Store.saveSettings(next); SettingsView.dirty = false; toast('Đã lưu cài đặt.', 'ok'); } catch (err) { /* đã báo */ }
       break;
     }
@@ -194,7 +206,8 @@ document.addEventListener('input', (e) => {
   if (!k) { if (S.ui.tab === 'cai-dat' && e.target.closest('#main')) SettingsView.dirty = true; return; }
   const v = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
   const map = { 'cal-search': 'calSearch', 'tr-search': 'trSearch', 'tr-spec': 'trSpec', 'tr-status': 'trStatus', 'q-search': 'qSearch', 'q-year': 'qYear', 'c-search': 'cSearch', 'c-year': 'cYear', 'cu-search': 'cuSearch', 'cu-due': 'cuDue',
-    'led-search': 'ledSearch', 'led-period': 'ledPeriod', 'st-search': 'stSearch', 'st-company': 'stCompany', 'st-group': 'stGroup', 'st-type': 'stType', 'st-status': 'stStatus', 'st-year': 'stYear' };
+    'led-search': 'ledSearch', 'led-period': 'ledPeriod', 'st-search': 'stSearch', 'st-company': 'stCompany', 'st-group': 'stGroup', 'st-type': 'stType', 'st-status': 'stStatus', 'st-year': 'stYear',
+    'tc-search': 'tcSearch', 'tc-year': 'tcYear', 'tc-state': 'tcState', 'dec-search': 'decSearch', 'dec-year': 'decYear', 'dec-status': 'decStatus' };
   if (k.startsWith('st-')) S.ui.stPage = 0;
   if (map[k]) { S.ui[map[k]] = v; deferredUpdate(); }
 });
@@ -205,7 +218,7 @@ document.addEventListener('change', (e) => {
 /* ---------- backup & restore ---------- */
 async function backup() {
   const withFiles = $('#backup-files') ? $('#backup-files').checked : true;
-  const out = { app: 'dako-atld', version: APP_VERSION, exportedAt: new Date().toISOString(), data: { trainers: S.trainers, classes: S.classes, quotes: S.quotes, customers: S.customers, rosters: S.rosters, settings: S.settings }, files: {} };
+  const out = { app: 'dako-atld', version: APP_VERSION, exportedAt: new Date().toISOString(), data: { trainers: S.trainers, classes: S.classes, quotes: S.quotes, customers: S.customers, rosters: S.rosters, tcontracts: S.tcontracts, decisions: S.decisions, settings: S.settings }, files: {} };
   if (withFiles && FILES.size) {
     toast(`Đang gom ${FILES.size} file đính kèm…`);
     for (const [id, meta] of FILES) { try { out.files[id] = { meta, b64: await blobToBase64(await Store.backend.getBlob(meta)) }; } catch (e) { /* bỏ qua file lỗi */ } }
@@ -219,7 +232,7 @@ async function restore(file) {
   try { obj = JSON.parse(await file.text()); } catch (e) { toast('File không đúng định dạng sao lưu của công cụ.', 'bad'); return; }
   if (obj?.app !== 'dako-atld' || !obj.data) { toast('File không đúng định dạng sao lưu của công cụ.', 'bad'); return; }
   const d = obj.data;
-  const n = ['trainers', 'classes', 'quotes', 'customers', 'rosters'].reduce((s, k) => s + (d[k] || []).length, 0);
+  const n = ['trainers', 'classes', 'quotes', 'customers', 'rosters', 'tcontracts', 'decisions'].reduce((s, k) => s + (d[k] || []).length, 0);
   const nf = Object.keys(obj.files || {}).length;
   if (!(await confirmBox(`Khôi phục <b>${n}</b> bản ghi và <b>${nf}</b> file từ bản sao lưu ngày ${esc(fmtStamp(obj.exportedAt))}?<br><br>Bản ghi trùng mã sẽ được ghi đè bằng bản sao lưu; các bản ghi khác giữ nguyên.`, { ok: 'Khôi phục' }))) return;
   toast('Đang khôi phục…');
@@ -235,6 +248,8 @@ async function restore(file) {
     for (const x of d.classes || []) await Store.backend.set('classes', x.id, { ...x, files: rl(x.files), ...(x.fees ? { fees: x.fees.map((fe) => ({ ...fe, files: rl(fe.files) })) } : {}) });
     const kf = (l) => (l || []).map((x) => ({ ...rf(x), kind: x.kind }));
     for (const x of d.rosters || []) await Store.backend.set('rosters', x.id, { ...x, decisionFiles: rl(x.decisionFiles), files: rl(x.files), students: (x.students || []).map((st) => ({ ...st, files: kf(st.files) })) });
+    for (const x of d.tcontracts || []) await Store.backend.set('tcontracts', x.id, { ...x, docFile: rf(x.docFile) || null, files: rl(x.files) });
+    for (const x of d.decisions || []) await Store.backend.set('decisions', x.id, { ...x, files: rl(x.files) });
     if (d.settings) await Store.backend.set('settings', 'main', d.settings);
     Store.log('Khôi phục', 'settings', `Bản sao lưu ${fmtStamp(obj.exportedAt)}`);
     toast(`Đã khôi phục ${n} bản ghi, ${Object.keys(map).length} file.`, 'ok');

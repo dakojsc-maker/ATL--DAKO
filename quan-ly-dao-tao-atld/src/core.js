@@ -3,7 +3,7 @@
    CORE – hằng số nghiệp vụ, tiện ích ngày/tiền, tính toán
    ============================================================ */
 
-const APP_VERSION = '2.0';
+const APP_VERSION = '2.1';
 
 const DEFAULT_SETTINGS = {
   priceTiers: [
@@ -20,7 +20,23 @@ const DEFAULT_SETTINGS = {
     email: 'viencongnghestp@gmail.com',
     director: 'Phạm Thị Thu Thanh',
     city: 'TP. Hồ Chí Minh',
+    // dùng trong hợp đồng giảng viên (Bên A) – sửa trong Cài đặt
+    nameVi: 'Công ty Cổ phần Kỹ thuật Hàng hải DAKO',
+    taxCode: '',
+    directorTitle: 'Giám đốc',
+    bankAccount: '19130009928016',
+    bankName: 'Techcombank',
+    signPlace: '',
   },
+  // Hợp đồng giảng viên: {stt} số thứ tự trong năm, {năm} năm ký
+  contractNoFormat: '{stt}/{năm}/HĐNT-ATVSLĐ',
+  appendixNoFormat: '{stt}/PLHĐ-ATVSLĐ',
+  contractPayDays: '',        // số ngày làm việc thanh toán (điều 3.3 HĐ, 2.2 phụ lục) – để trống thì in "......."
+  pitRate: 10,                // % thuế TNCN khấu trừ thù lao giảng viên
+  pitMin: 2000000,            // khấu trừ khi tổng chi trả mỗi lần từ mức này
+  // Số quyết định hoàn thành khóa học: {stt} số thứ tự, {nhóm} nhóm 1–6, {năm} năm
+  decisionNoFormat: '{stt}/QĐ-N{nhóm}-DAKO',
+  decisionSeq: 'year',        // 'year': đánh số liên tục cả 6 nhóm trong năm · 'group': mỗi nhóm một dãy số riêng
   regions: [
     { id: 'nam', name: 'Miền Nam', center: 'TP.HCM' },
     { id: 'trung', name: 'Miền Trung – Tây Nguyên', center: 'Nha Trang' },
@@ -138,9 +154,9 @@ const parseMoney = (s) => { const n = Number(String(s ?? '').replace(/[^\d]/g, '
 
 /* ---------- application state ---------- */
 const S = {
-  trainers: [], classes: [], quotes: [], customers: [], rosters: [], log: [],
+  trainers: [], classes: [], quotes: [], customers: [], rosters: [], tcontracts: [], decisions: [], log: [],
   settings: clone(DEFAULT_SETTINGS),
-  byId: { trainers: new Map(), classes: new Map(), quotes: new Map(), customers: new Map(), rosters: new Map() },
+  byId: { trainers: new Map(), classes: new Map(), quotes: new Map(), customers: new Map(), rosters: new Map(), tcontracts: new Map(), decisions: new Map() },
   loaded: {},
   role: { canEdit: false, mode: 'loading', label: '' },
   sync: { state: 'loading', msg: '' },
@@ -157,6 +173,9 @@ const customer = (id) => S.byId.customers.get(id);
 const quote = (id) => S.byId.quotes.get(id);
 const klass = (id) => S.byId.classes.get(id);
 const roster = (id) => S.byId.rosters.get(id);
+const tcontract = (id) => S.byId.tcontracts.get(id);
+const decision = (id) => S.byId.decisions.get(id);
+const companyInfo = () => ({ ...DEFAULT_SETTINGS.company, ...(settings().company || {}) });
 
 /* ---------- pricing & money per class ---------- */
 function tierFor(n, tiers = settings().priceTiers) {
@@ -334,7 +353,7 @@ function computeAlerts() {
       }
     }
   }
-  out.push(...financeAlerts());
+  out.push(...financeAlerts(), ...contractAlerts(), ...decisionAlerts());
   const order = { bad: 0, warn: 1, info: 2 };
   return out.sort((a, b) => order[a.sev] - order[b.sev]);
 }

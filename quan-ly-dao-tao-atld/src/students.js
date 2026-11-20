@@ -16,7 +16,7 @@ function studentFilter() {
     if (ty && v.certType !== ty) return false;
     if (yr && !(v.issueDate || '').startsWith(yr)) return false;
     if (stt && certStatus(v.expiry).key !== stt) return false;
-    if (q && !norm([v.name, v.certNo, v.cccd, v.company, x.s.position, x.r.decisionNo].join(' ')).includes(q)) return false;
+    if (q && !norm([v.name, v.certNo, v.cccd, v.company, x.s.position, x.r.decisionNo, decisionForStudent(x.s, x.r)?.no].join(' ')).includes(q)) return false;
     return true;
   });
 }
@@ -93,7 +93,7 @@ function studentDetail(rid, key) {
   function render() {
     const r = roster(rid); const s = r && (r.students || []).find((x) => x.k === key);
     if (!r || !s) { m.close(); return; }
-    const v = studentView(s, r); const st = certStatus(v.expiry);
+    const v = studentView(s, r); const st = certStatus(v.expiry); const dec = decisionForStudent(s, r);
     const cards = studentFiles(s, ['the']); const photos = studentFiles(s, ['anh']); const others = studentFiles(s, ['qd', 'khac']);
     const cls = r.classId && klass(r.classId); const q = r.quoteId && quote(r.quoteId); const cu = r.customerId && customer(r.customerId);
     const imgs = cards.filter((f) => fileKind(f) === 'img'); const nonImg = cards.filter((f) => fileKind(f) !== 'img');
@@ -107,8 +107,8 @@ function studentDetail(rid, key) {
         ${dd('Nhóm huấn luyện', v.group ? `Nhóm ${v.group} – ${esc(GROUPS[v.group]?.desc || '')}` : '')}${dd('Nội dung huấn luyện', esc(v.content))}${dd('Thời gian học', esc(fmtDateRange(v.from, v.to)) + (v.hours ? ` · ${esc(v.hours)} giờ` : ''))}${dd('Kết quả', esc(s.result))}
         ${s.notes ? `<div class="full"><dt>Ghi chú</dt><dd style="white-space:pre-wrap">${esc(s.notes)}</dd></div>` : ''}</dl></div>
       <div><div class="sec-title">Hình thẻ / GCN</div>${imgs.length ? `<div class="gallery">${imgs.map((f) => `<button type="button" class="shot" data-act="file-view" data-fid="${esc(f.id)}" title="${esc(f.name)}"><img data-file="${esc(f.id)}" alt="${esc(f.name)}"></button>`).join('')}</div>` : ''}${nonImg.length ? filesBlock(nonImg) : ''}${!cards.length ? '<div class="muted small">Chưa có hình thẻ/GCN – gửi file cho Claude để đối chiếu và gắn đúng học viên.</div>' : ''}</div>
-      <div><div class="sec-title">Quyết định cấp &amp; hồ sơ đợt</div><dl class="dl" style="margin-bottom:8px">${dd('Đợt cấp', `<a href="#" data-act="roster-view" data-id="${esc(r.batchId || r.id)}">${esc(r.title || 'Đợt cấp')}</a>`)}${dd('Số quyết định', esc(r.decisionNo) + (r.decisionDate ? ' · ' + esc(fmtD(r.decisionDate)) : ''))}</dl>
-        ${filesBlock([...(r.decisionFiles || []), ...others], 'Chưa có quyết định cấp')}</div>
+      <div><div class="sec-title">Quyết định cấp &amp; hồ sơ đợt</div><dl class="dl" style="margin-bottom:8px">${dd('Đợt cấp', `<a href="#" data-act="roster-view" data-id="${esc(r.batchId || r.id)}">${esc(r.title || 'Đợt cấp')}</a>`)}${dd('Số quyết định', dec ? (dec.id ? `<a href="#" data-act="dec-view" data-id="${esc(dec.id)}">${esc(dec.no)}</a>` : esc(dec.no)) + (dec.date ? ' · ' + esc(fmtD(dec.date)) : '') : '')}</dl>
+        ${filesBlock([...(r.decisionFiles || []), ...(dec?.files || []).filter((f2) => !(r.decisionFiles || []).some((x2) => x2.id === f2.id)), ...others], 'Chưa có quyết định cấp')}</div>
       <div><div class="sec-title">Khóa học</div>${cls ? `<ul class="list" style="border:1px solid var(--line);border-radius:10px">${classLi(cls)}</ul>` : '<div class="muted small">Chưa gắn với lớp trong lịch giảng dạy.</div>'}
         ${q ? `<div style="margin-top:8px"><button type="button" class="btn sm" data-act="quote-view" data-id="${esc(q.id)}">${ic('sign')} ${esc(isContract(q) ? 'Hợp đồng ' + (q.contractNo || q.no || '') : 'Báo giá ' + (q.no || ''))}</button></div>` : ''}</div>`;
     if (!m.foot) { m.el.insertAdjacentHTML('beforeend', '<div class="modal-f"></div>'); m.foot = m.el.querySelector('.modal-f'); }

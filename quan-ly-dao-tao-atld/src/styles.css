@@ -497,3 +497,67 @@ body:not(.ro) .ro-only { display: none !important; }
 @media (max-width: 640px) { .money-box.cols-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 table.tbl.wide { min-width: 1180px; }
 .tbl td.nw, .tbl th.nw { white-space: nowrap; }
+
+/* ---------- hợp đồng giảng viên: trình tạo 3 bước ---------- */
+.steps { display: flex; gap: 6px; list-style: none; margin: 0 0 14px; padding: 0; flex-wrap: wrap; counter-reset: none; }
+.steps li { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); font-weight: 600; font-size: 13px; color: var(--fg-3); }
+.steps li span { width: 24px; height: 24px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--surface); border: 1px solid var(--line-strong); font-size: 12px; }
+.steps li span svg { width: 14px; height: 14px; }
+.steps li.on { color: var(--brand); border-color: var(--brand); background: var(--brand-soft); }
+.steps li.on span { background: var(--brand); color: #fff; border-color: var(--brand); }
+.steps li.done { color: var(--ok); }
+.steps li.done span { background: var(--ok-soft); color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
+.picklist { display: flex; flex-direction: column; gap: 6px; max-height: 52vh; overflow: auto; padding-right: 4px; }
+.pick { display: flex; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; background: var(--surface); }
+.pick:hover { border-color: var(--line-strong); background: var(--surface-2); }
+.pick.on { border-color: var(--brand); background: var(--brand-soft); }
+.pick.dis { opacity: .55; cursor: not-allowed; }
+.pick input { accent-color: var(--brand); width: 16px; height: 16px; flex: none; }
+.pick .grow { display: flex; flex-direction: column; min-width: 0; }
+.pick .pill { flex: none; max-width: 48%; overflow: hidden; text-overflow: ellipsis; }
+.kindpick { display: flex; flex-direction: column; gap: 8px; }
+.kindpick .pick { align-items: flex-start; padding: 12px; }
+.pill svg { width: 13px; height: 13px; flex: none; }
+.classpick { display: flex; flex-direction: column; gap: 4px; max-height: 240px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; padding: 6px; background: var(--surface-2); }
+.cpick { display: flex; gap: 8px; align-items: flex-start; padding: 6px 8px; border-radius: 8px; cursor: pointer; font-size: 13.5px; }
+.cpick:hover { background: var(--surface); }
+.cpick.on { background: var(--brand-soft); }
+.cpick.dis { opacity: .55; cursor: not-allowed; }
+.cpick input { accent-color: var(--brand); width: 16px; height: 16px; margin-top: 2px; flex: none; }
+table.plrows { min-width: 980px; }
+table.plrows td { padding: 6px; vertical-align: top; }
+table.plrows .input { min-height: 34px; padding: 6px 8px; }
+.f.miss .input, .input.miss { border-color: color-mix(in srgb, var(--warn) 70%, transparent); background: color-mix(in srgb, var(--warn-soft) 60%, var(--surface)); }
+.f.miss .checks { border-radius: 8px; outline: 1px dashed color-mix(in srgb, var(--warn) 60%, transparent); outline-offset: 3px; }
+.warn-t { color: var(--warn); }
+.bad-t { color: var(--bad); font-weight: 600; }
+.hint.warn-t { color: var(--warn); }
+.review-top { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13.5px; }
+/* xem trước file Word (docx-preview) – trang giấy trắng giống bản in */
+.docprev { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; overflow: auto; max-height: 68vh; min-height: 300px; }
+.viewer .docprev { border: 0; border-radius: 0; max-height: none; min-height: 50vh; }
+.docprev .docx-wrapper { background: transparent !important; padding: 16px !important; }
+.docprev .docx-wrapper > section.docx { box-shadow: var(--shadow) !important; margin-bottom: 16px !important; color: #000; }
+.docprev .msg { padding: 24px; text-align: center; color: var(--fg-2); }
+@media (max-width: 900px) { .docprev .docx-wrapper { zoom: .62; } }
+@media (max-width: 560px) { .docprev .docx-wrapper { zoom: .42; padding: 8px !important; } }
+/* sổ hợp đồng: phụ lục lùi vào dưới hợp đồng nguyên tắc */
+.tbl tr.grp-nt td { border-top: 1px solid var(--line-strong); }
+.tbl tr.child td:first-child { padding-left: 26px; }
+.tbl .tree { color: var(--fg-3); margin-right: 6px; }
+/* xuất Excel: điều hướng kỳ */
+.pnav { display: flex; gap: 8px; align-items: center; padding: 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+.pnav b { text-align: center; font-size: 14px; }
+.pnav[hidden] { display: none; }
+.ro-only { display: none; }
+body.ro .ro-only { display: inline; }
+table.plrows select.input { min-width: 86px; }
+@media (max-width: 560px) {
+  .pick { flex-wrap: wrap; }
+  .pick .pill { max-width: calc(100% - 30px); margin-left: 26px; }
+  .steps li:not(.on) { font-size: 0; gap: 0; padding: 4px; }
+  .steps li:not(.on) span { font-size: 12px; }
+}
+.pill.tcbadge { max-width: 100%; min-width: 0; }
+.pill.tcbadge > span { overflow: hidden; text-overflow: ellipsis; }
+.modal-f { flex-wrap: wrap; row-gap: 8px; }

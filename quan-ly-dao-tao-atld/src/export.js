@@ -14,45 +14,91 @@ const EXPORTS = {
   'hop-dong': { name: 'Hợp đồng', file: 'Hop-dong' },
   'doanh-thu': { name: 'Doanh thu – lợi nhuận', file: 'Doanh-thu-loi-nhuan' },
   'khach-hang': { name: 'Khách hàng', file: 'Khach-hang' },
+  'quyet-dinh': { name: 'Số quyết định', file: 'So-quyet-dinh' },
 };
 LIBS.exceljs = ['https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js'];
 
 /* ---------- hộp thoại xuất ---------- */
+const PERIOD_TYPES = [['week', 'Tuần'], ['month', 'Tháng'], ['quarter', 'Quý'], ['year', 'Năm'], ['custom', 'Tùy chọn']];
+const AUTO_GRAN = { week: 'day', month: 'week', quarter: 'month', year: 'month' };
+/** Kỳ báo cáo chứa ngày anchor: { from, to, label, slug }. */
+function reportPeriod(type, anchor) {
+  const p = periodOf(anchor, type); const y = p.start.slice(0, 4);
+  if (type === 'week') { const w = isoWeek(p.start); return { from: p.start, to: p.end, label: `Tuần ${w.week}/${w.year} (${fmtD(p.start)} – ${fmtD(p.end)})`, slug: `Tuan-${w.week}-${w.year}` }; }
+  if (type === 'month') return { from: p.start, to: p.end, label: p.label, slug: `Thang-${Number(p.start.slice(5, 7))}-${y}` };
+  if (type === 'quarter') { const q = Math.floor(Number(p.start.slice(5, 7)) / 3) + 1; return { from: p.start, to: p.end, label: p.label, slug: `Quy-${q}-${y}` }; }
+  return { from: p.start, to: p.end, label: `Năm ${y}`, slug: `Nam-${y}` };
+}
+function shiftAnchor(type, anchor, n) {
+  if (type === 'week') return addDays(anchor, 7 * n);
+  const first = anchor.slice(0, 7) + '-01';
+  return addMonths(first, n * ({ month: 1, quarter: 3, year: 12 }[type] || 1));
+}
+const granForSpan = (from, to) => { const d = daysBetween(from, to); return d <= 14 ? 'day' : d <= 62 ? 'week' : d <= 400 ? 'month' : 'quarter'; };
+const exportSheets = (tab) => (tab === 'tong-quan' ? ['Tổng quan', 'Lịch giảng dạy', 'Doanh thu – lợi nhuận', 'Hợp đồng', 'Báo giá', 'Giảng viên – thù lao', 'Hợp đồng giảng viên', 'Học viên', 'Số quyết định', 'Khách hàng'] : tab === 'giang-vien' ? ['Giảng viên – thù lao', 'Hợp đồng giảng viên'] : [EXPORTS[tab]?.name || 'Báo cáo']);
 function openExport(tab) {
   const meta = EXPORTS[tab] || EXPORTS['tong-quan'];
-  const y = todayISO().slice(0, 4); const ym = todayISO().slice(0, 7);
-  const q = periodOf(todayISO(), 'quarter');
-  const allDates = [...S.classes.map((c) => c.startDate), ...S.quotes.map((x) => x.contractDate || x.date), ...allStudents().map((x) => x.v.issueDate)].filter(Boolean).sort();
-  const presets = [
-    ['month', 'Tháng này', ym + '-01', monthEnd(ym)], ['quarter', 'Quý này', q.start, q.end], ['year', 'Năm nay', `${y}-01-01`, `${y}-12-31`],
-    ['last', 'Năm trước', `${Number(y) - 1}-01-01`, `${Number(y) - 1}-12-31`], ['all', 'Toàn bộ dữ liệu', allDates[0] || `${y}-01-01`, allDates[allDates.length - 1] > `${y}-12-31` ? allDates[allDates.length - 1] : `${y}-12-31`],
-  ];
-  const sheets = tab === 'tong-quan' ? ['Tổng quan', 'Lịch giảng dạy', 'Doanh thu – lợi nhuận', 'Hợp đồng', 'Báo giá', 'Giảng viên – thù lao', 'Học viên', 'Khách hàng'] : [meta.name];
+  const t = todayISO();
+  const allDates = [...S.classes.map((c) => c.startDate), ...S.quotes.map((x) => x.contractDate || x.date), ...allStudents().map((x) => x.v.issueDate), ...S.tcontracts.map((x) => x.signDate), ...S.decisions.map((x) => x.date)].filter(Boolean).sort();
+  const st = { type: ['week', 'month', 'quarter', 'year'].includes(lsGet('dako-export-type')) ? lsGet('dako-export-type') : 'month', anchor: t, gran: null, from: '', to: '', label: '', slug: '' };
+  const sheets = exportSheets(tab);
   const m = openModal({
     title: `Xuất báo cáo Excel – ${esc(meta.name)}`, sub: 'File sẵn in khổ A4: logo DAKO, Times New Roman, số dạng 1.000.000 đ, chi tiết và tổng cộng theo kỳ', size: 'narrow',
-    body: `<div class="f"><span class="lbl">Thống kê theo</span><div class="seg" data-gran>${Object.entries(GRAN).map(([k, v]) => `<button type="button" data-v="${k}" aria-pressed="${k === 'month'}">${v[0].toUpperCase() + v.slice(1)}</button>`).join('')}</div></div>
-      <div class="f"><span class="lbl">Khoảng thời gian</span><div class="chips" data-presets>${presets.map(([k, l]) => `<button type="button" class="chip" data-p="${k}" aria-pressed="${k === 'year'}">${l}</button>`).join('')}</div></div>
-      <div class="fgrid">${f('ex-from', 'Từ ngày', inp('ex-from', `${y}-01-01`, 'type="date"'))}${f('ex-to', 'Đến ngày', inp('ex-to', `${y}-12-31`, 'type="date"'))}</div>
+    body: `<div class="f"><span class="lbl">Xuất theo</span><div class="seg" data-ptype>${PERIOD_TYPES.map(([k, l]) => `<button type="button" data-v="${k}">${l}</button>`).join('')}</div></div>
+      <div class="pnav" data-pnav><button type="button" class="btn icon" data-shift="-1" aria-label="Kỳ trước">${ic('left')}</button><b class="grow" data-plabel></b><button type="button" class="btn icon" data-shift="1" aria-label="Kỳ sau">${ic('right')}</button><button type="button" class="btn sm ghost" data-now>Kỳ hiện tại</button></div>
+      <div class="fgrid">${f('ex-from', 'Từ ngày', inp('ex-from', '', 'type="date"'))}${f('ex-to', 'Đến ngày', inp('ex-to', '', 'type="date"'))}</div>
+      <div class="chips" data-custom hidden><button type="button" class="chip" data-p="lastyear">Năm trước</button><button type="button" class="chip" data-p="ytd">Từ đầu năm đến nay</button><button type="button" class="chip" data-p="all">Toàn bộ dữ liệu</button></div>
+      <div class="f"><span class="lbl">Chi tiết cộng theo</span><div class="seg" data-gran>${Object.entries(GRAN).map(([k, v]) => `<button type="button" data-v="${k}">${v[0].toUpperCase() + v.slice(1)}</button>`).join('')}</div><span class="hint" data-granhint></span></div>
       <div class="small muted">File gồm ${sheets.length > 1 ? `${sheets.length} sheet: ${esc(sheets.join(', '))}` : `sheet “${esc(sheets[0])}”`}. Mỗi sheet có phần tổng hợp theo kỳ, phần chi tiết cộng theo từng kỳ và dòng tổng cộng.</div>`,
     foot: `<span class="sp"></span><button type="button" class="btn" data-cancel>Hủy</button><button type="button" class="btn primary" data-go>${ic('table')} Xuất Excel</button>`,
   });
-  let gran = 'month';
-  m.el.querySelector('[data-gran]').addEventListener('click', (e) => { const b = e.target.closest('[data-v]'); if (!b) return; gran = b.dataset.v; $$('[data-gran] button', m.el).forEach((x) => x.setAttribute('aria-pressed', String(x === b))); });
-  m.el.querySelector('[data-presets]').addEventListener('click', (e) => {
-    const b = e.target.closest('[data-p]'); if (!b) return; const p = presets.find((x) => x[0] === b.dataset.p);
-    m.el.querySelector('#ex-from').value = p[2]; m.el.querySelector('#ex-to').value = p[3];
-    $$('[data-presets] .chip', m.el).forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  const el = m.el; const fromEl = el.querySelector('#ex-from'); const toEl = el.querySelector('#ex-to');
+  function apply() {
+    if (st.type !== 'custom') { const p = reportPeriod(st.type, st.anchor); Object.assign(st, p); fromEl.value = p.from; toEl.value = p.to; }
+    else { st.from = fromEl.value; st.to = toEl.value; st.label = ''; st.slug = st.from && st.to ? `${st.from}_${st.to}` : ''; }
+    const autoG = st.type === 'custom' ? (st.from && st.to && st.to >= st.from ? granForSpan(st.from, st.to) : 'month') : AUTO_GRAN[st.type];
+    const gran = st.gran || autoG;
+    $$('[data-ptype] button', el).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === st.type)));
+    $$('[data-gran] button', el).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === gran)));
+    el.querySelector('[data-pnav]').hidden = st.type === 'custom';
+    el.querySelector('[data-custom]').hidden = st.type !== 'custom';
+    el.querySelector('[data-plabel]').textContent = st.label || '';
+    el.querySelector('[data-granhint]').textContent = st.gran && st.gran !== autoG ? 'Đang chọn tay – bấm lại loại kỳ để về mặc định.' : `Tự chọn theo kỳ: ${st.type === 'custom' ? 'theo độ dài khoảng ngày' : `${PERIOD_TYPES.find((x) => x[0] === st.type)[1].toLowerCase()} → từng ${GRAN[autoG]}`}.`;
+  }
+  el.querySelector('[data-ptype]').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-v]'); if (!b) return;
+    st.type = b.dataset.v; st.gran = null;
+    if (st.type !== 'custom') { st.anchor = st.from && !(st.from <= t && t <= st.to) ? st.from : t; lsSet('dako-export-type', st.type); }
+    apply();
   });
-  m.el.querySelector('[data-cancel]').onclick = () => m.close();
-  m.el.querySelector('[data-go]').onclick = async (ev) => {
-    const from = val(m.el, 'ex-from'); const to = val(m.el, 'ex-to');
+  el.querySelector('[data-pnav]').addEventListener('click', (e) => {
+    const sh = e.target.closest('[data-shift]'); if (sh) { st.anchor = shiftAnchor(st.type, st.from || st.anchor, Number(sh.dataset.shift)); apply(); }
+    if (e.target.closest('[data-now]')) { st.anchor = t; apply(); }
+  });
+  // tự chọn ngày → chuyển sang "Tùy chọn"
+  [fromEl, toEl].forEach((x) => x.addEventListener('change', () => { if (st.type !== 'custom') { st.type = 'custom'; st.gran = null; } apply(); }));
+  el.querySelector('[data-custom]').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-p]'); if (!b) return; const y = t.slice(0, 4);
+    if (b.dataset.p === 'lastyear') { fromEl.value = `${Number(y) - 1}-01-01`; toEl.value = `${Number(y) - 1}-12-31`; }
+    if (b.dataset.p === 'ytd') { fromEl.value = `${y}-01-01`; toEl.value = t; }
+    if (b.dataset.p === 'all') { fromEl.value = allDates[0] || `${y}-01-01`; toEl.value = allDates[allDates.length - 1] > t ? allDates[allDates.length - 1] : t; }
+    st.gran = null; apply();
+  });
+  el.querySelector('[data-gran]').addEventListener('click', (e) => { const b = e.target.closest('[data-v]'); if (!b) return; st.gran = b.dataset.v; apply(); });
+  apply();
+  el.querySelector('[data-cancel]').onclick = () => m.close();
+  el.querySelector('[data-go]').onclick = async (ev) => {
+    apply();
+    const from = st.from; const to = st.to;
     if (!from || !to || to < from) { toast('Chọn khoảng thời gian hợp lệ.', 'bad'); return; }
+    const gran = st.gran || (st.type === 'custom' ? granForSpan(from, to) : AUTO_GRAN[st.type]);
     ev.target.disabled = true; ev.target.textContent = 'Đang tạo file…';
     try {
-      const ctx = { from, to, gran };
-      const reports = tab === 'tong-quan' ? [repOverview(ctx), repClasses(ctx), repProfit(ctx), repContracts(ctx), repQuotes(ctx), repTrainers(ctx), repStudents(ctx), repCustomers(ctx)] : [REPORTS[tab](ctx)];
-      const ok = await writeWorkbook(reports, ctx, `DAKO_${meta.file}_${from}_${to}.xlsx`);
-      if (ok) { m.close(); toast('Đã tạo file Excel.', 'ok'); } else { ev.target.disabled = false; ev.target.textContent = 'Xuất Excel'; }
+      const ctx = { from, to, gran, label: st.label };
+      const reports = tab === 'tong-quan' ? [repOverview, repClasses, repProfit, repContracts, repQuotes, repTrainers, repTrainerContracts, repStudents, repDecisions, repCustomers].map((fn) => fn(ctx))
+        : tab === 'giang-vien' ? [repTrainers(ctx), repTrainerContracts(ctx)] : [REPORTS[tab](ctx)];
+      const ok = await writeWorkbook(reports, ctx, `DAKO_${meta.file}_${st.slug || `${from}_${to}`}.xlsx`);
+      if (ok) { m.close(); toast('Đã tạo file Excel.', 'ok'); } else { ev.target.disabled = false; ev.target.innerHTML = `${ic('table')} Xuất Excel`; }
     } catch (e) {
       console.error(e); toast('Không tạo được file Excel: ' + (e.message || 'lỗi'), 'bad'); ev.target.disabled = false; ev.target.innerHTML = `${ic('table')} Xuất Excel`;
     }
@@ -61,7 +107,7 @@ function openExport(tab) {
 
 /* ---------- tiện ích dựng báo cáo ---------- */
 const inR = (d, ctx) => !!d && d >= ctx.from && d <= ctx.to;
-const granText = (g) => `Thống kê theo ${GRAN[g]}`;
+const granText = (g) => `Chi tiết cộng theo ${GRAN[g]}`;
 function byPeriod(items, dateOf, ctx) {
   const map = new Map();
   for (const it of items) { const d = dateOf(it); if (!d) continue; const p = periodOf(d, ctx.gran); if (!map.has(p.key)) map.set(p.key, { p, items: [] }); map.get(p.key).items.push(it); }
@@ -164,23 +210,23 @@ function repTrainers(ctx) {
   const items = [];
   for (const x of S.trainers) for (const r of trainerLedger(x.id, ctx.from, ctx.to).rows) items.push({ x, ...r });
   items.sort((a, b) => sortClasses(a.c, b.c) || a.x.name.localeCompare(b.x.name, 'vi'));
-  const row = (it) => ({ trainer: it.x.name, phone: it.x.phone || '', region: regionName(it.x.region), date: fmtDateRange(it.c.startDate, it.c.endDate), customer: classLabel(it.c), contract: it.f.contractNo || '', days: it.amount ? it.days : 0, amount: it.amount, paid: it.paid, remain: Math.max(0, it.remain), state: it.label });
+  const row = (it) => ({ trainer: it.x.name, phone: it.x.phone || '', region: regionName(it.x.region), date: fmtDateRange(it.c.startDate, it.c.endDate), customer: classLabel(it.c), contract: it.f.contractNo || '', days: it.amount ? it.days : 0, amount: it.amount, pit: it.pit || 0, paid: it.paid, remain: Math.max(0, it.remain), state: it.label });
   const groups = byPeriod(items, (it) => it.c.startDate, ctx).map((g) => ({ ...g, rows: g.items.map(row) }));
-  const keys = ['days', 'amount', 'paid', 'remain'];
+  const keys = ['days', 'amount', 'pit', 'paid', 'remain'];
   const byTr = S.trainers.map((x) => { const rows = items.filter((it) => it.x.id === x.id).map(row); return { x, rows }; }).filter((t) => t.rows.length).sort((a, b) => a.x.name.localeCompare(b.x.name, 'vi'));
   return {
     sheet: 'Giảng viên – thù lao', title: 'BÁO CÁO THÙ LAO VÀ CÔNG NỢ GIẢNG VIÊN',
     columns: [
       { key: 'stt', header: 'STT', width: 5, align: 'center' }, { key: 'trainer', header: 'Giảng viên', width: 22 }, { key: 'phone', header: 'Điện thoại', width: 13 }, { key: 'region', header: 'Vùng', width: 14 },
       { key: 'date', header: 'Ngày lớp', width: 15 }, { key: 'customer', header: 'Khách hàng', width: 28 }, { key: 'contract', header: 'Số HĐ thuê GV', width: 16 },
-      { key: 'days', header: 'Số ngày', width: 8, type: 'int' }, { key: 'amount', header: 'Thù lao', width: 15, type: 'vnd' }, { key: 'paid', header: 'Đã trả', width: 15, type: 'vnd' }, { key: 'remain', header: 'Còn phải trả', width: 15, type: 'vnd' }, { key: 'state', header: 'Tình trạng', width: 18 },
+      { key: 'days', header: 'Số ngày', width: 8, type: 'int' }, { key: 'amount', header: 'Thù lao (trước thuế)', width: 15, type: 'vnd' }, { key: 'pit', header: 'Thuế TNCN khấu trừ', width: 13, type: 'vnd' }, { key: 'paid', header: 'Đã trả', width: 15, type: 'vnd' }, { key: 'remain', header: 'Còn phải trả', width: 15, type: 'vnd' }, { key: 'state', header: 'Tình trạng', width: 18 },
     ],
     summaries: [
       { title: `I. TỔNG HỢP THEO ${GRAN[ctx.gran].toUpperCase()}`, labelHeader: 'Kỳ báo cáo', rows: summaryRows(groups, keys, (g) => g.rows, (g, r) => `${g.p.label} · ${r.length} lượt dạy`) },
       { title: 'II. TỔNG HỢP THEO GIẢNG VIÊN', labelHeader: 'Giảng viên', rows: byTr.map((t) => ({ label: `${t.x.name} · ${t.rows.length} lớp`, values: Object.fromEntries(keys.map((k) => [k, sumBy(t.rows, k)])) })) },
     ],
     detail: { title: 'III. CHI TIẾT THÙ LAO TỪNG LỚP', groups: groups.filter((g) => g.rows.length).map((g) => ({ label: g.p.label, rows: g.rows, unit: 'lượt' })) },
-    notes: ['Theo ngày bắt đầu lớp. “Đã trả” gồm tạm ứng và thanh toán đã ghi nhận đến ngày lập báo cáo.'],
+    notes: ['Theo ngày bắt đầu lớp. “Đã trả” gồm tạm ứng và thanh toán đã ghi nhận đến ngày lập báo cáo.', 'Còn phải trả = Thù lao – Thuế TNCN DAKO khấu trừ (nộp thay giảng viên) – Đã trả.'],
   };
 }
 
@@ -263,11 +309,76 @@ function repOverview(ctx) {
     ] },
     summaries: [{ title: `II. TỔNG HỢP THEO ${GRAN[ctx.gran].toUpperCase()}`, labelHeader: 'Kỳ báo cáo', rows: per.map((g) => ({ label: g.p.label, values: Object.fromEntries(keys.map((k) => [k, sumBy(g.items, k)])) })) }],
     list: alerts.length ? { title: 'III. VIỆC CẦN XỬ LÝ (TẠI NGÀY LẬP BÁO CÁO)', rows: alerts.map((a) => (a.sev === 'bad' ? '[Gấp] ' : '') + a.text) } : null,
-    notes: ['Các sheet tiếp theo là báo cáo chi tiết của từng tab: Lịch giảng dạy, Doanh thu – lợi nhuận, Hợp đồng, Báo giá, Giảng viên – thù lao, Học viên, Khách hàng.'],
+    notes: ['Các sheet tiếp theo là báo cáo chi tiết của từng tab: Lịch giảng dạy, Doanh thu – lợi nhuận, Hợp đồng, Báo giá, Giảng viên – thù lao, Hợp đồng giảng viên, Học viên, Số quyết định, Khách hàng.'],
   };
 }
 
-const REPORTS = { 'tong-quan': repOverview, lich: repClasses, 'doanh-thu': repProfit, 'hop-dong': repContracts, 'bao-gia': repQuotes, 'giang-vien': repTrainers, 'hoc-vien': repStudents, 'khach-hang': repCustomers };
+/* ---------- 8. Hợp đồng giảng viên ---------- */
+function repTrainerContracts(ctx) {
+  const list = S.tcontracts.filter((x) => inR(x.signDate, ctx)).sort((a, b) => (a.signDate || '').localeCompare(b.signDate || '') || (a.kind === 'nt' ? -1 : 1));
+  const row = (x) => {
+    const mm = x.kind === 'pl' ? plMoney(x) : null; const pay = x.kind === 'pl' ? plPayment(x) : null; const nt = x.kind === 'pl' ? tcontract(x.parentId) : null;
+    return { no: x.no || '', kind: x.kind === 'nt' ? 'HĐ nguyên tắc' : `Phụ lục số ${padNo(x.seq)}${nt ? ' – HĐ ' + nt.no : ''}`, trainer: trainer(x.trainerId)?.name || x.trainerName || '', date: fmtD(x.signDate),
+      scope: x.kind === 'nt' ? `${fmtD(x.from)} – ${fmtD(x.to)}` : (x.rows || []).map((r) => `${r.customer}${r.time ? ' (' + r.time + ')' : ''}`).join('; '),
+      nt: x.kind === 'nt' ? 1 : 0, pl: x.kind === 'pl' ? 1 : 0, total: mm ? mm.total : 0, travel: mm ? mm.travel : 0, pit: mm ? mm.pit : 0, net: mm ? mm.net : 0, paid: pay ? pay.paid : 0, remain: pay ? Math.max(0, pay.remain) : 0,
+      state: tcState(x).label, file: (x.files || []).length ? 'Có bản ký' : x.docFile ? 'Có file Word' : 'Chưa có' };
+  };
+  const live = list.filter((x) => x.status !== 'cancelled');
+  const groups = byPeriod(list, (x) => x.signDate, ctx).map((g) => ({ ...g, rows: g.items.map(row) }));
+  const keys = ['nt', 'pl', 'total', 'travel', 'pit', 'net', 'paid', 'remain'];
+  const byTr = uniq(live.map((x) => x.trainerId)).map((tid) => ({ name: trainer(tid)?.name || live.find((x) => x.trainerId === tid)?.trainerName || '', rows: live.filter((x) => x.trainerId === tid).map(row) })).sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+  return {
+    sheet: 'Hợp đồng giảng viên', title: 'SỔ THEO DÕI HỢP ĐỒNG GIẢNG VIÊN THỈNH GIẢNG',
+    columns: [
+      { key: 'stt', header: 'STT', width: 5, align: 'center' }, { key: 'no', header: 'Số hợp đồng / phụ lục', width: 20 }, { key: 'kind', header: 'Loại', width: 20 }, { key: 'trainer', header: 'Giảng viên', width: 20 }, { key: 'date', header: 'Ngày ký', width: 11 },
+      { key: 'scope', header: 'Hiệu lực / lớp dạy', width: 30 }, { key: 'nt', header: 'HĐ nguyên tắc', width: 9, type: 'int' }, { key: 'pl', header: 'Phụ lục', width: 8, type: 'int' },
+      { key: 'total', header: 'Giá trị phụ lục', width: 14, type: 'vnd' }, { key: 'travel', header: 'Hỗ trợ đi lại', width: 12, type: 'vnd' }, { key: 'pit', header: 'Thuế TNCN', width: 12, type: 'vnd' }, { key: 'net', header: 'Thực nhận', width: 14, type: 'vnd' },
+      { key: 'paid', header: 'Đã trả', width: 13, type: 'vnd' }, { key: 'remain', header: 'Còn phải trả', width: 13, type: 'vnd' }, { key: 'state', header: 'Tình trạng', width: 18 }, { key: 'file', header: 'Hồ sơ', width: 12 },
+    ],
+    summaries: [
+      { title: `I. TỔNG HỢP THEO ${GRAN[ctx.gran].toUpperCase()}`, labelHeader: 'Kỳ ký', rows: summaryRows(groups, keys, (g) => g.rows.filter((r, i) => g.items[i].status !== 'cancelled'), (g) => g.p.label) },
+      { title: 'II. TỔNG HỢP THEO GIẢNG VIÊN', labelHeader: 'Giảng viên', rows: byTr.map((t) => ({ label: t.name, values: Object.fromEntries(keys.map((k) => [k, sumBy(t.rows, k)])) })) },
+    ],
+    detail: { title: 'III. CHI TIẾT HỢP ĐỒNG – PHỤ LỤC', groups: groups.filter((g) => g.rows.length).map((g) => ({ label: g.p.label, rows: g.rows, unit: 'văn bản' })) },
+    notes: ['Theo ngày ký. Phần tổng hợp không tính văn bản đã hủy. Thực nhận = Giá trị phụ lục + Hỗ trợ đi lại – Thuế TNCN khấu trừ; Đã trả lấy từ các lớp thuộc phụ lục (tab Thù lao & công nợ).',
+      `Số hợp đồng theo mẫu ${tcFmt('nt')}, số phụ lục theo mẫu ${tcFmt('pl')}.`],
+  };
+}
+
+/* ---------- 9. Số quyết định hoàn thành khóa học ---------- */
+function repDecisions(ctx) {
+  const list = S.decisions.filter((d) => inR(d.date, ctx)).sort((a, b) => (a.date || '').localeCompare(b.date || '') || decStt(a) - decStt(b));
+  const gk = Object.keys(GROUPS);
+  const row = (d) => {
+    const g = decGroup(d); const o = { no: d.no || '', date: fmtD(d.date), group: g ? 'N' + g : '', customer: d.customerName || '', course: fmtDateRange(d.courseFrom, d.courseTo), title: d.title || '', signer: d.signer || '', state: (DEC_STATUS[d.status || 'draft'] || DEC_STATUS.draft).label, file: (d.files || []).length ? 'Có' : 'Chưa có', total: d.status === 'cancelled' ? 0 : 1, students: d.status === 'cancelled' ? 0 : Number(d.students) || 0 };
+    gk.forEach((k) => (o['n' + k] = d.status !== 'cancelled' && g === Number(k) ? 1 : 0));
+    return o;
+  };
+  const groups = byPeriod(list, (d) => d.date, ctx).map((g) => ({ ...g, rows: g.items.map(row) }));
+  const keys = [...gk.map((k) => 'n' + k), 'total', 'students'];
+  const years = uniq(list.map(decYear));
+  const audit = [];
+  for (const y of years) {
+    for (const ds of decDuplicates(S.decisions.filter((d) => decYear(d) === y))) audit.push(`Trùng số năm ${y}: ${ds.map((d) => d.no).join(' / ')}`);
+    for (const g of decSeqMode() === 'year' ? [null] : gk) { const gaps = decGaps(y, g); if (gaps.length) audit.push(`Số bỏ trống năm ${y}${g ? ` nhóm ${g}` : ''}: ${gaps.map(padNo).join(', ')}`); }
+  }
+  return {
+    sheet: 'Số quyết định', title: 'SỔ THEO DÕI SỐ QUYẾT ĐỊNH HOÀN THÀNH KHÓA HỌC',
+    columns: [
+      { key: 'stt', header: 'STT', width: 5, align: 'center' }, { key: 'no', header: 'Số quyết định', width: 18 }, { key: 'date', header: 'Ngày', width: 11 }, { key: 'group', header: 'Nhóm', width: 7, align: 'center' },
+      { key: 'customer', header: 'Khách hàng', width: 28 }, { key: 'course', header: 'Khóa học', width: 15 }, { key: 'title', header: 'Trích yếu', width: 26 }, { key: 'signer', header: 'Người ký', width: 16 }, { key: 'state', header: 'Tình trạng', width: 13 }, { key: 'file', header: 'File QĐ', width: 8 },
+      ...gk.map((k) => ({ key: 'n' + k, header: 'N' + k, width: 5, type: 'int' })), { key: 'total', header: 'Số QĐ', width: 7, type: 'int' }, { key: 'students', header: 'Học viên', width: 9, type: 'int' },
+    ],
+    summaries: [
+      { title: `I. TỔNG HỢP THEO ${GRAN[ctx.gran].toUpperCase()}`, labelHeader: 'Kỳ ban hành', rows: summaryRows(groups, keys, (g) => g.rows, (g) => g.p.label) },
+    ],
+    detail: { title: 'II. CHI TIẾT TỪNG QUYẾT ĐỊNH', groups: groups.filter((g) => g.rows.length).map((g) => ({ label: g.p.label, rows: g.rows, unit: 'quyết định' })) },
+    list: audit.length ? { title: 'III. KIỂM TRA SỐ QUYẾT ĐỊNH', rows: audit } : null,
+    notes: [`Số quyết định dạng ${decFmt()} – ${decSeqMode() === 'year' ? 'đánh số liên tục cả 6 nhóm trong năm' : 'mỗi nhóm một dãy số riêng'}, đánh lại từ 01 mỗi năm. Quyết định đã hủy vẫn giữ số, không tính vào tổng.`],
+  };
+}
+
+const REPORTS = { 'tong-quan': repOverview, lich: repClasses, 'doanh-thu': repProfit, 'hop-dong': repContracts, 'bao-gia': repQuotes, 'giang-vien': repTrainers, 'hoc-vien': repStudents, 'khach-hang': repCustomers, 'quyet-dinh': repDecisions };
 
 /* ---------- ghi file Excel ---------- */
 const XL = { font: 'Times New Roman', navy: 'FF0B2E7A', blue: 'FF1446B8', orange: 'FFEE6517', head: 'FFDCE6F7', group: 'FFF1F5FC', sub: 'FFE7EEFB', total: 'FFCCDAF5', line: 'FFAEBBD3', red: 'FFC42639' };
@@ -325,7 +436,7 @@ function writeSheet(ws, R, logoId, ctx) {
   if (logoId !== null) ws.addImage(logoId, { tl: { col: 0.08, row: 0.1 }, ext: { width: 54, height: 54 }, editAs: 'oneCell' });
   r = 5;
   mergeRow(r, 1, N, R.title, { font: { size: 16, bold: true, color: { argb: XL.navy } }, align: { horizontal: 'center' } }); ws.getRow(r).height = 26; r++;
-  mergeRow(r, 1, N, `Kỳ báo cáo: từ ${fmtD(ctx.from)} đến ${fmtD(ctx.to)}  ·  ${granText(ctx.gran)}`, { font: { italic: true }, align: { horizontal: 'center' } }); r++;
+  mergeRow(r, 1, N, `Kỳ báo cáo: ${ctx.label && !/\(/.test(ctx.label) ? `${ctx.label} (từ ${fmtD(ctx.from)} đến ${fmtD(ctx.to)})` : ctx.label || `từ ${fmtD(ctx.from)} đến ${fmtD(ctx.to)}`}  ·  ${granText(ctx.gran)}`, { font: { italic: true }, align: { horizontal: 'center' } }); r++;
   mergeRow(r, 1, N, `Ngày lập: ${fmtStamp(new Date().toISOString())}  ·  Đơn vị tính: đồng (không gồm VAT)`, { font: { size: 10, italic: true, color: { argb: 'FF555555' } }, align: { horizontal: 'center' } }); r += 2;
 
   const sectionTitle = (t) => { mergeRow(r, 1, N, t, { font: { bold: true, size: 12, color: { argb: XL.navy } } }); ws.getRow(r).height = 20; r++; };

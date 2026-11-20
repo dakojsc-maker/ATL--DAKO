@@ -358,7 +358,7 @@ function classDetail(id) {
         ${c.priceMode === 'manual' && tierFor(c.students) && tierFor(c.students).price !== c.price ? `<div class="small muted" style="margin-top:6px">Giá điều chỉnh so với bảng giá (${esc(moneyD(tierFor(c.students).price))}).</div>` : ''}</div>
       <div><div class="sec-title">Thù lao giảng viên (hợp đồng thuê giảng viên)</div>${fees.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Giảng viên</th><th>Số HĐ thuê GV</th><th class="r">Thù lao</th><th class="r">Đã trả</th><th class="r">Còn lại</th><th>Tình trạng</th><th></th></tr></thead><tbody>
         ${fees.map((fe) => { const x = trainer(fe.trainerId); const s2 = feeState(fe, cancelled); return `<tr data-act="fee-open" data-id="${esc(c.id)}" data-trainer="${esc(fe.trainerId)}"><td>${avatar(x, 'sm')} <b>${esc(x?.name || 'GV đã xóa')}</b>${fe.removed ? ' <span class="muted small">(đã gỡ khỏi lớp)</span>' : ''}<div class="small">${x ? phoneLink(x.phone) : ''}</div></td>
-          <td class="small">${fe.contractNo ? esc(fe.contractNo) : '<span class="muted">chưa có số HĐ</span>'} ${(fe.files || []).length ? fileButtons(fe.files, 'HĐ') : ''}</td>${moneyCell(s2.amount)}${moneyCell(s2.paid)}<td class="r strong" style="color:${s2.remain > 0 ? 'var(--accent)' : 'var(--ok)'}">${money(s2.remain)}</td><td>${pill(s2.label, s2.tone)}</td>
+          <td class="small">${fe.contractNo ? esc(fe.contractNo) : '<span class="muted">chưa có số HĐ</span>'} ${(fe.files || []).length ? fileButtons(fe.files, 'HĐ') : ''}</td>${feeAmountCell(s2)}${moneyCell(s2.paid)}<td class="r strong" style="color:${s2.remain > 0 ? 'var(--accent)' : 'var(--ok)'}">${money(s2.remain)}</td><td>${pill(s2.label, s2.tone)}</td>
           <td class="r"><button type="button" class="btn xs" data-act="fee-open" data-id="${esc(c.id)}" data-trainer="${esc(fe.trainerId)}">${ic('money')} Thù lao &amp; trả tiền</button></td></tr>`; }).join('')}</tbody></table></div>` : '<div class="banner warn" style="margin:0">Chưa phân công giảng viên</div>'}</div>
       <div><div class="sec-title">Hoa hồng &amp; chi phí khác</div>
         ${P.contract ? `<div class="small" style="margin-bottom:6px">Phân bổ <b>${pct(P.share)}</b> từ hợp đồng <b>${esc(P.contract.contractNo || P.contract.no || '')}</b>: hoa hồng đại lý ${esc(money(P.com.agent + P.com.other))} đ · hoa hồng cán bộ quản lý KH ${esc(money(P.com.manager))} đ · thuế khấu trừ ${esc(money(P.com.tax))} đ${P.otherAlloc ? ` · chi phí khác cấp HĐ ${esc(money(P.otherAlloc))} đ` : ''} <button type="button" class="btn xs" data-act="pnl-view" data-id="${esc(P.contract.id)}">${ic('trend')} Chi phí &amp; lợi nhuận hợp đồng</button></div>` : '<div class="small muted" style="margin-bottom:6px">Lớp chưa gắn hợp đồng đã ký – chưa có hoa hồng.</div>'}
@@ -390,7 +390,8 @@ function feeModal(classId, trainerId, { pay = false } = {}) {
     title: `Thù lao giảng viên – ${esc(x?.name || 'Giảng viên')}`, sub: esc(`${classLabel(c0)} · ${fmtDateRange(c0.startDate, c0.endDate)} · ${classDays(c0)} ngày`), size: '',
     body: `<div class="fgrid">
         ${f('fm-amount', 'Thù lao lớp này (đ)', moneyInp('fm-amount', fe.amount, 'Số tiền theo hợp đồng thuê giảng viên'), { hint: x?.dailyRate ? `Theo thù lao/ngày: ${money(x.dailyRate)} × ${classDays(c0)} ngày = ${money(auto)} đ` : 'Giảng viên chưa có thù lao/ngày – nhập số thỏa thuận' })}
-        ${f('fm-cno', 'Số hợp đồng thuê giảng viên', inp('fm-cno', fe.contractNo, 'placeholder="VD: 12/2026/HĐGV-DAKO"'))}
+        ${f('fm-pit', 'Thuế TNCN khấu trừ (đ)', moneyInp('fm-pit', fe.pit || '', 'Để trống nếu không khấu trừ'), { hint: `<a href="#" data-pitcalc>Tính ${esc(pitCfg().rate)}%</a> khi thù lao từ ${money(pitCfg().min)} đ · DAKO nộp thay, không trả cho giảng viên` })}
+        ${f('fm-cno', 'Số hợp đồng / phụ lục thuê giảng viên', inp('fm-cno', fe.contractNo, 'placeholder="VD: 05/PLHĐ-ATVSLĐ"'), { hint: fe.tcontractId && tcontract(fe.tcontractId) ? `Theo <a href="#" data-act="tc-view" data-id="${esc(fe.tcontractId)}">phụ lục ${esc(tcontract(fe.tcontractId).no)}</a>${fe.travel ? ` · gồm hỗ trợ đi lại ${money(fe.travel)} đ` : ''}` : '' })}
         ${f('fm-cdate', 'Ngày ký hợp đồng', inp('fm-cdate', fe.contractDate, 'type="date"'))}
         ${f('fm-note', 'Ghi chú', inp('fm-note', fe.note, 'placeholder="Điều khoản thanh toán, tài khoản nhận…"'), { cls: 'full' })}
         <div class="f full"><span class="lbl">File hợp đồng thuê giảng viên / chứng từ chi</span><div data-files></div></div>
@@ -404,14 +405,21 @@ function feeModal(classId, trainerId, { pay = false } = {}) {
   const files = mountFileField(root.querySelector('[data-files]'), fe.files || []);
   if (ro) $$('input, select', root).forEach((el) => (el.disabled = true));
   function renderPays() {
-    const amount = parseMoney(val(root, 'fm-amount')); const paid = sum(fe.payments, (p) => p.amount);
+    const amount = parseMoney(val(root, 'fm-amount')); const paid = sum(fe.payments, (p) => p.amount); const pit = Math.min(amount, parseMoney(val(root, 'fm-pit')));
     root.querySelector('[data-pays]').innerHTML = fe.payments.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ngày</th><th>Loại</th><th class="r">Số tiền</th><th>Nội dung</th><th></th></tr></thead><tbody>${fe.payments.slice().sort((a, b) => (a.date || '').localeCompare(b.date || '')).map((p) => `<tr style="cursor:default"><td class="num">${esc(fmtD(p.date))}</td><td>${esc(p.kind || '')}</td>${moneyCell(p.amount)}<td>${esc(p.note || '')}</td><td class="r">${ro ? '' : `<button type="button" class="btn xs ghost" data-rmpay="${esc(p.id)}" aria-label="Xóa khoản trả">${ic('trash')}</button>`}</td></tr>`).join('')}</tbody></table></div>` : '<div class="muted small">Chưa có khoản tạm ứng / thanh toán nào.</div>';
-    const due = (c0.status === 'cancelled' ? 0 : amount) - paid;
-    root.querySelector('[data-sum]').innerHTML = mbox('Thù lao', money(c0.status === 'cancelled' ? 0 : amount)) + mbox('Đã trả', money(paid), 'pos') + (due < 0 ? mbox(c0.status === 'cancelled' ? 'Cần thu hồi tạm ứng' : 'Đã trả dư', money(-due), 'neg') : mbox('Còn phải trả', money(due), due > 0 ? 'hl' : 'pos'));
-    const pa = root.querySelector('#fm-pamount'); if (pa && !pa.value && amount - paid > 0) pa.placeholder = `Còn lại ${money(amount - paid)} đ`;
+    const cancelled = c0.status === 'cancelled';
+    const due = (cancelled ? 0 : amount - pit) - paid;
+    root.querySelector('[data-sum]').innerHTML = mbox('Thù lao', money(cancelled ? 0 : amount)) + (pit && !cancelled ? mbox('Thuế TNCN khấu trừ', money(pit), 'neg') : '') + mbox('Đã trả', money(paid), 'pos') + (due < 0 ? mbox(cancelled ? 'Cần thu hồi tạm ứng' : 'Đã trả dư', money(-due), 'neg') : mbox('Còn phải trả', money(due), due > 0 ? 'hl' : 'pos'));
+    root.querySelector('[data-sum]').classList.toggle('cols-4', !!pit && !cancelled);
+    const pa = root.querySelector('#fm-pamount'); if (pa && !pa.value && due > 0) pa.placeholder = `Còn lại ${money(due)} đ`;
   }
   renderPays();
   root.querySelector('#fm-amount').addEventListener('input', renderPays);
+  root.querySelector('#fm-pit').addEventListener('input', renderPays);
+  root.querySelector('[data-pitcalc]')?.addEventListener('click', (e) => {
+    e.preventDefault(); if (ro) return; const amount = parseMoney(val(root, 'fm-amount')); const { rate, min } = pitCfg();
+    root.querySelector('#fm-pit').value = amount >= min ? money(Math.round((amount * rate) / 100)) : ''; renderPays();
+  });
   root.addEventListener('click', (e) => {
     if (e.target.closest('[data-addpay]')) {
       const amount = parseMoney(val(root, 'fm-pamount'));
@@ -422,7 +430,7 @@ function feeModal(classId, trainerId, { pay = false } = {}) {
     }
     const rm = e.target.closest('[data-rmpay]'); if (rm) { fe.payments = fe.payments.filter((p) => p.id !== rm.dataset.rmpay); renderPays(); }
   });
-  const read = () => ({ amount: parseMoney(val(root, 'fm-amount')), contractNo: val(root, 'fm-cno'), contractDate: val(root, 'fm-cdate'), note: val(root, 'fm-note'), payments: fe.payments });
+  const read = () => ({ amount: parseMoney(val(root, 'fm-amount')), pit: parseMoney(val(root, 'fm-pit')), contractNo: val(root, 'fm-cno'), contractDate: val(root, 'fm-cdate'), note: val(root, 'fm-note'), payments: fe.payments });
   const snap = JSON.stringify(read());
   if (!ro) {
     m.guard = formGuard(() => JSON.stringify(read()) !== snap || files.dirty(), [files]);
@@ -460,9 +468,16 @@ function trainerForm(existing) {
         ${f('tf-name', 'Họ và tên', inp('tf-name', x.name, 'required placeholder="Họ và tên giảng viên"'), { req: true, cls: 'span2' })}
         ${f('tf-phone', 'Số điện thoại', inp('tf-phone', x.phone, 'inputmode="tel" required placeholder="VD: 0912 345 678"'), { req: true, hint: ' ' })}
         ${f('tf-email', 'Email', inp('tf-email', x.email, 'type="email" placeholder="email@…"'))}
-        ${f('tf-birth', 'Năm sinh', inp('tf-birth', x.birthYear, 'type="number" min="1940" max="2010" placeholder="VD: 1985"'))}
-        ${f('tf-address', 'Địa chỉ', inp('tf-address', x.address, 'placeholder="Tỉnh/thành nơi ở – giúp xếp vùng dạy"'), { cls: 'span2' })}
+        ${f('tf-dob', 'Ngày sinh', inp('tf-dob', x.dob, 'type="date"'), { hint: !x.dob && x.birthYear ? `Đang có năm sinh ${esc(x.birthYear)} – nhập đủ ngày để in hợp đồng` : '' })}
+        ${f('tf-gender', 'Giới tính', `<select class="input" id="tf-gender">${opt('', 'Chọn…', !x.gender)}${opt('Nam', 'Nam', x.gender === 'Nam')}${opt('Nữ', 'Nữ', x.gender === 'Nữ')}</select>`)}
+        ${f('tf-address', 'Nơi ở hiện nay', inp('tf-address', x.address, 'placeholder="Tỉnh/thành nơi ở – giúp xếp vùng dạy"'), { cls: 'span2' })}
       </div></div></fieldset>
+      <fieldset class="sec"><legend>Giấy tờ cá nhân (in trong hợp đồng thỉnh giảng)</legend><div class="fgrid">
+        ${f('tf-idno', 'Số CCCD / hộ chiếu', inp('tf-idno', x.idNo, 'inputmode="numeric" placeholder="12 số CCCD"'))}
+        ${f('tf-iddate', 'Ngày cấp', inp('tf-iddate', x.idDate, 'type="date"'))}
+        ${f('tf-idplace', 'Nơi cấp', inp('tf-idplace', x.idPlace, 'placeholder="VD: Cục CS QLHC về TTXH"'))}
+        ${f('tf-perm', 'Địa chỉ thường trú', inp('tf-perm', x.permAddress, 'placeholder="Theo CCCD – để trống thì dùng nơi ở hiện nay"'), { cls: 'full' })}
+      </div></fieldset>
       <fieldset class="sec"><legend>Vùng &amp; chuyên môn</legend><div class="fgrid">
         ${f('tf-region', 'Vùng đào tạo chính', `<select class="input" id="tf-region">${regionList().map((r) => opt(r.id, `${r.name} (${r.center})`, x.region === r.id)).join('')}</select>`, { req: true })}
         <div class="f span2"><span class="lbl">Có thể hỗ trợ thêm vùng</span><div class="checks">${regionList().map((r) => `<label><input type="checkbox" name="tf-oreg" value="${esc(r.id)}"${(x.otherRegions || []).includes(r.id) ? ' checked' : ''}> ${esc(r.name)}</label>`).join('')}</div></div>
@@ -478,7 +493,8 @@ function trainerForm(existing) {
         ${f('tf-emp', 'Hình thức', `<select class="input" id="tf-emp">${EMPLOYMENT.map((e) => opt(e, e, x.employment === e)).join('')}</select>`)}
         ${f('tf-rate', 'Thù lao / ngày dạy (đ)', moneyInp('tf-rate', x.dailyRate, 'VD: 1.500.000'), { hint: 'Dùng để tự tính thù lao giảng viên của từng lớp' })}
         ${f('tf-status', 'Trạng thái', `<select class="input" id="tf-status">${opt('active', 'Đang hoạt động', x.status !== 'paused')}${opt('paused', 'Tạm ngưng (không hiện khi xếp lịch)', x.status === 'paused')}</select>`)}
-        ${f('tf-bank', 'Tài khoản nhận thù lao', inp('tf-bank', x.bank, 'placeholder="Số tài khoản – ngân hàng – chủ tài khoản"'), { cls: 'span2' })}
+        ${f('tf-bankacc', 'Số tài khoản nhận thù lao', inp('tf-bankacc', x.bankAccount || (x.bankName ? '' : x.bank), 'inputmode="numeric" placeholder="Số tài khoản"'), { hint: !x.bankAccount && x.bank ? 'Đang ghi chung: ' + esc(x.bank) + ' – tách số TK và ngân hàng' : '' })}
+        ${f('tf-bankname', 'Tại ngân hàng', inp('tf-bankname', x.bankName, 'placeholder="VD: Vietcombank – CN Nha Trang"'))}
         ${f('tf-tax', 'Mã số thuế cá nhân', inp('tf-tax', x.taxCode, 'placeholder="MST cá nhân (khấu trừ thuế thù lao)"'))}
         ${f('tf-notes', 'Ghi chú', `<textarea class="input" id="tf-notes" rows="2" placeholder="Lưu ý khi phân công, đánh giá chất lượng…">${esc(x.notes || '')}</textarea>`, { cls: 'full' })}
         <div class="f full"><span class="lbl">Hồ sơ đính kèm – CV, bằng cấp, chứng chỉ, hợp đồng khung</span><div data-files></div></div>
@@ -489,11 +505,13 @@ function trainerForm(existing) {
   const ph = mountFileField(root.querySelector('[data-photo]'), x.photo ? [x.photo] : [], { image: true });
   const files = mountFileField(root.querySelector('[data-files]'), x.files);
   const read = () => ({
-    name: val(root, 'tf-name'), phone: val(root, 'tf-phone'), email: val(root, 'tf-email'), birthYear: val(root, 'tf-birth'), address: val(root, 'tf-address'),
+    name: val(root, 'tf-name'), phone: val(root, 'tf-phone'), email: val(root, 'tf-email'), dob: val(root, 'tf-dob'), birthYear: val(root, 'tf-dob') ? val(root, 'tf-dob').slice(0, 4) : x.birthYear || '', gender: val(root, 'tf-gender'), address: val(root, 'tf-address'),
+    idNo: val(root, 'tf-idno'), idDate: val(root, 'tf-iddate'), idPlace: val(root, 'tf-idplace'), permAddress: val(root, 'tf-perm'),
     region: val(root, 'tf-region'), otherRegions: checkedVals(root, 'tf-oreg').filter((r) => r !== val(root, 'tf-region')),
     specialties: uniq([...checkedVals(root, 'tf-spec'), ...val(root, 'tf-spec-more').split(',').map((s) => s.trim()).filter(Boolean)]),
     groups: checkedVals(root, 'tf-group').map(Number), degree: val(root, 'tf-degree'), experience: val(root, 'tf-exp'), certNo: val(root, 'tf-certno'), certExpiry: val(root, 'tf-certexp'),
-    employment: val(root, 'tf-emp'), dailyRate: parseMoney(val(root, 'tf-rate')), status: val(root, 'tf-status'), bank: val(root, 'tf-bank'), taxCode: val(root, 'tf-tax'), notes: val(root, 'tf-notes'),
+    employment: val(root, 'tf-emp'), dailyRate: parseMoney(val(root, 'tf-rate')), status: val(root, 'tf-status'), bankAccount: val(root, 'tf-bankacc'), bankName: val(root, 'tf-bankname'),
+    bank: [val(root, 'tf-bankacc'), val(root, 'tf-bankname')].filter(Boolean).join(' – '), taxCode: val(root, 'tf-tax'), notes: val(root, 'tf-notes'),
   });
   root.querySelector('#tf-phone').addEventListener('input', () => {
     const p = val(root, 'tf-phone').replace(/\D/g, '');
@@ -515,6 +533,10 @@ function trainerForm(existing) {
       toast(existing ? 'Đã cập nhật giảng viên.' : 'Đã thêm giảng viên.', 'ok');
       const extra = d.specialties.filter((s) => !(settings().specialties || []).includes(s));
       if (extra.length && S.role.canEdit) Store.saveSettings({ ...settings(), specialties: [...settings().specialties, ...extra] }).catch(() => {});
+      if (!existing && d.status !== 'paused') {
+        // giảng viên mới → lập hợp đồng nguyên tắc thỉnh giảng ngay
+        if (await confirmBox(`Đã thêm giảng viên <b>${esc(d.name)}</b>.<br>Lập <b>hợp đồng nguyên tắc thỉnh giảng</b> theo mẫu DAKO cho giảng viên này ngay bây giờ? Số hợp đồng tiếp theo: <b>${esc(fmtDocNo(tcFmt('nt'), { stt: nextTcStt('nt', Number(todayISO().slice(0, 4))), year: todayISO().slice(0, 4) }))}</b>.`, { ok: 'Lập hợp đồng', title: 'Hợp đồng giảng viên' })) tcWizard({ trainerId: rec.id, kind: 'nt', trainerRec: rec });
+      }
       return rec;
     } catch (e) { ev.target.disabled = false; }
   };
@@ -541,28 +563,37 @@ function trainerDetail(id) {
     m.el.querySelector('.modal-h h2').textContent = x.name;
     m.body.innerHTML = `<div class="detail-top">${photo(x, 'lg')}<div class="grow" style="min-width:240px;display:flex;flex-direction:column;gap:10px">
       <div style="display:flex;gap:6px;flex-wrap:wrap">${rtag(x.region)}${x.status === 'paused' ? pill('Tạm ngưng', 'muted') : pill('Đang hoạt động', 'ok')}${x.employment ? pill(x.employment, 'info') : ''}${cert ? pill('Chứng chỉ: ' + cert.text, cert.tone) : ''}</div>
-      <dl class="dl"><div><dt>Điện thoại</dt><dd>${phoneLink(x.phone)}</dd></div><div><dt>Email</dt><dd>${x.email ? esc(x.email) : notSet()}</dd></div><div><dt>Năm sinh</dt><dd>${x.birthYear ? esc(x.birthYear) : notSet()}</dd></div>
+      <dl class="dl"><div><dt>Điện thoại</dt><dd>${phoneLink(x.phone)}</dd></div><div><dt>Email</dt><dd>${x.email ? esc(x.email) : notSet()}</dd></div><div><dt>Ngày sinh</dt><dd>${x.dob ? esc(fmtD(x.dob)) : x.birthYear ? esc(x.birthYear) : notSet()}${x.gender ? ` · ${esc(x.gender)}` : ''}</dd></div>
       <div><dt>Vùng hỗ trợ thêm</dt><dd>${esc((x.otherRegions || []).map(regionName).join(', ') || '—')}</dd></div><div><dt>Trình độ</dt><dd>${x.degree ? esc(x.degree) : notSet()}${x.experience ? ` · ${esc(x.experience)} năm kinh nghiệm` : ''}</dd></div>
       <div><dt>Chứng chỉ giảng viên</dt><dd>${x.certNo ? esc(x.certNo) : notSet()}${x.certExpiry ? ` · hạn ${esc(fmtD(x.certExpiry))}` : ''}</dd></div><div><dt>Thù lao / ngày</dt><dd>${x.dailyRate ? esc(moneyD(x.dailyRate)) : notSet('Nhập thù lao/ngày để công cụ tự tính thù lao từng lớp')}</dd></div>
-      <div><dt>Tài khoản nhận thù lao</dt><dd>${x.bank ? esc(x.bank) : notSet()}</dd></div><div><dt>MST cá nhân</dt><dd>${x.taxCode ? esc(x.taxCode) : notSet()}</dd></div>
-      <div class="full"><dt>Địa chỉ</dt><dd>${x.address ? esc(x.address) : notSet()}</dd></div></dl></div></div>
+      <div><dt>Tài khoản nhận thù lao</dt><dd>${x.bankAccount ? esc(x.bankAccount) + (x.bankName ? ' – ' + esc(x.bankName) : '') : x.bank ? esc(x.bank) : notSet()}</dd></div><div><dt>MST cá nhân</dt><dd>${x.taxCode ? esc(x.taxCode) : notSet()}</dd></div>
+      <div><dt>CCCD / hộ chiếu</dt><dd>${x.idNo ? esc(x.idNo) + (x.idDate ? ` · cấp ${esc(fmtD(x.idDate))}` : '') + (x.idPlace ? ` · ${esc(x.idPlace)}` : '') : notSet('Cần cho hợp đồng thỉnh giảng – bấm Sửa để bổ sung')}</dd></div>
+      <div class="full"><dt>Địa chỉ</dt><dd>${x.address ? esc(x.address) : notSet()}${x.permAddress && x.permAddress !== x.address ? `<div class="muted small">Thường trú: ${esc(x.permAddress)}</div>` : ''}</dd></div></dl></div></div>
       <div><div class="sec-title">Chuyên ngành &amp; nhóm được dạy</div><div style="display:flex;gap:6px;flex-wrap:wrap">${(x.specialties || []).map((s) => `<span class="tag">${esc(s)}</span>`).join('') || '<span class="muted small">Chưa nhập chuyên ngành</span>'}</div>
         <div class="small" style="margin-top:6px">${(x.groups || []).length ? x.groups.slice().sort().map((g) => `Nhóm ${g}: ${esc(GROUPS[g].desc)}`).join('<br>') : '<span class="muted">Chưa chọn nhóm được dạy</span>'}</div></div>
       <div class="kpis" style="margin:0"><div class="kpi"><span class="k">Tháng ${Number(ym.slice(5))}</span><span class="v">${load.days} <small>ngày dạy</small></span><span class="d">${load.classes.length} lớp</span></div>
         <div class="kpi"><span class="k">Đã dạy</span><span class="v">${done.length} <small>lớp</small></span><span class="d">${money(sum(done, (c) => c.students))} học viên</span></div>
         <div class="kpi"><span class="k">Tổng thù lao</span><span class="v">${moneyShort(L.amount)}</span><span class="d">Đã trả ${moneyD(L.paid)}</span></div>
         <div class="kpi${L.remain > 0 ? ' hl' : ''}"><span class="k">Còn phải trả</span><span class="v">${moneyShort(L.remain)}</span><span class="d">${moneyD(L.remain)}</span></div></div>
+      <div><div class="sec-title">Hợp đồng thỉnh giảng</div>${(() => {
+        const tcs = trainerTcs(x.id).sort((a, b) => (b.signDate || '').localeCompare(a.signDate || '') || (a.kind === 'nt' ? -1 : 1));
+        const act = activeNt(x.id); const usable = usableNts(x.id);
+        const head = act ? `<div class="small" style="margin-bottom:6px">${pill(tcState(act).label, tcState(act).tone)} HĐ nguyên tắc <a href="#" data-act="tc-view" data-id="${esc(act.id)}"><b>${esc(act.no)}</b></a> · hiệu lực ${esc(fmtD(act.from))} – ${esc(fmtD(act.to))} · ${ntAppendices(act.id).length} phụ lục</div>`
+          : `<div class="small warn-t" style="margin-bottom:6px">Chưa có hợp đồng nguyên tắc còn hiệu lực${usable.length ? ` (có HĐ ${esc(usable[0].no)} hiệu lực từ ${esc(fmtD(usable[0].from))})` : ''}.</div>`;
+        return head + (tcs.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Số</th><th>Loại</th><th>Ngày ký</th><th>Hiệu lực / lớp</th><th class="r">Thực nhận</th><th>Tình trạng</th></tr></thead><tbody>${tcs.map((c) => { const st = tcState(c); return `<tr data-act="tc-view" data-id="${esc(c.id)}"><td class="strong nowrap">${esc(c.no)}</td><td class="small">${c.kind === 'nt' ? 'HĐ nguyên tắc' : 'Phụ lục số ' + esc(padNo(c.seq))}</td><td class="num">${esc(fmtD(c.signDate))}</td><td class="small">${c.kind === 'nt' ? `${esc(fmtD(c.from))} – ${esc(fmtD(c.to))}` : `${(c.rows || []).length} lớp`}</td>${c.kind === 'pl' ? moneyCell(plMoney(c).net) : '<td class="r muted">—</td>'}<td>${pill(st.label, st.tone)}</td></tr>`; }).join('')}</tbody></table></div>` : '');
+      })()}</div>
       <div><div class="sec-title">Thù lao &amp; thanh toán theo lớp</div>${L.rows.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ngày lớp</th><th>Khách hàng</th><th>HĐ thuê GV</th><th class="r">Thù lao</th><th class="r">Đã trả</th><th class="r">Còn lại</th><th>Tình trạng</th></tr></thead><tbody>
-        ${L.rows.slice().reverse().map((r) => `<tr data-act="fee-open" data-id="${esc(r.c.id)}" data-trainer="${esc(x.id)}"><td class="nowrap num">${esc(fmtDateRange(r.c.startDate, r.c.endDate))}</td><td>${esc(classLabel(r.c))}</td><td class="small">${esc(r.f.contractNo || '')} ${(r.f.files || []).length ? fileButtons(r.f.files, 'HĐ') : ''}</td>${moneyCell(r.amount)}${moneyCell(r.paid)}<td class="r strong" style="color:${r.remain > 0 ? 'var(--accent)' : 'var(--ok)'}">${money(r.remain)}</td><td>${pill(r.label, r.tone)}</td></tr>`).join('')}
+        ${L.rows.slice().reverse().map((r) => `<tr data-act="fee-open" data-id="${esc(r.c.id)}" data-trainer="${esc(x.id)}"><td class="nowrap num">${esc(fmtDateRange(r.c.startDate, r.c.endDate))}</td><td>${esc(classLabel(r.c))}</td><td class="small">${esc(r.f.contractNo || '')} ${(r.f.files || []).length ? fileButtons(r.f.files, 'HĐ') : ''}</td>${feeAmountCell(r)}${moneyCell(r.paid)}<td class="r strong" style="color:${r.remain > 0 ? 'var(--accent)' : 'var(--ok)'}">${money(r.remain)}</td><td>${pill(r.label, r.tone)}</td></tr>`).join('')}
         </tbody><tfoot><tr><td colspan="3">Tổng ${L.rows.length} lớp</td>${moneyCell(L.amount)}${moneyCell(L.paid)}${moneyCell(L.remain)}<td></td></tr></tfoot></table></div>` : '<div class="muted small">Chưa có lớp nào.</div>'}</div>
       <div><div class="sec-title">Lịch sắp tới</div>${up.length ? `<ul class="list" style="border:1px solid var(--line);border-radius:10px">${up.slice(0, 12).map(classLi).join('')}</ul>` : '<div class="muted small">Chưa có lớp sắp tới.</div>'}</div>
       <div><div class="sec-title">Hồ sơ đính kèm</div>${filesBlock(x.files, 'Chưa có hồ sơ đính kèm')}</div>
       ${x.notes ? `<div><div class="sec-title">Ghi chú</div><div style="white-space:pre-wrap">${esc(x.notes)}</div></div>` : ''}`;
     if (!m.foot) { m.el.insertAdjacentHTML('beforeend', '<div class="modal-f"></div>'); m.foot = m.el.querySelector('.modal-f'); }
-    m.foot.innerHTML = `${editorStamp(x)}<span class="sp"></span><button type="button" class="btn" data-x="cal">${ic('cal')} Xem trên lịch</button><span class="edit-only" style="display:flex;gap:8px"><button type="button" class="btn danger" data-x="del">${ic('trash')} Xóa</button><button type="button" class="btn" data-x="new">${ic('plus')} Xếp lớp</button><button type="button" class="btn primary" data-x="edit">${ic('edit')} Sửa</button></span>`;
+    m.foot.innerHTML = `${editorStamp(x)}<span class="sp"></span><button type="button" class="btn" data-x="cal">${ic('cal')} Xem trên lịch</button><span class="edit-only" style="display:flex;gap:8px"><button type="button" class="btn danger" data-x="del">${ic('trash')} Xóa</button><button type="button" class="btn" data-x="new">${ic('plus')} Xếp lớp</button><button type="button" class="btn" data-x="tc">${ic('sign')} ${usableNts(x.id).length ? 'Tạo phụ lục HĐ' : 'Tạo hợp đồng'}</button><button type="button" class="btn primary" data-x="edit">${ic('edit')} Sửa</button></span>`;
     m.foot.querySelector('[data-x=cal]').onclick = () => { m.close(); S.ui.trainerFocus = x.id; S.ui.region = 'all'; go('lich'); };
     m.foot.querySelector('[data-x=del]').onclick = async () => { if (await deleteTrainer(x)) m.close(); };
     m.foot.querySelector('[data-x=new]').onclick = () => { m.close(); classForm(null, { trainerId: x.id }); };
+    m.foot.querySelector('[data-x=tc]').onclick = () => { m.close(); tcWizard({ trainerId: x.id }); };
     m.foot.querySelector('[data-x=edit]').onclick = () => { m.close(); trainerForm(x); };
     hydrate(m.el); fillNames(m.el);
   }
