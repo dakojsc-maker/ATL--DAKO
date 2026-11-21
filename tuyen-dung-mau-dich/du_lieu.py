@@ -21,10 +21,11 @@ LIEN_HE = {
 # ---------------------------------------------------------------- vị trí
 VI_TRI = [
     {
-        "id": "QL", "ten": "Quản lý", "day_du": "Quản lý Nhà hàng – Cà phê", "en": "Restaurant Manager",
+        "id": "QL", "ten": "Quản lý quán", "day_du": "Quản lý quán cà phê", "en": "Café Manager", "icon": "🧭",
         "sl": 1, "loai": "Full-time ca gãy",
         "ca": ["Full-time ca gãy (9 tiếng/ngày)", "Ca sáng: 06:00 – 11:00", "Ca tối: 18:00 – 22:00"],
         "ca_ngan": "Full-time ca gãy: 06:00–11:00 & 18:00–22:00",
+        "ngan": 'Full-time ca gãy · từ 2 năm kinh nghiệm quản lý F&B', "poster_ca": ['Ca gãy: 06:00 – 11:00 & 18:00 – 22:00'],
         "mota": [
             "Quản lý toàn bộ vận hành 3 khu: Khối A, Khối B, Sân vườn và Quầy Bar Trung Tâm",
             "Tuyển chọn, đào tạo, phân ca và đánh giá đội ngũ nhân viên",
@@ -34,7 +35,7 @@ VI_TRI = [
             "Phối hợp tổ chức hoạt động vui chơi, sự kiện cộng đồng; báo cáo định kỳ cho Ban Giám đốc",
         ],
         "yeucau": [
-            "Tối thiểu 2 năm kinh nghiệm quản lý nhà hàng/cà phê, ưu tiên mô hình nhiều khu, quy mô lớn",
+            "Tối thiểu 2 năm kinh nghiệm quản lý quán cà phê / F&B, ưu tiên mô hình nhiều khu, quy mô lớn",
             "Kỹ năng lãnh đạo, giao tiếp và xử lý tình huống tốt",
             "Thành thạo báo cáo, phần mềm bán hàng (POS), Excel cơ bản",
             "Ưu tiên giao tiếp được tiếng Anh, hiểu thị trường F&B Nha Trang",
@@ -42,19 +43,20 @@ VI_TRI = [
         ],
         "thang_tien": "Cơ hội phát triển lâu dài cùng thương hiệu Mậu Dịch 197X",
         "them": [],
-        "tag": "#TuyenQuanLy #QuanLyNhaHang #ViecLamFnB",
-        "poster": {"tieu_de": "QUẢN LÝ", "phu": "RESTAURANT MANAGER · FULL-TIME"},
-        "ung_vien": "Quản lý / trợ lý quản lý F&B 25–40 tuổi, đã điều hành nhà hàng – cà phê quy mô vừa và lớn",
+        "tag": "#TuyenQuanLy #QuanLyQuanCafe #ViecLamFnB",
+        "poster": {"tieu_de": "QUẢN LÝ QUÁN CÀ PHÊ", "phu": "CAFÉ MANAGER · FULL-TIME"},
+        "ung_vien": "Quản lý / trợ lý quản lý F&B 25–40 tuổi, đã điều hành quán cà phê quy mô vừa và lớn",
         "do_kho": "Cao", "muc_kho": 3,
         "kenh": ["fanpage", "fb_fnb", "topcv", "vietnamworks", "linkedin", "noibo"],
         "gio": ["08:00", "20:30"],
         "cta": "Gửi CV qua email hoặc nhắn Zalo để được hẹn lịch phỏng vấn sớm nhất",
     },
     {
-        "id": "GS", "ten": "Giám sát ca", "day_du": "Giám sát ca (Shift Leader)", "en": "Shift Leader",
+        "id": "GS", "ten": "Giám sát ca", "day_du": "Giám sát ca (Shift Leader)", "en": "Shift Leader", "icon": "🎯",
         "sl": 2, "loai": "Full-time",
         "ca": ["Full-time 9 tiếng/ngày", "Ca sáng: 06:00 – 15:00", "Ca chiều: 14:00 – 23:00"],
         "ca_ngan": "Full-time 9h: 06:00–15:00 hoặc 14:00–23:00",
+        "ngan": 'Full-time 9 tiếng · từ 1 năm kinh nghiệm F&B', "poster_ca": ['Ca sáng 06:00 – 15:00 · Ca chiều 14:00 – 23:00'],
         "mota": [
             "Điều phối nhân sự trong ca, phân công phục vụ theo từng khu (Khối A, Khối B, Sân vườn)",
             "Giám sát quy trình phục vụ, chất lượng đồ uống – món ăn và vệ sinh khu vực",
@@ -79,10 +81,11 @@ VI_TRI = [
         "cta": "Nhắn Zalo hoặc gửi CV qua email để được hẹn lịch phỏng vấn",
     },
     {
-        "id": "TN", "ten": "Thu ngân / Điều phối Bar", "day_du": "Thu ngân / Điều phối Bar (Cashier)", "en": "Cashier",
+        "id": "TN", "ten": "Thu ngân / Điều phối Bar", "day_du": "Thu ngân / Điều phối Bar (Cashier)", "en": "Cashier", "icon": "💳",
         "sl": 2, "loai": "Full-time",
         "ca": ["Full-time", "Ca sáng: 06:30 – 14:30", "Ca chiều: 14:00 – 22:00"],
         "ca_ngan": "Full-time: 06:30–14:30 hoặc 14:00–22:00",
+        "ngan": 'Full-time · cẩn thận, trung thực, có hướng dẫn', "poster_ca": ['Ca sáng 06:30 – 14:30 · Ca chiều 14:00 – 22:00'],
         "mota": [
             "Đón khách, nhận order, tư vấn menu nhanh gọn",
             "Tính tiền trên phần mềm POS; nhận thanh toán tiền mặt, chuyển khoản, thẻ",
@@ -107,10 +110,11 @@ VI_TRI = [
         "cta": "Nhắn Zalo hoặc gửi CV qua email để được hẹn lịch phỏng vấn",
     },
     {
-        "id": "TQ", "ten": "Trưởng quầy pha chế", "day_du": "Trưởng quầy Pha chế (Head Barista)", "en": "Head Barista",
+        "id": "TQ", "ten": "Trưởng quầy pha chế", "day_du": "Trưởng quầy Pha chế (Head Barista)", "en": "Head Barista", "icon": "🔥",
         "sl": 1, "loai": "Full-time ca gãy",
         "ca": ["Full-time ca gãy (9 tiếng/ngày)", "Ca sáng: 06:00 – 11:00", "Ca tối: 18:00 – 22:00"],
         "ca_ngan": "Full-time ca gãy: 06:00–11:00 & 18:00–22:00",
+        "ngan": 'Full-time ca gãy · từ 2 năm kinh nghiệm pha chế', "poster_ca": ['Ca gãy: 06:00 – 11:00 & 18:00 – 22:00'],
         "mota": [
             "Quản lý vận hành Quầy Bar Trung Tâm – nơi phục vụ cả 3 khu",
             "Xây dựng, chuẩn hóa công thức và định lượng: cà phê phin, espresso, trà, đồ uống signature",
@@ -135,13 +139,14 @@ VI_TRI = [
         "cta": "Nhắn Zalo hoặc gửi CV kèm ảnh/video sản phẩm qua email để được hẹn phỏng vấn",
     },
     {
-        "id": "PC", "ten": "Pha chế", "day_du": "Pha chế (Barista)", "en": "Barista",
+        "id": "PC", "ten": "Pha chế", "day_du": "Pha chế (Barista)", "en": "Barista", "icon": "☕",
         "sl": 8, "loai": "Full-time & Part-time",
         "ca": [
             "Full-time 9 tiếng: Ca sáng 06:00 – 15:00 | Ca chiều 14:00 – 23:00",
             "Part-time 5 tiếng (ca cao điểm): 06:00 – 11:00 | 17:00 – 22:00",
         ],
         "ca_ngan": "Full-time 9h (06:00–15:00 / 14:00–23:00) · Part-time 5h (06:00–11:00 / 17:00–22:00)",
+        "ngan": 'Full-time 9 tiếng hoặc Part-time 5 tiếng · có đào tạo', "poster_ca": ['Full-time 9h: 06:00 – 15:00 / 14:00 – 23:00', 'Part-time 5h: 06:00 – 11:00 / 17:00 – 22:00'],
         "mota": [
             "Pha chế đồ uống theo công thức chuẩn: cà phê phin, espresso, trà, đá xay, nước ép…",
             "Chuẩn bị nguyên liệu, dụng cụ đầu ca; giữ quầy luôn sạch, gọn, đúng chuẩn an toàn thực phẩm",
@@ -165,13 +170,14 @@ VI_TRI = [
         "cta": "Nhắn Zalo ngay hôm nay để được hẹn lịch phỏng vấn",
     },
     {
-        "id": "PV", "ten": "Phục vụ / Runner", "day_du": "Phục vụ / Runner", "en": "Server / Runner",
+        "id": "PV", "ten": "Phục vụ / Runner", "day_du": "Phục vụ / Runner", "en": "Server / Runner", "icon": "🙋",
         "sl": 10, "loai": "Full-time & Part-time",
         "ca": [
             "Full-time 9 tiếng: Ca sáng 06:00 – 15:00 | Ca chiều 14:00 – 23:00",
             "Part-time 5 tiếng: 06:00 – 11:00 | 17:00 – 22:00",
         ],
         "ca_ngan": "Full-time 9h (06:00–15:00 / 14:00–23:00) · Part-time 5h (06:00–11:00 / 17:00–22:00)",
+        "ngan": 'Full-time 9 tiếng hoặc Part-time 5 tiếng · không cần kinh nghiệm', "poster_ca": ['Full-time 9h: 06:00 – 15:00 / 14:00 – 23:00', 'Part-time 5h: 06:00 – 11:00 / 17:00 – 22:00'],
         "mota": [
             "Đón khách, hướng dẫn chỗ ngồi, nhận order tại khu được phân công (Khối A, Khối B hoặc Sân vườn)",
             "Runner: chuyển đồ uống, món ăn từ Quầy Bar và bếp đến đúng bàn, nhanh và chuẩn",
@@ -195,10 +201,11 @@ VI_TRI = [
         "cta": "Nhắn Zalo ngay để được hẹn lịch phỏng vấn – sinh viên ghi rõ ca rảnh nhé",
     },
     {
-        "id": "TV", "ten": "Tạp vụ / Rửa ly", "day_du": "Tạp vụ / Rửa ly (Steward)", "en": "Steward",
+        "id": "TV", "ten": "Tạp vụ / Rửa ly", "day_du": "Tạp vụ / Rửa ly (Steward)", "en": "Steward", "icon": "🫧",
         "sl": 2, "loai": "Full-time",
         "ca": ["Full-time 9 tiếng/ngày", "Ca sáng: 06:00 – 15:00", "Ca chiều: 14:00 – 23:00"],
         "ca_ngan": "Full-time 9h: 06:00–15:00 hoặc 14:00–23:00",
+        "ngan": 'Full-time 9 tiếng · không cần kinh nghiệm, có phụ cấp chuyên cần', "poster_ca": ['Ca sáng 06:00 – 15:00 · Ca chiều 14:00 – 23:00'],
         "mota": [
             "Rửa, lau khô và sắp xếp ly, tách, dụng cụ của Quầy Bar và bếp",
             "Vệ sinh khu vực chung, nhà vệ sinh, Sân vườn theo lịch",
@@ -221,10 +228,11 @@ VI_TRI = [
         "cta": "Gọi hoặc nhắn Zalo để được hẹn phỏng vấn – không cần chuẩn bị CV",
     },
     {
-        "id": "BV", "ten": "Bảo vệ / Điều phối xe", "day_du": "Bảo vệ / Điều phối xe (Security)", "en": "Security",
+        "id": "BV", "ten": "Bảo vệ / Điều phối xe", "day_du": "Bảo vệ / Điều phối xe (Security)", "en": "Security", "icon": "🛡️",
         "sl": 2, "loai": "Full-time",
         "ca": ["Full-time 9 tiếng/ngày", "Ca sáng: 06:00 – 15:00", "Ca chiều: 14:00 – 23:00"],
         "ca_ngan": "Full-time 9h: 06:00–15:00 hoặc 14:00–23:00",
+        "ngan": 'Full-time 9 tiếng · ưu tiên bộ đội xuất ngũ', "poster_ca": ['Ca sáng 06:00 – 15:00 · Ca chiều 14:00 – 23:00'],
         "mota": [
             "Hướng dẫn, sắp xếp xe máy, ô tô cho khách gọn gàng, an toàn",
             "Đón tiếp, hỗ trợ khách ra vào; giữ an ninh trật tự khu vực quán",
@@ -264,8 +272,8 @@ KENH = {
     "fb_barista": {"ten": "Cộng đồng Barista / Hội Pha chế Khánh Hòa", "nhom": "Facebook", "ban": "full", "phi": "Miễn phí",
                    "url": "https://www.facebook.com/search/groups/?q=barista%20nha%20trang",
                    "ghichu": "Kèm ảnh quầy bar, đồ uống thật nếu có. Dân pha chế quan tâm máy móc, công thức và người dẫn dắt."},
-    "fb_fnb": {"ten": "Group Quản lý F&B / Nhà hàng Nha Trang", "nhom": "Facebook", "ban": "full", "phi": "Miễn phí",
-               "url": "https://www.facebook.com/search/groups/?q=qu%E1%BA%A3n%20l%C3%BD%20nh%C3%A0%20h%C3%A0ng%20nha%20trang",
+    "fb_fnb": {"ten": "Group Quản lý F&B / quán cà phê Nha Trang", "nhom": "Facebook", "ban": "full", "phi": "Miễn phí",
+               "url": "https://www.facebook.com/search/groups/?q=qu%E1%BA%A3n%20l%C3%BD%20qu%C3%A1n%20cafe%20nha%20trang",
                "ghichu": "Nhóm của người làm nghề: giữ giọng chuyên nghiệp, nêu rõ quy mô 3 khu và phạm vi quyền hạn."},
     "zalo": {"ten": "Zalo: nhóm việc làm + Nhật ký Zalo", "nhom": "Zalo", "ban": "ngan", "phi": "Miễn phí",
              "url": "https://chat.zalo.me/",
@@ -278,7 +286,7 @@ KENH = {
                   "ghichu": "Đăng poster lên feed và Story, nhắc người xem nhắn tin trực tiếp để ứng tuyển."},
     "chotot": {"ten": "Chợ Tốt Việc Làm", "nhom": "Web tuyển dụng", "ban": "web", "phi": "Miễn phí (tin cơ bản)",
                "url": "https://www.vieclamtot.com/",
-               "ghichu": "Mục Nhà hàng – Khách sạn, khu vực Nha Trang. Mạnh với lao động phổ thông địa phương."},
+               "ghichu": "Chọn ngành F&B / quán cà phê, khu vực Nha Trang. Mạnh với lao động phổ thông địa phương."},
     "topcv": {"ten": "TopCV", "nhom": "Web tuyển dụng", "ban": "web", "phi": "Miễn phí / gói trả phí",
               "url": "https://tuyendung.topcv.vn/",
               "ghichu": "Dành cho vị trí cần kinh nghiệm. Làm mới (đẩy) tin 3–4 ngày một lần để luôn ở trang đầu."},
@@ -327,17 +335,17 @@ def bai(**kw):
 # ============================== TUẦN 1 ==============================
 bai(d=1, vt="QL", e="🧭", ct="AIDA", t="Tìm người dẫn dắt Mậu Dịch 197X",
     tg="Tìm người dẫn dắt Mậu Dịch 197X",
-    h="🧭 Mậu Dịch 197X tìm 01 Quản lý Nhà hàng – Cà phê tại Nha Trang",
-    c="""🧭 MẬU DỊCH 197X TUYỂN DỤNG QUẢN LÝ NHÀ HÀNG – CÀ PHÊ
+    h="🧭 Mậu Dịch 197X tìm 01 Quản lý quán cà phê tại Nha Trang",
+    c="""🧭 MẬU DỊCH 197X TUYỂN DỤNG QUẢN LÝ QUÁN CÀ PHÊ
 
 Một ly cà phê ngon giữ chân khách một buổi sáng.
 Một người quản lý giỏi giữ chân khách… nhiều năm. ☕
 
 🏡 Mậu Dịch 197X là không gian Cà phê • Ẩm thực • Vui chơi • Cộng đồng mang cảm hứng hoài niệm 197X giữa lòng Nha Trang. Quán vận hành theo 3 khu: Khối A – Khối B – Sân vườn, xoay quanh Quầy Bar Trung Tâm.
 
-Chúng tôi đang tìm 01 QUẢN LÝ đủ tâm, đủ tầm để cùng Ban Giám đốc đưa Mậu Dịch 197X trở thành điểm hẹn quen thuộc của người Nha Trang và du khách.
+Chúng tôi đang tìm 01 QUẢN LÝ QUÁN đủ tâm, đủ tầm để cùng Ban Giám đốc đưa Mậu Dịch 197X trở thành điểm hẹn quen thuộc của người Nha Trang và du khách.
 
-📌 VỊ TRÍ: Quản lý – Số lượng: 01 người
+📌 VỊ TRÍ: Quản lý quán cà phê – Số lượng: 01 người
 
 {CA}
 
@@ -354,7 +362,7 @@ Chúng tôi đang tìm 01 QUẢN LÝ đủ tâm, đủ tầm để cùng Ban Gi�
 {LIENHE}
 
 {TAG}""",
-    p="A confident Vietnamese restaurant manager in their early thirties, wearing a neat army-green apron over a cream shirt, standing in the middle of a spacious retro café at golden hour and calmly briefing two staff members; behind them a long central wooden bar with enamel mugs and aluminum phin coffee filters, a lush garden seating area visible through wide open doors")
+    p="A confident Vietnamese café manager in their early thirties, wearing a neat army-green apron over a cream shirt, standing in the middle of a spacious retro café at golden hour and calmly briefing two staff members; behind them a long central wooden bar with enamel mugs and aluminum phin coffee filters, a lush garden seating area visible through wide open doors")
 
 bai(d=2, vt="PC", e="☕", ct="PAS", t="Pha giỏi nhưng chưa có quầy bar xứng tầm?",
     tg="Quầy bar xứng tầm tay nghề của bạn",
@@ -603,7 +611,7 @@ Mỗi chiếc ly sáng bóng trên Quầy Bar, mỗi góc Sân vườn sạch ti
 
 bai(d=10, vt="QL", e="🏆", ct="5 lý do (Listicle – Giá trị nhà tuyển dụng)", t="5 lý do người quản lý giỏi chọn Mậu Dịch 197X",
     tg="5 lý do để bạn dẫn dắt Mậu Dịch",
-    h="🏆 Mậu Dịch 197X tuyển 01 Quản lý – 5 lý do bạn nên ứng tuyển",
+    h="🏆 Mậu Dịch 197X tuyển 01 Quản lý quán cà phê – 5 lý do bạn nên ứng tuyển",
     c="""🏆 5 LÝ DO NGƯỜI QUẢN LÝ GIỎI NÊN CHỌN MẬU DỊCH 197X
 
 1️⃣ MÔ HÌNH ĐA TRẢI NGHIỆM
@@ -621,7 +629,7 @@ Ca gãy 06:00 – 11:00 và 18:00 – 22:00, có khoảng nghỉ giữa ngày đ
 5️⃣ GẮN BÓ LÂU DÀI
 Đồng hành cùng thương hiệu Mậu Dịch 197X, được ghi nhận theo hiệu quả công việc.
 
-📌 VỊ TRÍ: Quản lý – Số lượng: 01 người
+📌 VỊ TRÍ: Quản lý quán cà phê – Số lượng: 01 người
 
 {MOTA}
 
@@ -634,7 +642,7 @@ Ca gãy 06:00 – 11:00 và 18:00 – 22:00, có khoảng nghỉ giữa ngày đ
 {LIENHE}
 
 {TAG}""",
-    p="Wide shot of an elegant multi-zone retro café-restaurant at early evening: an indoor wooden dining hall on one side, an open garden with string lights on the other, a long central bar in the middle, a Vietnamese manager in smart casual attire reviewing a clipboard, warm cinematic lighting")
+    p="Wide shot of an elegant multi-zone retro café at early evening: an indoor wooden seating hall on one side, an open garden with string lights on the other, a long central bar in the middle, a Vietnamese manager in smart casual attire reviewing a clipboard, warm cinematic lighting")
 
 bai(d=11, vt="PV", e="📢", ct="Loa phường 197X (5W1H)", t="Loa phường Mậu Dịch thông báo tuyển Phục vụ",
     tg="Loa phường Mậu Dịch xin thông báo",
@@ -923,7 +931,7 @@ bai(d=19, vt="PC", e="❓", ct="Hỏi – Đáp (FAQ)", t="Chưa biết pha ch�
 
 bai(d=20, vt="QL", e="🧩", ct="Thử thách – Cơ hội", t="3 bài toán dành cho người Quản lý tiếp theo",
     tg="3 bài toán cho người Quản lý mới",
-    h="🧩 Mậu Dịch 197X tuyển 01 Quản lý – bạn sẵn sàng cho 3 thử thách này?",
+    h="🧩 Mậu Dịch 197X tuyển 01 Quản lý quán cà phê – bạn sẵn sàng cho 3 thử thách này?",
     c="""🧩 3 BÀI TOÁN DÀNH CHO NGƯỜI QUẢN LÝ TIẾP THEO CỦA MẬU DỊCH 197X
 
 Chúng tôi không tìm một người "giữ ghế". Chúng tôi tìm người thích giải bài toán khó. 💡
@@ -939,7 +947,7 @@ Cà phê • Ẩm thực • Vui chơi • Cộng đồng. Làm sao để Mậu 
 
 🔥 Nếu bạn vừa đọc vừa bắt đầu nghĩ ra lời giải, vị trí này dành cho bạn!
 
-📌 VỊ TRÍ: Quản lý – Số lượng: 01 người
+📌 VỊ TRÍ: Quản lý quán cà phê – Số lượng: 01 người
 
 {CA}
 
@@ -1174,3 +1182,209 @@ Chúng tôi vẫn đang tìm những người đồng hành cuối cùng. Vị t
 
 {TAG}""",
     p="Heartwarming group photo of a Vietnamese café team of different ages in army-green aprons and dark-green uniforms standing together in a retro café garden, smiling warmly, golden hour light, sense of family and community")
+
+
+# ====================================================================
+# KHO BÀI ĐĂNG SẴN
+# ====================================================================
+# Bài chuẩn cho từng vị trí: chỉ nói về một vị trí, không kèm vị trí khác.
+# tg: dòng phụ trên poster · h: câu mở cho bản ngắn · p: cảnh cho câu lệnh tạo ảnh
+_KHUNG_CHUAN = """
+
+{CA}
+
+{MOTA}
+
+{YEUCAU}
+
+{QUYENLOI}
+
+{LIENHE}
+
+{TAG}"""
+
+CHUAN = {
+    "QL": {"e": "🧭", "tg": "Người dẫn dắt quán cà phê 197X",
+           "h": "🧭 Mậu Dịch 197X tuyển 01 Quản lý quán cà phê tại Nha Trang",
+           "c": """🧭 MẬU DỊCH 197X TUYỂN DỤNG QUẢN LÝ QUÁN CÀ PHÊ
+
+Bạn đã từng vận hành một quán cà phê đông khách?
+Bạn biết cách giữ đội ngũ gắn kết và giữ khách quay lại?
+👉 Mậu Dịch 197X đang tìm chính bạn!
+
+☕ Mậu Dịch 197X là không gian Cà phê • Ẩm thực • Vui chơi • Cộng đồng mang cảm hứng hoài niệm 197X tại Nha Trang, vận hành 3 khu Khối A, Khối B, Sân vườn xoay quanh Quầy Bar Trung Tâm. Người Quản lý sẽ cùng Ban Giám đốc dẫn dắt toàn bộ hoạt động của quán.
+
+📌 VỊ TRÍ: Quản lý quán cà phê – Số lượng: 01 người""" + _KHUNG_CHUAN,
+           "p": "A confident Vietnamese café manager in their thirties, wearing a cream shirt and an army-green apron, standing behind the central wooden bar of a spacious retro café and smiling while overseeing the room, staff working softly blurred in the background"},
+    "GS": {"e": "🎯", "tg": "Người giữ nhịp cho mỗi ca làm",
+           "h": "🎯 Mậu Dịch 197X tuyển 02 Giám sát ca (Shift Leader) – Nha Trang",
+           "c": """🎯 MẬU DỊCH 197X TUYỂN DỤNG GIÁM SÁT CA (SHIFT LEADER)
+
+Quán đông khách nhất cũng là lúc bạn bình tĩnh nhất?
+Bạn quen điều phối mọi người và luôn để mắt đến từng bàn?
+👉 Vị trí Giám sát ca tại Mậu Dịch 197X dành cho bạn!
+
+☕ Giám sát ca là người giữ nhịp cho mỗi ca làm tại 3 khu Khối A, Khối B, Sân vườn và Quầy Bar Trung Tâm: được giao quyền, được Quản lý đồng hành và có cơ hội tiến lên vị trí Quản lý quán.
+
+📌 VỊ TRÍ: Giám sát ca (Shift Leader) – Số lượng: 02 người""" + _KHUNG_CHUAN,
+           "p": "A calm Vietnamese shift leader in a cream shirt and army-green apron holding a tablet, standing in the middle of a retro café garden at dusk under warm string lights and guiding a young server, guests relaxing at dark wooden tables"},
+    "TN": {"e": "💳", "tg": "Nụ cười đầu tiên khách nhận được",
+           "h": "💳 Mậu Dịch 197X tuyển 02 Thu ngân / Điều phối Bar – Nha Trang",
+           "c": """💳 MẬU DỊCH 197X TUYỂN DỤNG THU NGÂN / ĐIỀU PHỐI BAR
+
+Cẩn thận với từng con số, thân thiện với từng vị khách?
+Thích công việc có ca giờ rõ ràng, môi trường trẻ trung?
+👉 Mậu Dịch 197X đang chờ bạn ở quầy thu ngân!
+
+☕ Tại Mậu Dịch 197X, Thu ngân là nụ cười đầu tiên khách nhận được, đồng thời là người điều phối order đến Quầy Bar và bếp để món ra nhanh, đúng bàn. Chưa có kinh nghiệm sẽ được hướng dẫn.
+
+📌 VỊ TRÍ: Thu ngân / Điều phối Bar – Số lượng: 02 người""" + _KHUNG_CHUAN,
+           "p": "A friendly young Vietnamese cashier smiling warmly at a guest across a vintage dark-wood cashier counter with a tablet POS, coffee cups and a small potted plant, warm morning light, retro café softly blurred behind"},
+    "TQ": {"e": "🔥", "tg": "Người giữ lửa Quầy Bar Trung Tâm",
+           "h": "🔥 Mậu Dịch 197X tuyển 01 Trưởng quầy Pha chế (Head Barista) – Nha Trang",
+           "c": """🔥 MẬU DỊCH 197X TUYỂN DỤNG TRƯỞNG QUẦY PHA CHẾ (HEAD BARISTA)
+
+Tay nghề vững, mê cà phê và muốn dẫn dắt cả một quầy bar?
+Bạn có những công thức riêng chỉ chờ cơ hội được lên ly?
+👉 Quầy Bar Trung Tâm của Mậu Dịch 197X đang chờ bạn!
+
+☕ Quầy Bar Trung Tâm phục vụ cả 3 khu Khối A, Khối B và Sân vườn. Trưởng quầy sẽ dẫn dắt đội 08 Barista, chuẩn hóa công thức và cùng phát triển dòng đồ uống mang dấu ấn 197X.
+
+📌 VỊ TRÍ: Trưởng quầy Pha chế (Head Barista) – Số lượng: 01 người""" + _KHUNG_CHUAN,
+           "p": "A skilled Vietnamese head barista in an army-green apron pouring latte art into an enamel cup at a central dark-wood bar with a classic espresso machine and aluminum phin filters, confident focused expression, warm dramatic side light"},
+    "PC": {"e": "☕", "tg": "Pha ly cà phê có hồn mỗi ngày",
+           "h": "☕ Mậu Dịch 197X tuyển 08 Pha chế (Barista) Full-time & Part-time – Nha Trang",
+           "c": """☕ MẬU DỊCH 197X TUYỂN DỤNG PHA CHẾ (BARISTA) – FULL-TIME & PART-TIME
+
+Yêu mùi cà phê mới xay?
+Thích tự tay pha những ly đồ uống thật ngon cho khách?
+👉 Mậu Dịch 197X đang cần 08 Barista cho Quầy Bar Trung Tâm!
+
+🎓 Có ca Part-time 5 tiếng cho sinh viên. Chưa có kinh nghiệm sẽ được đào tạo từ cơ bản: pha phin, espresso, trà, đá xay…
+
+📌 VỊ TRÍ: Pha chế (Barista) – Số lượng: 08 người""" + _KHUNG_CHUAN,
+           "p": "A cheerful young Vietnamese barista in an army-green apron pouring hot water into an aluminum phin coffee filter at a retro wooden bar, steam rising, enamel cups and jars of coffee beans around, soft morning light"},
+    "PV": {"e": "🙋", "tg": "Không cần kinh nghiệm – có ca Part-time",
+           "h": "🙋 Mậu Dịch 197X tuyển 10 Phục vụ / Runner – nhận sinh viên Part-time",
+           "c": """🙋 MẬU DỊCH 197X TUYỂN DỤNG PHỤC VỤ / RUNNER – FULL-TIME & PART-TIME
+
+Năng động, thích gặp gỡ, muốn có việc làm linh hoạt?
+Đang là sinh viên và cần thêm thu nhập mà không ảnh hưởng lịch học?
+👉 Mậu Dịch 197X đang tuyển 10 bạn Phục vụ / Runner!
+
+🌱 Không cần kinh nghiệm, được hướng dẫn từ đầu. Làm việc tại 3 khu Khối A, Khối B và Sân vườn cùng một tập thể trẻ, vui vẻ.
+
+📌 VỊ TRÍ: Phục vụ / Runner – Số lượng: 10 người""" + _KHUNG_CHUAN,
+           "p": "Two cheerful young Vietnamese servers in army-green aprons carrying trays of iced coffee through the lush garden seating area of a retro café, rattan chairs and dark wooden tables, warm sunny afternoon, natural laughter"},
+    "TV": {"e": "🫧", "tg": "Việc ổn định – có phụ cấp chuyên cần",
+           "h": "🫧 Mậu Dịch 197X tuyển 02 Tạp vụ / Rửa ly – không cần kinh nghiệm",
+           "c": """🫧 MẬU DỊCH 197X TUYỂN DỤNG TẠP VỤ / RỬA LY (STEWARD)
+
+Bạn đang tìm một công việc ổn định, lâu dài?
+Chưa có kinh nghiệm, không có bằng cấp, nhưng chăm chỉ và sạch sẽ?
+👉 Mậu Dịch 197X chào đón bạn!
+
+✨ Mỗi chiếc ly sáng bóng trên Quầy Bar, mỗi góc Sân vườn sạch tinh tươm đều có công của đội Tạp vụ. Công việc rõ ràng, ca làm ổn định và có phụ cấp chuyên cần.
+
+📌 VỊ TRÍ: Tạp vụ / Rửa ly – Số lượng: 02 người""" + _KHUNG_CHUAN,
+           "p": "A friendly middle-aged Vietnamese steward in an army-green apron polishing sparkling glasses at a tidy dish station of a retro café, neat racks of clean enamel cups and glassware, warm soft light, calm and dignified mood"},
+    "BV": {"e": "🛡️", "tg": "Ổn định lâu dài – ưu tiên bộ đội xuất ngũ",
+           "h": "🛡️ Mậu Dịch 197X tuyển 02 Bảo vệ / Điều phối xe – ưu tiên bộ đội xuất ngũ",
+           "c": """🛡️ MẬU DỊCH 197X TUYỂN DỤNG BẢO VỆ / ĐIỀU PHỐI XE
+
+Tác phong chuẩn mực, trung thực và tận tâm?
+Muốn tìm một công việc ổn định, lâu dài tại Nha Trang?
+👉 Mậu Dịch 197X đang cần 02 Bảo vệ / Điều phối xe, ưu tiên bộ đội xuất ngũ!
+
+🎖️ Người bảo vệ là người đầu tiên chào đón khách và cuối cùng tiễn khách ra về. Chúng tôi trân trọng công việc này và mong tìm được những đồng đội kỷ luật, lịch sự.
+
+📌 VỊ TRÍ: Bảo vệ / Điều phối xe – Số lượng: 02 người""" + _KHUNG_CHUAN,
+           "p": "A polite Vietnamese security staff member in a neat dark-green uniform helping a guest park a motorbike in a tidy row in front of a retro café entrance framed by tropical plants, warm evening lights, welcoming atmosphere"},
+}
+
+# Bài tuyển chung cho tất cả vị trí – 3 phong cách.
+# Các khối {…} được ghép lúc chạy và tự bỏ vị trí đã bật "Đã đủ người":
+#   {N} tổng số người · {M} số vị trí · {DS_NHOM} {DS_PHIEU} {DS_VAI} danh sách vị trí
+#   {GIO_LAM} giờ làm theo vị trí · {PT_LINE} dòng Part-time · {QUYENLOI} {LIENHE} {TAG}
+CHUNG = [
+    {"so": 1, "e": "📢", "ten": "Thông báo tổng hợp", "phong_cach": "Chuyên nghiệp, rõ ràng",
+     "hop": "Fanpage, nhóm việc làm Nha Trang, Zalo, Google Maps",
+     "anh": "Poster bảng tin: ảnh không gian quán phía trên, lưới 8 vị trí kèm số lượng",
+     "h": "📢 Mậu Dịch 197X tuyển {N} nhân sự – {M} vị trí tại Nha Trang",
+     "c": """📢 MẬU DỊCH 197X TUYỂN DỤNG {N} NHÂN SỰ – {M} VỊ TRÍ
+
+☕ Mậu Dịch 197X là không gian Cà phê • Ẩm thực • Vui chơi • Cộng đồng tại 33-37 Dã Tượng, Phường Nha Trang. Chúng tôi đang tìm những đồng đội mới cho 3 khu Khối A, Khối B, Sân vườn và Quầy Bar Trung Tâm.
+
+📋 CÁC VỊ TRÍ ĐANG TUYỂN
+
+{DS_NHOM}
+
+{GIO_LAM}
+
+{QUYENLOI}
+
+{LIENHE}
+
+{TAG}""",
+     "p": "Wide establishing shot of a lively retro Vietnamese café in Nha Trang with the whole team at work: a manager, baristas behind a long central wooden bar, a cashier at the counter, servers carrying trays, a garden seating area with string lights visible through open doors",
+     "bo_cuc": "top"},
+    {"so": 2, "e": "🎫", "ten": "Phiếu tuyển dụng 197X", "phong_cach": "Hoài niệm, vui, dễ chia sẻ",
+     "hop": "Fanpage, nhóm Facebook, TikTok dạng ảnh, in dán tại quán",
+     "anh": "Poster chữ kiểu tem phiếu thời bao cấp, có con dấu “Đang tuyển”, không cần ảnh AI",
+     "h": "🎫 Phiếu tuyển dụng Mậu Dịch 197X: cần {N} đồng chí cho {M} vị trí",
+     "c": """🎫 PHIẾU TUYỂN DỤNG – CỬA HÀNG MẬU DỊCH 197X 🎫
+
+Ngày xưa, mua hàng ở cửa hàng mậu dịch phải có tem phiếu.
+Ngày nay, đến làm việc ở Mậu Dịch 197X chỉ cần… một tin nhắn Zalo! 😄
+
+📢 Cửa hàng Mậu Dịch 197X trân trọng thông báo: cần tuyển {N} đồng chí cho {M} vị trí sau đây 👇
+
+{DS_PHIEU}
+
+📜 CHẾ ĐỘ "PHÂN PHỐI"
+✅ Lương & phúc lợi đầy đủ theo Luật Lao động
+✅ Hỗ trợ suất ăn trong ca, khỏi lo xếp hàng lĩnh gạo 🍚
+✅ Thưởng lễ, Tết
+✅ Cơ hội thăng tiến cho đồng chí chăm chỉ
+💬 Mức lương cụ thể trao đổi trực tiếp khi phỏng vấn.
+
+{LIENHE}
+
+{TAG}""",
+     "p": None, "bo_cuc": None},
+    {"so": 3, "e": "💚", "ten": "Gia nhập đội hình", "phong_cach": "Trẻ trung, cảm xúc",
+     "hop": "Fanpage, Instagram, TikTok, nhóm sinh viên",
+     "anh": "Poster ảnh đội ngũ tràn khung, các vị trí dạng nhãn tròn, chân màu cam đất",
+     "h": "💚 Mậu Dịch 197X tìm {N} mảnh ghép cho đội hình – {M} vị trí đang mở",
+     "c": """💚 MẬU DỊCH 197X ĐANG TÌM {N} MẢNH GHÉP CHO ĐỘI HÌNH!
+
+Ở đây có người pha ly cà phê đầu tiên lúc 6 giờ sáng,
+có người chạy món nhanh như gió giữa Sân vườn,
+có người giữ nụ cười ở quầy thu ngân,
+và có người lặng lẽ giữ cho từng chiếc ly sáng bóng. ✨
+
+Mỗi người một vai, cùng nhau làm nên Mậu Dịch 197X. Và đội hình ấy đang chờ thêm BẠN!
+
+👇 CHỌN VAI CỦA BẠN:
+{DS_VAI}
+
+{PT_LINE}
+🌱 Chưa có kinh nghiệm? Nhiều vị trí được hướng dẫn từ đầu.
+
+{QUYENLOI}
+
+👯 Rủ bạn bè cùng ứng tuyển: tag ngay vào bình luận nhé!
+
+{LIENHE}
+
+{TAG}""",
+     "p": "Joyful team portrait of eight Vietnamese café staff of different ages and roles, wearing army-green aprons and dark-green uniforms, standing together and laughing in front of the central wooden bar of a retro café, warm golden light, candid and friendly",
+     "bo_cuc": "team"},
+]
+
+NHOM_VI_TRI = [
+    {"ten": "🧭 KHỐI QUẢN LÝ", "ds": ["QL", "GS"]},
+    {"ten": "☕ QUẦY BAR & THU NGÂN", "ds": ["TQ", "PC", "TN"]},
+    {"ten": "🍽️ PHỤC VỤ", "ds": ["PV"]},
+    {"ten": "🛠️ HỖ TRỢ VẬN HÀNH", "ds": ["TV", "BV"]},
+]

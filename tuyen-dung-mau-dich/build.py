@@ -24,12 +24,17 @@ data = {
     'kenh': d.KENH,
     'tuan': d.TUAN,
     'bai': d.BAI,
+    'chuan': d.CHUAN,
+    'chung': d.CHUNG,
+    'nhom': d.NHOM_VI_TRI,
 }
 # kiểm tra nhanh trước khi đóng gói
 assert len(d.BAI) == 28 and [b['d'] for b in d.BAI] == list(range(1, 29))
 ids = {v['id'] for v in d.VI_TRI}
 assert all(b['vt'] in ids for b in d.BAI)
 assert all(k in d.KENH for v in d.VI_TRI for k in v['kenh'])
+assert sorted(d.CHUAN) == sorted(ids) and len(d.CHUNG) == 3
+assert sorted(i for g in d.NHOM_VI_TRI for i in g['ds']) == sorted(ids)
 
 js = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 
