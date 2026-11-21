@@ -15,7 +15,64 @@ const ZERO_COM = { gross: 0, tax: 0, net: 0, agent: 0, agentNet: 0, manager: 0, 
 
 /* ---------- báo giá & hợp đồng ---------- */
 function quoteMoney(q) { const amount = Number(q.amount) || 0; return { amount, total: amount }; }
-const contractValue = (q) => (q.contractAmount === 0 || q.contractAmount ? Number(q.contractAmount) || 0 : Number(q.amount) || 0);
+/** Hợp đồng nguyên tắc: giá theo khung, giá trị = tổng doanh thu các lớp xếp theo hợp đồng (trừ khi nhập giá trị cố định). */
+const isFramework = (q) => !!(q && q.framework);
+const contractValue = (q) => (q.contractAmount === 0 || q.contractAmount ? Number(q.contractAmount) || 0
+  : isFramework(q) ? sum(quoteClasses(q).filter((c) => c.status !== 'cancelled'), (c) => c.price) : Number(q.amount) || 0);
+
+/* ---------- bảng giá chi tiết / khung giá ---------- */
+const PRICE_UNITS = ['người', 'lớp', 'khóa', 'gói'];
+const rowAmount = (r) => Math.round((Number(r.qty) || 0) * (Number(r.price) || 0));
+const priceRowsTotal = (q) => sum(q.priceRows || [], rowAmount);
+/** Dòng khung giá hợp với lớp (theo số học viên trong khoảng từ–đến, nếu có ghi). */
+function suggestPriceRow(q, students) {
+  const rows = (q?.priceRows || []).filter((r) => Number(r.price) > 0);
+  const n = Number(students) || 0;
+  return rows.find((r) => (r.min || r.max) && n && (!r.min || n >= r.min) && (!r.max || n <= r.max)) || (rows.length === 1 ? rows[0] : null);
+}
+const priceFromRow = (r, students) => (r ? Math.round((Number(r.price) || 0) * (r.unit === 'người' ? Number(students) || 0 : 1)) : 0);
+
+/* ---------- điều khoản thanh toán: tự tính hạn ---------- */
+const PAY_BASES = { handover: 'sau khi DAKO bàn giao hồ sơ', classEnd: 'sau khi kết thúc khóa học', sign: 'kể từ ngày ký hợp đồng', before: 'trước khi mở lớp (trả trước)' };
+function addWorkdays(iso, n) { let d = iso; let k = 0; while (k < n) { d = addDays(d, 1); const w = parseISO(d).getDay(); if (w !== 0 && w !== 6) k++; } return d; }
+const addTermDays = (iso, n, work) => (n > 0 ? (work ? addWorkdays(iso, n) : addDays(iso, n)) : iso);
+/** Hạn thanh toán: nhập tay (paymentDue) hoặc tự tính theo điều khoản payTerm {base, days, workdays, handover}. */
+function dueOf(q) {
+  if (!q) return null;
+  if (q.paymentDue) return { date: q.paymentDue, auto: false };
+  const t = q.payTerm; if (!t || !t.base) return null;
+  const work = t.workdays !== false;
+  if (t.base === 'sign') return q.contractDate ? { date: addTermDays(q.contractDate, Number(t.days) || 0, work), auto: true } : null;
+  const cls = quoteClasses(q).filter((c) => c.status !== 'cancelled');
+  if (!cls.length) return null;
+  if (t.base === 'before') return { date: cls.map((c) => c.startDate).sort()[0], auto: true };
+  const ends = cls.map((c) => c.endDate || c.startDate).sort();
+  let base = isFramework(q) ? ends[0] : ends[ends.length - 1];
+  if (t.base === 'handover') base = addTermDays(base, Number(t.handover ?? 5) || 0, work);
+  return { date: addTermDays(base, Number(t.days) || 0, work), auto: true };
+}
+const dueDate = (q) => dueOf(q)?.date || '';
+function payTermText(q) {
+  const t = q.payTerm; if (!t || !t.base) return '';
+  const unit = t.workdays !== false ? 'ngày làm việc' : 'ngày';
+  if (t.base === 'before') return 'Bên A thanh toán 100% giá trị hợp đồng cho Bên B trước khi Bên B tổ chức huấn luyện.';
+  const d = Number(t.days) || 0;
+  const what = isFramework(q) ? 'giá trị từng đợt huấn luyện' : 'giá trị hợp đồng';
+  if (t.base === 'sign') return `Bên A thanh toán 100% ${what} cho Bên B trong vòng ${pad(d)} ${unit} kể từ ngày ký hợp đồng.`;
+  if (t.base === 'classEnd') return `Bên A thanh toán 100% ${what} cho Bên B trong vòng ${pad(d)} ${unit} kể từ ngày kết thúc khóa huấn luyện.`;
+  return `Bên A thanh toán 100% ${what} cho Bên B trong vòng ${pad(d)} ${unit} kể từ ngày Bên B bàn giao đầy đủ hồ sơ nghiệm thu khóa học.`;
+}
+/** Phạt chậm thanh toán: %/ngày × số tiền chậm trả × số ngày, tối đa % giá trị hợp đồng. */
+function penaltyOf(q, t = todayISO()) {
+  const rate = Number(q.penaltyRate) || 0; if (!rate) return null;
+  const due = dueOf(q); const m = contractMoney(q);
+  if (!due || due.date >= t || m.remain <= 0) return { days: 0, amount: 0 };
+  const days = daysBetween(due.date, t);
+  let amount = Math.round((m.remain * rate * days) / 100);
+  const cap = Number(q.penaltyMax) || 0; if (cap) amount = Math.min(amount, Math.round((m.total * cap) / 100));
+  return { days, amount };
+}
+const fmtPct = (n) => String(Number(n) || 0).replace('.', ',');
 function contractMoney(q) {
   const amount = contractValue(q);
   const paid = sum(q.payments || [], (p) => p.amount);
@@ -26,7 +83,8 @@ function contractState(q) {
   const cls = quoteClasses(q).filter((c) => c.status !== 'cancelled');
   const allDone = cls.length > 0 && cls.every((c) => c.status === 'done');
   if (m.total > 0 && m.remain <= 0 && (allDone || !cls.length)) return { label: 'Hoàn tất', tone: 'ok' };
-  if (m.remain > 0 && q.paymentDue && q.paymentDue < todayISO()) return { label: 'Quá hạn thanh toán', tone: 'bad' };
+  const due = dueDate(q);
+  if (m.remain > 0 && due && due < todayISO()) return { label: 'Quá hạn thanh toán', tone: 'bad' };
   if (allDone && m.remain > 0) return { label: 'Đã dạy xong – chờ thu', tone: 'warn' };
   if (m.total > 0 && m.remain <= 0) return { label: 'Đã thu đủ', tone: 'ok' };
   return { label: 'Đang thực hiện', tone: 'info' };

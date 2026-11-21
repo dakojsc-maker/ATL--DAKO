@@ -191,13 +191,16 @@ function tcRowValues(x) {
     r_sl: r.qty ? `${padNo(r.qty)} ${r.unit || 'ngày'}` : '', r_dg: r.price ? money(r.price) : '', r_tt: money(r.amount),
   }));
 }
-function fillTokens(root, get, useBlanks = true) {
+/** Điền ô {{...}} trong mọi w:t. blanks: bảng chữ chấm riêng của mẫu (mặc định: mẫu hợp đồng giảng viên). */
+function fillTokens(root, get, useBlanks = true, blanks = null) {
   for (const t of Array.from(root.getElementsByTagNameNS(W_NS, 't'))) {
     const s = t.textContent; if (!s.includes('{{')) continue;
     t.textContent = s.replace(/\{\{([a-z0-9_]+)(@\d+)?\}\}/g, (_, k, at) => {
       const v = get(k);
-      if (!isBlank(v)) return String(v) + (useBlanks && INLINE_GAP.has(k) ? '\u00a0\u00a0\u00a0\u00a0\u00a0' : '');
-      return useBlanks ? BLANK_OVERRIDE[k] ?? HDGV_TPL.blanks[k + (at || '')] ?? HDGV_TPL.blanks[k] ?? '' : '';
+      if (!isBlank(v)) return String(v) + (useBlanks && !blanks && INLINE_GAP.has(k) ? '\u00a0\u00a0\u00a0\u00a0\u00a0' : '');
+      if (!useBlanks) return '';
+      if (blanks) return blanks[k + (at || '')] ?? blanks[k] ?? '';
+      return BLANK_OVERRIDE[k] ?? HDGV_TPL.blanks[k + (at || '')] ?? HDGV_TPL.blanks[k] ?? '';
     });
     t.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:space', 'preserve');
   }

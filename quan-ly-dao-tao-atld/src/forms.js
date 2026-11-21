@@ -176,6 +176,7 @@ function classForm(existing, preset = {}) {
   const files = mountFileField(root.querySelector('[data-files]'), c.files);
   bindMoney(root);
   let priceMode = c.priceMode || 'manual';
+  let pickedRow = c.priceRowId || ''; // dòng khung giá của hợp đồng đang áp cho lớp
   const costs = costRowsEditor(root.querySelector('[data-costs]'), classOtherCosts(c), { presets: COST_PRESETS, onChange: () => refresh('costs') });
   let selected = new Set(c.trainerIds || []);
 
@@ -184,7 +185,7 @@ function classForm(existing, preset = {}) {
       customerName: val(root, 'cf-customer'), contact: val(root, 'cf-contact'), contactPhone: val(root, 'cf-cphone'), title: val(root, 'cf-title'), kind: val(root, 'cf-kind'),
       groups: checkedVals(root, 'cf-group').map(Number), startDate: val(root, 'cf-from'), endDate: val(root, 'cf-to') || val(root, 'cf-from'),
       startTime: val(root, 'cf-st'), endTime: val(root, 'cf-et'), region: root.querySelector('input[name="cf-region"]:checked')?.value || '', location: val(root, 'cf-location'),
-      trainerIds: [...selected], students: Number(val(root, 'cf-students')) || 0, price: parseMoney(val(root, 'cf-price')), priceMode,
+      trainerIds: [...selected], students: Number(val(root, 'cf-students')) || 0, price: parseMoney(val(root, 'cf-price')), priceMode, priceRowId: pickedRow || null,
       status: val(root, 'cf-status'), quoteId: val(root, 'cf-quote') || null,
       passed: val(root, 'cf-passed') === '' ? '' : Number(val(root, 'cf-passed')), certIssued: root.querySelector('#cf-cert').checked, invoiced: root.querySelector('#cf-inv').checked, notes: val(root, 'cf-notes'),
       fees: [...[...selected].map((tid) => { const x = feeMap.get(tid) || { trainerId: tid, amount: 0, auto: true, payments: [] }; return { ...x, trainerId: tid, removed: undefined }; }), ...keptFees],
@@ -255,7 +256,17 @@ function classForm(existing, preset = {}) {
     const tier = tierFor(d2.students);
     if (priceMode === 'auto' && src !== 'cf-price') { const p = tier ? tier.price : 0; root.querySelector('#cf-price').value = p ? money(p) : ''; }
     const pNow = parseMoney(val(root, 'cf-price'));
-    root.querySelector('[data-hint="cf-price"]').innerHTML = `${esc(tierText(d2.students))}${tier && pNow !== tier.price ? ` · <b style="color:var(--accent)">Giá điều chỉnh</b> <button type="button" class="btn xs" data-act-local="price-auto">Dùng giá bảng</button>` : ''}`;
+    let priceHint = `${esc(tierText(d2.students))}${tier && pNow !== tier.price && !pickedRow ? ` · <b style="color:var(--accent)">Giá điều chỉnh</b> <button type="button" class="btn xs" data-act-local="price-auto">Dùng giá bảng</button>` : ''}`;
+    // hợp đồng có bảng giá / khung giá → áp giá theo hợp đồng
+    const qx = quote(val(root, 'cf-quote') || c.quoteId || '');
+    const prow = (qx?.priceRows || []).filter((r) => Number(r.price) > 0);
+    if (prow.length) {
+      if ((src === 'cf-quote' || (src === 'init' && !existing)) && !pickedRow) { const sg = suggestPriceRow(qx, d2.students); if (sg) { pickedRow = sg.id; priceMode = 'manual'; } }
+      const pr = prow.find((r) => r.id === pickedRow);
+      if (pr && src !== 'cf-price') { const pv = priceFromRow(pr, d2.students); root.querySelector('#cf-price').value = pv ? money(pv) : ''; }
+      priceHint = `<span class="prow">Áp giá theo ${isFramework(qx) ? 'khung giá' : 'bảng giá'} hợp đồng: <select class="input" id="cf-prow" aria-label="Dòng giá theo hợp đồng"><option value="">— Không áp —</option>${prow.map((r) => opt(r.id, `${r.name} · ${money(r.price)} đ/${r.unit}${r.min || r.max ? ` (${r.min || 1}–${r.max || '…'} HV)` : ''}`, r.id === pickedRow)).join('')}</select></span>${pr ? `<span class="muted"> = ${esc(money(pr.price))}${pr.unit === 'người' ? ` × ${d2.students || 0} HV` : ''}</span>` : ''}`;
+    } else if (pickedRow && src === 'cf-quote') pickedRow = '';
+    root.querySelector('[data-hint="cf-price"]').innerHTML = priceHint;
     if (src === 'cf-customer' || src === 'init' || src === 'cf-quote') renderQuotes(d2);
     const draft = { ...read(), id: existing?.id || '__new' };
     const P = classPnl(draft, draft);
@@ -271,19 +282,21 @@ function classForm(existing, preset = {}) {
     const id = e.target.id || e.target.name;
     if (e.target.dataset.fee) { const fe = feeMap.get(e.target.dataset.fee); fe.amount = parseMoney(e.target.value); fe.auto = false; refresh('fee'); return; }
     if (e.target.closest('[data-costs]')) return;
-    if (id === 'cf-price') priceMode = 'manual';
+    if (id === 'cf-price') { priceMode = 'manual'; pickedRow = ''; }
+    if (id === 'cf-prow') return;
     if (['cf-notes', 'cf-title', 'cf-location', 'cf-contact', 'cf-cphone', 'cf-passed'].includes(id)) return;
     if (e.target.name === 'cf-tr') return;
     refresh(id);
   });
   form.addEventListener('change', (e) => {
+    if (e.target.id === 'cf-prow') { pickedRow = e.target.value; priceMode = pickedRow ? 'manual' : 'auto'; refresh('cf-prow'); return; }
     if (e.target.name === 'cf-tr') { if (e.target.checked) selected.add(e.target.value); else selected.delete(e.target.value); refresh('picker'); return; }
     if (e.target.type === 'radio' || e.target.type === 'checkbox' || e.target.tagName === 'SELECT') refresh(e.target.id || e.target.name);
   });
   root.addEventListener('click', (e) => {
     const b = e.target.closest('[data-act-local]'); if (!b) return;
     if (b.dataset.actLocal === 'apply-days') { root.querySelector('#cf-to').value = addDays(val(root, 'cf-from'), Number(b.dataset.days) - 1); refresh('cf-to'); }
-    if (b.dataset.actLocal === 'price-auto') { priceMode = 'auto'; refresh('price-auto'); }
+    if (b.dataset.actLocal === 'price-auto') { priceMode = 'auto'; pickedRow = ''; refresh('price-auto'); }
     if (b.dataset.actLocal === 'fee-auto') { const fe = feeMap.get(b.dataset.tid); fe.auto = true; refresh('fee-auto'); }
   });
   refresh('init');
@@ -618,7 +631,7 @@ function quoteForm(existing, preset = {}) {
         ${f('qf-cemail', 'Email', inp('qf-cemail', cu0?.email, 'type="email" placeholder="email@congty.vn"'))}
       </div></fieldset>
       <fieldset class="sec"><legend>Báo giá</legend><div class="fgrid">
-        ${f('qf-no', 'Số báo giá', inp('qf-no', q.no || nextQuoteNo(q.date), 'placeholder="VD: 31/2026/BG-DAKO"'))}
+        ${f('qf-no', 'Số báo giá', inp('qf-no', existing ? q.no || '' : q.no || nextQuoteNo(q.date), 'placeholder="VD: 31/2026/BG-DAKO"'))}
         ${f('qf-date', 'Ngày báo giá', inp('qf-date', q.date, 'type="date"'))}
         ${f('qf-valid', 'Hiệu lực đến', inp('qf-valid', q.validUntil, 'type="date"'))}
         ${f('qf-owner', 'Người phụ trách', inp('qf-owner', q.owner, 'placeholder="Nhân viên kinh doanh / đại lý"'))}
@@ -631,18 +644,25 @@ function quoteForm(existing, preset = {}) {
         ${f('qf-notes', 'Ghi chú', `<textarea class="input" id="qf-notes" rows="2" placeholder="Chi tiết đơn giá từng nhóm, điều kiện ưu đãi…">${esc(q.notes || '')}</textarea>`, { cls: 'full' })}
         <div class="f full"><span class="lbl">File báo giá</span><div data-qfiles></div></div>
       </div></fieldset>
+      <fieldset class="sec"><legend>Bảng giá chi tiết / khung giá</legend>
+        <label class="inline-check"><input type="checkbox" id="qf-framework"${q.framework ? ' checked' : ''}> Hợp đồng nguyên tắc – giá theo khung, không cố định tổng (giá trị hợp đồng = tổng doanh thu các lớp xếp theo hợp đồng)</label>
+        <div data-prows style="margin-top:8px"></div><div class="small" data-prowsum style="margin-top:6px"></div>
+        <div class="small muted" style="margin-top:4px">Lớp gắn với hồ sơ này sẽ được gợi ý áp giá theo bảng (tính theo người = đơn giá × số học viên).</div>
+      </fieldset>
       <fieldset class="sec" id="qf-contract-sec"><legend>Hợp đồng</legend><div class="fgrid">
-        ${f('qf-cno', 'Số hợp đồng', inp('qf-cno', q.contractNo, 'placeholder="Điền khi khách ký – VD: 15/2026/HĐHL-DAKO"'))}
+        ${f('qf-cno', 'Số hợp đồng', inp('qf-cno', q.contractNo, `placeholder="${esc(q.draftContractNo ? 'Số trên file đã lập: ' + q.draftContractNo : 'Điền khi khách ký – VD: 23/2026/ATLĐ/TĐ-DAKO')}"`))}
         ${f('qf-cdate', 'Ngày ký', inp('qf-cdate', q.contractDate, 'type="date"'))}
-        ${f('qf-camount', 'Giá trị hợp đồng (đ)', moneyInp('qf-camount', q.contractAmount, 'Để trống = bằng giá trị báo giá'), { hint: 'Doanh thu tính theo số này' })}
-        ${f('qf-due', 'Hạn thanh toán', inp('qf-due', q.paymentDue, 'type="date"'))}
+        ${f('qf-camount', 'Giá trị hợp đồng (đ)', moneyInp('qf-camount', q.contractAmount, 'Để trống = bằng giá trị báo giá'), { hint: 'Doanh thu tính theo số này · hợp đồng nguyên tắc: để trống = tổng các lớp' })}
+        ${f('qf-due', 'Hạn thanh toán (nhập tay)', inp('qf-due', q.paymentDue, 'type="date"'), { hint: 'Để trống để tự tính theo điều khoản bên dưới' })}
         <div class="f full"><span class="lbl">File hợp đồng (bản ký, phụ lục, biên bản nghiệm thu – thanh lý…)</span><div data-cfiles></div></div>
-      </div><div class="small muted" style="margin-top:8px">Thu tiền ghi nhận ở màn hình chi tiết hợp đồng; hoa hồng và chi phí khác nhập ở “Chi phí &amp; lợi nhuận”.</div></fieldset></form>`,
+      </div><div style="margin-top:12px"><div class="sec-title">Điều khoản thanh toán &amp; phạt chậm</div>${payTermFields('qf', q)}<div class="small" data-qfdue style="margin-top:6px"></div></div>
+      <div class="small muted" style="margin-top:8px">Thu tiền ghi nhận ở màn hình chi tiết hợp đồng; hoa hồng và chi phí khác nhập ở “Chi phí &amp; lợi nhuận”.</div></fieldset></form>`,
     foot: `${existing ? `<button type="button" class="btn danger" data-del>${ic('trash')} Xóa</button>` : ''}<span class="sp"></span><button type="button" class="btn" data-cancel>Hủy</button><button type="button" class="btn primary" data-save>${ic('check')} Lưu báo giá</button>`,
   });
   const root = m.el; bindMoney(root);
   const qf = mountFileField(root.querySelector('[data-qfiles]'), q.quoteFiles);
   const cf = mountFileField(root.querySelector('[data-cfiles]'), q.contractFiles);
+  const pr = priceRowsEditor(root.querySelector('[data-prows]'), q.priceRows, { onChange: () => refresh('prows'), framework: () => !!root.querySelector('#qf-framework')?.checked });
   let priceMode = q.priceMode || 'manual', amountMode = q.amountMode || 'manual';
   const read = () => ({
     customerName: val(root, 'qf-customer'), contact: val(root, 'qf-contact'), contactPhone: val(root, 'qf-cphone'),
@@ -650,6 +670,7 @@ function quoteForm(existing, preset = {}) {
     students: Number(val(root, 'qf-students')) || 0, classCount: Math.max(1, Number(val(root, 'qf-classes')) || 1), unitPrice: parseMoney(val(root, 'qf-unit')), priceMode,
     amount: parseMoney(val(root, 'qf-amount')), amountMode, status: val(root, 'qf-status'), notes: val(root, 'qf-notes'),
     contractNo: val(root, 'qf-cno'), contractDate: val(root, 'qf-cdate'), contractAmount: val(root, 'qf-camount') === '' ? null : parseMoney(val(root, 'qf-camount')), paymentDue: val(root, 'qf-due'),
+    framework: !!root.querySelector('#qf-framework')?.checked, priceRows: pr.value(), ...readPayTerm(root, 'qf'),
   });
   function refresh(src) {
     const d = read();
@@ -668,6 +689,11 @@ function quoteForm(existing, preset = {}) {
     if (amountMode === 'auto' && src !== 'qf-amount' && unit) root.querySelector('#qf-amount').value = money(unit * d.classCount);
     const amt = parseMoney(val(root, 'qf-amount'));
     root.querySelector('[data-hint="qf-amount"]').innerHTML = `${amt ? esc(moneyD(amt)) : 'Chưa có tổng giá trị'}${unit && amt !== unit * d.classCount ? ` <button type="button" class="btn xs" data-act-local="amount-auto">= đơn giá × số lớp</button>` : ''}`;
+    const tot = sum(d.priceRows, rowAmount);
+    setHTML(root.querySelector('[data-prowsum]'), d.framework ? (d.priceRows.length ? `Khung giá ${d.priceRows.length} dòng – giá trị hợp đồng tính theo các lớp thực tế.` : '<span class="warn-t">Hợp đồng nguyên tắc: nhập khung giá để công cụ áp giá khi xếp lớp.</span>')
+      : tot ? `Tổng bảng giá: <b>${esc(moneyD(tot))}</b>${tot !== amt ? ` <button type="button" class="btn xs" data-act-local="rows-total">Dùng làm giá trị báo giá</button>` : ' = giá trị báo giá'}` : '');
+    const tmp = { ...(existing || {}), ...d, id: existing?.id || '__new' }; const du = dueOf(tmp);
+    setHTML(root.querySelector('[data-qfdue]'), d.paymentDue ? `Đang dùng hạn nhập tay: <b>${esc(fmtD(d.paymentDue))}</b>` : du ? `Hạn thanh toán tự tính: <b>${esc(fmtD(du.date))}</b>` : d.payTerm ? '<span class="muted">Hạn sẽ tự tính khi hồ sơ có lớp học (hoặc ngày ký).</span>' : '');
   }
   root.querySelector('#qf').addEventListener('input', (e) => {
     if (e.target.id === 'qf-unit') priceMode = 'manual';
@@ -680,7 +706,9 @@ function quoteForm(existing, preset = {}) {
     const b = e.target.closest('[data-act-local]'); if (!b) return;
     if (b.dataset.actLocal === 'price-auto') { priceMode = 'auto'; refresh('x'); }
     if (b.dataset.actLocal === 'amount-auto') { amountMode = 'auto'; refresh('x'); }
+    if (b.dataset.actLocal === 'rows-total') { amountMode = 'manual'; root.querySelector('#qf-amount').value = money(sum(pr.value(), rowAmount)); refresh('qf-amount'); }
   });
+  root.querySelector('#qf-framework').addEventListener('change', () => { pr.render(); refresh('framework'); });
   refresh('init');
   if (preset.focusContract) setTimeout(() => root.querySelector('#qf-contract-sec').scrollIntoView({ block: 'start' }), 60);
   const snap = JSON.stringify(read());
@@ -800,9 +828,12 @@ function quoteDetail(id) {
         <div><dt>Giá trị báo giá</dt><dd class="num">${qm.amount ? esc(moneyD(qm.amount)) : notSet('Chưa có tổng giá trị – bấm Sửa để nhập')}</dd></div>
         <div><dt>Người phụ trách</dt><dd>${q.owner ? esc(q.owner) : notSet()}</dd></div></dl>
       <div><div class="sec-title">File báo giá</div>${filesBlock(q.quoteFiles, 'Chưa tải file báo giá')}</div>
-      <div><div class="sec-title">Hợp đồng ${signed ? '' : '<span class="muted" style="text-transform:none;letter-spacing:0;font-weight:500">– chưa ký</span>'}<span class="actions edit-only">${signed ? '' : `<button type="button" class="btn xs" data-x="sign">${ic('sign')} Ghi nhận ký hợp đồng</button>`}</span></div>
+      <div><div class="sec-title">Hợp đồng ${signed ? '' : '<span class="muted" style="text-transform:none;letter-spacing:0;font-weight:500">– chưa ký</span>'}<span class="actions"><button type="button" class="btn xs" data-x="khdoc" title="Lập file Word theo mẫu hợp đồng chuẩn DAKO">${ic('file')} Lập file hợp đồng</button><span class="edit-only">${signed ? '' : `<button type="button" class="btn xs" data-x="sign">${ic('sign')} Ghi nhận ký hợp đồng</button>`}</span></span></div>
         ${signed ? `<dl class="dl" style="margin-bottom:10px"><div><dt>Số hợp đồng</dt><dd>${q.contractNo ? esc(q.contractNo) : notSet()}</dd></div><div><dt>Ngày ký</dt><dd>${esc(fmtD(q.contractDate) || '—')}</dd></div>
-          <div><dt>Giá trị hợp đồng</dt><dd class="num">${esc(moneyD(cm.total))}</dd></div><div><dt>Hạn thanh toán</dt><dd>${q.paymentDue ? esc(fmtD(q.paymentDue)) : notSet()}</dd></div></dl>` : ''}
+          <div><dt>Giá trị hợp đồng</dt><dd class="num">${esc(moneyD(cm.total))}${isFramework(q) ? '<div class="muted small">HĐ nguyên tắc – tổng các lớp đã xếp</div>' : ''}</dd></div>
+          <div><dt>Hạn thanh toán</dt><dd>${(() => { const d = dueOf(q); return d ? `${esc(fmtD(d.date))}${d.auto ? ' <span class="muted small">(tự tính)</span>' : ''}` : notSet('Nhập điều khoản thanh toán khi sửa báo giá – hợp đồng'); })()}</dd></div>
+          ${payTermText(q) ? `<div class="full"><dt>Điều khoản thanh toán</dt><dd>${esc(payTermText(q))}${q.penaltyRate ? `<div class="small">${esc(penaltyText(q))}</div>` : ''}${(() => { const pn = penaltyOf(q); return pn?.amount ? `<div class="bad-t small">Đang chậm ${pn.days} ngày – phạt theo hợp đồng ${esc(moneyD(pn.amount))}</div>` : ''; })()}</dd></div>` : ''}</dl>` : ''}
+        ${(q.priceRows || []).length ? `<div class="tbl-wrap" style="margin-bottom:10px"><table class="tbl"><thead><tr><th>${isFramework(q) ? 'Khung giá' : 'Bảng giá chi tiết'}</th><th>Tính theo</th><th class="r">HV</th>${isFramework(q) ? '' : '<th class="r">SL</th>'}<th class="r">Đơn giá</th>${isFramework(q) ? '' : '<th class="r">Thành tiền</th>'}</tr></thead><tbody>${q.priceRows.map((r) => `<tr style="cursor:default"><td>${esc(r.name)}</td><td>/${esc(r.unit || '')}</td><td class="r">${r.min || r.max ? `${esc(r.min || 1)}–${esc(r.max || '…')}` : ''}</td>${isFramework(q) ? '' : `<td class="r">${esc(r.qty ?? '')}</td>`}${moneyCell(r.price)}${isFramework(q) ? '' : moneyCell(rowAmount(r))}</tr>`).join('')}</tbody></table></div>` : ''}
         ${filesBlock(q.contractFiles, 'Chưa tải file hợp đồng')}</div>
       ${signed ? `<div><div class="sec-title">Thanh toán của khách<span class="actions edit-only"><button type="button" class="btn xs" data-x="pay">${ic('money')} Ghi nhận thanh toán</button></span></div>
         <div class="money-box" style="margin-bottom:10px">${mbox('Giá trị hợp đồng', money(cm.total))}${mbox('Đã thu', money(cm.paid), 'pos')}${mbox('Còn phải thu', money(cm.remain), cm.remain > 0 ? 'hl' : 'pos')}</div>
@@ -819,6 +850,7 @@ function quoteDetail(id) {
     on('[data-x=del]', async () => { if (await deleteQuote(q)) m.close(); });
     on('[data-x=edit]', () => { m.close(); quoteForm(q); });
     on('[data-x=sign]', () => { m.close(); quoteForm(q, { focusContract: true }); });
+    on('[data-x=khdoc]', () => khContractModal(q.id));
     on('[data-x=pay]', () => paymentForm(q));
     on('[data-x=newclass]', () => { m.close(); classForm(null, { from: { customerName: q.customerName, customerId: q.customerId, quoteId: q.id, groups: q.groups || [], contact: q.contact, contactPhone: q.contactPhone, region: customer(q.customerId)?.region || regionList()[0]?.id, students: q.students && q.classCount ? Math.ceil(q.students / q.classCount) : '', status: 'confirmed', priceMode: 'auto' } }); });
     $$('[data-pdel]', m.el).forEach((b) => b.addEventListener('click', async () => {

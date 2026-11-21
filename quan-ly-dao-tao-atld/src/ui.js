@@ -60,6 +60,9 @@ async function hydrate(root = document) {
   }
 }
 
+/** Chỉ ghi lại HTML khi nội dung đổi – giữ nguyên nút đang được bấm (tránh mất cú bấm khi ô nhập vừa mất focus). */
+function setHTML(el, html) { if (el && el.__html !== html) { el.innerHTML = html; el.__html = html; } }
+
 /* ---------- toast ---------- */
 function toast(msg, tone = '') {
   const el = document.createElement('div'); el.className = 'toast ' + tone; el.textContent = msg; el.setAttribute('role', 'status');

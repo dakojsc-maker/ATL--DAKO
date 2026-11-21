@@ -15,7 +15,7 @@ Công cụ trên trình duyệt để quản lý hoạt động huấn luyện a
 - Người quản lý công cụ: chủ sở hữu hoặc được mời quyền **Chỉnh sửa (Editor)** → thêm/sửa mọi thứ, tải file lên.
 - Giám đốc và các bộ phận: mời quyền **Xem (Viewer)** → xem toàn bộ lịch, chi phí, báo cáo, mở mọi file báo giá – hợp đồng; không sửa được.
 
-## Chức năng (bản 2.1)
+## Chức năng (bản 2.2)
 
 Đào tạo ATVSLĐ không chịu thuế GTGT nên công cụ **không tính VAT**.
 
@@ -43,8 +43,15 @@ Công cụ trên trình duyệt để quản lý hoạt động huấn luyện a
    - Cấp số tiếp theo tự động (mặc định đánh số liên tục cả 6 nhóm trong năm; đổi sang “mỗi nhóm một dãy” trong Cài đặt), đánh lại từ 01 mỗi năm; chọn nhiều nhóm để cấp nhiều số liên tiếp.
    - Gắn với lớp học và đợt cấp thẻ/GCN: học viên của đợt hiện số quyết định theo nhóm.
    - Báo trùng số, số bị bỏ trống, quyết định chưa có file scan; đối chiếu số quyết định ghi trong sổ cấp mà chưa vào sổ theo dõi.
-6. **Báo giá**: công ty khách hàng, giá theo bảng giá (dưới 30 HV/lớp: 5.000.000 đ; 30–60 HV/lớp: 8.000.000 đ, sửa được), file báo giá và file hợp đồng.
-7. **Hợp đồng**: các công ty đã ký; giá trị, lớp đã dạy, khách đã thu, còn phải thu, hạn thanh toán, lợi nhuận.
+6. **Báo giá**:
+   - Công ty khách hàng, giá theo bảng giá (dưới 30 HV/lớp: 5.000.000 đ; 30–60 HV/lớp: 8.000.000 đ, sửa được), file báo giá và file hợp đồng.
+   - **Bảng giá chi tiết** nhiều dòng (nhóm, tính theo người/lớp/khóa/gói, số lượng, đơn giá) tự cộng tổng.
+   - **Hợp đồng nguyên tắc**: nhập khung giá (có thể theo khoảng số học viên); giá trị hợp đồng = tổng các lớp xếp theo hợp đồng. Khi xếp lớp, công cụ gợi ý dòng giá và tự tính (theo người = đơn giá × số học viên).
+   - **Điều khoản thanh toán**: trả trước khi mở lớp / X ngày (làm việc) sau khi bàn giao hồ sơ / sau khóa học / sau ngày ký → công cụ tự tính hạn thanh toán; **phạt chậm** %/ngày, tối đa % giá trị.
+7. **Hợp đồng**:
+   - Các công ty đã ký; giá trị, lớp đã dạy, khách đã thu, còn phải thu, hạn thanh toán (tự tính), phạt chậm, lợi nhuận.
+   - **Lập file hợp đồng** theo mẫu chuẩn DAKO ngay từ báo giá – hợp đồng (điền sẵn khách hàng, bảng giá, số tiền bằng chữ, điều khoản thanh toán, phạt chậm), xem trước và lưu vào hồ sơ. Báo giá chưa ký thì lưu là dự thảo.
+   - Nút **Hợp đồng mẫu (trống)** tải mẫu để điền tay (`templates/Mau_Hop_dong_huan_luyen_ATVSLD_DAKO.docx`).
 8. **Doanh thu – Lợi nhuận**:
    - Doanh thu lấy từ hợp đồng đã ký, theo ngày ký.
    - Lợi nhuận = doanh thu – thù lao giảng viên – hoa hồng đại lý – hoa hồng cán bộ quản lý khách hàng (thuế DAKO khấu trừ mặc định 20%, sửa được; ví dụ 30 tr → thuế 5 tr, thực trả 25 tr) – chi phí khác (nút “Thêm chi phí khác”).
@@ -79,8 +86,11 @@ src/forms.js    biểu mẫu và màn hình chi tiết
 src/demo.js     dữ liệu mẫu
 src/main.js     khởi động, điều hướng, xuất Excel, sao lưu
 build.py        ghép thành DAKO_Quan-ly-huan-luyen-ATVSLD.html
-templates/      mẫu hợp đồng gốc anh gửi (.docx)
-tools/hdgv_template.py  gắn ô dữ liệu vào mẫu hợp đồng → src/hdgv_tpl.js
+src/hdkh_tpl.js mẫu hợp đồng huấn luyện với khách hàng có ô dữ liệu (tạo bằng tools/hdkh_template.py)
+src/custcontracts.js bảng giá / khung giá, điều khoản thanh toán, lập file hợp đồng khách hàng
+templates/      mẫu hợp đồng giảng viên gốc anh gửi; mẫu hợp đồng khách hàng để điền tay
+tools/hdgv_template.py  gắn ô dữ liệu vào mẫu hợp đồng giảng viên → src/hdgv_tpl.js
+tools/hdkh_template.py  soạn mẫu hợp đồng khách hàng → templates/…docx và src/hdkh_tpl.js
 ```
 
 Khi đổi mẫu hợp đồng: thay file trong `templates/`, sửa bảng `SPECS` trong `tools/hdgv_template.py` nếu câu chữ khác, chạy `python3 -I tools/hdgv_template.py` rồi `python3 build.py`.

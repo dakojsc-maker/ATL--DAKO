@@ -3,7 +3,7 @@ name: cap-nhat-huan-luyen-atld
 description: Cập nhật dữ liệu vào công cụ "Quản lý Huấn luyện ATVSLĐ DAKO" (trang dùng chung trên claude.ai) thay cho anh Lịch – đọc kỹ file anh tải lên (Excel, Word, PDF, ảnh, zip) rồi nhập giảng viên, khách hàng, báo giá, hợp đồng khách hàng, hợp đồng thỉnh giảng giảng viên (HĐ nguyên tắc, phụ lục), thù lao – tạm ứng – thanh toán – thuế TNCN, hoa hồng, chi phí, sổ cấp thẻ/GCN học viên, hình thẻ/GCN, số quyết định hoàn thành khóa học, thông tin lịch giảng dạy; xếp lịch lớp hoặc lập hợp đồng/cấp số quyết định khi anh yêu cầu cụ thể; lưu thẳng để giám đốc xem ngay. Dùng khi anh nói "cập nhật vào công cụ", "đưa vào công cụ", "nhập giúp…", "đưa báo giá/hợp đồng này lên", "nhập sổ cấp thẻ", "gắn hình thẻ/quyết định cho học viên", "xếp lịch cho thầy X ngày…", "lập hợp đồng/phụ lục cho thầy X", "cấp số quyết định", "ghi nhận đã trả/đã thu…", hoặc gửi các file trên kèm yêu cầu cập nhật.
 ---
 
-# Cập nhật công cụ Quản lý Huấn luyện ATVSLĐ DAKO (bản 2.1)
+# Cập nhật công cụ Quản lý Huấn luyện ATVSLĐ DAKO (bản 2.2)
 
 Người dùng là anh Lịch (DAKO). Trả lời tiếng Việt, gọi "anh", xưng "em".
 
@@ -81,6 +81,11 @@ Người dùng là anh Lịch (DAKO). Trả lời tiếng Việt, gọi "anh", x
 - Hợp đồng: `contractNo`, `contractDate`, `contractAmount` (`null` = bằng giá trị báo giá), `paymentDue`, `contractFiles`.
   - Có hợp đồng thì `status: "signed"`. Doanh thu tính theo hợp đồng đã ký, ghi nhận theo ngày ký.
 - `payments` [{`id`, `date`, `amount`, `note`}]: khách đã trả.
+- `priceRows` [{`id`, `name`, `unit` (`"người"` | `"lớp"` | `"khóa"` | `"gói"`), `min`, `max` (khoảng số HV áp dụng, có thể trống), `qty`, `price`}]: bảng giá chi tiết; thành tiền = qty × price.
+- `framework: true` = hợp đồng nguyên tắc (khung giá, không cố định tổng): để `amount`, `contractAmount` là `null` – giá trị = tổng `price` các lớp gắn hợp đồng; `priceRows` là khung giá (không cần `qty`).
+- `payTerm` {`base`: `"before"` (trả trước khi mở lớp) | `"handover"` (sau khi DAKO bàn giao hồ sơ) | `"classEnd"` | `"sign"`, `days`, `workdays` (true = ngày làm việc), `handover` (số ngày bàn giao hồ sơ sau khóa học, mặc định 5)}: trang tự tính hạn thanh toán; chỉ ghi `paymentDue` khi hợp đồng có ngày cụ thể.
+- `penaltyRate` (% mỗi ngày chậm), `penaltyMax` (% tối đa giá trị): phạt chậm thanh toán.
+- `draftContractNo`: số hợp đồng trên file dự thảo (báo giá chưa ký).
 - `commissions` [{`id`, `type`, `name`, `amount`, `taxRate`, `paidDate`, `note`}]
   - `type`: `"agent"` (đại lý), `"manager"` (cán bộ quản lý phía khách hàng), `"other"`.
   - `amount` = **tổng hoa hồng gồm thuế**. `taxRate` mặc định lấy `settings.commissionTax` (20).
@@ -93,7 +98,7 @@ Người dùng là anh Lịch (DAKO). Trả lời tiếng Việt, gọi "anh", x
 **`classes/<id>`** – lớp học / lịch dạy
 - Khách hàng, nội dung: `customerId`, `customerName`, `contact`, `contactPhone`, `title`, `kind`, `groups`.
 - Thời gian, địa điểm: `startDate`, `endDate`, `startTime`, `endTime`, `region`, `location`.
-- `trainerIds`, `students`, `price` (doanh thu lớp), `priceMode`, `status`, `quoteId`.
+- `trainerIds`, `students`, `price` (doanh thu lớp), `priceMode`, `priceRowId` (dòng `priceRows` của hợp đồng đã áp), `status`, `quoteId`.
 - `fees` [{`trainerId`, `amount`, `pit`, `travel`, `auto`, `contractNo`, `contractDate`, `tcontractId`, `files`, `note`, `payments`}]: thù lao từng giảng viên.
   - `amount` = thù lao **trước thuế** (gồm phần hỗ trợ đi lại `travel` nếu phụ lục có) – là chi phí của DAKO. `pit` = thuế TNCN DAKO khấu trừ, nộp thay. Còn phải trả = `amount` – `pit` – đã trả.
   - `contractNo` = số phụ lục (hoặc số HĐ cũ), `tcontractId` = id phụ lục trong `tcontracts`.
@@ -147,6 +152,8 @@ Người dùng là anh Lịch (DAKO). Trả lời tiếng Việt, gọi "anh", x
   - Điền `contractNo`, `contractDate`, `contractAmount`, `paymentDue`, `contractFiles`, rồi đặt `status: "signed"`.
   - Không có báo giá nào thì tạo bản ghi mới.
   - Điều khoản hoa hồng/chiết khấu ghi trong hợp đồng → thêm vào `commissions`.
+  - Bảng giá nhiều dòng → `priceRows`; hợp đồng nguyên tắc → `framework: true` + khung giá. Thời hạn thanh toán → `payTerm`; điều khoản phạt chậm → `penaltyRate`, `penaltyMax`.
+  - Hợp đồng soạn theo mẫu chuẩn (`templates/Mau_Hop_dong_huan_luyen_ATVSLD_DAKO.docx`, điều 4.1–4.4) đọc thẳng: bảng giá điều 4.1, thời hạn 4.3, phạt 4.4, số ngày bàn giao hồ sơ điều 5.
 - **Hợp đồng thỉnh giảng (HĐ nguyên tắc) đã ký**: tìm trong `tcontracts` theo số; có rồi thì thêm scan vào `files`, đặt `status: "signed"`, sửa `signDate` nếu khác. Chưa có thì tạo bản ghi `kind: "nt"` theo nội dung file (giữ đúng số trên file, `stt`/`year` tách từ số), `partyA`/`partyB` theo file. Bổ sung vào hồ sơ giảng viên các ô còn trống (CCCD, ngày cấp, nơi cấp, thường trú, MST, tài khoản) – không ghi đè ô đã có mà khác file thì báo anh.
 - **Phụ lục đã ký / hợp đồng thuê giảng viên theo lớp**: ghép lớp theo giảng viên + khách hàng + ngày dạy → `rows` có `classId`; gắn `parentId` vào HĐNT còn hiệu lực của giảng viên (không có thì báo anh). Ghi `fees` của từng lớp như mục `tcontracts` ở trên.
   - Thuế TNCN và số thực nhận lấy đúng số trên phụ lục (`pitAuto: false` nếu khác cách tính tự động).

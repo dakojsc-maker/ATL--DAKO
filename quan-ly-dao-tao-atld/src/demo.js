@@ -72,6 +72,16 @@ function buildDemo() {
     const otherCosts = [...(region === 'nam' ? [] : [{ id: 'oc1' + id, name: 'Đi lại – lưu trú', amount: 1800000 }]), { id: 'oc2' + id, name: 'Tài liệu – in thẻ/GCN', amount: 450000 }];
     put('classes', { id, customerId: cid, customerName: cname(cid), quoteId: qid, startDate: start, endDate: addDays(start, days - 1), startTime: '08:00', endTime: '17:00', region, groups, students, trainerIds: trainers2, status, kind: extra.kind || KINDS[1], price, priceMode: 'auto', fees, otherCosts, location: extra.location || 'Hội trường công ty khách hàng', files: [], passed: status === 'done' ? students : '', certIssued: status === 'done', ...extra });
   };
+  // điều khoản thanh toán, phạt chậm, bảng giá chi tiết (mẫu)
+  Object.assign(b.data.quotes.get('bg2'), { payTerm: { base: 'handover', days: 10, workdays: true, handover: 5 }, penaltyRate: 0.05, penaltyMax: 8 });
+  Object.assign(b.data.quotes.get('bg3'), { payTerm: { base: 'before', days: 0, workdays: true, handover: 5 } });
+  Object.assign(b.data.quotes.get('bg4'), { payTerm: { base: 'handover', days: 10, workdays: true, handover: 5 }, priceRows: [
+    { id: 'g41', name: 'Huấn luyện ATVSLĐ Nhóm 1, 2', unit: 'người', min: '', max: '', qty: 20, price: 300000 },
+    { id: 'g42', name: 'Huấn luyện ATVSLĐ Nhóm 3, 4', unit: 'lớp', min: 30, max: 50, qty: 3, price: 6000000 }] });
+  put('quotes', { id: 'bg8', no: '', customerId: 'kh3', customerName: cname('kh3'), date: D(-30), status: 'signed', framework: true, groups: [1, 2, 3, 4, 5, 6], contractNo: `08/${y}/HĐNT/DAKO-PA`, contractDate: D(-30), contractAmount: null, amount: null, priceMode: 'manual', amountMode: 'manual',
+    payTerm: { base: 'handover', days: 10, workdays: true, handover: 5 }, penaltyRate: 0.05, penaltyMax: 8, contractFiles: [], quoteFiles: [], payments: [], commissions: [], otherCosts: [],
+    priceRows: [{ id: 'g81', name: 'Nhóm 1, 2', unit: 'người', min: '', max: '', qty: '', price: 300000 }, { id: 'g82', name: 'Nhóm 3', unit: 'lớp', min: 1, max: 29, qty: '', price: 5000000 }, { id: 'g83', name: 'Nhóm 3', unit: 'lớp', min: 30, max: 50, qty: '', price: 7500000 }, { id: 'g84', name: 'Nhóm 4', unit: 'người', min: '', max: '', qty: '', price: 150000 }],
+    notes: 'Hợp đồng nguyên tắc mẫu – giá theo khung, thanh toán theo từng lớp.' });
   cls('l1', 'kh1', 'bg1', D(-45), 3, 'nam', [3, 4], 55, ['gv4'], 'done', { location: 'Xưởng vỏ tàu số 2' });
   cls('l2', 'kh1', 'bg1', D(-38), 3, 'nam', [3, 4], 55, ['gv3'], 'done', { location: 'Xưởng vỏ tàu số 2', invoiced: true });
   cls('l3', 'kh3', 'bg3', D(-8), 3, 'nam', [3], 24, ['gv3'], 'done', { location: 'Nhà xưởng Phú An', invoiced: true });
@@ -82,7 +92,8 @@ function buildDemo() {
   cls('l8', 'kh5', 'bg5', D(10), 2, 'bac', [3, 4], 40, [], 'planned', { location: 'Nhà máy Tân Việt' });
   cls('l9', 'kh6', 'bg6', D(5), 1, 'trung', [4, 6], 52, ['gv5'], 'planned', { location: 'Nhà máy Hải Đăng', kind: KINDS[0] });
   cls('l10', 'kh2', 'bg7', D(5), 2, 'trung', [3], 28, ['gv5'], 'confirmed', { location: 'Bãi container số 3' }); // cố ý trùng lịch gv5 để minh họa cảnh báo
-  cls('l11', 'kh3', null, D(-1), 1, 'nam', [4], 20, ['gv1'], 'confirmed', { location: 'Nhà xưởng Phú An', kind: KINDS[2] });
+  cls('l11', 'kh3', 'bg8', D(-1), 1, 'nam', [4], 20, ['gv1'], 'confirmed', { location: 'Nhà xưởng Phú An', kind: KINDS[2] });
+  Object.assign(b.data.classes.get('l11'), { price: 3000000, priceMode: 'manual', priceRowId: 'g84' });
   cls('l12', 'kh1', null, D(-400), 3, 'nam', [3, 4], 60, ['gv4'], 'done', { location: 'Xưởng vỏ tàu số 1' });
   cls('l13', 'kh6', null, D(-700), 1, 'trung', [4], 35, ['gv5'], 'done', { location: 'Nhà máy Hải Đăng' });
   cls('l14', 'kh1', 'bg1', D(20), 2, 'nam', [3], 30, ['gv1', 'gv2'], 'planned', { location: 'Xưởng vỏ tàu số 2', kind: KINDS[0] });

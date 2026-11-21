@@ -104,6 +104,7 @@ document.addEventListener('click', async (e) => {
     case 'pf-next': S.ui.pfMonth = ymAdd(S.ui.pfMonth, stepOf(S.ui.pfPeriod)); upd(); break;
     case 'tr-view': S.ui.trView = v; upd(); break;
     case 'tc-kind': S.ui.tcKind = v; upd(); break;
+    case 'kh-sample': khSampleDownload(); break;
     case 'tc-new': {
       e.stopPropagation(); const tid = el.dataset.trainer || (trainer(id) ? id : '');
       if (!S.role.canEdit) { if (tid) trainerDetail(tid); break; } // giám đốc: mở hồ sơ giảng viên để xem

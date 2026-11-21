@@ -50,7 +50,7 @@ const OverviewView = {
     const rev = sum(pn, (p) => p.rev); const prof = sum(pn, (p) => p.profit);
     const allContracts = S.quotes.filter(isContract);
     const remain = sum(allContracts, (q) => contractMoney(q).remain);
-    const overdue = allContracts.filter((q) => contractMoney(q).remain > 0 && q.paymentDue && q.paymentDue < t).length;
+    const overdue = allContracts.filter((q) => contractMoney(q).remain > 0 && dueDate(q) && dueDate(q) < t).length;
     const owe = S.trainers.map((x) => ({ x, L: trainerLedger(x.id) })).filter((o) => o.L.remain > 0);
     const pending = S.quotes.filter((q) => ['sent', 'negotiating', 'accepted'].includes(q.status));
     const studs = allStudents();
@@ -449,7 +449,7 @@ const ContractsView = {
   mount(el) {
     S.ui.cState = S.ui.cState || 'all'; S.ui.cYear = S.ui.cYear || 'all';
     el.innerHTML = `<div class="page-head"><div><h1>Danh sách hợp đồng</h1><div class="sub">Các công ty đã ký hợp đồng huấn luyện – tiến độ lớp học, thu tiền và lợi nhuận</div></div>
-      <div class="actions">${exportBtn('hop-dong')}</div></div>
+      <div class="actions"><button type="button" class="btn" data-act="kh-sample" title="Mẫu hợp đồng huấn luyện chuẩn của DAKO để điền tay">${ic('down')} Hợp đồng mẫu (trống)</button>${exportBtn('hop-dong')}</div></div>
       <div data-kpi></div><div class="toolbar" data-state></div>
       <div class="toolbar"><div class="search">${ic('search')}<input class="input" type="search" id="c-search" placeholder="Tìm công ty, số hợp đồng…" value="${esc(S.ui.cSearch || '')}" data-input="c-search"></div>
       <select class="input" id="c-year" style="width:auto" data-input="c-year" aria-label="Năm"></select></div>
@@ -478,9 +478,9 @@ const ContractsView = {
     body.innerHTML = `<div class="panel tbl-wrap"><table class="tbl"><thead><tr><th>Số HĐ</th><th>Ngày ký</th><th>Khách hàng</th><th class="r">Giá trị</th><th class="r">Lớp xong / tổng</th><th class="r">Đã thu</th><th class="r">Còn lại</th><th>Hạn TT</th><th class="r">Lợi nhuận</th><th>Tình trạng</th><th>File</th></tr></thead><tbody>
       ${list.map((q) => {
         const m = contractMoney(q); const p = contractPnl(q); const cls = quoteClasses(q).filter((c) => c.status !== 'cancelled'); const st = contractState(q);
-        return `<tr data-act="quote-view" data-id="${esc(q.id)}"><td class="nowrap strong num">${esc(q.contractNo || '(chưa có số)')}<div class="muted small">BG ${esc(q.no || '')}</div></td><td class="nowrap num">${esc(fmtD(q.contractDate))}</td>
+        return `<tr data-act="quote-view" data-id="${esc(q.id)}"><td class="nowrap strong num">${esc(q.contractNo || '(chưa có số)')}<div class="muted small">${q.no ? 'BG ' + esc(q.no) : ''}${isFramework(q) ? `${q.no ? ' · ' : ''}HĐ nguyên tắc` : ''}</div></td><td class="nowrap num">${esc(fmtD(q.contractDate))}</td>
           <td><span class="strong">${esc(q.customerName)}</span></td>${moneyCell(m.total)}<td class="r">${cls.filter((c) => c.status === 'done').length} / ${cls.length}</td>
-          ${moneyCell(m.paid)}<td class="r" style="font-weight:700;color:${m.remain > 0 ? 'var(--accent)' : 'var(--ok)'}">${money(m.remain)}</td><td class="nowrap num">${esc(fmtD(q.paymentDue)) || '—'}</td>
+          ${moneyCell(m.paid)}<td class="r" style="font-weight:700;color:${m.remain > 0 ? 'var(--accent)' : 'var(--ok)'}">${money(m.remain)}</td><td class="nowrap num">${(() => { const d = dueOf(q); return d ? `${esc(fmtD(d.date))}${d.auto ? '<div class="muted small">tự tính</div>' : ''}` : '—'; })()}</td>
           <td class="r"><button type="button" class="linkbtn" data-act="pnl-view" data-id="${esc(q.id)}" style="color:${p.profit < 0 ? 'var(--bad)' : 'var(--ok)'}">${money(p.profit)}</button>${p.notes.length ? `<div class="small" style="color:var(--warn)" title="${esc(p.notes.join('; '))}">chưa đủ chi phí</div>` : ''}</td>
           <td>${pill(st.label, st.tone)}</td><td><div class="cell-files">${fileButtons(q.contractFiles, 'HĐ', { upAct: 'quote-sign', upId: q.id })}${fileButtons(q.quoteFiles, 'BG')}</div></td></tr>`;
       }).join('')}</tbody><tfoot><tr><td colspan="3">Tổng ${list.length} hợp đồng</td>${moneyCell(sum(list, (q) => contractMoney(q).total))}<td></td>${moneyCell(sum(list, (q) => contractMoney(q).paid))}${moneyCell(sum(list, (q) => contractMoney(q).remain))}<td></td>${moneyCell(sum(list, (q) => contractPnl(q).profit))}<td colspan="2"></td></tr></tfoot></table></div>`;
@@ -595,6 +595,7 @@ const SettingsView = {
         <div class="f"><label for="set-cocity">Nơi lập báo cáo</label><input class="input" id="set-cocity" value="${esc(co.city)}" ${dis}></div>
         <div class="f span2"><label for="set-conamevi">Tên công ty viết thường (trong câu văn hợp đồng)</label><input class="input" id="set-conamevi" value="${esc(co.nameVi)}" placeholder="VD: Công ty Cổ phần Kỹ thuật Hàng hải DAKO" ${dis}></div>
         <div class="f"><label for="set-cotax">Mã số thuế</label><input class="input" id="set-cotax" value="${esc(co.taxCode)}" placeholder="MST công ty – in trong hợp đồng" ${dis}>${co.taxCode ? '' : '<span class="hint warn-t">Chưa có – hợp đồng sẽ in dòng chấm</span>'}</div>
+        <div class="f"><label for="set-cosal">Xưng hô người đại diện</label><select class="input" id="set-cosal" ${dis}>${['Bà', 'Ông', ''].map((x) => `<option value="${x}"${(co.directorSalutation ?? '') === x ? ' selected' : ''}>${x || '(không ghi)'}</option>`).join('')}</select></div>
         <div class="f"><label for="set-codtitle">Chức vụ người đại diện ký</label><input class="input" id="set-codtitle" value="${esc(co.directorTitle)}" placeholder="VD: Giám đốc" ${dis}></div>
         <div class="f"><label for="set-cobank">Số tài khoản công ty</label><input class="input" id="set-cobank" value="${esc(co.bankAccount)}" inputmode="numeric" ${dis}></div>
         <div class="f"><label for="set-cobankname">Tại ngân hàng</label><input class="input" id="set-cobankname" value="${esc(co.bankName)}" ${dis}></div>
@@ -602,6 +603,7 @@ const SettingsView = {
       </div></div></section>
       <section class="panel"><div class="panel-h"><h2>Số hợp đồng giảng viên &amp; số quyết định</h2></div><div class="panel-b"><div class="fgrid">
         <div class="f span2"><label for="set-hdfmt">Mẫu số hợp đồng nguyên tắc</label><input class="input" id="set-hdfmt" value="${esc(st.contractNoFormat || DEFAULT_SETTINGS.contractNoFormat)}" ${dis}><span class="hint">Số đầu tiên năm ${todayISO().slice(0, 4)}: ${esc(fmtDocNo(st.contractNoFormat || DEFAULT_SETTINGS.contractNoFormat, { stt: 1, year: todayISO().slice(0, 4) }))}</span></div>
+        <div class="f span2"><label for="set-khfmt">Mẫu số hợp đồng huấn luyện với khách hàng</label><input class="input" id="set-khfmt" value="${esc(st.custContractNoFormat || DEFAULT_SETTINGS.custContractNoFormat)}" ${dis}><span class="hint">{kh} = viết tắt tên khách (VD: TĐ, HTC) – gợi ý khi lập file hợp đồng</span></div>
         <div class="f"><label for="set-plfmt">Mẫu số phụ lục</label><input class="input" id="set-plfmt" value="${esc(st.appendixNoFormat || DEFAULT_SETTINGS.appendixNoFormat)}" ${dis}><span class="hint">VD: ${esc(fmtDocNo(st.appendixNoFormat || DEFAULT_SETTINGS.appendixNoFormat, { stt: 1, year: todayISO().slice(0, 4) }))}</span></div>
         <div class="f"><label for="set-paydays">Thanh toán thù lao trong (ngày làm việc)</label><input class="input" type="number" min="1" id="set-paydays" value="${esc(st.contractPayDays ?? '')}" placeholder="Để trống: in “.......”" ${dis}><span class="hint">Điều 3.3 hợp đồng, 2.2 phụ lục</span></div>
         <div class="f"><label for="set-pitrate">Thuế TNCN khấu trừ (%)</label><input class="input" type="number" min="0" max="35" step="0.5" id="set-pitrate" value="${esc(st.pitRate ?? 10)}" ${dis}></div>
@@ -658,9 +660,10 @@ const SettingsView = {
     st.commissionTaxMode = $('#set-cmode', el).value === 'gross' ? 'gross' : 'net';
     const g = (id) => $('#' + id, el).value.trim();
     st.company = { name: g('set-coname'), address: g('set-coaddr'), phone: g('set-cophone'), email: g('set-coemail'), director: g('set-codir'), city: g('set-cocity'),
-      nameVi: g('set-conamevi'), taxCode: g('set-cotax'), directorTitle: g('set-codtitle'), bankAccount: g('set-cobank'), bankName: g('set-cobankname'), signPlace: g('set-cosign') };
+      nameVi: g('set-conamevi'), taxCode: g('set-cotax'), directorTitle: g('set-codtitle'), directorSalutation: $('#set-cosal', el).value, bankAccount: g('set-cobank'), bankName: g('set-cobankname'), signPlace: g('set-cosign') };
     st.contractNoFormat = g('set-hdfmt') || DEFAULT_SETTINGS.contractNoFormat;
     st.appendixNoFormat = g('set-plfmt') || DEFAULT_SETTINGS.appendixNoFormat;
+    st.custContractNoFormat = g('set-khfmt') || DEFAULT_SETTINGS.custContractNoFormat;
     st.contractPayDays = g('set-paydays');
     st.pitRate = g('set-pitrate') === '' ? 10 : Number(g('set-pitrate'));
     st.pitMin = parseMoney(g('set-pitmin')) || 0;
@@ -677,7 +680,7 @@ const SettingsView = {
   },
   validate(st) {
     if (!st.priceTiers.length) return 'Bảng giá cần ít nhất một mức giá hợp lệ.';
-    for (const [k, l] of [['contractNoFormat', 'số hợp đồng nguyên tắc'], ['appendixNoFormat', 'số phụ lục'], ['decisionNoFormat', 'số quyết định']]) if (!/\{stt\}/i.test(st[k])) return `Mẫu ${l} cần có {stt} (số thứ tự).`;
+    for (const [k, l] of [['custContractNoFormat', 'số hợp đồng khách hàng'], ['contractNoFormat', 'số hợp đồng nguyên tắc'], ['appendixNoFormat', 'số phụ lục'], ['decisionNoFormat', 'số quyết định']]) if (!/\{stt\}/i.test(st[k])) return `Mẫu ${l} cần có {stt} (số thứ tự).`;
     if (!/\{nh[óo]m\}/i.test(st.decisionNoFormat)) return 'Mẫu số quyết định cần có {nhóm} (VD: {stt}/QĐ-N{nhóm}-DAKO).';
     return '';
   },

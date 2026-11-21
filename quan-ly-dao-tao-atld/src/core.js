@@ -3,7 +3,7 @@
    CORE – hằng số nghiệp vụ, tiện ích ngày/tiền, tính toán
    ============================================================ */
 
-const APP_VERSION = '2.1';
+const APP_VERSION = '2.2';
 
 const DEFAULT_SETTINGS = {
   priceTiers: [
@@ -22,15 +22,18 @@ const DEFAULT_SETTINGS = {
     city: 'TP. Hồ Chí Minh',
     // dùng trong hợp đồng giảng viên (Bên A) – sửa trong Cài đặt
     nameVi: 'Công ty Cổ phần Kỹ thuật Hàng hải DAKO',
-    taxCode: '',
+    taxCode: '0313642407',
     directorTitle: 'Giám đốc',
+    directorSalutation: 'Bà',
     bankAccount: '19130009928016',
-    bankName: 'Techcombank',
+    bankName: 'Techcombank – Chi nhánh Trần Não',
     signPlace: '',
   },
   // Hợp đồng giảng viên: {stt} số thứ tự trong năm, {năm} năm ký
   contractNoFormat: '{stt}/{năm}/HĐNT-ATVSLĐ',
   appendixNoFormat: '{stt}/PLHĐ-ATVSLĐ',
+  // Hợp đồng huấn luyện với khách hàng: {kh} = viết tắt tên khách (VD: TĐ, HTC)
+  custContractNoFormat: '{stt}/{năm}/ATLĐ/{kh}-DAKO',
   contractPayDays: '',        // số ngày làm việc thanh toán (điều 3.3 HĐ, 2.2 phụ lục) – để trống thì in "......."
   pitRate: 10,                // % thuế TNCN khấu trừ thù lao giảng viên
   pitMin: 2000000,            // khấu trừ khi tổng chi trả mỗi lần từ mức này
@@ -334,7 +337,9 @@ function computeAlerts() {
     if (q.status === 'accepted') out.push({ sev: 'info', text: `${q.customerName} đã đồng ý báo giá ${q.no || ''} – chờ ký hợp đồng`, act: 'quote-view', id: q.id });
     if (isContract(q)) {
       const m = contractMoney(q);
-      if (m.remain > 0 && q.paymentDue && q.paymentDue < t) out.push({ sev: 'bad', text: `Hợp đồng ${q.contractNo || q.no} – ${q.customerName}: quá hạn thanh toán ${daysBetween(q.paymentDue, t)} ngày, còn phải thu ${moneyD(m.remain)}`, act: 'quote-view', id: q.id });
+      const due = dueDate(q); const pen = penaltyOf(q);
+      if (m.remain > 0 && due && due < t) out.push({ sev: 'bad', text: `Hợp đồng ${q.contractNo || q.no} – ${q.customerName}: quá hạn thanh toán ${daysBetween(due, t)} ngày, còn phải thu ${moneyD(m.remain)}${pen?.amount ? ` · phạt chậm theo hợp đồng ${moneyD(pen.amount)}` : ''}`, act: 'quote-view', id: q.id });
+      else if (m.remain > 0 && due && daysBetween(t, due) <= 3) out.push({ sev: 'info', text: `Hợp đồng ${q.contractNo || q.no} – ${q.customerName}: đến hạn thanh toán ngày ${fmtD(due)}, còn phải thu ${moneyD(m.remain)}`, act: 'quote-view', id: q.id });
       if (!(q.contractFiles || []).length) out.push({ sev: 'info', text: `Hợp đồng ${q.contractNo || q.no} – ${q.customerName} chưa tải file hợp đồng lên`, act: 'quote-view', id: q.id });
     }
   }

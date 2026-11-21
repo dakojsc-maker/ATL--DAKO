@@ -168,7 +168,7 @@ function repProfit(ctx) {
 /* ---------- 3. Hợp đồng ---------- */
 function repContracts(ctx) {
   const qs = S.quotes.filter((q) => isContract(q) && inR(q.contractDate, ctx)).sort((a, b) => (a.contractDate || '').localeCompare(b.contractDate || ''));
-  const row = (q) => { const m = contractMoney(q); const cls = quoteClasses(q).filter((c) => c.status !== 'cancelled'); return { no: q.contractNo || '', date: fmtD(q.contractDate), customer: q.customerName || '', quote: q.no || '', value: m.total, paid: m.paid, remain: m.remain, due: fmtD(q.paymentDue), classes: `${cls.filter((c) => c.status === 'done').length}/${cls.length}`, state: contractState(q).label, files: (q.contractFiles || []).length ? 'Có' : 'Chưa có' }; };
+  const row = (q) => { const m = contractMoney(q); const cls = quoteClasses(q).filter((c) => c.status !== 'cancelled'); return { no: q.contractNo || '', date: fmtD(q.contractDate), customer: q.customerName || '', quote: q.no || '', value: m.total, paid: m.paid, remain: m.remain, due: fmtD(dueDate(q)), classes: `${cls.filter((c) => c.status === 'done').length}/${cls.length}`, state: contractState(q).label, files: (q.contractFiles || []).length ? 'Có' : 'Chưa có' }; };
   const groups = byPeriod(qs, (q) => q.contractDate, ctx).map((g) => ({ ...g, rows: g.items.map(row) }));
   return {
     sheet: 'Hợp đồng', title: 'BÁO CÁO HỢP ĐỒNG HUẤN LUYỆN VÀ CÔNG NỢ KHÁCH HÀNG',

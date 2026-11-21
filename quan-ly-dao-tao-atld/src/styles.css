@@ -561,3 +561,8 @@ table.plrows select.input { min-width: 86px; }
 .pill.tcbadge { max-width: 100%; min-width: 0; }
 .pill.tcbadge > span { overflow: hidden; text-overflow: ellipsis; }
 .modal-f { flex-wrap: wrap; row-gap: 8px; }
+table.prows { min-width: 760px; }
+table.prows td { padding: 6px; }
+table.prows .input { min-height: 34px; padding: 6px 8px; }
+.hint .prow { display: inline-flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.hint .prow select.input { min-height: 30px; padding: 4px 6px; width: auto; max-width: 100%; font-size: 12.5px; }
