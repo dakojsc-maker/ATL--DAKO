@@ -562,17 +562,17 @@ function genShort(g){
     '📱 Zalo: ' + L.zalo, '📧 ' + L.email, '📍 ' + L.dia_chi, '', m.TAG].join('\n');
 }
 var COMP = {
-  role: 'keep the main subject in the upper 40% of the frame. The lower 60% must be calmer and darker (wood surface, soft shadow or blurred foreground) because a text panel will cover it.',
-  top: 'keep the key elements of the scene in the upper third of the frame. The lower two thirds must be calm, dark and uncluttered because a text panel will cover it.',
-  team: 'keep the people in the upper 55% of the frame. The lower 45% must be darker and simpler because text will be placed there.'
+  role: 'wide landscape framing. The picture will be shown on its own as a wide horizontal banner (about 2.3 : 1) with nothing printed on top of it, so keep every important subject (faces, hands, drinks) inside the middle horizontal band of the frame, with only calm background near the top and bottom edges. Do not leave empty or dark areas for text.',
+  top: 'wide establishing framing. The picture will be shown on its own as a wide horizontal banner (about 3 : 1) with nothing printed on top of it, so keep all key elements inside the middle horizontal band of the frame, with only calm background near the top and bottom edges. Do not leave empty or dark areas for text.',
+  team: 'wide group framing. The picture will be shown on its own as a wide horizontal banner (about 2.5 : 1) with nothing printed on top of it, so keep all people fully inside the middle horizontal band of the frame, heads well below the top edge and nobody cut off at the sides. Do not leave empty or dark areas for text.'
 };
 function promptText(scene, comp){
-  return 'Create a square 1:1 photorealistic photograph (1024×1024).\n\n' +
+  return 'Create a landscape 3:2 photorealistic photograph (1536×1024).\n\n' +
     'SCENE: ' + scene + '.\n\n' +
     'SETTING & MOOD: a premium Vietnamese coffee shop in Nha Trang with nostalgic 1970s Vietnamese retro character: dark wood, rattan, terrazzo floor, enamel cups, aluminum phin coffee filters, tropical plants. Staff wear army-green aprons over cream shirts.\n\n' +
-    'COLOR GRADE: deep army green (#24392A) dominant, warm ivory (#F3EEE2) highlights, subtle rust-orange accents (#A14D30). Warm, cinematic, premium editorial look.\n\n' +
+    'COLOR GRADE: deep army green (#24392A) dominant, warm ivory (#F3EEE2) highlights, subtle rust-orange accents (#A14D30). Warm, bright enough to see every face clearly, cinematic, premium editorial look.\n\n' +
     'COMPOSITION: ' + COMP[comp || 'role'] + '\n\n' +
-    'STRICT RULES: absolutely no text, letters, numbers, logos, signage, labels or watermarks anywhere in the image. Natural Vietnamese faces, realistic hands, no AI artifacts. Full-frame camera, 35mm lens, f/2, shallow depth of field.';
+    'STRICT RULES: absolutely no text, letters, numbers, logos, signage, labels or watermarks anywhere in the image. Natural Vietnamese faces, realistic hands, no AI artifacts. Full-frame camera, 35mm lens, f/2.8, shallow depth of field.';
 }
 function postTimes(p){ return p.gio || POS[p.vt].gio; }
 function channelsOf(p){ var k = POS[p.vt].kenh.slice(); if((p.d-1)%7===0 && k.indexOf('google')<0) k.push('google'); return k; }
@@ -805,7 +805,7 @@ function renderDrawer(){
         '<button class="btn" type="button" data-act="copy-prompt">'+ICON.copy+'Chỉ copy câu lệnh</button></div>' +
         '<p class="hint">ChatGPT thường tự điền sẵn câu lệnh. Nếu ô chat trống, bấm Ctrl+V để dán rồi Enter. Tải ảnh về máy khi AI vẽ xong.</p></div>' +
         '<div class="step"><h4><span class="n">'+(step++)+'</span>Đưa ảnh vào đây</h4>' +
-        '<p>Ảnh AI vừa tạo hoặc ảnh thật của quán, nhân viên (ảnh thật tạo niềm tin hơn).</p>' +
+        '<p>Ảnh AI vừa tạo hoặc ảnh thật của quán, nhân viên (ảnh ngang đẹp nhất). Ảnh nằm trong khung riêng phía trên poster, chữ không đè lên ảnh. Dùng thanh “Căn lên / xuống” để chọn phần ảnh hiện trong khung.</p>' +
         '<button class="drop" type="button" id="dropZone">'+ICON.up+'<b>'+(has?'Đổi ảnh khác':'Bấm để chọn ảnh')+'</b><span>hoặc kéo thả ảnh vào đây · hoặc Ctrl+V để dán</span></button>' +
         '<input type="file" id="photoInput" accept="image/*" class="sr" tabindex="-1">' +
         (has ? '<div class="adjust"><label for="adjY">Căn lên / xuống<input type="range" id="adjY" min="0" max="100" value="'+a.y+'"></label>' +
@@ -906,8 +906,8 @@ function toggleLog(key){
 }
 
 /* ---------- poster ---------- */
-var PW = 1080, PH = 1350, HB = 220, FY = 1196;
-var C = {army:'#24392A', deep:'#17261C', paper:'#F4EFE3', paper2:'#EEE6D3', rust:'#A14D30', rustL:'#E7AC8F', ivory:'#F4EFE3'};
+var PW = 1080, PH = 1350, HB = 190, FY = 1196;
+var C = {army:'#24392A', deep:'#1B2C21', paper:'#F4EFE3', paper2:'#EEE6D3', rust:'#A14D30', rustL:'#E7AC8F', ivory:'#F4EFE3'};
 var F_OS = 'Oswald, "Arial Narrow", Arial, sans-serif', F_BV = '"Be Vietnam Pro", "Segoe UI", Arial, sans-serif';
 var logoEl = $('logoImg');
 var fontsReady = null;
@@ -941,37 +941,42 @@ function checkMark(ctx, x, y, r, bg, fg){
   ctx.beginPath(); ctx.moveTo(x-r*0.43, y); ctx.lineTo(x-r*0.11, y+r*0.36); ctx.lineTo(x+r*0.46, y-r*0.36); ctx.stroke();
 }
 function prep(cv){ cv.width = PW; cv.height = PH; var ctx = cv.getContext('2d'); ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left'; return ctx; }
-function drawPhoto(ctx, photo, adj, top){
-  var iw = photo.naturalWidth || photo.width, ih = photo.naturalHeight || photo.height, H = PH - top;
-  var z = ((adj && adj.z) || 100)/100, s = Math.max(PW/iw, H/ih) * z;
-  var dw = iw*s, dh = ih*s, dx = (PW-dw)/2, dy = top + (H-dh) * (((adj && adj.y != null) ? adj.y : 50)/100);
-  ctx.drawImage(photo, dx, dy, dw, dh);
-}
-function sunburst(ctx, top, cx, cy, word, wordY){
-  ctx.fillStyle = C.army; ctx.fillRect(0, top, PW, PH-top);
-  var R = 1600, N = 36;
-  ctx.fillStyle = 'rgba(244,239,227,0.045)';
-  for(var i=0;i<N;i+=2){ var a0 = i/N*Math.PI*2, a1 = (i+1)/N*Math.PI*2; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+R*Math.cos(a0), cy+R*Math.sin(a0)); ctx.lineTo(cx+R*Math.cos(a1), cy+R*Math.sin(a1)); ctx.closePath(); ctx.fill(); }
-  var rg = ctx.createRadialGradient(cx, cy, 40, cx, cy, 520);
-  rg.addColorStop(0, 'rgba(161,77,48,0.30)'); rg.addColorStop(1, 'rgba(161,77,48,0)');
-  ctx.fillStyle = rg; ctx.fillRect(0, top, PW, PH-top);
-  if(word){
-    ctx.save(); ctx.textAlign = 'center';
-    fitFont(ctx, word, PW-120, 230, '700 {s}px ' + F_OS);
-    ctx.strokeStyle = 'rgba(244,239,227,0.16)'; ctx.lineWidth = 3; ctx.strokeText(word, PW/2, wordY);
-    ctx.restore();
+/* Ảnh luôn nằm trong khung riêng: không chữ, không lớp phủ tối đè lên ảnh. */
+function photoBox(ctx, photo, adj, x, y, w, h, r, word){
+  ctx.save();
+  if(r) rr(ctx, x, y, w, h, r); else { ctx.beginPath(); ctx.rect(x, y, w, h); }
+  ctx.clip();
+  if(photo){
+    var iw = photo.naturalWidth || photo.width, ih = photo.naturalHeight || photo.height;
+    var z = ((adj && adj.z) || 100)/100, s = Math.max(w/iw, h/ih) * z, dw = iw*s, dh = ih*s;
+    ctx.drawImage(photo, x + (w-dw)/2, y + (h-dh) * (((adj && adj.y != null) ? adj.y : 50)/100), dw, dh);
+  } else {
+    var cx = x + w/2, cy = y + h/2, R = 1600, N = 36;
+    ctx.fillStyle = C.army; ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = 'rgba(244,239,227,0.05)';
+    for(var i=0;i<N;i+=2){ var a0 = i/N*Math.PI*2, a1 = (i+1)/N*Math.PI*2; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+R*Math.cos(a0), cy+R*Math.sin(a0)); ctx.lineTo(cx+R*Math.cos(a1), cy+R*Math.sin(a1)); ctx.closePath(); ctx.fill(); }
+    var rg = ctx.createRadialGradient(cx, cy, 30, cx, cy, Math.max(w, h)*0.55);
+    rg.addColorStop(0, 'rgba(161,77,48,0.32)'); rg.addColorStop(1, 'rgba(161,77,48,0)');
+    ctx.fillStyle = rg; ctx.fillRect(x, y, w, h);
+    if(word){
+      ctx.textAlign = 'center';
+      var fs = fitFont(ctx, word, w-120, Math.round(Math.min(210, h*0.5)), '700 {s}px ' + F_OS);
+      ctx.strokeStyle = 'rgba(244,239,227,0.18)'; ctx.lineWidth = 3; ctx.strokeText(word, cx, cy + fs*0.36);
+      ctx.textAlign = 'left';
+    }
   }
-}
-function fade(ctx, y0, y1, top){
-  var g = ctx.createLinearGradient(0, y0, 0, y1);
-  g.addColorStop(0, 'rgba(23,38,28,0)'); g.addColorStop(0.55, 'rgba(23,38,28,0.82)'); g.addColorStop(1, 'rgba(23,38,28,0.97)');
-  ctx.fillStyle = g; ctx.fillRect(0, y0, PW, y1-y0);
-  ctx.fillStyle = 'rgba(23,38,28,0.97)'; ctx.fillRect(0, y1, PW, PH-y1);
+  ctx.restore();
 }
 function logoBand(ctx){
   ctx.fillStyle = C.paper; ctx.fillRect(0, 0, PW, HB);
-  if(logoEl.complete && logoEl.naturalWidth){ var lw = 456, lh = lw*logoEl.naturalHeight/logoEl.naturalWidth; ctx.drawImage(logoEl, (PW-lw)/2, (HB-8-lh)/2, lw, lh); }
-  ctx.fillStyle = C.rust; ctx.fillRect(0, HB-8, PW, 8);
+  if(logoEl.complete && logoEl.naturalWidth){ var lw = 390, lh = lw*logoEl.naturalHeight/logoEl.naturalWidth; ctx.drawImage(logoEl, (PW-lw)/2, (HB-6-lh)/2, lw, lh); }
+  ctx.fillStyle = C.rust; ctx.fillRect(0, HB-6, PW, 6);
+}
+function benefitRow(ctx, items, x, y, maxW, fg, chk){
+  var fs = 22, gap = 18, total;
+  do { ctx.font = font(600, fs, F_BV); total = items.reduce(function(a, t){ return a + ctx.measureText(t).width + 30; }, 0) + gap*(items.length-1); if(total <= maxW) break; fs--; } while(fs > 16);
+  var spc = gap + Math.max(0, (maxW - total)/(items.length-1)), bx = x, r = Math.round(fs*0.5);
+  items.forEach(function(t){ checkMark(ctx, bx+r, y-fs*0.36, r, chk, fg === C.ivory ? C.ivory : C.paper2); ctx.fillStyle = fg; ctx.fillText(t, bx+r*2+8, y); bx += ctx.measureText(t).width + 30 + spc; });
 }
 function footer(ctx, theme){
   var T = {
@@ -995,91 +1000,80 @@ function footer(ctx, theme){
   ctx.fillStyle = T.txt;
   fitFont(ctx, L.email, PW-X-tx+10, 25, '600 {s}px ' + F_BV); ctx.fillText(L.email, tx, FY+113);
 }
-/* poster một vị trí (bài theo ngày, bài chuẩn) */
+/* poster một vị trí (bài theo ngày, bài chuẩn): logo → khung ảnh → khối chữ */
 function drawRole(cv, photo, adj, o){
-  var ctx = prep(cv), X = 70;
-  ctx.save(); ctx.beginPath(); ctx.rect(0, HB, PW, PH-HB); ctx.clip();
-  if(photo) drawPhoto(ctx, photo, adj, HB); else sunburst(ctx, HB, PW/2, HB+300, 'TUYỂN DỤNG', HB+290);
-  fade(ctx, HB+170, HB+520);
-  ctx.restore();
+  var ctx = prep(cv), X = 70, P1 = 660;
+  ctx.fillStyle = C.deep; ctx.fillRect(0, 0, PW, PH);
+  photoBox(ctx, photo, adj, 0, HB, PW, P1-HB, 0, 'TUYỂN DỤNG');
+  ctx.fillStyle = C.rust; ctx.fillRect(0, P1, PW, 6);
   logoBand(ctx);
   /* nhãn */
-  ctx.font = font(600, 28, F_OS);
-  var pw = spacedW(ctx, o.pill, 4) + 44, py = 586;
-  ctx.fillStyle = C.rust; rr(ctx, X, py, pw, 52, 26); ctx.fill();
-  ctx.fillStyle = C.ivory; spaced(ctx, o.pill, X+22, py+37, 4);
-  ctx.font = font(500, 28, F_OS);
-  var cw = spacedW(ctx, o.count, 3) + 40;
-  ctx.strokeStyle = 'rgba(244,239,227,0.75)'; ctx.lineWidth = 2; rr(ctx, X+pw+12, py+1, cw, 50, 25); ctx.stroke();
-  ctx.fillStyle = C.ivory; spaced(ctx, o.count, X+pw+32, py+37, 3);
+  ctx.font = font(600, 27, F_OS);
+  var pw = spacedW(ctx, o.pill, 4) + 42, py = 692;
+  ctx.fillStyle = C.rust; rr(ctx, X, py, pw, 50, 25); ctx.fill();
+  ctx.fillStyle = C.ivory; spaced(ctx, o.pill, X+21, py+36, 4);
+  ctx.font = font(500, 27, F_OS);
+  var cw = spacedW(ctx, o.count, 3) + 38;
+  ctx.strokeStyle = 'rgba(244,239,227,0.75)'; ctx.lineWidth = 2; rr(ctx, X+pw+12, py+1, cw, 48, 24); ctx.stroke();
+  ctx.fillStyle = C.ivory; spaced(ctx, o.count, X+pw+31, py+36, 3);
   /* dòng phụ + tiêu đề */
   ctx.fillStyle = 'rgba(244,239,227,0.92)';
-  fitFont(ctx, o.tagline, PW-2*X, 34, 'italic 500 {s}px ' + F_BV); ctx.fillText(o.tagline, X, 690);
-  fitFont(ctx, o.title, PW-2*X, 108, '700 {s}px ' + F_OS);
-  ctx.fillStyle = C.ivory; ctx.fillText(o.title, X-4, 820);
-  ctx.font = font(500, 28, F_OS); ctx.fillStyle = C.rustL;
+  fitFont(ctx, o.tagline, PW-2*X, 30, 'italic 500 {s}px ' + F_BV); ctx.fillText(o.tagline, X, 792);
+  fitFont(ctx, o.title, PW-2*X, 92, '700 {s}px ' + F_OS);
+  ctx.fillStyle = C.ivory; ctx.fillText(o.title, X-3, 902);
+  ctx.font = font(500, 26, F_OS); ctx.fillStyle = C.rustL;
   var sp = 2; while(spacedW(ctx, o.sub, sp) > PW-2*X && sp > 0) sp--;
-  if(spacedW(ctx, o.sub, sp) > PW-2*X) fitFont(ctx, o.sub, PW-2*X, 28, '500 {s}px ' + F_OS);
-  spaced(ctx, o.sub, X, 874, sp);
+  if(spacedW(ctx, o.sub, sp) > PW-2*X) fitFont(ctx, o.sub, PW-2*X, 26, '500 {s}px ' + F_OS);
+  spaced(ctx, o.sub, X, 946, sp);
   /* quyền lợi */
-  var items = ['Chế độ theo Luật Lao động', 'Hỗ trợ suất ăn trong ca', 'Thưởng lễ, Tết', 'Cơ hội thăng tiến'];
-  ctx.font = font(600, 26, F_BV);
-  items.forEach(function(t, i){
-    var ix = X + (i%2)*475, iy = 932 + Math.floor(i/2)*48;
-    checkMark(ctx, ix+13, iy-9, 13, C.rust, C.ivory);
-    ctx.fillStyle = C.ivory; ctx.fillText(t, ix+38, iy);
-  });
-  ctx.fillStyle = 'rgba(244,239,227,0.6)'; ctx.font = font(500, 20, F_BV);
-  ctx.fillText('Mức lương cụ thể trao đổi trực tiếp khi phỏng vấn', X, 1016);
+  benefitRow(ctx, ['Chế độ theo Luật Lao động', 'Hỗ trợ suất ăn trong ca', 'Thưởng lễ, Tết', 'Cơ hội thăng tiến'], X, 992, PW-2*X, C.ivory, C.rust);
+  ctx.fillStyle = 'rgba(244,239,227,0.6)'; ctx.font = font(500, 19, F_BV);
+  ctx.fillText('Mức lương cụ thể trao đổi trực tiếp khi phỏng vấn', X, 1024);
   /* khối cuối: CÒN TUYỂN hoặc CA LÀM — chữ to, đậm */
   var lines = o.lines, list = o.items;
   if((lines && lines.length) || (list && list.length)){
-    ctx.fillStyle = 'rgba(244,239,227,0.25)'; ctx.fillRect(X, 1034, PW-2*X, 2);
-    ctx.font = font(700, 31, F_OS); ctx.fillStyle = C.rustL;
-    var lw = spacedW(ctx, o.label, 2); spaced(ctx, o.label, X, 1080, 2);
-    var avail = PW - 2*X - lw - 16, fs = 29, out;
+    ctx.fillStyle = 'rgba(244,239,227,0.25)'; ctx.fillRect(X, 1042, PW-2*X, 2);
+    ctx.font = font(700, 30, F_OS); ctx.fillStyle = C.rustL;
+    var lw = spacedW(ctx, o.label, 2); spaced(ctx, o.label, X, 1084, 2);
+    var avail = PW - 2*X - lw - 16, fs = 28, out;
     if(lines){
       out = lines.slice(0, 3);
-      fs = 29; out.forEach(function(l){ var f2 = fitFont(ctx, l, avail, 29, '700 {s}px ' + F_BV); if(f2 < fs) fs = f2; });
+      out.forEach(function(l){ var f2 = fitFont(ctx, l, avail, 28, '700 {s}px ' + F_BV); if(f2 < fs) fs = f2; });
     } else {
       do { ctx.font = font(700, fs, F_BV); out = wrapItems(ctx, list, '  ·  ', avail); fs--; } while(out.length > 3 && fs > 20); fs++;
     }
     ctx.font = font(700, fs, F_BV); ctx.fillStyle = C.ivory;
-    out.slice(0, 3).forEach(function(l, i){ ctx.fillText(l, X + lw + 16, 1080 + i*38); });
+    out.slice(0, 3).forEach(function(l, i){ ctx.fillText(l, X + lw + 16, 1084 + i*37); });
   }
   footer(ctx, 'paper');
 }
-/* phong cách 1: bảng tin */
+/* phong cách 1: bảng tin — logo → khung ảnh → tiêu đề + lưới vị trí */
 function drawGen1(cv, photo, adj){
-  var ctx = prep(cv), X = 70, rem = remaining(), N = sumPeople(rem), M = rem.length;
-  ctx.save(); ctx.beginPath(); ctx.rect(0, HB, PW, PH-HB); ctx.clip();
-  if(photo) drawPhoto(ctx, photo, adj, HB); else sunburst(ctx, HB, PW/2, HB+150, null);
-  fade(ctx, HB+90, HB+330);
-  ctx.restore();
+  var ctx = prep(cv), X = 70, P1 = 540, rem = remaining(), N = sumPeople(rem), M = rem.length;
+  ctx.fillStyle = C.deep; ctx.fillRect(0, 0, PW, PH);
+  photoBox(ctx, photo, adj, 0, HB, PW, P1-HB, 0, null);
+  ctx.fillStyle = C.rust; ctx.fillRect(0, P1, PW, 6);
   logoBand(ctx);
+  fitFont(ctx, 'TUYỂN DỤNG', PW-2*X, 124, '700 {s}px ' + F_OS);
+  ctx.fillStyle = C.ivory; ctx.fillText('TUYỂN DỤNG', X-5, 690);
   var pill = pad(M) + ' VỊ TRÍ · ' + pad(N) + ' NHÂN SỰ';
-  ctx.font = font(600, 28, F_OS);
-  var pw = spacedW(ctx, pill, 4) + 44;
-  ctx.fillStyle = C.rust; rr(ctx, X, 436, pw, 52, 26); ctx.fill();
-  ctx.fillStyle = C.ivory; spaced(ctx, pill, X+22, 473, 4);
-  fitFont(ctx, 'TUYỂN DỤNG', PW-2*X, 150, '700 {s}px ' + F_OS);
-  ctx.fillStyle = C.ivory; ctx.fillText('TUYỂN DỤNG', X-6, 702);
-  ctx.font = font('italic 500', 30, F_BV); ctx.fillStyle = 'rgba(244,239,227,0.9)';
-  ctx.fillText('Cùng viết tiếp câu chuyện Mậu Dịch 197X', X, 776);
-  var colW = (PW - 2*X - 14)/2, cellH = 72, gap = 10, y0 = 806;
-  var rows = Math.ceil(rem.length/2); if(rows > 4){ cellH = Math.floor((318 - gap*(rows-1))/rows); }
+  ctx.font = font(600, 26, F_OS);
+  var pw = spacedW(ctx, pill, 4) + 40;
+  ctx.fillStyle = C.rust; rr(ctx, X, 722, pw, 48, 24); ctx.fill();
+  ctx.fillStyle = C.ivory; spaced(ctx, pill, X+20, 757, 4);
+  ctx.fillStyle = 'rgba(244,239,227,0.9)';
+  var tl = 'Cùng viết tiếp câu chuyện Mậu Dịch 197X';
+  fitFont(ctx, tl, PW-2*X-pw-22, 26, 'italic 500 {s}px ' + F_BV); ctx.fillText(tl, X+pw+22, 755);
+  var colW = (PW - 2*X - 14)/2, cellH = 70, gap = 9, y0 = 790;
   rem.forEach(function(o, i){
     var cx = X + (i%2)*(colW+14), cy = y0 + Math.floor(i/2)*(cellH+gap);
     ctx.fillStyle = 'rgba(244,239,227,0.07)'; rr(ctx, cx, cy, colW, cellH, 12); ctx.fill();
     ctx.strokeStyle = 'rgba(244,239,227,0.22)'; ctx.lineWidth = 1.5; rr(ctx, cx, cy, colW, cellH, 12); ctx.stroke();
-    ctx.fillStyle = C.ivory; fitFont(ctx, o.ten, colW-130, 27, '700 {s}px ' + F_BV); ctx.fillText(o.ten, cx+18, cy+32);
-    ctx.fillStyle = 'rgba(244,239,227,0.68)'; ctx.font = font(500, 18, F_BV); ctx.fillText(o.loai, cx+18, cy+57);
-    ctx.textAlign = 'right'; ctx.font = font(700, 44, F_OS); ctx.fillStyle = C.rustL; ctx.fillText(pad(o.sl), cx+colW-18, cy+52); ctx.textAlign = 'left';
+    ctx.fillStyle = C.ivory; fitFont(ctx, o.ten, colW-130, 27, '700 {s}px ' + F_BV); ctx.fillText(o.ten, cx+18, cy+31);
+    ctx.fillStyle = 'rgba(244,239,227,0.68)'; ctx.font = font(500, 18, F_BV); ctx.fillText(o.loai, cx+18, cy+55);
+    ctx.textAlign = 'right'; ctx.font = font(700, 44, F_OS); ctx.fillStyle = C.rustL; ctx.fillText(pad(o.sl), cx+colW-18, cy+51); ctx.textAlign = 'left';
   });
-  var bl = ['Chế độ theo Luật Lao động', 'Suất ăn trong ca', 'Thưởng lễ, Tết', 'Cơ hội thăng tiến'], bx = X;
-  ctx.font = font(600, 21, F_BV);
-  var totalW = bl.reduce(function(a, t){ return a + ctx.measureText(t).width + 34; }, 0), spc = Math.max(14, (PW - 2*X - totalW)/3);
-  bl.forEach(function(t){ checkMark(ctx, bx+11, 1162, 11, C.rust, C.ivory); ctx.fillStyle = C.ivory; ctx.fillText(t, bx+28, 1170); bx += ctx.measureText(t).width + 34 + spc; });
+  benefitRow(ctx, ['Chế độ theo Luật Lao động', 'Suất ăn trong ca', 'Thưởng lễ, Tết', 'Cơ hội thăng tiến'], X, 1156, PW-2*X, C.ivory, C.rust);
   footer(ctx, 'paper');
 }
 /* phong cách 2: phiếu tuyển dụng 197X */
@@ -1125,21 +1119,18 @@ function drawGen2(cv){
   ctx.restore();
   footer(ctx, 'army');
 }
-/* phong cách 3: gia nhập đội hình */
+/* phong cách 3: gia nhập đội hình — logo → ảnh trong khung bo góc → tiêu đề + nhãn vị trí */
 function drawGen3(cv, photo, adj){
   var ctx = prep(cv), X = 70, rem = remaining(), N = sumPeople(rem), pt = rem.some(isPT);
-  if(photo) drawPhoto(ctx, photo, adj, 0); else sunburst(ctx, 0, PW/2, 420, 'ĐỘI HÌNH', 545);
-  var tg = ctx.createLinearGradient(0, 0, 0, 300); tg.addColorStop(0, 'rgba(23,38,28,0.55)'); tg.addColorStop(1, 'rgba(23,38,28,0)');
-  ctx.fillStyle = tg; ctx.fillRect(0, 0, PW, 300);
-  fade(ctx, 500, 820);
-  var lw = 440, lh = logoEl.naturalWidth ? lw*logoEl.naturalHeight/logoEl.naturalWidth : 184, pwid = lw + 56, ph = lh + 40, px = (PW-pwid)/2, py = 44;
-  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.3)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 6;
-  ctx.fillStyle = C.paper; rr(ctx, px, py, pwid, ph, 20); ctx.fill(); ctx.restore();
-  if(logoEl.complete && logoEl.naturalWidth) ctx.drawImage(logoEl, px+28, py+20, lw, lh);
-  ctx.font = font(500, 40, F_OS); ctx.fillStyle = C.rustL; spaced(ctx, 'MẬU DỊCH 197X TÌM', X, 638, 4);
+  ctx.fillStyle = C.deep; ctx.fillRect(0, 0, PW, PH);
+  logoBand(ctx);
+  var fx = 40, fy = HB + 24, fw = PW - 80, fh = 396;
+  photoBox(ctx, photo, adj, fx, fy, fw, fh, 22, 'ĐỘI HÌNH');
+  ctx.strokeStyle = 'rgba(231,172,143,0.55)'; ctx.lineWidth = 2; rr(ctx, fx, fy, fw, fh, 22); ctx.stroke();
+  ctx.font = font(500, 38, F_OS); ctx.fillStyle = C.rustL; spaced(ctx, 'MẬU DỊCH 197X TÌM', X, 668, 4);
   var big = pad(N) + ' ĐỒNG ĐỘI MỚI';
-  fitFont(ctx, big, PW-2*X, 128, '700 {s}px ' + F_OS); ctx.fillStyle = C.ivory; ctx.fillText(big, X-4, 808);
-  var cx = X, cy = 846, chH = 54, gapX = 12, gapY = 12;
+  fitFont(ctx, big, PW-2*X, 104, '700 {s}px ' + F_OS); ctx.fillStyle = C.ivory; ctx.fillText(big, X-3, 800);
+  var cx = X, cy = 832, chH = 54, gapX = 12, gapY = 12;
   rem.forEach(function(o){
     ctx.font = font(700, 25, F_BV); var nw = ctx.measureText(o.ten).width;
     ctx.font = font(700, 27, F_OS); var cw2 = ctx.measureText(pad(o.sl)).width;
@@ -1153,7 +1144,7 @@ function drawGen3(cv, photo, adj){
   });
   var line = (pt ? 'Full-time & Part-time · ' : '') + 'Có đào tạo · Hỗ trợ suất ăn · Thưởng lễ Tết';
   ctx.fillStyle = 'rgba(244,239,227,0.9)'; fitFont(ctx, line, PW-2*X, 26, 'italic 500 {s}px ' + F_BV);
-  ctx.fillText(line, X, Math.max(cy + chH + 50, 1110));
+  ctx.fillText(line, X, Math.min(1170, Math.max(cy + chH + 46, 1130)));
   footer(ctx, 'rust');
 }
 var posterRaf = null;
